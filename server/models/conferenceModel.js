@@ -10,7 +10,7 @@ const conferenceSchema = new Schema({
     type: String,
     required: true
   },
-  organization: {
+  confOrg: {
     type: String,
     required: true
   },
@@ -26,18 +26,21 @@ const conferenceSchema = new Schema({
     type: String,
     required: true
   },
-  location: {
+  confLoc: {
     type: String,
     required: true
   },
-  description: {
+  confDesc: {
     type: String,
     required: true
   },
-  attendingCount: {
+  confAttendCap: {
     type: Number
   },
-  attendees: [
+  confAttendCount: {
+    type: Number
+  },
+  confAttendees: [
     { type: String },
   ]
 });
