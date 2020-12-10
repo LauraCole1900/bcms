@@ -31,3 +31,7 @@ const attendeeSchema = new Schema({
     type: Boolean
   }
 })
+
+const Attendee = mongoose.model("Attendee", attendeeSchema);
+
+module.exports = Attendee
