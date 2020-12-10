@@ -1,0 +1,182 @@
+Features:
+  * Encrypted registration
+  * Credit card information links to appropriate processing service, does NOT enter database
+  * PayPal option?
+  * Ability to edit participants' information as permissions allow
+  * Ability to upload (or retrieve?) convention center/exhibit hall maps
+  * If presenter deletes their info, their session is deleted automatically and an alert is sent to organizer--also to attendees if during conference (will need to compare date information!)
+  * If exhibitor deletes their info, their exhibit is deleted and exhibit-hall map automatically updates
+  * Maybe indicator that presenter or exhibitor can no longer attend, instead of deleting themselves? Available to organizer, presenter, and exhibitor - with a confirm "Are you sure?"
+  * Ability to set a new presenter before deleting a session?
+  * Session location highlights on map for presenters?
+  * Session location highlights on map for attendees?
+  * 4 permission levels: organizer, presenter, exhibitor, and attendee
+    * Is exhibitor permission really different from presenter permission?
+  * List of exhibitors
+  * Bios of presenters?
+  * Music conference - list of performing groups?
+  * Search function for presenters & exhibitors, attendees (maybe this only for organizers? Why?)
+  * Exhibitors given the option to transact business through the app or link to their website
+  * Presenters given the option to link to their website
+  * Translated?
+  * Breakout sessions vs. tracks
+  * Preferred method of communication: email vs text, enter info as is required by that
+  * Capability to send mass texts/emails
+  * List of local restaurants?
+  * Organizer inputs list of presenters/exhibitors; presenters/exhibitors receive link to register that already has their permissions set?
+  * QR code to scan at check-in?
+  * Link to venue website
+
+Attendee:
+  * Full CRUD access to own information
+  * GET access to conference session and exhibit hall maps
+  * GET access to session schedules, including who is presenting
+
+Exhibitor:
+  * Attendee access PLUS:
+  * Full CRUD access to own information, including exhibit(s)
+  * Ability to POST, UPDATE, and DELETE exhibit information
+  * Ability to sell merch through app?
+  * Ability to GET schedule
+  * Ability to link to website
+  * Set up as a store?
+
+Presenter:
+  * Attendee access PLUS:
+  * Full CRUD access to own information, including sessions
+  * Ability to POST and UPDATE supplemental materials for own presentation
+  * Ability to GET schedule
+  * Ability to link to website
+  * Ability to insert video or slideshow content
+
+Organizer:
+  * Attendee access PLUS:
+  * Sets in person/virtual
+  * Sets location, dates, times
+  * Sets whether the conference uses breakout sessions, tracks
+  * Do breakout sessions need to be signed up for in advance?
+  * Sets how many breakout sessions/tracks
+  * Sets which features they want access to
+  * Can restrict number of attendees
+  * Sets Co-Organizer, Exhibitor and Presenter permissions (Not MVP)
+  * Full CRUD access to schedule
+  * Full CRUD access to exhibit hall map
+  * Full CRUD access to sessions map
+  * Ability to GET and DELETE attendee information for any attendee
+  * Ability to GET and DELETE/Set Not Attending exhibitor information for any exhibitor
+  * Ability to GET and DELETE/Set Not Attending presenter information for any presenter
+  * Alerts for when presenters and exhibitors delete themselves/set as Not Attending
+
+
+MVP
+* At least two permission levels, organizer and attendee (managed through the database)
+* Permissions set as outlined above
+* Registration page (Signup/login)
+* Link to venue website where available
+* Digital registration packet (not MVP)
+  * digital ticket/wristband
+  * uploaded maps (not interactive)
+  * session & presenter details
+  * exhibit list
+* Organizer can access list of attendees
+* If sessions require pre-registration, presenters can access session roster (not MVP)
+* Generate a link or search string for attendees to register
+
+* Signup/login from
+* Profile page
+  * Conferences you've created
+  * Conferences you've joined
+  * Share which conferences you're attending (Not MVP)
+  * Interests?
+* Conference IDs - Mongo-generated
+  * Conference collection
+    * Name
+    * Description
+    * Conference owner/organizer
+      * Contact info
+    * Umbrella organization
+    * Date/times
+    * Location (Live vs virtual)
+    * Registration count
+    * Invite link
+    * Conference ID
+    * Sessions
+      * Title
+      * Description
+      * Presenter(s)
+      * Session ID
+  * User collection
+    * User's name (real name)
+    * Username for login
+    * Password (hashed, salted, peppered, etc)
+    * email
+    * Address?
+* Conference page
+  * Description of conference
+  * If joined
+    * List of presenters
+    * List of exhibitors
+    * List of sessions
+    * Conference center maps where available?
+    * Schedule
+* Homepage
+  * Public conferences
+  * Search conferences?
+
+auth0.com
+
+Components
+* Navbar
+  * Home
+  * Profile
+  * My Conferences
+* Conference card
+  * Conf name
+  * Your role (organizer/admin/attendee)
+  * Co-admins for organizers & admins
+  * Conf dates
+  * Conf location
+  * Details button
+  * Add admins button (where applicable)
+  * Join button (where applicable)
+  * Edit button (where applicable)
+  * Delete button
+* Profile page
+  * Profile card
+    * Your name
+    * Your job title
+    * Edit my information
+  * Conference cards
+    * Conferences I've created
+    * Conferences I've attended
+* Create conference
+  * Name of conference
+  * Date(s) of conference
+  * Radio buttons for live or virtual
+    * if virtual, link
+    * if live
+      * location
+* Create session
+  * tracks or breakouts?
+    * How many?
+    * If unison, choose tracks and input 1
+* Create schedule
+  * Times
+  * Sessions
+
+
+Allow those that create a conference to insert video content
+Create a registration page where you can see everyone who signed up
+Create a digital registration packet for conference attendees
+Working links to take them to where virtual conference is being held
+Maps for conference location layout
+Comment section where users can ask questions
+Ability to export and share conference information
+Ability to create a session schedule in table format for ease of viewing
+Ability to link to conference creator’s payment-processor of choice for ease of collecting registration fees
+Multiple permission levels, so presenters and exhibitors can post additional information, links, etc.
+Ability to search presenters and exhibitors
+Ability to translate content and render it in different font sizes
+Ability to cap number of attendees
+Registration form
+An “un-register” feature
