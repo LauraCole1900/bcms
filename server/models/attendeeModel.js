@@ -24,10 +24,38 @@ const attendeeSchema = new Schema({
     match: [/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, "Please enter a valid North American phone number"],
     required: true
   },
+  employerName: {
+    type: String
+  },
+  employerAddress: {
+    type: String
+  },
+  emergencyContactName: {
+    type: String
+  },
+  emergencyContactPhone: {
+    type: String,
+    match: [/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, "Please enter a valid North American phone number"],
+  },
+  allergyConfirm: {
+    type: Boolean
+  },
+  allergies: {
+    type: Array
+  },
   waiverSigned: {
     type: Boolean,
   },
   paid: {
+    type: Boolean
+  },
+  admin: {
+    type: Boolean
+  },
+  exhibitor: {
+    type: Boolean
+  },
+  presenter: {
     type: Boolean
   }
 })
