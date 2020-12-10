@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const attendeeSchema = new Schema({
+  confId: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
