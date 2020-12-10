@@ -53,13 +53,13 @@ const attendeeSchema = new Schema({
   paid: {
     type: Boolean
   },
-  admin: {
+  isAdmin: {
     type: Boolean
   },
-  exhibitor: {
+  isPresenter: {
     type: Boolean
   },
-  presenter: {
+  isExhibitor: {
     type: Boolean
   }
 })

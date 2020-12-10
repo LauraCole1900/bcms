@@ -14,6 +14,21 @@ const sessionSchema = new Schema({
     type: String,
     required: true
   },
+  sessPresenterEmail: {
+    type: String,
+    match: [/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, "Please enter a valid North American phone number"],
+    required: true
+  },
+  sessPresenterBio: {
+    type: String
+  },
+  sessPresenterPic: {
+    type: String
+  },
+  sessPresenterOrg: {
+    type: String,
+    required: true
+  },
   sessDate: {
     type: String,
     required: true
@@ -29,6 +44,9 @@ const sessionSchema = new Schema({
   sessDesc: {
     type: String,
     required: true
+  },
+  sessKeynote: {
+    type: Boolean
   }
 })
 

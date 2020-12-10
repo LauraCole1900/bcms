@@ -34,6 +34,13 @@ const conferenceSchema = new Schema({
     type: String,
     required: true
   },
+  confSessType: {
+    type: String,
+    required: true
+  },
+  confTracks: {
+    type: Number
+  },
   confAttendCap: {
     type: Number
   },
