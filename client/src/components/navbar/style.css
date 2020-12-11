@@ -1,0 +1,56 @@
+.navbar {
+  background: linear-gradient(to top, #899168, #2d321e);
+  font-size: 16px;
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+}
+
+.mylogo {
+  font-family: 'Romanesco', cursive;
+  font-size: 24px;
+  color: #cfbfc5;
+}
+
+.mylogo:hover {
+  color: #a99f93;
+}
+
+.mylogo:active {
+  color: #a99f93;
+}
+
+
+.mylogo:visited {
+  color: #a99f93;
+}
+
+.navlink {
+  margin-left: 20px;
+  color: #cfbfc5;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.navlink:hover {
+  color: #a99f93;
+}
+
+.navlink:active {
+  color: #a99f93;
+}
+
+.navlink:visited {
+  color: #a99f93;
+}
+
+.logout {
+margin-right: 15px;
+}
+
+.toggle {
+  color: #cfbfc5;
+  background: linear-gradient(to bottom, #899168, #2d321e);
+  position: absolute;
+  right: 10px;
+}

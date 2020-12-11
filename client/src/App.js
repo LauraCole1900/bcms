@@ -1,42 +1,43 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { Container } from "react-bootstrap";
+// import { useAuth0 } from "@auth0/auth0-react";
 import Login from "./components/pages/loginPage";
-import Profile from "./components/pages/profilePage";
-import AllConfs from "./components/pages/allConfsPage";
-import ConfDetails from "./components/pages/confDetails";
-import Schedule from "./components/pages/confSchedule";
-import Venue from "./components/pages/confVenue";
-import ContactUCK from "./components/pages/contactPage";
+// import Profile from "./components/pages/profilePage";
+// import AllConfs from "./components/pages/allConfsPage";
+// import ConfDetails from "./components/pages/confDetails";
+// import Schedule from "./components/pages/confSchedule";
+// import Venue from "./components/pages/confVenue";
+// import ContactCCMS from "./components/pages/contactPage";
 import Navbar from "./components/navbar";
-import ConferenceForm from "./components/forms/conferenceForm";
-import SessionForm from "./components/forms/sessionForm";
-import SessionProposal from "./components/forms/sessionProposal";
-import ExhibitForm from "./components/forms/exhibitForm";
-import Registration from "./components/forms/registrationForm";
-import ConfUpdated from "./pages/success/conferenceUpdated";
-import SessionUpdated from "./pages/success/sessionUpdated";
-import ConfSuccess from "./pages/success/conferenceSuccess";
-import SessionSuccess from "./pages/success/sessionSuccess";
-import DeleteSuccess from "./pages/success/deleteSuccess";
+// import ConferenceForm from "./components/forms/conferenceForm";
+// import SessionForm from "./components/forms/sessionForm";
+// import SessionProposal from "./components/forms/sessionProposal";
+// import ExhibitForm from "./components/forms/exhibitForm";
+// import Registration from "./components/forms/registrationForm";
+// import ConfUpdated from "./pages/success/conferenceUpdated";
+// import SessionUpdated from "./pages/success/sessionUpdated";
+// import ConfSuccess from "./pages/success/conferenceSuccess";
+// import SessionSuccess from "./pages/success/sessionSuccess";
+// import DeleteSuccess from "./pages/success/deleteSuccess";
 import "./App.css";
 
 function App() {
+  // const { isLoading, isAuthenticated } = useAuth0();
 
-  const { isLoading, isAuthenticated } = useAuth0();
-  if (isLoading) return <div>Loading...</div>
+  // if (isLoading) return <div>Loading...</div>
+
   return (
-    <div className="Body">
-      <div style={{ margin: "2vw" }}>
-        <Router>
-          <header>
-            <div>
-              {isAuthenticated && <Navbar />}
-            </div>
-          </header>
-          <main>
-            <div className="container-fluid">
-              <Route exact path="/contact_uck" component={ContactUCK} />
+    <Router>
+      <header>
+        <div>
+          {/* {isAuthenticated && */}
+          <Navbar />
+          {/* } */}
+        </div>
+      </header>
+      <main>
+        {/* <Route exact path="/contact_ccms" component={ContactCCMS} />
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/conferences" component={AllConfs} />
               <Route path="/conferences/*" component={ConfDetails} />
@@ -52,13 +53,10 @@ function App() {
               <Route path="/session_added" component={SessionSuccess} />
               <Route path="/deleted" component={DeleteSuccess} />
               <Route path="/conference_updated" component={ConfUpdated} />
-              <Route path="/session_updated" component={SessionUpdated} />
-              <Route path={["/", "/login"]} component={Login} />
-            </div>
-          </main>
-        </Router>
-      </div>
-    </div>
+              <Route path="/session_updated" component={SessionUpdated} /> */}
+        <Route path={["/", "/login"]} component={Login} />
+      </main>
+    </Router>
   );
 };
 

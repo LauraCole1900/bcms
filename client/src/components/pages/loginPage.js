@@ -1,7 +1,7 @@
 import React from "react";
-// import { Container, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import Title from "../title";
+import { Card, Button } from "react-bootstrap";
+import TitleCard from "../titleCard";
 import './style.css';
 
 const Login = () => {
@@ -10,11 +10,13 @@ const Login = () => {
   return (
     !isAuthenticated && (
       <div >
-        <Title/>
-        <div className="loginCard">
-            <h2 id="welcome"> Welcome to UCK Conference Management System</h2>
-            <button onClick={() => loginWithRedirect()} className="loginBtn">Log in</button>
-        </div>
+        <TitleCard />
+        <Card>
+          <Card.Body className="login">
+            <h2> Welcome to Concino Conference Management System</h2>
+            <Button onClick={() => loginWithRedirect()} className="button">Log in</Button>
+          </Card.Body>
+        </Card>
       </div>
     )
   )
