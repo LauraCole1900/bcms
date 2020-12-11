@@ -1,3 +1,8 @@
+.button {
+  color: #e2e2e2;
+  background-color: linear-gradient(180deg, #899168, #2d321e);
+}
+
 .App {
   text-align: center;
 }
