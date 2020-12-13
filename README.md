@@ -16,7 +16,7 @@
 
 ## Description
 
-This application uses a MERN stack to create a conference management system.
+This application uses a MERN stack to create a conference management system. 
 
 ## Links
 
