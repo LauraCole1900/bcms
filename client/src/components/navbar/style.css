@@ -5,12 +5,36 @@
   display: inline-flex;
   flex-wrap: wrap-reverse;
   align-items: center;
+  justify-content: space-between;
+}
+
+.columbine {
+  width: 50px;
+  display: inline-flex;
+  align-items: normal;
+}
+
+.hello {
+  font-family: "Open Sans Condensed", sans-serif;
+  color: #e2e2e2;
+  display: inline-flex;
 }
 
 .mylogo {
-  font-family: 'Romanesco', cursive;
+  font-family: "Romanesco", cursive;
   font-size: 24px;
   color: #cfbfc5;
+}
+
+.navobj {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px solid red; */
+}
+
+.navtype {
+  display: inline;
 }
 
 .mylogo:hover {
@@ -21,15 +45,19 @@
   color: #a99f93;
 }
 
-
 .mylogo:visited {
   color: #a99f93;
 }
 
+.placelink {
+  margin-right: 24px;
+}
+
 .navlink {
-  margin-left: 20px;
+  display: inline;
+  margin-left: 6px;
   color: #cfbfc5;
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: "Open Sans Condensed", sans-serif;
 }
 
 .navlink:hover {
@@ -45,12 +73,16 @@
 }
 
 .logout {
-margin-right: 15px;
+  display: inline;
+  margin-right: 15px;
+  width: 16%;
+  /* display: inline-flex;
+justify-content: flex-end; */
 }
 
 .toggle {
   color: #cfbfc5;
-  background: linear-gradient(to bottom, #899168, #2d321e);
+  background: linear-gradient(to bottom,  #899168, #2d321e);
   position: absolute;
   right: 10px;
 }

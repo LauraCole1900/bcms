@@ -8,7 +8,7 @@ import Login from "./components/pages/loginPage";
 // import ConfDetails from "./components/pages/confDetails";
 // import Schedule from "./components/pages/confSchedule";
 // import Venue from "./components/pages/confVenue";
-// import ContactCCMS from "./components/pages/contactPage";
+// import ContactBCMS from "./components/pages/contactPage";
 import Navbar from "./components/navbar";
 // import ConferenceForm from "./components/forms/conferenceForm";
 // import SessionForm from "./components/forms/sessionForm";
@@ -37,7 +37,7 @@ function App() {
         </div>
       </header>
       <main>
-        {/* <Route exact path="/contact_ccms" component={ContactCCMS} />
+        {/* <Route exact path="/contact_bcms" component={ContactBCMS} />
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/conferences" component={AllConfs} />
               <Route path="/conferences/*" component={ConfDetails} />

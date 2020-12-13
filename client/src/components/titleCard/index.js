@@ -9,7 +9,7 @@ const TitleCard = () => {
       <Card className="title">
         <Card.Body>
           <Card.Title>
-            <h1>Concino Conference Management System</h1>
+            <h1>Bristlecone Conference Management System</h1>
           </Card.Title>
         </Card.Body>
       </Card>
