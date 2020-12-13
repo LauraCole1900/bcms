@@ -1,4 +1,4 @@
-# UCK Conference Management System
+# Bristlecone Conference Management System
 
 ## Table of Contents
 
@@ -53,7 +53,7 @@ Add Session form:
 
 ## Installation Instructions
 
-npm i
+npm install
 
 ## Usage
 
@@ -69,7 +69,7 @@ npm run test
 
 ## Credits
 
-N/A
+The original version of this application was developed in collaboration with [Anna Battista](https://github.com/abattista24), [Beni Mahat](https://github.com/benimahat1291), [Travis Messall](https://github.com/tmessall), [Brenda Miller](https://github.com/millerbee), and [Alec Rewinkel](https://github.com/arewinkl).
 
 ## Contributing
 
