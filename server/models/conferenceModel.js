@@ -14,6 +14,10 @@ const conferenceSchema = new Schema({
     type: String,
     required: true
   },
+  confDesc: {
+    type: String,
+    required: true
+  },
   startDate: {
     type: String,
     required: true
@@ -30,16 +34,9 @@ const conferenceSchema = new Schema({
     type: String,
     required: true
   },
-  confDesc: {
-    type: String,
+  confCapConfirm: {
+    type: Boolean,
     required: true
-  },
-  confSessType: {
-    type: String,
-    required: true
-  },
-  confTracks: {
-    type: Number
   },
   confAttendCap: {
     type: Number
