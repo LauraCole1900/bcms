@@ -10,7 +10,7 @@ import Login from "./components/pages/loginPage";
 // import Venue from "./components/pages/confVenue";
 // import ContactBCMS from "./components/pages/contactPage";
 import Navbar from "./components/navbar";
-// import ConferenceForm from "./components/forms/conferenceForm";
+import ConferenceForm from "./components/forms/conferenceForm";
 // import SessionForm from "./components/forms/sessionForm";
 // import SessionProposal from "./components/forms/sessionProposal";
 // import ExhibitForm from "./components/forms/exhibitForm";
@@ -42,9 +42,9 @@ function App() {
               <Route exact path="/conferences" component={AllConfs} />
               <Route path="/conferences/*" component={ConfDetails} />
               <Route path="/conferences/schedule/*" component={Schedule} />
-              <Route path="/conferences/venue/*" component={Venue} />
+              <Route path="/conferences/venue/*" component={Venue} /> */}
               <Route path="/new_conference" component={ConferenceForm} />
-              <Route path="/edit_conference/*" component={ConferenceForm} />
+        {/*   <Route path="/edit_conference/*" component={ConferenceForm} />
               <Route path="/add_session/*" component={SessionForm} />
               <Route path="/propose_session/*" component={SessionProposal} />
               <Route path="/register_exhibit/*" component={ExhibitForm} />
