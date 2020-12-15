@@ -44,8 +44,8 @@ function App() {
               <Route path="/conferences/schedule/*" component={Schedule} />
               <Route path="/conferences/venue/*" component={Venue} /> */}
               <Route path="/new_conference" component={ConferenceForm} />
-        {/*   <Route path="/edit_conference/*" component={ConferenceForm} />
-              <Route path="/add_session/*" component={SessionForm} />
+              <Route path="/edit_conference/*" component={ConferenceForm} />
+        {/*   <Route path="/add_session/*" component={SessionForm} />
               <Route path="/propose_session/*" component={SessionProposal} />
               <Route path="/register_exhibit/*" component={ExhibitForm} />
               <Route path="/attend/*" component={Registration} />
