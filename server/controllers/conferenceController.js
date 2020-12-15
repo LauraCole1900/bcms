@@ -19,7 +19,7 @@ module.exports = {
   },
 
   findByEmail: function (req, res) {
-    console.log("email from confCont findByEmail", req.params.email)
+    console.log("from confCont findByEmail", req.params.email)
     db.Conference
       .find({ email: req.params.email })
       .then(dbModel => res.json(dbModel))
@@ -27,7 +27,7 @@ module.exports = {
   },
 
   findConfAttending: function (req, res) {
-    console.log("email from confCont findConfAttending", req.params.email)
+    console.log("from confCont findConfAttending", req.params.email)
     db.Conference
       .find({ confAttendees: req.params.email })
       .then(dbModel => res.json(dbModel))
@@ -35,7 +35,7 @@ module.exports = {
   },
 
   findById: function (req, res) {
-    console.log("confId from confCont findById", req.params.confId)
+    console.log("from confCont findById", req.params.confId)
     db.Conference
       .find(ObjectId(req.params.confId))
       .then(dbModel => res.json(dbModel))
@@ -44,7 +44,7 @@ module.exports = {
 
   // PUT
   updateConference: function (req, res) {
-    console.log("confId from confCont updateConference", req.params.confId)
+    console.log("from confCont updateConference", req.params.confId)
     db.Conference
       .findOneAndUpdate({ _id: req.params.confId }, req.body)
       .then(dbModel => res.json(dbModel))
@@ -52,7 +52,7 @@ module.exports = {
   },
 
   updateRegistered: function (req, res) {
-    console.log("confId & email from confCont updateRegistered", req.params.confId, req.body.email)
+    console.log("from confCont updateRegistered", req.params.confId, req.body.email)
     db.Conference
       .updateOne({ _id: req.params.confId }, req.body)
       .then(dbModel => res.json(dbModel))
@@ -61,7 +61,7 @@ module.exports = {
 
   // DELETE
   removeConference: function (req, res) {
-    console.log("confId from confCont removeConference", req.params.confId)
+    console.log("from confCont removeConference", req.params.confId)
     db.Conference
     .findById({ _id: ObjectId(req.params.confId) })
     .then(dbModel => dbModel.remove())
