@@ -13,14 +13,14 @@ router.route("/:email")
   .get(conferenceController.findByEmail);
 
 router.route("/attending/:email")
-  .get(conferenceController.findAttending);
+  .get(conferenceController.findConfAttending);
 
 router.route("/:confid")
   .get(conferenceController.findById);
 
 
 router.route("/:confid")
-  .put(conferenceController.updateConf);
+  .put(conferenceController.updateConference);
 
 router.route("/:email/:id")
   .put(conferenceController.updateRegistered);
