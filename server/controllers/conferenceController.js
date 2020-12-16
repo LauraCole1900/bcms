@@ -34,6 +34,22 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  findConfPresenting: function (req, res) {
+    console.log("from confCont findConfPresenting", req.params.email)
+    db.Conference
+      .find({ confPresenters: req.params.email })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
+  findConfExhibiting: function (req, res) {
+    console.log("from confCont findConfExhibiting", req.params.email)
+    db.Conference
+    .find({ confExhibitors: req.params.email })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err))
+  },
+
   findById: function (req, res) {
     console.log("from confCont findById", req.params.confId)
     db.Conference
@@ -63,9 +79,9 @@ module.exports = {
   removeConference: function (req, res) {
     console.log("from confCont removeConference", req.params.confId)
     db.Conference
-    .findById({ _id: ObjectId(req.params.confId) })
-    .then(dbModel => dbModel.remove())
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err))
+      .findById({ _id: ObjectId(req.params.confId) })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
   }
 };

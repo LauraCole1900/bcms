@@ -46,6 +46,12 @@ const conferenceSchema = new Schema({
   },
   confAttendees: [
     { type: String },
+  ],
+  confPresenters: [
+    { type: String }
+  ],
+  confExhibitors: [
+    { type: String }
   ]
 });
 

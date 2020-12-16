@@ -28,6 +28,18 @@ const API = {
     return axios.get(`/api/conference/attending/${email}`)
   },
 
+  // GET conferences at which user is presenting
+  getConferencesPresenting: function (email) {
+    console.log("from API getConferencesPresenting", email)
+    return axios.get(`/api/conference/presenting/${email}`)
+  },
+
+  // GET conferences at which user is exhibitor
+  getConferencesExhibiting: function (email) {
+    console.log("from API getConferencesExhibiting", email)
+    return axios.get(`/api/conference/exhibiting/${email}`)
+  },
+
   // GET conference by confId
   getConferenceById: function (confId) {
     console.log("from API getConferenceById", confId)
@@ -59,3 +71,5 @@ const API = {
 
   //POST session to database
 }
+
+export default API;

@@ -15,6 +15,12 @@ router.route("/:email")
 router.route("/attending/:email")
   .get(conferenceController.findConfAttending);
 
+router.route("/presenting/:email")
+  .get(conferenceController.findConfPresenting);
+
+router.route("/exhibiting/:email")
+  .get(conferenceController.findConfExhibiting);
+
 router.route("/:confid")
   .get(conferenceController.findById);
 
@@ -29,6 +35,6 @@ router.route("/:email/:id")
 router.route("/:confid")
   .delete(conferenceController.removeConference);
 
-
+  
 
 module.exports = router;
