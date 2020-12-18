@@ -2,16 +2,24 @@
   background: linear-gradient(to top, #899168, #2d321e);
   font-size: 16px;
   width: 100%;
+  height: 100px;
   display: inline-flex;
   flex-wrap: wrap-reverse;
   align-items: center;
   justify-content: space-between;
 }
 
-.columbine {
-  width: 50px;
+.pineTree {
+  width: 75px;
   display: inline-flex;
-  align-items: normal;
+  align-items: flex-start;
+  border: 2px solid #b4b4b4;
+  border-radius: 25%;
+  top: 0;
+}
+
+.logo {
+  align-items: stretch;
 }
 
 .hello {

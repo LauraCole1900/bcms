@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import "./style.css";
 
 const Navigation = () => {
-  const { user, logout } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const location = useLocation();
 
   return (
@@ -14,19 +14,22 @@ const Navigation = () => {
       <Navbar fluid expand="sm" className="navbar">
         <Navbar.Brand className="logo ml-3">
           <div>
-            <Image fluid src="images/columbine-line-blue-white-yellow.png" alt="logo" className="columbine" />
-          </div>
-          <div>
+            <Image fluid src="images/bristlecone-light.png" alt="logo" className="pineTree mylogo" />
             <Link to="/conferences" className={location.pathname === "/conferences" ? "mylogo active" : "mylogo"}>
               Bristlecone CMS
             </Link>
           </div>
         </Navbar.Brand>
         <Navbar.Text className="hello">
-          Hello,
-          <Link to="/profile" className={location.pathname === "/profile" ? "navlink active" : "navlink"}>
-            Insert-Name-Here!
+          Welcome,
+          {isAuthenticated
+            ? <Link to="/profile" className={location.pathname === "/profile" ? "navlink active" : "navlink"}>
+              {user.given_name}!
             </Link>
+            : <Link className="navlink login" onClick={() => loginWithRedirect()}>
+              Guest!
+          </Link>
+          }
         </Navbar.Text>
         <Nav className="navobj">
           <Navbar.Toggle fluid aria-controls="basic-navbar-nav" className="toggle" />
@@ -40,9 +43,14 @@ const Navigation = () => {
             <Link to="/contact_bcms" className={location.pathname === "/contact_bcms" ? "navlink placelink active" : "navlink placelink"}>
               Contact
               </Link>
-            <Link className="navlink logout" onClick={() => logout({ returnTo: window.location.origin })}>
-              Logout
-              </Link>
+            {isAuthenticated
+              ? <Link className="navlink logout" onClick={() => logout({ returnTo: window.location.origin })}>
+                Logout
+                </Link>
+              : <Link className="navlink login" onClick={() => loginWithRedirect()}>
+                Log In
+                </Link>
+            }
           </Navbar.Collapse>
         </Nav>
       </Navbar>
