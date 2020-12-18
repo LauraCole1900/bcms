@@ -51,25 +51,25 @@ const ConferenceForm = () => {
       setConference({ ...conference, creatorEmail: user.email, confAttendees: [user.email] })
     }
   }, []);
-  
-    const handleInputChange = (e) => {
-      setConference({ ...conference, [e.target.name]: e.target.value, confAttendees: [] })
-    };
+
+  const handleInputChange = (e) => {
+    setConference({ ...conference, [e.target.name]: e.target.value, confAttendees: [] })
+  };
 
   const handleFormUpdate = (e) => {
     e.preventDefault();
     console.log("Conference update", confId);
-    API.updateConference({...conference}, confId)
-    .then(history.push("/conference_updated"))
-    .catch(err => console.log(err))
+    API.updateConference({ ...conference }, confId)
+      .then(history.push("/conference_updated"))
+      .catch(err => console.log(err))
   }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Conference submit")
     API.createConference({ ...conference, creatorEmail: user.email })
-    .then(history.push("/conference_created"))
-    .catch(err => console.log(err));
+      .then(history.push("/conference_created"))
+      .catch(err => console.log(err));
   }
 
   return (
