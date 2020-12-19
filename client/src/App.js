@@ -48,7 +48,7 @@ function App() {
         {/*   <Route path="/add_session/*" component={SessionForm} />
               <Route path="/propose_session/*" component={SessionProposal} />
               <Route path="/register_exhibit/*" component={ExhibitForm} />
-              <Route path="/attend/*" component={Registration} />
+              <Route path="/register_attend/*" component={Registration} />
               <Route path="/conference_created/*" component={ConfSuccess} />
               <Route path="/session_added" component={SessionSuccess} />
               <Route path="/deleted" component={DeleteSuccess} />

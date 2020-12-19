@@ -26,6 +26,14 @@ const conferenceSchema = new Schema({
     type: String,
     required: true
   },
+  confStartTime: {
+    type: String,
+    required: true
+  },
+  confEndTime: {
+    type: String,
+    required: true
+  },
   confType: {
     type: String,
     required: true

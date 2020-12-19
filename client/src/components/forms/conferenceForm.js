@@ -15,6 +15,8 @@ const ConferenceForm = () => {
     confDesc: "Enter conference description",
     startDate: "2021/01/01",
     endDate: "2021/01/01",
+    confStartTime: "09:00",
+    confEndTime: "17:00",
     confType: "live",
     confLoc: "Enter address or URL",
     confCapConfirm: false,
@@ -108,6 +110,19 @@ const ConferenceForm = () => {
                   <Col>
                     <Form.Label>Conference End Date *</Form.Label>
                     <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={conference.endDate} className="endDate" onChange={handleInputChange} />
+                  </Col>
+                </Form.Group>
+              </Row>
+
+              <Row>
+                <Form.Group controlId="formConfTimes">
+                  <Col>
+                    <Form.Label>Conference Start Time *</Form.Label>
+                    <Form.Control required type="time" name="confStartTime" placeholder="09:00" value={conference.confStartTime} className="confStartTime" onChange={handleInputChange} />
+                  </Col>
+                  <Col>
+                    <Form.Label>Conference End Time *</Form.Label>
+                    <Form.Control required type="time" name="confEndTime" placeholder="17:00" value={conference.confEndTime} className="confEndTime" onChange={handleInputChange} />
                   </Col>
                 </Form.Group>
               </Row>
