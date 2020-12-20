@@ -157,7 +157,7 @@ const ConferenceForm = () => {
                   ? <Col>
                     <Form.Group controlId="formConfAttendCap">
                       <Form.Label>What is the maximum number of attendees?</Form.Label>
-                      <Form.Text className="capSubtitle">Please enter only numbers with no commas.</Form.Text>
+                      <Form.Text className="capSubtitle" muted>Please enter only numbers with no commas.</Form.Text>
                       <Form.Control type="input" name="confAttendCap" placeholder="50" onChange={handleInputChange}></Form.Control>
                     </Form.Group>
                   </Col>
