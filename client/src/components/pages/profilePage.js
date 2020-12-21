@@ -9,8 +9,12 @@ import "./style.css";
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
   const [whichConf, setWhichConf] = useState();
+  const [createConf, setCreateConf] = useState();
+  const [attendConf, setAttendConf] = useState();
+  const [presentConf, setPresentConf] = useState();
+  const [exhibitConf, setExhibitConf] = useState();
+  const [pageReady, setPageReady] = useState(false);
   const location = useLocation();
-
 
   const handleInputChange = (e) => {
     const whichConf = e.target.value
@@ -18,6 +22,70 @@ const Profile = () => {
     setWhichConf(whichConf)
   }
 
+  //Save user to DB
+  const saveUserToDB = () => {
+    API.saveUser(user)
+  }
+
+  useEffect(() => {
+    saveUserToDB();
+    API.getConferencesAttending(user.email).then(resp => {
+      const attArr = resp.data
+      const sortedAtt = attArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
+      if (sortedAtt.length > 0) {
+        return (
+          setAttendConf(sortedAtt)
+        )
+      } else {
+        return (
+          <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>
+        )
+      }
+    })
+    setPageReady(true);
+
+    API.getConferencesByEmail(user.email).then(resp => {
+      const createArr = resp.data
+      const sortedCreate = createArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
+      if (sortedCreate.length > 0) {
+        return (
+          setCreateConf(sortedCreate)
+        )
+      } else {
+        return (
+          <h3>We're sorry, you don't seem to have created any conferences at this time.</h3>
+        )
+      }
+    })
+
+    API.getConferencesPresenting(user.email).then(resp => {
+      const presentArr = resp.data
+      const sortedPresent = presentArr.sort((a, b) => (a.startDate > b.startDate) ? 1: -1)
+      if (sortedPresent.length > 0) {
+        return (
+          setPresentConf(sortedPresent)
+        )
+      } else {
+        return (
+          <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>
+        )
+      }
+    })
+
+    API.getConferencesExhibiting(user.email).then(resp => {
+      const exhibitArr = resp.data
+      const sortedExhibit = exhibitArr.sort((a, b) => (a.startDate > b.startDate) ? 1: -1)
+      if (sortedExhibit.length > 0) {
+        return (
+          setExhibitConf(sortedExhibit)
+        )
+      } else {
+        return (
+          <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>
+        )
+      }
+    })
+  })
 
   return (
     isAuthenticated && (
@@ -44,18 +112,18 @@ const Profile = () => {
         </Row>
         <Row>
           <Col sm={6}>
-            <ButtonGroup toggle>
+            <ButtonGroup toggle defaultValue={1}>
               <ToggleButton type="radio" name="whichConf" value={1} checked={whichConf === 1} onChange={handleInputChange}>
-                Created
-              </ToggleButton>
-              <ToggleButton type="radio" name="whichConf" value={2} checked={whichConf === 2} onChange={handleInputChange}>
                 Attending
               </ToggleButton>
+              <ToggleButton type="radio" name="whichConf" value={2} checked={whichConf === 2} onChange={handleInputChange}>
+                Created
+              </ToggleButton>
               <ToggleButton type="radio" name="whichConf" value={3} checked={whichConf === 3} onChange={handleInputChange}>
-                Presenting
+                Exhibiting
               </ToggleButton>
               <ToggleButton type="radio" name="whichConf" value={4} checked={whichConf === 4} onChange={handleInputChange}>
-                Exhibiting
+                Presenting
               </ToggleButton>
             </ButtonGroup>
           </Col>
@@ -66,6 +134,18 @@ const Profile = () => {
             </Link>
           </Col>
         </Row>
+        {whichConf === 1 &&
+          <Conference conference={attendConf} />
+        }
+        {whichConf === 2 &&
+          <Conference conference={createConf} />
+        }
+        {whichConf === 3 &&
+          <Conference conference={exhibitConf} />
+        }
+        {whichConf === 4 &&
+          <Conference conference={presentConf} />
+        }
       </Container >
     )
   )
