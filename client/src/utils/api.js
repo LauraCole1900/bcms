@@ -34,11 +34,13 @@ const API = {
     return axios.get(`/api/users/exhibiting/${confId}`)
   },
 
+
   // UPDATE user information
   updateUser: function (formObj, email) {
     console.log("from API updateUser", formObj, email)
     return axios.put(`/api/users/update/${email}`, formObj)
   },
+  
 
   // DELETE user
   deleteUser: function (email) {
