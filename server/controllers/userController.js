@@ -43,7 +43,7 @@ module.exports = {
 
 
   // UPDATE user
-  update: function (req, res) {
+  updateUser: function (req, res) {
     db.User
     .findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(dbModel => res.json(dbModel))
@@ -51,8 +51,8 @@ module.exports = {
   },
 
 
-  // REMOVE user
-  remove: function (req, res) {
+  // DELETE user
+  removeUser: function (req, res) {
     db.User
     .findById({ _id: req.params.id })
     .then(dbModel => dbModel.remove())
