@@ -2,6 +2,51 @@ import axios from "axios";
 
 const API = {
 
+  // User Routes
+
+  // POST user to database
+  saveUser: function (userData) {
+    console.log("from API saveUser", userData)
+    return axios.post("/api/user", userData)
+  },
+
+
+  // GET all users
+  getUsers: function () {
+    return axios.get("/api/users")
+  },
+
+  // GET attendees by conference
+  getUsersAttending: function (confId) {
+    console.log("from API getUsersAttending", confId)
+    return axios.get(`/api/users/attending/${confId}`)
+  },
+
+  // GET presenters by conference
+  getUsersPresenting: function (confId) {
+    console.log("from API getUsersPresenting", confId)
+    return axios.get(`/api/users/presenting/${confId}`)
+  },
+
+  // GET exhibitors by conference
+  getUsersExhibiting: function (confId) {
+    console.log("from API getUsersExhibiting", confId)
+    return axios.get(`/api/users/exhibiting/${confId}`)
+  },
+
+  // UPDATE user information
+  updateUser: function (formObj, email) {
+    console.log("from API updateUser", formObj, email)
+    return axios.put(`/api/users/update/${email}`, formObj)
+  },
+
+  // DELETE user
+  deleteUser: function (email) {
+    console.log("from API deleteUser", email)
+    return axios.delete(`/api/users/delete/${email}`)
+  },
+
+
   // Conference Routes
 
   // POST conference to database
@@ -69,7 +114,7 @@ const API = {
 
   // Session Routes
 
-  //POST session to database
+  // POST session to database
 }
 
 export default API;
