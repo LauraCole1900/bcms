@@ -21,6 +21,7 @@ const ConferenceForm = () => {
     confLoc: "Enter address or URL",
     confCapConfirm: false,
     confAttendCount: 0,
+    confWaiver: false,
     confAttendees: [],
   });
 
@@ -138,7 +139,9 @@ const ConferenceForm = () => {
               <Row>
                 <Form.Group controlId="formConfLoc">
                   <Form.Label>Conference Location *</Form.Label>
-                  <Form.Control required type="input" name="confLoc" placeholder="Enter address or URL" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
+                  {(conference.confType === "live")
+                    ? <Form.Control required type="input" name="confLoc" placeholder="Enter street address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
+                    : <Form.Control required type="input" name="confLoc" placeholder="Enter URL" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />}
                 </Form.Group>
               </Row>
 
@@ -147,8 +150,8 @@ const ConferenceForm = () => {
                   <Form.Group controlId="formConfCapConfirm">
                     <Form.Label>Will there be a cap on the number of attendees? *</Form.Label>
                     <Form.Control required as="select" name="confCapConfirm" onChange={handleInputChange}>
-                      <option value="false" checked={conference.confCapConfirm === false}>No</option>
-                      <option value="true" checked={conference.confCapConfirm === true}>Yes</option>
+                      <option value={false} checked={conference.confCapConfirm === false}>No</option>
+                      <option value={true} checked={conference.confCapConfirm === true}>Yes</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>
@@ -162,6 +165,16 @@ const ConferenceForm = () => {
                     </Form.Group>
                   </Col>
                   : <Col></Col>}
+              </Row>
+
+              <Row>
+                <Form.Group controlId="formConfWaiver">
+                  <Form.Label>Will a liability waiver be required? *</Form.Label>
+                  <Form.Control required as="select" name="confWaiver" onChange={handleInputChange}>
+                    <option value={false} checked={conference.confWaiver === false}>No</option>
+                    <option value={true} checked={conference.confWaiver === true}>Yes</option>
+                  </Form.Control>
+                </Form.Group>
               </Row>
 
               <Row>

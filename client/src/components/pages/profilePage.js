@@ -22,13 +22,13 @@ const Profile = () => {
     setWhichConf(whichConf)
   }
 
-  //Save user to DB
-  // const saveUserToDB = () => {
-  //   API.saveUser(user)
-  // }
+  // Save user to DB
+  const saveUserToDB = () => {
+    API.saveUser(user)
+  }
 
   useEffect(() => {
-    // saveUserToDB();
+    saveUserToDB();
     API.getConferencesAttending(user.email).then(resp => {
       const attArr = resp.data
       const sortedAtt = attArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)

@@ -46,10 +46,14 @@ function Conference(conference) {
                 <Card.Text>{e.confDesc}</Card.Text>
               </Col>
               <Col sm={4}>
-                <Row>{e.startDate} - {e.endDate}</Row>
-                <Row>{e.confStartTime} - {e.confEndTime}</Row>
-                <Row>{e.confType}</Row>
-                <Row>{e.confLoc}</Row>
+                <Row><p>Dates: {e.startDate} - {e.endDate}</p></Row>
+                <Row><p>Times: {e.confStartTime} - {e.confEndTime}</p></Row>
+                <Row><p>{e.confType}</p></Row>
+                <Row>
+                  {(e.confType === "live")
+                    ? <p><a href={`https://www.google.com/maps/search/${e.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>
+                    : <p><a href={e.confLoc} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
+                </Row>
                 <Row>
                   <Link to={{
                     state: { confInfo: conference },

@@ -49,6 +49,10 @@ const conferenceSchema = new Schema({
   confAttendCap: {
     type: Number
   },
+  confWaiver: {
+    type: Boolean,
+    required: true
+  },
   confAttendCount: {
     type: Number
   },
