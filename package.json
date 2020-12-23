@@ -1,7 +1,7 @@
 {
-  "name": "conference_planner",
+  "name": "server",
   "version": "1.0.0",
-  "description": "Conference Planner",
+  "description": "Bristlecone Conference Management System",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",

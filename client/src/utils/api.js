@@ -7,7 +7,7 @@ const API = {
   // POST user to database
   saveUser: function (userData) {
     console.log("from API saveUser", userData)
-    return axios.post("/api/user", userData)
+    return axios.post("/api/users", userData)
   },
 
 

@@ -8,7 +8,7 @@ const ConferenceForm = () => {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
-  const [conference, setConference] = useState({
+  let [conference, setConference] = useState({
     creatorEmail: "",
     confName: "Enter conference name",
     confOrg: "Enter name of organizing body",
@@ -79,7 +79,7 @@ const ConferenceForm = () => {
     <>
       { pageReady === true &&
         isAuthenticated && (
-          <Container>
+          <>
             <Form className="confForm">
               <Row>
                 <Form.Group controlId="formConfName">
@@ -184,7 +184,7 @@ const ConferenceForm = () => {
               </Row>
 
             </Form>
-          </Container>
+          </>
         )
       }
     </>

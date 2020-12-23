@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "description": "UCK Conference Management System client side",
+  "description": "Bristlecone Conference Management System client side",
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {

@@ -3,6 +3,7 @@ const db = require("../models")
 module.exports = {
   // CREATE new user in database
   create: function (req, res) {
+    console.log("from userController create", req.params.email)
     db.User
     .findOne({ email: req.params.email }, function (err, user) {
       if (err) {

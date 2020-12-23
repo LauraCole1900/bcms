@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
-const routes = require("./api_routes")
+const routes = require("./server/api_routes")
 const app = express();
 
 // Middleware
