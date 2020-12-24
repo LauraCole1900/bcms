@@ -54,6 +54,10 @@ function Conference(conference) {
                     ? <p><a href={`https://www.google.com/maps/search/${e.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>
                     : <p><a href={e.confLoc} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
                 </Row>
+                {(e.confType === "live") &&
+                  <Row>
+                    <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">Venue's website</a></p>
+                  </Row>}
                 <Row>
                   <Link to={{
                     state: { confInfo: conference },

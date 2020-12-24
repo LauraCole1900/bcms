@@ -42,6 +42,9 @@ const conferenceSchema = new Schema({
     type: String,
     required: true
   },
+  confLocUrl: {
+    type: String
+  },
   confCapConfirm: {
     type: Boolean,
     required: true

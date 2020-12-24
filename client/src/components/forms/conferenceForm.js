@@ -8,7 +8,7 @@ const ConferenceForm = () => {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
-  let [conference, setConference] = useState({
+  const [conference, setConference] = useState({
     creatorEmail: "",
     confName: "Enter conference name",
     confOrg: "Enter name of organizing body",
@@ -144,6 +144,15 @@ const ConferenceForm = () => {
                     : <Form.Control required type="input" name="confLoc" placeholder="Enter URL" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />}
                 </Form.Group>
               </Row>
+
+              {(conference.confType === "live") &&
+                <Row>
+                  <Form.Group controlId="formConfLocUrl">
+                    <Form.Label>Venue website URL</Form.Label>
+                    <Form.Control type="input" name="confLocUrl" placeholder="Enter URL of venue's website" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
+                  </Form.Group>
+                </Row>
+              }
 
               <Row>
                 <Col>
