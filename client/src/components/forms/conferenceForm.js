@@ -79,7 +79,7 @@ const ConferenceForm = () => {
     <>
       { pageReady === true &&
         isAuthenticated && (
-          <>
+          <Container>
             <Form className="confForm">
               <Row>
                 <Form.Group controlId="formConfName">
@@ -193,7 +193,7 @@ const ConferenceForm = () => {
               </Row>
 
             </Form>
-          </>
+          </Container>
         )
       }
     </>
