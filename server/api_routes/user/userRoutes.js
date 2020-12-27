@@ -13,11 +13,11 @@ router.route("/:id")
   .get(userController.findById);
 
 
-router.route("/:id")
+router.route("/update/:id")
   .put(userController.updateUser);
 
 
-router.route("/:id")
+router.route("/delete/:id")
   .delete(userController.removeUser);
 
 module.exports = router;

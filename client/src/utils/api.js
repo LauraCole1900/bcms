@@ -16,36 +16,66 @@ const API = {
     return axios.get("/api/users")
   },
 
-  // GET attendees by conference
-  getUsersAttending: function (confId) {
-    console.log("from API getUsersAttending", confId)
-    return axios.get(`/api/users/attending/${confId}`)
-  },
-
-  // GET presenters by conference
-  getUsersPresenting: function (confId) {
-    console.log("from API getUsersPresenting", confId)
-    return axios.get(`/api/users/presenting/${confId}`)
-  },
-
-  // GET exhibitors by conference
-  getUsersExhibiting: function (confId) {
-    console.log("from API getUsersExhibiting", confId)
-    return axios.get(`/api/users/exhibiting/${confId}`)
-  },
-
 
   // UPDATE user information
   updateUser: function (formObj, email) {
     console.log("from API updateUser", formObj, email)
     return axios.put(`/api/users/update/${email}`, formObj)
   },
-  
+
 
   // DELETE user
   deleteUser: function (email) {
     console.log("from API deleteUser", email)
     return axios.delete(`/api/users/delete/${email}`)
+  },
+
+
+  // Attendee routes
+
+  // POST attendee to database
+  registerAttendee: function (formData) {
+    console.log("from API registerAttendee", formData)
+    return axios.post("/api/attendees/post", formData)
+  },
+
+
+  // GET attendees by conference
+  getAttendees: function (confId) {
+    console.log("from API getAttendees", confId)
+    return axios.get(`/api/attendees/${confId}`)
+  },
+
+
+  // UPDATE attendee information
+  updateAttendee: function (formData, email) {
+    console.log ("from API updateAttendee", formData, email)
+    return axios.put(`/api/attendees/update/${email}`, formData)
+  },
+
+
+  // DELETE attendee
+  unregisterAttendee: function (email) {
+    console.log("from API unregisterAttendee", email)
+    return axios.delete(`/api/attendees/delete/${email}`)
+  },
+
+
+  // Presenter routes
+
+  // GET presenters by conference
+  getPresenters: function (confId) {
+    console.log("from API getUsersPresenting", confId)
+    return axios.get(`/api/presenters/${confId}`)
+  },
+
+
+  // Exhibitor routes
+
+  // GET exhibitors by conference
+  getExhibitors: function (confId) {
+    console.log("from API getUsersExhibiting", confId)
+    return axios.get(`/api/exhibitors/${confId}`)
   },
 
 
