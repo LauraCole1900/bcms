@@ -10,8 +10,7 @@ module.exports = {
         let err = new Error("We're sorry, it looks like gremlins have gotten into our database. Please try again.")
         err.status = 400;
         return err;
-      }
-      if (user) {
+      } else if (user) {
         let err = new Error("We're sorry, that email has already been registered. Please use another email.")
         err.status = 400;
         return err;

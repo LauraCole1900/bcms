@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "bcms",
   "version": "1.0.0",
   "description": "Bristlecone Conference Management System",
   "main": "server.js",
