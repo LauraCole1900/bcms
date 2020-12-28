@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, Card, Image, ButtonGroup, ToggleButton } from "react-bootstrap";
 import Conference from "../conferenceCard";
+import UserCard from "../userCard";
 import ConferenceAPI from "../../utils/api/conferenceApi.js"
 import UserAPI from "../../utils/api/userApi.js";
 import "./style.css";
@@ -95,17 +96,7 @@ const Profile = () => {
           <Container>
             <Row>
               <Col sm={4}></Col>
-              <Card>
-                <Row>
-                  <Col sm={4}>
-                    <Image fluid className="profilePic" src={user.picture} alt="Profile picture" />
-                  </Col>
-                  <Col sm={8}>
-                    <h1>{user.name}</h1>
-                    <h3>{user.email}</h3>
-                  </Col>
-                </Row>
-              </Card>
+              <UserCard />
               <Col sm={4}></Col>
             </Row>
             <Row>
