@@ -2,7 +2,7 @@ const ObjectId = require('mongodb').ObjectId;
 const db = require("../models");
 
 module.exports = {
-  // POST
+  // POST new session to database
   create: function (req, res) {
     db.Session
       .create(req.body)
@@ -10,14 +10,16 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  // GET 
+
+  // GET all sessions
 	findAll: function (req, res) {
 		db.Session
 			.find({})
 			.then(dbModel => res.json(dbModel))
 			.catch(err => res.status(422).json(err));
     },
-  
+	
+	// GET sessions by confId
 	findByConfId: function (req, res) {
 		console.log("from sessCont findByConfId", req.params.id)
 		db.Session
@@ -30,7 +32,8 @@ module.exports = {
 				res.status(422).json(err)
 			});
   },
-  
+	
+	// GET sessions by sessId
 	findBySessId: function (req, res) {
     console.log("from sessCont findBySessId", req.params.id)
     db.Session
@@ -43,8 +46,9 @@ module.exports = {
 				res.status(422).json(err)
 			});
   },
-  
-  // PUT
+	
+	
+  // PUT session
 	updateSession: function (req, res) {
     console.log("from sessCont updateSession", req.params.sessId)
 		db.Session
@@ -52,8 +56,9 @@ module.exports = {
 			.then(dbModel => res.json(dbModel))
 			.catch(err => res.status(422).json(err));
   },
-  
-  // DELETE
+	
+	
+  // DELETE session
 	removeSession: function (req, res) {
     console.log("from sessCont removeSession", req.params.sessId)
 		db.Session

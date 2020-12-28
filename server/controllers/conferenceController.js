@@ -2,7 +2,7 @@ const ObjectId = require("mongodb").ObjectId;
 const db = require("../models");
 
 module.exports = {
-  // POST
+  // POST new conference to database
   create: function (req, res) {
     db.Conference
       .create(req.body)
@@ -10,7 +10,8 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-  // GET
+  
+  // GET all conferences
   findAll: function (req, res) {
     db.Conference
       .find({})
@@ -18,6 +19,7 @@ module.exports = {
       .catch(err => res.statue(422).json(err))
   },
 
+  // GET conferences associated with user's email
   findByEmail: function (req, res) {
     console.log("from confCont findByEmail", req.params.email)
     db.Conference
@@ -26,6 +28,7 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  // GET conferences user is attending
   findConfAttending: function (req, res) {
     console.log("from confCont findConfAttending", req.params.email)
     db.Conference
@@ -34,6 +37,7 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  // GET conferences at which user is presenting
   findConfPresenting: function (req, res) {
     console.log("from confCont findConfPresenting", req.params.email)
     db.Conference
@@ -42,6 +46,7 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  // GET conferences at which user is exhibiting
   findConfExhibiting: function (req, res) {
     console.log("from confCont findConfExhibiting", req.params.email)
     db.Conference
@@ -50,6 +55,7 @@ module.exports = {
     .catch(err => res.status(422).json(err))
   },
 
+  // GET conference by confId
   findById: function (req, res) {
     console.log("from confCont findById", req.params.confId)
     db.Conference
@@ -58,7 +64,8 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-  // PUT
+
+  // PUT existing conference
   updateConference: function (req, res) {
     console.log("from confCont updateConference", req.params.confId)
     db.Conference
@@ -67,6 +74,7 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  // PUT attendees
   updateRegistered: function (req, res) {
     console.log("from confCont updateRegistered", req.params.confId, req.body.email)
     db.Conference
@@ -75,7 +83,8 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-  // DELETE
+
+  // DELETE conference
   removeConference: function (req, res) {
     console.log("from confCont removeConference", req.params.confId)
     db.Conference

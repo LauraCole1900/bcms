@@ -1,7 +1,7 @@
 const db = require("../models")
 
 module.exports = {
-  // CREATE new user in database
+  // POST new user in database
   create: function (req, res) {
     console.log("from userController create", req.params.email)
     db.User
@@ -24,7 +24,7 @@ module.exports = {
   },
 
 
-  // FIND all users
+  // GET all users
   findAll: function (req, res) {
     db.User
     .find({})
@@ -33,7 +33,7 @@ module.exports = {
     .catch(err => res.status(422).json(err))
   },
 
-  // FIND user by ID
+  // GET user by ID
   findById: function (req, res) {
     db.User
     .findById(req.params.id)
@@ -42,7 +42,7 @@ module.exports = {
   },
 
 
-  // UPDATE user
+  // PUT user
   updateUser: function (req, res) {
     db.User
     .findOneAndUpdate({ _id: req.params.id }, req.body)
