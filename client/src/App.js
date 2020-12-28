@@ -31,9 +31,7 @@ function App() {
     <Router>
       <header>
         <div>
-          {/* {isAuthenticated && */}
           <Navbar />
-          {/* } */}
         </div>
       </header>
       <main>
