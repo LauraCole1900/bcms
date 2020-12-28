@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 // import Moment from "react-moment";
-import API from "../../utils/api";
+import ConferenceAPI from "../../utils/api/conferenceApi.js";
 
 function Conference(conference) {
   const { user, isAuthenticated } = useAuth0();
@@ -11,14 +11,14 @@ function Conference(conference) {
 
   function handleRegister(confId) {
     const email = { email: user.email }
-    API.updateConferenceAttendees(confId, email).then(
+    ConferenceAPI.updateConferenceAttendees(confId, email).then(
       history.push(`/register_attend/${confId}`)
     )
   }
 
   function handleDelete(confId) {
     console.log("from confCard", confId)
-    API.deleteConference(confId).then(
+    ConferenceAPI.deleteConference(confId).then(
       history.push("/deleted")
     )
   };

@@ -3,7 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, Card, Image, ButtonGroup, ToggleButton } from "react-bootstrap";
 import Conference from "../conferenceCard";
-import API from "../../utils/api";
+import ConferenceAPI from "../../utils/api/conferenceApi.js"
+import UserAPI from "../../utils/api/userApi.js";
 import "./style.css";
 
 const Profile = () => {
@@ -24,12 +25,12 @@ const Profile = () => {
 
   // Save user to DB
   const saveUserToDB = () => {
-    API.saveUser(user)
+    UserAPI.saveUser(user)
   }
 
   useEffect(() => {
     saveUserToDB();
-    API.getConferencesAttending(user.email).then(resp => {
+    ConferenceAPI.getConferencesAttending(user.email).then(resp => {
       const attArr = resp.data
       const sortedAtt = attArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
       if (sortedAtt.length > 0) {
@@ -44,7 +45,7 @@ const Profile = () => {
     })
     setPageReady(true);
 
-    API.getConferencesByEmail(user.email).then(resp => {
+    ConferenceAPI.getConferencesByEmail(user.email).then(resp => {
       const createArr = resp.data
       const sortedCreate = createArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
       if (sortedCreate.length > 0) {
@@ -58,7 +59,7 @@ const Profile = () => {
       }
     })
 
-    API.getConferencesPresenting(user.email).then(resp => {
+    ConferenceAPI.getConferencesPresenting(user.email).then(resp => {
       const presentArr = resp.data
       const sortedPresent = presentArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
       if (sortedPresent.length > 0) {
@@ -72,7 +73,7 @@ const Profile = () => {
       }
     })
 
-    API.getConferencesExhibiting(user.email).then(resp => {
+    ConferenceAPI.getConferencesExhibiting(user.email).then(resp => {
       const exhibitArr = resp.data
       const sortedExhibit = exhibitArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
       if (sortedExhibit.length > 0) {

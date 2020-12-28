@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import API from "../../utils/api";
+import ConferenceAPI from "../../utils/api/conferenceApi.js";
 
 const ConferenceForm = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -44,7 +44,7 @@ const ConferenceForm = () => {
 
   useEffect(() => {
     if (confId !== "new_conference") {
-      API.getConferenceById(confId).then(resp => {
+      ConferenceAPI.getConferenceById(confId).then(resp => {
         console.log("confById", resp.data);
         const confArr = resp.data;
         setConference(confArr[0]);
@@ -62,7 +62,7 @@ const ConferenceForm = () => {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     console.log("Conference update", confId);
-    API.updateConference({ ...conference }, confId)
+    ConferenceAPI.updateConference({ ...conference }, confId)
       .then(history.push("/conference_updated"))
       .catch(err => console.log(err))
   }
@@ -70,7 +70,7 @@ const ConferenceForm = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Conference submit")
-    API.createConference({ ...conference, creatorEmail: user.email })
+    ConferenceAPI.createConference({ ...conference, creatorEmail: user.email })
       .then(history.push("/conference_created"))
       .catch(err => console.log(err));
   }
