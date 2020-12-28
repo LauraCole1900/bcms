@@ -95,9 +95,9 @@ const Profile = () => {
         isAuthenticated && (
           <Container>
             <Row>
-              <Col sm={4}></Col>
+              <Col sm={3}></Col>
               <UserCard />
-              <Col sm={4}></Col>
+              <Col sm={3}></Col>
             </Row>
             <Row>
               <div className="myConfs">
