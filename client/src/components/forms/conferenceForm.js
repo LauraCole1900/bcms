@@ -70,21 +70,21 @@ const ConferenceForm = () => {
             <Form className="confForm">
               <Row>
                 <Form.Group controlId="formConfName">
-                  <Form.Label>Name of conference *</Form.Label>
+                  <Form.Label>Name of conference: *</Form.Label>
                   <Form.Control required type="input" name="confName" placeholder="Enter conference name" value={conference.confName} className="confName" onChange={handleInputChange} />
                 </Form.Group>
               </Row>
 
               <Row>
                 <Form.Group controlId="formConfOrg">
-                  <Form.Label>Conference Organization *</Form.Label>
+                  <Form.Label>Conference Organization: *</Form.Label>
                   <Form.Control required type="input" name="confOrg" placeholder="Enter name of organizing body" value={conference.confOrg} className="confOrg" onChange={handleInputChange} />
                 </Form.Group>
               </Row>
 
               <Row>
                 <Form.Group controlId="formConfDesc">
-                  <Form.Label>Conference Description *</Form.Label>
+                  <Form.Label>Conference Description: *</Form.Label>
                   <Form.Control required as="textarea" rows={10} type="input" name="confDesc" placeholder="Enter conference description" value={conference.confDesc} className="confDesc" onChange={handleInputChange} />
                 </Form.Group>
               </Row>
@@ -92,11 +92,11 @@ const ConferenceForm = () => {
               <Row>
                 <Form.Group controlId="formConfDate">
                   <Col>
-                    <Form.Label>Conference Start Date *</Form.Label>
+                    <Form.Label>Conference Start Date: *</Form.Label>
                     <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={conference.startDate} className="startDate" onChange={handleInputChange} />
                   </Col>
                   <Col>
-                    <Form.Label>Conference End Date *</Form.Label>
+                    <Form.Label>Conference End Date: *</Form.Label>
                     <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={conference.endDate} className="endDate" onChange={handleInputChange} />
                   </Col>
                 </Form.Group>
@@ -105,11 +105,11 @@ const ConferenceForm = () => {
               <Row>
                 <Form.Group controlId="formConfTimes">
                   <Col>
-                    <Form.Label>Conference Start Time *</Form.Label>
+                    <Form.Label>Conference Start Time: *</Form.Label>
                     <Form.Control required type="time" name="confStartTime" placeholder="09:00" value={conference.confStartTime} className="confStartTime" onChange={handleInputChange} />
                   </Col>
                   <Col>
-                    <Form.Label>Conference End Time *</Form.Label>
+                    <Form.Label>Conference End Time: *</Form.Label>
                     <Form.Control required type="time" name="confEndTime" placeholder="17:00" value={conference.confEndTime} className="confEndTime" onChange={handleInputChange} />
                   </Col>
                 </Form.Group>
@@ -127,11 +127,11 @@ const ConferenceForm = () => {
                 <Form.Group controlId="formConfLoc">
                   {(conference.confType === "live")
                     ? <div>
-                      <Form.Label>Conference Location *</Form.Label>
+                      <Form.Label>Conference Location: *</Form.Label>
                       <Form.Control required type="input" name="confLoc" placeholder="Enter street address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                     </div>
                     : <div>
-                      <Form.Label>Conference URL *</Form.Label>
+                      <Form.Label>Conference URL: *</Form.Label>
                       <Form.Control required type="input" name="confLoc" placeholder="Enter URL or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                     </div>}
                 </Form.Group>
@@ -140,7 +140,7 @@ const ConferenceForm = () => {
               {(conference.confType === "live") &&
                 <Row>
                   <Form.Group controlId="formConfLocUrl">
-                    <Form.Label>Venue Website</Form.Label>
+                    <Form.Label>Venue Website:</Form.Label>
                     <Form.Control type="input" name="confLocUrl" placeholder="Enter URL of venue's website" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
                   </Form.Group>
                 </Row>
