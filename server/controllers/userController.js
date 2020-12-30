@@ -1,7 +1,7 @@
 const db = require("../models")
 
 module.exports = {
-  // POST new user in database
+  // POST new user to database
   create: function (req, res) {
     console.log("from userController create", req.params.email)
     db.User
@@ -10,13 +10,9 @@ module.exports = {
         let err = new Error("We're sorry, it looks like gremlins have gotten into our database. Please try again.")
         err.status = 400;
         return err;
-      } else if (user) {
-        let err = new Error("We're sorry, that email has already been registered. Please use another email.")
-        err.status = 400;
-        return err;
       } else {
         db.User
-        .create(req.body)
+        .create({user: req.body}, { unique: true })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err))
       }
