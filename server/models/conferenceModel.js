@@ -46,7 +46,7 @@ const conferenceSchema = new Schema({
     type: String
   },
   confCapConfirm: {
-    type: Boolean,
+    type: String,
     required: true
   },
   confAttendCap: {

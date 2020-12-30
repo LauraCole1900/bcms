@@ -19,7 +19,7 @@ const ConferenceForm = () => {
     confEndTime: "",
     confType: "",
     confLoc: "",
-    confCapConfirm: false,
+    confCapConfirm: "",
     confAttendCount: 0,
     confWaiver: false,
   });
