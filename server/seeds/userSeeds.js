@@ -10,14 +10,14 @@ mongoose.connect(
 
 const userSeed = [
     {
-      given_name: "Laura",
-      family_name: "Cole",
-      nickname: "oranaiche",
-      name: "Laura Cole",
+      given_name: "Martha",
+      family_name: "Jones",
+      nickname: "user",
+      name: "Martha Jones",
       picture: "https://lh3.googleusercontent.com/a-/AOh14GipKmbXcoOtw-x2h3ilQKQj-wqL3HCtlOgmHJAi=s192-c-rg-br100",
       locale: "en",
       updated_at: "2020-12-06T04:01:03.632Z",
-      email: "oranaiche@aol.com",
+      email: "email@email.com",
       email_verified: true,
       sub: "google-oauth2|117267836135427028977",
       __v: 0

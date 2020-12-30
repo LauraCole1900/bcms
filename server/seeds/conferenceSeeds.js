@@ -10,7 +10,7 @@ mongoose.connect(
 
 const conferenceSeed = [
   {
-    creatorEmail: "oranaiche@aol.com",
+    creatorEmail: "email@email.com",
     confName: "Seeder Conference",
     confOrg: "Fake Org",
     confDesc: "This is a seeder conference to test routes. It is not real.",
