@@ -26,7 +26,7 @@ app.get("*", (req, res) => {
 
 // Connect to MongoDB
 mongoose.connect(
-    process.env.MONGODB_URI || "mongodb://localhost/conference",
+    process.env.MONGODB_URI || "mongodb://localhost/bcms",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

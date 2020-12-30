@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Form } from "react-bootstrap";
 import Conference from "../conferenceCard";
-import API from "../../utils/api";
+import { ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const AllConfs = () => {
@@ -13,7 +13,7 @@ const AllConfs = () => {
   const [pageReady, setPageReady] = useState(false);
 
   useEffect(() => {
-    API.getConferences().then(resp => {
+    ConferenceAPI.getConferences().then(resp => {
       const confArr = resp.data;
       const filteredConf = confArr.filter(a => new Date(a.startDate) - new Date() > 0);
       const sortedConf = filteredConf.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);

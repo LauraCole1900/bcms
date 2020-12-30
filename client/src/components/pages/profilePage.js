@@ -4,8 +4,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, Card, Image, ButtonGroup, ToggleButton } from "react-bootstrap";
 import Conference from "../conferenceCard";
 import UserCard from "../userCard";
-import ConferenceAPI from "../../utils/api/conferenceApi.js"
-import UserAPI from "../../utils/api/userApi.js";
+// import ConferenceAPI from "../../utils/api/conferenceApi.js"
+import { ConferenceAPI, UserAPI } from "../../utils/api";
 import "./style.css";
 
 const Profile = () => {
