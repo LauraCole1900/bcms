@@ -52,7 +52,7 @@ function App() {
               <Route path="/deleted" component={DeleteSuccess} />
               <Route path="/conference_updated" component={ConfUpdated} />
               <Route path="/session_updated" component={SessionUpdated} /> */}
-        <Route path={["/", "/conferences"]} component={AllConfs} />
+        <Route exact path={["/", "/conferences"]} component={AllConfs} />
       </main>
     </Router>
   );
