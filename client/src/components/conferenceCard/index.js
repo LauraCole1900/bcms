@@ -3,9 +3,10 @@ import { Link, useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 // import Moment from "react-moment";
-import { ConferenceAPI}  from "../../utils/api";
+import { ConferenceAPI } from "../../utils/api";
+import "./style.css";
 
-function Conference(conference) {
+function Conference({ conference }) {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
 
@@ -69,7 +70,8 @@ function Conference(conference) {
               </Col>
             </Row>
             <Row>
-              {user.email === e.creatorEmail &&
+              {isAuthenticated &&
+                user.email === e.creatorEmail &&
                 <div>
                   <Col sm={4}>
                     <Link to={{
@@ -88,8 +90,8 @@ function Conference(conference) {
                     </Link>
                   </Col>
                 </div>}
-              {user.email !== e.creatorEmail &&
-                isAuthenticated &&
+              {isAuthenticated &&
+                user.email !== e.creatorEmail &&
                 user.find(user => user.email !== e.confAttendees) &&
                 <div>
                   <Col sm={4}></Col>

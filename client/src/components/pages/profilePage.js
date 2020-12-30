@@ -43,7 +43,6 @@ const Profile = () => {
         )
       }
     })
-    setPageReady(true);
 
     ConferenceAPI.getConferencesByEmail(user.email).then(resp => {
       const createArr = resp.data
@@ -86,6 +85,7 @@ const Profile = () => {
         )
       }
     })
+    setPageReady(true);
   }, [])
 
   return (
