@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ConferenceAPI}  from "../../utils/api";
+import { ConferenceAPI } from "../../utils/api";
 
 const ConferenceForm = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -10,15 +10,15 @@ const ConferenceForm = () => {
   const [pageReady, setPageReady] = useState(false);
   const [conference, setConference] = useState({
     creatorEmail: "",
-    confName: "Enter conference name",
-    confOrg: "Enter name of organizing body",
-    confDesc: "Enter conference description",
-    startDate: "2021-01-01",
-    endDate: "2021-01-01",
-    confStartTime: "09:00",
-    confEndTime: "17:00",
-    confType: "live",
-    confLoc: "Enter address or URL",
+    confName: "",
+    confOrg: "",
+    confDesc: "",
+    startDate: "",
+    endDate: "",
+    confStartTime: "",
+    confEndTime: "",
+    confType: "",
+    confLoc: "",
     confCapConfirm: false,
     confAttendCount: 0,
     confWaiver: false,
@@ -119,48 +119,50 @@ const ConferenceForm = () => {
                 <Form.Group controlId="formConfType">
                   <Form.Label>Live or Virtual? *</Form.Label>
                   <Form.Check type="radio" id="confLive" name="confType" label="Live" value="live" checked={conference.confType === "live"} onChange={handleInputChange} />
-                  <Form.Check type="radio" id="confVirtual" name="confType" label="virtual" value="virtual" checked={conference.confType === "virtual"} onChange={handleInputChange} />
+                  <Form.Check type="radio" id="confVirtual" name="confType" label="Virtual" value="virtual" checked={conference.confType === "virtual"} onChange={handleInputChange} />
                 </Form.Group>
               </Row>
 
               <Row>
                 <Form.Group controlId="formConfLoc">
-                  <Form.Label>Conference Location *</Form.Label>
                   {(conference.confType === "live")
-                    ? <Form.Control required type="input" name="confLoc" placeholder="Enter street address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
-                    : <Form.Control required type="input" name="confLoc" placeholder="Enter URL" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />}
+                    ? <div>
+                      <Form.Label>Conference Location *</Form.Label>
+                      <Form.Control required type="input" name="confLoc" placeholder="Enter street address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
+                    </div>
+                    : <div>
+                      <Form.Label>Conference URL *</Form.Label>
+                      <Form.Control required type="input" name="confLoc" placeholder="Enter URL or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
+                    </div>}
                 </Form.Group>
               </Row>
 
               {(conference.confType === "live") &&
                 <Row>
                   <Form.Group controlId="formConfLocUrl">
-                    <Form.Label>Venue website URL</Form.Label>
+                    <Form.Label>Venue Website</Form.Label>
                     <Form.Control type="input" name="confLocUrl" placeholder="Enter URL of venue's website" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
                   </Form.Group>
                 </Row>
               }
 
               <Row>
-                <Col>
+                <Col sm={6}>
                   <Form.Group controlId="formConfCapConfirm">
                     <Form.Label>Will there be a cap on the number of attendees? *</Form.Label>
-                    <Form.Control required as="select" name="confCapConfirm" onChange={handleInputChange}>
-                      <option value={false} checked={conference.confCapConfirm === false}>No</option>
-                      <option value={true} checked={conference.confCapConfirm === true}>Yes</option>
-                    </Form.Control>
+                    <Form.Check type="radio" id="confCapYes" name="confCapConfirm" label="Yes" value="yes" checked={conference.confCapConfirm === "yes"} onChange={handleInputChange} />
+                    <Form.Check type="radio" id="confCapNo" name="confCapConfirm" label="No" value="no" checked={conference.confType === "no"} onChange={handleInputChange} />
                   </Form.Group>
                 </Col>
 
-                {(conference.confCapConfirm === true)
-                  ? <Col>
+                {(conference.confCapConfirm === "yes") &&
+                  <Col sm={6}>
                     <Form.Group controlId="formConfAttendCap">
-                      <Form.Label>What is the maximum number of attendees?</Form.Label>
-                      <Form.Text className="capSubtitle" muted>Please enter only numbers with no commas.</Form.Text>
+                      <Form.Label>Maximum number of attendees:</Form.Label><br />
+                      <Form.Text className="capSubtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
                       <Form.Control type="input" name="confAttendCap" placeholder="50" onChange={handleInputChange}></Form.Control>
                     </Form.Group>
-                  </Col>
-                  : <Col></Col>}
+                  </Col>}
               </Row>
 
               <Row>
