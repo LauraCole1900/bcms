@@ -34,12 +34,11 @@ const ConferenceForm = () => {
         console.log("from conferenceForm getConfById", resp.data);
         const confArr = resp.data;
         setConference(confArr[0]);
-        setPageReady(true);
       })
     } else {
       setConference({ ...conference, creatorEmail: user.email, confAttendees: [user.email] })
-      setPageReady(true);
     }
+    setPageReady(true);
   }, []);
 
   const handleInputChange = (e) => {
@@ -118,8 +117,8 @@ const ConferenceForm = () => {
               <Row>
                 <Form.Group controlId="formConfType">
                   <Form.Label>Live or Virtual? *</Form.Label>
-                  <Form.Check type="radio" id="confLive" name="confType" label="Live" value="live" checked={conference.confType === "live"} onChange={handleInputChange} />
-                  <Form.Check type="radio" id="confVirtual" name="confType" label="Virtual" value="virtual" checked={conference.confType === "virtual"} onChange={handleInputChange} />
+                  <Form.Check type="radio" id="confLive" name="confType" label="Live" value="Live" checked={conference.confType === "live"} onChange={handleInputChange} />
+                  <Form.Check type="radio" id="confVirtual" name="confType" label="Virtual" value="Virtual" checked={conference.confType === "virtual"} onChange={handleInputChange} />
                 </Form.Group>
               </Row>
 

@@ -57,9 +57,9 @@ module.exports = {
 
   // GET conference by confId
   findById: function (req, res) {
-    console.log("from confCont findById", req.params.confId)
+    console.log("from confCont findById", req.params.id)
     db.Conference
-      .find(ObjectId(req.params.confId))
+      .find(ObjectId(req.params.id))
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -67,18 +67,18 @@ module.exports = {
 
   // PUT existing conference
   updateConference: function (req, res) {
-    console.log("from confCont updateConference", req.params.confId)
+    console.log("from confCont updateConference", req.params.id)
     db.Conference
-      .findOneAndUpdate({ _id: req.params.confId }, req.body)
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
 
   // PUT attendees
   updateRegistered: function (req, res) {
-    console.log("from confCont updateRegistered", req.params.confId, req.body.email)
+    console.log("from confCont updateRegistered", req.params.id, req.body.email)
     db.Conference
-      .updateOne({ _id: req.params.confId }, req.body)
+      .updateOne({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -86,9 +86,9 @@ module.exports = {
 
   // DELETE conference
   removeConference: function (req, res) {
-    console.log("from confCont removeConference", req.params.confId)
+    console.log("from confCont removeConference", req.params.id)
     db.Conference
-      .findById({ _id: ObjectId(req.params.confId) })
+      .findById({ _id: ObjectId(req.params.id) })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))

@@ -9,7 +9,7 @@ router.route("/post")
 router.route("/")
   .get(conferenceController.findAll);
 
-router.route("/:email")
+router.route("/email/:email")
   .get(conferenceController.findByEmail);
 
 router.route("/attending/:email")
@@ -21,18 +21,18 @@ router.route("/presenting/:email")
 router.route("/exhibiting/:email")
   .get(conferenceController.findConfExhibiting);
 
-router.route("/:confid")
+router.route("/:id")
   .get(conferenceController.findById);
 
 
-router.route("/:confid")
+router.route("/update/:id")
   .put(conferenceController.updateConference);
 
 router.route("/:email/:id")
   .put(conferenceController.updateRegistered);
 
 
-router.route("/:confid")
+router.route("/delete/:id")
   .delete(conferenceController.removeConference);
 
   
