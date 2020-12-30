@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
-import UserAPI from "../../utils/api/userApi.js";
+import { UserAPI } from "../../utils/api";
 
 const UserCard = () => {
   const { user, isAuthenticated } = useAuth0();
