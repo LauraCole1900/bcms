@@ -45,6 +45,7 @@ const AllConfs = () => {
                   <Form.Group controlId="confSearchBy">
                     <Form.Label>Search by:</Form.Label>
                     <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
+                      <option value="all">All Conferences</option>
                       <option value="name">Conference Name</option>
                       <option value="org">Organization</option>
                     </Form.Control>
@@ -60,9 +61,12 @@ const AllConfs = () => {
           </Card.Body>
 
           <Row>
-            {(searchBy === "name")
-              ? <Conference conference={searchName(confArray)} />
-              : <Conference conference={searchOrg(confArray)} />}
+            {(searchBy === "all") &&
+              <Conference conference={confArray} />}
+            {(searchBy === "name") &&
+              <Conference conference={searchName(confArray)} />}
+            {(searchBy === "org") &&
+              <Conference conference={searchOrg(confArray)} />}
           </Row>
         </div>
       )};
