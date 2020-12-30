@@ -122,7 +122,7 @@ const Profile = () => {
               </Col>
               <Col sm={4}></Col>
               <Col sm={2}>
-                <Link to="/new_conference" className={location.pathname === "/create_conference" ? "link active" : "link"}>
+                <Link to="/new_conference" className={location.pathname === "/new_conference" ? "link active" : "link"}>
                   <Button data-toggle="popover" title="Create a new conference">New Conference</Button>
                 </Link>
               </Col>

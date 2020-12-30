@@ -13,8 +13,8 @@ const ConferenceForm = () => {
     confName: "Enter conference name",
     confOrg: "Enter name of organizing body",
     confDesc: "Enter conference description",
-    startDate: "2021/01/01",
-    endDate: "2021/01/01",
+    startDate: "2021-01-01",
+    endDate: "2021-01-01",
     confStartTime: "09:00",
     confEndTime: "17:00",
     confType: "live",
@@ -22,36 +22,23 @@ const ConferenceForm = () => {
     confCapConfirm: false,
     confAttendCount: 0,
     confWaiver: false,
-    confAttendees: [],
   });
 
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
-
-  // let [formObject, setFormObject] = useState({
-  //   creatorEmail: "",
-  //   confName: "Enter conference name",
-  //   confOrg: "Enter name of organizing body",
-  //   confDesc: "Enter conference description",
-  //   startDate: "2021/01/01",
-  //   endDate: "2021/01/01",
-  //   confType: "live",
-  //   confLoc: "Enter address or URL",
-  //   confCapConfirm: false,
-  //   confAttendCount: 0,
-  //   confAttendees: [],
-  // })
+  console.log(confId);
 
   useEffect(() => {
     if (confId !== "new_conference") {
       ConferenceAPI.getConferenceById(confId).then(resp => {
-        console.log("confById", resp.data);
+        console.log("from conferenceForm getConfById", resp.data);
         const confArr = resp.data;
         setConference(confArr[0]);
         setPageReady(true);
       })
     } else {
       setConference({ ...conference, creatorEmail: user.email, confAttendees: [user.email] })
+      setPageReady(true);
     }
   }, []);
 
