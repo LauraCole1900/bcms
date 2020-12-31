@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const conferenceController = require("../../controllers/conferenceController.js")
+const conferenceController = require("../controllers/conferenceController.js")
 
 // stem "/api/conference"
 router.route("/post")

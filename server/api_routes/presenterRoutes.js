@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const presenterController = require("../../controllers/presenterController.js");
+const presenterController = require("../controllers/presenterController.js");
 
-// stem "/api/presenters"
+// stem "/api/presenter"
 router.route("/post")
   .post(presenterController.create);
 

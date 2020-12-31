@@ -1,19 +1,19 @@
 const path = require("path");
 const router = require("express").Router();
-const apiAttendee = require("./attendee");
-const apiConference = require("./conference");
-const apiExhibitor = require("./exhibitor");
-const apiPresenter = require("./presenter");
-const apiSession = require("./session")
-const apiUser = require("./user");
+const apiAttendee = require("./attendeeRoutes");
+const apiConference = require("./conferenceRoutes");
+const apiExhibitor = require("./exhibitorRoutes");
+const apiPresenter = require("./presenterRoutes");
+const apiSession = require("./sessionRoutes")
+const apiUser = require("./userRoutes");
 
 // API Routes
-router.use("/api", apiAttendee);
-router.use("/api", apiConference);
-router.use("/api", apiExhibitor);
-router.use("/api", apiPresenter);
-router.use("/api", apiSession);
-router.use("/api", apiUser);
+router.use("/api/attendee", apiAttendee);
+router.use("/api/conference", apiConference);
+router.use("/api/exhibitor", apiExhibitor);
+router.use("/api/presenter", apiPresenter);
+router.use("/api/session", apiSession);
+router.use("/api/user", apiUser);
 
 // If no API routes are hit, send the React app
 router.use(function(req, res) {

@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const exhibitorController = require("../../controllers/exhibitorController.js");
+const exhibitorController = require("../controllers/exhibitorController.js");
 
-// stem "/api/exhibitors"
+// stem "/api/exhibitor"
 router.route("/post")
   .post(exhibitorController.create);
 

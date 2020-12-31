@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const sessionController = require("../../controllers/sessionController.js");
+const sessionController = require("../controllers/sessionController.js");
 
 // stem "/api/session"
 router.route("/post")
