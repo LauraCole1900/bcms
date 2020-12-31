@@ -34,9 +34,10 @@ const Navigation = () => {
         <Nav className="navobj">
           <Navbar.Toggle fluid aria-controls="basic-navbar-nav" className="toggle" />
           <Navbar.Collapse id="basic-navbar-nav" className="navobject">
+            {isAuthenticated &&
             <Link to="/profile" className={location.pathname === "/profile" ? "navlink placelink active" : "navlink placelink"}>
               Profile
-              </Link>
+              </Link>}
             <Link to="/conferences" className={location.pathname === "/conferences" ? "navlink placelink active" : "navlink placelink"}>
               Conferences
               </Link>
