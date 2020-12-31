@@ -36,13 +36,13 @@ const ConferenceForm = () => {
         setConference(confArr[0]);
       })
     } else {
-      setConference({ ...conference, creatorEmail: user.email, confAttendees: [user.email] })
+      setConference({ ...conference, creatorEmail: user.email })
     }
     setPageReady(true);
   }, []);
 
   const handleInputChange = (e) => {
-    setConference({ ...conference, [e.target.name]: e.target.value, confAttendees: [] })
+    setConference({ ...conference, [e.target.name]: e.target.value })
   };
 
   const handleFormUpdate = (e) => {
