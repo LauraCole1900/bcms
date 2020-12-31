@@ -56,12 +56,14 @@ function Conference({ conference }) {
                   {(e.confType === "Live") &&
                     <p><a href={`https://www.google.com/maps/search/${e.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
                   {(e.confType === "Virtual") &&
-                    (e.confLocUrl !== "")
-                    ? <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">{e.confLocName}</a></p>
-                    : <p>{e.confLoc}</p>}
+                    (e.confLocUrl !== undefined) &&
+                    <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
+                  {(e.confType === "Virtual") &&
+                    (e.confLocUrl === undefined) &&
+                    <p>{e.confLoc}</p>}
                 </Row>
                 {(e.confType === "Live") &&
-                  (e.confLocUrl !== "") &&
+                  (e.confLocUrl !== undefined) &&
                   <Row>
                     <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">Venue's website</a></p>
                   </Row>}
@@ -108,7 +110,8 @@ function Conference({ conference }) {
             </Row>
           </Card.Body>
         </Card>
-      ))}
+      ))
+      }
     </>
   )
 
