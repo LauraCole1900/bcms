@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AttendeeAPI } from "../../utils/api";
+import "./style.css";
 
 const Registration = () => {
   const { user, isAuthenticated } = useAuth0();

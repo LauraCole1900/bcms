@@ -16,6 +16,7 @@ import ConferenceForm from "./components/forms/conferenceForm";
 // import ExhibitForm from "./components/forms/exhibitForm";
 import Registration from "./components/forms/registrationForm";
 import Success from "./components/pages/success";
+import UpdateUser from "./components/forms/userInfo";
 import "./App.css";
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/deleted" component={Success} />
         <Route path="/conference_updated" component={Success} />
         <Route path="/session_updated" component={Success} />
+        <Route path="/update_user/*" component={UpdateUser}/>
         <Route exact path={["/", "/conferences"]} component={AllConfs} />
       </main>
     </Router>
