@@ -12,16 +12,13 @@ const userSchema = new Schema({
     required: true
   },
   family_name: {
-    type: String,
-    required: true
+    type: String
   },
   given_name: {
-    type: String,
-    required: true
+    type: String
   },
   locale: {
-    type: String,
-    required: true
+    type: String
   },
   name: {
     type: String,

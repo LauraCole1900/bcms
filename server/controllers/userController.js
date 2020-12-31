@@ -3,9 +3,9 @@ const db = require("../models")
 module.exports = {
   // POST new user to database
   create: function (req, res) {
-    console.log("from userController create", req.params.email)
+    console.log("from userController create", req.body.email)
     db.User
-    .findOne({ email: req.params.email }, function (err, user) {
+    .findOne({ email: req.body.email }, function (err, user) {
       if (err) {
         let err = new Error("We're sorry, it looks like gremlins have gotten into our database. Please try again.")
         err.status = 400;
