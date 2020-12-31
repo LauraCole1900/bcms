@@ -117,27 +117,27 @@ const ConferenceForm = () => {
               <Row>
                 <Form.Group controlId="formConfType">
                   <Form.Label>Live or Virtual? *</Form.Label>
-                  <Form.Check type="radio" id="confLive" name="confType" label="Live" value="Live" checked={conference.confType === "live"} onChange={handleInputChange} />
-                  <Form.Check type="radio" id="confVirtual" name="confType" label="Virtual" value="Virtual" checked={conference.confType === "virtual"} onChange={handleInputChange} />
+                  <Form.Check type="radio" id="confLive" name="confType" label="Live" value="Live" checked={conference.confType === "Live"} onChange={handleInputChange} />
+                  <Form.Check type="radio" id="confVirtual" name="confType" label="Virtual" value="Virtual" checked={conference.confType === "Virtual"} onChange={handleInputChange} />
                 </Form.Group>
               </Row>
 
               <Row>
                 <Form.Group controlId="formConfLoc">
-                  {(conference.confType === "live")
+                  {(conference.confType === "Live")
                     ? <div>
-                      <Form.Label>Conference Location: *</Form.Label>
-                      <Form.Control required type="input" name="confLoc" placeholder="Enter street address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
+                      <Form.Label>Venue: *</Form.Label>
+                      <Form.Control required type="input" name="confLocName" placeholder="Enter venue name" value={conference.confLocName} className="confLoc" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="confLoc" placeholder="Enter venue address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                     </div>
                     : <div>
-                      <Form.Label>Link text: *</Form.Label>
-                      <Form.Text className="subtitle" muted>This will be the text of your link.</Form.Text>
+                      <Form.Label>Message or link text: *</Form.Label>
                       <Form.Control required type="input" name="confLoc" placeholder="Enter link text or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                     </div>}
                 </Form.Group>
               </Row>
 
-              {(conference.confType === "live")
+              {(conference.confType === "Live")
                 ? <Row>
                   <Form.Group controlId="formConfLocUrl">
                     <Form.Label>Venue Website:</Form.Label>

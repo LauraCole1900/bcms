@@ -42,6 +42,9 @@ const conferenceSchema = new Schema({
     type: String,
     required: true
   },
+  confLocName: {
+    type: String
+  },
   confLocUrl: {
     type: String
   },

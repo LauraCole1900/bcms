@@ -17,7 +17,7 @@ const AllConfs = () => {
     ConferenceAPI.getConferences().then(resp => {
       const confArr = resp.data;
       const filteredConf = confArr.filter(a => new Date(a.startDate) - new Date() > 0);
-      const sortedConf = filteredConf.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
+      const sortedConf = confArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
       console.log("confArr", confArr);
       console.log("filteredConf", filteredConf);
       console.log("sortedConf", sortedConf);
