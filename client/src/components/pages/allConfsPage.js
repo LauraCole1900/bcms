@@ -31,9 +31,9 @@ const AllConfs = () => {
     if (searchBy === "all") {
       return (confArray)
     } else if (searchBy === "name") {
-      return data.filter((conference) => conference.confName.toLowerCase().indexOf(search) !== -1)
+      return data.filter((conference) => conference.confName.indexOf(search) !== -1)
     } else if (searchBy === "org") {
-      return data.filter((conference) => conference.confOrg.toLowerCase().indexOf(search) !== -1)
+      return data.filter((conference) => conference.confOrg.indexOf(search) !== -1)
     }
   }
 
