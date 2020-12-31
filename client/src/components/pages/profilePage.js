@@ -31,60 +31,31 @@ const Profile = () => {
   useEffect(() => {
     saveUserToDB();
     ConferenceAPI.getConferencesAttending(user.email).then(resp => {
+      console.log("getConfAttending", resp.data)
       const attArr = resp.data
       const sortedAtt = attArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-      if (sortedAtt.length > 0) {
-        return (
-          setAttendConf(sortedAtt)
-        )
-      } else {
-        return (
-          <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>
-        )
-      }
+      setAttendConf(sortedAtt)
     })
 
     ConferenceAPI.getConferencesCreated(user.email).then(resp => {
       console.log("getConfCreated", resp.data)
       const createArr = resp.data
       const sortedCreate = createArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-      if (sortedCreate.length > 0) {
-        return (
-          setCreateConf(sortedCreate)
-        )
-      } else {
-        return (
-          <h3>We're sorry, you don't seem to have created any conferences at this time.</h3>
-        )
-      }
+      setCreateConf(sortedCreate)
     })
 
     ConferenceAPI.getConferencesPresenting(user.email).then(resp => {
+      console.log("getConfPresenting", resp.data)
       const presentArr = resp.data
       const sortedPresent = presentArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-      if (sortedPresent.length > 0) {
-        return (
-          setPresentConf(sortedPresent)
-        )
-      } else {
-        return (
-          <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>
-        )
-      }
+      setPresentConf(sortedPresent)
     })
 
     ConferenceAPI.getConferencesExhibiting(user.email).then(resp => {
+      console.log("getConfExhibiting", resp.data)
       const exhibitArr = resp.data
       const sortedExhibit = exhibitArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-      if (sortedExhibit.length > 0) {
-        return (
-          setExhibitConf(sortedExhibit)
-        )
-      } else {
-        return (
-          <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>
-        )
-      }
+      setExhibitConf(sortedExhibit)
     })
     setPageReady(true);
   }, [])
@@ -132,16 +103,36 @@ const Profile = () => {
               </Col>
             </Row>
             {whichConf === "attend" &&
+              attendConf.length > 0 &&
               <Conference conference={attendConf} />
             }
+            {whichConf === "attend" &&
+              attendConf.length === 0 &&
+              <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>
+            }
             {whichConf === "create" &&
+              createConf.length > 0 &&
               <Conference conference={createConf} />
             }
+            {whichConf === "create" &&
+              createConf.length === 0 &&
+              <h3>We're sorry, you don't seem to created any conferences at this time.</h3>
+            }
             {whichConf === "exhibit" &&
+              exhibitConf.length > 0 &&
               <Conference conference={exhibitConf} />
             }
+            {whichConf === "exhibit" &&
+              exhibitConf.length === 0 &&
+              <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>
+            }
             {whichConf === "present" &&
+              presentConf.length > 0 &&
               <Conference conference={presentConf} />
+            }
+            {whichConf === "present" &&
+              presentConf.length === 0 &&
+              <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>
             }
           </Container >
         )
