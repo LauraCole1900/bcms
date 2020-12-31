@@ -26,12 +26,14 @@ const AllConfs = () => {
     })
   }, [])
 
-  const searchName = (data) => {
-    return data.filter((conference) => conference.confName.toLowerCase().indexOf(search) !== -1)
-  }
-
-  const searchOrg = (data) => {
-    return data.filter((conference) => conference.confOrg.toLowerCase().indexOf(search) !== -1)
+  const searchFilter = (data) => {
+    if (searchBy === "") {
+      return (confArray)
+    } else if (searchBy === "name") {
+      return data.filter((conference) => conference.confName.toLowerCase().indexOf(search) !== -1)
+    } else if (searchBy === "org") {
+      return data.filter((conference) => conference.confOrg.toLowerCase().indexOf(search) !== -1)
+    }
   }
 
 
@@ -66,12 +68,7 @@ const AllConfs = () => {
             </Row>
 
             <Row>
-              {/* {(searchBy === "all") &&
-                <Conference conference={confArray} />} */}
-              {(searchBy === "name") &&
-                <Conference conference={searchName(confArray)} />}
-              {(searchBy === "org") &&
-                <Conference conference={searchOrg(confArray)} />}
+              <Conference conference={searchFilter(confArray)} />
             </Row>
           </Container>
         </div>

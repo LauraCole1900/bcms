@@ -18,6 +18,15 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.statue(422).json(err))
   },
+  
+    // GET conference by confId
+    findById: function (req, res) {
+      console.log("from confCont findById", req.params.id)
+      db.Conference
+        .find(ObjectId(req.params.id))
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err))
+    },
 
   // GET conferences associated with user's email
   findByEmail: function (req, res) {
@@ -53,15 +62,6 @@ module.exports = {
     .find({ confExhibitors: req.params.email })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err))
-  },
-
-  // GET conference by confId
-  findById: function (req, res) {
-    console.log("from confCont findById", req.params.id)
-    db.Conference
-      .find(ObjectId(req.params.id))
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
   },
 
 
