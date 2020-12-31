@@ -40,6 +40,8 @@ const Success = () => {
               <h4>You have updated your conference.</h4>}
             {(urlId === "session_updated") &&
               <h4>You have updated your session.</h4>}
+            {(urlId === "user_updated") &&
+              <h4>You have updated your information.</h4>}
             {(urlId === "deleted") &&
               <h4>Deleted!</h4>}
           </Col>
