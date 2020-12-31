@@ -104,23 +104,26 @@ const Profile = () => {
               </div>
             </Row>
             <Row>
-              <Col sm={6}>
+              <Col sm={8}>
                 <ButtonGroup toggle defaultValue={1}>
-                  <ToggleButton type="radio" name="whichConf" value={1} checked={whichConf === 1} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value={1} checked={whichConf === 1} onChange={handleInputChange}>
                     Attending
-              </ToggleButton>
-                  <ToggleButton type="radio" name="whichConf" value={2} checked={whichConf === 2} onChange={handleInputChange}>
+                  </ToggleButton>
+                  <ToggleButton type="radio" id="createdConf" name="whichConf" value={2} checked={whichConf === 2} onChange={handleInputChange}>
                     Created
-              </ToggleButton>
-                  <ToggleButton type="radio" name="whichConf" value={3} checked={whichConf === 3} onChange={handleInputChange}>
+                  </ToggleButton>
+                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value={3} checked={whichConf === 3} onChange={handleInputChange}>
                     Exhibiting
-              </ToggleButton>
-                  <ToggleButton type="radio" name="whichConf" value={4} checked={whichConf === 4} onChange={handleInputChange}>
+                  </ToggleButton>
+                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value={4} checked={whichConf === 4} onChange={handleInputChange}>
                     Presenting
-              </ToggleButton>
+                  </ToggleButton>
+                  <ToggleButton type="radio" id="pastConf" name="whichConf" value={5} checked={whichConf === 5} onChange={handleInputChange}>
+                    Past conferences
+                  </ToggleButton>
                 </ButtonGroup>
               </Col>
-              <Col sm={4}></Col>
+              <Col sm={2}></Col>
               <Col sm={2}>
                 <Link to="/new_conference" className={location.pathname === "/new_conference" ? "link active" : "link"}>
                   <Button data-toggle="popover" title="Create a new conference">New Conference</Button>
