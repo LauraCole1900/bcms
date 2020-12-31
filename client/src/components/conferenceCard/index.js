@@ -53,11 +53,15 @@ function Conference({ conference }) {
                 <Row><p>Times: {e.confStartTime} - {e.confEndTime}</p></Row>
                 <Row><p>{e.confType}</p></Row>
                 <Row>
-                  {(e.confType === "live")
-                    ? <p><a href={`https://www.google.com/maps/search/${e.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>
-                    : <p><a href={e.confLoc} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
+                  {(e.confType === "live") &&
+                    <p><a href={`https://www.google.com/maps/search/${e.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
+                  {(e.confType === "virtual") &&
+                  (e.confLocUrl !== "")
+                    ? <p><a href={e.confLoc} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>
+                    : <p>{e.confLoc}</p>}
                 </Row>
                 {(e.confType === "live") &&
+                  (e.confLocUrl !== "") &&
                   <Row>
                     <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">Venue's website</a></p>
                   </Row>}
