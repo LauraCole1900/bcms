@@ -56,7 +56,7 @@ function Conference({ conference }) {
                   {(e.confType === "live") &&
                     <p><a href={`https://www.google.com/maps/search/${e.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
                   {(e.confType === "virtual") &&
-                  (e.confLocUrl !== "")
+                    (e.confLocUrl !== "")
                     ? <p><a href={e.confLoc} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>
                     : <p>{e.confLoc}</p>}
                 </Row>
