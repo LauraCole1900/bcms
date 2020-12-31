@@ -34,9 +34,11 @@ function Conference({ conference }) {
                 <h2>{e.confName}</h2>
               </Col>
               <Col sm={2}>
-                <Button data-toggle="popover" title="Delete this conference" onClick={() => handleDelete(e._id)}>
-                  <Image fluid src="images/trash-can.png" className="delete" alt="Delete" />
-                </Button>
+                {isAuthenticated &&
+                  (user.email === e.creatorEmail) &&
+                  <Button data-toggle="popover" title="Delete this conference" onClick={() => handleDelete(e._id)}>
+                    <Image fluid src="images/trash-can.png" className="delete" alt="Delete" />
+                  </Button>}
               </Col>
             </Row>
           </Card.Header>
