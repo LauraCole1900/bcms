@@ -27,7 +27,7 @@ function Conference({ conference }) {
   return (
     <>
       {conference.map(e => (
-        <Card className="confCard">
+        <Card className="confCard" key={e._id}>
           <Card.Header className="confTitle">
             <Row>
               <Col sm={10}>
