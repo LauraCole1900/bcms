@@ -14,7 +14,7 @@ import ConferenceForm from "./components/forms/conferenceForm";
 // import SessionForm from "./components/forms/sessionForm";
 // import SessionProposal from "./components/forms/sessionProposal";
 // import ExhibitForm from "./components/forms/exhibitForm";
-// import Registration from "./components/forms/registrationForm";
+import Registration from "./components/forms/registrationForm";
 import Success from "./components/pages/success";
 import "./App.css";
 
@@ -41,8 +41,8 @@ function App() {
         <Route path="/edit_conference/*" component={ConferenceForm} />
         {/*   <Route path="/add_session/*" component={SessionForm} />
               <Route path="/propose_session/*" component={SessionProposal} />
-              <Route path="/register_exhibit/*" component={ExhibitForm} />
-              <Route path="/register_attend/*" component={Registration} /> */}
+              <Route path="/register_exhibit/*" component={ExhibitForm} /> */}
+        <Route path="/register_attend/*" component={Registration} />
         <Route path="/conference_created" component={Success} />
         <Route path="/session_added" component={Success} />
         <Route path="/deleted" component={Success} />
