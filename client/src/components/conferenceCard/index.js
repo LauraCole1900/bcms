@@ -37,7 +37,7 @@ function Conference({ conference }) {
               <Col sm={1}>
                 {isAuthenticated &&
                   (user.email === e.creatorEmail) &&
-                  <Button data-toggle="popover" title="Delete this conference" className="deletebtn" onClick={() => handleDelete(e._id)}>
+                  <Button data-toggle="popover" title="Delete this conference" className="btn deletebtn" onClick={() => handleDelete(e._id)}>
                     <Image fluid src="images/trash-can.png" className="delete" alt="Delete" />
                   </Button>}
               </Col>
@@ -70,7 +70,7 @@ function Conference({ conference }) {
                     state: { confInfo: conference },
                     pathname: `/conferences/${e._id}`
                   }}>
-                    <Button data-toggle="popover" title="Details">View details</Button>
+                    <Button data-toggle="popover" title="Details" className="btn">View details</Button>
                   </Link>
                 </Row>
               </Col>
@@ -84,7 +84,7 @@ function Conference({ conference }) {
                       state: { confInfo: conference },
                       pathname: `/edit_conference/${e._id}`
                     }}>
-                      <Button data-toggle="popover" title="Edit this conference">Edit</Button>
+                      <Button data-toggle="popover" title="Edit this conference" className="btn">Edit</Button>
                     </Link>
                   </Col>
                   <Col sm={4}>
@@ -92,7 +92,7 @@ function Conference({ conference }) {
                       state: { confInfo: conference },
                       pathname: `/add_session/${e._id}`
                     }}>
-                      <Button data-toggle="popover" title="Add Session">Add Session</Button>
+                      <Button data-toggle="popover" title="Add Session" className="btn">Add Session</Button>
                     </Link>
                   </Col>
                 </div>}
@@ -102,7 +102,7 @@ function Conference({ conference }) {
                 <div>
                   <Col sm={4}></Col>
                   <Col sm={4}>
-                    <Button data-toggle="popover" title="Register" onClick={handleRegister}>Register</Button>
+                    <Button data-toggle="popover" title="Register" className="btn" onClick={handleRegister}>Register</Button>
                   </Col>
                 </div>}
             </Row>
