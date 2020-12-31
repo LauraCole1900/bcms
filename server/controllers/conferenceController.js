@@ -25,16 +25,16 @@ module.exports = {
       db.Conference
         .find(ObjectId(req.params.id))
         .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err))
+        .catch(err => res.status(422).json(err));
     },
 
   // GET conferences associated with user's email
   findByEmail: function (req, res) {
     console.log("from confCont findByEmail", req.params.email)
     db.Conference
-      .find({ email: req.params.email })
+      .find({ creatorEmail: req.params.email })
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
+      .catch(err => res.status(422).json(err));
   },
 
   // GET conferences user is attending
@@ -43,7 +43,7 @@ module.exports = {
     db.Conference
       .find({ confAttendees: req.params.email })
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
+      .catch(err => res.status(422).json(err));
   },
 
   // GET conferences at which user is presenting
@@ -52,7 +52,7 @@ module.exports = {
     db.Conference
       .find({ confPresenters: req.params.email })
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
+      .catch(err => res.status(422).json(err));
   },
 
   // GET conferences at which user is exhibiting
@@ -61,7 +61,7 @@ module.exports = {
     db.Conference
     .find({ confExhibitors: req.params.email })
     .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err))
+    .catch(err => res.status(422).json(err));
   },
 
 
@@ -71,7 +71,7 @@ module.exports = {
     db.Conference
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
+      .catch(err => res.status(422).json(err));
   },
 
   // PUT attendees
@@ -80,7 +80,7 @@ module.exports = {
     db.Conference
       .updateOne({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
+      .catch(err => res.status(422).json(err));
   },
 
 
@@ -91,6 +91,6 @@ module.exports = {
       .findById({ _id: ObjectId(req.params.id) })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
+      .catch(err => res.status(422).json(err));
   }
 };

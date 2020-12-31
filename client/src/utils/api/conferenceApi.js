@@ -14,9 +14,9 @@ const ConferenceAPI = {
     return axios.get("/api/conference")
   },
 
-  // GET conferences by user email
-  getConferencesByEmail: function (email) {
-    console.log("from API getConferencesByEmail", email)
+  // GET conferences user has created
+  getConferencesCreated: function (email) {
+    console.log("from API getConferencesCreated", email)
     return axios.get(`/api/conference/email/${email}`)
   },
 

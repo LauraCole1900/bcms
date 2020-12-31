@@ -19,7 +19,7 @@ const Profile = () => {
 
   const handleInputChange = (e) => {
     const whichConf = e.target.value
-    console.log(whichConf)
+    console.log("inputChange whichConf", whichConf)
     setWhichConf(whichConf)
   }
 
@@ -44,7 +44,8 @@ const Profile = () => {
       }
     })
 
-    ConferenceAPI.getConferencesByEmail(user.email).then(resp => {
+    ConferenceAPI.getConferencesCreated(user.email).then(resp => {
+      console.log("getConfCreated", resp.data)
       const createArr = resp.data
       const sortedCreate = createArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
       if (sortedCreate.length > 0) {
