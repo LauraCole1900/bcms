@@ -30,22 +30,22 @@ function Conference({ conference }) {
         <Card className="confCard" key={e._id}>
           <Card.Header className="confTitle">
             <Row>
-              <Col sm={10}>
+              <Col sm={11}>
                 <h2>{e.confName}</h2>
+                <p className="org">Presented by {e.confOrg}</p>
               </Col>
-              <Col sm={2}>
+              <Col sm={1}>
                 {isAuthenticated &&
                   (user.email === e.creatorEmail) &&
-                  <Button data-toggle="popover" title="Delete this conference" onClick={() => handleDelete(e._id)}>
+                  <Button data-toggle="popover" title="Delete this conference" className="deletebtn" onClick={() => handleDelete(e._id)}>
                     <Image fluid src="images/trash-can.png" className="delete" alt="Delete" />
                   </Button>}
               </Col>
             </Row>
           </Card.Header>
-          <Card.Body>
+          <Card.Body className="cardBody">
             <Row>
               <Col sm={8}>
-                <Card.Text>Presented by {e.confOrg}</Card.Text>
                 <Card.Text>{e.confDesc}</Card.Text>
               </Col>
               <Col sm={4}>

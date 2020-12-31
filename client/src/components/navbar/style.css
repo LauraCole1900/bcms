@@ -31,7 +31,7 @@
 .mylogo {
   font-family: "Romanesco", cursive;
   font-size: 24px;
-  color: #cfbfc5;
+  color: #cfbfa5;
 }
 
 .navobj {
@@ -64,7 +64,7 @@
 .navlink {
   display: inline;
   margin-left: 6px;
-  color: #cfbfc5;
+  color: #cfbfa5;
   font-family: "Open Sans Condensed", sans-serif;
 }
 
@@ -89,7 +89,7 @@ justify-content: flex-end; */
 }
 
 .toggle {
-  color: #cfbfc5;
+  color: #cfbfa5;
   background: linear-gradient(to bottom,  #899168, #2d321e);
   position: absolute;
   right: 10px;

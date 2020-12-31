@@ -1,3 +1,57 @@
+h2 {
+  font-family: "Romanesco", cursive;
+  margin: 13px 0 0 13px;
+}
+
+p {
+  font-size: 16px;
+  font-family: "Open Sans Condensed", sans-serif;
+  margin-left: 13px;
+}
+
+a {
+  color: #032c4b;
+}
+
+a:hover {
+  color: #c7dbf3;
+}
+
+a:active{
+  color: #c7dbf3;
+}
+
+a:visited {
+  color: #c7dbf3;
+}
+
+.confCard {
+  background: linear-gradient(to top, #cfbfa5, #635b50);
+  border-radius: 12px;
+}
+
+.confTitle {
+  color: #cfbfa5;
+  background: linear-gradient(to top, #899168, #2d321e);
+  border-radius: 12px 12px 0 0;
+}
+
 .delete {
   max-width: 25px;
+}
+
+.deletebtn {
+  color: #cfbfa5;
+  background: linear-gradient(to bottom, #cfbfa5, #635b50);
+  float: right;
+  margin: 13px;
+}
+
+.org {
+  margin-left: 50px;
+}
+
+.cardBody {
+  color: #e2e2e2;
+  font-family: "Open Sans Condensed", sans-serif;
 }
