@@ -146,7 +146,7 @@ const ConferenceForm = () => {
                 </Row>
                 : <Row>
                   <Form.Label>Conference URL:</Form.Label><br />
-                  <Form.Control required type="input" name="confLocUrl" placeholder="Enter URL or leave blank if URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="confLocUrl" placeholder="Enter URL or leave blank if URL will be emailed to attendees at a future date" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
                 </Row>
               }
 
@@ -155,7 +155,7 @@ const ConferenceForm = () => {
                   <Form.Group controlId="formConfCapConfirm">
                     <Form.Label>Will there be a cap on the number of attendees? *</Form.Label>
                     <Form.Check type="radio" id="confCapYes" name="confCapConfirm" label="Yes" value="yes" checked={conference.confCapConfirm === "yes"} onChange={handleInputChange} />
-                    <Form.Check type="radio" id="confCapNo" name="confCapConfirm" label="No" value="no" checked={conference.confType === "no"} onChange={handleInputChange} />
+                    <Form.Check type="radio" id="confCapNo" name="confCapConfirm" label="No" value="no" checked={conference.confCapConfirm === "no"} onChange={handleInputChange} />
                   </Form.Group>
                 </Col>
 
