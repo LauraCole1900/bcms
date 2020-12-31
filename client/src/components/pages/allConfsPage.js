@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Card, Row, Col, Form } from "react-bootstrap";
 import Conference from "../conferenceCard";
@@ -7,7 +8,7 @@ import { ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const AllConfs = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [confArray, setConfArray] = useState([]);
   const [searchBy, setSearchBy] = useState("");
   const [search, setSearch] = useState("");
@@ -73,7 +74,9 @@ const AllConfs = () => {
 
             {!isAuthenticated &&
               <Row>
-                <h1 className="regRemind">Please log in to register for any conference.</h1>
+                <h1 className="regRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+                log in
+                </Link> to register for any conference.</h1>
               </Row>}
 
             <Row>

@@ -8,3 +8,19 @@
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
 }
+
+.login {
+  color: #47532b;
+}
+
+.login:hover {
+  color: #47532b;
+}
+
+.login:active {
+  color: #47532b;
+}
+
+.login:visited {
+  color: #47532b;
+}
