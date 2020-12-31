@@ -83,19 +83,19 @@ const Profile = () => {
             <Row>
               <Col sm={8}>
                 <ButtonGroup toggle defaultValue={1}>
-                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" checked={whichConf === "attend"} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" className="button" checked={whichConf === "attend"} onChange={(handleInputChange)}>
                     Attending
                   </ToggleButton>
-                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" checked={whichConf === "create"} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" className="button" checked={whichConf === "create"} onChange={handleInputChange}>
                     Created
                   </ToggleButton>
-                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" checked={whichConf === "exhibit"} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" className="button" checked={whichConf === "exhibit"} onChange={handleInputChange}>
                     Exhibiting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" checked={whichConf === "present"} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" className="button" checked={whichConf === "present"} onChange={handleInputChange}>
                     Presenting
                   </ToggleButton>
-                  {/* <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" checked={whichConf === "past"} onChange={handleInputChange}>
+                  {/* <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" className="button" checked={whichConf === "past"} onChange={handleInputChange}>
                     Past conferences
                   </ToggleButton> */}
                 </ButtonGroup>
@@ -103,7 +103,7 @@ const Profile = () => {
               <Col sm={2}></Col>
               <Col sm={2}>
                 <Link to="/new_conference" className={location.pathname === "/new_conference" ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Create a new conference">New Conference</Button>
+                  <Button data-toggle="popover" className="button" title="Create a new conference">New Conference</Button>
                 </Link>
               </Col>
             </Row>

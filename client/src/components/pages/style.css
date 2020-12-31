@@ -1,3 +1,12 @@
+h1 {
+  font-family: "Romanesco", cursive;
+  font-size: 54px;
+}
+
+h3 {
+  font-family: "Open Sans Condensed", sans-serif;
+}
+
 .myConfs {
   text-align: center;
 }
@@ -23,4 +32,27 @@
 
 .login:visited {
   color: #47532b;
+}
+
+.button {
+  color: #e2e2e2;
+  background: linear-gradient(to bottom, #899168, #2d321e);
+  border: 2px solid #11130b;
+  border-radius: 10px;
+  margin: 5px 0 5px 0;
+}
+
+.button:hover {
+  color: #11130b;
+  background: linear-gradient(to bottom, #e2e2e2, #878992);
+}
+
+.button:active {
+  color: #11130b;
+  background: linear-gradient(to bottom, #e2e2e2, #878992);
+}
+
+.button:checked {
+  color: #11130b;
+  background: linear-gradient(to bottom, #a99f93, #49453f);
 }
