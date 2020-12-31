@@ -51,23 +51,21 @@ const AllConfs = () => {
                 <Card.Body>
                   <Form inline>
                     <Row>
-                      <Col>
-                        <Form.Group controlId="confSearchBy">
-                          <Form.Label>Search by:</Form.Label>
-                          <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
-                            <option value="all">All Conferences</option>
-                            <option value="name">Conference Name</option>
-                            <option value="org">Organization</option>
-                          </Form.Control>
-                        </Form.Group>
-                      </Col>
-                      <Col>
-                        {(searchBy !== "all") &&
-                        <div id="confPageSearch">
-                          <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search for a conference" value={search} onChange={(e) => setSearch(e.target.value)} />
-                        </div>}
-                      </Col>
+                      <Form.Group controlId="confSearchBy">
+                        <Form.Label>Search by:</Form.Label>
+                        <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
+                          <option value="all">All Conferences</option>
+                          <option value="name">Conference Name</option>
+                          <option value="org">Organization</option>
+                        </Form.Control>
+                      </Form.Group>
                     </Row>
+                    {(searchBy !== "all") &&
+                      <Row>
+                        <div id="confPageSearch">
+                          <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search is case-sensitive" value={search} onChange={(e) => setSearch(e.target.value)} />
+                        </div>
+                      </Row>}
                   </Form>
                 </Card.Body>
               </Col>
@@ -76,7 +74,7 @@ const AllConfs = () => {
             {!isAuthenticated &&
               <Row>
                 <h1 className="regRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
-                log in
+                  log in
                 </Link> to register for any conference.</h1>
               </Row>}
 
