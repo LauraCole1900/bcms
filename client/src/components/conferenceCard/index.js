@@ -81,7 +81,8 @@ function Conference({ conference }) {
               {isAuthenticated &&
                 user.email === e.creatorEmail &&
                 <div>
-                  <Col sm={4}>
+                  <Col sm={5}></Col>
+                  <Col sm={1}>
                     <Link to={{
                       state: { confInfo: conference },
                       pathname: `/edit_conference/${e._id}`
@@ -89,7 +90,7 @@ function Conference({ conference }) {
                       <Button data-toggle="popover" title="Edit this conference" className="btn">Edit</Button>
                     </Link>
                   </Col>
-                  <Col sm={4}>
+                  <Col sm={1}>
                     <Link to={{
                       state: { confInfo: conference },
                       pathname: `/add_session/${e._id}`

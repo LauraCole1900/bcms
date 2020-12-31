@@ -7,26 +7,27 @@ p {
   font-size: 16px;
   font-family: "Open Sans Condensed", sans-serif;
   margin-left: 13px;
+  font-weight: 600;
 }
 
 a {
-  color: #032c4b;
+  color: #47532b;
 }
 
 a:hover {
-  color: #c7dbf3;
+  color: #2f3028;
 }
 
 a:active{
-  color: #c7dbf3;
+  color: #2f3028;
 }
 
 a:visited {
-  color: #c7dbf3;
+  color: #2f3028;
 }
 
 .confCard {
-  background: linear-gradient(to bottom, #e2e2e2, #4f5055);
+  background: linear-gradient(to bottom, #e2e2e2, #878992);
   border-radius: 12px;
 }
 
