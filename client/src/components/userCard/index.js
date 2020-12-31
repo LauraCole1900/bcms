@@ -25,7 +25,7 @@ const UserCard = () => {
               <Image fluid className="profilePic" src={user.picture} alt="Profile picture" />
             </Col>
             <Col sm={4} className="userInfo">
-              <h1 className="userName">{user.name}</h1>
+              <h1 className="userName">{user.given_name} {user.family_name}</h1>
               <h3 className="userEmail">{user.email}</h3>
             </Col>
           </Row>
