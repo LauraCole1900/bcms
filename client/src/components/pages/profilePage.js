@@ -107,19 +107,19 @@ const Profile = () => {
             <Row>
               <Col sm={8}>
                 <ButtonGroup toggle defaultValue={1}>
-                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value={1} checked={whichConf === 1} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" checked={whichConf === 1} onChange={handleInputChange}>
                     Attending
                   </ToggleButton>
-                  <ToggleButton type="radio" id="createdConf" name="whichConf" value={2} checked={whichConf === 2} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" checked={whichConf === 2} onChange={handleInputChange}>
                     Created
                   </ToggleButton>
-                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value={3} checked={whichConf === 3} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" checked={whichConf === 3} onChange={handleInputChange}>
                     Exhibiting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value={4} checked={whichConf === 4} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" checked={whichConf === 4} onChange={handleInputChange}>
                     Presenting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="pastConf" name="whichConf" value={5} checked={whichConf === 5} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" checked={whichConf === 5} onChange={handleInputChange}>
                     Past conferences
                   </ToggleButton>
                 </ButtonGroup>
@@ -131,16 +131,16 @@ const Profile = () => {
                 </Link>
               </Col>
             </Row>
-            {whichConf === 1 &&
+            {whichConf === "attend" &&
               <Conference conference={attendConf} />
             }
-            {whichConf === 2 &&
+            {whichConf === "create" &&
               <Conference conference={createConf} />
             }
-            {whichConf === 3 &&
+            {whichConf === "exhibit" &&
               <Conference conference={exhibitConf} />
             }
-            {whichConf === 4 &&
+            {whichConf === "present" &&
               <Conference conference={presentConf} />
             }
           </Container >
