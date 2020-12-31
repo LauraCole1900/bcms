@@ -10,7 +10,7 @@ import "./style.css";
 const AllConfs = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [confArray, setConfArray] = useState([]);
-  const [searchBy, setSearchBy] = useState("");
+  const [searchBy, setSearchBy] = useState("all");
   const [search, setSearch] = useState("");
   const [pageReady, setPageReady] = useState(false);
 
@@ -28,7 +28,7 @@ const AllConfs = () => {
   }, [])
 
   const searchFilter = (data) => {
-    if (searchBy === "") {
+    if (searchBy === "all") {
       return (confArray)
     } else if (searchBy === "name") {
       return data.filter((conference) => conference.confName.toLowerCase().indexOf(search) !== -1)
@@ -55,16 +55,17 @@ const AllConfs = () => {
                         <Form.Group controlId="confSearchBy">
                           <Form.Label>Search by:</Form.Label>
                           <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
-                            {/* <option value="all">All Conferences</option> */}
+                            <option value="all">All Conferences</option>
                             <option value="name">Conference Name</option>
                             <option value="org">Organization</option>
                           </Form.Control>
                         </Form.Group>
                       </Col>
                       <Col>
+                        {(searchBy !== "all") &&
                         <div id="confPageSearch">
                           <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search for a conference" value={search} onChange={(e) => setSearch(e.target.value)} />
-                        </div>
+                        </div>}
                       </Col>
                     </Row>
                   </Form>
