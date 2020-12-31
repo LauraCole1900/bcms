@@ -170,6 +170,25 @@ const ConferenceForm = () => {
               </Row>
 
               <Row>
+                <Col sm={6}>
+                  <Form.Group controlId="formConfFeeConfirm">
+                    <Form.Label>Will a registration fee be charged? *</Form.Label>
+                    <Form.Check type="radio" id="confFeeYes" name="confFee" label="Yes" value="yes" checked={conference.confFee === "yes"} onChange={handleInputChange} />
+                    <Form.Check type="radio" id="confFeeNo" name="confFee" label="No" value="no" checked={conference.confFee === "no"} onChange={handleInputChange} />
+                  </Form.Group>
+                </Col>
+
+                {(conference.confFee === "yes") &&
+                  <Col sm={6}>
+                    <Form.Group controlId="formConfFeeAmt">
+                      <Form.Label>Registration fee amount:</Form.Label><br />
+                      <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
+                      <Form.Control type="input" name="confFeeAmt" placeholder="300" onChange={handleInputChange}></Form.Control>
+                    </Form.Group>
+                  </Col>}
+              </Row>
+
+              <Row>
                 <Form.Group controlId="formConfWaiver">
                   <Form.Label>Will a liability waiver be required? *</Form.Label>
                   <Form.Control required as="select" name="confWaiver" onChange={handleInputChange}>
