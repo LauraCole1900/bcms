@@ -28,13 +28,15 @@ a:visited {
 
 .confCard {
   background: linear-gradient(to bottom, #e2e2e2, #878992);
+  border: 2px solid #11130b;
   border-radius: 12px;
+  margin: 5px 0;
 }
 
 .confTitle {
   color: #cfbfa5;
   background: linear-gradient(to top, #899168, #2d321e);
-  border-radius: 12px 12px 0 0;
+  border-radius: 11px 11px 0 0;
 }
 
 .delete {
