@@ -101,7 +101,7 @@ function Conference({ conference }) {
                 </div>}
               {isAuthenticated &&
                 user.email !== e.creatorEmail &&
-                user.find(user => user.email !== e.confAttendees) &&
+                // user.find(user => user.email !== e.confAttendees) &&
                 <div>
                   <Col sm={4}></Col>
                   <Col sm={4}>
