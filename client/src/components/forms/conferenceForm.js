@@ -130,18 +130,23 @@ const ConferenceForm = () => {
                       <Form.Control required type="input" name="confLoc" placeholder="Enter street address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                     </div>
                     : <div>
-                      <Form.Label>Conference URL: *</Form.Label>
-                      <Form.Control required type="input" name="confLoc" placeholder="Enter URL or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
+                      <Form.Label>Link text: *</Form.Label>
+                      <Form.Text className="subtitle" muted>This will be the text of your link.</Form.Text>
+                      <Form.Control required type="input" name="confLoc" placeholder="Enter link text or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                     </div>}
                 </Form.Group>
               </Row>
 
-              {(conference.confType === "live") &&
-                <Row>
+              {(conference.confType === "live")
+                ? <Row>
                   <Form.Group controlId="formConfLocUrl">
                     <Form.Label>Venue Website:</Form.Label>
                     <Form.Control type="input" name="confLocUrl" placeholder="Enter URL of venue's website" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
                   </Form.Group>
+                </Row>
+                : <Row>
+                  <Form.Label>Conference URL:</Form.Label><br />
+                  <Form.Control required type="input" name="confLocUrl" placeholder="Enter URL or leave blank if URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                 </Row>
               }
 
@@ -158,7 +163,7 @@ const ConferenceForm = () => {
                   <Col sm={6}>
                     <Form.Group controlId="formConfAttendCap">
                       <Form.Label>Maximum number of attendees:</Form.Label><br />
-                      <Form.Text className="capSubtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
+                      <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
                       <Form.Control type="input" name="confAttendCap" placeholder="50" onChange={handleInputChange}></Form.Control>
                     </Form.Group>
                   </Col>}
