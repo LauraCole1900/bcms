@@ -27,7 +27,6 @@ const UserCard = () => {
             <Col sm={4} className="userInfo">
               <h1 className="userName">{user.name}</h1>
               <h3 className="userEmail">{user.email}</h3>
-              <Button onClick={handleUpdate}>Update Your Information</Button>
             </Col>
           </Row>
         </Card>

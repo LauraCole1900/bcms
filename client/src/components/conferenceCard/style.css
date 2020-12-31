@@ -45,7 +45,7 @@ a:visited {
 
 .deletebtn {
   color: #cfbfa5;
-  background: linear-gradient(to bottom, #cfbfa5, #635b50);
+  background: linear-gradient(to bottom, #899168, #2d321e);
   float: right;
   margin: 13px;
 }
@@ -60,10 +60,10 @@ a:visited {
   margin: 5px 0;
 }
 
-.btn {
+.button {
   color: #e2e2e2;
   background: linear-gradient(to bottom, #899168, #2d321e);
   border: 2px solid #11130b;
   border-radius: 10px;
-  margin: 5px;
+  margin: 5px 0 5px 0;
 }

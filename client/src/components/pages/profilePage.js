@@ -14,6 +14,7 @@ const Profile = () => {
   const [attendConf, setAttendConf] = useState();
   const [presentConf, setPresentConf] = useState();
   const [exhibitConf, setExhibitConf] = useState();
+  const [pastConf, setPastConf] = useState();
   const [pageReady, setPageReady] = useState(false);
   const location = useLocation();
 
@@ -30,6 +31,7 @@ const Profile = () => {
 
   useEffect(() => {
     saveUserToDB();
+    // Creates array of conferences for which the user has registered
     ConferenceAPI.getConferencesAttending(user.email).then(resp => {
       console.log("getConfAttending", resp.data)
       const attArr = resp.data
@@ -37,6 +39,7 @@ const Profile = () => {
       setAttendConf(sortedAtt)
     })
 
+    // Creates array of conferences user has created
     ConferenceAPI.getConferencesCreated(user.email).then(resp => {
       console.log("getConfCreated", resp.data)
       const createArr = resp.data
@@ -44,6 +47,7 @@ const Profile = () => {
       setCreateConf(sortedCreate)
     })
 
+    // Creates array of conferences at which the user is presenting
     ConferenceAPI.getConferencesPresenting(user.email).then(resp => {
       console.log("getConfPresenting", resp.data)
       const presentArr = resp.data
@@ -51,6 +55,7 @@ const Profile = () => {
       setPresentConf(sortedPresent)
     })
 
+    // Creates array of conferences at which the user is exhibiting
     ConferenceAPI.getConferencesExhibiting(user.email).then(resp => {
       console.log("getConfExhibiting", resp.data)
       const exhibitArr = resp.data
@@ -78,21 +83,21 @@ const Profile = () => {
             <Row>
               <Col sm={8}>
                 <ButtonGroup toggle defaultValue={1}>
-                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" checked={whichConf === 1} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" checked={whichConf === "attend"} onChange={handleInputChange}>
                     Attending
                   </ToggleButton>
-                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" checked={whichConf === 2} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" checked={whichConf === "create"} onChange={handleInputChange}>
                     Created
                   </ToggleButton>
-                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" checked={whichConf === 3} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" checked={whichConf === "exhibit"} onChange={handleInputChange}>
                     Exhibiting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" checked={whichConf === 4} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" checked={whichConf === "present"} onChange={handleInputChange}>
                     Presenting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" checked={whichConf === 5} onChange={handleInputChange}>
+                  {/* <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" checked={whichConf === "past"} onChange={handleInputChange}>
                     Past conferences
-                  </ToggleButton>
+                  </ToggleButton> */}
                 </ButtonGroup>
               </Col>
               <Col sm={2}></Col>
@@ -134,6 +139,14 @@ const Profile = () => {
               presentConf.length === 0 &&
               <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>
             }
+            {/* {whichConf === "past" &&
+              pastConf.length > 0 &&
+              <Conference conference={presentConf} />
+            }
+            {whichConf === "past" &&
+              pastConf.length === 0 &&
+              <h3>We're sorry, your email doesn't seem to be associated with any past conferences at this time.</h3>
+            } */}
           </Container >
         )
       }
