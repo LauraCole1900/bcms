@@ -7,7 +7,7 @@ import { ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const AllConfs = () => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const [confArray, setConfArray] = useState([]);
   const [searchBy, setSearchBy] = useState("");
   const [search, setSearch] = useState("");
@@ -43,10 +43,10 @@ const AllConfs = () => {
         <div className="mt-4">
           <Container>
             <Row>
-              <Col sm={7}>
+              <Col sm={8}>
                 <UserCard />
               </Col>
-              <Col sm={5}>
+              <Col sm={4}>
                 <Card.Body>
                   <Form inline>
                     <Row>
@@ -62,7 +62,7 @@ const AllConfs = () => {
                       </Col>
                       <Col>
                         <div id="confPageSearch">
-                          <Form.Control className="mr-lg-5 search-area" type="text" placeholder="Search for a conference" value={search} onChange={(e) => setSearch(e.target.value)} />
+                          <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search for a conference" value={search} onChange={(e) => setSearch(e.target.value)} />
                         </div>
                       </Col>
                     </Row>
@@ -70,6 +70,11 @@ const AllConfs = () => {
                 </Card.Body>
               </Col>
             </Row>
+
+            {!isAuthenticated &&
+              <Row>
+                <h1 className="regRemind">Please log in to register for any conference.</h1>
+              </Row>}
 
             <Row>
               <Conference conference={searchFilter(confArray)} />
