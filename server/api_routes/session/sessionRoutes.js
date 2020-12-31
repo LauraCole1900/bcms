@@ -12,15 +12,15 @@ router.route("/")
 router.route("/conference/:confid")
   .get(sessionController.findByConfId);
 
-router.route("/:sessid")
+router.route("/:id")
   .get(sessionController.findBySessId);
 
 
-router.route("/:sessid")
+router.route("/update/:id")
   .put(sessionController.updateSession);
 
 
-router.route("/:sessid")
+router.route("/delete/:id")
   .delete(sessionController.removeSession);
 
 
