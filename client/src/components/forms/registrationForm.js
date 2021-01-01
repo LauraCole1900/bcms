@@ -76,6 +76,13 @@ const Registration = () => {
                 </Form.Group>
               </Row>
 
+              <Row>
+                <Form.Group controlId="formRegEmployerAddress">
+                  <Form.Label>Address of your company, organization or school:</Form.Label>
+                  <Form.Control type="input" name="employerAddress" placeholder="219 W 48th Street, New York, NY" value={attendee.employerAddress} className="attendeeEmployerAddy" onChange={handleInputChange} />
+                </Form.Group>
+              </Row>
+
             </Form>
           </Container>
         )}
