@@ -31,7 +31,7 @@ module.exports = {
 
   // GET user by ID
   findByEmail: function (req, res) {
-    console.log("from userCont findByEmail", req.params.email)
+    console.log("from userController findByEmail", req.params.email)
     db.User
     .findOne({ email: req.params.email })
     .then(dbModel => res.json(dbModel))
@@ -42,7 +42,7 @@ module.exports = {
   // PUT user
   updateUser: function (req, res) {
     db.User
-    .findOneAndUpdate({ _id: req.params.id }, req.body)
+    .findOneAndUpdate({ email: req.params.email }, req.body)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err))
   },

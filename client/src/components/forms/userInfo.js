@@ -32,7 +32,7 @@ const UpdateUser = () => {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     console.log("User update", user.email);
-    UserAPI.updateUser({ ...user }, user.email)
+    UserAPI.updateUser({ ...user, given_name: user.given_name, family_name: user.family_name }, user.email)
       .then(history.push("/user_updated"))
       .catch(err => console.log(err))
   }
