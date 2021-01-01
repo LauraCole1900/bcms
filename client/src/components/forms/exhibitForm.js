@@ -85,6 +85,20 @@ const ExhibitForm = () => {
               </Form.Group>
             </Row>
 
+            <Row>
+              <Form.Group controlId="numSpaces">
+                <Col sm={4}>
+                  <Form.Label>How many spaces do you need?</Form.Label>
+                  <Form.Control as="select" name="exhSpaces" className="exhSpaceSelect" onChange={handleInputChange}>
+                    <option value={1} checked={exhibitor.exhSpaces === 1}>1</option>
+                    <option value={2} checked={exhibitor.exhSpaces === 2}>2</option>
+                    <option value={3} checked={exhibitor.exhSpaces === 3}>3</option>
+                    <option value={4} checked={exhibitor.exhSpaces === 4}>4</option>
+                  </Form.Control>
+                </Col>
+              </Form.Group>
+            </Row>
+
           </Form>
         </Container>}
     </>

@@ -31,7 +31,7 @@ const exhibitorSchema = new Schema({
     required: true
   },
   exhSpaces: {
-    type: String,
+    type: Number,
     required: true
   },
   exhAttend: {
