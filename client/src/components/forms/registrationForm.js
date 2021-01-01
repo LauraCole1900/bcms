@@ -92,15 +92,26 @@ const Registration = () => {
               </Row>
 
               <Row>
-                <Form.Group controlId=""
+                <Form.Group controlId="allergyConfirm">
+                  <Col sm={6}>
+                    <Form.Label>Do you have known allergies?</Form.Label>
+                    <Form.Check type="radio" id="allergiesYes" name="allergyConfirm" label="Yes" value="yes" checked={attendee.allergyConfirm === "yes"} onChange={handleInputChange} />
+                    <Form.Check type="radio" id="allergiesNo" name="allergyConfirm" label="No" value="no" checked={attendee.allergyConfirm === "no"} onChange={handleInputChange} />
+                  </Col>
+                  {attendee.allergyConfirm === "yes" &&
+                    <Col sm={6}>
+                      <Form.Label>Please list your allergies:</Form.Label>
+                      <Form.Control as="textarea" rows={5} name="allergies" placeholder="Peanuts, Eggs, Soy, Milk, Bee stings" value={attendee.allergies} className="attendeeAllergies" onChange={handleInputChange} />
+                    </Col>}
+                </Form.Group>
               </Row>
 
             </Form>
           </Container>
         )}
     </>
-        )
+  )
 
-      }
+}
 
 export default Registration;

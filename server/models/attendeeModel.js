@@ -41,7 +41,7 @@ const attendeeSchema = new Schema({
     match: [/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, "Please enter a valid North American phone number"],
   },
   allergyConfirm: {
-    type: Boolean
+    type: String
   },
   allergies: {
     type: Array
