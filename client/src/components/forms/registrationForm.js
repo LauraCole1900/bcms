@@ -9,8 +9,8 @@ const Registration = () => {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
-  const [userInfo, setUserInfo] = useState({})
-  const [attendee, setAttendee] = useState({})
+  const [userInfo, setUserInfo] = useState({});
+  const [attendee, setAttendee] = useState({});
 
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]

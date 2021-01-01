@@ -13,7 +13,7 @@ import Navbar from "./components/navbar";
 import ConferenceForm from "./components/forms/conferenceForm";
 // import SessionForm from "./components/forms/sessionForm";
 // import SessionProposal from "./components/forms/sessionProposal";
-// import ExhibitForm from "./components/forms/exhibitForm";
+import ExhibitForm from "./components/forms/exhibitForm";
 import Registration from "./components/forms/registrationForm";
 import Success from "./components/pages/success";
 import UpdateUser from "./components/forms/userInfo";
@@ -41,16 +41,16 @@ function App() {
         <Route path="/new_conference" component={ConferenceForm} />
         <Route path="/edit_conference/*" component={ConferenceForm} />
         {/*   <Route path="/add_session/*" component={SessionForm} />
-              <Route path="/propose_session/*" component={SessionProposal} />
-              <Route path="/register_exhibit/*" component={ExhibitForm} /> */}
-        <Route path="/update_user" component={UpdateUser}/>
-        <Route path="/register_attend/*" component={Registration} />
+              <Route path="/propose_session/*" component={SessionProposal} /> */}
+        <Route path="/register_exhibit/*" component={ExhibitForm} />
+        <Route path="/update_user" component={UpdateUser} />
         <Route path="/conference_created" component={Success} />
         <Route path="/session_added" component={Success} />
         <Route path="/deleted" component={Success} />
         <Route path="/conference_updated" component={Success} />
         <Route path="/session_updated" component={Success} />
         <Route path="/user_updated" component={Success} />
+        <Route path="/register_attend/*" component={Registration} />
         <Route exact path={["/", "/conferences"]} component={AllConfs} />
       </main>
     </Router>
