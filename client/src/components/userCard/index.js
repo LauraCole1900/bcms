@@ -15,7 +15,6 @@ const UserCard = () => {
       console.log("from userCard getUserByEmail", resp.data);
       const userArr = resp.data;
       setUserInfo(userArr);
-      console.log(userInfo);
       setPageReady(true);
     })
   }, [])

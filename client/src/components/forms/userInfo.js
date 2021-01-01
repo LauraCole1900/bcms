@@ -15,7 +15,7 @@ const UpdateUser = () => {
     UserAPI.getUserByEmail(user.email).then(resp => {
       console.log("from userInfo getUserByEmail", resp.data);
       const userArr = resp.data;
-      setUserInfo(userArr[0]);
+      setUserInfo(userArr);
       setPageReady(true);
     })
   }, [])
@@ -41,11 +41,11 @@ const UpdateUser = () => {
               <Form.Group controlId="formUserName">
                 <Col sm={6}>
                   <Form.Label>Given name:</Form.Label>
-                  <Form.Control type="input" name="given_name" placeholder="Martha" value={user.given_name} className="userFName" onChange={handleInputChange} />
+                  <Form.Control type="input" name="given_name" placeholder="Martha" value={userInfo.given_name} className="userFName" onChange={handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Form.Label>Family name:</Form.Label>
-                  <Form.Control type="input" name="family_name" placeholder="Jones" value={user.family_name} className="userLName" onChange={handleInputChange} />
+                  <Form.Control type="input" name="family_name" placeholder="Jones" value={userInfo.family_name} className="userLName" onChange={handleInputChange} />
                 </Col>
               </Form.Group>
             </Row>
@@ -54,7 +54,7 @@ const UpdateUser = () => {
               <Col>
                 <Form.Group controlId="formUserNickname">
                   <Form.Label>Nickname?</Form.Label>
-                  <Form.Control type="input" name="nickname" placeholder="Enter your nickname" value={user.nickname} className="userNickname" onChange={handleInputChange} />
+                  <Form.Control type="input" name="nickname" placeholder="Enter your nickname" value={userInfo.nickname} className="userNickname" onChange={handleInputChange} />
                 </Form.Group>
               </Col>
             </Row>
@@ -63,7 +63,7 @@ const UpdateUser = () => {
               <Col>
                 <Form.Group controlId="formUserPicUrl">
                   <Form.Label>URL of profile pic:</Form.Label>
-                  <Form.Control type="input" name="picture" placeholder="Enter URL of externally-hosted profile picture" value={user.picture} className="userPic" onChange={handleInputChange} />
+                  <Form.Control type="input" name="picture" placeholder="Enter URL of externally-hosted profile picture" value={userInfo.picture} className="userPic" onChange={handleInputChange} />
                 </Form.Group>
               </Col>
             </Row>
