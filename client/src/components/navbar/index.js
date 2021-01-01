@@ -20,6 +20,8 @@ const Navigation = () => {
       setUserInfo(userArr);
       setPageReady(true);
     })
+  } else {
+    setPageReady(true);
   }
   }, [])
 
