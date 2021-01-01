@@ -125,27 +125,31 @@ const ConferenceForm = () => {
 
               <Row>
                 <Form.Group controlId="formConfLoc">
-                  {(conference.confType === "Live")
-                    ? <div>
+                  {(conference.confType === "Live") &&
+                    <div>
                       <Form.Label>Venue: *</Form.Label>
                       <Form.Control required type="input" name="confLocName" placeholder="Enter venue name" value={conference.confLocName} className="confLoc" onChange={handleInputChange} />
                       <Form.Control required type="input" name="confLoc" placeholder="Enter venue address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
-                    </div>
-                    : <div>
+                    </div>}
+                    
+                  {(conference.confType === "Virtual") &&
+                    <div>
                       <Form.Label>Message or link text: *</Form.Label>
                       <Form.Control required type="input" name="confLoc" placeholder="Enter link text or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                     </div>}
                 </Form.Group>
               </Row>
 
-              {(conference.confType === "Live")
-                ? <Row>
+              {(conference.confType === "Live") &&
+                <Row>
                   <Form.Group controlId="formConfLocUrl">
                     <Form.Label>Venue Website:</Form.Label>
                     <Form.Control type="input" name="confLocUrl" placeholder="Enter URL of venue's website" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
                   </Form.Group>
-                </Row>
-                : <Row>
+                </Row>}
+
+              {(conference.confType === "Virtual") &&
+                <Row>
                   <Form.Label>Conference URL:</Form.Label><br />
                   <Form.Control required type="input" name="confLocUrl" placeholder="Enter URL or leave blank if URL will be emailed to attendees at a future date" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
                 </Row>
