@@ -25,7 +25,6 @@ const attendeeSchema = new Schema({
   },
   phone: {
     type: String,
-    match: [/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, "Please enter a valid North American phone number"],
     required: true
   },
   employerName: {

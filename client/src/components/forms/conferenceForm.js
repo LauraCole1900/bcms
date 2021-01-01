@@ -68,6 +68,7 @@ const ConferenceForm = () => {
         isAuthenticated && (
           <Container>
             <Form className="confForm">
+              
               <Row>
                 <Form.Group controlId="formConfName">
                   <Form.Label>Name of conference: *</Form.Label>

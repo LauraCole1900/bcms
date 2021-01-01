@@ -9,6 +9,7 @@ const Registration = () => {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
+  const [userInfo, setUserInfo] = useState({})
   const [attendee, setAttendee] = useState({})
 
   const urlArray = window.location.href.split("/")
@@ -44,7 +45,31 @@ const Registration = () => {
       { pageReady === true &&
         isAuthenticated && (
           <Container>
+            <Form className="regForm">
 
+              <Row>
+                <Form.Group controlId="formRegName">
+                  <Col sm={6}>
+                    <Form.Label>Given name: *</Form.Label>
+                    <Form.Control required type="input" name="givenName" placeholder="Martha" value={attendee.givenName} className="attendeeFName" onChange={handleInputChange} />
+                  </Col>
+                  <Col sm={6}>
+                    <Form.Label>Family name: *</Form.Label>
+                    <Form.Control required type="input" name="familyName" placeholder="Jones" value={attendee.familyName} className="attendeeLName" onChange={handleInputChange} />
+                  </Col>
+                </Form.Group>
+              </Row>
+
+              <Row>
+                <Form.Group controlId="formRegPhone">
+                  <Col sm={6}>
+                    <Form.Label>Contact phone #: *</Form.Label><br />
+                    <Form.Control required type="input" name="phone" placeholder="(123)456-7890" value={attendee.phone} className="attendeePhone" onChange={handleInputChange} />
+                  </Col>
+                </Form.Group>
+              </Row>
+
+            </Form>
           </Container>
         )}
     </>
