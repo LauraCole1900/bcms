@@ -201,8 +201,8 @@ const ConferenceForm = () => {
 
               <Row>
                 {(confId !== "new_conference")
-                  ? <Button onClick={handleFormUpdate} type="submit">Update Form</Button>
-                  : <Button onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+                  ? <Button className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                  : <Button className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
               </Row>
 
             </Form>

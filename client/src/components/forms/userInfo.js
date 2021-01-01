@@ -69,7 +69,7 @@ const UpdateUser = () => {
             </Row>
 
             <Row>
-              <Button onClick={handleFormUpdate} type="submit">Update Info</Button>
+              <Button className="button" onClick={handleFormUpdate} type="submit">Update Info</Button>
             </Row>
 
           </Form>
