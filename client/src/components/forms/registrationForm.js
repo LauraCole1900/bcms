@@ -69,6 +69,13 @@ const Registration = () => {
                 </Form.Group>
               </Row>
 
+              <Row>
+                <Form.Group controlId="formRegEmployer">
+                  <Form.Label>Company, organization or school you represent:</Form.Label>
+                  <Form.Control type="input" name="employerName" placeholder="Torchwood Institute" value={attendee.employerName} className="attendeeEmployer" onChange={handleInputChange} />
+                </Form.Group>
+              </Row>
+
             </Form>
           </Container>
         )}
