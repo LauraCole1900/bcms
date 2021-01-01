@@ -49,9 +49,15 @@ const ExhibitForm = () => {
 
             <Row>
               <Form.Group controlId="exhCompanyName">
-                <Form.Label>Name of company? *</Form.Label>
-                <Form.Control required type="input" name="exhCompany" placeholder="Torchwood Institute" value={exhibitor.exhCompany} className="exhComp" onChange={handleInputChange} />
-                <Form.Label>Address of company? *</Form.Label>
+                <Col sm={8}>
+                  <Form.Label>Name of company: *</Form.Label>
+                  <Form.Control required type="input" name="exhCompany" placeholder="Torchwood Institute" value={exhibitor.exhCompany} className="exhComp" onChange={handleInputChange} />
+                </Col>
+                <Col sm={4}>
+                  <Form.Label>Company phone #: *</Form.Label>
+                  <Form.Control required type="input" name="exhPhone" placeholder="(123)456-7890" value={exhibitor.exhPhone} className="exhPhone" onChange={handleInputChange} />
+                </Col>
+                <Form.Label>Address of company: *</Form.Label>
                 <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="exhCompAddy" onChange={handleInputChange} />
               </Form.Group>
             </Row>

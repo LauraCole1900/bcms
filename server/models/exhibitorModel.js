@@ -14,6 +14,10 @@ const exhibitorSchema = new Schema({
     type: String,
     required: true
   },
+  exhPhone: {
+    type: String,
+    required: true
+  },
   exhCompanyAddress: {
     type: String,
     required: true
@@ -24,10 +28,6 @@ const exhibitorSchema = new Schema({
   },
   exhNames: {
     type: [ String ],
-    required: true
-  },
-  exhPhone: {
-    type: String,
     required: true
   },
   exhSpaces: {
