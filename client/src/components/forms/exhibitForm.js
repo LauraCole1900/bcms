@@ -78,6 +78,7 @@ const ExhibitForm = () => {
                 <Col sm={8}>
                   <Form.Label>Names of workers (one per line): *</Form.Label>
                   <Form.Control required type="input" name="exhNames" placeholder="Yazmin Khan" value={exhibitor.exhNames[0]} className="exhNameArr" onChange={handleInputChange} />
+                  <Form.Control type="input" name="exhNames" placeholder="Ryan Sinclair" value={exhibitor.exhNames[1]} className="exhNameArr" onChange={handleInputChange} />
                 </Col>
               </Form.Group>
             </Row>
