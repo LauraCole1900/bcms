@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ExhibitorAPI } from "../../utils/api";
@@ -19,7 +19,7 @@ const ExhibitForm = () => {
     setExhibitor({ ...exhibitor, confId: confId })
     setPageReady(true);
   }, [])
-  
+
   const handleInputChange = (e) => {
     setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
   };
@@ -39,6 +39,27 @@ const ExhibitForm = () => {
       .then(history.push(`/register_success/${confId}`))
       .catch(err => console.log(err));
   }
+
+  return (
+    <>
+      { pageReady === true &&
+        isAuthenticated &&
+        <Container>
+          <Form className="exhForm">
+
+            <Row>
+              <Form.Group controlId="exhCompanyName">
+                <Form.Label>Name of company? *</Form.Label>
+                <Form.Control required type="input" name="exhCompany" placeholder="Torchwood Institute" value={exhibitor.exhCompany} className="exhComp" onChange={handleInputChange} />
+                <Form.Label>Address of company? *</Form.Label>
+                <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="exhCompAddy" onChange={handleInputChange} />
+              </Form.Group>
+            </Row>
+
+          </Form>
+        </Container>}
+    </>
+  )
 
 }
 

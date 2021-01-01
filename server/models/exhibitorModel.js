@@ -8,10 +8,13 @@ const exhibitorSchema = new Schema({
   },
   exhEmail: {
     type: String,
-    match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
     required: true
   },
   exhCompany: {
+    type: String,
+    required: true
+  },
+  exhCompanyAddress: {
     type: String,
     required: true
   },
