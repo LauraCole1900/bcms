@@ -75,6 +75,10 @@ const ExhibitForm = () => {
                     <option value={4} checked={exhibitor.exhWorkers === 4}>4</option>
                   </Form.Control>
                 </Col>
+                <Col sm={8}>
+                  <Form.Label>Names of workers (one per line): *</Form.Label>
+                  <Form.Control required type="input" name="exhNames" placeholder="Yazmin Khan" value={exhibitor.exhNames[0]} className="exhNameArr" onChange={handleInputChange} />
+                </Col>
               </Form.Group>
             </Row>
 
