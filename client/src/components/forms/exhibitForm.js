@@ -47,8 +47,8 @@ const ExhibitForm = () => {
         <Container>
           <Form className="exhForm">
 
-            <Row>
-              <Form.Group controlId="exhCompanyName">
+            <Form.Group controlId="exhCompanyName">
+              <Row>
                 <Col sm={8}>
                   <Form.Label>Name of company: *</Form.Label>
                   <Form.Control required type="input" name="exhCompany" placeholder="Torchwood Institute" value={exhibitor.exhCompany} className="exhComp" onChange={handleInputChange} />
@@ -57,8 +57,24 @@ const ExhibitForm = () => {
                   <Form.Label>Company phone #: *</Form.Label>
                   <Form.Control required type="input" name="exhPhone" placeholder="(123)456-7890" value={exhibitor.exhPhone} className="exhPhone" onChange={handleInputChange} />
                 </Col>
+              </Row>
+              <Row>
                 <Form.Label>Address of company: *</Form.Label>
                 <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="exhCompAddy" onChange={handleInputChange} />
+              </Row>
+            </Form.Group>
+
+            <Row>
+              <Form.Group controlId="exhWorkers">
+                <Col sm={4}>
+                  <Form.Label>How many people will be working your exhibit? *</Form.Label>
+                  <Form.Control as="select" name="exhWorkers" className="exhSelect" onChange={handleInputChange}>
+                    <option value={1} checked={exhibitor.exhWorkers === 1}>1</option>
+                    <option value={2} checked={exhibitor.exhWorkers === 2}>2</option>
+                    <option value={3} checked={exhibitor.exhWorkers === 3}>3</option>
+                    <option value={4} checked={exhibitor.exhWorkers === 4}>4</option>
+                  </Form.Control>
+                </Col>
               </Form.Group>
             </Row>
 
