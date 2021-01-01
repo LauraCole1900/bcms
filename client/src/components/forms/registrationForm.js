@@ -73,22 +73,34 @@ const Registration = () => {
                 <Form.Group controlId="formRegEmployer">
                   <Form.Label>Company, organization or school you represent:</Form.Label>
                   <Form.Control type="input" name="employerName" placeholder="Torchwood Institute" value={attendee.employerName} className="attendeeEmployer" onChange={handleInputChange} />
+                  <Form.Label>Address of your company, organization or school:</Form.Label>
+                  <Form.Control type="input" name="employerAddress" placeholder="219 W 48th Street, New York, NY" value={attendee.employerAddress} className="attendeeEmployerAddy" onChange={handleInputChange} />
                 </Form.Group>
               </Row>
 
               <Row>
-                <Form.Group controlId="formRegEmployerAddress">
-                  <Form.Label>Address of your company, organization or school:</Form.Label>
-                  <Form.Control type="input" name="employerAddress" placeholder="219 W 48th Street, New York, NY" value={attendee.employerAddress} className="attendeeEmployerAddy" onChange={handleInputChange} />
+                <Form.Group controlId="formRegEmergencyContact">
+                  <Col sm={6}>
+                    <Form.Label>Emergency contact name:</Form.Label>
+                    <Form.Control type="input" name="emergencyContactName" placeholder="Sarah Jane Smith" value={attendee.emergencyContactName} className="attendeeEmergencyName" onChange={handleInputChange} />
+                  </Col>
+                  <Col sm={6}>
+                    <Form.Label>Emergency contact phone #:</Form.Label>
+                    <Form.Control type="input" name="emergencyContactPhone" placeholder="(987)654-3210" value={attendee.emergencyContactPhone} className="attendeeEmergencyPhone" onChange={handleInputChange} />
+                  </Col>
                 </Form.Group>
+              </Row>
+
+              <Row>
+                <Form.Group controlId=""
               </Row>
 
             </Form>
           </Container>
         )}
     </>
-  )
+        )
 
-}
+      }
 
 export default Registration;
