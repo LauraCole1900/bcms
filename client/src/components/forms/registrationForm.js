@@ -106,6 +106,12 @@ const Registration = () => {
                 </Form.Group>
               </Row>
 
+              <Row>
+                {(confId !== "new_conference")
+                  ? <Button className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                  : <Button className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+              </Row>
+
             </Form>
           </Container>
         )}
