@@ -30,9 +30,10 @@ module.exports = {
   },
 
   // GET user by ID
-  findById: function (req, res) {
+  findByEmail: function (req, res) {
+    console.log("from userCont findByEmail", req.params.email)
     db.User
-    .findById(req.params.id)
+    .findOne(req.params.email)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err))
   },

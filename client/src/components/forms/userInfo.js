@@ -11,13 +11,13 @@ const UpdateUser = () => {
   const [pageReady, setPageReady] = useState(false);
   const [userInfo, setUserInfo] = useState({});
 
-  const urlArray = window.location.href.split("/")
-  const userId = urlArray[urlArray.length - 1]
-  console.log(userId);
+  // const urlArray = window.location.href.split("/")
+  // const userId = urlArray[urlArray.length - 1]
+  // console.log(userId);
 
   useEffect(() => {
-    UserAPI.updateUser(userId).then(resp => {
-      console.log("from userInfo updateUser", resp.data);
+    UserAPI.getUserByEmail(user.email).then(resp => {
+      console.log("from userInfo getUserByEmail", resp.data);
       const userArr = resp.data;
       setUserInfo(userArr[0]);
       setPageReady(true);
@@ -30,8 +30,8 @@ const UpdateUser = () => {
 
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    console.log("User update", userId);
-    UserAPI.updateUser({ ...user }, userId)
+    console.log("User update", user.email);
+    UserAPI.updateUser({ ...user }, user.email)
       .then(history.push("/user_updated"))
       .catch(err => console.log(err))
   }

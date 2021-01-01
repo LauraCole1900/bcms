@@ -9,8 +9,8 @@ router.route("/post")
 router.route("/")
   .get(userController.findAll);
 
-router.route("/:id")
-  .get(userController.findById);
+router.route("/:email")
+  .get(userController.findByEmail);
 
 
 router.route("/update/:id")

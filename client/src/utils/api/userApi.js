@@ -14,6 +14,12 @@ const UserAPI = {
     return axios.get("/api/user")
   },
 
+  // GET user by email
+  getUserByEmail: function (email) {
+    console.log("from API getUserByEmail", email)
+    return axios.get(`/api/user/${email}`)
+  },
+
 
   // UPDATE user information
   updateUser: function (formObj, email) {
