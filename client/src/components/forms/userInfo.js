@@ -10,13 +10,14 @@ const UpdateUser = () => {
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const email = user.email
 
   // const urlArray = window.location.href.split("/")
   // const userId = urlArray[urlArray.length - 1]
   // console.log(userId);
 
   useEffect(() => {
-    UserAPI.getUserByEmail(user.email).then(resp => {
+    UserAPI.getUserByEmail(email).then(resp => {
       console.log("from userInfo getUserByEmail", resp.data);
       const userArr = resp.data;
       setUserInfo(userArr[0]);

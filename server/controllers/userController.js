@@ -33,7 +33,7 @@ module.exports = {
   findByEmail: function (req, res) {
     console.log("from userCont findByEmail", req.params.email)
     db.User
-    .findOne(req.params.email)
+    .findOne({ email: req.params.email })
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err))
   },
