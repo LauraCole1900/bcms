@@ -41,8 +41,9 @@ module.exports = {
 
   // PUT user
   updateUser: function (req, res) {
+    console.log("from userController updateUser", req.body)
     db.User
-    .findOneAndUpdate({ email: req.params.email }, req.body)
+    .findOneAndUpdate({ email: req.body.email }, req.body)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err))
   },
