@@ -45,7 +45,8 @@ const AllConfs = () => {
           <Container>
             <Row>
               <Col sm={8}>
-                <UserCard />
+                {isAuthenticated &&
+                  <UserCard />}
               </Col>
               <Col sm={4}>
                 <Card.Body>
