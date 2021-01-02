@@ -10,12 +10,8 @@ const UserContext = createContext({
     const [userInfo, setUserInfo] = useState({});
 
     UserAPI.getUserByEmail(user.email)
-      .then(resp => {
-        const userArr = resp.data;
-        setUserInfo(userArr)
-          .then(userInfo => resp.json(userInfo))
-          .catch(err => resp.status(422).json(err))
-      }).catch(err => console.log(err))
+      .then(resp => {resp.json(resp.data)})
+      .catch(err => console.log(err))
   }
 })
 

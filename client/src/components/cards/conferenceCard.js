@@ -1,20 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 // import Moment from "react-moment";
 import { ConferenceAPI } from "../../utils/api";
-import { UserContext } from "../../utils/context";
 import "./style.css";
 
 function Conference({ conference }) {
-  const { isAuthenticated } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
-  const userInfo = useContext(UserContext);
-  console.log(userInfo);
 
   function handleRegister(confId) {
-    const email = { email: userInfo.email }
+    const email = { email: user.email }
     ConferenceAPI.updateConferenceAttendees(confId, email)
       .then(history.push(`/register_attend/${confId}`))
       .catch(err => console.log(err))
@@ -39,7 +36,7 @@ function Conference({ conference }) {
               </Col>
               <Col sm={1}>
                 {isAuthenticated &&
-                  (userInfo.email === e.creatorEmail) &&
+                  (user.email === e.creatorEmail) &&
                   <Button data-toggle="popover" title="Delete this conference" className="deletebtn" onClick={() => handleDelete(e._id)}>
                     <Image fluid src="images/trash-can.png" className="delete" alt="Delete" />
                   </Button>}
@@ -82,7 +79,7 @@ function Conference({ conference }) {
             </Row>
             <Row>
               {isAuthenticated &&
-                userInfo.email === e.creatorEmail &&
+                user.email === e.creatorEmail &&
                 <div>
                   <Col sm={5}></Col>
                   <Col sm={1}>
@@ -103,8 +100,8 @@ function Conference({ conference }) {
                   </Col>
                 </div>}
               {isAuthenticated &&
-                userInfo.email !== e.creatorEmail &&
-                // userInfo.find(userInfo => userInfo.email !== e.confAttendees) &&
+                user.email !== e.creatorEmail &&
+                // user.find(user => user.email !== e.confAttendees) &&
                 <div>
                   <Col sm={4}></Col>
                   <Col sm={4}>
