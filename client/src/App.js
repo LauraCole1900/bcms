@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import { Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AllConfs, ConfDetails, ContactBCMS, Login, Profile, Schedule, Success, Venue } from "./components/pages";
 import Navbar from "./components/navbar";
@@ -8,7 +7,7 @@ import { ConferenceForm, ExhibitForm, Registration, SessionForm, SessionProposal
 import "./App.css";
 
 function App() {
-  const { isLoading, isAuthenticated } = useAuth0();
+  const { isLoading } = useAuth0();
 
   if (isLoading) return <div>Loading...</div>
 
