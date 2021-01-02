@@ -5,3 +5,13 @@
   border-radius: 10px;
   margin: 5px 0 5px 0;
 }
+
+.alert {
+  color: black;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #ff8686;
+  border: 3px solid red;
+  padding: 0 13px;
+}

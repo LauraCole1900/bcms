@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { AttendeeAPI } from "../../utils/api";
+import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const Registration = () => {
@@ -10,13 +10,23 @@ const Registration = () => {
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [conference, setConference] = useState({});
   const [attendee, setAttendee] = useState({});
 
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
 
   useEffect(() => {
-    setAttendee({ ...attendee, confId: confId })
+    ConferenceAPI.getConferenceById(confId)
+      .then(resp => {
+        console.log("from registrationForm getConferenceById", resp.data)
+        const confArr = resp.data[0];
+        setConference(confArr);
+      })
+      .catch(err => console.log(err));
+
+    setAttendee({ ...attendee, confId: confId, email: user.email })
+
     setPageReady(true);
   }, [])
 
@@ -34,8 +44,8 @@ const Registration = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Attendee submit")
-    AttendeeAPI.registerAttendee({ ...attendee, email: user.email })
+    console.log("Attendee submit", confId, user.email, attendee)
+    AttendeeAPI.registerAttendee({ ...attendee, confId: confId, email: user.email })
       .then(history.push(`/register_success/${confId}`))
       .catch(err => console.log(err));
   }
@@ -45,6 +55,10 @@ const Registration = () => {
       { pageReady === true &&
         isAuthenticated && (
           <Container>
+            {(conference.confWaiver === "yes") &&
+              <div className="alert">
+                <h5>A signed liability waiver will be required to participate in this event. It will be available at check-in to the event.</h5>
+              </div>}
             <Form className="regForm">
 
               <Row>
@@ -91,25 +105,24 @@ const Registration = () => {
                 </Form.Group>
               </Row>
 
-              <Row>
-                <Form.Group controlId="allergyConfirm">
-                  <Col sm={6}>
-                    <Form.Label>Do you have known allergies?</Form.Label>
-                    <Form.Check type="radio" id="allergiesYes" name="allergyConfirm" label="Yes" value="yes" checked={attendee.allergyConfirm === "yes"} onChange={handleInputChange} />
-                    <Form.Check type="radio" id="allergiesNo" name="allergyConfirm" label="No" value="no" checked={attendee.allergyConfirm === "no"} onChange={handleInputChange} />
-                  </Col>
-                  {attendee.allergyConfirm === "yes" &&
+              {(conference.confAllergies === "yes") &&
+                <Row>
+                  <Form.Group controlId="allergyConfirm">
                     <Col sm={6}>
-                      <Form.Label>Please list your allergies:</Form.Label>
-                      <Form.Control as="textarea" rows={5} name="allergies" placeholder="Peanuts, Eggs, Soy, Milk, Bee stings" value={attendee.allergies} className="attendeeAllergies" onChange={handleInputChange} />
-                    </Col>}
-                </Form.Group>
-              </Row>
+                      <Form.Label>Do you have known allergies?</Form.Label>
+                      <Form.Check type="radio" id="allergiesYes" name="allergyConfirm" label="Yes" value="yes" checked={attendee.allergyConfirm === "yes"} onChange={handleInputChange} />
+                      <Form.Check type="radio" id="allergiesNo" name="allergyConfirm" label="No" value="no" checked={attendee.allergyConfirm === "no"} onChange={handleInputChange} />
+                    </Col>
+                    {(attendee.allergyConfirm === "yes") &&
+                      <Col sm={6}>
+                        <Form.Label>Please list your allergies:</Form.Label>
+                        <Form.Control as="textarea" rows={5} name="allergies" placeholder="Peanuts, Eggs, Soy, Milk, Bee stings, Penicillin, etc." value={attendee.allergies} className="attendeeAllergies" onChange={handleInputChange} />
+                      </Col>}
+                  </Form.Group>
+                </Row>}
 
               <Row>
-                {(confId !== "new_conference")
-                  ? <Button className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                  : <Button className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+                <Button className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>
               </Row>
 
             </Form>
