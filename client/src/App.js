@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 // import { Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AllConfs, Login, Profile, Success } from "./components/pages";
-// import ConfDetails from "./components/pages/confDetails";
+// import ConfDetails from "./components/pages/confDetailsPage";
 // import Schedule from "./components/pages/confSchedule";
 // import Venue from "./components/pages/confVenue";
 // import ContactBCMS from "./components/pages/contactPage";

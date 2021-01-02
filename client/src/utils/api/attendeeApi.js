@@ -15,6 +15,11 @@ const AttendeeAPI = {
     return axios.get(`/api/attendee/${confId}`)
   },
 
+  getConferencesAttending (email) {
+    console.log("from API getConferencesAttending", email)
+    return axios.get(`/api/attendee/conferences/${email}`)
+  },
+
 
   // UPDATE attendee information
   updateAttendee: function (formData, email) {

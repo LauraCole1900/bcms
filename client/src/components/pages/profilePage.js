@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
-import { ConferenceAPI, UserAPI } from "../../utils/api";
+import { AttendeeAPI, ConferenceAPI, UserAPI } from "../../utils/api";
 import "./style.css";
 
 const Profile = () => {
@@ -31,7 +31,7 @@ const Profile = () => {
   useEffect(() => {
     saveUserToDB();
     // Creates array of conferences for which the user has registered
-    ConferenceAPI.getConferencesAttending(user.email)
+    AttendeeAPI.getConferencesAttending(user.email)
       .then(resp => {
         console.log("getConfAttending", resp.data)
         const attArr = resp.data
