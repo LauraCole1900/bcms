@@ -24,9 +24,7 @@ module.exports = {
 		console.log("from sessCont findByConfId", req.params.id)
 		db.Session
 			.find({ confId: req.params.id })
-			.then(dbModel => {
-				res.json(dbModel)
-			})
+			.then(dbModel => {res.json(dbModel)})
 			.catch(err => {
 				console.log(err)
 				res.status(422).json(err)
@@ -38,9 +36,7 @@ module.exports = {
     console.log("from sessCont findBySessId", req.params.id)
     db.Session
       .find(ObjectId(req.params.id))
-      .then(dbModel => {
-				res.json(dbModel)
-			})
+      .then(dbModel => {res.json(dbModel)})
       .catch(err => {
 				console.log(err)
 				res.status(422).json(err)
