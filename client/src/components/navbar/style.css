@@ -3,25 +3,29 @@
   font-size: 16px;
   width: 100%;
   height: 100px;
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap-reverse;
   align-items: center;
   justify-content: space-between;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  top: 0;
+}
+
 .pineTree {
-  width: 75px;
-  display: inline-flex;
-  align-items: flex-start;
+  max-width: 75px;
   border: 2px solid #b4b4b4;
   border-radius: 25%;
-  top: 0;
+  margin-right: 5px;
 }
 
 .hello {
   font-family: "Open Sans Condensed", sans-serif;
   color: #e2e2e2;
-  display: inline-flex;
+  display: flex;
 }
 
 .mylogo {
@@ -80,13 +84,11 @@
   display: inline;
   margin-right: 15px;
   width: 16%;
-  /* display: inline-flex;
-justify-content: flex-end; */
 }
 
 .toggle {
   color: #cfbfa5;
-  background: linear-gradient(to bottom,  #899168, #2d321e);
+  background: linear-gradient(to bottom, #899168, #2d321e);
   position: absolute;
   right: 10px;
 }
