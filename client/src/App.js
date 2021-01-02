@@ -2,21 +2,15 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 // import { Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import Login from "./components/pages/loginPage";
-import Profile from "./components/pages/profilePage";
-import AllConfs from "./components/pages/allConfsPage";
+import { Login, Profile, AllConfs } from "./components/pages";
 // import ConfDetails from "./components/pages/confDetails";
 // import Schedule from "./components/pages/confSchedule";
 // import Venue from "./components/pages/confVenue";
 // import ContactBCMS from "./components/pages/contactPage";
 import Navbar from "./components/navbar";
-import ConferenceForm from "./components/forms/conferenceForm";
+import { ConferenceForm, ExhibitForm, Registration, UpdateUser, Success } from "./components/forms";
 // import SessionForm from "./components/forms/sessionForm";
 // import SessionProposal from "./components/forms/sessionProposal";
-import ExhibitForm from "./components/forms/exhibitForm";
-import Registration from "./components/forms/registrationForm";
-import Success from "./components/pages/success";
-import UpdateUser from "./components/forms/userInfo";
 import "./App.css";
 
 function App() {
