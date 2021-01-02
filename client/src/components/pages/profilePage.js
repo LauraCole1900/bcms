@@ -32,36 +32,46 @@ const Profile = () => {
   useEffect(() => {
     saveUserToDB();
     // Creates array of conferences for which the user has registered
-    ConferenceAPI.getConferencesAttending(user.email).then(resp => {
-      console.log("getConfAttending", resp.data)
-      const attArr = resp.data
-      const sortedAtt = attArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-      setAttendConf(sortedAtt)
-    })
+    ConferenceAPI.getConferencesAttending(user.email)
+      .then(resp => {
+        console.log("getConfAttending", resp.data)
+        const attArr = resp.data
+        const sortedAtt = attArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
+        setAttendConf(sortedAtt)
+      })
+      .catch(err => console.log(err))
 
     // Creates array of conferences user has created
-    ConferenceAPI.getConferencesCreated(user.email).then(resp => {
-      console.log("getConfCreated", resp.data)
-      const createArr = resp.data
-      const sortedCreate = createArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-      setCreateConf(sortedCreate)
-    })
+    ConferenceAPI.getConferencesCreated(user.email)
+      .then(resp => {
+        console.log("getConfCreated", resp.data)
+        const createArr = resp.data
+        const sortedCreate = createArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
+        setCreateConf(sortedCreate)
+      })
+      .catch(err => console.log(err))
 
     // Creates array of conferences at which the user is presenting
-    ConferenceAPI.getConferencesPresenting(user.email).then(resp => {
-      console.log("getConfPresenting", resp.data)
-      const presentArr = resp.data
-      const sortedPresent = presentArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-      setPresentConf(sortedPresent)
-    })
+    ConferenceAPI.getConferencesPresenting(user.email)
+      .then(resp => {
+        console.log("getConfPresenting", resp.data)
+        const presentArr = resp.data
+        const sortedPresent = presentArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
+        setPresentConf(sortedPresent)
+      })
+      .catch(err => console.log(err))
 
     // Creates array of conferences at which the user is exhibiting
-    ConferenceAPI.getConferencesExhibiting(user.email).then(resp => {
-      console.log("getConfExhibiting", resp.data)
-      const exhibitArr = resp.data
-      const sortedExhibit = exhibitArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-      setExhibitConf(sortedExhibit)
-    })
+    ConferenceAPI.getConferencesExhibiting(user.email)
+      .then(resp => {
+        console.log("getConfExhibiting", resp.data)
+        const exhibitArr = resp.data
+        const sortedExhibit = exhibitArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
+        setExhibitConf(sortedExhibit)
+      })
+      .catch(err => console.log(err))
+
+    // Sets pageReady(true) for page load
     setPageReady(true);
   }, [])
 
