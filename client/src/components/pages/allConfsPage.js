@@ -69,7 +69,7 @@ const AllConfs = () => {
                       </Row>}
                   </Form>
                 </Card.Body>
-              </Col>
+              </Col> 
             </Row>
 
             {!isAuthenticated &&
