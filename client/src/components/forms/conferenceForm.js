@@ -200,13 +200,29 @@ const ConferenceForm = () => {
               </Row>
 
               <Row>
-                <Form.Group controlId="formConfWaiver">
-                  <Form.Label>Will a liability waiver be required? *</Form.Label>
-                  <Form.Control required as="select" name="confWaiver" onChange={handleInputChange}>
-                    <option value={false} checked={conference.confWaiver === false}>No</option>
-                    <option value={true} checked={conference.confWaiver === true}>Yes</option>
-                  </Form.Control>
-                </Form.Group>
+                <Col sm={6}>
+                  <Form.Group controlId="formConfAllergies">
+                    <Form.Label>Do you need to ask attendees about allergies? *</Form.Label>
+                    <Form.Control required as="select" name="confAllergies" onChange={handleInputChange}>
+                      <option value="no" checked={conference.confAllergies === "no"}>No</option>
+                      <option value="yes" checked={conference.confAllergies === "yes"}>Yes</option>
+                    </Form.Control>
+                    {(conference.confAllergies === "yes") &&
+                      <Form.Text> Attendees will be asked about allergies on the registration form.</Form.Text>}
+                  </Form.Group>
+                </Col>
+
+                <Col sm={6}>
+                  <Form.Group controlId="formConfWaiver">
+                    <Form.Label>Will a liability waiver be required? *</Form.Label>
+                    <Form.Control required as="select" name="confWaiver" onChange={handleInputChange}>
+                      <option value="no" checked={conference.confWaiver === "no"}>No</option>
+                      <option value="yes" checked={conference.confWaiver === "yes"}>Yes</option>
+                    </Form.Control>
+                    {(conference.confWaiver === "yes") &&
+                      <Form.Text>Attendees will be alerted on the registration form that they will be expected to sign a liability waiver upon checking in to the event.</Form.Text>}
+                  </Form.Group>
+                </Col>
               </Row>
 
               <Row>
