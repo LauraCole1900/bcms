@@ -211,7 +211,9 @@ const ConferenceForm = () => {
                       <Form.Text> Attendees will be asked about allergies on the registration form.</Form.Text>}
                   </Form.Group>
                 </Col>
+              </Row>
 
+              <Row>
                 <Col sm={6}>
                   <Form.Group controlId="formConfWaiver">
                     <Form.Label>Will a liability waiver be required? *</Form.Label>

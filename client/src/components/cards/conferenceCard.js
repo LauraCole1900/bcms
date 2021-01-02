@@ -46,6 +46,10 @@ function Conference({ conference }) {
           <Card.Body className="cardBody">
             <Row>
               <Col sm={8}>
+                {(e.confWaiver === "yes") &&
+                  <div className="alert">
+                    <h5>A signed liability waiver will be required to participate in this event. It will be available at check-in to the event.</h5>
+                  </div>}
                 <Card.Text>{e.confDesc}</Card.Text>
               </Col>
               <Col sm={4}>
