@@ -35,7 +35,7 @@ const ConferenceForm = () => {
       .then(resp => {
         console.log("from conferenceForm getConfById", resp.data);
         const confArr = resp.data;
-        setConference(confArr[0]);
+        setConference(confArr[0])
       })
       .catch(err => console.log(err))
     } else {

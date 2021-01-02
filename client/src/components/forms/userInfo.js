@@ -12,12 +12,14 @@ const UpdateUser = () => {
   const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
-    UserAPI.getUserByEmail(user.email).then(resp => {
+    UserAPI.getUserByEmail(user.email)
+    .then(resp => {
       console.log("from userInfo getUserByEmail", resp.data);
       const userArr = resp.data;
       setUserInfo(userArr);
       setPageReady(true);
     })
+    .catch(err => console.log(err))
   }, [])
 
   const handleInputChange = (e) => {
