@@ -69,7 +69,7 @@ function Conference({ conference }) {
                 {(e.confType === "Live") &&
                   (e.confLocUrl !== undefined) &&
                   <Row>
-                    <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">Venue's website</a></p>
+                    <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">{e.confLocName}</a></p>
                   </Row>}
                 <Row>
                   <Link to={{
