@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
-import Conference from "../conferenceCard";
-import UserCard from "../userCard";
+import { ConferenceCard, UserCard } from "../cards";
 import { ConferenceAPI, UserAPI } from "../../utils/api";
 import "./style.css";
 
@@ -119,7 +118,7 @@ const Profile = () => {
             </Row>
             {whichConf === "attend" &&
               attendConf.length > 0 &&
-              <Conference conference={attendConf} />
+              <ConferenceCard conference={attendConf} />
             }
             {whichConf === "attend" &&
               attendConf.length === 0 &&
@@ -127,7 +126,7 @@ const Profile = () => {
             }
             {whichConf === "create" &&
               createConf.length > 0 &&
-              <Conference conference={createConf} />
+              <ConferenceCard conference={createConf} />
             }
             {whichConf === "create" &&
               createConf.length === 0 &&
@@ -135,7 +134,7 @@ const Profile = () => {
             }
             {whichConf === "exhibit" &&
               exhibitConf.length > 0 &&
-              <Conference conference={exhibitConf} />
+              <ConferenceCard conference={exhibitConf} />
             }
             {whichConf === "exhibit" &&
               exhibitConf.length === 0 &&
@@ -143,7 +142,7 @@ const Profile = () => {
             }
             {whichConf === "present" &&
               presentConf.length > 0 &&
-              <Conference conference={presentConf} />
+              <ConferenceCard conference={presentConf} />
             }
             {whichConf === "present" &&
               presentConf.length === 0 &&
@@ -151,7 +150,7 @@ const Profile = () => {
             }
             {/* {whichConf === "past" &&
               pastConf.length > 0 &&
-              <Conference conference={presentConf} />
+              <ConferenceCard conference={presentConf} />
             }
             {whichConf === "past" &&
               pastConf.length === 0 &&
