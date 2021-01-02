@@ -45,10 +45,10 @@ function Conference({ conference }) {
                   </div>}
                 <Card.Text>{e.confDesc}</Card.Text>
               </Col>
-              <Col sm={4}>
+              <Col sm={4} className="vitals">
                 <Row><p>Dates: {e.startDate} - {e.endDate}</p></Row>
                 <Row><p>Times: {e.confStartTime} - {e.confEndTime}</p></Row>
-                <Row><p>{e.confType}</p></Row>
+                <Row><p>Type: {e.confType}</p></Row>
                 <Row>
                   {(e.confType === "Live") &&
                     <p><a href={`https://www.google.com/maps/search/${e.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
