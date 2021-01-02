@@ -1,5 +1,5 @@
 export { default as AllConfs } from "./allConfsPage";
-export { default as ConfDetails } from "./confDetails";
+export { default as ConfDetails } from "./confDetailsPage";
 export { default as Schedule } from "./confSchedule";
 export { default as Venue } from "./confVenue";
 export { default as ContactBCMS } from "./contactPage";
