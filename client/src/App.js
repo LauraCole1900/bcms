@@ -4,9 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AllConfs, ConfDetails, ContactBCMS, Login, Profile, Schedule, Success, Venue } from "./components/pages";
 import Navbar from "./components/navbar";
-import { ConferenceForm, ExhibitForm, Registration, UpdateUser } from "./components/forms";
-// import SessionForm from "./components/forms/sessionForm";
-// import SessionProposal from "./components/forms/sessionProposal";
+import { ConferenceForm, ExhibitForm, Registration, SessionForm, SessionProposal, UpdateUser } from "./components/forms";
 import "./App.css";
 
 function App() {
