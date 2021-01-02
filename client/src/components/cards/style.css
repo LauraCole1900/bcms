@@ -1,0 +1,100 @@
+h2 {
+  font-family: "Romanesco", cursive;
+  margin: 13px 0 0 13px;
+}
+
+p {
+  font-size: 16px;
+  font-family: "Open Sans Condensed", sans-serif;
+  margin-left: 13px;
+  font-weight: 600;
+}
+
+a {
+  color: #47532b;
+}
+
+a:hover {
+  color: #2f3028;
+}
+
+a:active{
+  color: #2f3028;
+}
+
+a:visited {
+  color: #2f3028;
+}
+
+.confCard {
+  background: linear-gradient(to bottom, #e2e2e2, #878992);
+  border: 2px solid #11130b;
+  border-radius: 12px;
+  margin: 5px 0;
+}
+
+.confTitle {
+  color: #cfbfa5;
+  background: linear-gradient(to top, #899168, #2d321e);
+  border-radius: 11px 11px 0 0;
+}
+
+.delete {
+  max-width: 25px;
+}
+
+.deletebtn {
+  color: #cfbfa5;
+  background: linear-gradient(to bottom, #899168, #2d321e);
+  float: right;
+  margin: 13px;
+}
+
+.org {
+  margin-left: 50px;
+}
+
+.cardBody {
+  color: #11130b;
+  font-family: "Open Sans Condensed", sans-serif;
+  margin: 5px 0;
+}
+
+.button {
+  color: #e2e2e2;
+  background: linear-gradient(to bottom, #899168, #2d321e);
+  border: 2px solid #11130b;
+  border-radius: 10px;
+  margin: 5px 0 5px 0;
+}
+
+.title {
+  width: 100%;
+  font-family: 'Romanesco', cursive;
+}
+
+.userCard {
+  color: #11130b;
+  border: 2px solid #11130b;
+  border-radius: 12px;
+  background: linear-gradient(to top, #e2e2e2, #878992);
+}
+
+.profilePic {
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.userInfo {
+  margin-left: 10px;
+}
+
+.userName {
+  font-family: "Romanesco", cursive;
+  font-size: 48px;
+}
+
+.userEmail {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 18px;
+}
