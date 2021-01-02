@@ -54,11 +54,10 @@ const AllConfs = () => {
                   <Form inline>
                     <Row>
                       <Form.Group controlId="confSearchBy">
-                        <Form.Label>Search by:</Form.Label>
                         <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
-                          <option value="all">All Conferences</option>
-                          <option value="name">Conference Name</option>
-                          <option value="org">Organization</option>
+                          <option value="all">View All Conferences</option>
+                          <option value="name">Search by Conference Name</option>
+                          <option value="org">Search by Organization</option>
                         </Form.Control>
                       </Form.Group>
                     </Row>
