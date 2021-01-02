@@ -15,7 +15,8 @@ const AllConfs = () => {
   const [pageReady, setPageReady] = useState(false);
 
   useEffect(() => {
-    ConferenceAPI.getConferences().then(resp => {
+    ConferenceAPI.getConferences()
+    .then(resp => {
       const confArr = resp.data;
       const filteredConf = confArr.filter(a => new Date(a.startDate) - new Date() >= 0);
       const sortedConf = filteredConf.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
@@ -25,6 +26,7 @@ const AllConfs = () => {
       setConfArray(sortedConf);
       setPageReady(true);
     })
+    .catch(err => console.log(err))
   }, [])
 
   const searchFilter = (data) => {
