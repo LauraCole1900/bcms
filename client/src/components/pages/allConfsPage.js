@@ -32,9 +32,9 @@ const AllConfs = () => {
     if (searchBy === "all") {
       return (confArray)
     } else if (searchBy === "name") {
-      return data.filter((conference) => conference.confName.indexOf(search) !== -1)
+      return data.filter((conference) => conference.confName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
     } else if (searchBy === "org") {
-      return data.filter((conference) => conference.confOrg.indexOf(search) !== -1)
+      return data.filter((conference) => conference.confOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
     }
   }
 
@@ -64,7 +64,7 @@ const AllConfs = () => {
                     {(searchBy !== "all") &&
                       <Row>
                         <div id="confPageSearch">
-                          <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search is case-sensitive" value={search} onChange={(e) => setSearch(e.target.value)} />
+                          <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search conferences" value={search} onChange={(e) => setSearch(e.target.value)} />
                         </div>
                       </Row>}
                   </Form>
