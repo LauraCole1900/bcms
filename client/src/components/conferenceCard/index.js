@@ -14,14 +14,14 @@ function Conference({ conference }) {
     const email = { email: user.email }
     ConferenceAPI.updateConferenceAttendees(confId, email).then(
       history.push(`/register_attend/${confId}`)
-    )
+    ).catch(err => console.log(err))
   }
 
   function handleDelete(confId) {
     console.log("from confCard", confId)
     ConferenceAPI.deleteConference(confId).then(
       history.push("/deleted")
-    )
+    ).catch(err => console.log(err))
   };
 
   return (
