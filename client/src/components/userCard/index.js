@@ -11,12 +11,15 @@ const UserCard = () => {
   const [pageReady, setPageReady] = useState(false);
 
   useEffect(() => {
-    UserAPI.getUserByEmail(user.email).then(resp => {
-      console.log("from userCard getUserByEmail", resp.data);
-      const userArr = resp.data;
-      setUserInfo(userArr);
-      setPageReady(true);
-    })
+    UserAPI.getUserByEmail(user.email)
+      .then(resp => {
+        console.log("from userCard getUserByEmail", resp.data);
+        const userArr = resp.data;
+        setUserInfo(userArr);
+      })
+      .catch(err => console.log(err))
+
+    setPageReady(true);
   }, [])
 
   return (

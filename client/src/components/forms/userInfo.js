@@ -13,13 +13,13 @@ const UpdateUser = () => {
 
   useEffect(() => {
     UserAPI.getUserByEmail(user.email)
-    .then(resp => {
-      console.log("from userInfo getUserByEmail", resp.data);
-      const userArr = resp.data;
-      setUserInfo(userArr);
-      setPageReady(true);
-    })
-    .catch(err => console.log(err))
+      .then(resp => {
+        console.log("from userInfo getUserByEmail", resp.data);
+        const userArr = resp.data;
+        setUserInfo(userArr);
+        setPageReady(true);
+      })
+      .catch(err => console.log(err))
   }, [])
 
   const handleInputChange = (e) => {

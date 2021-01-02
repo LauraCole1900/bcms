@@ -32,12 +32,12 @@ const ConferenceForm = () => {
   useEffect(() => {
     if (confId !== "new_conference") {
       ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
-        console.log("from conferenceForm getConfById", resp.data);
-        const confArr = resp.data;
-        setConference(confArr[0])
-      })
-      .catch(err => console.log(err))
+        .then(resp => {
+          console.log("from conferenceForm getConfById", resp.data);
+          const confArr = resp.data;
+          setConference(confArr[0])
+        })
+        .catch(err => console.log(err))
     } else {
       setConference({ ...conference, creatorEmail: user.email })
     }
@@ -70,7 +70,7 @@ const ConferenceForm = () => {
         isAuthenticated && (
           <Container>
             <Form className="confForm">
-              
+
               <Row>
                 <Form.Group controlId="formConfName">
                   <Form.Label>Name of conference: *</Form.Label>
