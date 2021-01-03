@@ -9,15 +9,15 @@ const presenterSchema = new Schema({
   presEmail: {
     type: String,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
-    required: true
+    required: "Please enter the presenter's email."
   },
   presPhone: {
     type: String,
-    required: true
+    required: "Please enter the presenter's phone number."
   },
   presOrg: {
     type: String,
-    required: true
+    required: "Please enter the presenter's organization."
   },
   presWebsite: {
     type: String,

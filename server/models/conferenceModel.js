@@ -8,39 +8,39 @@ const conferenceSchema = new Schema({
   },
   confName: {
     type: String,
-    required: true
+    required: "Please enter the name of your conference."
   },
   confOrg: {
     type: String,
-    required: true
+    required: "Please enter the name of the organization presenting your conference."
   },
   confDesc: {
     type: String,
-    required: true
+    required: "Please enter the description of your conference."
   },
   startDate: {
     type: String,
-    required: true
+    required: "Please enter your conference's starting date."
   },
   endDate: {
     type: String,
-    required: true
+    required: "Please enter your conference's ending date."
   },
   confStartTime: {
     type: String,
-    required: true
+    required: "Please enter your conference's starting time. You will be creating a full schedule later."
   },
   confEndTime: {
     type: String,
-    required: true
+    required: "Please enter your conference's ending time. You will be creating a full schedule later."
   },
   confType: {
     type: String,
-    required: true
+    required: "Please select whether this conference is live or virtual."
   },
   confLoc: {
     type: String,
-    required: true
+    required: "Please enter your conference's location."
   },
   confLocName: {
     type: String
@@ -50,25 +50,25 @@ const conferenceSchema = new Schema({
   },
   confCapConfirm: {
     type: String,
-    required: true
+    required: "Please select whether your conference has a cap on the number of attendees."
   },
   confAttendCap: {
     type: Number
   },
   confFee: {
     type: String,
-    required: true
+    required: "Please select whether your conference has a registration fee."
   },
   confFeeAmt: {
     type: Number
   },
   confAllergies: {
     type: String,
-    required: true
+    required: "Please select whether you need attendees to tell you about their allergies."
   },
   confWaiver: {
     type: String,
-    required: true
+    required: "Please select whether your conference requires a liability waiver."
   },
   confAttendCount: {
     type: Number

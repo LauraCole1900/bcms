@@ -12,31 +12,30 @@ const exhibitorSchema = new Schema({
   },
   exhCompany: {
     type: String,
-    required: true
+    required: "Please enter the exhibitor's company, organization or school."
   },
   exhPhone: {
     type: String,
-    required: true
+    required: "Please enter the exhibitor's phone number."
   },
   exhCompanyAddress: {
     type: String,
-    required: true
+    required: "Please enter the exhibitor company's address."
   },
   exhWorkers: {
     type: Number,
-    required: true
+    required: "Please select how many workers are associated with this exhibit."
   },
   exhNames: {
     type: [ String ],
-    required: true
+    required: "Please enter the names of the exhibit workers."
   },
   exhSpaces: {
     type: Number,
-    required: true
+    required: "Please select how many spaces this exhibit requires."
   },
   exhAttend: {
     type: Boolean,
-    required: true
   },
   exhPaid: {
     type: Boolean
