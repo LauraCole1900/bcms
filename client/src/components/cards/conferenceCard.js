@@ -9,16 +9,17 @@ import "./style.css";
 function Conference({ conference }) {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
-  const [attendee, setAttendee] = useState({});
+  const [attendConf, setAttendConf] = useState([]);
   const [pageReady, setPageReady] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
       AttendeeAPI.getConferencesAttending(user.email)
-        .then(resp => {
-          console.log("from confCard getConferencesAttending", resp.data)
-          const attArr = resp.data
-          setAttendee(attArr);
+      .then(resp => {
+        console.log("getConfAttending", resp.data)
+        const attArr = resp.data
+        setAttendConf(attArr);
+        console.log("from confCard getConfsAtt", attendConf)
         })
         .catch(err => console.log(err));
     }
@@ -114,7 +115,7 @@ function Conference({ conference }) {
                   </div>}
                 {isAuthenticated &&
                   user.email !== e.creatorEmail &&
-                  user.email !== attendee.email &&
+                  user.email !== attendConf.email &&
                   <div>
                     <Col sm={4}></Col>
                     <Col sm={4}>
