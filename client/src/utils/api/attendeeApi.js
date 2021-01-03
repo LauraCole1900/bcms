@@ -15,7 +15,8 @@ const AttendeeAPI = {
     return axios.get(`/api/attendee/${confId}`)
   },
 
-  getConferencesAttending (email) {
+  // GET conferences by attendee
+  getConferencesAttending: function (email) {
     console.log("from API getConferencesAttending", email)
     return axios.get(`/api/attendee/conferences/${email}`)
   },

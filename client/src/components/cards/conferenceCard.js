@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
@@ -9,6 +9,21 @@ import "./style.css";
 function Conference({ conference }) {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
+  const [attendee, setAttendee] = useState({});
+  const [pageReady, setPageReady] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      AttendeeAPI.getConferencesAttending(user.email)
+        .then(resp => {
+          console.log("from confCard getConferencesAttending", resp.data)
+          const attArr = resp.data
+          setAttendee(attArr);
+        })
+        .catch(err => console.log(err));
+    }
+    setPageReady(true);
+  }, [])
 
   function handleDelete(confId) {
     console.log("from confCard", confId)
@@ -19,101 +34,102 @@ function Conference({ conference }) {
 
   return (
     <>
-      {conference.map(e => (
-        <Card className="confCard" key={e._id}>
-          <Card.Header className="confTitle">
-            <Row>
-              <Col sm={11}>
-                <h2>{e.confName}</h2>
-                <p className="org">Presented by {e.confOrg}</p>
-              </Col>
-              <Col sm={1}>
-                {isAuthenticated &&
-                  (user.email === e.creatorEmail) &&
-                  <Button data-toggle="popover" title="Delete this conference" className="deletebtn" onClick={() => handleDelete(e._id)}>
-                    <Image fluid src="images/trash-can.png" className="delete" alt="Delete" />
-                  </Button>}
-              </Col>
-            </Row>
-          </Card.Header>
-          <Card.Body className="cardBody">
-            <Row>
-              <Col sm={8}>
-                {(e.confWaiver === "yes") &&
-                  <div className="alert">
-                    <h5>A signed liability waiver will be required to participate in this event. It will be available at check-in to the event.</h5>
-                  </div>}
-                <Card.Text>{e.confDesc}</Card.Text>
-              </Col>
-              <Col sm={4} className="vitals">
-                <Row><p>Dates: {e.startDate} - {e.endDate}</p></Row>
-                <Row><p>Times: {e.confStartTime} - {e.confEndTime}</p></Row>
-                <Row><p>Type: {e.confType}</p></Row>
-                <Row>
-                  {(e.confType === "Live") &&
-                    <p><a href={`https://www.google.com/maps/search/${e.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
-                  {(e.confType === "Virtual") &&
-                    (e.confLocUrl !== undefined) &&
-                    <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
-                  {(e.confType === "Virtual") &&
-                    (e.confLocUrl === undefined) &&
-                    <p>{e.confLoc}</p>}
-                </Row>
-                {(e.confType === "Live") &&
-                  (e.confLocUrl !== undefined) &&
+      {(pageReady === true) &&
+        conference.map(e => (
+          <Card className="confCard" key={e._id}>
+            <Card.Header className="confTitle">
+              <Row>
+                <Col sm={11}>
+                  <h2>{e.confName}</h2>
+                  <p className="org">Presented by {e.confOrg}</p>
+                </Col>
+                <Col sm={1}>
+                  {isAuthenticated &&
+                    (user.email === e.creatorEmail) &&
+                    <Button data-toggle="popover" title="Delete this conference" className="deletebtn" onClick={() => handleDelete(e._id)}>
+                      <Image fluid src="images/trash-can.png" className="delete" alt="Delete" />
+                    </Button>}
+                </Col>
+              </Row>
+            </Card.Header>
+            <Card.Body className="cardBody">
+              <Row>
+                <Col sm={8}>
+                  {(e.confWaiver === "yes") &&
+                    <div className="alert">
+                      <h5>A signed liability waiver will be required to participate in this event. It will be available at check-in to the event.</h5>
+                    </div>}
+                  <Card.Text>{e.confDesc}</Card.Text>
+                </Col>
+                <Col sm={4} className="vitals">
+                  <Row><p>Dates: {e.startDate} - {e.endDate}</p></Row>
+                  <Row><p>Times: {e.confStartTime} - {e.confEndTime}</p></Row>
+                  <Row><p>Type: {e.confType}</p></Row>
                   <Row>
-                    <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">{e.confLocName}</a></p>
-                  </Row>}
-                <Row>
-                  <Link to={{
-                    state: { confInfo: conference },
-                    pathname: `/conferences/${e._id}`
-                  }}>
-                    <Button data-toggle="popover" title="Details" className="button">View details</Button>
-                  </Link>
-                </Row>
-              </Col>
-            </Row>
-            <Row>
-              {isAuthenticated &&
-                user.email === e.creatorEmail &&
-                <div>
-                  <Col sm={5}></Col>
-                  <Col sm={1}>
+                    {(e.confType === "Live") &&
+                      <p><a href={`https://www.google.com/maps/search/${e.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
+                    {(e.confType === "Virtual") &&
+                      (e.confLocUrl !== undefined) &&
+                      <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">{e.confLoc}</a></p>}
+                    {(e.confType === "Virtual") &&
+                      (e.confLocUrl === undefined) &&
+                      <p>{e.confLoc}</p>}
+                  </Row>
+                  {(e.confType === "Live") &&
+                    (e.confLocUrl !== undefined) &&
+                    <Row>
+                      <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">{e.confLocName}</a></p>
+                    </Row>}
+                  <Row>
                     <Link to={{
                       state: { confInfo: conference },
-                      pathname: `/edit_conference/${e._id}`
+                      pathname: `/conferences/${e._id}`
                     }}>
-                      <Button data-toggle="popover" title="Edit this conference" className="button">Edit</Button>
+                      <Button data-toggle="popover" title="Details" className="button">View sessions</Button>
                     </Link>
-                  </Col>
-                  <Col sm={1}>
-                    <Link to={{
-                      state: { confInfo: conference },
-                      pathname: `/add_session/${e._id}`
-                    }}>
-                      <Button data-toggle="popover" title="Add Session" className="button">Add Session</Button>
-                    </Link>
-                  </Col>
-                </div>}
-              {isAuthenticated &&
-                user.email !== e.creatorEmail &&
-                // user.find(user => user.email !== e.confAttendees) &&
-                <div>
-                  <Col sm={4}></Col>
-                  <Col sm={4}>
-                    <Link to={{
-                      state: { confInfo: conference },
-                      pathname: `/register_attend/${e._id}`
-                    }}>
-                      <Button data-toggle="popover" title="Register" className="button">Register</Button>
-                    </Link>
-                  </Col>
-                </div>}
-            </Row>
-          </Card.Body>
-        </Card>
-      ))
+                  </Row>
+                </Col>
+              </Row>
+              <Row>
+                {isAuthenticated &&
+                  user.email === e.creatorEmail &&
+                  <div>
+                    <Col sm={5}></Col>
+                    <Col sm={1}>
+                      <Link to={{
+                        state: { confInfo: conference },
+                        pathname: `/edit_conference/${e._id}`
+                      }}>
+                        <Button data-toggle="popover" title="Edit this conference" className="button">Edit</Button>
+                      </Link>
+                    </Col>
+                    <Col sm={1}>
+                      <Link to={{
+                        state: { confInfo: conference },
+                        pathname: `/add_session/${e._id}`
+                      }}>
+                        <Button data-toggle="popover" title="Add Session" className="button">Add Session</Button>
+                      </Link>
+                    </Col>
+                  </div>}
+                {isAuthenticated &&
+                  user.email !== e.creatorEmail &&
+                  user.email !== attendee.email &&
+                  <div>
+                    <Col sm={4}></Col>
+                    <Col sm={4}>
+                      <Link to={{
+                        state: { confInfo: conference },
+                        pathname: `/register_attend/${e._id}`
+                      }}>
+                        <Button data-toggle="popover" title="Register" className="button">Register</Button>
+                      </Link>
+                    </Col>
+                  </div>}
+              </Row>
+            </Card.Body>
+          </Card>
+        ))
       }
     </>
   )

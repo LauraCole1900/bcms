@@ -10,10 +10,6 @@ module.exports = {
           let err = new Error("We're sorry, it looks like gremlins have gotten into our database. Please try again.")
           err.status = 400;
           return err;
-        } else if (attendee) {
-          let err = new Error("We're sorry, that email has already been registered. Please use another email.")
-          err.status = 400;
-          return err;
         } else {
           db.Attendee
             .create(req.body)
@@ -35,16 +31,18 @@ module.exports = {
 
   // FIND attendee by ID
   findById: function (req, res) {
+    console.log("from attendeeCont findById", req.params.id)
     db.Attendee
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
 
-  // FIND attendee by email
+  // FIND by attendee email
   findByEmail: function (req, res) {
+    console.log("from attendeeCont findByEmail", req.params.email)
     db.Attendee
-      .findById(req.body.email)
+      .find({ email: req.params.email })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -52,6 +50,7 @@ module.exports = {
 
   // UPDATE attendee
   updateAttendee: function (req, res) {
+    console.log("from attendeeCont updateAttendee", req.params.id)
     db.Attendee
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
@@ -61,6 +60,7 @@ module.exports = {
 
   // DELETE attendee
   removeAttendee: function (req, res) {
+    console.log("from attendeeCont removeAttendee", req.params.id)
     db.Attendee
       .findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
