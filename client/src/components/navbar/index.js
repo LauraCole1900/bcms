@@ -59,7 +59,7 @@ const Navigation = () => {
               <Link to="/conferences" className={location.pathname === "/conferences" ? "navlink placelink active" : "navlink placelink"}>
                 Conferences
               </Link>
-              <Link to="/contact_bcms" className={location.pathname === "/about_bcms" ? "navlink placelink active" : "navlink placelink"}>
+              <Link to="/about_bcms" className={location.pathname === "/about_bcms" ? "navlink placelink active" : "navlink placelink"}>
                 About
               </Link>
               {isAuthenticated

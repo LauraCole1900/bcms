@@ -56,3 +56,11 @@ h3 {
   color: #11130b;
   background: linear-gradient(to bottom, #a99f93, #49453f);
 }
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
