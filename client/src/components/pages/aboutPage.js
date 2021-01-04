@@ -11,7 +11,7 @@ const AboutBCMS = () => {
       <Row>
         <Col sm={2}></Col>
         <Col sm={8}>
-          <h1>About BCMS</h1>
+          <h1>About Bristlecone Conference Management System</h1>
         </Col>
       </Row>
 
@@ -34,14 +34,15 @@ const AboutBCMS = () => {
             </thead>
             <tbody>
               <tr>
-                <td>
+                <td className="green">
                   <ul>
-                    <li></li>
+                    <li>A conference creation, registration, and management service.</li>
                   </ul>
                 </td>
-                <td>
+                <td className="red">
                   <ul>
-                    <li></li>
+                    <li>BCMS will NOT secure your venue for you.</li>
+                    <li>BCMS does NOT process your attendees' financial information. If you charge a registration fee, you need to link to an external payment service such as PayPal, Venmo, Square, etc.</li>
                   </ul>
                 </td>
               </tr>
