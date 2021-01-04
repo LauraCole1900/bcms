@@ -59,8 +59,8 @@ const Navigation = () => {
               <Link to="/conferences" className={location.pathname === "/conferences" ? "navlink placelink active" : "navlink placelink"}>
                 Conferences
               </Link>
-              <Link to="/contact_bcms" className={location.pathname === "/contact_bcms" ? "navlink placelink active" : "navlink placelink"}>
-                Contact
+              <Link to="/contact_bcms" className={location.pathname === "/about_bcms" ? "navlink placelink active" : "navlink placelink"}>
+                About
               </Link>
               {isAuthenticated
                 ? <Link className="navlink logout" onClick={() => logout({ returnTo: window.location.origin })}>

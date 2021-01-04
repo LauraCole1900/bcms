@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { AllConfs, ConfDetails, ContactBCMS, Login, Profile, Schedule, Success, Venue } from "./components/pages";
+import { AboutBCMS, AllConfs, ConfDetails, Login, Profile, Schedule, Success, Venue } from "./components/pages";
 import Navbar from "./components/navbar";
 import { ConferenceForm, ExhibitForm, Registration, SessionForm, SessionProposal, UpdateUser } from "./components/forms";
 import "./App.css";
@@ -20,7 +20,7 @@ function App() {
       </header>
       <main>
         <Route exact path="/login" component={Login} />
-        <Route exact path="/contact_bcms" component={ContactBCMS} />
+        <Route exact path="/about_bcms" component={AboutBCMS} />
         <Route exact path="/profile" component={Profile} />
         <Route path="/conferences/*" component={ConfDetails} />
         <Route path="/conferences/schedule/*" component={Schedule} />

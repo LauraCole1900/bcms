@@ -4,8 +4,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import { SessionAPI } from "../../utils/api";
 import "./style.css";
 
-const ContactBCMS = () => {
+const AboutBCMS = () => {
 
 }
 
-export default ContactBCMS;
+export default AboutBCMS;
