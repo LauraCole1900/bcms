@@ -11,6 +11,7 @@ const Profile = () => {
   const [whichConf, setWhichConf] = useState();
   const [createConf, setCreateConf] = useState();
   const [attendConf, setAttendConf] = useState();
+  const [attendee, setAttendee] = useState();
   const [presentConf, setPresentConf] = useState();
   const [exhibitConf, setExhibitConf] = useState();
   const [pastConf, setPastConf] = useState();
@@ -34,9 +35,18 @@ const Profile = () => {
     AttendeeAPI.getConferencesAttending(user.email)
       .then(resp => {
         console.log("getConfAttending", resp.data)
-        const attArr = resp.data
-        const sortedAtt = attArr.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-        setAttendConf(sortedAtt)
+        const attendeeInfo = resp.data
+        setAttendee(attendeeInfo)
+      })
+      .then(attendee => {
+        ConferenceAPI.getConferenceById(attendee.confId)
+        .then(resp => {
+          console.log("getConfAttending getConfById", resp.data)
+          const attConfs = resp.data
+          const sortedAttConfs = attConfs.sort((a,b) => (a.startDate > b.startDate) ? 1 : -1)
+          setAttendConf(sortedAttConfs)
+        })
+        .catch(err => console.log(err))
       })
       .catch(err => console.log(err))
 
@@ -69,6 +79,12 @@ const Profile = () => {
         setExhibitConf(sortedExhibit)
       })
       .catch(err => console.log(err))
+
+    // Uses above arrays to find past conference with which the user's email is associated
+    const pastArr = [attendConf, createConf, presentConf, exhibitConf];
+    const filteredConf = pastArr.filter(a => new Date(a.startDate) - new Date() < 0);
+    const sortedPast = filteredConf.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
+    setPastConf(sortedPast)
 
     // Sets pageReady(true) for page load
     setPageReady(true);
@@ -104,9 +120,9 @@ const Profile = () => {
                   <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" className="button" checked={whichConf === "present"} onChange={handleInputChange}>
                     Presenting
                   </ToggleButton>
-                  {/* <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" className="button" checked={whichConf === "past"} onChange={handleInputChange}>
+                  <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" className="button" checked={whichConf === "past"} onChange={handleInputChange}>
                     Past conferences
-                  </ToggleButton> */}
+                  </ToggleButton>
                 </ButtonGroup>
               </Col>
               <Col sm={2}></Col>
@@ -148,14 +164,14 @@ const Profile = () => {
               presentConf.length === 0 &&
               <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>
             }
-            {/* {whichConf === "past" &&
+            {whichConf === "past" &&
               pastConf.length > 0 &&
-              <ConferenceCard conference={presentConf} />
+              <ConferenceCard conference={pastConf} />
             }
             {whichConf === "past" &&
               pastConf.length === 0 &&
               <h3>We're sorry, your email doesn't seem to be associated with any past conferences at this time.</h3>
-            } */}
+            }
           </Container >
         )
       }

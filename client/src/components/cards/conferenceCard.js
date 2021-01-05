@@ -9,21 +9,21 @@ import "./style.css";
 function Conference({ conference }) {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
-  const [attendConf, setAttendConf] = useState([]);
-  const [pageReady, setPageReady] = useState(false);
+  const [cardAttendConf, setCardAttendConf] = useState([]);
+  const [cardRender, setCardRender] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
       AttendeeAPI.getConferencesAttending(user.email)
       .then(resp => {
-        console.log("getConfAttending", resp.data)
-        const attArr = resp.data
-        setAttendConf(attArr);
-        console.log("from confCard getConfsAtt", attendConf)
+        console.log("confCard getConfAttending resp.data", resp.data)
+        const cardAttArr = resp.data
+        setCardAttendConf(cardAttArr);
+        console.log("from confCard getConfAttending attendConf", cardAttendConf)
         })
         .catch(err => console.log(err));
     }
-    setPageReady(true);
+    setCardRender(true);
   }, [])
 
   function handleDelete(confId) {
@@ -35,7 +35,7 @@ function Conference({ conference }) {
 
   return (
     <>
-      {(pageReady === true) &&
+      {(cardRender === true) &&
         conference.map(e => (
           <Card className="confCard" key={e._id}>
             <Card.Header className="confTitle">
@@ -115,7 +115,7 @@ function Conference({ conference }) {
                   </div>}
                 {isAuthenticated &&
                   user.email !== e.creatorEmail &&
-                  user.email !== attendConf.email &&
+                  user.email !== cardAttendConf.email &&
                   <div>
                     <Col sm={4}></Col>
                     <Col sm={4}>
