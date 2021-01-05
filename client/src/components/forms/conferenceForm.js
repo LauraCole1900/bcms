@@ -73,21 +73,21 @@ const ConferenceForm = () => {
 
               <Row>
                 <Form.Group controlId="formConfName">
-                  <Form.Label>Name of conference: *</Form.Label>
+                  <Form.Label>Name of conference: <span className="red">*</span></Form.Label>
                   <Form.Control required type="input" name="confName" placeholder="Enter conference name" value={conference.confName} className="confName" onChange={handleInputChange} />
                 </Form.Group>
               </Row>
 
               <Row>
                 <Form.Group controlId="formConfOrg">
-                  <Form.Label>Conference Organization: *</Form.Label>
+                  <Form.Label>Conference Organization: <span className="red">*</span></Form.Label>
                   <Form.Control required type="input" name="confOrg" placeholder="Enter name of organizing body" value={conference.confOrg} className="confOrg" onChange={handleInputChange} />
                 </Form.Group>
               </Row>
 
               <Row>
                 <Form.Group controlId="formConfDesc">
-                  <Form.Label>Conference Description: *</Form.Label>
+                  <Form.Label>Conference Description: <span className="red">*</span></Form.Label>
                   <Form.Control required as="textarea" rows={10} type="input" name="confDesc" placeholder="Enter conference description" value={conference.confDesc} className="confDesc" onChange={handleInputChange} />
                 </Form.Group>
               </Row>
@@ -95,11 +95,11 @@ const ConferenceForm = () => {
               <Row>
                 <Form.Group controlId="formConfDate">
                   <Col>
-                    <Form.Label>Conference Start Date: *</Form.Label>
+                    <Form.Label>Conference Start Date: <span className="red">*</span></Form.Label>
                     <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={conference.startDate} className="startDate" onChange={handleInputChange} />
                   </Col>
                   <Col>
-                    <Form.Label>Conference End Date: *</Form.Label>
+                    <Form.Label>Conference End Date: <span className="red">*</span></Form.Label>
                     <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={conference.endDate} className="endDate" onChange={handleInputChange} />
                   </Col>
                 </Form.Group>
@@ -108,11 +108,11 @@ const ConferenceForm = () => {
               <Row>
                 <Form.Group controlId="formConfTimes">
                   <Col>
-                    <Form.Label>Conference Start Time: *</Form.Label>
+                    <Form.Label>Conference Start Time: <span className="red">*</span></Form.Label>
                     <Form.Control required type="time" name="confStartTime" placeholder="09:00" value={conference.confStartTime} className="confStartTime" onChange={handleInputChange} />
                   </Col>
                   <Col>
-                    <Form.Label>Conference End Time: *</Form.Label>
+                    <Form.Label>Conference End Time: <span className="red">*</span></Form.Label>
                     <Form.Control required type="time" name="confEndTime" placeholder="17:00" value={conference.confEndTime} className="confEndTime" onChange={handleInputChange} />
                   </Col>
                 </Form.Group>
@@ -120,7 +120,7 @@ const ConferenceForm = () => {
 
               <Row>
                 <Form.Group controlId="formConfType">
-                  <Form.Label>Live or Virtual? *</Form.Label>
+                  <Form.Label>Live or Virtual? <span className="red">*</span></Form.Label>
                   <Form.Check type="radio" id="confLive" name="confType" label="Live" value="Live" checked={conference.confType === "Live"} onChange={handleInputChange} />
                   <Form.Check type="radio" id="confVirtual" name="confType" label="Virtual" value="Virtual" checked={conference.confType === "Virtual"} onChange={handleInputChange} />
                 </Form.Group>
@@ -130,7 +130,7 @@ const ConferenceForm = () => {
                 <div>
                   <Row>
                     <Form.Group controlId="formConfLocLive">
-                      <Form.Label>Venue: *</Form.Label>
+                      <Form.Label>Venue: <span className="red">*</span></Form.Label>
                       <Form.Control required type="input" name="confLocName" placeholder="Enter venue name" value={conference.confLocName} className="confLoc" onChange={handleInputChange} />
                       <Form.Control required type="input" name="confLoc" placeholder="Enter venue address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                     </Form.Group>
@@ -149,7 +149,7 @@ const ConferenceForm = () => {
                 <div>
                   <Row>
                     <Form.Group controlId="formConfLocVir">
-                      <Form.Label>Message or link text: *</Form.Label>
+                      <Form.Label>Message or link text: <span className="red">*</span></Form.Label>
                       <Form.Control required type="input" name="confLoc" placeholder="Enter link text or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
                     </Form.Group>
                   </Row>
@@ -164,7 +164,7 @@ const ConferenceForm = () => {
               <Row>
                 <Col sm={6}>
                   <Form.Group controlId="formConfCapConfirm">
-                    <Form.Label>Will there be a cap on the number of attendees? *</Form.Label>
+                    <Form.Label>Will there be a cap on the number of attendees? <span className="red">*</span></Form.Label>
                     <Form.Check type="radio" id="confCapYes" name="confCapConfirm" label="Yes" value="yes" checked={conference.confCapConfirm === "yes"} onChange={handleInputChange} />
                     <Form.Check type="radio" id="confCapNo" name="confCapConfirm" label="No" value="no" checked={conference.confCapConfirm === "no"} onChange={handleInputChange} />
                   </Form.Group>
@@ -183,7 +183,7 @@ const ConferenceForm = () => {
               <Row>
                 <Col sm={6}>
                   <Form.Group controlId="formConfFeeConfirm">
-                    <Form.Label>Will a registration fee be charged? *</Form.Label>
+                    <Form.Label>Will a registration fee be charged? <span className="red">*</span></Form.Label>
                     <Form.Check type="radio" id="confFeeYes" name="confFee" label="Yes" value="yes" checked={conference.confFee === "yes"} onChange={handleInputChange} />
                     <Form.Check type="radio" id="confFeeNo" name="confFee" label="No" value="no" checked={conference.confFee === "no"} onChange={handleInputChange} />
                   </Form.Group>
@@ -202,7 +202,7 @@ const ConferenceForm = () => {
               <Row>
                 <Col sm={6}>
                   <Form.Group controlId="formConfAllergies">
-                    <Form.Label>Do you need to ask attendees about allergies? *</Form.Label>
+                    <Form.Label>Do you need to ask attendees about allergies? <span className="red">*</span></Form.Label>
                     <Form.Control required as="select" name="confAllergies" onChange={handleInputChange}>
                       <option value="no" checked={conference.confAllergies === "no"}>No</option>
                       <option value="yes" checked={conference.confAllergies === "yes"}>Yes</option>
@@ -216,7 +216,7 @@ const ConferenceForm = () => {
               <Row>
                 <Col sm={6}>
                   <Form.Group controlId="formConfWaiver">
-                    <Form.Label>Will a liability waiver be required? *</Form.Label>
+                    <Form.Label>Will a liability waiver be required? <span className="red">*</span></Form.Label>
                     <Form.Control required as="select" name="confWaiver" onChange={handleInputChange}>
                       <option value="no" checked={conference.confWaiver === "no"}>No</option>
                       <option value="yes" checked={conference.confWaiver === "yes"}>Yes</option>
