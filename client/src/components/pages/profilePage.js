@@ -36,15 +36,20 @@ const Profile = () => {
       .then(resp => {
         console.log("profilePage getConfAttending resp.data", resp.data)
         const attArr = resp.data
-        // const sortedAtt = attArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
-        const attConfId = attArr.map()
-        setAttendConfId(attArr)
+        // Map through resp.data for all resp.data.confId
+        // Put all confIds into array
+        // Map through array to query each confId
+        // Put resulting results into object array
+        // Render
+        const attConfId = attArr.map(attArr => attArr.confId)
+        console.log("from profilePage attArr.map confIds", attConfId)
+        setAttendConfId(attConfId)
       })
       .then(resp => {
-        ConferenceAPI.getConferenceById(attendConfId.confId)
-        .then(resp => {
-          console.log("profilePage getConfById resp.data", resp.data)
-        })
+        ConferenceAPI.getConferenceById(attendConfId.map(attendConfId))
+          .then(resp => {
+            console.log("profilePage getConfById resp.data", resp.data)
+          })
       })
       .catch(err => console.log(err))
 
