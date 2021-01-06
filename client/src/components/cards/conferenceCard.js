@@ -19,7 +19,7 @@ function Conference({ conference }) {
         console.log("confCard getConfAttending resp.data", resp.data)
         const cardAttArr = resp.data
         setCardAttendConf(cardAttArr);
-        console.log("from confCard getConfAttending attendConf", cardAttendConf)
+        console.log("from confCard getConfAttending cardAttendConf", cardAttendConf)
         })
         .catch(err => console.log(err));
     }
