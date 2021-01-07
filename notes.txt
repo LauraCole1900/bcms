@@ -1,5 +1,5 @@
 Features:
-  * Encrypted registration
+  * Encrypted registration - DONE
   * Credit card information links to appropriate processing service, does NOT enter database
   * PayPal option?
   * Ability to edit participants' information as permissions allow
@@ -25,7 +25,7 @@ Features:
   * List of local restaurants?
   * Organizer inputs list of presenters/exhibitors; presenters/exhibitors receive link to register that already has their permissions set?
   * QR code to scan at check-in?
-  * Link to venue website
+  * Link to venue website - DONE
 
 Attendee:
   * Full CRUD access to own information
@@ -51,13 +51,13 @@ Presenter:
 
 Organizer:
   * Attendee access PLUS:
-  * Sets in person/virtual
-  * Sets location, dates, times
+  * Sets in person/virtual - DONE
+  * Sets location, dates, times - DONE
   * Sets whether the conference uses breakout sessions, tracks
   * Do breakout sessions need to be signed up for in advance?
   * Sets how many breakout sessions/tracks
   * Sets which features they want access to
-  * Can restrict number of attendees
+  * Can restrict number of attendees - DONE
   * Sets Co-Organizer, Exhibitor and Presenter permissions (Not MVP)
   * Full CRUD access to schedule
   * Full CRUD access to exhibit hall map
