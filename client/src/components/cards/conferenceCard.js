@@ -116,9 +116,25 @@ function Conference({ conference }) {
                       </Link>
                     </Col>
                   </div>}
+
                 {isAuthenticated &&
                   user.email !== e.creatorEmail &&
-                  user.email !== cardAttendConf.email &&
+                  cardAttendConf.indexOf(e._id) > 0 &&
+                  <div>
+                    <Col sm={4}></Col>
+                    <Col sm={4}>
+                      <Link to={{
+                        state: { confInfo: conference },
+                        pathname: `/register_attend/${e._id}`
+                      }}>
+                        <Button data-toggle="popover" title="Register" className="button">Unregister</Button>
+                      </Link>
+                    </Col>
+                  </div>}
+
+                {isAuthenticated &&
+                  user.email !== e.creatorEmail &&
+                  cardAttendConf.indexOf(e._id) < 0 &&
                   <div>
                     <Col sm={4}></Col>
                     <Col sm={4}>
