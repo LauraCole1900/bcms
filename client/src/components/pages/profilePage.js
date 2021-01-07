@@ -15,11 +15,27 @@ const Profile = () => {
   const [presentConf, setPresentConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
   const [pastConf, setPastConf] = useState([]);
+  const [idConfs, setIdConfs] = useState([]);
   const [pageReady, setPageReady] = useState(false);
   const location = useLocation();
 
+  function confById(confId) {
+    console.log("profilePage confById", confId)
+    ConferenceAPI.getConferenceById(confId)
+      .then(resp => {
+        console.log("profilePage getConfById resp.data", resp.data)
+        const idArr = resp.data
+        setIdConfs(...idConfs, idArr);
+        // const filteredId = idArr.filter(a => new Date(a.startDate) - new Date() >= 0);
+        // const sortedId = filteredId.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
+        console.log("idConfs", idConfs);
+      })
+      .catch(err => console.log(err));
+  }
+
   const handleInputChange = (e) => {
     const whichConf = e.target.value
+    // setIdConfs([]);
     setWhichConf(whichConf)
   }
 
@@ -38,14 +54,10 @@ const Profile = () => {
         // Render
         const attConfId = attArr.map(attArr => attArr.confId)
         console.log("from profilePage attArr.map confIds", attConfId)
-        setAttendConfId(attConfId)
-        console.log("setAttendConfId", attendConfId)
-      })
-      .then(resp => {
-        ConferenceAPI.getConferenceById(attendConfId.map(attendConfId))
-          .then(resp => {
-            console.log("profilePage getConfById resp.data", resp.data)
-          })
+        attConfId.map(confById)
+        const filteredId = idConfs.filter(a => new Date(a.startDate) - new Date() >= 0);
+        const sortedId = filteredId.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
+        setAttendConf(sortedId)
       })
       .catch(err => console.log(err))
   }
