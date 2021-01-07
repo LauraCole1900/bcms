@@ -23,13 +23,10 @@ const Profile = () => {
     setWhichConf(whichConf)
   }
 
-  // Save user to DB
-  const saveUserToDB = () => {
-    UserAPI.saveUser(user)
-  }
 
-  useEffect(() => {
-    saveUserToDB();
+  // Handles click on "Attending" button
+  const handleShowAttending = (e) => {
+    handleInputChange(e);
 
     // Creates array of conferences for which the user has registered
     AttendeeAPI.getConferencesAttending(user.email)
@@ -44,6 +41,7 @@ const Profile = () => {
         const attConfId = attArr.map(attArr => attArr.confId)
         console.log("from profilePage attArr.map confIds", attConfId)
         setAttendConfId(attConfId)
+        console.log("setAttendConfId", attendConfId)
       })
       .then(resp => {
         ConferenceAPI.getConferenceById(attendConfId.map(attendConfId))
@@ -52,6 +50,12 @@ const Profile = () => {
           })
       })
       .catch(err => console.log(err))
+  }
+
+
+  // Handles click on "Created" button
+  const handleShowCreated = (e) => {
+    handleInputChange(e);
 
     // Creates array of conferences user has created
     ConferenceAPI.getConferencesCreated(user.email)
@@ -62,6 +66,12 @@ const Profile = () => {
         setCreateConf(sortedCreate)
       })
       .catch(err => console.log(err))
+  }
+
+
+  // Handles click on "Exhibiting" button
+  const handleShowExhibiting = (e) => {
+    handleInputChange(e);
 
     // Creates array of conferences at which the user is presenting
     ConferenceAPI.getConferencesPresenting(user.email)
@@ -72,6 +82,12 @@ const Profile = () => {
         setPresentConf(sortedPresent)
       })
       .catch(err => console.log(err))
+  }
+
+
+  // Handles click on "Presenting" button
+  const handleShowPresenting = (e) => {
+    handleInputChange(e);
 
     // Creates array of conferences at which the user is exhibiting
     ConferenceAPI.getConferencesExhibiting(user.email)
@@ -82,16 +98,34 @@ const Profile = () => {
         setExhibitConf(sortedExhibit)
       })
       .catch(err => console.log(err))
+  }
+
+
+  // Handles click on "Past" button
+  const handleShowPast = (e) => {
+    handleInputChange(e);
 
     // Uses above arrays to find past conference with which the user's email is associated
     // const pastArr = [attendConf, createConf, presentConf, exhibitConf];
     // const filteredConf = pastArr.filter(a => new Date(a.startDate) - new Date() < 0);
     // const sortedPast = filteredConf.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
     // setPastConf(sortedPast)
+  }
+
+
+  // Save user to DB
+  const saveUserToDB = () => {
+    UserAPI.saveUser(user)
+  }
+
+
+  useEffect(() => {
+    saveUserToDB();
 
     // Sets pageReady(true) for page load
     setPageReady(true);
   }, [])
+
 
   return (
     <>
@@ -111,19 +145,19 @@ const Profile = () => {
             <Row>
               <Col sm={8}>
                 <ButtonGroup toggle defaultValue={1}>
-                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" className="button" checked={whichConf === "attend"} onClick={(handleInputChange)}>
+                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" className="button" checked={whichConf === "attend"} onClick={handleShowAttending}>
                     Attending
                   </ToggleButton>
-                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" className="button" checked={whichConf === "create"} onClick={handleInputChange}>
+                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" className="button" checked={whichConf === "create"} onClick={handleShowCreated}>
                     Created
                   </ToggleButton>
-                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" className="button" checked={whichConf === "exhibit"} onClick={handleInputChange}>
+                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" className="button" checked={whichConf === "exhibit"} onClick={handleShowExhibiting}>
                     Exhibiting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" className="button" checked={whichConf === "present"} onClick={handleInputChange}>
+                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" className="button" checked={whichConf === "present"} onClick={handleShowPresenting}>
                     Presenting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" className="button" checked={whichConf === "past"} onClick={handleInputChange}>
+                  <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" className="button" checked={whichConf === "past"} onClick={handleShowPast}>
                     Past conferences
                   </ToggleButton>
                 </ButtonGroup>
