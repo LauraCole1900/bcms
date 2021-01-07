@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { AboutBCMS, AllConfs, ConfDetails, Login, Profile, Schedule, Success, Venue } from "./components/pages";
+import { AboutBCMS, AllConfs, ConfDetails, Confirm, Login, Profile, Schedule, Success, Venue } from "./components/pages";
 import Navbar from "./components/navbar";
 import { ConferenceForm, ExhibitForm, Registration, SessionForm, SessionProposal, UpdateUser } from "./components/forms";
 import "./App.css";
@@ -32,6 +32,7 @@ function App() {
         <Route path="/update_user" component={UpdateUser} />
         <Route path={["/conference_created", "/conference_updated", "/deleted", "/register_success/*", "/session_added", "/session_updated", "user_updated"]} component={Success} />
         <Route path="/register_attend/*" component={Registration} />
+        <Route path="/unregister_confirm/*" component={Confirm} />
         <Route exact path={["/", "/conferences"]} component={AllConfs} />
       </main>
     </Router>

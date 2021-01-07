@@ -125,7 +125,7 @@ function Conference({ conference }) {
                     <Col sm={4}>
                       <Link to={{
                         state: { confInfo: conference },
-                        pathname: `/register_attend/${e._id}`
+                        pathname: `/unregister_confirm/${e._id}`
                       }}>
                         <Button data-toggle="popover" title="Register" className="button">Unregister</Button>
                       </Link>
