@@ -15,11 +15,14 @@ function Conference({ conference }) {
   useEffect(() => {
     if (isAuthenticated) {
       AttendeeAPI.getConferencesAttending(user.email)
-      .then(resp => {
-        console.log("confCard getConfAttending resp.data", resp.data)
-        const cardAttArr = resp.data
-        setCardAttendConf(cardAttArr);
-        console.log("from confCard getConfAttending cardAttendConf", cardAttendConf)
+        .then(resp => {
+          console.log("confCard getConfAttending resp.data", resp.data)
+          const cardAttArr = resp.data
+          console.log("from confCard cardAttArr", cardAttArr)
+          const cardAttIds = cardAttArr.map(cardAttArr => cardAttArr.confId)
+          console.log("from confCard cardAttIds", cardAttIds)
+          setCardAttendConf(cardAttIds);
+          console.log("from confCard cardAttendConf", cardAttendConf)
         })
         .catch(err => console.log(err));
     }

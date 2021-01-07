@@ -23,11 +23,9 @@ const Profile = () => {
     setWhichConf(whichConf)
   }
 
-
   // Handles click on "Attending" button
   const handleShowAttending = (e) => {
     handleInputChange(e);
-
     // Creates array of conferences for which the user has registered
     AttendeeAPI.getConferencesAttending(user.email)
       .then(resp => {
@@ -52,11 +50,9 @@ const Profile = () => {
       .catch(err => console.log(err))
   }
 
-
   // Handles click on "Created" button
   const handleShowCreated = (e) => {
     handleInputChange(e);
-
     // Creates array of conferences user has created
     ConferenceAPI.getConferencesCreated(user.email)
       .then(resp => {
@@ -68,11 +64,9 @@ const Profile = () => {
       .catch(err => console.log(err))
   }
 
-
   // Handles click on "Exhibiting" button
   const handleShowExhibiting = (e) => {
     handleInputChange(e);
-
     // Creates array of conferences at which the user is presenting
     ConferenceAPI.getConferencesPresenting(user.email)
       .then(resp => {
@@ -84,11 +78,9 @@ const Profile = () => {
       .catch(err => console.log(err))
   }
 
-
   // Handles click on "Presenting" button
   const handleShowPresenting = (e) => {
     handleInputChange(e);
-
     // Creates array of conferences at which the user is exhibiting
     ConferenceAPI.getConferencesExhibiting(user.email)
       .then(resp => {
@@ -100,11 +92,9 @@ const Profile = () => {
       .catch(err => console.log(err))
   }
 
-
   // Handles click on "Past" button
   const handleShowPast = (e) => {
     handleInputChange(e);
-
     // Uses above arrays to find past conference with which the user's email is associated
     // const pastArr = [attendConf, createConf, presentConf, exhibitConf];
     // const filteredConf = pastArr.filter(a => new Date(a.startDate) - new Date() < 0);
@@ -112,16 +102,13 @@ const Profile = () => {
     // setPastConf(sortedPast)
   }
 
-
   // Save user to DB
   const saveUserToDB = () => {
     UserAPI.saveUser(user)
   }
 
-
   useEffect(() => {
     saveUserToDB();
-
     // Sets pageReady(true) for page load
     setPageReady(true);
   }, [])
