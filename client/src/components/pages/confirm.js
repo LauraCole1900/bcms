@@ -27,6 +27,7 @@ const Confirm = () => {
     setPageReady(true);
   }, [])
 
+  // At some point, this needs to send a message or alert to conference organizer(s)
   function handleUnregister(confId, email) {
     console.log("from confirm", conference._id, user.email)
     AttendeeAPI.unregisterAttendee(conference._id, user.email)
