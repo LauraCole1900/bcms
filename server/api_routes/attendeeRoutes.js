@@ -20,7 +20,7 @@ router.route("/update/:id")
   .put(attendeeController.updateAttendee);
 
 
-router.route("/delete/:id")
+router.route("/delete/:email/:id")
   .delete(attendeeController.removeAttendee);
 
 module.exports = router;

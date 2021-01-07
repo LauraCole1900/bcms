@@ -30,9 +30,9 @@ const AttendeeAPI = {
 
 
   // DELETE attendee
-  unregisterAttendee: function (email) {
-    console.log("from API unregisterAttendee", email)
-    return axios.delete(`/api/attendee/delete/${email}`)
+  unregisterAttendee: function (email, confId) {
+    console.log("from API unregisterAttendee", email, confId)
+    return axios.delete(`/api/attendee/delete/${email}/${confId}`)
   }
 
 }

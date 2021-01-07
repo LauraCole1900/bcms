@@ -119,7 +119,7 @@ function Conference({ conference }) {
 
                 {isAuthenticated &&
                   user.email !== e.creatorEmail &&
-                  cardAttendConf.indexOf(e._id) > 0 &&
+                  cardAttendConf.indexOf(e._id) >= 0 &&
                   <div>
                     <Col sm={4}></Col>
                     <Col sm={4}>

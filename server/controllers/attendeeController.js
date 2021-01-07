@@ -60,9 +60,9 @@ module.exports = {
 
   // DELETE attendee
   removeAttendee: function (req, res) {
-    console.log("from attendeeCont removeAttendee", req.params.id)
+    console.log("from attendeeCont removeAttendee", req.params.id, req.params.email)
     db.Attendee
-      .findById({ _id: req.params.id })
+      .findOne({ confId: req.params.email, email: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
