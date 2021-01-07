@@ -15,9 +15,9 @@ const Success = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setRedirect(true);
-    }, 4000);
+    }, 5000);
     return () => clearTimeout(timer);
-  }, [4000]);
+  }, [5000]);
 
   return (
     <>
@@ -42,6 +42,8 @@ const Success = () => {
               <h4>You have updated your session.</h4>}
             {(urlId === "user_updated") &&
               <h4>You have updated your information.</h4>}
+            {(urlId === "unregistered") &&
+              <h4>You have unregistered from this conference. If you paid a registration fee, please contact the conference organizers.</h4>}
             {(urlId === "deleted") &&
               <h4>Deleted!</h4>}
           </Col>

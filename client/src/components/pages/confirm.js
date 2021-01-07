@@ -30,7 +30,7 @@ const Confirm = () => {
   function handleUnregister(confId, email) {
     console.log("from confirm", conference._id, user.email)
     AttendeeAPI.unregisterAttendee(conference._id, user.email)
-    .then(history.push("/deleted"))
+    .then(history.push("/unregistered"))
     .catch(err => console.log(err));
   }
 
