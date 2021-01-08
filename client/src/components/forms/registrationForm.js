@@ -134,12 +134,15 @@ const Registration = () => {
                 </Row>}
 
               <Row>
-                <Button className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>
+                {(update === "register_edit")
+                  ? <Button className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                  : <Button className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
               </Row>
 
             </Form>
           </Container>
-        )}
+        )
+      }
     </>
   )
 
