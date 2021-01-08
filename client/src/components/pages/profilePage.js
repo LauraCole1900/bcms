@@ -10,11 +10,9 @@ const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
   const [whichConf, setWhichConf] = useState();
   const [createConf, setCreateConf] = useState([]);
-  const [attendConfId, setAttendConfId] = useState([]);
   const [attendConf, setAttendConf] = useState([]);
   const [presentConf, setPresentConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
-  const [pastConf, setPastConf] = useState([]);
   const [idConfs, setIdConfs] = useState([]);
   const [pageReady, setPageReady] = useState(false);
   const location = useLocation();
@@ -24,12 +22,11 @@ const Profile = () => {
     ConferenceAPI.getConferenceById(confId)
       .then(resp => {
         console.log("profilePage getConfById resp.data", resp.data)
-        const idObj = resp.data[0]
-        console.log("profilePage getConfById idObj", idObj)
-        setIdConfs([{ ...idConfs }], idObj)
+        const idObj = resp.data
+        const newObj = idObj.slice(0)
+        console.log("profilePage getConfById newObj", newObj)
+        setIdConfs( ...idConfs, newObj[0] )
         console.log("profilePage getConfById idConfs", idConfs);
-        // const filteredId = idConfs.filter(a => new Date(a.startDate) - new Date() >= 0);
-        // const sortedId = filteredId.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
       })
       .catch(err => console.log(err));
   }
@@ -50,15 +47,14 @@ const Profile = () => {
         const attArr = resp.data
         // Map through resp.data for all resp.data.confId - THIS WORKS
         // Put all confIds into array - THIS WORKS
-        // Map through array to query each confId - THIS WORKS
-        // Put resulting results into array
-        // Render
         const attConfId = attArr.map(attArr => attArr.confId)
         console.log("from profilePage attArr.map confIds", attConfId)
+        // Map through array to query each confId - THIS WORKS
         attConfId.map(confById)
+        // Put resulting results into array
+        // Render
         console.log("from getConfAtt idConfs", idConfs);
-        const filteredAtt = idConfs.filter(a => new Date(a.startDate) - new Date() >= 0);
-        const sortedAtt = filteredAtt.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
+        const sortedAtt = idConfs.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
         setAttendConf(sortedAtt)
       })
       .catch(err => console.log(err))
@@ -106,16 +102,6 @@ const Profile = () => {
       .catch(err => console.log(err))
   }
 
-  // Handles click on "Past" button
-  const handleShowPast = (e) => {
-    handleInputChange(e);
-    // Uses above arrays to find past conference with which the user's email is associated
-    // const pastArr = [attendConf, createConf, presentConf, exhibitConf];
-    // const filteredConf = pastArr.filter(a => new Date(a.startDate) - new Date() < 0);
-    // const sortedPast = filteredConf.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1)
-    // setPastConf(sortedPast)
-  }
-
   // Save user to DB
   const saveUserToDB = () => {
     UserAPI.saveUser(user)
@@ -159,9 +145,6 @@ const Profile = () => {
                   <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" data-toggle="popover" title="View conferences at which you're presenting" className="button" checked={whichConf === "present"} onClick={handleShowPresenting}>
                     Presenting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" data-toggle="popover" title="View your past conferences" className="button" checked={whichConf === "past"} onClick={handleShowPast}>
-                    Past conferences
-                  </ToggleButton>
                 </ButtonGroup>
               </Col>
               <Col sm={2}></Col>
@@ -203,14 +186,6 @@ const Profile = () => {
               presentConf.length === 0 &&
               <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>
             }
-            {whichConf === "past" &&
-              pastConf.length > 0 &&
-              <ConferenceCard conference={pastConf} />
-            }
-            {/* {whichConf === "past" &&
-              pastConf.length === 0 &&
-              <h3>We're sorry, your email doesn't seem to be associated with any past conferences at this time.</h3>
-            } */}
           </Container >
         )
       }
