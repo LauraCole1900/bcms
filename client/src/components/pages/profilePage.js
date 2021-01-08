@@ -147,19 +147,19 @@ const Profile = () => {
             <Row>
               <Col sm={8}>
                 <ButtonGroup toggle defaultValue={1}>
-                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" className="button" checked={whichConf === "attend"} onClick={handleShowAttending}>
+                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" data-toggle="popover" title="Conferences attending" className="button" checked={whichConf === "attend"} onClick={handleShowAttending}>
                     Attending
                   </ToggleButton>
-                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" className="button" checked={whichConf === "create"} onClick={handleShowCreated}>
+                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" data-toggle="popover" title="Conferences created" className="button" checked={whichConf === "create"} onClick={handleShowCreated}>
                     Created
                   </ToggleButton>
-                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" className="button" checked={whichConf === "exhibit"} onClick={handleShowExhibiting}>
+                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" data-toggle="popover" title="Conferences exhibiting at" className="button" checked={whichConf === "exhibit"} onClick={handleShowExhibiting}>
                     Exhibiting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" className="button" checked={whichConf === "present"} onClick={handleShowPresenting}>
+                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" data-toggle="popover" title="Conferences presenting at" className="button" checked={whichConf === "present"} onClick={handleShowPresenting}>
                     Presenting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" className="button" checked={whichConf === "past"} onClick={handleShowPast}>
+                  <ToggleButton type="radio" id="pastConf" name="whichConf" value="past" data-toggle="popover" title="Past conferences" className="button" checked={whichConf === "past"} onClick={handleShowPast}>
                     Past conferences
                   </ToggleButton>
                 </ButtonGroup>

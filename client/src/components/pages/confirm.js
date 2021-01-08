@@ -49,12 +49,12 @@ const Confirm = () => {
             <Row>
               <Col sm={3}></Col>
               <Col sm={2}>
-                <Button className="button" onClick={handleUnregister} type="submit">Yes, Unregister</Button>
+                <Button data-toggle="popover" title="Unregister" className="button" onClick={handleUnregister} type="submit">Yes, Unregister</Button>
               </Col>
               <Col sm={1}></Col>
               <Col sm={2}>
                 <Link to="/profile" className={location.pathname === "/profile" ? "link active" : "link"}>
-                  <Button className="button" type="submit">No, stay registered</Button>
+                  <Button data-toggle="popover" title="Stay registered" className="button" type="submit">No, stay registered</Button>
                 </Link>
               </Col>
             </Row>

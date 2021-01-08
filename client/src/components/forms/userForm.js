@@ -71,7 +71,7 @@ const UpdateUser = () => {
             </Row>
 
             <Row>
-              <Button className="button" onClick={handleFormUpdate} type="submit">Update Info</Button>
+              <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Info</Button>
             </Row>
 
           </Form>

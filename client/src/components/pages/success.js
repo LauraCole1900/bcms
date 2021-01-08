@@ -60,7 +60,7 @@ const Success = () => {
           <Col sm={5}></Col>
           <Col sm={2}>
             <Link to="/profile" className={location.pathname === "/profile" ? "sessionbtn active" : "sessionbtn"}>
-              <Button type="button">Return to profile</Button>
+              <Button data-toggle="popover" title="Return to profile" type="button">Return to profile</Button>
             </Link>
           </Col>
         </Row>

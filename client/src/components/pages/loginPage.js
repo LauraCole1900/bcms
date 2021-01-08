@@ -14,7 +14,7 @@ const Login = () => {
         <Card>
           <Card.Body className="login">
             <h2> Welcome to Blue Star Conference Management System</h2>
-            <Button onClick={() => loginWithRedirect()} className="button">Log in</Button>
+            <Button data-toggle="popover" title="Log in" onClick={() => loginWithRedirect()} className="button">Log in</Button>
           </Card.Body>
         </Card>
       </div>

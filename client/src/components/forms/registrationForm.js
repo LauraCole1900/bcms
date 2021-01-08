@@ -135,8 +135,8 @@ const Registration = () => {
 
               <Row>
                 {(update === "register_edit")
-                  ? <Button className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                  : <Button className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+                  ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                  : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
               </Row>
 
             </Form>
