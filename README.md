@@ -20,7 +20,7 @@ This application uses a MERN stack to create a conference management system.
 
 ## Links
 
-[Deployed application on Heroku](https://#)
+[Deployed application on Heroku](https://#) NOT DEPLOYED YET
 
 ## Screenshots
 
