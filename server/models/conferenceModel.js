@@ -72,6 +72,9 @@ const conferenceSchema = new Schema({
   },
   confAttendCount: {
     type: Number
+  },
+  confAdmins: {
+    type: [ String ]
   }
 });
 

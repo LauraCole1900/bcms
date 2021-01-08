@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AboutBCMS, AllConfs, ConfDetails, Confirm, Login, Profile, Schedule, Success, Venue } from "./components/pages";
 import Navbar from "./components/navbar";
-import { ConferenceForm, ExhibitForm, Registration, SessionForm, SessionProposal, UpdateUser } from "./components/forms";
+import { ConferenceForm, ExhibitForm, Registration, SessionForm, SessionProposal, Supplemental, UpdateUser } from "./components/forms";
 import "./App.css";
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
         <Route path="/schedule/*" component={Schedule} />
         <Route path="/venue/*" component={Venue} />
         <Route path={["/new_conference", "/edit_conference/*"]} component={ConferenceForm} />
+        <Route path={["/add_supplemental/*", "/edit_supplemental/*"]} component={Supplemental} />
         <Route path={["/add_session/*", "/edit_session/*"]} component={SessionForm} />
         <Route path="/propose_session/*" component={SessionProposal} />
         <Route path="/register_exhibit/*" component={ExhibitForm} />
