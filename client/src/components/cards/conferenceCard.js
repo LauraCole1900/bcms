@@ -122,12 +122,20 @@ function Conference({ conference }) {
                   cardAttendConf.indexOf(e._id) >= 0 &&
                   <div>
                     <Col sm={4}></Col>
-                    <Col sm={4}>
+                    <Col sm={1}>
                       <Link to={{
                         state: { confInfo: conference },
                         pathname: `/unregister_confirm/${e._id}`
                       }}>
                         <Button data-toggle="popover" title="Register" className="button">Unregister</Button>
+                      </Link>
+                    </Col>
+                    <Col sm={1}>
+                      <Link to={{
+                        state: { confInfo: conference },
+                        pathname: `/register_edit/${e._id}`
+                      }}>
+                        <Button data-toggle="popover" title="Register" className="button">Edit registration</Button>
                       </Link>
                     </Col>
                   </div>}

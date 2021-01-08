@@ -36,7 +36,7 @@ const Profile = () => {
 
   const handleInputChange = (e) => {
     const whichConf = e.target.value
-    // setIdConfs([]);
+    setIdConfs([{}]);
     setWhichConf(whichConf)
   }
 

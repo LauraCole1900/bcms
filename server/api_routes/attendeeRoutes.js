@@ -15,8 +15,11 @@ router.route("/:id")
 router.route("/conferences/:email")
   .get(attendeeController.findByEmail);
 
+router.route("/conference/:id/:email")
+  .get(attendeeController.findByIdAndEmail);
 
-router.route("/update/:id")
+
+router.route("/update/:id/:email")
   .put(attendeeController.updateAttendee);
 
 

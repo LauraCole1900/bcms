@@ -1,4 +1,5 @@
 const db = require("../models")
+const { findOne } = require("../models/userModel")
 
 module.exports = {
   // CREATE new attendee in database
@@ -47,12 +48,21 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  // FIND by confId and attendee email to update
+  findByIdAndEmail: function (req, res) {
+    console.log("from attendeeCont findByIdAndEmail", req.params.id, req.params.email)
+    db.Attendee
+    .findOne({ confId: req.params.email, email: req.params.id })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err))
+  },
+
 
   // UPDATE attendee
   updateAttendee: function (req, res) {
-    console.log("from attendeeCont updateAttendee", req.params.id)
+    console.log("from attendeeCont updateAttendee", req.params.id, req.params.email)
     db.Attendee
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ confId: req.params.id, email: req.params.email }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },

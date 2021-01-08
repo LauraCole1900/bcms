@@ -21,11 +21,17 @@ const AttendeeAPI = {
     return axios.get(`/api/attendee/conferences/${email}`)
   },
 
+  // GET one attendee document to update
+  getAttendeeToUpdate: function (email, confId) {
+    console.log("from API getAttendeeToUpdate", email, confId)
+    return axios.get(`/api/attendee/conference/${confId}/${email}`)
+  },
+
 
   // UPDATE attendee information
-  updateAttendee: function (formData, email) {
-    console.log ("from API updateAttendee", formData, email)
-    return axios.put(`/api/attendee/update/${email}`, formData)
+  updateAttendee: function (formData, confId, email) {
+    console.log ("from API updateAttendee", formData, confId, email)
+    return axios.put(`/api/attendee/update/${confId}/${email}`, formData)
   },
 
 

@@ -15,6 +15,8 @@ const Registration = () => {
 
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
+  const update = urlArray[urlArray.length - 2]
+  console.log("registrationForm update", update)
 
   useEffect(() => {
     ConferenceAPI.getConferenceById(confId)
@@ -25,7 +27,17 @@ const Registration = () => {
       })
       .catch(err => console.log(err));
 
-    setAttendee({ ...attendee, confId: confId, email: user.email })
+    if (update === "register_edit") {
+      AttendeeAPI.getAttendeeToUpdate(confId, user.email)
+        .then(resp => {
+          console.log("from registrationForm getAttendeeToUpdate", resp.data)
+          const attArr = resp.data
+          setAttendee(attArr)
+        })
+        .catch(err => console.log(err));
+    } else {
+      setAttendee({ ...attendee, confId: confId, email: user.email })
+    }
 
     setPageReady(true);
   }, [])

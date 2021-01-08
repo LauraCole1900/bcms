@@ -72,16 +72,7 @@ const conferenceSchema = new Schema({
   },
   confAttendCount: {
     type: Number
-  },
-  confAttendees: [
-    { type: String },
-  ],
-  confPresenters: [
-    { type: String }
-  ],
-  confExhibitors: [
-    { type: String }
-  ]
+  }
 });
 
 const Conference = mongoose.model("Conference", conferenceSchema);
