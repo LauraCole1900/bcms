@@ -36,6 +36,8 @@ const Success = () => {
               <h4>You have created a new conference.</h4>}
             {(urlId === "session_added") &&
               <h4>You have added a session.</h4>}
+            {(urlId === "attendee_updated") &&
+              <h4>You have updated your registration.</h4>}
             {(urlId === "conference_updated") &&
               <h4>You have updated your conference.</h4>}
             {(urlId === "session_updated") &&
