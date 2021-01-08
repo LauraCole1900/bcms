@@ -139,7 +139,7 @@ function Conference({ conference }) {
                         state: { confInfo: conference },
                         pathname: `/add_session/${e._id}`
                       }}>
-                        <Button data-toggle="popover" title="Add Session" className="button">Add Session</Button>
+                        <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
                       </Link>
                     </Col>
                   </div>}
@@ -154,7 +154,7 @@ function Conference({ conference }) {
                         state: { confInfo: conference },
                         pathname: `/unregister_confirm/${e._id}`
                       }}>
-                        <Button data-toggle="popover" title="Unregister" className="button">Unregister</Button>
+                        <Button data-toggle="popover" title="Unregister from this conference" className="button">Unregister</Button>
                       </Link>
                     </Col>
                     <Col sm={1}>
@@ -162,7 +162,7 @@ function Conference({ conference }) {
                         state: { confInfo: conference },
                         pathname: `/register_edit/${e._id}`
                       }}>
-                        <Button data-toggle="popover" title="Edit registration" className="button">Edit registration</Button>
+                        <Button data-toggle="popover" title="Edit your registration information" className="button">Edit registration</Button>
                       </Link>
                     </Col>
                   </div>}
@@ -177,7 +177,7 @@ function Conference({ conference }) {
                         state: { confInfo: conference },
                         pathname: `/register_attend/${e._id}`
                       }}>
-                        <Button data-toggle="popover" title="Register" className="button">Register</Button>
+                        <Button data-toggle="popover" title="Register for this conference" className="button">Register</Button>
                       </Link>
                     </Col>
                   </div>}
