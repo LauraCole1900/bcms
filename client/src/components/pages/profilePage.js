@@ -24,11 +24,12 @@ const Profile = () => {
     ConferenceAPI.getConferenceById(confId)
       .then(resp => {
         console.log("profilePage getConfById resp.data", resp.data)
-        const idArr = resp.data
-        setIdConfs(...idConfs, idArr);
-        // const filteredId = idArr.filter(a => new Date(a.startDate) - new Date() >= 0);
+        const idObj = resp.data[0]
+        console.log("profilePage getConfById idObj", idObj)
+        setIdConfs([{ ...idConfs }], idObj)
+        console.log("profilePage getConfById idConfs", idConfs);
+        // const filteredId = idConfs.filter(a => new Date(a.startDate) - new Date() >= 0);
         // const sortedId = filteredId.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
-        console.log("idConfs", idConfs);
       })
       .catch(err => console.log(err));
   }
@@ -47,17 +48,18 @@ const Profile = () => {
       .then(resp => {
         console.log("profilePage getConfAttending resp.data", resp.data)
         const attArr = resp.data
-        // Map through resp.data for all resp.data.confId
-        // Put all confIds into array
-        // Map through array to query each confId
-        // Put resulting results into object array
+        // Map through resp.data for all resp.data.confId - THIS WORKS
+        // Put all confIds into array - THIS WORKS
+        // Map through array to query each confId - THIS WORKS
+        // Put resulting results into array
         // Render
         const attConfId = attArr.map(attArr => attArr.confId)
         console.log("from profilePage attArr.map confIds", attConfId)
         attConfId.map(confById)
-        const filteredId = idConfs.filter(a => new Date(a.startDate) - new Date() >= 0);
-        const sortedId = filteredId.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
-        setAttendConf(sortedId)
+        console.log("from getConfAtt idConfs", idConfs);
+        const filteredAtt = idConfs.filter(a => new Date(a.startDate) - new Date() >= 0);
+        const sortedAtt = filteredAtt.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
+        setAttendConf(sortedAtt)
       })
       .catch(err => console.log(err))
   }
@@ -79,13 +81,13 @@ const Profile = () => {
   // Handles click on "Exhibiting" button
   const handleShowExhibiting = (e) => {
     handleInputChange(e);
-    // Creates array of conferences at which the user is presenting
-    ConferenceAPI.getConferencesPresenting(user.email)
+    // Creates array of conferences at which the user is exhibiting
+    ConferenceAPI.getConferencesExhibiting(user.email)
       .then(resp => {
-        console.log("getConfPresenting", resp.data)
-        const presentArr = resp.data
-        const sortedPresent = presentArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
-        setPresentConf(sortedPresent)
+        console.log("getConfExhibiting", resp.data)
+        const exhibitArr = resp.data
+        const sortedExhibit = exhibitArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
+        setExhibitConf(sortedExhibit)
       })
       .catch(err => console.log(err))
   }
@@ -94,12 +96,12 @@ const Profile = () => {
   const handleShowPresenting = (e) => {
     handleInputChange(e);
     // Creates array of conferences at which the user is exhibiting
-    ConferenceAPI.getConferencesExhibiting(user.email)
+    ConferenceAPI.getConferencesPresenting(user.email)
       .then(resp => {
-        console.log("getConfExhibiting", resp.data)
-        const exhibitArr = resp.data
-        const sortedExhibit = exhibitArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
-        setExhibitConf(sortedExhibit)
+        console.log("getConfPresenting", resp.data)
+        const presentArr = resp.data
+        const sortedPresent = presentArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
+        setPresentConf(sortedPresent)
       })
       .catch(err => console.log(err))
   }
@@ -117,6 +119,7 @@ const Profile = () => {
   // Save user to DB
   const saveUserToDB = () => {
     UserAPI.saveUser(user)
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
