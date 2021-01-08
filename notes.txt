@@ -28,7 +28,7 @@ Features:
   * Link to venue website - DONE
 
 Attendee:
-  * Full CRUD access to own information
+  * Full CRUD access to own information - DONE
   * GET access to conference session and exhibit hall maps
   * GET access to session schedules, including who is presenting
 
