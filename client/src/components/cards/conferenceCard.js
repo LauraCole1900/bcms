@@ -152,7 +152,7 @@ function Conference({ conference }) {
                         state: { confInfo: conference },
                         pathname: `/unregister_confirm/${e._id}`
                       }}>
-                        <Button data-toggle="popover" title="Register" className="button">Unregister</Button>
+                        <Button data-toggle="popover" title="Unregister" className="button">Unregister</Button>
                       </Link>
                     </Col>
                     <Col sm={1}>
@@ -160,7 +160,7 @@ function Conference({ conference }) {
                         state: { confInfo: conference },
                         pathname: `/register_edit/${e._id}`
                       }}>
-                        <Button data-toggle="popover" title="Register" className="button">Edit registration</Button>
+                        <Button data-toggle="popover" title="Edit registration" className="button">Edit registration</Button>
                       </Link>
                     </Col>
                   </div>}
