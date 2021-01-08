@@ -89,7 +89,7 @@ function Conference({ conference }) {
                       state: { confInfo: conference },
                       pathname: `/conferences/${e._id}`
                     }}>
-                      <Button data-toggle="popover" title="Details" className="button">View sessions</Button>
+                      <Button data-toggle="popover" title="View sessions" className="button">View sessions</Button>
                     </Link>
                   </Row>
                 </Col>
@@ -98,7 +98,32 @@ function Conference({ conference }) {
                 {isAuthenticated &&
                   user.email === e.creatorEmail &&
                   <div>
-                    <Col sm={5}></Col>
+                    <Col sm={1}></Col>
+                    <Col sm={1}>
+                      <Link to={{
+                        state: { confInfo: conference },
+                        pathname: `/attendees/${e._id}`
+                      }}>
+                        <Button data-toggle="popover" title="View conference attendees" className="button">Attendees</Button>
+                      </Link>
+                    </Col>
+                    <Col sm={1}>
+                      <Link to={{
+                        state: { confInfo: conference },
+                        pathname: `/exhibitors/${e._id}`
+                      }}>
+                        <Button data-toggle="popover" title="View conference exhibitors" className="button">Exhibitors</Button>
+                      </Link>
+                    </Col>
+                    <Col sm={1}>
+                      <Link to={{
+                        state: { confInfo: conference },
+                        pathname: `/presenters/${e._id}`
+                      }}>
+                        <Button data-toggle="popover" title="View conference presenters" className="button">Presenters</Button>
+                      </Link>
+                    </Col>
+                    <Col sm={1}></Col>
                     <Col sm={1}>
                       <Link to={{
                         state: { confInfo: conference },
