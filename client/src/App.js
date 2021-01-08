@@ -22,9 +22,9 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/about_bcms" component={AboutBCMS} />
         <Route exact path="/profile" component={Profile} />
-        <Route path="/conferences/*" component={ConfDetails} />
-        <Route path="/conferences/schedule/*" component={Schedule} />
-        <Route path="/conferences/venue/*" component={Venue} />
+        <Route path="/details/*" component={ConfDetails} />
+        <Route path="/schedule/*" component={Schedule} />
+        <Route path="/venue/*" component={Venue} />
         <Route path={["/new_conference", "/edit_conference/*"]} component={ConferenceForm} />
         <Route path={["/add_session/*", "/edit_session/*"]} component={SessionForm} />
         <Route path="/propose_session/*" component={SessionProposal} />

@@ -85,12 +85,14 @@ function Conference({ conference }) {
                       <p><a href={e.confLocUrl} rel="noreferrer noopener" target="_blank">{e.confLocName}</a></p>
                     </Row>}
                   <Row>
-                    <Link to={{
-                      state: { confInfo: conference },
-                      pathname: `/conferences/${e._id}`
-                    }}>
-                      <Button data-toggle="popover" title="View sessions" className="button">View sessions</Button>
-                    </Link>
+                    <Col sm={4}>
+                      <Link to={{
+                        state: { confInfo: conference },
+                        pathname: `/details/${e._id}`
+                      }}>
+                        <Button data-toggle="popover" title="View conference details" className="button">View details</Button>
+                      </Link>
+                    </Col>
                   </Row>
                 </Col>
               </Row>
