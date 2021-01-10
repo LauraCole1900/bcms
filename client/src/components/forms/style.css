@@ -1,3 +1,9 @@
+form {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Open Sans Condensed", sans-serif;
+}
+
 .button {
   color: #e2e2e2;
   background: linear-gradient(to bottom, #899168, #2d321e);

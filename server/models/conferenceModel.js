@@ -27,8 +27,7 @@ const conferenceSchema = new Schema({
     required: "Please enter your conference's ending date."
   },
   numDays: {
-    type: Number,
-    required: true
+    type: String,
   },
   confStartTime: {
     type: String,
@@ -57,14 +56,14 @@ const conferenceSchema = new Schema({
     required: "Please select whether your conference has a cap on the number of attendees."
   },
   confAttendCap: {
-    type: Number
+    type: String
   },
   confFee: {
     type: String,
     required: "Please select whether your conference has a registration fee."
   },
   confFeeAmt: {
-    type: Number
+    type: String
   },
   confAllergies: {
     type: String,

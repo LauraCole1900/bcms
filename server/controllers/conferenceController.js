@@ -4,6 +4,7 @@ const db = require("../models");
 module.exports = {
   // POST new conference to database
   create: function (req, res) {
+    console.log("from confCont create", req.body)
     db.Conference
       .create(req.body)
       .then(dbModel => res.json(dbModel))

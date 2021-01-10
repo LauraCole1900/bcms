@@ -16,6 +16,7 @@ const ConferenceForm = () => {
     confDesc: "",
     startDate: "",
     endDate: "",
+    // numDays: 1,
     confStartTime: "",
     confEndTime: "",
     confType: "",
@@ -27,7 +28,6 @@ const ConferenceForm = () => {
 
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
-  console.log(confId);
 
   useEffect(() => {
     if (confId !== "new_conference") {
@@ -48,6 +48,14 @@ const ConferenceForm = () => {
     setConference({ ...conference, [e.target.name]: e.target.value })
   };
 
+  const findNumDays = (e) => {
+    const confStart = new Date(conference.startDate)
+    const confEnd = new Date(e.target.value)
+    const confNumDays = (confEnd - confStart) / (1000 * 3600 * 24) + 1
+    const daysString = JSON.stringify(confNumDays)
+    setConference({ ...conference, [e.target.name]: e.target.value, numDays: confNumDays })
+  }
+
   const handleFormUpdate = (e) => {
     e.preventDefault();
     console.log("Conference update", confId);
@@ -58,7 +66,7 @@ const ConferenceForm = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Conference submit")
+    console.log("Conference submit", conference)
     ConferenceAPI.createConference({ ...conference, creatorEmail: user.email })
       .then(history.push("/conference_created"))
       .catch(err => console.log(err));
@@ -94,14 +102,19 @@ const ConferenceForm = () => {
 
               <Row>
                 <Form.Group controlId="formConfDate">
-                  <Col>
+                  <Col sm={4}>
                     <Form.Label>Conference Start Date: <span className="red">*</span></Form.Label>
                     <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={conference.startDate} className="startDate" onChange={handleInputChange} />
                   </Col>
-                  <Col>
+                  <Col sm={4}>
                     <Form.Label>Conference End Date: <span className="red">*</span></Form.Label>
                     <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={conference.endDate} className="endDate" onChange={handleInputChange} />
                   </Col>
+                  {/* {conference.startDate !== "" &&
+                    conference.endDate !== "" &&
+                    <Col sm={4}>
+                      <p>Your conference is {conference.numDays} days long.</p>
+                    </Col>} */}
                 </Form.Group>
               </Row>
 
