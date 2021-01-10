@@ -19,15 +19,15 @@ const conferenceSchema = new Schema({
     required: "Please enter the description of your conference."
   },
   startDate: {
-    type: String,
+    type: Date,
     required: "Please enter your conference's starting date."
   },
   endDate: {
-    type: String,
+    type: Date,
     required: "Please enter your conference's ending date."
   },
   numDays: {
-    type: String,
+    type: Number,
   },
   confStartTime: {
     type: String,

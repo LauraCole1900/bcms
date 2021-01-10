@@ -16,14 +16,15 @@ const ConferenceForm = () => {
     confDesc: "",
     startDate: "",
     endDate: "",
-    // numDays: 1,
+    numDays: 1,
     confStartTime: "",
     confEndTime: "",
     confType: "",
     confLoc: "",
-    confCapConfirm: "",
-    confAttendCount: 0,
-    confWaiver: false,
+    confCapConfirm: "no",
+    confFee: "no",
+    confAllergies: "no",
+    confWaiver: "no",
   });
 
   const urlArray = window.location.href.split("/")
@@ -52,9 +53,9 @@ const ConferenceForm = () => {
     const confStart = new Date(conference.startDate)
     const confEnd = new Date(e.target.value)
     const confNumDays = (confEnd - confStart) / (1000 * 3600 * 24) + 1
-    const daysString = JSON.stringify(confNumDays)
+    console.log(typeof(confNumDays), confNumDays)
     setConference({ ...conference, [e.target.name]: e.target.value, numDays: confNumDays })
-  }
+  };
 
   const handleFormUpdate = (e) => {
     e.preventDefault();
@@ -108,13 +109,13 @@ const ConferenceForm = () => {
                   </Col>
                   <Col sm={4}>
                     <Form.Label>Conference End Date: <span className="red">*</span></Form.Label>
-                    <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={conference.endDate} className="endDate" onChange={handleInputChange} />
+                    <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={conference.endDate} className="endDate" onChange={findNumDays} />
                   </Col>
-                  {/* {conference.startDate !== "" &&
+                  {conference.startDate !== "" &&
                     conference.endDate !== "" &&
                     <Col sm={4}>
                       <p>Your conference is {conference.numDays} days long.</p>
-                    </Col>} */}
+                    </Col>}
                 </Form.Group>
               </Row>
 
