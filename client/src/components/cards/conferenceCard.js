@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
-// import Moment from "react-moment";
+import Moment from "react-moment";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
@@ -11,6 +11,18 @@ function Conference({ conference }) {
   const history = useHistory();
   const [cardAttendConf, setCardAttendConf] = useState([]);
   const [cardRender, setCardRender] = useState(false);
+  const [dateFormat, setDateFormat] = useState();
+
+  const formatDate = (date) => {
+    return(Moment(date).format("MM-DD-YYYY"))
+  }
+
+  function handleDelete(confId) {
+    console.log("from confCard", confId)
+    ConferenceAPI.deleteConference(confId)
+      .then(history.push("/deleted"))
+      .catch(err => console.log(err))
+  };
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -24,13 +36,6 @@ function Conference({ conference }) {
     }
     setCardRender(true);
   }, [])
-
-  function handleDelete(confId) {
-    console.log("from confCard", confId)
-    ConferenceAPI.deleteConference(confId)
-      .then(history.push("/deleted"))
-      .catch(err => console.log(err))
-  };
 
   return (
     <>
