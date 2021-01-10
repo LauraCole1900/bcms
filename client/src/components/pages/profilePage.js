@@ -25,7 +25,7 @@ const Profile = () => {
         const idObj = resp.data
         const newObj = idObj.slice(0)
         console.log("profilePage getConfById newObj", newObj)
-        setIdConfs( ...idConfs, newObj[0] )
+        setIdConfs([ ...idConfs, newObj[0] ])
         console.log("profilePage getConfById idConfs", idConfs);
       })
       .catch(err => console.log(err));
@@ -33,7 +33,7 @@ const Profile = () => {
 
   const handleInputChange = (e) => {
     const whichConf = e.target.value
-    setIdConfs([{}]);
+    setIdConfs([]);
     setWhichConf(whichConf)
   }
 
