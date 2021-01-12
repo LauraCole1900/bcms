@@ -62,7 +62,7 @@ function Conference({ conference }) {
                   <Card.Text>{e.confDesc}</Card.Text>
                 </Col>
                 <Col sm={4} className="vitals">
-                  <Row><p>Dates: <Moment format="MMM D YYYY" withTitle>{e.startDate}</Moment> - <Moment format="MMM D YYYY" withTitle>{e.endDate}</Moment></p></Row>
+                  <Row><p>Dates: <Moment format="ddd MMM D YYYY" withTitle>{e.startDate}</Moment> - <Moment format="ddd MMM D YYYY" withTitle>{e.endDate}</Moment></p></Row>
                   <Row><p>Times: {e.confStartTime} - {e.confEndTime}</p></Row>
                   <Row><p>Type: {e.confType}</p></Row>
                   <Row>
