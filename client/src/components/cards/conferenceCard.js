@@ -12,12 +12,6 @@ function Conference({ conference }) {
   const [cardAttendConf, setCardAttendConf] = useState([]);
   const [cardRender, setCardRender] = useState(false);
 
-  const formatDate = (date) => {
-    const fullDateArr = date.split("T")
-    const dateArr = fullDateArr[0].split("-")
-    return(dateArr[1] + "/" + dateArr[2] + "/" + dateArr[0])
-  }
-
   function handleDelete(confId) {
     console.log("from confCard", confId)
     ConferenceAPI.deleteConference(confId)
@@ -68,7 +62,7 @@ function Conference({ conference }) {
                   <Card.Text>{e.confDesc}</Card.Text>
                 </Col>
                 <Col sm={4} className="vitals">
-                  <Row><p>Dates: {formatDate(e.startDate)} - {formatDate(e.endDate)}</p></Row>
+                  <Row><p>Dates: <Moment format="MMM D YYYY" withTitle>{e.startDate}</Moment> - <Moment format="MMM D YYYY" withTitle>{e.endDate}</Moment></p></Row>
                   <Row><p>Times: {e.confStartTime} - {e.confEndTime}</p></Row>
                   <Row><p>Type: {e.confType}</p></Row>
                   <Row>

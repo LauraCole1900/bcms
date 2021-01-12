@@ -26,6 +26,7 @@
     "bootstrap-icons": "^1.1.0",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
+    "moment-timezone": "^0.5.32",
     "mongoose": "^5.11.3"
   }
 }
