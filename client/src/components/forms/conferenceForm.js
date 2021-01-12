@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Moment from "react-moment";
+import "moment-timezone";
 import { ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
@@ -31,6 +32,11 @@ const ConferenceForm = () => {
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
 
+  const startSplit = conference.startDate.split("T")
+  const startD=startSplit[0]
+  const endSplit = conference.endDate.split("T")
+  const endD = endSplit[0]
+
   useEffect(() => {
     if (confId !== "new_conference") {
       ConferenceAPI.getConferenceById(confId)
@@ -54,7 +60,6 @@ const ConferenceForm = () => {
     const confStart = new Date(conference.startDate)
     const confEnd = new Date(e.target.value)
     const confNumDays = (confEnd - confStart) / (1000 * 3600 * 24) + 1
-    console.log(typeof(confNumDays), confNumDays)
     setConference({ ...conference, [e.target.name]: e.target.value, numDays: confNumDays })
   };
 
@@ -106,11 +111,11 @@ const ConferenceForm = () => {
                 <Form.Group controlId="formConfDate">
                   <Col sm={4}>
                     <Form.Label>Conference Start Date: <span className="red">*</span></Form.Label>
-                    <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={conference.startDate} className="startDate" onChange={handleInputChange} />
+                    <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={startD} className="startDate" onChange={handleInputChange} />
                   </Col>
                   <Col sm={4}>
                     <Form.Label>Conference End Date: <span className="red">*</span></Form.Label>
-                    <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={conference.endDate} className="endDate" onChange={findNumDays} />
+                    <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={endD} className="endDate" onChange={findNumDays} />
                   </Col>
                   {conference.startDate !== "" &&
                     conference.endDate !== "" &&
