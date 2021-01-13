@@ -5,59 +5,67 @@ import { Container, Row, Col, Button, ButtonGroup, ToggleButton } from "react-bo
 import { ConferenceCard, UserCard } from "../cards";
 import { AttendeeAPI, ConferenceAPI, UserAPI } from "../../utils/api";
 import "./style.css";
-
-const Profile = () => {
+/*
+  The main thing I did was that I broke up some of the larger functions into smaller, async functions. The big problem you were having is that some operations needed to wait for others to complete before they could do their jobs. Whenever you have situations like that, ALWAYS be thinking: "I need some async functions"
+  In general, try to keep your functions small and light.  :) 
+*/
+const ProfilePage = () => {
   const { user, isAuthenticated } = useAuth0();
   const [whichConf, setWhichConf] = useState();
   const [createConf, setCreateConf] = useState([]);
   const [attendConf, setAttendConf] = useState([]);
   const [presentConf, setPresentConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
-  const [idConfs, setIdConfs] = useState([]);
   const [pageReady, setPageReady] = useState(false);
   const location = useLocation();
 
-  function confById(confId) {
-    console.log("profilePage confById", confId)
-    ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
-        console.log("profilePage getConfById resp.data", resp.data)
-        const idObj = resp.data
-        const newObj = idObj.slice(0)
-        console.log("profilePage getConfById newObj", newObj)
-        setIdConfs([ ...idConfs, newObj[0] ])
-        console.log("profilePage getConfById idConfs", idConfs);
-      })
-      .catch(err => console.log(err));
+  const getConfById = async (confId) => {
+    return ConferenceAPI.getConferenceById(confId)
+    .then(resp => {
+      console.log(resp)
+      return resp
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
+
+  const getRegisteredConferenceIds = async (email) => {
+    return AttendeeAPI.getConferencesAttending(email)
+    .then(resp => {
+      const data = resp.data 
+      const result = data.map( conf => conf.confId )
+      return result
+    })
+    .catch( err => {
+      console.log(err)
+      return false
+    })
   }
 
   const handleInputChange = (e) => {
     const whichConf = e.target.value
-    setIdConfs([]);
     setWhichConf(whichConf)
   }
 
   // Handles click on "Attending" button
-  const handleShowAttending = (e) => {
+  const handleShowAttending = async (e) => {
     handleInputChange(e);
-    // Creates array of conferences for which the user has registered
-    AttendeeAPI.getConferencesAttending(user.email)
-      .then(resp => {
-        console.log("profilePage getConfAttending resp.data", resp.data)
-        const attArr = resp.data
-        // Map through resp.data for all resp.data.confId - THIS WORKS
-        // Put all confIds into array - THIS WORKS
-        const attConfId = attArr.map(attArr => attArr.confId)
-        console.log("from profilePage attArr.map confIds", attConfId)
-        // Map through array to query each confId - THIS WORKS
-        attConfId.map(confById)
-        // Put resulting results into array
-        // Render
-        console.log("from getConfAtt idConfs", idConfs);
-        const sortedAtt = idConfs.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
-        setAttendConf(sortedAtt)
+    let unsorted = []
+    let regConfIds = await getRegisteredConferenceIds(user.email)
+    // map through the array to get info on each conference
+    regConfIds.forEach( confId => {
+      getConfById(confId).then( resp => {
+        unsorted = [ ...unsorted, resp.data[0] ]
+        // This is a bit of a hack but it works:  if you're done iterating over all the IDs, 
+        // then you can go ahead and sort, and then update state
+        if( unsorted.length === regConfIds.length ){
+          const sortedAtt = unsorted.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+          setAttendConf(sortedAtt)
+        }
       })
-      .catch(err => console.log(err))
+    })    
   }
 
   // Handles click on "Created" button
@@ -103,17 +111,18 @@ const Profile = () => {
   }
 
   // Save user to DB
-  const saveUserToDB = () => {
+  const saveUserToDB = async () => {
     UserAPI.saveUser(user)
-      .catch(err => console.log(err))
+    .then( resp => {
+    })
+    .catch(err => console.log(err))
   }
 
   useEffect(() => {
     saveUserToDB();
     // Sets pageReady(true) for page load
     setPageReady(true);
-  }, [])
-
+  }, [attendConf])
 
   return (
     <>
@@ -192,5 +201,4 @@ const Profile = () => {
     </>
   )
 }
-
-export default Profile;
+export default ProfilePage;

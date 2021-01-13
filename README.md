@@ -69,7 +69,7 @@ npm run test
 
 ## Credits
 
-The original version of this application was developed in collaboration with [Anna Battista](https://github.com/abattista24), [Beni Mahat](https://github.com/benimahat1291), [Travis Messall](https://github.com/tmessall), [Brenda Miller](https://github.com/millerbee), and [Alec Rewinkel](https://github.com/arewinkl).
+The original version of this application was developed in collaboration with [Anna Battista](https://github.com/abattista24), [Beni Mahat](https://github.com/benimahat1291), [Travis Messall](https://github.com/tmessall), [Brenda Miller](https://github.com/millerbee), and [Alec Rewinkel](https://github.com/arewinkl) under the name "Cool Cats Conference Planner," which can be found in this repo [here](https://github.com/LauraCole1900/conferencePlanner) and is deployed on Heroku [here](https://conference-planner.herokuapp.com/).
 
 ## Contributing
 
