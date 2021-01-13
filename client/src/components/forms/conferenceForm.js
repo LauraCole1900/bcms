@@ -37,6 +37,8 @@ const ConferenceForm = () => {
   const endSplit = conference.endDate.split("T")
   const endD = endSplit[0]
 
+  const confOffset = new Date().getTimezoneOffset()
+
   useEffect(() => {
     if (confId !== "new_conference") {
       ConferenceAPI.getConferenceById(confId)
