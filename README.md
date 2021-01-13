@@ -25,31 +25,31 @@ This application uses a MERN stack to create a conference management system.
 ## Screenshots
 
 Landing page:
-![Landing page](assets/uckcms-landing-page-screenshot.png)
+![Landing page](assets/bcms-landing-page-screenshot.png)
 
 Login page:
-![Login page](assets/uckcms-login-screenshot.png)
+![Login page](assets/bcms-login-screenshot.png)
 
 Profile page:
-![Profile page](assets/uckcms-profile-page-screenshot.png)
+![Profile page](assets/bcms-profile-page-screenshot.png)
 
 All Conferences page:
-![All Conferences page](assets/uckcms-all-conf-screenshot.png)
+![All Conferences page](assets/bcms-all-conf-screenshot.png)
 
 Conference Details page:
-![Conference Details page](assets/uckcms-conf-details-screenshot.png)
+![Conference Details page](assets/bcms-conf-details-screenshot.png)
 
 Conference Schedule page:
-![Schedule page](assets/uckcms-schedule-screenshot.png)
+![Schedule page](assets/bcms-schedule-screenshot.png)
 
 Add New Conference form:
-![Add New Conference form](assets/uckcms-new-conf-screenshot.png)
+![Add New Conference form](assets/bcms-new-conf-screenshot.png)
 
 Add Session form:
-![Add Session form](assets/uckcms-add-session-screenshot.png)
+![Add Session form](assets/bcms-add-session-screenshot.png)
 
-"Contact Me" page:
-![Contact Me page](assets/uckcms-contact-page-screenshot.png)
+"About" page:
+![About page](assets/bcms-about-screenshot.png)
 
 ## Installation Instructions
 
