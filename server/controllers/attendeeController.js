@@ -30,6 +30,15 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  // FIND attendees by confId
+  findByConfId: function (req, res) {
+    console.log("from attendeeCont findByConfId", req.params)
+    db.Attendee
+      .find({ confId: req.params.id })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
   // FIND attendee by ID
   findById: function (req, res) {
     console.log("from attendeeCont findById", req.params.id)

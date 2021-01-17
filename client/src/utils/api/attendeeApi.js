@@ -12,7 +12,7 @@ const AttendeeAPI = {
   // GET attendees by conference
   getAttendees: function (confId) {
     console.log("from API getAttendees", confId)
-    return axios.get(`/api/attendee/${confId}`)
+    return axios.get(`/api/attendee/conference/${confId}`)
   },
 
   // GET conferences by attendee
