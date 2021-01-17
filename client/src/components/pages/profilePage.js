@@ -21,27 +21,27 @@ const ProfilePage = () => {
 
   const getConfById = async (confId) => {
     return ConferenceAPI.getConferenceById(confId)
-    .then(resp => {
-      console.log(resp)
-      return resp
-    })
-    .catch(err => {
-      console.log(err)
-      return false
-    });
+      .then(resp => {
+        console.log(resp)
+        return resp
+      })
+      .catch(err => {
+        console.log(err)
+        return false
+      });
   }
 
   const getRegisteredConferenceIds = async (email) => {
     return AttendeeAPI.getConferencesAttending(email)
-    .then(resp => {
-      const data = resp.data 
-      const result = data.map( conf => conf.confId )
-      return result
-    })
-    .catch( err => {
-      console.log(err)
-      return false
-    })
+      .then(resp => {
+        const data = resp.data
+        const result = data.map(conf => conf.confId)
+        return result
+      })
+      .catch(err => {
+        console.log(err)
+        return false
+      })
   }
 
   const handleInputChange = (e) => {
@@ -55,17 +55,17 @@ const ProfilePage = () => {
     let unsorted = []
     let regConfIds = await getRegisteredConferenceIds(user.email)
     // map through the array to get info on each conference
-    regConfIds.forEach( confId => {
-      getConfById(confId).then( resp => {
-        unsorted = [ ...unsorted, resp.data[0] ]
+    regConfIds.forEach(confId => {
+      getConfById(confId).then(resp => {
+        unsorted = [...unsorted, resp.data[0]]
         // This is a bit of a hack but it works:  if you're done iterating over all the IDs, 
         // then you can go ahead and sort, and then update state
-        if( unsorted.length === regConfIds.length ){
+        if (unsorted.length === regConfIds.length) {
           const sortedAtt = unsorted.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
           setAttendConf(sortedAtt)
         }
       })
-    })    
+    })
   }
 
   // Handles click on "Created" button
@@ -113,13 +113,14 @@ const ProfilePage = () => {
   // Save user to DB
   const saveUserToDB = async () => {
     UserAPI.saveUser(user)
-    .then( resp => {
-    })
-    .catch(err => console.log(err))
+      .then(resp => {
+      })
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
     saveUserToDB();
+
     // Sets pageReady(true) for page load
     setPageReady(true);
   }, [attendConf])
@@ -163,6 +164,8 @@ const ProfilePage = () => {
                 </Link>
               </Col>
             </Row>
+            {whichConf === undefined &&
+              <h3>Please select which of your conferences you want to view.</h3>}
             {whichConf === "attend" &&
               attendConf.length > 0 &&
               <ConferenceCard conference={attendConf} />
