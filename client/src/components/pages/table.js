@@ -23,6 +23,7 @@ const TableComp = (e) => {
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
   const [presenters, setPresenters] = useState([]);
+  const [colHead, setColHead] = useState([]);
   const [pageReady, setPageReady] = useState(false);
 
   const urlArray = window.location.href.split("/");
@@ -74,10 +75,41 @@ const TableComp = (e) => {
               <ConferenceCard conference={conference} />
             </Col>
           </Row>
-          <Table striped border hover>
+          <Table striped border hover responsive>
             <thead>
-              
+              <tr>
+                <span onClick={sortByName}>Name</span>
+              </tr>
+              <tr>
+                <span onClick={sortByEmail}>Email</span>
+              </tr>
+              <tr>
+                <span onClick={sortByPhone}>Phone</span>
+              </tr>
+              <tr>
+                <span onClick={sortEmployer}>Employer, Org, School, etc.</span>
+              </tr>
+              <tr>
+                <span onClick={sortByEmergency}>Emergency Contact Name</span>
+              </tr>
+              <tr>
+                <span onClick={sortByEmergencyPhone}>Emergency Contact Phone</span>
+              </tr>
+              <tr>
+                <span onClick={sortByAllergies}>Allergies</span>
+              </tr>
+              <tr>
+                <span onClick={sortByAdmin}>Admin?</span>
+              </tr>
             </thead>
+            <tbody>
+              {dataSet === "attendees" &&
+              <tr></tr>}
+              {dataSet === "exhibitors" &&
+              <tr></tr>}
+              {dataSet === "presenters" &&
+              <tr></tr>}
+            </tbody>
           </Table>
         </Container>
       }

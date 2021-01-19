@@ -32,7 +32,7 @@ module.exports = {
 
   // FIND attendees by confId
   findByConfId: function (req, res) {
-    console.log("from attendeeCont findByConfId", req.params)
+    console.log("from attendeeCont findByConfId", req.params.id)
     db.Attendee
       .find({ confId: req.params.id })
       .then(dbModel => res.json(dbModel))

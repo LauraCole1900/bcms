@@ -6,6 +6,14 @@ const presenterSchema = new Schema({
     type: String,
     required: true
   },
+  presGivenName: {
+    type: String,
+    required: "Please enter the presenter's given name."
+  },
+  presFamilyName: {
+    type: String,
+    required: "Please enter the presenter's family name."
+  },
   presEmail: {
     type: String,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
