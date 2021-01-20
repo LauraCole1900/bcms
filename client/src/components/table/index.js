@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ConferenceCard, UserCard } from "../cards";
 import { Container, Row, Col, Table } from "react-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
+import { ConferenceCard, UserCard } from "../cards";
+import TableData from "./tableData.js";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI } from "../../utils/api";
 import "./style.css";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const TableComp = (e) => {
   // pull confId out of URL
@@ -75,40 +76,50 @@ const TableComp = (e) => {
               <ConferenceCard conference={conference} />
             </Col>
           </Row>
+          <Row>
+            {dataSet === "attendees" &&
+              <h1>Attendees</h1>}
+            {dataSet === "exhibitors" &&
+              <h1>Exhibitors</h1>}
+            {dataSet === "presenters" &&
+              <h1>Presenters</h1>}
+          </Row>
           <Table striped border hover responsive>
             <thead>
               <tr>
-                <span onClick={sortByName}>Name</span>
-              </tr>
-              <tr>
-                <span onClick={sortByEmail}>Email</span>
-              </tr>
-              <tr>
-                <span onClick={sortByPhone}>Phone</span>
-              </tr>
-              <tr>
-                <span onClick={sortEmployer}>Employer, Org, School, etc.</span>
-              </tr>
-              <tr>
-                <span onClick={sortByEmergency}>Emergency Contact Name</span>
-              </tr>
-              <tr>
-                <span onClick={sortByEmergencyPhone}>Emergency Contact Phone</span>
-              </tr>
-              <tr>
-                <span onClick={sortByAllergies}>Allergies</span>
-              </tr>
-              <tr>
-                <span onClick={sortByAdmin}>Admin?</span>
+                <th className="columnHeader">
+                  <span onClick={sortByName}>Name</span>
+                </th>
+                <th className="columnHeader">
+                  <span onClick={sortByEmail}>Email</span>
+                </th>
+                <th className="columnHeader">
+                  <span onClick={sortByPhone}>Phone</span>
+                </th>
+                <th className="columnHeader">
+                  <span onClick={sortByOrg}>Company, Org, School, etc.</span>
+                </th>
+                <th className="columnHeader">
+                  <span onClick={sortByEmergency}>Emergency Contact Name</span>
+                </th>
+                <th className="columnHeader">
+                  <span onClick={sortByEmergencyPhone}>Emergency Contact Phone</span>
+                </th>
+                <th className="columnHeader">
+                  <span onClick={sortByAllergies}>Allergies</span>
+                </th>
+                <th className="columnHeader">
+                  <span onClick={sortByAdmin}>Admin?</span>
+                </th>
               </tr>
             </thead>
             <tbody>
               {dataSet === "attendees" &&
-              <tr></tr>}
+                <TableData data={attendees} />}
               {dataSet === "exhibitors" &&
-              <tr></tr>}
+                <TableData data={exhibitors} />}
               {dataSet === "presenters" &&
-              <tr></tr>}
+                <TableData dta={presenters} />}
             </tbody>
           </Table>
         </Container>

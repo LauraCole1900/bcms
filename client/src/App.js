@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { AboutBCMS, AllConfs, ConfDetails, Confirm, Login, Profile, Schedule, Success, TableComp, Venue } from "./components/pages";
+import { AboutBCMS, AllConfs, ConfDetails, Confirm, Login, Profile, Schedule, Success, Venue } from "./components/pages";
 import Navbar from "./components/navbar";
+import TableComp from "./components/table"
 import { ConferenceForm, ExhibitForm, Registration, SessionForm, SessionProposal, Supplemental, UpdateUser } from "./components/forms";
 import "./App.css";
 
