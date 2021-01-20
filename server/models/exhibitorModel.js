@@ -6,9 +6,17 @@ const exhibitorSchema = new Schema({
     type: String,
     required: true
   },
+  exhGivenName: {
+    type: String,
+    required: "Please enter the exhibit contact person's given name."
+  },
+  exhFamilyName: {
+    type: String,
+    required: "Please enter the exhibit contact person's family name."
+  },
   exhEmail: {
     type: String,
-    required: true
+    required: "Please enter the exhibitor's contact email."
   },
   exhCompany: {
     type: String,
@@ -26,7 +34,7 @@ const exhibitorSchema = new Schema({
     type: Number,
     required: "Please select how many workers are associated with this exhibit."
   },
-  exhNames: {
+  exhWorkNames: {
     type: [ String ],
     required: "Please enter the names of the exhibit workers."
   },

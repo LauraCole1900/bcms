@@ -29,6 +29,10 @@ const presenterSchema = new Schema({
   },
   presWebsite: {
     type: String,
+  },
+  presSessionIds: {
+    type: [ String ],
+    required: true
   }
 })
 
