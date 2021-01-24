@@ -31,6 +31,8 @@ const TableComp = (e) => {
   const confId = urlArray[urlArray.length - 1];
   const dataSet = urlArray[urlArray.length - 2];
 
+  console.log({ dataSet })
+
   const attHeaders = ["Name", "Email", "Phone", "Company, Org, School, etc.", "Emergency Contact Name", "Emergency Contact Phone", "Allergies", "Admin?"];
   const exhHeaders = ["Name", "Email", "Phone", "Company, Org, School, etc.", "Worker Names", "# of Spaces", "Attendee?"];
   const presHeaders = ["Presenter Name", "Email", "Phone", "Company, Org, School, etc.", "Session Name(s)", "Session ID(s)", "Presenter's Website"];
@@ -100,27 +102,34 @@ const TableComp = (e) => {
             </Col>
           </Row>
           <Row>
-            {dataSet === "attendees" &&
-              <h1>Attendees</h1>}
-            {dataSet === "exhibitors" &&
-              <h1>Exhibitors</h1>}
-            {dataSet === "presenters" &&
-              <h1>Presenters</h1>}
+            <Col sm={5}></Col>
+            <Col sm={3}>
+              {dataSet === "attendees" &&
+                <h1>Attendees</h1>}
+              {dataSet === "exhibitors" &&
+                <h1>Exhibitors</h1>}
+              {dataSet === "presenters" &&
+                <h1>Presenters</h1>}
+            </Col>
           </Row>
           <Table striped border hover responsive>
             <thead>
               <tr>
                 {dataSet === "attendees" &&
-                attHeaders.map()}
+                  attHeaders.map((data, idx) => {
+                    <td key={idx}>{data}</td>
+                  })}
                 {dataSet === "exhibitors" &&
-                exhHeaders.map()}
+                  exhHeaders.map()}
                 {dataSet === "presenters" &&
-                presHeaders.map()}
+                  presHeaders.map()}
               </tr>
             </thead>
             <tbody>
               {dataSet === "attendees" &&
-                <AttendeeTable data={attendees} />}
+                attendees.length > 0
+                ? <AttendeeTable attendees={attendees} />
+                : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>}
               {dataSet === "exhibitors" &&
                 <ExhibitorTable data={exhibitors} />}
               {dataSet === "presenters" &&

@@ -1,10 +1,10 @@
 import React from "react";
 import "./style.css";
 
-const AttendeeTable = (data) => {
+const AttendeeTable = ({ attendees }) => {
   return (
     <>
-      {data.map(e => {
+      {attendees.map(e => {
         <tr key={e._id}>
           <td>{e.familyName} + {e.givenName}</td>
           <td>{e.email}</td>
