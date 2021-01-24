@@ -24,7 +24,6 @@ const TableComp = (e) => {
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
   const [presenters, setPresenters] = useState([]);
-  const [colHead, setColHead] = useState([]);
   const [pageReady, setPageReady] = useState(false);
 
   const urlArray = window.location.href.split("/");
@@ -116,24 +115,35 @@ const TableComp = (e) => {
             <thead>
               <tr>
                 {dataSet === "attendees" &&
-                  attHeaders.map((data, idx) => (
-                    <td key={idx}>{data}</td>
-                  ))}
+                  attendees.length > 0 && (
+                    attHeaders.map((data, idx) => (
+                      <td key={idx}>{data}</td>
+                    )))}
                 {dataSet === "exhibitors" &&
-                  exhHeaders.map()}
+                  exhibitors.length > 0 && (
+                    exhHeaders.map((data, idx) => (
+                      <td key={idx}>{data}</td>
+                    )))}
                 {dataSet === "presenters" &&
-                  presHeaders.map()}
+                  presenters.length > 0 && (
+                    presHeaders.map((data, idx) => (
+                      <td key={idx}>{data}</td>
+                    )))}
               </tr>
             </thead>
             <tbody>
-              {dataSet === "attendees" &&
+              {dataSet === "attendees" && (
                 attendees.length > 0
-                ? <AttendeeTable attendees={attendees} />
-                : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>}
-              {dataSet === "exhibitors" &&
-                <ExhibitorTable data={exhibitors} />}
-              {dataSet === "presenters" &&
-                <PresenterTable dta={presenters} />}
+                  ? <AttendeeTable attendees={attendees} />
+                  : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
+              {dataSet === "exhibitors" && (
+                exhibitors.length > 0
+                  ? < ExhibitorTable data={exhibitors} />
+                  : <h3>We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</h3>)}
+              {dataSet === "presenters" && (
+                presenters.length > 0
+                  ? <PresenterTable dta={presenters} />
+                  : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>)}
             </tbody>
           </Table>
         </Container>
