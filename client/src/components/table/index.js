@@ -116,9 +116,9 @@ const TableComp = (e) => {
             <thead>
               <tr>
                 {dataSet === "attendees" &&
-                  attHeaders.map((data, idx) => {
+                  attHeaders.map((data, idx) => (
                     <td key={idx}>{data}</td>
-                  })}
+                  ))}
                 {dataSet === "exhibitors" &&
                   exhHeaders.map()}
                 {dataSet === "presenters" &&
