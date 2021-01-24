@@ -30,8 +30,6 @@ const TableComp = (e) => {
   const confId = urlArray[urlArray.length - 1];
   const dataSet = urlArray[urlArray.length - 2];
 
-  console.log({ dataSet })
-
   const attHeaders = ["Name", "Email", "Phone", "Company, Org, School, etc.", "Emergency Contact Name", "Emergency Contact Phone", "Allergies", "Admin?"];
   const exhHeaders = ["Name", "Email", "Phone", "Company, Org, School, etc.", "Worker Names", "# of Spaces", "Attendee?"];
   const presHeaders = ["Presenter Name", "Email", "Phone", "Company, Org, School, etc.", "Session Name(s)", "Session ID(s)", "Presenter's Website"];
@@ -47,7 +45,15 @@ const TableComp = (e) => {
   }
 
   const sortBy = (e) => {
+    console.log(e)
+    if (dataSet === "attendees") {
+      const sorted = (e.sortAscending) ? e.ascendingSort({ ...attendees, value: e.value }) : e.descendingSort({ ...attendees, value: e.value })
+      setAttendees({ ...attendees, sortAscending: !attendees.sortAscending, attendees: sorted })
+    } else if (dataSet === "exhibitors") {
 
+    } else if (dataSet === "presenters") {
+
+    }
   }
 
   // const sortById = () => {
@@ -117,17 +123,17 @@ const TableComp = (e) => {
                 {dataSet === "attendees" &&
                   attendees.length > 0 && (
                     attHeaders.map((data, idx) => (
-                      <td key={idx}>{data}</td>
+                      <td key={idx} value={data.value} onClick={sortBy}>{data}</td>
                     )))}
                 {dataSet === "exhibitors" &&
                   exhibitors.length > 0 && (
                     exhHeaders.map((data, idx) => (
-                      <td key={idx}>{data}</td>
+                      <td key={idx} onClick={sortBy}>{data}</td>
                     )))}
                 {dataSet === "presenters" &&
                   presenters.length > 0 && (
                     presHeaders.map((data, idx) => (
-                      <td key={idx}>{data}</td>
+                      <td key={idx} onClick={sortBy}>{data}</td>
                     )))}
               </tr>
             </thead>
