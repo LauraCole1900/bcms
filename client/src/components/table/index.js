@@ -3,7 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 import { Container, Row, Col, Table } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
-import TableData from "./tableData.js";
+import AttendeeTable from "./attendeeTable.js";
+import ExhibitorTable from "./exhibitorTable.js";
+import PresenterTable from "./presenterTable.js";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI } from "../../utils/api";
 import "./style.css";
 
@@ -15,8 +17,6 @@ const TableComp = (e) => {
   // data needs to be sortable and searchable
   // "conferences page" button
   // "conference details" button
-  // user card
-  // conference card
 
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
@@ -30,6 +30,29 @@ const TableComp = (e) => {
   const urlArray = window.location.href.split("/");
   const confId = urlArray[urlArray.length - 1];
   const dataSet = urlArray[urlArray.length - 2];
+
+  const attHeaders = ["Name", "Email", "Phone", "Company, Org, School, etc.", "Emergency Contact Name", "Emergency Contact Phone", "Allergies", "Admin?"];
+  const exhHeaders = ["Name", "Email", "Phone", "Company, Org, School, etc.", "Worker Names", "# of Spaces", "Attendee?"];
+  const presHeaders = ["Presenter Name", "Email", "Phone", "Company, Org, School, etc.", "Session Name(s)", "Session ID(s)", "Presenter's Website"];
+
+  // Sort ascending
+  const ascendingSort = (arr, e) => {
+    return arr.sort((a, b) => (a[e] > b[e]) ? 1 : -1);
+  }
+
+  // Sort descending
+  const descendingSort = (arr, e) => {
+    return arr.sort((a, b) => (a[e] < b[e]) ? 1 : -1);
+  }
+
+  const sortBy = (e) => {
+
+  }
+
+  // const sortById = () => {
+  //   const sorted = (this.state.sortAscending) ? this.ascendingSort(this.state.employeesArr, "id") : this.descendingSort(this.state.employeesArr, "id")
+  //   this.setState({ ...this.state, sortAscending: !this.state.sortAscending, employeesArr: sorted })
+  // };
 
   useEffect(() => {
     ConferenceAPI.getConferenceById(confId)
@@ -87,39 +110,21 @@ const TableComp = (e) => {
           <Table striped border hover responsive>
             <thead>
               <tr>
-                <th className="columnHeader">
-                  <span onClick={sortByName}>Name</span>
-                </th>
-                <th className="columnHeader">
-                  <span onClick={sortByEmail}>Email</span>
-                </th>
-                <th className="columnHeader">
-                  <span onClick={sortByPhone}>Phone</span>
-                </th>
-                <th className="columnHeader">
-                  <span onClick={sortByOrg}>Company, Org, School, etc.</span>
-                </th>
-                <th className="columnHeader">
-                  <span onClick={sortByEmergency}>Emergency Contact Name</span>
-                </th>
-                <th className="columnHeader">
-                  <span onClick={sortByEmergencyPhone}>Emergency Contact Phone</span>
-                </th>
-                <th className="columnHeader">
-                  <span onClick={sortByAllergies}>Allergies</span>
-                </th>
-                <th className="columnHeader">
-                  <span onClick={sortByAdmin}>Admin?</span>
-                </th>
+                {dataSet === "attendees" &&
+                attHeaders.map()}
+                {dataSet === "exhibitors" &&
+                exhHeaders.map()}
+                {dataSet === "presenters" &&
+                presHeaders.map()}
               </tr>
             </thead>
             <tbody>
               {dataSet === "attendees" &&
-                <TableData data={attendees} />}
+                <AttendeeTable data={attendees} />}
               {dataSet === "exhibitors" &&
-                <TableData data={exhibitors} />}
+                <ExhibitorTable data={exhibitors} />}
               {dataSet === "presenters" &&
-                <TableData dta={presenters} />}
+                <PresenterTable dta={presenters} />}
             </tbody>
           </Table>
         </Container>
