@@ -6,7 +6,8 @@ const AttendeeTable = ({ attendees }) => {
     <>
       {attendees.map(e => (
         <tr key={e._id}>
-          <td>{e.familyName}, {e.givenName}</td>
+          <td>{e.familyName}</td>
+          <td>{e.givenName}</td>
           <td>{e.email}</td>
           <td>{e.phone}</td>
           <td>{e.employerName}</td>

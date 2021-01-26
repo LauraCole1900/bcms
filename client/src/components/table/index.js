@@ -24,13 +24,14 @@ const TableComp = (e) => {
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
   const [presenters, setPresenters] = useState([]);
+  const [sortAscending, setSortAscending] = useState(true);
   const [pageReady, setPageReady] = useState(false);
 
   const urlArray = window.location.href.split("/");
   const confId = urlArray[urlArray.length - 1];
   const dataSet = urlArray[urlArray.length - 2];
 
-  const attHeaders = ["Name", "Email", "Phone", "Company, Org, School, etc.", "Emergency Contact Name", "Emergency Contact Phone", "Allergies", "Admin?"];
+  const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
   const exhHeaders = ["Name", "Email", "Phone", "Company, Org, School, etc.", "Worker Names", "# of Spaces", "Attendee?"];
   const presHeaders = ["Presenter Name", "Email", "Phone", "Company, Org, School, etc.", "Session Name(s)", "Session ID(s)", "Presenter's Website"];
 
@@ -45,7 +46,6 @@ const TableComp = (e) => {
   }
 
   const sortBy = (e) => {
-    console.log(e)
     if (dataSet === "attendees") {
       const sorted = (e.sortAscending) ? e.ascendingSort({ ...attendees, value: e.value }) : e.descendingSort({ ...attendees, value: e.value })
       setAttendees({ ...attendees, sortAscending: !attendees.sortAscending, attendees: sorted })
