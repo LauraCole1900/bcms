@@ -48,7 +48,7 @@ const TableComp = (e) => {
   // Sort by column header
   const sortBy = (e) => {
     if (dataSet === "attendees") {
-      const sortAtt = ({ sortAscending: true }) ? ascendingSort(attendees, e.target) : descendingSort(attendees, e.target)
+      const sortAtt = ({ sortAscending: true }) ? ascendingSort(attendees, e.target.innerHTML) : descendingSort(attendees, e.target.innerHTML)
       setAttendees(sortAtt)
       if (sortAscending === true) {
         setSortAscending(false)
@@ -120,14 +120,18 @@ const TableComp = (e) => {
             </Col>
           </Row>
           <Row>
-            <Col sm={5}></Col>
-            <Col sm={3}>
+            <Col className="center">
               {dataSet === "attendees" &&
                 <h1>Attendees</h1>}
               {dataSet === "exhibitors" &&
                 <h1>Exhibitors</h1>}
               {dataSet === "presenters" &&
                 <h1>Presenters</h1>}
+            </Col>
+          </Row>
+          <Row>
+            <Col className="subhead">
+              <p>Click column headers to sort</p>
             </Col>
           </Row>
           <Table striped border hover responsive>

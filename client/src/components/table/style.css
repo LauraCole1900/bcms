@@ -1,3 +1,12 @@
 td {
   border: 1px solid black;
 }
+
+.center {
+  text-align: center;
+}
+
+.subhead {
+  color: darkgray;
+  margin-bottom: 20px;
+}
