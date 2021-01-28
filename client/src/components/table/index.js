@@ -37,17 +37,18 @@ const TableComp = (e) => {
 
   // Sort ascending
   const ascendingSort = (arr, e) => {
-    return arr.sort((a, b) => (a[e] > b[e]) ? 1 : -1);
+    return arr.sort((a, b) => (a[e.target.innerHTML] > b[e.target.innerHTML]) ? 1 : -1);
   }
 
   // Sort descending
   const descendingSort = (arr, e) => {
-    return arr.sort((a, b) => (a[e] < b[e]) ? 1 : -1);
+    return arr.sort((a, b) => (a[e.target.innerHTML] < b[e.target.innerHTML]) ? 1 : -1);
   }
 
   const sortBy = (e) => {
+    console.log(e.target.innerHTML)
     if (dataSet === "attendees") {
-      const sorted = (e.sortAscending) ? e.ascendingSort({ ...attendees, value: e.value }) : e.descendingSort({ ...attendees, value: e.value })
+      const sorted = (attendees.sortAscending) ? e.target.innerHTML.ascendingSort({ ...attendees, value: e.target.innerHTML }) : e.target.innerHTML.descendingSort({ ...attendees, value: e.target.innerHTML })
       setAttendees({ ...attendees, sortAscending: !attendees.sortAscending, attendees: sorted })
     } else if (dataSet === "exhibitors") {
 
