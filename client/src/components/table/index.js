@@ -33,7 +33,7 @@ const TableComp = (e) => {
 
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend"];
-  const presHeaders = ["Presenter Name", "Email", "Phone", "Company, Org, School, etc.", "Session Name(s)", "Session ID(s)", "Presenter's Website"];
+  const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
 
   // Sort ascending
   const ascendingSort = (arr, e) => {
