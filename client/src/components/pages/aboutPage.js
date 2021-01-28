@@ -42,6 +42,7 @@ const AboutBCMS = () => {
                 <td className="red">
                   <ul>
                     <li>BCMS will NOT secure your venue for you.</li>
+                    <li>BCMS will NOT secure your lodging for you.</li>
                     <li>BCMS does NOT process your attendees' financial information. If you charge a registration fee, you need to link to an external payment service such as PayPal, Venmo, Square, etc.</li>
                   </ul>
                 </td>
