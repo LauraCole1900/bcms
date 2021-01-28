@@ -48,25 +48,31 @@ const TableComp = (e) => {
   // Sort by column header
   const sortBy = (e) => {
     if (dataSet === "attendees") {
-      const sorted = ({ sortAscending: true }) ? ascendingSort(attendees, e.target) : descendingSort(attendees, e.target)
-      console.log({ sorted })
-      setAttendees(sorted)
+      const sortAtt = ({ sortAscending: true }) ? ascendingSort(attendees, e.target) : descendingSort(attendees, e.target)
+      setAttendees(sortAtt)
       if (sortAscending === true) {
         setSortAscending(false)
       } else {
         setSortAscending(true)
       }
     } else if (dataSet === "exhibitors") {
-
+      const sortExh = ({ sortAscending: true }) ? ascendingSort(exhibitors, e.target) : descendingSort(exhibitors, e.target)
+      setExhibitors(sortExh)
+      if (sortAscending === true) {
+        setSortAscending(false)
+      } else {
+        setSortAscending(true)
+      }
     } else if (dataSet === "presenters") {
-
+      const sortPres = ({ sortAscending: true }) ? ascendingSort(presenters, e.target) : descendingSort(presenters, e.target)
+      setPresenters(sortPres)
+      if (sortAscending === true) {
+        setSortAscending(false)
+      } else {
+        setSortAscending(true)
+      }
     }
   }
-
-  // const sortById = () => {
-  //   const sorted = (this.state.sortAscending) ? this.ascendingSort(this.state.employeesArr, "id") : this.descendingSort(this.state.employeesArr, "id")
-  //   this.setState({ ...this.state, sortAscending: !this.state.sortAscending, employeesArr: sorted })
-  // };
 
   useEffect(() => {
     ConferenceAPI.getConferenceById(confId)
