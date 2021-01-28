@@ -45,8 +45,8 @@ const TableComp = (e) => {
     return arr.sort((a, b) => (a[e.target.innerHTML] < b[e.target.innerHTML]) ? 1 : -1);
   }
 
+  // Sort by column header
   const sortBy = (e) => {
-    console.log(e.target.innerHTML)
     if (dataSet === "attendees") {
       const sorted = (attendees.sortAscending) ? e.target.innerHTML.ascendingSort({ ...attendees, value: e.target.innerHTML }) : e.target.innerHTML.descendingSort({ ...attendees, value: e.target.innerHTML })
       setAttendees({ ...attendees, sortAscending: !attendees.sortAscending, attendees: sorted })
