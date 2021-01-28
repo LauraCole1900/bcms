@@ -36,13 +36,13 @@ const TableComp = (e) => {
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
 
   // Sort ascending
-  const ascendingSort = (arr, e) => {
-    return arr.sort((a, b) => (a[e.target.innerHTML] > b[e.target.innerHTML]) ? 1 : -1);
+  const ascendingSort = (arr, value) => {
+    return arr.sort((a, b) => (a[value] > b[value]) ? 1 : -1);
   }
 
   // Sort descending
-  const descendingSort = (arr, e) => {
-    return arr.sort((a, b) => (a[e.target.innerHTML] < b[e.target.innerHTML]) ? 1 : -1);
+  const descendingSort = (arr, value) => {
+    return arr.sort((a, b) => (a[value] < b[value]) ? 1 : -1);
   }
 
   // Sort by column header
