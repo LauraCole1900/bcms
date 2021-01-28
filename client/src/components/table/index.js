@@ -42,13 +42,13 @@ const TableComp = (e) => {
 
   // Sort descending
   const descendingSort = (arr, value) => {
-    return arr.sort((a, b) => (a[value] < b[value]) ? 1 : -1);
+    return arr.sort((a, b) => (a[value] > b[value]) ? -1 : 1);
   }
 
   // Sort by column header
   const sortBy = (e) => {
     if (dataSet === "attendees") {
-      const sortAtt = ({ sortAscending: true }) ? ascendingSort(attendees, e.target.innerHTML) : descendingSort(attendees, e.target.innerHTML)
+      const sortAtt = (sortAscending) ? ascendingSort(attendees, e.target.innerHTML) : descendingSort(attendees, e.target.innerHTML)
       setAttendees(sortAtt)
       if (sortAscending === true) {
         setSortAscending(false)
@@ -56,7 +56,7 @@ const TableComp = (e) => {
         setSortAscending(true)
       }
     } else if (dataSet === "exhibitors") {
-      const sortExh = ({ sortAscending: true }) ? ascendingSort(exhibitors, e.target) : descendingSort(exhibitors, e.target)
+      const sortExh = (sortAscending) ? ascendingSort(exhibitors, e.target.innerHTML) : descendingSort(exhibitors, e.target.innerHTML)
       setExhibitors(sortExh)
       if (sortAscending === true) {
         setSortAscending(false)
@@ -64,7 +64,7 @@ const TableComp = (e) => {
         setSortAscending(true)
       }
     } else if (dataSet === "presenters") {
-      const sortPres = ({ sortAscending: true }) ? ascendingSort(presenters, e.target) : descendingSort(presenters, e.target)
+      const sortPres = (sortAscending) ? ascendingSort(presenters, e.target.innerHTML) : descendingSort(presenters, e.target.innerHTML)
       setPresenters(sortPres)
       if (sortAscending === true) {
         setSortAscending(false)
