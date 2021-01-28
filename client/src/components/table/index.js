@@ -149,7 +149,7 @@ const TableComp = (e) => {
                   : <h3>We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</h3>)}
               {dataSet === "presenters" && (
                 presenters.length > 0
-                  ? <PresenterTable dta={presenters} />
+                  ? <PresenterTable data={presenters} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>)}
             </tbody>
           </Table>

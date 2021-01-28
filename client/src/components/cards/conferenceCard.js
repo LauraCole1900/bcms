@@ -47,7 +47,7 @@ function Conference({ conference }) {
                   {isAuthenticated &&
                     (user.email === e.creatorEmail) &&
                     <Button data-toggle="popover" title="Delete this conference" className="deletebtn" onClick={() => handleDelete(e._id)}>
-                      <Image fluid src="images/trash-can.png" className="delete" alt="Delete" />
+                      <Image fluid src="/images/trash-can.png" className="delete" alt="Delete" />
                     </Button>}
                 </Col>
               </Row>
