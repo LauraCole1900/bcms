@@ -24,7 +24,7 @@ const TableComp = (e) => {
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
   const [presenters, setPresenters] = useState([]);
-  const [sortAscending, setSortAscending] = useState(true);
+  const [sortAscending, setSortAscending] = useState(false);
   const [pageReady, setPageReady] = useState(false);
 
   const urlArray = window.location.href.split("/");
