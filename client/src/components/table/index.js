@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Container, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col, Table, Form, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
 import AttendeeTable from "./attendeeTable.js";
@@ -24,6 +24,8 @@ const TableComp = (e) => {
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
   const [presenters, setPresenters] = useState([]);
+  const [search, setSearch] = useState("");
+  const [searchBy, setSearchBy] = useState("all");
   const [sortAscending, setSortAscending] = useState(false);
   const [pageReady, setPageReady] = useState(false);
 
@@ -34,6 +36,47 @@ const TableComp = (e) => {
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend"];
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
+
+  // Search method
+  const searchFilter = (data) => {
+    if (searchBy === "all") {
+      switch (dataSet) {
+        case "attendees": return (attendees);
+          break;
+        case "exhibitors": return (exhibitors);
+          break;
+        case "presenters": return (presenters);
+          break;
+        default: console.log("default");
+      }
+    } else if (searchBy === "name") {
+      switch (dataSet) {
+        case "attendees":
+          return data.filter((attendees) => attendees.familyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          break;
+        case "exhibitors":
+          return data.filter((exhibitors) => exhibitors.exhFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          break;
+        case "presenters":
+          return data.filter((presenters) => presenters.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          break;
+        default: console.log("default");
+      }
+    } else if (searchBy === "org") {
+      switch (dataSet) {
+        case "attendees":
+          return data.filter((attendees) => attendees.employerName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          break;
+        case "exhibitors":
+          return data.filter((exhibitors) => exhibitors.exhCompany.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          break;
+        case "presenters":
+          return data.filter((presenters) => presenters.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          break;
+        default: console.log("default");
+      }
+    }
+  }
 
   // Sort ascending
   const ascendingSort = (arr, value) => {
@@ -130,8 +173,31 @@ const TableComp = (e) => {
             </Col>
           </Row>
           <Row>
-            <Col className="subhead">
+            <Col sm={3} className="subhead">
               <p>Click column headers to sort</p>
+            </Col>
+            <Col sm={4}>
+              <Card.Body>
+                <Form inline>
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Group controlId="confSearchBy">
+                        <Form.Control inline as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
+                          <option value="all">View All</option>
+                          <option value="name">Search by Family Name</option>
+                          <option value="org">Search by Organization</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                    <Col sm={6}>
+                      {(searchBy !== "all") &&
+                        <div id="confPageSearch">
+                          <Form.Control inline className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                        </div>}
+                    </Col>
+                  </Row>
+                </Form>
+              </Card.Body>
             </Col>
           </Row>
           <Table striped border hover responsive>
@@ -140,32 +206,32 @@ const TableComp = (e) => {
                 {dataSet === "attendees" &&
                   attendees.length > 0 && (
                     attHeaders.map((data, idx) => (
-                      <td key={idx} value={data.value} onClick={sortBy}>{data}</td>
+                      <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
                     )))}
                 {dataSet === "exhibitors" &&
                   exhibitors.length > 0 && (
                     exhHeaders.map((data, idx) => (
-                      <td key={idx} onClick={sortBy}>{data}</td>
+                      <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
                     )))}
                 {dataSet === "presenters" &&
                   presenters.length > 0 && (
                     presHeaders.map((data, idx) => (
-                      <td key={idx} onClick={sortBy}>{data}</td>
+                      <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
                     )))}
               </tr>
             </thead>
             <tbody>
               {dataSet === "attendees" && (
                 attendees.length > 0
-                  ? <AttendeeTable attendees={attendees} />
+                  ? <AttendeeTable attendees={searchFilter(attendees)} />
                   : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
-                  ? < ExhibitorTable data={exhibitors} />
+                  ? < ExhibitorTable data={searchFilter(exhibitors)} />
                   : <h3>We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</h3>)}
               {dataSet === "presenters" && (
                 presenters.length > 0
-                  ? <PresenterTable data={presenters} />
+                  ? <PresenterTable data={searchFilter(presenters)} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>)}
             </tbody>
           </Table>

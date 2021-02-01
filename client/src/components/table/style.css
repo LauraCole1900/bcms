@@ -2,6 +2,10 @@ td {
   border: 1px solid black;
 }
 
+.tHead {
+  cursor: pointer;
+}
+
 .center {
   text-align: center;
 }
