@@ -58,17 +58,6 @@ const TableComp = (e) => {
         case "presenters":
           return data.filter((presenters) => presenters.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
       }
-    } else if (searchBy === "org") {
-      switch (dataSet) {
-        default:
-          return data.filter((attendees) => attendees.employerName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-          break;
-        case "exhibitors":
-          return data.filter((exhibitors) => exhibitors.exhCompany.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-          break;
-        case "presenters":
-          return data.filter((presenters) => presenters.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-      }
     } else if (searchBy === "email") {
       switch (dataSet) {
         default:
@@ -79,6 +68,17 @@ const TableComp = (e) => {
           break;
         case "presenters":
           return data.filter((presenters) => presenters.presEmail.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+      }
+    } else if (searchBy === "org") {
+      switch (dataSet) {
+        default:
+          return data.filter((attendees) => attendees.employerName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          break;
+        case "exhibitors":
+          return data.filter((exhibitors) => exhibitors.exhCompany.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          break;
+        case "presenters":
+          return data.filter((presenters) => presenters.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1);
       }
     }
   }
@@ -190,8 +190,8 @@ const TableComp = (e) => {
                         <Form.Control inline as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
                           <option value="all">View All</option>
                           <option value="name">Search by Family Name</option>
-                          <option value="org">Search by Organization</option>
                           <option value="email">Search by Email</option>
+                          <option value="org">Search by Organization</option>
                         </Form.Control>
                       </Form.Group>
                     </Col>
