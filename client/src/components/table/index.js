@@ -41,17 +41,15 @@ const TableComp = (e) => {
   const searchFilter = (data) => {
     if (searchBy === "all") {
       switch (dataSet) {
-        case "attendees": return (attendees);
+        default: return (attendees);
           break;
         case "exhibitors": return (exhibitors);
           break;
         case "presenters": return (presenters);
-          break;
-        default: console.log("default");
       }
     } else if (searchBy === "name") {
       switch (dataSet) {
-        case "attendees":
+        default:
           return data.filter((attendees) => attendees.familyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
           break;
         case "exhibitors":
@@ -59,12 +57,10 @@ const TableComp = (e) => {
           break;
         case "presenters":
           return data.filter((presenters) => presenters.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-          break;
-        default: console.log("default");
       }
     } else if (searchBy === "org") {
       switch (dataSet) {
-        case "attendees":
+        default:
           return data.filter((attendees) => attendees.employerName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
           break;
         case "exhibitors":
@@ -72,8 +68,17 @@ const TableComp = (e) => {
           break;
         case "presenters":
           return data.filter((presenters) => presenters.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+      }
+    } else if (searchBy === "email") {
+      switch (dataSet) {
+        default:
+          return data.filter((attendees) => attendees.email.toLowerCase().indexOf(search.toLowerCase()) !== -1);
           break;
-        default: console.log("default");
+        case "exhibitors":
+          return data.filter((exhibitors) => exhibitors.exhEmail.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          break;
+        case "presenters":
+          return data.filter((presenters) => presenters.presEmail.toLowerCase().indexOf(search.toLowerCase()) !== -1);
       }
     }
   }
@@ -186,6 +191,7 @@ const TableComp = (e) => {
                           <option value="all">View All</option>
                           <option value="name">Search by Family Name</option>
                           <option value="org">Search by Organization</option>
+                          <option value="email">Search by Email</option>
                         </Form.Control>
                       </Form.Group>
                     </Col>
