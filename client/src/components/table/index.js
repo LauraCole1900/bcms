@@ -96,30 +96,39 @@ const TableComp = (e) => {
 
   // Sort by column header
   const sortBy = (e) => {
-    if (dataSet === "attendees") {
-      const sortAtt = (sortAscending) ? ascendingSort(attendees, e.target.innerHTML) : descendingSort(attendees, e.target.innerHTML)
-      setAttendees(sortAtt)
-      if (sortAscending === true) {
-        setSortAscending(false)
-      } else {
-        setSortAscending(true)
-      }
-    } else if (dataSet === "exhibitors") {
-      const sortExh = (sortAscending) ? ascendingSort(exhibitors, e.target.innerHTML) : descendingSort(exhibitors, e.target.innerHTML)
-      setExhibitors(sortExh)
-      if (sortAscending === true) {
-        setSortAscending(false)
-      } else {
-        setSortAscending(true)
-      }
-    } else if (dataSet === "presenters") {
-      const sortPres = (sortAscending) ? ascendingSort(presenters, e.target.innerHTML) : descendingSort(presenters, e.target.innerHTML)
-      setPresenters(sortPres)
-      if (sortAscending === true) {
-        setSortAscending(false)
-      } else {
-        setSortAscending(true)
-      }
+    switch (dataSet) {
+      case "exhibitors":
+        const sortExh = (sortAscending) ? ascendingSort(exhibitors, e.target.innerHTML) : descendingSort(exhibitors, e.target.innerHTML)
+        setExhibitors(sortExh)
+        switch (sortAscending) {
+          case false:
+            setSortAscending(true)
+            break;
+          default:
+            setSortAscending(false)
+        }
+        break;
+      case "presenters":
+        const sortPres = (sortAscending) ? ascendingSort(presenters, e.target.innerHTML) : descendingSort(presenters, e.target.innerHTML)
+        setPresenters(sortPres)
+        switch (sortAscending) {
+          case false:
+            setSortAscending(true)
+            break;
+          default:
+            setSortAscending(false)
+        }
+        break;
+      default:
+        const sortAtt = (sortAscending) ? ascendingSort(attendees, e.target.innerHTML) : descendingSort(attendees, e.target.innerHTML)
+        setAttendees(sortAtt)
+        switch (sortAscending) {
+          case false:
+            setSortAscending(true);
+            break;
+          default:
+            setSortAscending(false);
+        }
     }
   }
 
@@ -131,29 +140,32 @@ const TableComp = (e) => {
       })
       .catch(err => console.log(err))
 
-    if (dataSet === "attendees") {
-      AttendeeAPI.getAttendees(confId)
-        .then(resp => {
-          console.log("table getAttendees", resp.data)
-          setAttendees(resp.data)
-        })
-        .catch(err => console.log(err))
-    } else if (dataSet === "exhibitors") {
-      ExhibitorAPI.getExhibitors(confId)
-        .then(resp => {
-          console.log("table getExhibitors", resp.data)
-          setExhibitors(resp.data)
-        })
-        .catch(err => console.log(err))
-    } else if (dataSet === "presenters") {
-      PresenterAPI.getPresenters(confId)
-        .then(resp => {
-          console.log("table getPresenters", resp.data)
-          setPresenters(resp.data)
-        })
-        .catch(err => console.log(err))
+    switch (dataSet) {
+      case "exhibitors":
+        ExhibitorAPI.getExhibitors(confId)
+          .then(resp => {
+            console.log("table getExhibitors", resp.data)
+            setExhibitors(resp.data)
+          })
+          .catch(err => console.log(err))
+        break;
+      case "presenters":
+        PresenterAPI.getPresenters(confId)
+          .then(resp => {
+            console.log("table getPresenters", resp.data)
+            setPresenters(resp.data)
+          })
+          .catch(err => console.log(err))
+        break;
+      default:
+        AttendeeAPI.getAttendees(confId)
+          .then(resp => {
+            console.log("table getAttendees", resp.data)
+            setAttendees(resp.data)
+          })
+          .catch(err => console.log(err))
+        setPageReady(true);
     }
-    setPageReady(true);
   }, [])
 
   return (
