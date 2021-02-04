@@ -246,7 +246,7 @@ const TableComp = (e) => {
                   : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
-                  ? < ExhibitorTable data={searchFilter(exhibitors)} />
+                  ? <ExhibitorTable data={searchFilter(exhibitors)} />
                   : <h3>We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</h3>)}
               {dataSet === "presenters" && (
                 presenters.length > 0
