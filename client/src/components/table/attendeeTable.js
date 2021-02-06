@@ -1,4 +1,5 @@
 import React from "react";
+import { Form } from "react-bootstrap";
 import "./style.css";
 
 const AttendeeTable = ({ attendees }) => {
@@ -14,7 +15,7 @@ const AttendeeTable = ({ attendees }) => {
           <td>{e.emergencyContactName}</td>
           <td>{e.emergencyContactPhone}</td>
           <td>{e.allergies}</td>
-          <td>{e.isAdmin}</td>
+          <td><Form.Check type="checkbox" checked={e.isAdmin === true} /></td>
         </tr>
       ))
       }
