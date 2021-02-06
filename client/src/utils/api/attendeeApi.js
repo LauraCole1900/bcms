@@ -28,10 +28,16 @@ const AttendeeAPI = {
   },
 
 
-  // UPDATE attendee information
+  // UPDATE attendee information by confId and email
   updateAttendee: function (formData, confId, email) {
-    console.log ("from API updateAttendee", formData, confId, email)
+    console.log("from API updateAttendee", formData, confId, email)
     return axios.put(`/api/attendee/update/${confId}/${email}`, formData)
+  },
+
+  // UPDATE attendee information by confId and email
+  updateAttendeeById: function (id, data) {
+    console.log("from API updateAttendeeById", id, data)
+    return axios.put(`/api/attendee/update/${id}`, data)
   },
 
 

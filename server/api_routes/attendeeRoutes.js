@@ -25,6 +25,9 @@ router.route("/conference/:id/:email")
 router.route("/update/:id/:email")
   .put(attendeeController.updateAttendee);
 
+router.route("/update/:id")
+  .put(attendeeController.updateAttendeeById);
+
 
 router.route("/delete/:id/:email")
   .delete(attendeeController.removeAttendee);

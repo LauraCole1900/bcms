@@ -61,17 +61,26 @@ module.exports = {
   findByIdAndEmail: function (req, res) {
     console.log("from attendeeCont findByIdAndEmail", req.params.id, req.params.email)
     db.Attendee
-    .findOne({ confId: req.params.email, email: req.params.id })
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err))
+      .findOne({ confId: req.params.email, email: req.params.id })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
   },
 
 
-  // UPDATE attendee
+  // UPDATE attendee by confId and email
   updateAttendee: function (req, res) {
     console.log("from attendeeCont updateAttendee", req.params.id, req.params.email)
     db.Attendee
       .findOneAndUpdate({ confId: req.params.id, email: req.params.email }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
+  // UPDATE attendee by ID
+  updateAttendeeById: function (req, res) {
+    console.log("from attendeeCont updateAttendeeById", req.params)
+    db.Attendee
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
