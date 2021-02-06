@@ -38,48 +38,47 @@ const TableComp = (e) => {
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
 
   // Search method
+  const getFilteredData = (data, arr, prop) => {
+    return data.filter((arr) => arr[prop].toLowerCase().indexOf(search.toLowerCase()) !== -1);
+  }
+  
   const searchFilter = (data) => {
     switch (searchBy) {
       case "name":
         switch (dataSet) {
           case "exhibitors":
-            return data.filter((exhibitors) => exhibitors.exhFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-            break;
+            return getFilteredData(data, exhibitors, "exhFamilyName");
           case "presenters":
-            return data.filter((presenters) => presenters.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-            break;
+            return getFilteredData(data, presenters, "presFamilyName");
           default:
-            return data.filter((attendees) => attendees.familyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+            return getFilteredData(data, attendees, "familyName");
         }
       case "email":
         switch (dataSet) {
           case "exhibitors":
-            return data.filter((exhibitors) => exhibitors.exhEmail.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-            break;
+            return getFilteredData(data, exhibitors, "exhEmail");
           case "presenters":
-            return data.filter((presenters) => presenters.presEmail.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-            break;
+            return getFilteredData(data, presenters, "presEmail");
           default:
-            return data.filter((attendees) => attendees.email.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+            return getFilteredData(data, attendees, "email");
         }
       case "org":
         switch (dataSet) {
           case "exhibitors":
-            return data.filter((exhibitors) => exhibitors.exhCompany.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-            break;
+            return getFilteredData(data, exhibitors, "exhCompany");
           case "presenters":
-            return data.filter((presenters) => presenters.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-            break;
+            return getFilteredData(data, presenters, "presOrg");
           default:
-            return data.filter((attendees) => attendees.employerName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+            return getFilteredData(data, attendees, "employerName");
         }
       default:
         switch (dataSet) {
-          case "exhibitors": return (exhibitors);
-            break;
-          case "presenters": return (presenters);
-            break;
-          default: return (attendees);
+          case "exhibitors":
+            return (exhibitors);
+          case "presenters":
+            return (presenters);
+          default:
+            return (attendees);
         }
     }
   }
