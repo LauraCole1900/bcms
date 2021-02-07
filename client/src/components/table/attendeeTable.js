@@ -4,28 +4,33 @@ import { AttendeeAPI } from "../../utils/api";
 import "./style.css";
 
 const AttendeeTable = ({ attendees }) => {
-  const [render, setRender] = useState(false)
+  const [admin, setAdmin] = useState(false)
 
-  const handleClick = (e) => {
+  const adminSet = () => {
+    switch (admin) {
+      case true:
+        setAdmin(false)
+        break;
+      default:
+        setAdmin(true)
+    }
+  }
+
+  const handleClick = async (e) => {
     console.log("Attendee table", e.target.value, e.target.dataset.id);
     let adminConf;
     switch (e.target.value) {
       case "yes":
         adminConf = "no";
+        await adminSet();
         break;
       default: case "no":
         adminConf = "yes";
+        await adminSet();
     }
-    console.log("Attendee table", adminConf);
     AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
       .catch(err => console.log(err))
-    switch (render) {
-      case true:
-        setRender(false)
-        break;
-      default:
-        setRender(true)
-    }
+    console.log(admin)
   }
 
   return (

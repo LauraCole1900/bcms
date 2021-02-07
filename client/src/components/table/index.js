@@ -83,6 +83,17 @@ const TableComp = (e) => {
     }
   }
 
+  // Toggles Boolean value on sort to re-render page
+  const ascendingSortSet = () => {
+    switch (sortAscending) {
+      case false:
+        setSortAscending(true)
+        break;
+      default:
+        setSortAscending(false)
+    }
+  }
+
   // Sort ascending
   const ascendingSort = (arr, value) => {
     return arr.sort((a, b) => (a[value] > b[value]) ? 1 : -1);
@@ -99,35 +110,17 @@ const TableComp = (e) => {
       case "exhibitors":
         const sortExh = (sortAscending) ? ascendingSort(exhibitors, e.target.innerHTML) : descendingSort(exhibitors, e.target.innerHTML)
         setExhibitors(sortExh)
-        switch (sortAscending) {
-          case false:
-            setSortAscending(true)
-            break;
-          default:
-            setSortAscending(false)
-        }
+        ascendingSortSet();
         break;
       case "presenters":
         const sortPres = (sortAscending) ? ascendingSort(presenters, e.target.innerHTML) : descendingSort(presenters, e.target.innerHTML)
         setPresenters(sortPres)
-        switch (sortAscending) {
-          case false:
-            setSortAscending(true)
-            break;
-          default:
-            setSortAscending(false)
-        }
+        ascendingSortSet();
         break;
       default:
         const sortAtt = (sortAscending) ? ascendingSort(attendees, e.target.innerHTML) : descendingSort(attendees, e.target.innerHTML)
         setAttendees(sortAtt)
-        switch (sortAscending) {
-          case false:
-            setSortAscending(true);
-            break;
-          default:
-            setSortAscending(false);
-        }
+        ascendingSortSet();
     }
   }
 
