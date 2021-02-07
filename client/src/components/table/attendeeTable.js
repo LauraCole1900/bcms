@@ -4,25 +4,19 @@ import { AttendeeAPI } from "../../utils/api";
 import "./style.css";
 
 const AttendeeTable = ({ attendees }) => {
-  const [attendee, setAttendee] = useState();
+  const [admin, setAdmin] = useState();
 
-  const urlArray = window.location.href.split("/");
-  const confId = urlArray[urlArray.length - 1];
-
-  const handleInputChange = (e) => {
-    console.log("Attendee table", confId, e.target, e.target.dataset.id);
-    AttendeeAPI.updateAttendeeById(e.target.dataset.id, { ...attendee })
-      .catch(err => console.log(err))
-    switch (e.isAdmin) {
-      case undefined:
-        setAttendee({ ...attendee, [e.target.name]: "yes"})
-        break;
-      case "yes":
-        setAttendee({ ...attendee, [e.target.name]: "no" })
+  const handleClick = (e) => {
+    console.log("Attendee table", e.target.value, e.target.dataset.id);
+    switch (e.target.value) {
+      case true:
+        setAdmin({ [e.target.name]: false })
         break;
       default:
-        setAttendee({ ...attendee, [e.target.name]: "yes" })
+        setAdmin({ [e.target.name]: true })
     }
+    AttendeeAPI.updateAttendeeById(e.target.dataset.id, admin)
+      .catch(err => console.log(err))
   }
 
   return (
@@ -37,7 +31,7 @@ const AttendeeTable = ({ attendees }) => {
           <td>{e.emergencyContactName}</td>
           <td>{e.emergencyContactPhone}</td>
           <td>{e.allergies}</td>
-          <td><Form.Check type="checkbox" name="isAdmin" value="yes" data-id={e._id} checked={e.isAdmin === "yes"} onChange={handleInputChange} /></td>
+          <td><Form.Check type="checkbox" name="isAdmin" value={e.isAdmin} data-id={e._id} aria-label="adminCheck" className="adminCheck" checked={e.isAdmin === true} onChange={handleClick} /></td>
         </tr>
       ))
       }
