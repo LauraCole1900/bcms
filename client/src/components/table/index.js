@@ -10,14 +10,6 @@ import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI } from "../../ut
 import "./style.css";
 
 const TableComp = (e) => {
-  // pull confId out of URL
-  // pull attendee, exhibitor or presenter out of url
-  // useState runs appropriate API call based on ^
-  // then populates the result data to the table
-  // data needs to be sortable and searchable
-  // "conferences page" button
-  // "conference details" button
-
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
   const [attendees, setAttendees] = useState([]);
@@ -27,7 +19,7 @@ const TableComp = (e) => {
   const [search, setSearch] = useState("");
   const [searchBy, setSearchBy] = useState("all");
   const [sortAscending, setSortAscending] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [checkmark, setCheckmark] = useState(false);
   const [pageReady, setPageReady] = useState(false);
 
   const urlArray = window.location.href.split("/");
@@ -39,22 +31,22 @@ const TableComp = (e) => {
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
 
   // Toggles Boolean value on checkbox click to re-render page
-  const checkSet = () => {
-    switch (checked) {
+  const checkBool = () => {
+    switch (checkmark) {
       case false:
-        setChecked(true);
+        setCheckmark(true);
         break;
       default:
-        setChecked(false);
+        setCheckmark(false);
     }
-    console.log({checked});
+    console.log({ checkmark });
   }
 
   // Search method
   const getFilteredData = (data, arr, prop) => {
     return data.filter((arr) => arr[prop].toLowerCase().indexOf(search.toLowerCase()) !== -1);
   }
-  
+
   const searchFilter = (data) => {
     switch (searchBy) {
       case "name":
@@ -178,7 +170,8 @@ const TableComp = (e) => {
 
   return (
     <>
-      {pageReady === true &&
+      {isAuthenticated &&
+        pageReady === true &&
         <Container fluid>
           <Row>
             <Col lg={6} md={12}>
@@ -250,7 +243,7 @@ const TableComp = (e) => {
             <tbody>
               {dataSet === "attendees" && (
                 attendees.length > 0
-                  ? <AttendeeTable attendees={searchFilter(attendees)} callback={checkSet} />
+                  ? <AttendeeTable attendees={searchFilter(attendees)} callback={checkBool} />
                   : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0

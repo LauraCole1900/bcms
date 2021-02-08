@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form } from "react-bootstrap";
 import { AttendeeAPI } from "../../utils/api";
 import "./style.css";
 
 const AttendeeTable = (props) => {
 
-  const handleClick = async (e) => {
+  // Click handler for checkbox
+  const handleClick = (e) => {
     console.log("Attendee table", e.target.value, e.target.dataset.id);
     let adminConf;
+    // Define data to be changed based on existing checkbox value
     switch (e.target.value) {
       case "true":
         adminConf = false;
@@ -15,9 +17,9 @@ const AttendeeTable = (props) => {
       default: case "false":
         adminConf = true;
     }
-    await AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
+    // API call to update database document
+    AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
       .then(props.callback())
-      .then(console.log(e.target.value))
       .catch(err => console.log(err))
   }
 
