@@ -137,7 +137,8 @@ const TableComp = (e) => {
         ExhibitorAPI.getExhibitors(confId)
           .then(resp => {
             console.log("table getExhibitors", resp.data)
-            setExhibitors(resp.data)
+            const exhSort = ascendingSort(resp.data, "exhFamilyName")
+            setExhibitors(exhSort)
           })
           .catch(err => console.log(err))
         break;
@@ -145,7 +146,8 @@ const TableComp = (e) => {
         PresenterAPI.getPresenters(confId)
           .then(resp => {
             console.log("table getPresenters", resp.data)
-            setPresenters(resp.data)
+            const presSort = ascendingSort(resp.data, "presFamilyName")
+            setPresenters(presSort)
           })
           .catch(err => console.log(err))
         break;
@@ -153,7 +155,8 @@ const TableComp = (e) => {
         AttendeeAPI.getAttendees(confId)
           .then(resp => {
             console.log("table getAttendees", resp.data)
-            setAttendees(resp.data)
+            const attSort = ascendingSort(resp.data, "familyName")
+            setAttendees(attSort)
           })
           .catch(err => console.log(err))
         setPageReady(true);

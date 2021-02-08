@@ -4,33 +4,23 @@ import { AttendeeAPI } from "../../utils/api";
 import "./style.css";
 
 const AttendeeTable = ({ attendees }) => {
-  const [admin, setAdmin] = useState(false)
+  const [checked, setChecked] = useState(false)
 
-  const adminSet = () => {
-    switch (admin) {
-      case true:
-        setAdmin(false)
-        break;
-      default:
-        setAdmin(true)
-    }
-  }
-
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     console.log("Attendee table", e.target.value, e.target.dataset.id);
     let adminConf;
     switch (e.target.value) {
-      case "yes":
-        adminConf = "no";
-        await adminSet();
+      case "true":
+        adminConf = false;
+        setChecked(false);
         break;
-      default: case "no":
-        adminConf = "yes";
-        await adminSet();
+      default: case "false":
+        adminConf = true;
+        setChecked(true);
     }
     AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
       .catch(err => console.log(err))
-    console.log(admin)
+    console.log(checked)
   }
 
   return (
@@ -45,7 +35,7 @@ const AttendeeTable = ({ attendees }) => {
           <td>{e.emergencyContactName}</td>
           <td>{e.emergencyContactPhone}</td>
           <td>{e.allergies}</td>
-          <td><Form.Check type="checkbox" name="isAdmin" value={e.isAdmin} data-id={e._id} aria-label="adminCheck" className="adminCheck" checked={e.isAdmin === "yes"} onChange={handleClick} /></td>
+          <td><Form.Check controlId="adminCheckControl" type="checkbox" name="isAdmin" value={e.isAdmin} data-id={e._id} aria-label="adminCheck" className="adminCheck" checked={e.isAdmin === true} onChange={handleClick} /></td>
         </tr>
       ))
       }
