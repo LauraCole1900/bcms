@@ -27,6 +27,7 @@ const TableComp = (e) => {
   const [search, setSearch] = useState("");
   const [searchBy, setSearchBy] = useState("all");
   const [sortAscending, setSortAscending] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [pageReady, setPageReady] = useState(false);
 
   const urlArray = window.location.href.split("/");
@@ -36,6 +37,18 @@ const TableComp = (e) => {
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend"];
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
+
+  // Toggles Boolean value on checkbox click to re-render page
+  const checkSet = () => {
+    switch (checked) {
+      case false:
+        setChecked(true);
+        break;
+      default:
+        setChecked(false);
+    }
+    console.log({checked});
+  }
 
   // Search method
   const getFilteredData = (data, arr, prop) => {
@@ -237,7 +250,7 @@ const TableComp = (e) => {
             <tbody>
               {dataSet === "attendees" && (
                 attendees.length > 0
-                  ? <AttendeeTable attendees={searchFilter(attendees)} />
+                  ? <AttendeeTable attendees={searchFilter(attendees)} callback={checkSet} />
                   : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0

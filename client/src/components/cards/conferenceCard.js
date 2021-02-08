@@ -135,9 +135,9 @@ function Conference({ conference }) {
                     <Col sm={1}>
                       <Link to={{
                         state: { confInfo: conference },
-                        pathname: `/add_session/${e._id}`
+                        pathname: `/edit_schedule/${e._id}`
                       }}>
-                        <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
+                        <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
                       </Link>
                     </Col>
                   </div>}

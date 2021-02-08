@@ -3,20 +3,9 @@ import { Form } from "react-bootstrap";
 import { AttendeeAPI } from "../../utils/api";
 import "./style.css";
 
-const AttendeeTable = ({ attendees }) => {
-  const [checked, setChecked] = useState(false)
+const AttendeeTable = (props) => {
 
-  const checkSet = () => {
-    switch (checked) {
-      case true:
-        setChecked(false);
-        break;
-      default:
-        setChecked(true);
-    }
-  }
-
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     console.log("Attendee table", e.target.value, e.target.dataset.id);
     let adminConf;
     switch (e.target.value) {
@@ -26,16 +15,15 @@ const AttendeeTable = ({ attendees }) => {
       default: case "false":
         adminConf = true;
     }
-    AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
+    await AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
+      .then(props.callback())
+      .then(console.log(e.target.value))
       .catch(err => console.log(err))
-    checkSet();
-    console.log({checked});
-
   }
 
   return (
     <>
-      {attendees.map(e => (
+      {props.attendees.map(e => (
         <tr key={e._id}>
           <td>{e.familyName}</td>
           <td>{e.givenName}</td>
