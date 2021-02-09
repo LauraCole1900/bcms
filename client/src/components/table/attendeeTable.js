@@ -6,7 +6,7 @@ import "./style.css";
 const AttendeeTable = (props) => {
 
   // Click handler for checkbox
-  const handleClick = (e) => {
+  const handleInputChange = (e) => {
     console.log("Attendee table", e.target.value, e.target.dataset.id);
     let adminConf;
     // Define data to be changed based on existing checkbox value
@@ -14,12 +14,12 @@ const AttendeeTable = (props) => {
       case "true":
         adminConf = false;
         break;
-      default: case "false":
+      default:
         adminConf = true;
     }
     // API call to update database document
     AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
-      .then(props.callback())
+    .then(props.callback(props.confId))
       .catch(err => console.log(err))
   }
 
@@ -35,7 +35,7 @@ const AttendeeTable = (props) => {
           <td>{e.emergencyContactName}</td>
           <td>{e.emergencyContactPhone}</td>
           <td>{e.allergies}</td>
-          <td><Form.Check type="checkbox" name="isAdmin" value={e.isAdmin} data-id={e._id} aria-label="adminCheck" className="adminCheck" checked={e.isAdmin === true} onChange={handleClick} /></td>
+          <td><Form.Check type="checkbox" name="isAdmin" value={e.isAdmin} data-id={e._id} aria-label="adminCheck" className="adminCheck" checked={e.isAdmin === true} onChange={handleInputChange} /></td>
         </tr>
       ))
       }

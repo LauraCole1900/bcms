@@ -30,16 +30,15 @@ const TableComp = (e) => {
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend"];
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
 
-  // Toggles Boolean value on checkbox click to re-render page
-  const checkBool = () => {
-    switch (checkmark) {
-      case false:
-        setCheckmark(true);
-        break;
-      default:
-        setCheckmark(false);
-    }
-    console.log({ checkmark });
+  // GETs attendees for useEffect and callback
+  const fetchAttendees = async (confId) => {
+    await AttendeeAPI.getAttendees(confId)
+    .then(resp => {
+      console.log("table getAttendees", resp.data)
+      const attSort = ascendingSort(resp.data, "familyName")
+      setAttendees(attSort)
+    })
+    .catch(err => console.log(err))
   }
 
   // Search method
@@ -157,14 +156,8 @@ const TableComp = (e) => {
           .catch(err => console.log(err))
         break;
       default:
-        AttendeeAPI.getAttendees(confId)
-          .then(resp => {
-            console.log("table getAttendees", resp.data)
-            const attSort = ascendingSort(resp.data, "familyName")
-            setAttendees(attSort)
-          })
-          .catch(err => console.log(err))
-        setPageReady(true);
+        fetchAttendees(confId);    
+      setPageReady(true);
     }
   }, [])
 
@@ -243,7 +236,7 @@ const TableComp = (e) => {
             <tbody>
               {dataSet === "attendees" && (
                 attendees.length > 0
-                  ? <AttendeeTable attendees={searchFilter(attendees)} callback={checkBool} />
+                  ? <AttendeeTable attendees={searchFilter(attendees)} callback={fetchAttendees} confId={confId} />
                   : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
