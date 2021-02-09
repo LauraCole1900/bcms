@@ -167,7 +167,7 @@ const TableComp = (e) => {
         fetchAttendees(confId);
         setPageReady(true);
     }
-  }, [])
+  }, [confId, dataSet])
 
   return (
     <>

@@ -8,8 +8,8 @@ const attendeeSchema = new Schema({
   },
   email: {
     type: String,
-    match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
-    required: true
+    required: true,
+    unique: true
   },
   givenName: {
     type: String,
