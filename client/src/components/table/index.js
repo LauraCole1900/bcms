@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { Container, Row, Col, Table, Form, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
@@ -10,8 +9,7 @@ import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI } from "../../ut
 import "./style.css";
 
 const TableComp = (e) => {
-  const { user, isAuthenticated } = useAuth0();
-  const location = useLocation();
+  const { isAuthenticated } = useAuth0();
   const [attendees, setAttendees] = useState([]);
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
@@ -19,7 +17,6 @@ const TableComp = (e) => {
   const [search, setSearch] = useState("");
   const [searchBy, setSearchBy] = useState("all");
   const [sortAscending, setSortAscending] = useState(false);
-  const [checkmark, setCheckmark] = useState(false);
   const [pageReady, setPageReady] = useState(false);
 
   const urlArray = window.location.href.split("/");
@@ -33,12 +30,34 @@ const TableComp = (e) => {
   // GETs attendees for useEffect and callback
   const fetchAttendees = async (confId) => {
     await AttendeeAPI.getAttendees(confId)
-    .then(resp => {
-      console.log("table getAttendees", resp.data)
-      const attSort = ascendingSort(resp.data, "familyName")
-      setAttendees(attSort)
-    })
-    .catch(err => console.log(err))
+      .then(resp => {
+        console.log("table getAttendees", resp.data)
+        const attSort = ascendingSort(resp.data, "familyName")
+        setAttendees(attSort)
+      })
+      .catch(err => console.log(err))
+  }
+
+  // GETs exhibitors for useEffect
+  const fetchExhibitors = async (confId) => {
+    await ExhibitorAPI.getExhibitors(confId)
+      .then(resp => {
+        console.log("table getExhibitors", resp.data)
+        const exhSort = ascendingSort(resp.data, "exhFamilyName")
+        setExhibitors(exhSort)
+      })
+      .catch(err => console.log(err))
+  }
+
+  // GETs presenters for useEffect
+  const fetchPresenters = async (confId) => {
+    await PresenterAPI.getPresenters(confId)
+      .then(resp => {
+        console.log("table getPresenters", resp.data)
+        const presSort = ascendingSort(resp.data, "presFamilyName")
+        setPresenters(presSort)
+      })
+      .catch(err => console.log(err))
   }
 
   // Search method
@@ -46,6 +65,7 @@ const TableComp = (e) => {
     return data.filter((arr) => arr[prop].toLowerCase().indexOf(search.toLowerCase()) !== -1);
   }
 
+  // Defines which array to search based on searchBy and dataSet variables
   const searchFilter = (data) => {
     switch (searchBy) {
       case "name":
@@ -87,17 +107,6 @@ const TableComp = (e) => {
     }
   }
 
-  // Toggles Boolean value on sort to re-render page
-  const ascendingSortSet = () => {
-    switch (sortAscending) {
-      case false:
-        setSortAscending(true)
-        break;
-      default:
-        setSortAscending(false)
-    }
-  }
-
   // Sort ascending
   const ascendingSort = (arr, value) => {
     return arr.sort((a, b) => (a[value] > b[value]) ? 1 : -1);
@@ -106,6 +115,17 @@ const TableComp = (e) => {
   // Sort descending
   const descendingSort = (arr, value) => {
     return arr.sort((a, b) => (a[value] > b[value]) ? -1 : 1);
+  }
+
+  // Toggles boolean on sort to re-render page
+  const ascendingSortSet = () => {
+    switch (sortAscending) {
+      case false:
+        setSortAscending(true)
+        break;
+      default:
+        setSortAscending(false)
+    }
   }
 
   // Sort by column header
@@ -138,26 +158,14 @@ const TableComp = (e) => {
 
     switch (dataSet) {
       case "exhibitors":
-        ExhibitorAPI.getExhibitors(confId)
-          .then(resp => {
-            console.log("table getExhibitors", resp.data)
-            const exhSort = ascendingSort(resp.data, "exhFamilyName")
-            setExhibitors(exhSort)
-          })
-          .catch(err => console.log(err))
+        fetchExhibitors(confId);
         break;
       case "presenters":
-        PresenterAPI.getPresenters(confId)
-          .then(resp => {
-            console.log("table getPresenters", resp.data)
-            const presSort = ascendingSort(resp.data, "presFamilyName")
-            setPresenters(presSort)
-          })
-          .catch(err => console.log(err))
+        fetchPresenters(confId);
         break;
       default:
-        fetchAttendees(confId);    
-      setPageReady(true);
+        fetchAttendees(confId);
+        setPageReady(true);
     }
   }, [])
 
@@ -236,15 +244,15 @@ const TableComp = (e) => {
             <tbody>
               {dataSet === "attendees" && (
                 attendees.length > 0
-                  ? <AttendeeTable attendees={searchFilter(attendees)} callback={fetchAttendees} confId={confId} />
+                  ? <AttendeeTable attendees={searchFilter(attendees)} confId={confId} callback={fetchAttendees} />
                   : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
-                  ? <ExhibitorTable data={searchFilter(exhibitors)} />
+                  ? <ExhibitorTable data={searchFilter(exhibitors)} confId={confId} />
                   : <h3>We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</h3>)}
               {dataSet === "presenters" && (
                 presenters.length > 0
-                  ? <PresenterTable data={searchFilter(presenters)} />
+                  ? <PresenterTable data={searchFilter(presenters)} confId={confId} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>)}
             </tbody>
           </Table>
