@@ -4,10 +4,7 @@ import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const AttendeeTable = (props) => {
-  // Map through props.attendees array
-  // Where props.attendee._id === e.target.dataset.id
-  // Get props.attendee.email
-  // Update Conference document with props.attendee.email in the confAdmins array
+
   const getEmail = (id) => {
     const adminObj = props.attendees.find(attendees => attendees._id === id)
     const adminEmail = adminObj.email
@@ -33,7 +30,7 @@ const AttendeeTable = (props) => {
     let adminEmail = await getEmail(e.target.dataset.id)
     switch (adminConf) {
       case true:
-        console.log(props.conference, {adminEmail}, props.confId)
+        // API call to add emails to conference.confAdmins
         ConferenceAPI.updateConference({ confAdmins: [ ...props.conference[0].confAdmins, adminEmail ]}, props.confId)
           .then(props.confcb(props.confId))
           .catch(err => console.log(err))
