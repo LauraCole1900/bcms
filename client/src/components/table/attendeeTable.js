@@ -25,7 +25,7 @@ const AttendeeTable = (props) => {
     }
     // API call to update attendee document
     AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
-      .then(props.callback(props.confId))
+      .then(props.attcb(props.confId))
       .catch(err => console.log(err))
     let adminEmail = await getEmail(e.target.dataset.id)
     switch (adminConf) {

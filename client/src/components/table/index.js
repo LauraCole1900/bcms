@@ -249,7 +249,7 @@ const TableComp = (e) => {
             <tbody>
               {dataSet === "attendees" && (
                 attendees.length > 0
-                  ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} confId={confId} callback={fetchAttendees} />
+                  ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} confId={confId} attcb={fetchAttendees} />
                   : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
