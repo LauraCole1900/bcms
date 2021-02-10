@@ -28,19 +28,20 @@ const AttendeeTable = (props) => {
     }
     // API call to update attendee document
     AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
-    .then(props.callback(props.confId))
+      .then(props.callback(props.confId))
       .catch(err => console.log(err))
     let adminEmail = await getEmail(e.target.dataset.id)
     switch (adminConf) {
       case true:
-        console.log({adminEmail}, props.confId)
-        ConferenceAPI.updateConference({ confAdmins: adminEmail }, props.confId)
-        .catch(err => console.log(err))
+        console.log(props.conference, {adminEmail}, props.confId)
+        ConferenceAPI.updateConference({ confAdmins: [ ...props.conference[0].confAdmins, adminEmail ]}, props.confId)
+          .then(props.confcb(props.confId))
+          .catch(err => console.log(err))
         break;
       default:
-        // GET conference details?
-        // iterate through confAdmins to find adminEmail
-        // delete adminEmail from confAdmins
+      // GET conference details?
+      // iterate through confAdmins to find adminEmail
+      // delete adminEmail from confAdmins
     }
 
   }

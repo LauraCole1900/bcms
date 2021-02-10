@@ -27,6 +27,16 @@ const TableComp = (e) => {
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend"];
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
 
+  // GET conference info for useEffect and callback
+  const fetchConf = async (confId) => {
+    await ConferenceAPI.getConferenceById(confId)
+    .then(resp => {
+      console.log("table getConfsById", resp.data)
+      setConference(resp.data)
+    })
+    .catch(err => console.log(err))
+  }
+
   // GETs attendees for useEffect and callback
   const fetchAttendees = async (confId) => {
     await AttendeeAPI.getAttendees(confId)
@@ -149,12 +159,7 @@ const TableComp = (e) => {
   }
 
   useEffect(() => {
-    ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
-        console.log("table getConfsById", resp.data)
-        setConference(resp.data)
-      })
-      .catch(err => console.log(err))
+    fetchConf(confId)
 
     switch (dataSet) {
       case "exhibitors":
@@ -244,7 +249,7 @@ const TableComp = (e) => {
             <tbody>
               {dataSet === "attendees" && (
                 attendees.length > 0
-                  ? <AttendeeTable attendees={searchFilter(attendees)} confId={confId} callback={fetchAttendees} />
+                  ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} confId={confId} callback={fetchAttendees} />
                   : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
