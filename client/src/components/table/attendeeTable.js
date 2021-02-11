@@ -31,14 +31,22 @@ const AttendeeTable = (props) => {
     switch (adminConf) {
       case true:
         // API call to add emails to conference.confAdmins
-        ConferenceAPI.updateConference({ confAdmins: [ ...props.conference[0].confAdmins, adminEmail ]}, props.confId)
+        ConferenceAPI.updateConference({ confAdmins: [...props.conference[0].confAdmins, adminEmail] }, props.confId)
           .then(props.confcb(props.confId))
           .catch(err => console.log(err))
         break;
       default:
-      // GET conference details?
-      // iterate through confAdmins to find adminEmail
-      // delete adminEmail from confAdmins
+        let adminArr = props.conference[0].confAdmins
+        const index = adminArr.indexOf(adminEmail)
+        switch (index > -1) {
+          case false:
+            console.log({adminArr});
+            break;
+          default:
+            ConferenceAPI.updateConference({ confAdmins: [...adminArr] }, props.confId)
+              .then(props.confcb(props.confId))
+              .catch(err => console.log(err))
+        }
     }
 
   }
