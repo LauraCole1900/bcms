@@ -48,7 +48,6 @@ const AttendeeTable = (props) => {
               .catch(err => console.log(err))
         }
     }
-
   }
 
   return (

@@ -10,7 +10,8 @@ import "./App.css";
 function App() {
   const { isLoading } = useAuth0();
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <div className="loading">
+    <img className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /><h1>Loading...</h1></div>
 
   return (
     <Router>
