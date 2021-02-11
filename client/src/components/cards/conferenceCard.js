@@ -21,6 +21,7 @@ function Conference({ conference }) {
 
   useEffect(() => {
     if (isAuthenticated) {
+      console.log(user.email)
       AttendeeAPI.getConferencesAttending(user.email)
         .then(resp => {
           const cardAttArr = resp.data
@@ -96,7 +97,7 @@ function Conference({ conference }) {
               </Row>
               <Row>
                 {isAuthenticated &&
-                  user.email === e.creatorEmail &&
+                  (user.email === e.creatorEmail || e.confAdmins.includes(user.email)) &&
                   <div>
                     <Col sm={1}></Col>
                     <Col sm={1}>
