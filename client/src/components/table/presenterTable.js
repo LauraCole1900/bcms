@@ -4,16 +4,16 @@ import "./style.css";
 const PresenterTable = ({ presenters }) => {
   return (
     <>
-      {presenters.map(e => (
-        <tr key={e._id}>
-          <td>{e.presFamilyName}</td>
-          <td>{e.presGivenName}</td>
-          <td>{e.presEmail}</td>
-          <td>{e.presPhone}</td>
-          <td>{e.presOrg}</td>
-          <td>{e.presWebsite}</td>
-          <td>{e.presSessionIds}</td>
-          <td>{e.sessionName}</td>
+      {presenters.map(pres => (
+        <tr key={pres._id}>
+          <td>{pres.presFamilyName}</td>
+          <td>{pres.presGivenName}</td>
+          <td>{pres.presEmail}</td>
+          <td>{pres.presPhone}</td>
+          <td>{pres.presOrg}</td>
+          <td>{pres.presWebsite}</td>
+          <td>{pres.presSessionIds}</td>
+          <td>{pres.sessionName}</td>
         </tr>
       ))
       }
