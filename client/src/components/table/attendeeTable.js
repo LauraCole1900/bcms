@@ -52,17 +52,17 @@ const AttendeeTable = (props) => {
 
   return (
     <>
-      {props.attendees.map(e => (
-        <tr key={e._id}>
-          <td>{e.familyName}</td>
-          <td>{e.givenName}</td>
-          <td>{e.email}</td>
-          <td>{e.phone}</td>
-          <td>{e.employerName}</td>
-          <td>{e.emergencyContactName}</td>
-          <td>{e.emergencyContactPhone}</td>
-          <td>{e.allergies}</td>
-          <td><Form.Check type="checkbox" name="isAdmin" value={e.isAdmin} data-id={e._id} aria-label="adminCheck" className="adminCheck" checked={e.isAdmin === true} onChange={handleInputChange} /></td>
+      {props.attendees.map(att => (
+        <tr key={att._id}>
+          <td>{att.familyName}</td>
+          <td>{att.givenName}</td>
+          <td>{att.email}</td>
+          <td>{att.phone}</td>
+          <td>{att.employerName}</td>
+          <td>{att.emergencyContactName}</td>
+          <td>{att.emergencyContactPhone}</td>
+          <td>{att.allergies}</td>
+          <td><Form.Check type="checkbox" name="isAdmin" value={att.isAdmin} data-id={att._id} aria-label="adminCheck" className="adminCheck" checked={att.isAdmin === true} onChange={handleInputChange} /></td>
         </tr>
       ))
       }
