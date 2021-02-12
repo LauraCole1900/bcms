@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Container, Row, Col, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
+import { Container, Row, Col, Button, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
 import { AttendeeAPI, ConferenceAPI, UserAPI } from "../../utils/api";
 import "./style.css";
-/*
-  The main thing I did was that I broke up some of the larger functions into smaller, async functions. The big problem you were having is that some operations needed to wait for others to complete before they could do their jobs. Whenever you have situations like that, ALWAYS be thinking: "I need some async functions"
-  In general, try to keep your functions small and light.  :) 
-*/
+
 const ProfilePage = () => {
   const { user, isAuthenticated } = useAuth0();
   const [whichConf, setWhichConf] = useState();
@@ -18,6 +15,8 @@ const ProfilePage = () => {
   const [exhibitConf, setExhibitConf] = useState([]);
   const [pageReady, setPageReady] = useState(false);
   const location = useLocation();
+
+  const radios = ["Attending", "Created", "Exhibiting", "Presenting"]
 
   // GET conference by ID
   const getConfById = async (confId) => {
@@ -58,7 +57,7 @@ const ProfilePage = () => {
     let unsorted = []
     let regConfIds = await getRegisteredConferenceIds(user.email)
     // Map through the array of confIds to get info on each conference
-    // Pushes each conference object to new array
+    // Push each conference object to new array
     regConfIds.forEach(confId => {
       getConfById(confId).then(resp => {
         unsorted = [...unsorted, resp.data[0]]
@@ -145,20 +144,20 @@ const ProfilePage = () => {
             </Row>
             <Row>
               <Col sm={8}>
-                <ButtonGroup toggle defaultValue={1}>
-                  <ToggleButton type="radio" id="attendingConf" name="whichConf" value="attend" data-toggle="popover" title="View conferences you're attending" className="button" checked={whichConf === "attend"} onClick={handleShowAttending}>
+                <ToggleButtonGroup name="whichConf" type="radio">
+                  <ToggleButton id="attendingConf" value="attend" data-toggle="popover" title="View conferences you're attending" className="button" checked={whichConf === "attend"} onChange={handleShowAttending}>
                     Attending
                   </ToggleButton>
-                  <ToggleButton type="radio" id="createdConf" name="whichConf" value="create" data-toggle="popover" title="View conferences you've created" className="button" checked={whichConf === "create"} onClick={handleShowCreated}>
+                  <ToggleButton id="createdConf" value="create" data-toggle="popover" title="View conferences you've created" className="button" checked={whichConf === "create"} onChange={handleShowCreated}>
                     Created
                   </ToggleButton>
-                  <ToggleButton type="radio" id="exhibitingConf" name="whichConf" value="exhibit" data-toggle="popover" title="View conferences at which you're exhibiting" className="button" checked={whichConf === "exhibit"} onClick={handleShowExhibiting}>
+                  <ToggleButton id="exhibitingConf" value="exhibit" data-toggle="popover" title="View conferences at which you're exhibiting" className="button" checked={whichConf === "exhibit"} onChange={handleShowExhibiting}>
                     Exhibiting
                   </ToggleButton>
-                  <ToggleButton type="radio" id="presentingConf" name="whichConf" value="present" data-toggle="popover" title="View conferences at which you're presenting" className="button" checked={whichConf === "present"} onClick={handleShowPresenting}>
+                  <ToggleButton id="presentingConf" value="present" data-toggle="popover" title="View conferences at which you're presenting" className="button" checked={whichConf === "present"} onChange={handleShowPresenting}>
                     Presenting
                   </ToggleButton>
-                </ButtonGroup>
+                </ToggleButtonGroup>
               </Col>
               <Col sm={2}></Col>
               <Col sm={2}>
