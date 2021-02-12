@@ -143,16 +143,19 @@ const ProfilePage = () => {
   // Save user to database
   const saveUserToDB = async () => {
     UserAPI.saveUser(user)
-      .then(resp => {
-      })
       .catch(err => console.log(err))
   }
 
   useEffect(() => {
-    saveUserToDB();
-
-    // Sets pageReady(true) for page load
-    setPageReady(true);
+    switch (pageReady) {
+      case true:
+        return false;
+      default:
+        saveUserToDB();
+        // Sets pageReady(true) for page load
+        setPageReady(true);
+        break;
+    }
   }, [attendConf])
 
   return (
@@ -175,13 +178,13 @@ const ProfilePage = () => {
                 <ButtonGroup name="whichConf" type="radio" data-toggle="popover">
                   {buttons.map((button, idx) => (
                     <Button
-                    key={idx}
-                    id={button.id}
-                    value={button.value}
-                    checked={whichConf === button.value}
-                    title={button.title}
-                    className="button"
-                    onClick={button.onClick}>{button.name}</Button>
+                      key={idx}
+                      id={button.id}
+                      value={button.value}
+                      checked={whichConf === button.value}
+                      title={button.title}
+                      className="button"
+                      onClick={button.onClick}>{button.name}</Button>
                   ))}
                 </ButtonGroup>
               </Col>
