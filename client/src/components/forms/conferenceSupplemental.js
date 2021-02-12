@@ -6,7 +6,6 @@ import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const Supplemental = () => {
-  // Add admins
   // Add venue maps or other supplemental documents
   // Set schedule blocks
 }

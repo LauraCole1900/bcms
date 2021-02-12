@@ -19,6 +19,7 @@ const ProfilePage = () => {
   const [pageReady, setPageReady] = useState(false);
   const location = useLocation();
 
+  // GET conference by ID
   const getConfById = async (confId) => {
     return ConferenceAPI.getConferenceById(confId)
       .then(resp => {
@@ -31,6 +32,7 @@ const ProfilePage = () => {
       });
   }
 
+  // GET IDs of conferences user is registered for
   const getRegisteredConferenceIds = async (email) => {
     return AttendeeAPI.getConferencesAttending(email)
       .then(resp => {
@@ -44,6 +46,7 @@ const ProfilePage = () => {
       })
   }
 
+  // Handles click on buttons to determine which set of conferences to display
   const handleInputChange = (e) => {
     const whichConf = e.target.value
     setWhichConf(whichConf)
@@ -54,12 +57,12 @@ const ProfilePage = () => {
     handleInputChange(e);
     let unsorted = []
     let regConfIds = await getRegisteredConferenceIds(user.email)
-    // map through the array to get info on each conference
+    // Map through the array of confIds to get info on each conference
+    // Pushes each conference object to new array
     regConfIds.forEach(confId => {
       getConfById(confId).then(resp => {
         unsorted = [...unsorted, resp.data[0]]
-        // This is a bit of a hack but it works:  if you're done iterating over all the IDs, 
-        // then you can go ahead and sort, and then update state
+        // When new array is same length as confIds array, sort new array & set it in state
         if (unsorted.length === regConfIds.length) {
           const sortedAtt = unsorted.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
           setAttendConf(sortedAtt)
@@ -110,7 +113,7 @@ const ProfilePage = () => {
       .catch(err => console.log(err))
   }
 
-  // Save user to DB
+  // Save user to database
   const saveUserToDB = async () => {
     UserAPI.saveUser(user)
       .then(resp => {
@@ -167,36 +170,24 @@ const ProfilePage = () => {
             {whichConf === undefined &&
               <h3>Please select which of your conferences you want to view.</h3>}
             {whichConf === "attend" &&
-              attendConf.length > 0 &&
-              <ConferenceCard conference={attendConf} />
-            }
-            {whichConf === "attend" &&
-              attendConf.length === 0 &&
-              <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>
+              (attendConf.length > 0
+              ? <ConferenceCard conference={attendConf} />
+              : <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>)
             }
             {whichConf === "create" &&
-              createConf.length > 0 &&
-              <ConferenceCard conference={createConf} />
-            }
-            {whichConf === "create" &&
-              createConf.length === 0 &&
-              <h3>We're sorry, you don't seem to created any conferences at this time.</h3>
+              (createConf.length > 0
+              ? <ConferenceCard conference={createConf} />
+              : <h3>We're sorry, you don't seem to created any conferences at this time.</h3>)
             }
             {whichConf === "exhibit" &&
-              exhibitConf.length > 0 &&
-              <ConferenceCard conference={exhibitConf} />
-            }
-            {whichConf === "exhibit" &&
-              exhibitConf.length === 0 &&
-              <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>
+              (exhibitConf.length > 0
+              ? <ConferenceCard conference={exhibitConf} />
+              : <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>)
             }
             {whichConf === "present" &&
-              presentConf.length > 0 &&
-              <ConferenceCard conference={presentConf} />
-            }
-            {whichConf === "present" &&
-              presentConf.length === 0 &&
-              <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>
+              (presentConf.length > 0
+              ? <ConferenceCard conference={presentConf} />
+              : <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>)
             }
           </Container >
         )
