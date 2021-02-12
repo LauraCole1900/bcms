@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Container, Row, Col, Button, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import { Container, Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
 import { AttendeeAPI, ConferenceAPI, UserAPI } from "../../utils/api";
 import "./style.css";
@@ -15,8 +15,6 @@ const ProfilePage = () => {
   const [exhibitConf, setExhibitConf] = useState([]);
   const [pageReady, setPageReady] = useState(false);
   const location = useLocation();
-
-  const radios = ["Attending", "Created", "Exhibiting", "Presenting"]
 
   // GET conference by ID
   const getConfById = async (confId) => {
@@ -112,6 +110,36 @@ const ProfilePage = () => {
       .catch(err => console.log(err))
   }
 
+  // Defines button properties
+  const buttons = [{
+    name: "Attending",
+    value: "attend",
+    id: "attendConf",
+    title: "View conferences you're attending",
+    onClick: handleShowAttending
+  },
+  {
+    name: "Created",
+    value: "create",
+    id: "createConf",
+    title: "View conferences you've created",
+    onClick: handleShowCreated
+  },
+  {
+    name: "Exhibiting",
+    value: "exhibit",
+    id: "exhibitConf",
+    title: "View conferences at which you're exhibiting",
+    onClick: handleShowExhibiting
+  },
+  {
+    name: "Presenting",
+    value: "present",
+    id: "presentConf",
+    title: "View conferences at which you're presenting",
+    onClick: handleShowPresenting
+  }]
+
   // Save user to database
   const saveUserToDB = async () => {
     UserAPI.saveUser(user)
@@ -144,20 +172,18 @@ const ProfilePage = () => {
             </Row>
             <Row>
               <Col sm={8}>
-                <ToggleButtonGroup name="whichConf" type="radio">
-                  <ToggleButton id="attendingConf" value="attend" data-toggle="popover" title="View conferences you're attending" className="button" checked={whichConf === "attend"} onChange={handleShowAttending}>
-                    Attending
-                  </ToggleButton>
-                  <ToggleButton id="createdConf" value="create" data-toggle="popover" title="View conferences you've created" className="button" checked={whichConf === "create"} onChange={handleShowCreated}>
-                    Created
-                  </ToggleButton>
-                  <ToggleButton id="exhibitingConf" value="exhibit" data-toggle="popover" title="View conferences at which you're exhibiting" className="button" checked={whichConf === "exhibit"} onChange={handleShowExhibiting}>
-                    Exhibiting
-                  </ToggleButton>
-                  <ToggleButton id="presentingConf" value="present" data-toggle="popover" title="View conferences at which you're presenting" className="button" checked={whichConf === "present"} onChange={handleShowPresenting}>
-                    Presenting
-                  </ToggleButton>
-                </ToggleButtonGroup>
+                <ButtonGroup name="whichConf" type="radio" data-toggle="popover">
+                  {buttons.map((button, idx) => (
+                    <Button
+                    key={idx}
+                    id={button.id}
+                    value={button.value}
+                    checked={whichConf === button.value}
+                    title={button.title}
+                    className="button"
+                    onClick={button.onClick}>{button.name}</Button>
+                  ))}
+                </ButtonGroup>
               </Col>
               <Col sm={2}></Col>
               <Col sm={2}>
@@ -167,26 +193,26 @@ const ProfilePage = () => {
               </Col>
             </Row>
             {whichConf === undefined &&
-              <h3>Please select which of your conferences you want to view.</h3>}
+              <h3>Please select which of your conferences to view.</h3>}
             {whichConf === "attend" &&
               (attendConf.length > 0
-              ? <ConferenceCard conference={attendConf} />
-              : <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>)
+                ? <ConferenceCard conference={attendConf} />
+                : <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>)
             }
             {whichConf === "create" &&
               (createConf.length > 0
-              ? <ConferenceCard conference={createConf} />
-              : <h3>We're sorry, you don't seem to created any conferences at this time.</h3>)
+                ? <ConferenceCard conference={createConf} />
+                : <h3>We're sorry, you don't seem to created any conferences at this time.</h3>)
             }
             {whichConf === "exhibit" &&
               (exhibitConf.length > 0
-              ? <ConferenceCard conference={exhibitConf} />
-              : <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>)
+                ? <ConferenceCard conference={exhibitConf} />
+                : <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>)
             }
             {whichConf === "present" &&
               (presentConf.length > 0
-              ? <ConferenceCard conference={presentConf} />
-              : <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>)
+                ? <ConferenceCard conference={presentConf} />
+                : <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>)
             }
           </Container >
         )
