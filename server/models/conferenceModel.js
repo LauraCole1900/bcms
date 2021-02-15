@@ -51,6 +51,17 @@ const conferenceSchema = new Schema({
   confLocUrl: {
     type: String
   },
+  confRegDeadline: {
+    type: Date,
+    required: "Please enter a registration deadline. If there is no registration deadline, please enter the conference's end date."
+  },
+  confEarlybirdConfirm: {
+    type: String,
+    required: "Please select whether there is a deadline for earlybird registration."
+  },
+  confEarlybirdDeadline: {
+    type: Date
+  },
   confCapConfirm: {
     type: String,
     required: "Please select whether your conference has a cap on the number of attendees."
@@ -63,6 +74,9 @@ const conferenceSchema = new Schema({
     required: "Please select whether your conference has a registration fee."
   },
   confFeeAmt: {
+    type: String
+  },
+  confEarlybirdFee: {
     type: String
   },
   confAllergies: {
