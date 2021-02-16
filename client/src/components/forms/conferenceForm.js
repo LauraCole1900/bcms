@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { Container, Card, Form, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Moment from "react-moment";
 import "moment-timezone";
@@ -89,233 +89,267 @@ const ConferenceForm = () => {
           <Container>
             <Form className="confForm">
 
-              <Row>
-                <Form.Group controlId="formConfName">
-                  <Form.Label>Name of conference: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="confName" placeholder="Enter conference name" value={conference.confName} className="confName" onChange={handleInputChange} />
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Form.Group controlId="formConfOrg">
-                  <Form.Label>Conference Organization: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="confOrg" placeholder="Enter name of organizing body" value={conference.confOrg} className="confOrg" onChange={handleInputChange} />
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Form.Group controlId="formConfDesc">
-                  <Form.Label>Conference Description: <span className="red">*</span></Form.Label>
-                  <Form.Control required as="textarea" rows={10} type="input" name="confDesc" placeholder="Enter conference description" value={conference.confDesc} className="confDesc" onChange={handleInputChange} />
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Form.Group controlId="formConfDate">
-                  <Col sm={4}>
-                    <Form.Label>Conference Start Date: <span className="red">*</span></Form.Label>
-                    <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={startD} className="startDate" onChange={handleInputChange} />
-                  </Col>
-                  <Col sm={4}>
-                    <Form.Label>Conference End Date: <span className="red">*</span></Form.Label>
-                    <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={endD} className="endDate" onChange={findNumDays} />
-                  </Col>
-                  {conference.startDate !== "" &&
-                    conference.endDate !== "" &&
-                    <Col sm={4}>
-                      <p>Your conference is {conference.numDays} days long.</p>
-                    </Col>}
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Form.Group controlId="formConfTimes">
-                  <Col>
-                    <Form.Label>Conference Start Time: <span className="red">*</span></Form.Label>
-                    <Form.Control required type="time" name="confStartTime" placeholder="09:00" value={conference.confStartTime} className="confStartTime" onChange={handleInputChange} />
-                  </Col>
-                  <Col>
-                    <Form.Label>Conference End Time: <span className="red">*</span></Form.Label>
-                    <Form.Control required type="time" name="confEndTime" placeholder="17:00" value={conference.confEndTime} className="confEndTime" onChange={handleInputChange} />
-                  </Col>
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Form.Group controlId="formConfType">
-                  <Form.Label>Live or Virtual? <span className="red">*</span></Form.Label>
-                  <Form.Check type="radio" id="confLive" name="confType" label="Live" value="Live" checked={conference.confType === "Live"} onChange={handleInputChange} />
-                  <Form.Check type="radio" id="confVirtual" name="confType" label="Virtual" value="Virtual" checked={conference.confType === "Virtual"} onChange={handleInputChange} />
-                </Form.Group>
-              </Row>
-
-              {(conference.confType === "Live") &&
-                <div>
+              <Card className="card">
+                <Card.Title><h1>Basic Information</h1></Card.Title>
+                <Card.Body className="cardBody">
                   <Row>
-                    <Form.Group controlId="formConfLocLive">
-                      <Form.Label>Venue: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="confLocName" placeholder="Enter venue name" value={conference.confLocName} className="confLoc" onChange={handleInputChange} />
-                      <Form.Control required type="input" name="confLoc" placeholder="Enter venue address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
-                    </Form.Group>
-                  </Row>
-
-                  <Row>
-                    <Form.Group controlId="formConfLocUrl">
-                      <Form.Label>Venue Website:</Form.Label>
-                      <Form.Control type="input" name="confLocUrl" placeholder="Enter URL of venue's website" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
-                    </Form.Group>
-                  </Row>
-                </div>
-              }
-
-              {(conference.confType === "Virtual") &&
-                <div>
-                  <Row>
-                    <Form.Group controlId="formConfLocVir">
-                      <Form.Label>Message or link text: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="confLoc" placeholder="Enter link text or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
-                    </Form.Group>
-                  </Row>
-
-                  <Row>
-                    <Form.Label>Conference URL:</Form.Label><br />
-                    <Form.Control required type="input" name="confLocUrl" placeholder="Enter URL or leave blank if URL will be emailed to attendees at a future date" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
-                  </Row>
-                </div>
-              }
-
-              <Row>
-                <Col sm={6}>
-                  <Form.Group controlId="formRegDeadline">
-                    <Form.Label>Registration deadline:</Form.Label><br />
-                    <Form.Text className="subtitle" muted>If attendees may register through the entire conference, please enter the conference's end date. <span className="red">*</span></Form.Text>
-                    <Form.Control required type="date" name="confRegDeadline" placeholder="2021/01/01" value={conference.confRegDeadline} className="confRegDeadline" onChange={handleInputChange} />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <Row>
-                <Col sm={6}>
-                  <Form.Group controlId="formConfCapConfirm">
-                    <Form.Label>Will there be a cap on the number of attendees? <span className="red">*</span></Form.Label>
-                    <Form.Check type="radio" id="confCapYes" name="confCapConfirm" label="Yes" value="yes" checked={conference.confCapConfirm === "yes"} onChange={handleInputChange} />
-                    <Form.Check type="radio" id="confCapNo" name="confCapConfirm" label="No" value="no" checked={conference.confCapConfirm === "no"} onChange={handleInputChange} />
-                  </Form.Group>
-                </Col>
-
-                {(conference.confCapConfirm === "yes") &&
-                  <Col sm={6}>
-                    <Form.Group controlId="formConfAttendCap">
-                      <Form.Label>Maximum number of attendees:</Form.Label><br />
-                      <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
-                      <Form.Control type="input" name="confAttendCap" placeholder="50" onChange={handleInputChange}></Form.Control>
-                    </Form.Group>
-                  </Col>}
-              </Row>
-
-              <Row>
-                <Col sm={6}>
-                  <Form.Group controlId="formConfFeeConfirm">
-                    <Form.Label>Will a registration fee be charged? <span className="red">*</span></Form.Label>
-                    <Form.Check type="radio" id="confFeeYes" name="confFee" label="Yes" value="yes" checked={conference.confFee === "yes"} onChange={handleInputChange} />
-                    <Form.Check type="radio" id="confFeeNo" name="confFee" label="No" value="no" checked={conference.confFee === "no"} onChange={handleInputChange} />
-                  </Form.Group>
-                </Col>
-
-                {(conference.confFee === "yes") &&
-                  <Col sm={6}>
-                    <Form.Group controlId="formConfFeeAmt">
-                      <Form.Label>Registration fee amount:</Form.Label><br />
-                      <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
-                      <Form.Control type="input" name="confFeeAmt" placeholder="300" onChange={handleInputChange}></Form.Control>
-                    </Form.Group>
-                  </Col>}
-              </Row>
-
-              <Row>
-                <Col sm={4}>
-                  <Form.Group controlId="formEarlybirdConfirm">
-                    <Form.Label>Will there be Earlybird Registration? <span className="red">*</span></Form.Label>
-                    <Form.Check type="radio" id="earlybirdYes" name="confEarlybirdConfirm" label="Yes" value="yes" checked={conference.confEarlybirdConfirm === "yes"} onChange={handleInputChange} />
-                    <Form.Check type="radio" id="earlybirdNo" name="confEarlybirdConfirm" label="No" value="no" checked={conference.confEarlybirdConfirm === "no"} onChange={handleInputChange} />
-                  </Form.Group>
-                </Col>
-
-                {(conference.confEarlybirdConfirm === "yes") &&
-                  <div>
-                    <Col sm={4}>
-                      <Form.Group controlId="formEarlybirdDeadline">
-                        <Form.Label>Earlybird registration deadline:</Form.Label>
-                        <Form.Control required type="date" name="confEarlybirdDeadline" placeholder="2021/01/01" value={conference.confEarlybirdDeadline} className="confEarlybirdDeadline" onChange={handleInputChange} />
+                    <Col sm={12}>
+                      <Form.Group controlId="formConfName">
+                        <Form.Label>Name of conference: <span className="red">*</span></Form.Label>
+                        <Form.Control required type="input" name="confName" placeholder="Enter conference name" value={conference.confName} className="confName" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
+                  </Row>
 
-                    <Col sm={4}>
-                      <Form.Group controlId="formEarlybirdFee">
-                        <Form.Label>Earlybird registration fee amount:</Form.Label><br />
-                        <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
-                        <Form.Control type="input" name="confEarlybirdFee" placeholder="150" onChange={handleInputChange} />
+                  <Row>
+                    <Col sm={12}>
+                      <Form.Group controlId="formConfOrg">
+                        <Form.Label>Conference Organization: <span className="red">*</span></Form.Label>
+                        <Form.Control required type="input" name="confOrg" placeholder="Enter name of organizing body" value={conference.confOrg} className="confOrg" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
-                  </div>}
-              </Row>
+                  </Row>
 
-              {(conference.confEarlybirdConfirm === "yes") &&
-                <Row>
-                  <Col sm={4}>
-                    <Form.Group controlId="formEarlybirdSwagConfirm">
-                      <Form.Label>Will there be additional incentives for earlybird registration?</Form.Label>
-                      <Form.Check type="radio" id="earlybirdSwagYes" name="confEarlybirdSwagConfirm" label="Yes" value="yes" checked={conference.confEarlybirdSwagConfirm === "yes"} onChange={handleInputChange} />
-                      <Form.Check type="radio" id="earlybirdSwagNo" name="confEarlybirdSwagConfirm" label="No" value="no" checked={conference.confEarlybirdSwagConfirm === "no"} onChange={handleInputChange} />
+                  <Row>
+                    <Col sm={12}>
+                      <Form.Group controlId="formConfDesc">
+                        <Form.Label>Conference Description: <span className="red">*</span></Form.Label>
+                        <Form.Control required as="textarea" rows={10} type="input" name="confDesc" placeholder="Enter conference description" value={conference.confDesc} className="confDesc" onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+
+              <Card className="card">
+                <Card.Title><h1>When & Where</h1></Card.Title>
+                <Card.Body className="cardBody">
+                  <Row className="rowSpace">
+                    <Form.Group controlId="formConfDates">
+                      <Col sm={4}>
+                        <Form.Label>Conference Start Date: <span className="red">*</span></Form.Label>
+                        <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={startD} className="startDate" onChange={handleInputChange} />
+                      </Col>
+                      <Col sm={4}>
+                        <Form.Label>Conference End Date: <span className="red">*</span></Form.Label>
+                        <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={endD} className="endDate" onChange={findNumDays} />
+                      </Col>
+                      {conference.startDate !== "" &&
+                        conference.endDate !== "" &&
+                        <Col sm={4}>
+                          <p>Your conference is {conference.numDays} days long.</p>
+                        </Col>}
                     </Form.Group>
-                  </Col>
+                  </Row>
 
-                  {(conference.confEarlybirdSwagConfirm === "yes") &&
+                  <Row className="rowSpace">
+                    <Form.Group controlId="formConfTimes">
+                      <Col sm={4}>
+                        <Form.Label>Conference Start Time: <span className="red">*</span></Form.Label>
+                        <Form.Control required type="time" name="confStartTime" placeholder="09:00" value={conference.confStartTime} className="confStartTime" onChange={handleInputChange} />
+                      </Col>
+                      <Col sm={4}>
+                        <Form.Label>Conference End Time: <span className="red">*</span></Form.Label>
+                        <Form.Control required type="time" name="confEndTime" placeholder="17:00" value={conference.confEndTime} className="confEndTime" onChange={handleInputChange} />
+                      </Col>
+                    </Form.Group>
+                  </Row>
+
+                  <Row>
+                    <Col sm={12}>
+                      <Form.Group controlId="formConfType">
+                        <Form.Label>Live or Virtual? <span className="red">*</span></Form.Label>
+                        <Form.Check type="radio" id="confLive" name="confType" label="Live" value="Live" checked={conference.confType === "Live"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="confVirtual" name="confType" label="Virtual" value="Virtual" checked={conference.confType === "Virtual"} onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  {(conference.confType === "Live") &&
                     <div>
+                      <Row>
+                        <Col sm={12}>
+                          <Form.Group controlId="formConfLocLive">
+                            <Form.Label>Venue: <span className="red">*</span></Form.Label>
+                            <Form.Control required type="input" name="confLocName" placeholder="Enter venue name" value={conference.confLocName} className="confLoc" onChange={handleInputChange} />
+                            <Form.Control required type="input" name="confLoc" placeholder="Enter venue address" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col sm={12}>
+                          <Form.Group controlId="formConfLocUrl">
+                            <Form.Label>Venue Website:</Form.Label>
+                            <Form.Control type="input" name="confLocUrl" placeholder="Enter URL of venue's website" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    </div>
+                  }
+
+                  {(conference.confType === "Virtual") &&
+                    <div>
+                      <Row>
+                        <Col sm={12}>
+                          <Form.Group controlId="formConfLocVir">
+                            <Form.Label>Message or link text: <span className="red">*</span></Form.Label>
+                            <Form.Control required type="input" name="confLoc" placeholder="Enter link text or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="confLoc" onChange={handleInputChange} />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+
+                      <Row>
+                        <Col sm={12}>
+                          <Form.Group controlId="formConfUrl">
+                            <Form.Label>Conference URL:</Form.Label><br />
+                            <Form.Control required type="input" name="confLocUrl" placeholder="Enter URL or leave blank if URL will be emailed to attendees at a future date" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    </div>
+                  }
+                </Card.Body>
+              </Card>
+
+              <Card className="card">
+                <Card.Title><h1>Registration Information</h1></Card.Title>
+                <Card.Body className="cardBody">
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Group controlId="formRegDeadline">
+                        <Form.Label>Registration deadline: <span className="red">*</span></Form.Label><br />
+                        <Form.Text className="subtitle" muted>If attendees may register through the entire conference, please enter the conference's end date.</Form.Text>
+                        <Form.Control required type="date" name="confRegDeadline" placeholder="2021/01/01" value={conference.confRegDeadline} className="confRegDeadline" onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Group controlId="formConfFeeConfirm">
+                        <Form.Label>Will a registration fee be charged? <span className="red">*</span></Form.Label>
+                        <Form.Check type="radio" id="confFeeYes" name="confFee" label="Yes" value="yes" checked={conference.confFee === "yes"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="confFeeNo" name="confFee" label="No" value="no" checked={conference.confFee === "no"} onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+
+                    {(conference.confFee === "yes") &&
+                      <Col sm={6}>
+                        <Form.Group controlId="formConfFeeAmt">
+                          <Form.Label>Registration fee amount:</Form.Label><br />
+                          <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
+                          <Form.Control type="input" name="confFeeAmt" placeholder="300" onChange={handleInputChange}></Form.Control>
+                        </Form.Group>
+                      </Col>}
+                  </Row>
+
+                  <Row>
+                    <Col sm={4}>
+                      <Form.Group controlId="formEarlybirdConfirm">
+                        <Form.Label>Will there be Earlybird Registration? <span className="red">*</span></Form.Label>
+                        <Form.Check type="radio" id="earlybirdYes" name="confEarlybirdConfirm" label="Yes" value="yes" checked={conference.confEarlybirdConfirm === "yes"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="earlybirdNo" name="confEarlybirdConfirm" label="No" value="no" checked={conference.confEarlybirdConfirm === "no"} onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+
+                    {(conference.confEarlybirdConfirm === "yes") &&
+                      <div>
+                        <Col sm={4}>
+                          <Form.Group controlId="formEarlybirdDeadline">
+                            <Form.Label>Earlybird registration deadline:</Form.Label>
+                            <Form.Control required type="date" name="confEarlybirdDeadline" placeholder="2021/01/01" value={conference.confEarlybirdDeadline} className="confEarlybirdDeadline" onChange={handleInputChange} />
+                          </Form.Group>
+                        </Col>
+
+                        <Col sm={4}>
+                          <Form.Group controlId="formEarlybirdFee">
+                            <Form.Label>Earlybird registration fee amount:</Form.Label><br />
+                            <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
+                            <Form.Control type="input" name="confEarlybirdFee" placeholder="150" onChange={handleInputChange} />
+                          </Form.Group>
+                        </Col>
+                      </div>}
+                  </Row>
+
+                  {(conference.confEarlybirdConfirm === "yes") &&
+                    <Row>
                       <Col sm={4}>
-                        <Form.Group controlId="formEarlybirdSwagType">
-                          <Form.Label>What additional incentive(s) will you offer for earlybird registration?</Form.Label>
-                          <Form.Control type="input" name="confEarlybirdSwagType" placeholder="T-shirts" onChange={handleInputChange} />
+                        <Form.Group controlId="formEarlybirdSwagConfirm">
+                          <Form.Label>Will there be additional incentives for earlybird registration?</Form.Label>
+                          <Form.Check type="radio" id="earlybirdSwagYes" name="confEarlybirdSwagConfirm" label="Yes" value="yes" checked={conference.confEarlybirdSwagConfirm === "yes"} onChange={handleInputChange} />
+                          <Form.Check type="radio" id="earlybirdSwagNo" name="confEarlybirdSwagConfirm" label="No" value="no" checked={conference.confEarlybirdSwagConfirm === "no"} onChange={handleInputChange} />
                         </Form.Group>
                       </Col>
 
-                      <Col sm={4}>
-                        <Form.Group controlId="formEarlybirdSizeConfirm">
-                          <Form.Label>Do you need to know earlybirds' shirt size?</Form.Label>
-                          <Form.Check type="radio" id="earlybirdSizeYes" name="confEarlybirdSizeConfirm" label="Yes" value="yes" checked={conference.confEarlybirdSizeConfirm === "yes"} onChange={handleInputChange} />
-                          <Form.Check type="radio" id="earlybirdSizeNo" name="confEarlybirdSizeConfirm" label="No" value="no" checked={conference.confEarlybirdSizeConfirm === "no"} onChange={handleInputChange} />
+                      {(conference.confEarlybirdSwagConfirm === "yes") &&
+                        <div>
+                          <Col sm={4}>
+                            <Form.Group controlId="formEarlybirdSwagType">
+                              <Form.Label>What additional incentive(s) will you offer for earlybird registration?</Form.Label>
+                              <Form.Control type="input" name="confEarlybirdSwagType" placeholder="T-shirts" onChange={handleInputChange} />
+                            </Form.Group>
+                          </Col>
+
+                          <Col sm={4}>
+                            <Form.Group controlId="formEarlybirdSizeConfirm">
+                              <Form.Label>Do you need to know earlybirds' shirt size?</Form.Label>
+                              <Form.Check type="radio" id="earlybirdSizeYes" name="confEarlybirdSizeConfirm" label="Yes" value="yes" checked={conference.confEarlybirdSizeConfirm === "yes"} onChange={handleInputChange} />
+                              <Form.Check type="radio" id="earlybirdSizeNo" name="confEarlybirdSizeConfirm" label="No" value="no" checked={conference.confEarlybirdSizeConfirm === "no"} onChange={handleInputChange} />
+                            </Form.Group>
+                          </Col>
+                        </div>}
+                    </Row>}
+                </Card.Body>
+              </Card>
+
+              <Card className="card">
+                <Card.Title><h1>Miscellaneous Other Information</h1></Card.Title>
+                <Card.Body className="cardBody">
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Group controlId="formConfCapConfirm">
+                        <Form.Label>Will there be a cap on the number of attendees? <span className="red">*</span></Form.Label>
+                        <Form.Check type="radio" id="confCapYes" name="confCapConfirm" label="Yes" value="yes" checked={conference.confCapConfirm === "yes"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="confCapNo" name="confCapConfirm" label="No" value="no" checked={conference.confCapConfirm === "no"} onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+
+                    {(conference.confCapConfirm === "yes") &&
+                      <Col sm={6}>
+                        <Form.Group controlId="formConfAttendCap">
+                          <Form.Label>Maximum number of attendees:</Form.Label><br />
+                          <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
+                          <Form.Control type="input" name="confAttendCap" placeholder="50" onChange={handleInputChange}></Form.Control>
                         </Form.Group>
-                      </Col>
-                    </div>}
-                </Row>}
+                      </Col>}
+                  </Row>
 
-              <Row>
-                <Col sm={6}>
-                  <Form.Group controlId="formConfAllergies">
-                    <Form.Label>Do you need to ask attendees about allergies? <span className="red">*</span></Form.Label>
-                    <Form.Control required as="select" name="confAllergies" onChange={handleInputChange}>
-                      <option value="no" checked={conference.confAllergies === "no"}>No</option>
-                      <option value="yes" checked={conference.confAllergies === "yes"}>Yes</option>
-                    </Form.Control>
-                    {(conference.confAllergies === "yes") &&
-                      <Form.Text> Attendees will be asked about allergies on the registration form.</Form.Text>}
-                  </Form.Group>
-                </Col>
-              </Row>
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Group controlId="formConfAllergies">
+                        <Form.Label>Do you need to ask attendees about allergies? <span className="red">*</span></Form.Label>
+                        <Form.Check type="radio" id="confAllergiesYes" name="confAllergies" label="Yes" value="yes" checked={conference.confAllergies === "yes"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="confAllergiesNo" name="confAllergies" label="No" value="no" checked={conference.confAllergies === "no"} onChange={handleInputChange} />
+                        {(conference.confAllergies === "yes") &&
+                          <Form.Text> Attendees will be asked about allergies on the registration form.</Form.Text>}
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-              <Row>
-                <Col sm={6}>
-                  <Form.Group controlId="formConfWaiver">
-                    <Form.Label>Will a liability waiver be required? <span className="red">*</span></Form.Label>
-                    <Form.Control required as="select" name="confWaiver" onChange={handleInputChange}>
-                      <option value="no" checked={conference.confWaiver === "no"}>No</option>
-                      <option value="yes" checked={conference.confWaiver === "yes"}>Yes</option>
-                    </Form.Control>
-                    {(conference.confWaiver === "yes") &&
-                      <Form.Text>Attendees will be alerted on the registration form that they will be expected to sign a liability waiver upon checking in to the event.</Form.Text>}
-                  </Form.Group>
-                </Col>
-              </Row>
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Group controlId="formConfWaiver">
+                        <Form.Label>Will a liability waiver be required? <span className="red">*</span></Form.Label>
+                        <Form.Check type="radio" id="confWaiverYes" name="confWaiver" label="Yes" value="yes" checked={conference.confWaiver === "yes"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="confWaiverNo" name="confWaiver" label="No" value="no" checked={conference.confWaiver === "no"} onChange={handleInputChange} />
+                        {(conference.confWaiver === "yes") &&
+                          <Form.Text>Attendees will be alerted on the registration form that they will be expected to sign a liability waiver upon checking in to the event.</Form.Text>}
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
 
               <Row>
                 {(confId !== "new_conference")

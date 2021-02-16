@@ -4,6 +4,17 @@ form {
   font-family: "Open Sans Condensed", sans-serif;
 }
 
+.card {
+  background-color: #cfbfa5;
+  border: 5px solid #2d321e;
+  border-radius: 15px;
+  padding: 0 15px;
+}
+
+.rowSpace {
+  margin-bottom: 12px;
+}
+
 .button {
   color: #e2e2e2;
   background: linear-gradient(to bottom, #899168, #2d321e);
