@@ -33,7 +33,7 @@ const ConferenceForm = () => {
   const confId = urlArray[urlArray.length - 1]
 
   const startSplit = conference.startDate.split("T")
-  const startD=startSplit[0]
+  const startD = startSplit[0]
   const endSplit = conference.endDate.split("T")
   const endD = endSplit[0]
 
@@ -185,6 +185,16 @@ const ConferenceForm = () => {
 
               <Row>
                 <Col sm={6}>
+                  <Form.Group controlId="formRegDeadline">
+                    <Form.Label>Registration deadline:</Form.Label>
+                    <Form.Text className="subtitle" muted>If attendees may register through the entire conference, please enter the conference's end date. <span className="red">*</span></Form.Text>
+                    <Form.Control required type="date" name="confRegDeadline" placeholder="2021/01/01" value={conference.confRegDeadline} className="confRegDeadline" onChange={handleInputChange} />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col sm={6}>
                   <Form.Group controlId="formConfCapConfirm">
                     <Form.Label>Will there be a cap on the number of attendees? <span className="red">*</span></Form.Label>
                     <Form.Check type="radio" id="confCapYes" name="confCapConfirm" label="Yes" value="yes" checked={conference.confCapConfirm === "yes"} onChange={handleInputChange} />
@@ -220,6 +230,60 @@ const ConferenceForm = () => {
                     </Form.Group>
                   </Col>}
               </Row>
+
+              <Row>
+                <Col sm={4}>
+                  <Form.Group controlId="formEarlybirdConfirm">
+                    <Form.Label>Will there be Earlybird Registration? <span className="red">*</span></Form.Label>
+                    <Form.Check type="radio" id="earlybirdYes" name="confEarlybirdConfirm" label="Yes" value="yes" checked={conference.confEarlybirdConfirm === "yes"} onChange={handleInputChange} />
+                    <Form.Check type="radio" id="earlybirdNo" name="confEarlybirdConfirm" label="No" value="no" checked={conference.confEarlybirdConfirm === "no"} onChange={handleInputChange} />
+                  </Form.Group>
+                </Col>
+
+                {(conference.confEarlybirdConfirm === "yes") &&
+                  <div>
+                    <Col sm={4}>
+                      <Form.Group controlId="formEarlybirdDeadline">
+                        <Form.Label>Earlybird registration deadline:</Form.Label>
+                        <Form.Control required type="date" name="confEarlybirdDeadline" placeholder="2021/01/01" value={conference.confEarlybirdDeadline} className="confEarlybirdDeadline" onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={4}>
+                      <Form.Group controlId="formEarlybirdFee">
+                        <Form.Label>Earlybird registration fee amount:</Form.Label>
+                        <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
+                        <Form.Control type="input" name="confEarlybirdFee" placeholder="150" onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+                  </div>}
+              </Row>
+
+              {(conference.confEarlybirdConfirm === "yes") &&
+                <Row>
+                  <Col sm={4}>
+                    <Form.Group controlId="formEarlybirdSwagConfirm">
+                      <Form.Label>Will there be additional incentives for earlybird registration?</Form.Label>
+                      <Form.Check type="radio" id="earlybirdSwagYes" name="confEarlybirdSwagConfirm" label="Yes" value="yes" checked={conference.confEarlybirdSwagConfirm === "yes"} onChange={handleInputChange} />
+                      <Form.Check type="radio" id="earlybirdSwagNo" name="confEarlybirdSwagConfirm" label="No" value="no" checked={conference.confEarlybirdSwagConfirm === "no"} onChange={handleInputChange} />
+                    </Form.Group>
+                  </Col>
+
+                  <Col sm={4}>
+                    <Form.Group controlId="formEarlybirdSwagType">
+                      <Form.Label>What additional incentive(s) will you offer for earlybird registration?</Form.Label>
+                      <Form.Control type="input" name="confEarlybirdSwagType" placeholder="T-shirts" onChange={handleInputChange} />
+                    </Form.Group>
+                  </Col>
+
+                  <Col sm={4}>
+                    <Form.Group controlId="formEarlybirdSizeConfirm">
+                      <Form.Label>Do you need to know earlybirds' shirt size?</Form.Label>
+                      <Form.Check type="radio" id="earlybirdSizeYes" name="confEarlybirdSizeConfirm" label="Yes" value="yes" checked={conference.confEarlybirdSizeConfirm === "yes"} onChange={handleInputChange} />
+                      <Form.Check type="radio" id="earlybirdSizeNo" name="confEarlybirdSizeConfirm" label="No" value="no" checked={conference.confEarlybirdSizeConfirm === "no"} onChange={handleInputChange} />
+                    </Form.Group>
+                  </Col>
+                </Row>}
 
               <Row>
                 <Col sm={6}>
