@@ -69,23 +69,23 @@ const conferenceSchema = new Schema({
   confFeeAmt: {
     type: String
   },
-  confEarlybirdConfirm: {
+  confEarlyRegConfirm: {
     type: String,
-    required: "Please select whether there is a deadline for earlybird registration."
+    required: "Please select whether there is a deadline for early registration."
   },
-  confEarlybirdDeadline: {
+  confEarlyRegDeadline: {
     type: Date
   },
-  confEarlybirdFee: {
+  confEarlyRegFee: {
     type: String
   },
-  confEarlybirdSwagConfirm: {
+  confEarlyRegSwagConfirm: {
     type: String
   },
-  confEarlybirdSwagType: {
+  confEarlyRegSwagType: {
     type: String
   },
-  confEarlybirdSizeConfirm: {
+  confEarlyRegSizeConfirm: {
     type: String
   },
   confAllergies: {
