@@ -55,13 +55,6 @@ const conferenceSchema = new Schema({
     type: Date,
     required: "Please enter a registration deadline. If there is no registration deadline, please enter the conference's end date."
   },
-  confEarlybirdConfirm: {
-    type: String,
-    required: "Please select whether there is a deadline for earlybird registration."
-  },
-  confEarlybirdDeadline: {
-    type: Date
-  },
   confCapConfirm: {
     type: String,
     required: "Please select whether your conference has a cap on the number of attendees."
@@ -76,7 +69,23 @@ const conferenceSchema = new Schema({
   confFeeAmt: {
     type: String
   },
+  confEarlybirdConfirm: {
+    type: String,
+    required: "Please select whether there is a deadline for earlybird registration."
+  },
+  confEarlybirdDeadline: {
+    type: Date
+  },
   confEarlybirdFee: {
+    type: String
+  },
+  confEarlybirdSwagConfirm: {
+    type: String
+  },
+  confEarlybirdSwagType: {
+    type: String
+  },
+  confEarlybirdSizeConfirm: {
     type: String
   },
   confAllergies: {
