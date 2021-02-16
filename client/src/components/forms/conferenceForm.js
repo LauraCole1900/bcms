@@ -89,7 +89,7 @@ const ConferenceForm = () => {
           <Container>
             <Form className="confForm">
 
-              <Card className="card">
+              <Card className="formCard">
                 <Card.Title><h1>Basic Information</h1></Card.Title>
                 <Card.Body className="cardBody">
                   <Row>
@@ -121,7 +121,7 @@ const ConferenceForm = () => {
                 </Card.Body>
               </Card>
 
-              <Card className="card">
+              <Card className="formCard">
                 <Card.Title><h1>When & Where</h1></Card.Title>
                 <Card.Body className="cardBody">
                   <Row className="rowSpace">
@@ -212,7 +212,7 @@ const ConferenceForm = () => {
                 </Card.Body>
               </Card>
 
-              <Card className="card">
+              <Card className="formCard">
                 <Card.Title><h1>Registration Information</h1></Card.Title>
                 <Card.Body className="cardBody">
                   <Row>
@@ -303,7 +303,7 @@ const ConferenceForm = () => {
                 </Card.Body>
               </Card>
 
-              <Card className="card">
+              <Card className="formCard">
                 <Card.Title><h1>Miscellaneous Other Information</h1></Card.Title>
                 <Card.Body className="cardBody">
                   <Row>
