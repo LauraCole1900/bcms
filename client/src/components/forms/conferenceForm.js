@@ -23,6 +23,8 @@ const ConferenceForm = () => {
     confEndTime: "",
     confType: "",
     confLoc: "",
+    confRegDeadline: "",
+    confEarlyRegDeadline: "",
     confCapConfirm: "no",
     confFee: "no",
     confEarlyRegConfirm: "no",
@@ -37,6 +39,8 @@ const ConferenceForm = () => {
   const startD = startSplit[0]
   const endSplit = conference.endDate.split("T")
   const endD = endSplit[0]
+  const regSplit = conference.confRegDeadline.split("T")
+  const regD = regSplit[0]
 
   const confOffset = new Date().getTimezoneOffset()
 
@@ -220,7 +224,7 @@ const ConferenceForm = () => {
                       <Form.Group controlId="formRegDeadline">
                         <Form.Label>Registration deadline: <span className="red">*</span></Form.Label><br />
                         <Form.Text className="subtitle" muted>If attendees may register through the entire conference, please enter the conference's end date.</Form.Text>
-                        <Form.Control required type="date" name="confRegDeadline" placeholder="2021/01/01" value={conference.confRegDeadline} className="confRegDeadline" onChange={handleInputChange} />
+                        <Form.Control required type="date" name="confRegDeadline" placeholder="2021/01/01" value={regD} className="confRegDeadline" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -239,7 +243,7 @@ const ConferenceForm = () => {
                         <Form.Group controlId="formConfFeeAmt">
                           <Form.Label>Registration fee amount:</Form.Label><br />
                           <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
-                          <Form.Control type="input" name="confFeeAmt" placeholder="300" onChange={handleInputChange}></Form.Control>
+                          <Form.Control type="input" name="confFeeAmt" placeholder="300" value={conference.confFeeAmt} onChange={handleInputChange}></Form.Control>
                         </Form.Group>
                       </Col>}
                   </Row>
@@ -266,7 +270,7 @@ const ConferenceForm = () => {
                           <Form.Group controlId="formEarlyRegFee">
                             <Form.Label>Early registration fee amount:</Form.Label><br />
                             <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
-                            <Form.Control type="input" name="confEarlyRegFee" placeholder="150" onChange={handleInputChange} />
+                            <Form.Control type="input" name="confEarlyRegFee" placeholder="150" value={conference.EarlyRegFee} onChange={handleInputChange} />
                           </Form.Group>
                         </Col>
                       </div>}
@@ -320,7 +324,7 @@ const ConferenceForm = () => {
                         <Form.Group controlId="formConfAttendCap">
                           <Form.Label>Maximum number of attendees:</Form.Label><br />
                           <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
-                          <Form.Control type="input" name="confAttendCap" placeholder="50" onChange={handleInputChange}></Form.Control>
+                          <Form.Control type="input" name="confAttendCap" placeholder="50" value={conference.confAttendCap} onChange={handleInputChange}></Form.Control>
                         </Form.Group>
                       </Col>}
                   </Row>
