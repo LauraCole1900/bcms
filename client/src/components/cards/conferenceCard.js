@@ -84,6 +84,22 @@ function Conference({ conference }) {
                       <p><a href={conf.confLocUrl} rel="noreferrer noopener" target="_blank">{conf.confLocName}</a></p>
                     </Row>}
                   <Row>
+                    <Col>
+                      {conf.confType === "Live"
+                        ? (conf.confRegDeadline === conf.endDate
+                          ? <p>Registration available at the door.</p>
+                          : <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confRegDeadline}</Moment></p>)
+                        : <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confRegDeadline}</Moment></p>}
+                      {(conf.confFee === "yes")
+                        ? (conf.confEarlyRegConfirm === "yes"
+                          ? <p>Registration fee: ${conf.confEarlyRegFee}.00 before <Moment format="ddd, D MMM YYYY" withTitle>{conf.confEarlyRegDeadline}</Moment>; increases to ${conf.confFeeAmt}.00 after</p>
+                          : <p>Registration fee: ${conf.confFeeAmt}.00</p>)
+                        : <p>Registration is free!</p>}
+                      {conf.confEarlyRegSwagConfirm === "yes" &&
+                        <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confEarlyRegDeadline}</Moment> to also receive {conf.confEarlyRegSwagType}</p>}
+                    </Col>
+                  </Row>
+                  <Row>
                     <Col sm={4}>
                       <Link to={{
                         state: { confInfo: conference },

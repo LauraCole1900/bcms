@@ -31,12 +31,14 @@ a:visited {
   border: 2px solid #11130b;
   border-radius: 12px;
   margin: 5px 0;
+  padding-right: 25px;
 }
 
 .confTitle {
   color: #cfbfa5;
   background: linear-gradient(to top, #899168, #2d321e);
   border-radius: 11px 11px 0 0;
+  margin-right: -25px;
 }
 
 .delete {
