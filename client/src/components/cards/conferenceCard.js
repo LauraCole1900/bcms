@@ -13,9 +13,11 @@ function Conference({ conference }) {
   const [cardAttendConf, setCardAttendConf] = useState([]);
   const [cardRender, setCardRender] = useState(false);
 
+  // Determines which page user is on, specifically for use with URLs that include the conference ID
   const urlArray = window.location.href.split("/")
   const urlType = urlArray[urlArray.length - 2]
 
+  // Handles click on delete button
   function handleDelete(confId) {
     console.log("from confCard", confId)
     ConferenceAPI.deleteConference(confId)
@@ -26,6 +28,7 @@ function Conference({ conference }) {
   useEffect(() => {
     if (isAuthenticated) {
       console.log(user.email)
+      // Retrieves conferences user is registered for to determine whether register or unregister button should render
       AttendeeAPI.getConferencesAttending(user.email)
         .then(resp => {
           const cardAttArr = resp.data
@@ -70,7 +73,6 @@ function Conference({ conference }) {
                   {conf.numDays === 1
                     ? <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - {conf.confEndTime}</p></Row></div>
                     : <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - <Moment format="ddd, D MMM YYYY" withTitle>{conf.endDate}</Moment> @{conf.confEndTime}</p></Row></div>}
-                  {/* <Row><p>Times: {conf.confStartTime} - {conf.confEndTime}</p></Row> */}
                   <Row><p>Type: {conf.confType}</p></Row>
                   <Row>
                     {(conf.confType === "Live") &&
