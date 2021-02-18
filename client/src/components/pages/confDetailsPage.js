@@ -73,7 +73,7 @@ const ConfDetails = () => {
                   {(searchBy === "presenterName" || searchBy === "presenterOrg" || searchBy === "sessionName") &&
                     <Row>
                       <div id="sessPageSearch">
-                        <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                        <Form.Control type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                       </div>
                     </Row>}
                 </Form>

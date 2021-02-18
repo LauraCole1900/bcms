@@ -64,7 +64,7 @@ const AllConfs = () => {
                     {(searchBy !== "all") &&
                       <Row>
                         <div id="confPageSearch">
-                          <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search conferences" value={search} onChange={(e) => setSearch(e.target.value)} />
+                          <Form.Control type="input" placeholder="Search conferences" value={search} onChange={(e) => setSearch(e.target.value)} />
                         </div>
                       </Row>}
                   </Form>
