@@ -15,16 +15,19 @@ const ConfDetails = () => {
   const [search, setSearch] = useState("");
   const [pageReady, setPageReady] = useState(false);
 
+  // Pull conference ID from URL
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
 
   useEffect(() => {
+    // GET conference by ID
     ConferenceAPI.getConferenceById(confId)
       .then(resp => {
         setConference(resp.data)
       })
       .catch(err => console.log(err));
 
+    // GET sessions by conference ID
     SessionAPI.getSessions(confId)
       .then(resp => {
         const sessArr = resp.data;
@@ -34,12 +37,16 @@ const ConfDetails = () => {
       .catch(err => console.log(err))
   }, [])
 
+  // Filter response data by user input
   const searchFilter = (data) => {
     switch (searchBy) {
+      // Filter session names
       case "sessionName":
         return data.filter((session) => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      // Filter presenter names
       case "presenterName":
         return data.filter((session) => session.sessPresenter.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      // Return all response data
       default:
         return (sessArray)
     }

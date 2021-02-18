@@ -14,27 +14,34 @@ const AllConfs = () => {
   const [pageReady, setPageReady] = useState(false);
 
   useEffect(() => {
+    // GET conferences
     ConferenceAPI.getConferences()
       .then(resp => {
         const confArr = resp.data;
+        // Filter conferences by date, so only upcoming conferences render
         const filteredConf = confArr.filter(a => new Date(a.startDate) - new Date() >= 0);
+        // Sort filtered conferences by date, earliest to latest
         const sortedConf = filteredConf.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
-        console.log("confArr", confArr);
-        console.log("filteredConf", filteredConf);
-        console.log("sortedConf", sortedConf);
+        // Set conferences in state
         setConfArray(sortedConf);
+        // Set pageReady to true for page render
         setPageReady(true);
       })
       .catch(err => console.log(err))
   }, [])
 
+  // Filter conferences by user input
   const searchFilter = (data) => {
-    if (searchBy === "all") {
-      return (confArray)
-    } else if (searchBy === "name") {
-      return data.filter((conference) => conference.confName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-    } else if (searchBy === "org") {
-      return data.filter((conference) => conference.confOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+    switch (searchBy) {
+      // Filter by conference name
+      case "name":
+        return data.filter((conference) => conference.confName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      // Filter by presenting organization
+      case "org":
+        return data.filter((conference) => conference.confOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      // Return all conferences
+      default:
+        return (confArray)
     }
   }
 
