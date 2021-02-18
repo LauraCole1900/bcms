@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
@@ -9,8 +9,12 @@ import "./style.css";
 function Conference({ conference }) {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
+  const location = useLocation();
   const [cardAttendConf, setCardAttendConf] = useState([]);
   const [cardRender, setCardRender] = useState(false);
+
+  const urlArray = window.location.href.split("/")
+  const urlType = urlArray[urlArray.length - 2]
 
   function handleDelete(confId) {
     console.log("from confCard", confId)
@@ -99,16 +103,14 @@ function Conference({ conference }) {
                         <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confEarlyRegDeadline}</Moment> to also receive {conf.confEarlyRegSwagType}</p>}
                     </Col>
                   </Row>
-                  <Row>
-                    <Col sm={4}>
-                      <Link to={{
-                        state: { confInfo: conference },
-                        pathname: `/details/${conf._id}`
-                      }}>
-                        <Button data-toggle="popover" title="View conference details" className="button">View details</Button>
-                      </Link>
-                    </Col>
-                  </Row>
+                  {urlType !== "details" &&
+                    <Row>
+                      <Col sm={4}>
+                        <Link to={`/details/${conf._id}`} className={location.pathname === `/details/${conf._id}` ? "link active" : "link"}>
+                          <Button data-toggle="popover" title="View conference details" className="button">View details</Button>
+                        </Link>
+                      </Col>
+                    </Row>}
                 </Col>
               </Row>
               {isAuthenticated &&

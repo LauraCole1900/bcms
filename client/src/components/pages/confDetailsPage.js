@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Card, Button, ButtonGroup } from "react-bootstrap";
 import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards"
 import { ConferenceAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const location = useLocation();
   const [conference, setConference] = useState({});
   const [sessArray, setSessArray] = useState([]);
   const [searchBy, setSearchBy] = useState("allPnS");
@@ -19,7 +20,7 @@ const ConfDetails = () => {
 
   useEffect(() => {
     ConferenceAPI.getConferenceById(confId)
-    .then(resp => {
+      .then(resp => {
         setConference(resp.data)
       })
       .catch(err => console.log(err));
@@ -95,34 +96,29 @@ const ConfDetails = () => {
 
           <Row>
             <Col sm={1}></Col>
-            <Col sm={2}>
-              <Link to={{
-                state: { confInfo: conference },
-                pathname: `/schedule/${confId}`
-              }}>
-                <Button data-toggle="popover" title="View schedule" className="button">Schedule</Button>
-              </Link>
+            <Col sm={3}>
+              <ButtonGroup data-toggle="popover">
+                <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
+                  <Button title="View schedule" className="button">Schedule</Button>
+                </Link>
+                <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
+                  <Button title="Venue information" className="button">Venue</Button>
+                </Link>
+              </ButtonGroup>
             </Col>
-            <Col sm={1}></Col>
             {isAuthenticated &&
               (user.email === conference.creatorEmail || conference[0].confAdmins.includes(user.email)) &&
               <div>
-                <Col sm={2}>
-                  <Link to={{
-                    state: { confInfo: conference },
-                    pathname: `/edit_schedule/${confId}`
-                  }}>
-                    <Button data-toggle="popover" title="Edit schedule" className="button">Edit Schedule</Button>
-                  </Link>
-                </Col>
-                <Col sm={1}></Col>
-                <Col sm={2}>
-                  <Link to={{
-                    state: { confInfo: conference },
-                    pathname: `/add_session/${confId}`
-                  }}>
-                    <Button data-toggle="popover" title="Add session" className="button">Add Session</Button>
-                  </Link>
+                <Col sm={4}></Col>
+                <Col sm={3}>
+                  <ButtonGroup data-toggle="popover">
+                    <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Edit schedule" className="button">Edit Schedule</Button>
+                    </Link>
+                    <Link to={`/add_session/${confId}`} className={location.pathname === `/add_session/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Add session" className="button">Add Session</Button>
+                    </Link>
+                  </ButtonGroup>
                 </Col>
               </div>}
           </Row>
