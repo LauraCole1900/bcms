@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
-import { ConferenceCard, SessionCard, UserCard } from "../cards"
+import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards"
 import { ConferenceAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const [conference, setConference] = useState({})
-  const [sessArray, setSessArray] = useState();
+  const [conference, setConference] = useState({});
+  const [presArray, setPresArray] = useState([]);
+  const [sessArray, setSessArray] = useState([]);
   const [searchBy, setSearchBy] = useState("allSess");
   const [search, setSearch] = useState("");
   const [pageReady, setPageReady] = useState(false);
@@ -94,7 +95,7 @@ const ConfDetails = () => {
             <Col sm={1}></Col>
             <Col sm={2}>
               <Link to={{
-                state: {confInfo: conference},
+                state: { confInfo: conference },
                 pathname: `/schedule/${confId}`
               }}>
                 <Button data-toggle="popover" title="View schedule" className="button">Schedule</Button>
@@ -106,7 +107,7 @@ const ConfDetails = () => {
               <div>
                 <Col sm={2}>
                   <Link to={{
-                    state: {confInfo: conference},
+                    state: { confInfo: conference },
                     pathname: `/edit_schedule/${confId}`
                   }}>
                     <Button data-toggle="popover" title="Edit schedule" className="button">Edit Schedule</Button>
@@ -124,7 +125,21 @@ const ConfDetails = () => {
               </div>}
           </Row>
 
-          
+          <Row>
+            <Col sm={6}>
+              <h1>Presenters</h1>
+              {presArray.length > 0
+              ? <PresenterCard presenter={searchFilter(presArray)} />
+            : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
+            </Col>
+            <Col sm={6}>
+              <h1>Sessions</h1>
+              {sessArray.length > 0
+                ? <SessionCard session={searchFilter(sessArray)} />
+                : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
+            </Col>
+          </Row>
+
         </Container>
       }
     </>
