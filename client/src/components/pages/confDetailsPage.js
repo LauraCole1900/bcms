@@ -19,7 +19,7 @@ const ConfDetails = () => {
 
   useEffect(() => {
     ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
+    .then(resp => {
         setConference(resp.data)
       })
       .catch(err => console.log(err));
@@ -105,7 +105,7 @@ const ConfDetails = () => {
             </Col>
             <Col sm={1}></Col>
             {isAuthenticated &&
-              (user.email === conference.creatorEmail || conference.confAdmins.includes(user.email)) &&
+              (user.email === conference.creatorEmail || conference[0].confAdmins.includes(user.email)) &&
               <div>
                 <Col sm={2}>
                   <Link to={{
