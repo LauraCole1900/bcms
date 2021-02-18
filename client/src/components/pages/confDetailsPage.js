@@ -5,23 +5,34 @@ import { SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
-const [sessArray, setSessArray] = useState();
-const [searchBy, setSearchBy] = useState("allSess");
-const [search, setSearch] = useState("");
-const [pageReady, setPageReady] = useState(false);
+  const [sessArray, setSessArray] = useState();
+  const [searchBy, setSearchBy] = useState("allSess");
+  const [search, setSearch] = useState("");
+  const [pageReady, setPageReady] = useState(false);
 
-const urlArray = window.location.href.split("/")
-const confId = urlArray[urlArray.length - 1]
+  const urlArray = window.location.href.split("/")
+  const confId = urlArray[urlArray.length - 1]
 
-useEffect(() => {
-  SessionAPI.getSessions(confId)
-  .then(resp => {
-    const sessArr = resp.data;
-    setSessArray(sessArr);
-    setPageReady(true);
-  })
-  .catch(err => console.log(err))
-}, [])
+  useEffect(() => {
+    SessionAPI.getSessions(confId)
+      .then(resp => {
+        const sessArr = resp.data;
+        setSessArray(sessArr);
+        setPageReady(true);
+      })
+      .catch(err => console.log(err))
+  }, [])
+
+  const searchFilter = (data) => {
+    switch (searchBy) {
+      case "presenter":
+        return data.filter((session) => session.sessPresenter.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      case "name":
+        return data.filter((session) => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      default:
+        return (sessArray)
+    }
+  }
 
 }
 
