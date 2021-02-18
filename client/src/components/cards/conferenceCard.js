@@ -111,59 +111,59 @@ function Conference({ conference }) {
                   </Row>
                 </Col>
               </Row>
-              <Row>
-                {isAuthenticated &&
-                  (user.email === conf.creatorEmail || conf.confAdmins.includes(user.email)) &&
-                  <div>
-                    <Col sm={1}></Col>
-                    <Col sm={1}>
-                      <Link to={{
-                        state: { confInfo: conference },
-                        pathname: `/attendees/${conf._id}`
-                      }}>
-                        <Button data-toggle="popover" title="View conference attendees" className="button">Attendees</Button>
-                      </Link>
-                    </Col>
-                    <Col sm={1}>
-                      <Link to={{
-                        state: { confInfo: conference },
-                        pathname: `/exhibitors/${conf._id}`
-                      }}>
-                        <Button data-toggle="popover" title="View conference exhibitors" className="button">Exhibitors</Button>
-                      </Link>
-                    </Col>
-                    <Col sm={1}>
-                      <Link to={{
-                        state: { confInfo: conference },
-                        pathname: `/presenters/${conf._id}`
-                      }}>
-                        <Button data-toggle="popover" title="View conference presenters" className="button">Presenters</Button>
-                      </Link>
-                    </Col>
-                    <Col sm={1}></Col>
-                    <Col sm={1}>
-                      <Link to={{
-                        state: { confInfo: conference },
-                        pathname: `/edit_conference/${conf._id}`
-                      }}>
-                        <Button data-toggle="popover" title="Edit this conference" className="button">Edit</Button>
-                      </Link>
-                    </Col>
-                    <Col sm={1}>
-                      <Link to={{
-                        state: { confInfo: conference },
-                        pathname: `/edit_schedule/${conf._id}`
-                      }}>
-                        <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
-                      </Link>
-                    </Col>
-                  </div>}
+              {isAuthenticated &&
+                (user.email === conf.creatorEmail || conf.confAdmins.includes(user.email)) &&
+                <Row>
+                  <Col sm={1}></Col>
+                  <Col sm={1}>
+                    <Link to={{
+                      state: { confInfo: conference },
+                      pathname: `/attendees/${conf._id}`
+                    }}>
+                      <Button data-toggle="popover" title="View conference attendees" className="button">Attendees</Button>
+                    </Link>
+                  </Col>
+                  <Col sm={1}>
+                    <Link to={{
+                      state: { confInfo: conference },
+                      pathname: `/exhibitors/${conf._id}`
+                    }}>
+                      <Button data-toggle="popover" title="View conference exhibitors" className="button">Exhibitors</Button>
+                    </Link>
+                  </Col>
+                  <Col sm={1}>
+                    <Link to={{
+                      state: { confInfo: conference },
+                      pathname: `/presenters/${conf._id}`
+                    }}>
+                      <Button data-toggle="popover" title="View conference presenters" className="button">Presenters</Button>
+                    </Link>
+                  </Col>
+                  <Col sm={1}></Col>
+                  <Col sm={1}>
+                    <Link to={{
+                      state: { confInfo: conference },
+                      pathname: `/edit_conference/${conf._id}`
+                    }}>
+                      <Button data-toggle="popover" title="Edit this conference" className="button">Edit</Button>
+                    </Link>
+                  </Col>
+                  <Col sm={1}>
+                    <Link to={{
+                      state: { confInfo: conference },
+                      pathname: `/edit_schedule/${conf._id}`
+                    }}>
+                      <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
+                    </Link>
+                  </Col>
+                </Row>}
 
+              <Row>
                 {isAuthenticated &&
                   user.email !== conf.creatorEmail &&
                   cardAttendConf.indexOf(conf._id) >= 0 &&
                   <div>
-                    <Col sm={4}></Col>
+                    <Col sm={5}></Col>
                     <Col sm={1}>
                       <Link to={{
                         state: { confInfo: conference },
