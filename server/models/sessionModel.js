@@ -16,8 +16,6 @@ const sessionSchema = new Schema({
   },
   sessPresenterEmail: {
     type: String,
-    match: [/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, "Please enter a valid North American phone number"],
-    required: "Please enter the session presenter's email."
   },
   sessPresenterBio: {
     type: String

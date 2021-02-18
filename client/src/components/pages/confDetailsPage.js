@@ -9,9 +9,8 @@ import "./style.css";
 const ConfDetails = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState({});
-  const [presArray, setPresArray] = useState([]);
   const [sessArray, setSessArray] = useState([]);
-  const [searchBy, setSearchBy] = useState("allSess");
+  const [searchBy, setSearchBy] = useState("allPnS");
   const [search, setSearch] = useState("");
   const [pageReady, setPageReady] = useState(false);
 
@@ -38,7 +37,7 @@ const ConfDetails = () => {
     switch (searchBy) {
       case "sessionName":
         return data.filter((session) => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-      case "presenter":
+      case "presenterName":
         return data.filter((session) => session.sessPresenter.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       default:
         return (sessArray)
@@ -61,16 +60,19 @@ const ConfDetails = () => {
                   <Row>
                     <Form.Group controlId="sessSearchBy">
                       <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
-                        <option value="allSess">View All Sessions</option>
-                        <option value="sessionName">Search by Session Name</option>
-                        <option value="presenter">Search by Presenter</option>
+                        <option value="allPnS">View All</option>
+                        <option value="allPres">View Presenters</option>
+                        <option value="allSess">View Sessions</option>
+                        <option value="presenterName">Search by Presenter Name</option>
+                        <option value="presenterOrg">Search by Presenter Organization</option>
+                        <option value="sessionName">Search Sessions by Name</option>
                       </Form.Control>
                     </Form.Group>
                   </Row>
-                  {(searchBy !== "allSess") &&
+                  {(searchBy === "presenterName" || searchBy === "presenterOrg" || searchBy === "sessionName") &&
                     <Row>
                       <div id="sessPageSearch">
-                        <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search sessions" value={search} onChange={(e) => setSearch(e.target.value)} />
+                        <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                       </div>
                     </Row>}
                 </Form>
@@ -126,18 +128,35 @@ const ConfDetails = () => {
           </Row>
 
           <Row>
-            <Col sm={6}>
-              <h1>Presenters</h1>
-              {presArray.length > 0
-              ? <PresenterCard presenter={searchFilter(presArray)} />
-            : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
-            </Col>
-            <Col sm={6}>
-              <h1>Sessions</h1>
-              {sessArray.length > 0
-                ? <SessionCard session={searchFilter(sessArray)} />
-                : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
-            </Col>
+            {searchBy === "allPres" &&
+              <Col sm={12}>
+                <h1>Presenters</h1>
+                {sessArray.length > 0
+                  ? <PresenterCard session={searchFilter(sessArray)} />
+                  : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
+              </Col>}
+            {(searchBy === "allSess" || searchBy === "sessionName") &&
+              <Col sm={12}>
+                <h1>Sessions</h1>
+                {sessArray.length > 0
+                  ? <SessionCard session={searchFilter(sessArray)} />
+                  : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
+              </Col>}
+            {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
+              <div>
+                <Col sm={6}>
+                  <h1>Presenters</h1>
+                  {sessArray.length > 0
+                    ? <PresenterCard session={searchFilter(sessArray)} />
+                    : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
+                </Col>
+                <Col sm={6}>
+                  <h1>Sessions</h1>
+                  {sessArray.length > 0
+                    ? <SessionCard session={searchFilter(sessArray)} />
+                    : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
+                </Col>
+              </div>}
           </Row>
 
         </Container>
