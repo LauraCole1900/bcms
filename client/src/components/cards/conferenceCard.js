@@ -6,7 +6,7 @@ import Moment from "react-moment";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
-function Conference({ conference }) {
+const ConferenceCard = ({ conference }) => {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
   const location = useLocation();
@@ -210,4 +210,4 @@ function Conference({ conference }) {
 
 }
 
-export default Conference;
+export default ConferenceCard;
