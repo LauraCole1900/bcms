@@ -23,7 +23,10 @@ const ConfDetails = () => {
     // GET conference by ID
     ConferenceAPI.getConferenceById(confId)
       .then(resp => {
-        setConference(resp.data)
+        console.log("from confDetailsPage resp.data", resp.data)
+        const confObj = resp.data[0]
+        console.log({ confObj })
+        setConference(confObj)
       })
       .catch(err => console.log(err));
 
@@ -32,10 +35,11 @@ const ConfDetails = () => {
       .then(resp => {
         const sessArr = resp.data;
         setSessArray(sessArr);
-        setPageReady(true);
       })
       .catch(err => console.log(err))
-  }, [])
+
+    setPageReady(true);
+  }, [confId])
 
   // Filter response data by user input
   const searchFilter = (data) => {
@@ -114,7 +118,7 @@ const ConfDetails = () => {
               </ButtonGroup>
             </Col>
             {isAuthenticated &&
-              (user.email === conference.creatorEmail || conference[0].confAdmins.includes(user.email)) &&
+              (user.email === conference.creatorEmail || conference.confAdmins.includes(user.email)) &&
               <div>
                 <Col sm={4}></Col>
                 <Col sm={3}>

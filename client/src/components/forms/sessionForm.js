@@ -18,9 +18,6 @@ const SessionForm = () => {
   const urlId = urlArray[urlArray.length - 1]
   const sessType = urlArray[urlArray.length - 2]
 
-  const dateSplit = session.sessDate.split("T")
-  const sessD = dateSplit[0]
-
   useEffect(() => {
     switch (sessType) {
       // GET call to pre-populate the form if the URL indicates this is an existing session
@@ -109,7 +106,7 @@ const SessionForm = () => {
                     <Form.Group controlId="formSessWhen">
                       <Col sm={4}>
                         <Form.Label>Session date: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="date" name="sessDate" placeholder={conference.startDate} value={sessD} className="sessDate" onChange={handleInputChange} />
+                        <Form.Control required type="date" name="sessDate" placeholder={conference.startDate} value={session.sessDate} className="sessDate" onChange={handleInputChange} />
                       </Col>
                       <Col sm={4}>
                         <Form.Label>Session start time: <span className="red">*</span></Form.Label>
