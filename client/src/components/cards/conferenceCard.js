@@ -120,43 +120,28 @@ const ConferenceCard = ({ conference }) => {
                 <Row>
                   <Col sm={1}></Col>
                   <Col sm={1}>
-                    <Link to={{
-                      state: { confInfo: conference },
-                      pathname: `/attendees/${conf._id}`
-                    }}>
+                    <Link to={`/attendees/${conf._id}`} className={location.pathname === `/attendees/${conf._id}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="View conference attendees" className="button">Attendees</Button>
                     </Link>
                   </Col>
                   <Col sm={1}>
-                    <Link to={{
-                      state: { confInfo: conference },
-                      pathname: `/exhibitors/${conf._id}`
-                    }}>
+                    <Link to={`/exhibitors/${conf._id}`} className={location.pathname === `/exhibitors/${conf._id}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="View conference exhibitors" className="button">Exhibitors</Button>
                     </Link>
                   </Col>
                   <Col sm={1}>
-                    <Link to={{
-                      state: { confInfo: conference },
-                      pathname: `/presenters/${conf._id}`
-                    }}>
+                    <Link to={`/presenters/${conf._id}`} className={location.pathname === `/presenters/${conf._id}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="View conference presenters" className="button">Presenters</Button>
                     </Link>
                   </Col>
                   <Col sm={1}></Col>
                   <Col sm={1}>
-                    <Link to={{
-                      state: { confInfo: conference },
-                      pathname: `/edit_conference/${conf._id}`
-                    }}>
+                    <Link to={`/edit_conference/${conf._id}`} className={location.pathname === `/edit_conference/${conf._id}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit this conference" className="button">Edit</Button>
                     </Link>
                   </Col>
                   <Col sm={1}>
-                    <Link to={{
-                      state: { confInfo: conference },
-                      pathname: `/edit_schedule/${conf._id}`
-                    }}>
+                    <Link to={`/edit_schedule/${conf._id}`} className={location.pathname === `/edit_schedule/${conf._id}`}>
                       <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
                     </Link>
                   </Col>
@@ -169,18 +154,12 @@ const ConferenceCard = ({ conference }) => {
                   <div>
                     <Col sm={5}></Col>
                     <Col sm={1}>
-                      <Link to={{
-                        state: { confInfo: conference },
-                        pathname: `/unregister_confirm/${conf._id}`
-                      }}>
+                      <Link to={`/unregister_confirm/${conf._id}`} className={location.pathname === `/unregister_confirm/${conf._id}` ? "link active" : "link"}>
                         <Button data-toggle="popover" title="Unregister from this conference" className="button">Unregister</Button>
                       </Link>
                     </Col>
                     <Col sm={1}>
-                      <Link to={{
-                        state: { confInfo: conference },
-                        pathname: `/register_edit/${conf._id}`
-                      }}>
+                      <Link to={`/register_edit/${conf._id}`} className={location.pathname === `/register_edit/${conf._id}` ? "link active" : "link"}>
                         <Button data-toggle="popover" title="Edit your registration information" className="button">Edit registration</Button>
                       </Link>
                     </Col>
@@ -192,10 +171,7 @@ const ConferenceCard = ({ conference }) => {
                   <div>
                     <Col sm={4}></Col>
                     <Col sm={4}>
-                      <Link to={{
-                        state: { confInfo: conference },
-                        pathname: `/register_attend/${conf._id}`
-                      }}>
+                      <Link to={`/register_attend/${conf._id}`} className={location.pathname === `/register_attend/${conf._id}` ? "link active" : "link"}>
                         <Button data-toggle="popover" title="Register for this conference" className="button">Register</Button>
                       </Link>
                     </Col>
