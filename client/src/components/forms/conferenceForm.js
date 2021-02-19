@@ -117,7 +117,7 @@ const ConferenceForm = () => {
                   <Row>
                     <Col sm={12}>
                       <Form.Group controlId="formConfOrg">
-                        <Form.Label>Conference Organization: <span className="red">*</span></Form.Label>
+                        <Form.Label>Conference organization: <span className="red">*</span></Form.Label>
                         <Form.Control required type="input" name="confOrg" placeholder="Enter name of organizing body" value={conference.confOrg} className="confOrg" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
@@ -126,7 +126,7 @@ const ConferenceForm = () => {
                   <Row>
                     <Col sm={12}>
                       <Form.Group controlId="formConfDesc">
-                        <Form.Label>Conference Description: <span className="red">*</span></Form.Label>
+                        <Form.Label>Conference description: <span className="red">*</span></Form.Label>
                         <Form.Control required as="textarea" rows={10} type="input" name="confDesc" placeholder="Enter conference description" value={conference.confDesc} className="confDesc" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
@@ -140,11 +140,11 @@ const ConferenceForm = () => {
                   <Row className="rowSpace">
                     <Form.Group controlId="formConfDates">
                       <Col sm={4}>
-                        <Form.Label>Conference Start Date: <span className="red">*</span></Form.Label>
+                        <Form.Label>Conference start date: <span className="red">*</span></Form.Label>
                         <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={startD} className="startDate" onChange={handleInputChange} />
                       </Col>
                       <Col sm={4}>
-                        <Form.Label>Conference End Date: <span className="red">*</span></Form.Label>
+                        <Form.Label>Conference end date: <span className="red">*</span></Form.Label>
                         <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={endD} className="endDate" onChange={findNumDays} />
                       </Col>
                       {conference.startDate !== "" &&
@@ -158,11 +158,11 @@ const ConferenceForm = () => {
                   <Row className="rowSpace">
                     <Form.Group controlId="formConfTimes">
                       <Col sm={4}>
-                        <Form.Label>Conference Start Time: <span className="red">*</span></Form.Label>
+                        <Form.Label>Conference start time: <span className="red">*</span></Form.Label>
                         <Form.Control required type="time" name="confStartTime" placeholder="09:00" value={conference.confStartTime} className="confStartTime" onChange={handleInputChange} />
                       </Col>
                       <Col sm={4}>
-                        <Form.Label>Conference End Time: <span className="red">*</span></Form.Label>
+                        <Form.Label>Conference end time: <span className="red">*</span></Form.Label>
                         <Form.Control required type="time" name="confEndTime" placeholder="17:00" value={conference.confEndTime} className="confEndTime" onChange={handleInputChange} />
                       </Col>
                     </Form.Group>
@@ -193,7 +193,7 @@ const ConferenceForm = () => {
                       <Row>
                         <Col sm={12}>
                           <Form.Group controlId="formConfLocUrl">
-                            <Form.Label>Venue Website:</Form.Label>
+                            <Form.Label>Venue website:</Form.Label>
                             <Form.Control type="input" name="confLocUrl" placeholder="Enter URL of venue's website" value={conference.confLocUrl} className="confLocUrl" onChange={handleInputChange} />
                           </Form.Group>
                         </Col>

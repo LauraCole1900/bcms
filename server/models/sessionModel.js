@@ -16,6 +16,7 @@ const sessionSchema = new Schema({
   },
   sessPresenterEmail: {
     type: String,
+    required: "Please enter the session presenter's email."
   },
   sessPresenterBio: {
     type: String
@@ -44,7 +45,7 @@ const sessionSchema = new Schema({
     required: "Please enter the session's description."
   },
   sessKeynote: {
-    type: Boolean
+    type: String
   }
 })
 
