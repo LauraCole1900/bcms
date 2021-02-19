@@ -12,6 +12,7 @@ const PresenterCard = ({ session }) => {
   const confId = urlArray[urlArray.length - 1]
 
   useEffect(() => {
+    // GET call for sessions by conference ID
     SessionAPI.getSessions(confId)
       .then(resp => {
         console.log(resp.data)
@@ -21,6 +22,7 @@ const PresenterCard = ({ session }) => {
     setCardRender(true)
   }, [confId])
 
+  
   return (
     <>
       { cardRender === true &&
