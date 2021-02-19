@@ -45,6 +45,7 @@ const ConferenceForm = () => {
   const confOffset = new Date().getTimezoneOffset()
 
   useEffect(() => {
+    // GET call to pre-populate the form if the URL indicates this is an existing conference
     if (confId !== "new_conference") {
       ConferenceAPI.getConferenceById(confId)
         .then(resp => {
@@ -54,15 +55,18 @@ const ConferenceForm = () => {
         })
         .catch(err => console.log(err))
     } else {
+      // Puts the user's email in state as conference.creatorEmail
       setConference({ ...conference, creatorEmail: user.email })
     }
     setPageReady(true);
   }, []);
 
+  // Handles input changes to form fields
   const handleInputChange = (e) => {
     setConference({ ...conference, [e.target.name]: e.target.value })
   };
 
+  // Finds the length of the conference in days & adds that to conference info in state
   const findNumDays = (e) => {
     const confStart = new Date(conference.startDate)
     const confEnd = new Date(e.target.value)
@@ -70,21 +74,26 @@ const ConferenceForm = () => {
     setConference({ ...conference, [e.target.name]: e.target.value, numDays: confNumDays })
   };
 
+  // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
     console.log("Conference update", confId);
+    // PUT call to update conference document
     ConferenceAPI.updateConference({ ...conference }, confId)
       .then(history.push("/conference_updated"))
       .catch(err => console.log(err))
   }
 
+  // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Conference submit", conference)
+    // POST call to create conference document
     ConferenceAPI.createConference({ ...conference, creatorEmail: user.email })
       .then(history.push("/conference_created"))
       .catch(err => console.log(err));
   }
+
 
   return (
     <>
