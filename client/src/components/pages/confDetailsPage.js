@@ -9,7 +9,7 @@ import "./style.css";
 const ConfDetails = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
-  const [conference, setConference] = useState({});
+  const [conference, setConference] = useState([]);
   const [sessArray, setSessArray] = useState([]);
   const [searchBy, setSearchBy] = useState("allPnS");
   const [search, setSearch] = useState("");
@@ -19,17 +19,18 @@ const ConfDetails = () => {
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
 
+  const fetchConf = async (confId) => {
+    await ConferenceAPI.getConferenceById(confId)
+      .then(resp => {
+        console.log("confDetailsPage getConfsById", resp.data)
+        setConference(resp.data)
+      })
+      .catch(err => console.log(err))
+  }
+
   useEffect(() => {
     // GET conference by ID
-    ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
-        console.log("from confDetailsPage resp.data", resp.data)
-        const confObj = resp.data[0]
-        console.log({ confObj })
-        setConference(confObj)
-      })
-      .catch(err => console.log(err));
-
+    fetchConf(confId);
     // GET sessions by conference ID
     SessionAPI.getSessions(confId)
       .then(resp => {
@@ -118,7 +119,7 @@ const ConfDetails = () => {
               </ButtonGroup>
             </Col>
             {isAuthenticated &&
-              (user.email === conference.creatorEmail || conference.confAdmins.includes(user.email)) &&
+              user.email === conference.creatorEmail &&
               <div>
                 <Col sm={4}></Col>
                 <Col sm={3}>

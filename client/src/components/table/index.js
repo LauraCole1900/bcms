@@ -170,8 +170,8 @@ const TableComp = (e) => {
         break;
       default:
         fetchAttendees(confId);
-        setPageReady(true);
-    }
+      }
+      setPageReady(true);
   }, [confId, dataSet])
 
   return (
