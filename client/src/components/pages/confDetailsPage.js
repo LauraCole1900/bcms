@@ -13,6 +13,8 @@ const ConfDetails = () => {
   const [sessArray, setSessArray] = useState([]);
   const [searchBy, setSearchBy] = useState("allPnS");
   const [search, setSearch] = useState("");
+  const [confReady, setConfReady] = useState(false);
+  const [sessReady, setSessReady] = useState(false);
   const [pageReady, setPageReady] = useState(false);
 
   // Pull conference ID from URL
@@ -23,21 +25,30 @@ const ConfDetails = () => {
     await ConferenceAPI.getConferenceById(confId)
       .then(resp => {
         console.log("confDetailsPage getConfsById", resp.data)
-        setConference(resp.data)
+        const confObj = resp.data.slice(0)
+        setConference(confObj)
       })
       .catch(err => console.log(err))
+
+    setConfReady(true);
+  }
+
+  const fetchSess = async (confId) => {
+    await SessionAPI.getSessions(confId)
+      .then(resp => {
+        const sessArr = resp.data;
+        setSessArray(sessArr);
+      })
+      .catch(err => console.log(err))
+
+    setSessReady(true);
   }
 
   useEffect(() => {
     // GET conference by ID
     fetchConf(confId);
     // GET sessions by conference ID
-    SessionAPI.getSessions(confId)
-      .then(resp => {
-        const sessArr = resp.data;
-        setSessArray(sessArr);
-      })
-      .catch(err => console.log(err))
+    fetchSess(confId);
 
     setPageReady(true);
   }, [confId])
@@ -60,7 +71,9 @@ const ConfDetails = () => {
 
   return (
     <>
-      {pageReady === true &&
+      {confReady === true &&
+        sessReady === true &&
+        pageReady === true &&
         <Container>
           <Row>
             <Col sm={8}>
@@ -119,7 +132,7 @@ const ConfDetails = () => {
               </ButtonGroup>
             </Col>
             {isAuthenticated &&
-              user.email === conference.creatorEmail &&
+              (user.email === conference[0].creatorEmail || conference[0].confAdmins.includes(user.email)) &&
               <div>
                 <Col sm={4}></Col>
                 <Col sm={3}>
