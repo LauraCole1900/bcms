@@ -62,14 +62,14 @@ const ConferenceCard = ({ conference }) => {
             </Card.Header>
             <Card.Body className="cardBody">
               <Row>
-                <Col sm={8}>
+                <Col sm={7}>
                   {(conf.confWaiver === "yes") &&
                     <div className="alert">
                       <h5>A signed liability waiver will be required to participate in this event. It will be available at check-in to the event.</h5>
                     </div>}
                   <Card.Text>{conf.confDesc}</Card.Text>
                 </Col>
-                <Col sm={4} className="vitals">
+                <Col sm={5} className="vitals">
                   {conf.numDays === 1
                     ? <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - {conf.confEndTime}</p></Row></div>
                     : <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - <Moment format="ddd, D MMM YYYY" withTitle>{conf.endDate}</Moment> @{conf.confEndTime}</p></Row></div>}
@@ -134,10 +134,10 @@ const ConferenceCard = ({ conference }) => {
                       <Button data-toggle="popover" title="View conference presenters" className="button">Presenters</Button>
                     </Link>
                   </Col>
-                  <Col sm={1}></Col>
+                  <Col sm={5}></Col>
                   <Col sm={1}>
                     <Link to={`/edit_conference/${conf._id}`} className={location.pathname === `/edit_conference/${conf._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit this conference" className="button">Edit</Button>
+                      <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
                     </Link>
                   </Col>
                   <Col sm={1}>

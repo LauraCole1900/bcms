@@ -8,43 +8,59 @@ import "./style.css";
 const SessionForm = () => {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
-  const [pageReady, setPageReady] = useState(false);
   const [session, setSession] = useState();
   const [conference, setConference] = useState();
+  const [confReady, setConfReady] = useState(false);
+  const [sessReady, setSessReady] = useState(false);
+  const [pageReady, setPageReady] = useState(false);
 
   // Grabs conference ID from URL for new sessions or session ID from URL for existing sessions
   // Uses URL to determine whether this is a new session or an existing session
+  // If sessType === add_session, then urlId === confId
+  // If sessType === edit_session, then urlId === sessId
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const sessType = urlArray[urlArray.length - 2]
+
+  const fetchSess = (sessid) => {
+    SessionAPI.getSessionById(sessid)
+      .then(resp => {
+        console.log("from sessForm getSessById", resp.data)
+        const sessArr = resp.data
+        setSession(sessArr)
+        setSessReady(true);
+      })
+      .catch(err => console.log(err))
+  }
+
+  const fetchConf = (confid) => {
+    ConferenceAPI.getConferenceById(confid)
+      .then(resp => {
+        console.log("from sessForm getConfById", resp.data)
+        const confObj = resp.data[0]
+        setConference(confObj)
+        setConfReady(true);
+      })
+      .catch(err => console.log(err))
+  }
 
   useEffect(() => {
     switch (sessType) {
       // GET call to pre-populate the form if the URL indicates this is an existing session
       case "edit_session":
-        SessionAPI.getSessionById(urlId)
-          .then(resp => {
-            console.log("from sessForm getSessById", resp.data)
-            const sessArr = resp.data
-            setSession(sessArr)
-          })
-          .catch(err => console.log(err))
+        fetchSess(urlId);
+        fetchConf(session[0].confId);
         break;
       // Puts conference ID in state as session.confId
       default:
         setSession({ ...session, confId: urlId })
+        fetchConf(urlId);
+        setSessReady(true);
     }
 
-    ConferenceAPI.getConferenceById(session.confId)
-      .then(resp => {
-        console.log("from sessForm getConfById", resp.data)
-        const confObj = resp.data[0]
-        setConference(confObj)
-      })
-      .catch(err => console.log(err))
 
     setPageReady(true);
-  }, [urlId, sessType, session])
+  }, [sessType, session, urlId])
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -74,7 +90,9 @@ const SessionForm = () => {
 
   return (
     <>
-      {pageReady === true &&
+      {confReady === true &&
+        sessReady === true &&
+        pageReady === true &&
         isAuthenticated &&
         (user.email === conference.creatorEmail || conference.confAdmins.includes(user.email)(
           <Container>
