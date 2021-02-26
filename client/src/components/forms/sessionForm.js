@@ -22,33 +22,51 @@ const SessionForm = () => {
   const sessType = urlArray[urlArray.length - 2]
 
   const fetchSess = async (sessid) => {
-    await SessionAPI.getSessionById(sessid)
+    return SessionAPI.getSessionById(sessid)
       .then(resp => {
         console.log("from sessForm getSessById", resp.data)
         const sessObj = resp.data[0]
         setSession(sessObj)
-        setSessReady(true);
+        return sessObj
       })
-      .then(fetchConf(session.confId))
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        return false;
+      })
   }
 
-  const fetchConf = (confid) => {
-    ConferenceAPI.getConferenceById(confid)
-      .then(resp => {
-        console.log("from sessForm getConfById", resp.data)
-        const confObj = resp.data[0]
-        setConference(confObj)
-        setConfReady(true);
-      })
-      .catch(err => console.log(err))
+  const fetchConf = async (confid) => {
+    switch (sessType) {
+      case "edit_session":
+        let sessObj = await fetchSess(confid)
+        console.log({ sessObj });
+        ConferenceAPI.getConferenceById(sessObj.confId)
+          .then(resp => {
+            console.log("from sessForm getConfById", resp.data)
+            const confObj = resp.data[0]
+            setConference(confObj)
+            setSessReady(true);
+            setConfReady(true);
+          })
+          .catch(err => console.log(err))
+        break;
+      default:
+        ConferenceAPI.getConferenceById(confid)
+          .then(resp => {
+            console.log("from sessForm getConfById", resp.data)
+            const confObj = resp.data[0]
+            setConference(confObj)
+            setConfReady(true);
+          })
+          .catch(err => console.log(err))
+    }
   }
 
   useEffect(() => {
     switch (sessType) {
       // GET call to pre-populate the form if the URL indicates this is an existing session
       case "edit_session":
-        fetchSess(urlId);
+        fetchConf(urlId);
         break;
       // Puts conference ID in state as session.confId
       default:

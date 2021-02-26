@@ -15,7 +15,6 @@ const ConfDetails = () => {
   const [search, setSearch] = useState("");
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
-  const [pageReady, setPageReady] = useState(false);
 
   // Pull conference ID from URL
   const urlArray = window.location.href.split("/")
@@ -51,7 +50,6 @@ const ConfDetails = () => {
     // GET sessions by conference ID
     fetchSess(confId);
 
-    setPageReady(true);
   }, [confId])
 
   // Filter response data by user input
@@ -74,7 +72,6 @@ const ConfDetails = () => {
     <>
       {confReady === true &&
         sessReady === true &&
-        pageReady === true &&
         <Container>
           <Row>
             <Col sm={8}>

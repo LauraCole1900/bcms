@@ -19,7 +19,7 @@ const PresenterCard = (props) => {
     <>
       { cardRender === true &&
         props.session.map(sess => (
-          <Card className="card" key={sess._id}>
+          <Card className="infoCard" key={sess._id}>
             <Card.Header className="cardTitle">
               <Row>
                 <Col sm={12}>
@@ -28,7 +28,7 @@ const PresenterCard = (props) => {
                 </Col>
               </Row>
             </Card.Header>
-            <Card.Body className="cardBody">
+            <Card.Body className="infoCardBody">
               <Row>
                 <Col sm={8}>
                   <Card.Text>{sess.sessPresenterBio}</Card.Text>

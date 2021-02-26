@@ -26,7 +26,7 @@ const UserCard = () => {
     <>
       { pageReady === true &&
         isAuthenticated &&
-        <Card className="userCard">
+        <Card className="infoCard">
           <Row>
             <Col sm={2}>
               <Image fluid className="profilePic" src={userInfo.picture} alt="Profile picture" />

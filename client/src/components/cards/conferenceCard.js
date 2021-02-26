@@ -44,7 +44,7 @@ const ConferenceCard = ({ conference }) => {
     <>
       {(cardRender === true) &&
         conference.map(conf => (
-          <Card className="card" key={conf._id}>
+          <Card className="infoCard" key={conf._id}>
             <Card.Header className="cardTitle">
               <Row>
                 <Col sm={11}>
@@ -60,7 +60,7 @@ const ConferenceCard = ({ conference }) => {
                 </Col>
               </Row>
             </Card.Header>
-            <Card.Body className="cardBody">
+            <Card.Body className="infoCardBody">
               <Row>
                 <Col sm={7}>
                   {(conf.confWaiver === "yes") &&
