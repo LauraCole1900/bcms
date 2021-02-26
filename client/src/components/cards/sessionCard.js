@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, SessionAPI } from "../../utils/api";
@@ -8,8 +8,7 @@ import "./style.css";
 const SessionCard = (props) => {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
-  // const [conference, setConference] = useState();
-  // const [sessions, setSessions] = useState();
+  const location = useLocation();
   const [cardRender, setCardRender] = useState(false);
 
   // Grab conference ID from URL
@@ -22,13 +21,6 @@ const SessionCard = (props) => {
     SessionAPI.deleteSession(sessId)
       .then(history.push("/deleted"))
       .catch(err => console.log(err))
-  };
-
-  function handleEdit(sessId) {
-    console.log("from sessCard handleEdit", sessId)
-    SessionAPI.updateSession(sessId)
-    .then(history.push("/session_updated"))
-    .catch(err => console.log(err))
   };
 
   useEffect(() => {
@@ -77,7 +69,9 @@ const SessionCard = (props) => {
               <Row>
                 <Col sm={1}></Col>
                   <Col sm={5}>
-              <Button data-toggle="popover" title="Edit this session" className="button" onClick={() => handleEdit(sess._id)}>Edit Session</Button>
+                  <Link to={`/edit_session/${sess._id}`} className={location.pathname === `/edit_session/${sess._id}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Edit session" className="button">Edit Session</Button>
+                    </Link>
                 </Col>
                 </Row>}
             </Card.Body>
