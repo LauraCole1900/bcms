@@ -134,15 +134,20 @@ const ConferenceCard = ({ conference }) => {
                       <Button data-toggle="popover" title="View conference presenters" className="button">Presenters</Button>
                     </Link>
                   </Col>
-                  <Col sm={5}></Col>
-                  <Col sm={1}>
+                  <Col sm={1}></Col>
+                  <Col sm={2}>
                     <Link to={`/edit_conference/${conf._id}`} className={location.pathname === `/edit_conference/${conf._id}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
                     </Link>
                   </Col>
-                  <Col sm={1}>
+                  <Col sm={2}>
                     <Link to={`/edit_schedule/${conf._id}`} className={location.pathname === `/edit_schedule/${conf._id}`}>
                       <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
+                    </Link>
+                  </Col>
+                  <Col sm={2}>
+                    <Link to={`/add_session/${conf._id}`} className={location.pathname === `/add_session/${conf._id}`}>
+                      <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
                     </Link>
                   </Col>
                 </Row>}

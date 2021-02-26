@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useLocation, Link } from "react-router-dom";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ConferenceAPI, SessionAPI } from "../../utils/api";
+import Moment from "react-moment";
+import { SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const SessionCard = (props) => {
@@ -60,7 +61,7 @@ const SessionCard = (props) => {
                   <Card.Text>{sess.sessDesc}</Card.Text>
                 </Col>
                 <Col sm={4}>
-                  <Row><p>Date: {sess.sessDate}</p></Row>
+                  <Row><p>Date: <Moment format="ddd, D MMM YYYY" withTitle>{sess.sessDate}</Moment></p></Row>
                   <Row><p>Time: {sess.sessStart} - {sess.sessEnd}</p></Row>
                 </Col>
               </Row>

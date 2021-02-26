@@ -35,13 +35,6 @@ const ConferenceForm = () => {
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
 
-  const startSplit = conference.startDate.split("T")
-  const startD = startSplit[0]
-  const endSplit = conference.endDate.split("T")
-  const endD = endSplit[0]
-  const regSplit = conference.confRegDeadline.split("T")
-  const regD = regSplit[0]
-
   const confOffset = new Date().getTimezoneOffset()
 
   useEffect(() => {
@@ -141,11 +134,11 @@ const ConferenceForm = () => {
                     <Form.Group controlId="formConfDates">
                       <Col sm={4}>
                         <Form.Label>Conference start date: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={startD} className="startDate" onChange={handleInputChange} />
+                        <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={conference.startDate} className="startDate" onChange={handleInputChange} />
                       </Col>
                       <Col sm={4}>
                         <Form.Label>Conference end date: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="date" name="endDate" placeholder="2021/01/01" value={endD} className="endDate" onChange={findNumDays} />
+                        <Form.Control required type="date" min={conference.startDate} name="endDate" placeholder="2021/01/01" value={conference.endDate} className="endDate" onChange={findNumDays} />
                       </Col>
                       {conference.startDate !== "" &&
                         conference.endDate !== "" &&
@@ -233,7 +226,7 @@ const ConferenceForm = () => {
                       <Form.Group controlId="formRegDeadline">
                         <Form.Label>Registration deadline: <span className="red">*</span></Form.Label><br />
                         <Form.Text className="subtitle" muted>If attendees may register through the entire conference, please enter the conference's end date.</Form.Text>
-                        <Form.Control required type="date" name="confRegDeadline" placeholder="2021/01/01" value={regD} className="confRegDeadline" onChange={handleInputChange} />
+                        <Form.Control required type="date" max={conference.endDate} name="confRegDeadline" placeholder="2021/01/01" value={conference.confRegDeadline} className="confRegDeadline" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -271,7 +264,7 @@ const ConferenceForm = () => {
                         <Col sm={4}>
                           <Form.Group controlId="formEarlyRegDeadline">
                             <Form.Label>Early registration deadline:</Form.Label>
-                            <Form.Control required type="date" name="confEarlyRegDeadline" placeholder="2021/01/01" value={conference.confEarlyRegDeadline} className="confEarlyRegDeadline" onChange={handleInputChange} />
+                            <Form.Control required type="date" max={conference.endDate} name="confEarlyRegDeadline" placeholder="2021/01/01" value={conference.confEarlyRegDeadline} className="confEarlyRegDeadline" onChange={handleInputChange} />
                           </Form.Group>
                         </Col>
 

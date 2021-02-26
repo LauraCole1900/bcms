@@ -33,7 +33,7 @@ const PresenterCard = (props) => {
                 <Col sm={8}>
                   <Card.Text>{sess.sessPresenterBio}</Card.Text>
                 </Col>
-                {sess.sessPresenterPic !== undefined &&
+                {props.session.sessPresenterPic !== undefined &&
                   <Col sm={4}>
                     <Image src={sess.presPresenterPic} alt={sess.sessPresenter} />
                   </Col>}

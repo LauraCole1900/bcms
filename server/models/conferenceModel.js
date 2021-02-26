@@ -19,11 +19,11 @@ const conferenceSchema = new Schema({
     required: "Please enter the description of your conference."
   },
   startDate: {
-    type: Date,
+    type: String,
     required: "Please enter your conference's starting date."
   },
   endDate: {
-    type: Date,
+    type: String,
     required: "Please enter your conference's ending date."
   },
   numDays: {
@@ -52,7 +52,7 @@ const conferenceSchema = new Schema({
     type: String
   },
   confRegDeadline: {
-    type: Date,
+    type: String,
     required: "Please enter a registration deadline. If there is no registration deadline, please enter the conference's end date."
   },
   confCapConfirm: {
@@ -74,7 +74,7 @@ const conferenceSchema = new Schema({
     required: "Please select whether there is a deadline for early registration."
   },
   confEarlyRegDeadline: {
-    type: Date
+    type: String
   },
   confEarlyRegFee: {
     type: String

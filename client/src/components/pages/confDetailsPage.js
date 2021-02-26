@@ -129,21 +129,6 @@ const ConfDetails = () => {
                 </Link>
               </ButtonGroup>
             </Col>
-            {isAuthenticated &&
-              (user.email === conference[0].creatorEmail || conference[0].confAdmins.includes(user.email)) &&
-              <div>
-                <Col sm={4}></Col>
-                <Col sm={3}>
-                  <ButtonGroup data-toggle="popover">
-                    <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit schedule" className="button">Edit Schedule</Button>
-                    </Link>
-                    <Link to={`/add_session/${confId}`} className={location.pathname === `/add_session/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Add session" className="button">Add Session</Button>
-                    </Link>
-                  </ButtonGroup>
-                </Col>
-              </div>}
           </Row>
 
           <Row>

@@ -44,7 +44,7 @@ const SessionForm = () => {
         let sessObj = await fetchSess(confid)
         console.log({ sessObj });
         // Use response from fetchSess() to GET conference information
-        ConferenceAPI.getConferenceById(sessObj.confId)
+        await ConferenceAPI.getConferenceById(sessObj.confId)
           .then(resp => {
             console.log("from sessForm getConfById", resp.data)
             const confObj = resp.data[0]
@@ -57,7 +57,7 @@ const SessionForm = () => {
       // New session
       default:
         // Use ID in URL to GET conference information
-        ConferenceAPI.getConferenceById(confid)
+        await ConferenceAPI.getConferenceById(confid)
           .then(resp => {
             console.log("from sessForm getConfById", resp.data)
             const confObj = resp.data[0]
@@ -79,6 +79,7 @@ const SessionForm = () => {
         setSession({ ...session, confId: urlId })
         setSessReady(true);
         fetchConf(urlId);
+
     }
   }, [])
 
@@ -143,7 +144,7 @@ const SessionForm = () => {
                   <Form.Group controlId="formSessWhen">
                     <Col sm={4}>
                       <Form.Label>Session date: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="date" name="sessDate" placeholder={conference.startDate} value={session.sessDate} className="sessDate" onChange={handleInputChange} />
+                      <Form.Control required type="date" min={conference.startDate} max={conference.endDate} name="sessDate" placeholder={conference.startDate} value={session.sessDate} className="sessDate" onChange={handleInputChange} />
                     </Col>
                     <Col sm={4}>
                       <Form.Label>Session start time: <span className="red">*</span></Form.Label>
@@ -172,6 +173,15 @@ const SessionForm = () => {
               <Card.Title><h1>Presenter Information</h1></Card.Title>
 
               <Card.Body className="cardBody">
+                <Form.Group controlId="formSessNumPres">
+                  <Row>
+                    <Col sm={3}>
+                      <Form.Label>Number of presenters: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="number" min="1" max="15" name="sessNumPres" placeholder="Enter a number, 1-15" value={session.sessNumPres} className="sessNumPres" onChange={handleInputChange} />
+                    </Col>
+                  </Row>
+                </Form.Group>
+
                 <Form.Group controlId="sessPresName">
                   <Row>
                     <Col sm={6}>
@@ -195,7 +205,7 @@ const SessionForm = () => {
                   <Col sm={12}>
                     <Form.Group controlId="sessPresBio">
                       <Form.Label>Presenter's bio:</Form.Label>
-                      <Form.Control as="textarea" rows={10} type="input" name="sessPresenterBio" placeholder="Enter a short bio of the presenter" value={session.sessPresenterBio} className="sessPresenterBio" onChange={handleInputChange} />
+                      <Form.Control as="textarea" rows={5} type="input" name="sessPresenterBio" placeholder="Enter a short bio of the presenter" value={session.sessPresenterBio} className="sessPresenterBio" onChange={handleInputChange} />
                     </Form.Group>
                   </Col>
                 </Row>
