@@ -56,9 +56,9 @@ module.exports = {
 	
   // DELETE session
 	removeSession: function (req, res) {
-    console.log("from sessCont removeSession", req.params.sessId)
+    console.log("from sessCont removeSession", req.params.id)
 		db.Session
-			.findById({ _id: req.params.sessId })
+			.findById({ _id: req.params.id })
 			.then(dbModel => dbModel.remove())
 			.then(dbModel => res.json(dbModel))
 			.catch(err => res.status(422).json(err));

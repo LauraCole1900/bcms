@@ -22,6 +22,7 @@ const SessionForm = () => {
   const sessType = urlArray[urlArray.length - 2]
 
   const fetchSess = async (sessid) => {
+    // Edit existing session: GET session information
     return SessionAPI.getSessionById(sessid)
       .then(resp => {
         console.log("from sessForm getSessById", resp.data)
@@ -37,9 +38,12 @@ const SessionForm = () => {
 
   const fetchConf = async (confid) => {
     switch (sessType) {
+      // Edit existing session
       case "edit_session":
+        // Call fetchSess()
         let sessObj = await fetchSess(confid)
         console.log({ sessObj });
+        // Use response from fetchSess() to GET conference information
         ConferenceAPI.getConferenceById(sessObj.confId)
           .then(resp => {
             console.log("from sessForm getConfById", resp.data)
@@ -50,7 +54,9 @@ const SessionForm = () => {
           })
           .catch(err => console.log(err))
         break;
+      // New session
       default:
+        // Use ID in URL to GET conference information
         ConferenceAPI.getConferenceById(confid)
           .then(resp => {
             console.log("from sessForm getConfById", resp.data)
