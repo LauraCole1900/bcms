@@ -144,7 +144,7 @@ const SessionForm = () => {
                   <Form.Group controlId="formSessWhen">
                     <Col sm={4}>
                       <Form.Label>Session date: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="date" min={conference.startDate} max={conference.endDate} name="sessDate" placeholder={conference.startDate} value={session.sessDate} className="sessDate" onChange={handleInputChange} />
+                      <Form.Control required type="date" min={conference.startDate} max={conference.endDate} name="sessDate" value={session.sessDate} className="sessDate" onChange={handleInputChange} />
                     </Col>
                     <Col sm={4}>
                       <Form.Label>Session start time: <span className="red">*</span></Form.Label>

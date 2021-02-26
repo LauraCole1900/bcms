@@ -44,7 +44,7 @@ const SessionCard = (props) => {
               <Row>
                 <Col sm={11}>
                   <h2>{sess.sessName}</h2>
-                  <p>{sess.sessPresenter}</p>
+                  <p>{sess.sessPresenter}, {sess.sessPresenterOrg}</p>
                 </Col>
                 <Col sm={1}>
                   {isAuthenticated &&
