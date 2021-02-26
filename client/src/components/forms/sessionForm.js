@@ -111,7 +111,7 @@ const SessionForm = () => {
         <Container>
           <Form className="sessForm">
 
-            <Card className="sessCard">
+            <Card className="formCard">
               <Card.Title><h1>Basic Information</h1></Card.Title>
 
               <Card.Body className="cardBody">
@@ -162,7 +162,7 @@ const SessionForm = () => {
               </Card.Body>
             </Card>
 
-            <Card>
+            <Card className="formCard">
               <Card.Title><h1>Presenter Information</h1></Card.Title>
 
               <Card.Body className="cardBody">
