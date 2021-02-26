@@ -21,14 +21,15 @@ const SessionForm = () => {
   const urlId = urlArray[urlArray.length - 1]
   const sessType = urlArray[urlArray.length - 2]
 
-  const fetchSess = (sessid) => {
-    SessionAPI.getSessionById(sessid)
+  const fetchSess = async (sessid) => {
+    await SessionAPI.getSessionById(sessid)
       .then(resp => {
         console.log("from sessForm getSessById", resp.data)
-        const sessArr = resp.data
-        setSession(sessArr)
+        const sessObj = resp.data[0]
+        setSession(sessObj)
         setSessReady(true);
       })
+      .then(fetchConf(session.confId))
       .catch(err => console.log(err))
   }
 
@@ -48,7 +49,6 @@ const SessionForm = () => {
       // GET call to pre-populate the form if the URL indicates this is an existing session
       case "edit_session":
         fetchSess(urlId);
-        fetchConf(session[0].confId);
         break;
       // Puts conference ID in state as session.confId
       default:
@@ -90,111 +90,111 @@ const SessionForm = () => {
         sessReady === true &&
         confReady === true &&
         (user.email === conference.creatorEmail || conference.confAdmins.includes(user.email)) &&
-          <Container>
-            <Form className="sessForm">
+        <Container>
+          <Form className="sessForm">
 
-              <Card className="sessCard">
-                <Card.Title><h1>Basic Information</h1></Card.Title>
+            <Card className="sessCard">
+              <Card.Title><h1>Basic Information</h1></Card.Title>
 
-                <Card.Body className="cardBody">
-                  <Row>
-                    <Col sm={12}>
-                      <Form.Group controlId="formSessName">
-                        <Form.Label>Name of session: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="input" name="sessName" placeholder="Enter session name" value={session.sessName} className="sessName" onChange={handleInputChange} />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col sm={12}>
-                      <Form.Group controlId="formSessDesc">
-                        <Form.Label>Session description: <span className="red">*</span></Form.Label>
-                        <Form.Control required as="textarea" rows={10} type="input" name="sessDesc" placeholder="Enter session description" value={session.sessDesc} className="sessDesc" onChange={handleInputChange} />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Form.Group controlId="formSessWhen">
-                      <Col sm={4}>
-                        <Form.Label>Session date: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="date" name="sessDate" placeholder={conference.startDate} value={session.sessDate} className="sessDate" onChange={handleInputChange} />
-                      </Col>
-                      <Col sm={4}>
-                        <Form.Label>Session start time: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="time" name="sessStart" placeholder="09:00" value={session.sessStart} className="sessStart" onChange={handleInputChange} />
-                      </Col>
-                      <Col sm={4}>
-                        <Form.Label>Session end time: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="time" name="sessEnd" placeholder="10:00" value={session.sessEnd} className="sessEnd" onChange={handleInputChange} />
-                      </Col>
+              <Card.Body className="cardBody">
+                <Row>
+                  <Col sm={12}>
+                    <Form.Group controlId="formSessName">
+                      <Form.Label>Name of session: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="sessName" placeholder="Enter session name" value={session.sessName} className="sessName" onChange={handleInputChange} />
                     </Form.Group>
-                  </Row>
+                  </Col>
+                </Row>
 
-                  <Row>
-                    <Col sm={12}>
-                      <Form.Group controlId="formSessKeynote">
-                        <Form.Label>Is this a keynote session? <span className="red">*</span></Form.Label>
-                        <Form.Check type="radio" id="sessKeyYes" name="sessKeynote" label="Yes" value="yes" checked={session.sessKeynote === "yes"} onChange={handleInputChange} />
-                        <Form.Check type="radio" id="sessKeyNo" name="sessKeynote" label="No" value="no" checked={session.sessKeynote === "no"} onChange={handleInputChange} />
-                      </Form.Group>
+                <Row>
+                  <Col sm={12}>
+                    <Form.Group controlId="formSessDesc">
+                      <Form.Label>Session description: <span className="red">*</span></Form.Label>
+                      <Form.Control required as="textarea" rows={10} type="input" name="sessDesc" placeholder="Enter session description" value={session.sessDesc} className="sessDesc" onChange={handleInputChange} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Form.Group controlId="formSessWhen">
+                    <Col sm={4}>
+                      <Form.Label>Session date: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="date" name="sessDate" placeholder={conference.startDate} value={session.sessDate} className="sessDate" onChange={handleInputChange} />
                     </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
-
-              <Card>
-                <Card.Title><h1>Presenter Information</h1></Card.Title>
-
-                <Card.Body className="cardBody">
-                  <Form.Group controlId="sessPresName">
-                    <Row>
-                      <Col sm={6}>
-                        <Form.Label>Presenter's name: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="input" name="sessPresenter" placeholder="Enter presenter's name" value={session.sessPresenter} className="sessPresenter" onChange={handleInputChange} />
-                      </Col>
-                      <Col sm={6}>
-                        <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="email" name="sessPresenterEmail" placeholder="name@email.com" value={session.sessPresenterEmail} className="sessPresenterEmail" onChange={handleInputChange} />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col sm={12}>
-                        <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
-                        <Form.Control required type="input" name="sessPresenterOrg" placeholder="Enter organization the presenter represents" value={session.sessPresenterOrg} className="sessPresenterOrg" onChange={handleInputChange} />
-                      </Col>
-                    </Row>
+                    <Col sm={4}>
+                      <Form.Label>Session start time: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="time" name="sessStart" placeholder="09:00" value={session.sessStart} className="sessStart" onChange={handleInputChange} />
+                    </Col>
+                    <Col sm={4}>
+                      <Form.Label>Session end time: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="time" name="sessEnd" placeholder="10:00" value={session.sessEnd} className="sessEnd" onChange={handleInputChange} />
+                    </Col>
                   </Form.Group>
+                </Row>
 
+                <Row>
+                  <Col sm={12}>
+                    <Form.Group controlId="formSessKeynote">
+                      <Form.Label>Is this a keynote session? <span className="red">*</span></Form.Label>
+                      <Form.Check type="radio" id="sessKeyYes" name="sessKeynote" label="Yes" value="yes" checked={session.sessKeynote === "yes"} onChange={handleInputChange} />
+                      <Form.Check type="radio" id="sessKeyNo" name="sessKeynote" label="No" value="no" checked={session.sessKeynote === "no"} onChange={handleInputChange} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+
+            <Card>
+              <Card.Title><h1>Presenter Information</h1></Card.Title>
+
+              <Card.Body className="cardBody">
+                <Form.Group controlId="sessPresName">
                   <Row>
-                    <Col sm={12}>
-                      <Form.Group controlId="sessPresBio">
-                        <Form.Label>Presenter's bio:</Form.Label>
-                        <Form.Control as="textarea" rows={10} type="input" name="sessPresenterBio" placeholder="Enter a short bio of the presenter" value={session.sessPresenterBio} className="sessPresenterBio" onChange={handleInputChange} />
-                      </Form.Group>
+                    <Col sm={6}>
+                      <Form.Label>Presenter's name: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="sessPresenter" placeholder="Enter presenter's name" value={session.sessPresenter} className="sessPresenter" onChange={handleInputChange} />
+                    </Col>
+                    <Col sm={6}>
+                      <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="email" name="sessPresenterEmail" placeholder="name@email.com" value={session.sessPresenterEmail} className="sessPresenterEmail" onChange={handleInputChange} />
                     </Col>
                   </Row>
-
                   <Row>
                     <Col sm={12}>
-                      <Form.Group controlId="formPresPic">
-                        <Form.Label>Upload presenter's picture:</Form.Label>
-                        <Form.Control type="input" name="sessPresenterPic" placeholder="URL for presenter's picture" value={session.sessPresenterPic} className="sessPresenterPic" onChange={handleInputChange} />
-                      </Form.Group>
+                      <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="sessPresenterOrg" placeholder="Enter organization the presenter represents" value={session.sessPresenterOrg} className="sessPresenterOrg" onChange={handleInputChange} />
                     </Col>
                   </Row>
-                </Card.Body>
-              </Card>
+                </Form.Group>
 
-              <Row>
-                {(sessType === "edit_session")
-                  ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                  : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
-              </Row>
+                <Row>
+                  <Col sm={12}>
+                    <Form.Group controlId="sessPresBio">
+                      <Form.Label>Presenter's bio:</Form.Label>
+                      <Form.Control as="textarea" rows={10} type="input" name="sessPresenterBio" placeholder="Enter a short bio of the presenter" value={session.sessPresenterBio} className="sessPresenterBio" onChange={handleInputChange} />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-            </Form>
-          </Container>}
+                <Row>
+                  <Col sm={12}>
+                    <Form.Group controlId="formPresPic">
+                      <Form.Label>Upload presenter's picture:</Form.Label>
+                      <Form.Control type="input" name="sessPresenterPic" placeholder="URL for presenter's picture" value={session.sessPresenterPic} className="sessPresenterPic" onChange={handleInputChange} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+
+            <Row>
+              {(sessType === "edit_session")
+                ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+            </Row>
+
+          </Form>
+        </Container>}
     </>
   )
 

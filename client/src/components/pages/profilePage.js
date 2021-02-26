@@ -156,7 +156,7 @@ const ProfilePage = () => {
         setPageReady(true);
         break;
     }
-  }, [attendConf])
+  }, [pageReady])
 
   return (
     <>
