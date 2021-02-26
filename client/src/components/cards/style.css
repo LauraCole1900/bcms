@@ -26,7 +26,7 @@ a:visited {
   color: #2f3028;
 }
 
-.confCard {
+.card {
   background: linear-gradient(to bottom, #e2e2e2, #878992);
   border: 2px solid #11130b;
   border-radius: 12px;
@@ -34,11 +34,19 @@ a:visited {
   padding-right: 25px;
 }
 
-.confTitle {
+.cardTitle {
   color: #cfbfa5;
   background: linear-gradient(to top, #899168, #2d321e);
   border-radius: 11px 11px 0 0;
   margin-right: -25px;
+}
+
+.sessCard {
+  background: linear-gradient(to bottom, #e2e2e2, #878992);
+  border: 2px solid #11130b;
+  border-radius: 12px;
+  margin: 5px 0;
+  padding-right: 25px;
 }
 
 .delete {

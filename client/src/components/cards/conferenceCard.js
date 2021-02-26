@@ -44,8 +44,8 @@ const ConferenceCard = ({ conference }) => {
     <>
       {(cardRender === true) &&
         conference.map(conf => (
-          <Card className="confCard" key={conf._id}>
-            <Card.Header className="confTitle">
+          <Card className="card" key={conf._id}>
+            <Card.Header className="cardTitle">
               <Row>
                 <Col sm={11}>
                   <h2>{conf.confName}</h2>

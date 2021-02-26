@@ -27,8 +27,8 @@ const PresenterCard = ({ session }) => {
     <>
       { cardRender === true &&
         session.map(sess => (
-          <Card className="presCard" key={sess._id}>
-            <Card.Header className="presName">
+          <Card className="card" key={sess._id}>
+            <Card.Header className="cardTitle">
               <Row>
                 <Col sm={12}>
                   <h2>{sess.sessPresenter}</h2>
@@ -41,7 +41,7 @@ const PresenterCard = ({ session }) => {
                 <Col sm={8}>
                   <Card.Text>{sess.sessPresenterBio}</Card.Text>
                 </Col>
-                {sess.sessPresenterPic.length > 0 &&
+                {sess.sessPresenterPic !== undefined &&
                   <Col sm={4}>
                     <Image src={sess.presPresenterPic} alt={sess.sessPresenter} />
                   </Col>}

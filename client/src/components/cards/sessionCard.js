@@ -48,8 +48,8 @@ const SessionCard = ({ session }) => {
     <>
       { cardRender === true &&
         session.map(sess => (
-          <Card className="sessCard" key={sess._id}>
-            <Card.Header className="sessName">
+          <Card className="card" key={sess._id}>
+            <Card.Header className="cardTitle">
               {sess.sessKeynote === true &&
                 <Row>
                   <Col sm={11}>
