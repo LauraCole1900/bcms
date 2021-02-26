@@ -43,7 +43,7 @@ Conference Schedule page:
 ![Schedule page](assets/bcms-schedule-screenshot.png)
 
 Add New Conference form:
-![Add New Conference form](assets/bcms-new-conf-screenshot.png)
+![Add New Conference form](assets/bcms-new-conf-form-screenshot.png)
 
 Add Session form:
 ![Add Session form](assets/bcms-add-session-screenshot.png)
