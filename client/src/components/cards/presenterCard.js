@@ -3,8 +3,7 @@ import { Card, Row, Col, Image } from "react-bootstrap";
 import { SessionAPI } from "../../utils/api";
 import "./style.css";
 
-const PresenterCard = ({ session }) => {
-  const [sessions, setSessions] = useState();
+const PresenterCard = (props) => {
   const [cardRender, setCardRender] = useState(false);
 
   // Grabs ConfID from URL
@@ -12,21 +11,14 @@ const PresenterCard = ({ session }) => {
   const confId = urlArray[urlArray.length - 1]
 
   useEffect(() => {
-    // GET call for sessions by conference ID
-    SessionAPI.getSessions(confId)
-      .then(resp => {
-        console.log(resp.data)
-        setSessions(resp.data)
-      })
-      .catch(err => console.log(err))
     setCardRender(true)
-  }, [confId])
+  }, [])
 
   
   return (
     <>
       { cardRender === true &&
-        session.map(sess => (
+        props.session.map(sess => (
           <Card className="card" key={sess._id}>
             <Card.Header className="cardTitle">
               <Row>

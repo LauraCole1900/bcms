@@ -36,7 +36,8 @@ const ConfDetails = () => {
   const fetchSess = async (confId) => {
     await SessionAPI.getSessions(confId)
       .then(resp => {
-        const sessArr = resp.data;
+        console.log("confDetailsPage getSessions", resp.data)
+        const sessArr = resp.data.slice(0)
         setSessArray(sessArr);
       })
       .catch(err => console.log(err))
@@ -153,14 +154,14 @@ const ConfDetails = () => {
               <Col sm={12}>
                 <h1>Presenters</h1>
                 {sessArray.length > 0
-                  ? <PresenterCard session={searchFilter(sessArray)} />
+                  ? <PresenterCard session={searchFilter(sessArray)} conference={conference} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allSess" || searchBy === "sessionName") &&
               <Col sm={12}>
                 <h1>Sessions</h1>
                 {sessArray.length > 0
-                  ? <SessionCard session={searchFilter(sessArray)} />
+                  ? <SessionCard session={searchFilter(sessArray)} conference={conference} />
                   : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
@@ -168,13 +169,13 @@ const ConfDetails = () => {
                 <Col sm={6}>
                   <h1>Presenters</h1>
                   {sessArray.length > 0
-                    ? <PresenterCard session={searchFilter(sessArray)} />
+                    ? <PresenterCard session={searchFilter(sessArray)} conference={conference} />
                     : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
                 <Col sm={6}>
                   <h1>Sessions</h1>
                   {sessArray.length > 0
-                    ? <SessionCard session={searchFilter(sessArray)} />
+                    ? <SessionCard session={searchFilter(sessArray)} conference={conference} />
                     : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
               </div>}
