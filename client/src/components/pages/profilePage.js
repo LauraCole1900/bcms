@@ -152,6 +152,7 @@ const ProfilePage = () => {
         return false;
       default:
         saveUserToDB();
+        
         // Sets pageReady(true) for page load
         setPageReady(true);
         break;
