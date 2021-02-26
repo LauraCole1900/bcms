@@ -10,8 +10,8 @@ const SessionForm = () => {
   const history = useHistory();
   const [session, setSession] = useState();
   const [conference, setConference] = useState();
-  const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
+  const [confReady, setConfReady] = useState(false);
 
   // Grabs conference ID from URL for new sessions or session ID from URL for existing sessions
   // Uses URL to determine whether this is a new session or an existing session
@@ -56,7 +56,7 @@ const SessionForm = () => {
         setSessReady(true);
         fetchConf(urlId);
     }
-  }, [sessType, urlId])
+  }, [])
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
