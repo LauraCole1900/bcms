@@ -12,7 +12,6 @@ const SessionForm = () => {
   const [conference, setConference] = useState();
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
-  const [pageReady, setPageReady] = useState(false);
 
   // Grabs conference ID from URL for new sessions or session ID from URL for existing sessions
   // Uses URL to determine whether this is a new session or an existing session
@@ -54,13 +53,10 @@ const SessionForm = () => {
       // Puts conference ID in state as session.confId
       default:
         setSession({ ...session, confId: urlId })
-        fetchConf(urlId);
         setSessReady(true);
+        fetchConf(urlId);
     }
-
-
-    setPageReady(true);
-  }, [sessType, session, urlId])
+  }, [sessType, urlId])
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -90,10 +86,9 @@ const SessionForm = () => {
 
   return (
     <>
-      {confReady === true &&
+      {isAuthenticated &&
         sessReady === true &&
-        pageReady === true &&
-        isAuthenticated &&
+        confReady === true &&
         (user.email === conference.creatorEmail || conference.confAdmins.includes(user.email)(
           <Container>
             <Form className="sessForm">

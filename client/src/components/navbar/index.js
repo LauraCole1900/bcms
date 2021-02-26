@@ -32,10 +32,10 @@ const Navigation = () => {
         <Navbar fluid expand="sm" className="navbar">
           <Navbar.Brand className="logo ml-3">
             <div>
-              <Image fluid src="images/bristlecone-light.png" alt="logo" className="pineTree mylogo" />
+              <Image fluid src="/images/bristlecone-light.png" alt="logo" className="pineTree mylogo" />
               <Link to="/conferences" className={location.pathname === "/conferences" ? "mylogo active" : "mylogo"}>
                 Bristlecone CMS
-            </Link>
+              </Link>
             </div>
           </Navbar.Brand>
           <Navbar.Text className="hello">
@@ -43,10 +43,10 @@ const Navigation = () => {
           {isAuthenticated
               ? <Link to="/profile" className={location.pathname === "/profile" ? "navlink active" : "navlink"}>
                 {userInfo.given_name}!
-            </Link>
+                </Link>
               : <Link className="navlink login" onClick={() => loginWithRedirect()}>
                 Guest!
-          </Link>
+                </Link>
             }
           </Navbar.Text>
           <Nav className="navobj">
@@ -55,7 +55,7 @@ const Navigation = () => {
               {isAuthenticated &&
                 <Link to="/profile" className={location.pathname === "/profile" ? "navlink placelink active" : "navlink placelink"}>
                   Profile
-              </Link>}
+                </Link>}
               <Link to="/conferences" className={location.pathname === "/conferences" ? "navlink placelink active" : "navlink placelink"}>
                 Conferences
               </Link>
@@ -65,10 +65,10 @@ const Navigation = () => {
               {isAuthenticated
                 ? <Link className="navlink logout" onClick={() => logout({ returnTo: window.location.origin })}>
                   Logout
-                </Link>
+                  </Link>
                 : <Link className="navlink login" onClick={() => loginWithRedirect()}>
                   Log In
-                </Link>
+                  </Link>
               }
             </Navbar.Collapse>
           </Nav>
