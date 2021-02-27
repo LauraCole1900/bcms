@@ -3,7 +3,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
-import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
+import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
 import "./style.css";
 
 // Figure out how to add the keynote speaker???
@@ -13,6 +13,7 @@ const ConferenceCard = ({ conference }) => {
   const history = useHistory();
   const location = useLocation();
   const [cardAttendConf, setCardAttendConf] = useState([]);
+  const [cardExhibitConf, setCardExhibitConf] = useState([]);
   const [cardRender, setCardRender] = useState(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
@@ -38,6 +39,14 @@ const ConferenceCard = ({ conference }) => {
           setCardAttendConf(cardAttIds);
         })
         .catch(err => console.log(err));
+
+      // Retrieves conferences user is registered to exhibit at to determine whether exhibit register or unregister button should render
+      ExhibitorAPI.getConferencesExhibiting(user.email)
+        .then(resp => {
+          const cardExhArr = resp.data
+          const cardExhIds = cardExhArr.map(cardExhArr => cardExhArr.confId)
+          setCardExhibitConf(cardExhIds);
+        })
     }
     setCardRender(true);
   }, [])
@@ -172,20 +181,21 @@ const ConferenceCard = ({ conference }) => {
                     </Col>
                   </div>}
 
-                {/*Add conditional re: cardExhibitConf.indexOf(conf._id) >= 0 && */}
-                <div>
-                  <Col sm={1}></Col>
-                  <Col sm={2}>
-                    <Link to={`/unregister_exhibit_confirm/${conf._id}`} className={location.pathname === `/unregister_exhibit_confirm/${conf._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button">Unregister Exhibit</Button>
-                    </Link>
-                  </Col>
-                  <Col sm={2}>
-                    <Link to={`/register_exhibit_edit/${conf._id}`} className={location.pathname === `/register_exhibit_edit/${conf._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit your exhibitor registration" className="button">Edit exhibitor registration</Button>
-                    </Link>
-                  </Col>
-                </div>
+                {isAuthenticated &&
+                  cardExhibitConf.indexOf(conf._id) >= 0 &&
+                  <div>
+                    <Col sm={1}></Col>
+                    <Col sm={2}>
+                      <Link to={`/unregister_exhibit_confirm/${conf._id}`} className={location.pathname === `/unregister_exhibit_confirm/${conf._id}` ? "link active" : "link"}>
+                        <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button">Unregister Exhibit</Button>
+                      </Link>
+                    </Col>
+                    <Col sm={2}>
+                      <Link to={`/register_exhibit_edit/${conf._id}`} className={location.pathname === `/register_exhibit_edit/${conf._id}` ? "link active" : "link"}>
+                        <Button data-toggle="popover" title="Edit your exhibitor registration" className="button">Edit exhibitor registration</Button>
+                      </Link>
+                    </Col>
+                  </div>}
 
                 {isAuthenticated &&
                   user.email !== conf.creatorEmail &&
@@ -200,15 +210,17 @@ const ConferenceCard = ({ conference }) => {
                     <Col sm={1}></Col>
                   </div>}
 
-                {/*Add conditional re: cardExhibitConf.indexOf(conf._id) < 0 && */}
-                <div>
-                  <Col sm={3}></Col>
-                  <Col sm={3}>
-                    <Link to={`/register_exhibit/${conf._id}`} className={location.pathname === `/register_exhibit/${conf._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Register to exhibit at this conference" className="button">Register as Exhibitor</Button>
-                    </Link>
-                  </Col>
-                </div>
+                {isAuthenticated &&
+                  user.email !== conf.creatorEmail &&
+                  cardExhibitConf.indexOf(conf._id) < 0 &&
+                  <div>
+                    <Col sm={3}></Col>
+                    <Col sm={3}>
+                      <Link to={`/register_exhibit/${conf._id}`} className={location.pathname === `/register_exhibit/${conf._id}` ? "link active" : "link"}>
+                        <Button data-toggle="popover" title="Register to exhibit at this conference" className="button">Register as Exhibitor</Button>
+                      </Link>
+                    </Col>
+                  </div>}
               </Row>
             </Card.Body>
           </Card>
