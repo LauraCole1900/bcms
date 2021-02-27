@@ -17,7 +17,7 @@ const ExhibitForm = () => {
   const formType = urlArray[urlArray.length - 2]
 
   useEffect(() => {
-    setExhibitor({ ...exhibitor, confId: confId })
+    setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email })
     setPageReady(true);
   }, [])
 
