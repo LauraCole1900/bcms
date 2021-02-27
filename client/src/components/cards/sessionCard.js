@@ -59,7 +59,7 @@ const SessionCard = (props) => {
                 <Col sm={4}>
                   <Row><p>Date: <Moment format="ddd, D MMM YYYY" withTitle>{sess.sessDate}</Moment></p></Row>
                   <Row><p>Time: {sess.sessStart} - {sess.sessEnd}</p></Row>
-                  {props.conference.confType === "Live" &&
+                  {props.conference[0].confType === "Live" &&
                     <Row><p>Location: {sess.sessRoom}</p></Row>}
                 </Col>
               </Row>
