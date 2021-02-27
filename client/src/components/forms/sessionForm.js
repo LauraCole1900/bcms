@@ -15,11 +15,11 @@ const SessionForm = () => {
 
   // Grabs conference ID from URL for new sessions or session ID from URL for existing sessions
   // Uses URL to determine whether this is a new session or an existing session
-  // If sessType === add_session, then urlId === confId
-  // If sessType === edit_session, then urlId === sessId
+  // If formType === add_session, then urlId === confId
+  // If formType === edit_session, then urlId === sessId
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
-  const sessType = urlArray[urlArray.length - 2]
+  const formType = urlArray[urlArray.length - 2]
 
   const fetchSess = async (sessid) => {
     // Edit existing session: GET session information
@@ -37,7 +37,7 @@ const SessionForm = () => {
   }
 
   const fetchConf = async (confid) => {
-    switch (sessType) {
+    switch (formType) {
       // Edit existing session
       case "edit_session":
         // Call fetchSess()
@@ -69,7 +69,7 @@ const SessionForm = () => {
   }
 
   useEffect(() => {
-    switch (sessType) {
+    switch (formType) {
       // GET call to pre-populate the form if the URL indicates this is an existing session
       case "edit_session":
         fetchConf(urlId);
@@ -233,7 +233,7 @@ const SessionForm = () => {
             </Card>
 
             <Row>
-              {(sessType === "edit_session")
+              {(formType === "edit_session")
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
             </Row>

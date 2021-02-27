@@ -14,6 +14,7 @@ const ExhibitForm = () => {
 
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
+  const formType = urlArray[urlArray.length - 2]
 
   useEffect(() => {
     setExhibitor({ ...exhibitor, confId: confId })
@@ -59,8 +60,10 @@ const ExhibitForm = () => {
                 </Col>
               </Row>
               <Row>
-                <Form.Label>Address of company: <span className="red">*</span></Form.Label>
-                <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="formInput" onChange={handleInputChange} />
+                <Col sm={12}>
+                  <Form.Label>Address of company: <span className="red">*</span></Form.Label>
+                  <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="formInput" onChange={handleInputChange} />
+                </Col>
               </Row>
             </Form.Group>
 
@@ -100,9 +103,9 @@ const ExhibitForm = () => {
             </Row>
 
             <Row>
-              {(confId !== "new_conference")
-                ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+              {(formType === "register_exhibit")
+                ? <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>
+                : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>}
             </Row>
 
           </Form>

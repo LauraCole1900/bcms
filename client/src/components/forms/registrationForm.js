@@ -15,8 +15,8 @@ const Registration = () => {
 
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
-  const update = urlArray[urlArray.length - 2]
-  console.log("registrationForm update", update)
+  const formType = urlArray[urlArray.length - 2]
+  console.log("registrationForm update", formType)
 
   useEffect(() => {
     ConferenceAPI.getConferenceById(confId)
@@ -27,7 +27,7 @@ const Registration = () => {
       })
       .catch(err => console.log(err));
 
-    if (update === "register_edit") {
+    if (formType === "register_edit") {
       AttendeeAPI.getAttendeeToUpdate(confId, user.email)
         .then(resp => {
           console.log("from registrationForm getAttendeeToUpdate", resp.data)
@@ -134,7 +134,7 @@ const Registration = () => {
                 </Row>}
 
               <Row>
-                {(update === "register_edit")
+                {(formType === "register_edit")
                   ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                   : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
               </Row>
