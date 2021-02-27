@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { Container, Form, Row, Col, Button, FormLabel } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ExhibitorAPI } from "../../utils/api";
 import "./style.css";
@@ -17,7 +17,20 @@ const ExhibitForm = () => {
   const formType = urlArray[urlArray.length - 2]
 
   useEffect(() => {
-    setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email })
+    switch (formType) {
+      case "edit_exhibit":
+        ExhibitorAPI.getExhibitorToUpdate(confId, user.email)
+          .then(resp => {
+            console.log("from exhibitorForm getExhibitorToUpdate", resp.data)
+            const exhObj = resp.data[0]
+            setExhibitor(exhObj)
+          })
+          .catch(err => console.log(err))
+        break;
+      default:
+        setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email })
+    }
+
     setPageReady(true);
   }, [])
 

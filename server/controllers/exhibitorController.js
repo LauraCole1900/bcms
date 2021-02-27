@@ -50,6 +50,15 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  //FIND by confId and exhibitor email to update
+  findByIdAndEmail: function (req, res) {
+    console.log("from exhibitorCont findByIdAndEmail", req.params.id, req.params.email)
+    db.Exhibitor
+    .findOne({ confId: req.params.email, exhEmail: req.params.id })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err))
+  },
+
 
   // UPDATE exhibitor
   updateExhibitor: function (req, res) {

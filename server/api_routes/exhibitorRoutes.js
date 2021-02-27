@@ -15,6 +15,9 @@ router.route("/:id")
 router.route("/conferences/:email")
   .get(exhibitorController.findByEmail);
 
+router.route("/conference/:id/:email")
+  .get(exhibitorController.findByIdAndEmail);
+
 
 router.route("/update/:id")
   .put(exhibitorController.updateExhibitor);

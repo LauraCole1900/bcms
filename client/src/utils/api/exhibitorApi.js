@@ -15,6 +15,12 @@ const ExhibitorAPI = {
     return axios.get(`/api/exhibitor/${confId}`)
   },
 
+  // GET one exhibitor document to update
+  getExhibitorToUpdate: function (confId, email) {
+    console.log("from API getExhibitorToUpdate", confId, email)
+    return axios.get(`/api/exhibitor/conference/${confId}/${email}`)
+  },
+
   //GET conferences by exhibitor
   getConferencesExhibiting: function (email) {
     console.log("from API get ConferencesExhibiting", email)
