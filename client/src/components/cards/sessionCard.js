@@ -12,10 +12,6 @@ const SessionCard = (props) => {
   const location = useLocation();
   const [cardRender, setCardRender] = useState(false);
 
-  // Grab conference ID from URL
-  const urlArray = window.location.href.split("/");
-  const confId = urlArray[urlArray.length - 1];
-
   // Handles click on delete button
   function handleDelete(sessId) {
     console.log("from sessCard handleDelete", sessId)
@@ -63,18 +59,19 @@ const SessionCard = (props) => {
                 <Col sm={4}>
                   <Row><p>Date: <Moment format="ddd, D MMM YYYY" withTitle>{sess.sessDate}</Moment></p></Row>
                   <Row><p>Time: {sess.sessStart} - {sess.sessEnd}</p></Row>
-                  <Row><p>Location: {sess.sessRoom}</p></Row>
+                  {props.conference.confType === "Live" &&
+                    <Row><p>Location: {sess.sessRoom}</p></Row>}
                 </Col>
               </Row>
               {isAuthenticated &&
-              (user.email === props.conference[0].creatorEmail || props.conference[0].confAdmins.includes(user.email)) &&
-              <Row>
-                <Col sm={1}></Col>
+                (user.email === props.conference[0].creatorEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                <Row>
+                  <Col sm={1}></Col>
                   <Col sm={5}>
-                  <Link to={`/edit_session/${sess._id}`} className={location.pathname === `/edit_session/${sess._id}` ? "link active" : "link"}>
+                    <Link to={`/edit_session/${sess._id}`} className={location.pathname === `/edit_session/${sess._id}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit session" className="button">Edit Session</Button>
                     </Link>
-                </Col>
+                  </Col>
                 </Row>}
             </Card.Body>
           </Card>

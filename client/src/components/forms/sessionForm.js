@@ -157,14 +157,15 @@ const SessionForm = () => {
                   </Form.Group>
                 </Row>
 
-                <Row>
-                  <Form.Group controlId="formSessWhere">
-                    <Col sm={12}>
-                      <Form.Label>Session room or location: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="sessRoom" placeholder="Enter a room or location, or TBA or TBD if the room or location hasn't been assigned" value={session.sessRoom} className="formInput" onChange={handleInputChange} />
-                    </Col>
-                  </Form.Group>
-                </Row>
+                {conference.confType === "Live" &&
+                  <Row>
+                    <Form.Group controlId="formSessWhere">
+                      <Col sm={12}>
+                        <Form.Label>Session room or location: <span className="red">*</span></Form.Label>
+                        <Form.Control required type="input" name="sessRoom" placeholder="Enter a room or location, or TBA or TBD if the room or location hasn't been assigned" value={session.sessRoom} className="formInput" onChange={handleInputChange} />
+                      </Col>
+                    </Form.Group>
+                  </Row>}
 
                 <Row>
                   <Col sm={12}>
