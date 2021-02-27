@@ -167,15 +167,16 @@ const SessionForm = () => {
                     </Form.Group>
                   </Row>}
 
-                <Row>
-                  <Col sm={12}>
-                    <Form.Group controlId="formSessKeynote">
-                      <Form.Label>Is this a keynote session? <span className="red">*</span></Form.Label>
-                      <Form.Check type="radio" id="sessKeyYes" name="sessKeynote" label="Yes" value="yes" checked={session.sessKeynote === "yes"} onChange={handleInputChange} />
-                      <Form.Check type="radio" id="sessKeyNo" name="sessKeynote" label="No" value="no" checked={session.sessKeynote === "no"} onChange={handleInputChange} />
-                    </Form.Group>
-                  </Col>
-                </Row>
+                {conference.confKeynote === "yes" &&
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Group controlId="formSessKeynote">
+                        <Form.Label>Is this a keynote session? <span className="red">*</span></Form.Label>
+                        <Form.Check type="radio" id="sessKeyYes" name="sessKeynote" label="Yes" value="yes" checked={session.sessKeynote === "yes"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="sessKeyNo" name="sessKeynote" label="No" value="no" checked={session.sessKeynote === "no"} onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+                  </Row>}
               </Card.Body>
             </Card>
 

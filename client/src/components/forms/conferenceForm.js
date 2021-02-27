@@ -314,6 +314,15 @@ const ConferenceForm = () => {
                 <Card.Body className="cardBody">
                   <Row>
                     <Col sm={6}>
+                      <Form.Group controlId="formConfKeynote">
+                        <Form.Label>Will this conference have a keynote speaker? <span className="red">*</span></Form.Label>
+                        <Form.Check type="radio" id="confKeynoteYes" name="confKeynote" label="Yes" value="yes" checked={conference.confKeynote === "yes"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="confKeynoteNo" name="confKeynote" label="No" value="no" checked={conference.confKeynote === "no"} onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm={6}>
                       <Form.Group controlId="formConfCapConfirm">
                         <Form.Label>Will there be a cap on the number of attendees? <span className="red">*</span></Form.Label>
                         <Form.Check type="radio" id="confCapYes" name="confCapConfirm" label="Yes" value="yes" checked={conference.confCapConfirm === "yes"} onChange={handleInputChange} />

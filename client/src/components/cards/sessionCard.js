@@ -31,7 +31,7 @@ const SessionCard = (props) => {
         props.session.map(sess => (
           <Card className="infoCard" key={sess._id}>
             <Card.Header className="cardTitle">
-              {sess.sessKeynote === true &&
+              {sess.sessKeynote === "yes" &&
                 <Row>
                   <Col sm={11}>
                     <h3>Keynote</h3>

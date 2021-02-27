@@ -55,6 +55,10 @@ const conferenceSchema = new Schema({
     type: String,
     required: "Please enter a registration deadline. If there is no registration deadline, please enter the conference's end date."
   },
+  confKeynote: {
+    type: String,
+    required: "Please indicate whether your conference will have a keynote speaker."
+  },
   confCapConfirm: {
     type: String,
     required: "Please select whether your conference has a cap on the number of attendees."
