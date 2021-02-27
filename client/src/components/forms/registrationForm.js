@@ -80,6 +80,11 @@ const Registration = () => {
                       <h1>Personal & Professional Information</h1>
                     </Col>
                   </Row>
+                  <Row>
+                    <Col sm={12}>
+                      <p className="subtitle">Please note that BCMS automatically assigns the logged-in email as your contact email.</p>
+                    </Col>
+                  </Row>
                 </Card.Title>
                 <Card.Body className="cardBody">
                   <Row>

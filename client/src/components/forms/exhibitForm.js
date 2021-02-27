@@ -70,7 +70,7 @@ const ExhibitForm = () => {
                 </Row>
                 <Row>
                   <Col sm={12}>
-                    <p className="subtitle">BCMS assumes the person logged in is the contact person and assigns the logged-in email as the contact email.</p>
+                    <p className="subtitle">Please note that BCMS automatically assigns the logged-in email as the contact email.</p>
                   </Col>
                 </Row>
               </Card.Title>
@@ -121,9 +121,12 @@ const ExhibitForm = () => {
                     <Col sm={8}>
                       <Form.Label>Names of workers (one per line): <span className="red">*</span></Form.Label>
                       <Form.Control required type="input" name="exhNames" placeholder="Yazmin Khan" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
-                      <Form.Control type="input" name="exhNames" placeholder="Ryan Sinclair" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
-                      <Form.Control required type="input" name="exhNames" placeholder="Graham O'Brien" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
-                      <Form.Control required type="input" name="exhNames" placeholder="Jack Harkness" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
+                      {exhibitor.exhWorkers > 1 &&
+                        <Form.Control type="input" name="exhNames" placeholder="Ryan Sinclair" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />}
+                      {exhibitor.exhWorkers > 2 &&
+                        <Form.Control required type="input" name="exhNames" placeholder="Graham O'Brien" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />}
+                      {exhibitor.exhWorkers > 3 &&
+                        <Form.Control required type="input" name="exhNames" placeholder="Jack Harkness" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />}
                     </Col>
                   </Form.Group>
                 </Row>
