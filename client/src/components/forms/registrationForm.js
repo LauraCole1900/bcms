@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { Container, Form, Row, Col, Button, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
@@ -73,65 +73,87 @@ const Registration = () => {
               </div>}
             <Form className="regForm">
 
-              <Row>
-                <Form.Group controlId="formRegName">
-                  <Col sm={6}>
-                    <Form.Label>Given name: <span className="red"><span className="red">*</span></span></Form.Label>
-                    <Form.Control required type="input" name="givenName" placeholder="Martha" value={attendee.givenName} className="formInput" onChange={handleInputChange} />
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Label>Family name: <span className="red">*</span></Form.Label>
-                    <Form.Control required type="input" name="familyName" placeholder="Jones" value={attendee.familyName} className="formInput" onChange={handleInputChange} />
-                  </Col>
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Form.Group controlId="formRegPhone">
-                  <Col sm={6}>
-                    <Form.Label>Contact phone #: <span className="red">*</span></Form.Label><br />
-                    <Form.Control required type="input" name="phone" placeholder="(123)456-7890" value={attendee.phone} className="formInput" onChange={handleInputChange} />
-                  </Col>
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Form.Group controlId="formRegEmployer">
-                  <Form.Label>Company, organization or school you represent:</Form.Label>
-                  <Form.Control type="input" name="employerName" placeholder="Torchwood Institute" value={attendee.employerName} className="formInput" onChange={handleInputChange} />
-                  <Form.Label>Address of your company, organization or school:</Form.Label>
-                  <Form.Control type="input" name="employerAddress" placeholder="219 W 48th Street, New York, NY" value={attendee.employerAddress} className="formInput" onChange={handleInputChange} />
-                </Form.Group>
-              </Row>
-
-              <Row>
-                <Form.Group controlId="formRegEmergencyContact">
-                  <Col sm={6}>
-                    <Form.Label>Emergency contact name:</Form.Label>
-                    <Form.Control type="input" name="emergencyContactName" placeholder="Sarah Jane Smith" value={attendee.emergencyContactName} className="formInput" onChange={handleInputChange} />
-                  </Col>
-                  <Col sm={6}>
-                    <Form.Label>Emergency contact phone #:</Form.Label>
-                    <Form.Control type="input" name="emergencyContactPhone" placeholder="(987)654-3210" value={attendee.emergencyContactPhone} className="formInput" onChange={handleInputChange} />
-                  </Col>
-                </Form.Group>
-              </Row>
-
-              {(conference.confAllergies === "yes") &&
-                <Row>
-                  <Form.Group controlId="allergyConfirm">
-                    <Col sm={6}>
-                      <Form.Label>Do you have known allergies?</Form.Label>
-                      <Form.Check type="radio" id="allergiesYes" name="allergyConfirm" label="Yes" value="yes" checked={attendee.allergyConfirm === "yes"} onChange={handleInputChange} />
-                      <Form.Check type="radio" id="allergiesNo" name="allergyConfirm" label="No" value="no" checked={attendee.allergyConfirm === "no"} onChange={handleInputChange} />
+              <Card className="formCard">
+                <Card.Title>
+                  <Row>
+                    <Col sm={12}>
+                      <h1>Personal & Professional Information</h1>
                     </Col>
-                    {(attendee.allergyConfirm === "yes") &&
+                  </Row>
+                </Card.Title>
+                <Card.Body className="cardBody">
+                  <Row>
+                    <Form.Group controlId="formRegName">
                       <Col sm={6}>
-                        <Form.Label>Please list your allergies:</Form.Label>
-                        <Form.Control as="textarea" rows={5} name="allergies" placeholder="Peanuts, Eggs, Soy, Milk, Bee stings, Penicillin, etc." value={attendee.allergies} className="formText" onChange={handleInputChange} />
-                      </Col>}
-                  </Form.Group>
-                </Row>}
+                        <Form.Label>Given name: <span className="red"><span className="red">*</span></span></Form.Label>
+                        <Form.Control required type="input" name="givenName" placeholder="Martha" value={attendee.givenName} className="formInput" onChange={handleInputChange} />
+                      </Col>
+                      <Col sm={6}>
+                        <Form.Label>Family name: <span className="red">*</span></Form.Label>
+                        <Form.Control required type="input" name="familyName" placeholder="Jones" value={attendee.familyName} className="formInput" onChange={handleInputChange} />
+                      </Col>
+                    </Form.Group>
+                  </Row>
+
+                  <Row>
+                    <Form.Group controlId="formRegPhone">
+                      <Col sm={6}>
+                        <Form.Label>Contact phone #: <span className="red">*</span></Form.Label><br />
+                        <Form.Control required type="input" name="phone" placeholder="(123)456-7890" value={attendee.phone} className="formInput" onChange={handleInputChange} />
+                      </Col>
+                    </Form.Group>
+                  </Row>
+
+                  <Row>
+                    <Form.Group controlId="formRegEmployer">
+                      <Form.Label>Company, organization or school you represent:</Form.Label>
+                      <Form.Control type="input" name="employerName" placeholder="Torchwood Institute" value={attendee.employerName} className="formInput" onChange={handleInputChange} />
+                      <Form.Label>Address of your company, organization or school:</Form.Label>
+                      <Form.Control type="input" name="employerAddress" placeholder="219 W 48th Street, New York, NY" value={attendee.employerAddress} className="formInput" onChange={handleInputChange} />
+                    </Form.Group>
+                  </Row>
+                </Card.Body>
+              </Card>
+
+              <Card className="formCard">
+                <Card.Title>
+                  <Row>
+                    <Col sm={12}>
+                      <h1>Emergency Information</h1>
+                    </Col>
+                  </Row>
+                </Card.Title>
+                <Card.Body className="cardBody">
+                  <Row>
+                    <Form.Group controlId="formRegEmergencyContact">
+                      <Col sm={6}>
+                        <Form.Label>Emergency contact name:</Form.Label>
+                        <Form.Control type="input" name="emergencyContactName" placeholder="Sarah Jane Smith" value={attendee.emergencyContactName} className="formInput" onChange={handleInputChange} />
+                      </Col>
+                      <Col sm={6}>
+                        <Form.Label>Emergency contact phone #:</Form.Label>
+                        <Form.Control type="input" name="emergencyContactPhone" placeholder="(987)654-3210" value={attendee.emergencyContactPhone} className="formInput" onChange={handleInputChange} />
+                      </Col>
+                    </Form.Group>
+                  </Row>
+
+                  {(conference.confAllergies === "yes") &&
+                    <Row>
+                      <Form.Group controlId="allergyConfirm">
+                        <Col sm={6}>
+                          <Form.Label>Do you have known allergies?</Form.Label>
+                          <Form.Check type="radio" id="allergiesYes" name="allergyConfirm" label="Yes" value="yes" checked={attendee.allergyConfirm === "yes"} onChange={handleInputChange} />
+                          <Form.Check type="radio" id="allergiesNo" name="allergyConfirm" label="No" value="no" checked={attendee.allergyConfirm === "no"} onChange={handleInputChange} />
+                        </Col>
+                        {(attendee.allergyConfirm === "yes") &&
+                          <Col sm={6}>
+                            <Form.Label>Please list your allergies:</Form.Label>
+                            <Form.Control as="textarea" rows={5} name="allergies" placeholder="Peanuts, Eggs, Soy, Milk, Bee stings, Penicillin, etc." value={attendee.allergies} className="formText" onChange={handleInputChange} />
+                          </Col>}
+                      </Form.Group>
+                    </Row>}
+                </Card.Body>
+              </Card>
 
               <Row>
                 {(formType === "register_edit")
