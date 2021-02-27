@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
-import { AttendeeAPI, ConferenceAPI, UserAPI } from "../../utils/api";
+import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, UserAPI } from "../../utils/api";
 import "./style.css";
 
 const ProfilePage = () => {
@@ -33,9 +33,23 @@ const ProfilePage = () => {
   const getRegisteredConferenceIds = async (email) => {
     return AttendeeAPI.getConferencesAttending(email)
       .then(resp => {
-        const data = resp.data
-        const result = data.map(conf => conf.confId)
-        return result
+        const attData = resp.data
+        const attResult = attData.map(conf => conf.confId)
+        return attResult
+      })
+      .catch(err => {
+        console.log(err)
+        return false
+      })
+  }
+
+  // GET IDs of conferences at which user is exhibiting
+  const getExhibitingConferenceIds = async (email) => {
+    return ExhibitorAPI.getConferencesExhibiting(email)
+      .then(resp => {
+        const exhData = resp.data
+        const exhResult = exhData.map(conf => conf.confId)
+        return exhResult
       })
       .catch(err => {
         console.log(err)
@@ -52,16 +66,16 @@ const ProfilePage = () => {
   // Handles click on "Attending" button
   const handleShowAttending = async (e) => {
     handleInputChange(e);
-    let unsorted = []
+    let unsortedAtt = []
     let regConfIds = await getRegisteredConferenceIds(user.email)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     regConfIds.forEach(confId => {
       getConfById(confId).then(resp => {
-        unsorted = [...unsorted, resp.data[0]]
+        unsortedAtt = [...unsortedAtt, resp.data[0]]
         // When new array is same length as confIds array, sort new array & set it in state
-        if (unsorted.length === regConfIds.length) {
-          const sortedAtt = unsorted.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+        if (unsortedAtt.length === regConfIds.length) {
+          const sortedAtt = unsortedAtt.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
           setAttendConf(sortedAtt)
         }
       })
@@ -83,17 +97,24 @@ const ProfilePage = () => {
   }
 
   // Handles click on "Exhibiting" button
-  const handleShowExhibiting = (e) => {
+  const handleShowExhibiting = async (e) => {
     handleInputChange(e);
-    // Creates array of conferences at which the user is exhibiting
-    ConferenceAPI.getConferencesExhibiting(user.email)
-      .then(resp => {
-        console.log("getConfExhibiting", resp.data)
-        const exhibitArr = resp.data
-        const sortedExhibit = exhibitArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
-        setExhibitConf(sortedExhibit)
-      })
-      .catch(err => console.log(err))
+    let unsortedExh = []
+    let exhConfIds = await getExhibitingConferenceIds(user.email)
+    // Map through the array of confIds to get info on each conference
+    // Push each conference object to new array
+    exhConfIds.forEach(confId => {
+      getConfById(confId).then(resp => {
+        unsortedExh = [...unsortedExh, resp.data[0]]
+        // When new array is same length as confIds array, sort new array & set it in state
+        if (unsortedExh.length === exhConfIds.length) {
+          const sortedExh = unsortedExh.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+          setExhibitConf(sortedExh)
+        }
+      }
+      )
+    }
+    )
   }
 
   // Handles click on "Presenting" button
@@ -152,7 +173,7 @@ const ProfilePage = () => {
         return false;
       default:
         saveUserToDB();
-        
+
         // Sets pageReady(true) for page load
         setPageReady(true);
         break;
