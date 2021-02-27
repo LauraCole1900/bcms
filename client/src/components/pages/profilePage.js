@@ -9,10 +9,10 @@ import "./style.css";
 const ProfilePage = () => {
   const { user, isAuthenticated } = useAuth0();
   const [whichConf, setWhichConf] = useState();
-  const [createConf, setCreateConf] = useState([]);
   const [attendConf, setAttendConf] = useState([]);
-  const [presentConf, setPresentConf] = useState([]);
+  const [createConf, setCreateConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
+  const [presentConf, setPresentConf] = useState([]);
   const [pageReady, setPageReady] = useState(false);
   const location = useLocation();
 

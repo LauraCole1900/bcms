@@ -14,8 +14,6 @@ const ConferenceCard = ({ conference }) => {
   const location = useLocation();
   const [cardAttendConf, setCardAttendConf] = useState([]);
   const [cardExhibitConf, setCardExhibitConf] = useState([]);
-  const [attReady, setAttReady] = useState(false);
-  const [exhReady, setExhReady] = useState(false);
   const [cardRender, setCardRender] = useState(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
@@ -39,7 +37,6 @@ const ConferenceCard = ({ conference }) => {
           const cardAttArr = resp.data
           const cardAttIds = cardAttArr.map(cardAttArr => cardAttArr.confId)
           setCardAttendConf(cardAttIds);
-          setAttReady(true);
         })
         .catch(err => console.log(err));
 
@@ -50,7 +47,6 @@ const ConferenceCard = ({ conference }) => {
           const cardExhArr = resp.data
           const cardExhIds = cardExhArr.map(cardExhArr => cardExhArr.confId)
           setCardExhibitConf(cardExhIds);
-          setExhReady(true);
         })
     }
     setCardRender(true);
@@ -196,7 +192,7 @@ const ConferenceCard = ({ conference }) => {
                       </Link>
                     </Col>
                     <Col sm={2}>
-                      <Link to={`/register_exhibit_edit/${conf._id}`} className={location.pathname === `/register_exhibit_edit/${conf._id}` ? "link active" : "link"}>
+                      <Link to={`/edit_exhibit/${conf._id}`} className={location.pathname === `/edit_exhibit/${conf._id}` ? "link active" : "link"}>
                         <Button data-toggle="popover" title="Edit your exhibitor registration" className="button">Edit exhibitor registration</Button>
                       </Link>
                     </Col>

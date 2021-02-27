@@ -21,7 +21,7 @@ const ExhibitForm = () => {
         ExhibitorAPI.getExhibitorToUpdate(confId, user.email)
           .then(resp => {
             console.log("from exhibitorForm getExhibitorToUpdate", resp.data)
-            const exhObj = resp.data[0]
+            const exhObj = resp.data
             setExhibitor(exhObj)
           })
           .catch(err => console.log(err))
