@@ -9,7 +9,6 @@ const ExhibitForm = () => {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
   const [exhibitor, setExhibitor] = useState({});
 
   const urlArray = window.location.href.split("/")
@@ -37,6 +36,10 @@ const ExhibitForm = () => {
   const handleInputChange = (e) => {
     setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
   };
+
+  const handleSetWorkers = (e) => {
+
+  }
 
   const handleFormUpdate = (e) => {
     e.preventDefault();
@@ -119,14 +122,14 @@ const ExhibitForm = () => {
                       <Form.Control type="number" min="1" max="4" name="exhWorkers" className="formNum" value={exhibitor.exhWorkers} onChange={handleInputChange} />
                     </Col>
                     <Col sm={8}>
-                      <Form.Label>Names of workers (one per line): <span className="red">*</span></Form.Label>
+                      <Form.Label>Names of workers (separate with commas): <span className="red">*</span></Form.Label>
                       <Form.Control required type="input" name="exhNames" placeholder="Yazmin Khan" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
-                      {exhibitor.exhWorkers > 1 &&
+                      {/* {exhibitor.exhWorkers > 1 &&
                         <Form.Control type="input" name="exhNames" placeholder="Ryan Sinclair" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />}
                       {exhibitor.exhWorkers > 2 &&
                         <Form.Control required type="input" name="exhNames" placeholder="Graham O'Brien" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />}
                       {exhibitor.exhWorkers > 3 &&
-                        <Form.Control required type="input" name="exhNames" placeholder="Jack Harkness" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />}
+                        <Form.Control required type="input" name="exhNames" placeholder="Jack Harkness" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />} */}
                     </Col>
                   </Form.Group>
                 </Row>

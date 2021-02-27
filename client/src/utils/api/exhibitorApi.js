@@ -3,9 +3,9 @@ import axios from "axios";
 const ExhibitorAPI = {
 
   // POST exhibitor to database
-  registerExhibitor: function (confId) {
-    console.log("from API registerExhibitor", confId)
-    return axios.post("/api/exhibitor/post", confId)
+  registerExhibitor: function (formData) {
+    console.log("from API registerExhibitor", formData)
+    return axios.post("/api/exhibitor/post", formData)
   },
 
 

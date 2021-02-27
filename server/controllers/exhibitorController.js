@@ -3,9 +3,9 @@ const db = require("../models")
 module.exports = {
   // CREATE new exhibitor in database
   create: function (req, res) {
-    console.log("from exhibitorController create", req.params.email)
+    console.log("from exhibitorController create", req.body.email)
     db.Exhibitor
-      .findOne({ email: req.params.email }, function (err, exhibitor) {
+      .findOne({ email: req.body.email }, function (err, exhibitor) {
         if (err) {
           let err = new Error("We're sorry, it looks like gremlins have gotten into our database. Please try again.")
           err.status = 400;
