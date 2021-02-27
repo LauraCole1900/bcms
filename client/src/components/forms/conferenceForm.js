@@ -335,7 +335,7 @@ const ConferenceForm = () => {
                         <Form.Group controlId="formConfAttendCap">
                           <Form.Label>Maximum number of attendees:</Form.Label><br />
                           <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
-                          <Form.Control type="number" min="0" name="confAttendCap" placeholder="50" className="formNum" value={conference.confAttendCap} onChange={handleInputChange}></Form.Control>
+                          <Form.Control type="number" min="0" name="confAttendCap" placeholder="50" className="formNum" value={conference.confAttendCap} onChange={handleInputChange} />
                         </Form.Group>
                       </Col>}
                   </Row>

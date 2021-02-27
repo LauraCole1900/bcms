@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Container, Form, Row, Col, Button, FormLabel } from "react-bootstrap";
+import { Container, Form, Row, Col, Button, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ExhibitorAPI } from "../../utils/api";
+import { ExhibitorAPI, UserAPI } from "../../utils/api";
 import "./style.css";
 
 const ExhibitForm = () => {
@@ -28,7 +28,7 @@ const ExhibitForm = () => {
           .catch(err => console.log(err))
         break;
       default:
-        setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email })
+        setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email, })
     }
 
     setPageReady(true);
@@ -61,59 +61,83 @@ const ExhibitForm = () => {
         <Container>
           <Form className="exhForm">
 
-            <Form.Group controlId="exhCompanyName">
-              <Row>
-                <Col sm={8}>
-                  <Form.Label>Name of company: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="exhCompany" placeholder="Torchwood Institute" value={exhibitor.exhCompany} className="formInput" onChange={handleInputChange} />
-                </Col>
-                <Col sm={4}>
-                  <Form.Label>Company phone #: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="exhPhone" placeholder="(123)456-7890" value={exhibitor.exhPhone} className="formInput" onChange={handleInputChange} />
-                </Col>
-              </Row>
-              <Row>
-                <Col sm={12}>
-                  <Form.Label>Address of company: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="formInput" onChange={handleInputChange} />
-                </Col>
-              </Row>
-            </Form.Group>
+            <Card className="formCard">
+              <Card.Title>
+                <Row>
+                  <Col sm={12}>
+                    <h1>Company Information</h1>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col sm={12}>
+                    <p className="subtitle">BCMS assumes the person logged in is the contact person and assigns the logged-in email as the contact email.</p>
+                  </Col>
+                </Row>
+              </Card.Title>
+              <Card.Body className="cardBody">
+                <Form.Group controlId="exhContactPerson">
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Label>Contact person's given name: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="exhGivenName" placeholder="Jack" value={exhibitor.exhGivenName} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                    <Col sm={6}>
+                      <Form.Label>Contact person's family name: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="exhFamilyName" placeholder="Harkness" value={exhibitor.exhFamilyName} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                  </Row>
+                </Form.Group>
 
-            <Row>
-              <Form.Group controlId="exhWorkers">
-                <Col sm={4}>
-                  <Form.Label>How many people will be working your exhibit? <span className="red">*</span></Form.Label>
-                  <Form.Control as="select" name="exhWorkers" className="formSelect" onChange={handleInputChange}>
-                    <option value={1} checked={exhibitor.exhWorkers === 1}>1</option>
-                    <option value={2} checked={exhibitor.exhWorkers === 2}>2</option>
-                    <option value={3} checked={exhibitor.exhWorkers === 3}>3</option>
-                    <option value={4} checked={exhibitor.exhWorkers === 4}>4</option>
-                  </Form.Control>
-                </Col>
-                <Col sm={8}>
-                  <Form.Label>Names of workers (one per line): <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="exhNames" placeholder="Yazmin Khan" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
-                  <Form.Control type="input" name="exhNames" placeholder="Ryan Sinclair" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
-                  <Form.Control required type="input" name="exhNames" placeholder="Graham O'Brien" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
-                  <Form.Control required type="input" name="exhNames" placeholder="Jack Harkness" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
-                </Col>
-              </Form.Group>
-            </Row>
+                <Form.Group controlId="exhCompanyInfo">
+                  <Row>
+                    <Col sm={8}>
+                      <Form.Label>Name of company: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="exhCompany" placeholder="Torchwood Institute" value={exhibitor.exhCompany} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                    <Col sm={4}>
+                      <Form.Label>Company phone #: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="exhPhone" placeholder="(123)456-7890" value={exhibitor.exhPhone} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm={12}>
+                      <Form.Label>Address of company: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                  </Row>
+                </Form.Group>
+              </Card.Body>
+            </Card>
 
-            <Row>
-              <Form.Group controlId="numSpaces">
-                <Col sm={4}>
-                  <Form.Label>How many spaces do you need? <span className="red">*</span></Form.Label>
-                  <Form.Control as="select" name="exhSpaces" className="formSelect" onChange={handleInputChange}>
-                    <option value={1} checked={exhibitor.exhSpaces === 1}>1</option>
-                    <option value={2} checked={exhibitor.exhSpaces === 2}>2</option>
-                    <option value={3} checked={exhibitor.exhSpaces === 3}>3</option>
-                    <option value={4} checked={exhibitor.exhSpaces === 4}>4</option>
-                  </Form.Control>
-                </Col>
-              </Form.Group>
-            </Row>
+            <Card className="formCard">
+              <Card.Title><h1>Exhibit Information</h1></Card.Title>
+              <Card.Body className="cardBody">
+                <Row>
+                  <Form.Group controlId="exhWorkers">
+                    <Col sm={4}>
+                      <Form.Label>How many people will be working your exhibit? <span className="red">*</span></Form.Label>
+                      <Form.Control type="number" min="1" max="4" name="exhWorkers" className="formNum" value={exhibitor.exhWorkers} onChange={handleInputChange} />
+                    </Col>
+                    <Col sm={8}>
+                      <Form.Label>Names of workers (one per line): <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="exhNames" placeholder="Yazmin Khan" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
+                      <Form.Control type="input" name="exhNames" placeholder="Ryan Sinclair" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="exhNames" placeholder="Graham O'Brien" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="exhNames" placeholder="Jack Harkness" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
+                    </Col>
+                  </Form.Group>
+                </Row>
+
+                <Row>
+                  <Form.Group controlId="numSpaces">
+                    <Col sm={4}>
+                      <Form.Label>How many spaces do you need? <span className="red">*</span></Form.Label>
+                      <Form.Control type="number" min="1" max="5" name="exhSpaces" className="formNum" value={exhibitor.exhSpaces} onChange={handleInputChange} />
+                    </Col>
+                  </Form.Group>
+                </Row>
+              </Card.Body>
+            </Card>
 
             <Row>
               {(formType === "register_exhibit")
