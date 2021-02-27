@@ -158,6 +158,15 @@ const SessionForm = () => {
                 </Row>
 
                 <Row>
+                  <Form.Group controlId="formSessWhere">
+                    <Col sm={12}>
+                      <Form.Label>Session room or location: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="sessRoom" placeholder="Enter a room or location, or TBA or TBD if the room or location hasn't been assigned" value={session.sessRoom} className="sessRoom" onChange={handleInputChange} />
+                    </Col>
+                  </Form.Group>
+                </Row>
+
+                <Row>
                   <Col sm={12}>
                     <Form.Group controlId="formSessKeynote">
                       <Form.Label>Is this a keynote session? <span className="red">*</span></Form.Label>

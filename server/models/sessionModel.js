@@ -50,6 +50,10 @@ const sessionSchema = new Schema({
   },
   sessKeynote: {
     type: String
+  },
+  sessRoom: {
+    type: String,
+    required: "Please enter a room or location for this session. If that hasn't yet been assigned, please enter 'TBA' or 'TBD'."
   }
 })
 
