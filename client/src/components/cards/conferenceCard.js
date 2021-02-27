@@ -14,6 +14,8 @@ const ConferenceCard = ({ conference }) => {
   const location = useLocation();
   const [cardAttendConf, setCardAttendConf] = useState([]);
   const [cardExhibitConf, setCardExhibitConf] = useState([]);
+  const [attReady, setAttReady] = useState(false);
+  const [exhReady, setExhReady] = useState(false);
   const [cardRender, setCardRender] = useState(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
@@ -37,15 +39,18 @@ const ConferenceCard = ({ conference }) => {
           const cardAttArr = resp.data
           const cardAttIds = cardAttArr.map(cardAttArr => cardAttArr.confId)
           setCardAttendConf(cardAttIds);
+          setAttReady(true);
         })
         .catch(err => console.log(err));
 
       // Retrieves conferences user is registered to exhibit at to determine whether exhibit register or unregister button should render
       ExhibitorAPI.getConferencesExhibiting(user.email)
         .then(resp => {
+          console.log("from confCard getConfExh", resp.data)
           const cardExhArr = resp.data
           const cardExhIds = cardExhArr.map(cardExhArr => cardExhArr.confId)
           setCardExhibitConf(cardExhIds);
+          setExhReady(true);
         })
     }
     setCardRender(true);
