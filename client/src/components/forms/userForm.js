@@ -43,11 +43,11 @@ const UpdateUser = () => {
               <Form.Group controlId="formUserName">
                 <Col sm={6}>
                   <Form.Label>Given name:</Form.Label>
-                  <Form.Control type="input" name="given_name" placeholder="Martha" value={userInfo.given_name} className="userFName" onChange={handleInputChange} />
+                  <Form.Control type="input" name="given_name" placeholder="Martha" value={userInfo.given_name} className="formInput" onChange={handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Form.Label>Family name:</Form.Label>
-                  <Form.Control type="input" name="family_name" placeholder="Jones" value={userInfo.family_name} className="userLName" onChange={handleInputChange} />
+                  <Form.Control type="input" name="family_name" placeholder="Jones" value={userInfo.family_name} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Form.Group>
             </Row>
@@ -56,7 +56,7 @@ const UpdateUser = () => {
               <Col>
                 <Form.Group controlId="formUserNickname">
                   <Form.Label>Nickname?</Form.Label>
-                  <Form.Control type="input" name="nickname" placeholder="Enter your nickname" value={userInfo.nickname} className="userNickname" onChange={handleInputChange} />
+                  <Form.Control type="input" name="nickname" placeholder="Enter your nickname" value={userInfo.nickname} className="formInput" onChange={handleInputChange} />
                 </Form.Group>
               </Col>
             </Row>
@@ -65,7 +65,7 @@ const UpdateUser = () => {
               <Col>
                 <Form.Group controlId="formUserPicUrl">
                   <Form.Label>URL of profile pic:</Form.Label>
-                  <Form.Control type="input" name="picture" placeholder="Enter URL of externally-hosted profile picture" value={userInfo.picture} className="userPic" onChange={handleInputChange} />
+                  <Form.Control type="input" name="picture" placeholder="Enter URL of externally-hosted profile picture" value={userInfo.picture} className="formInput" onChange={handleInputChange} />
                 </Form.Group>
               </Col>
             </Row>

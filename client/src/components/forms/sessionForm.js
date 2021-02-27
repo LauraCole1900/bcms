@@ -126,7 +126,7 @@ const SessionForm = () => {
                   <Col sm={12}>
                     <Form.Group controlId="formSessName">
                       <Form.Label>Name of session: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="sessName" placeholder="Enter session name" value={session.sessName} className="sessName" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="sessName" placeholder="Enter session name" value={session.sessName} className="formInput" onChange={handleInputChange} />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -135,7 +135,7 @@ const SessionForm = () => {
                   <Col sm={12}>
                     <Form.Group controlId="formSessDesc">
                       <Form.Label>Session description: <span className="red">*</span></Form.Label>
-                      <Form.Control required as="textarea" rows={10} type="input" name="sessDesc" placeholder="Enter session description" value={session.sessDesc} className="sessDesc" onChange={handleInputChange} />
+                      <Form.Control required as="textarea" rows={10} type="input" name="sessDesc" placeholder="Enter session description" value={session.sessDesc} className="formText" onChange={handleInputChange} />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -144,15 +144,15 @@ const SessionForm = () => {
                   <Form.Group controlId="formSessWhen">
                     <Col sm={4}>
                       <Form.Label>Session date: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="date" min={conference.startDate} max={conference.endDate} name="sessDate" value={session.sessDate} className="sessDate" onChange={handleInputChange} />
+                      <Form.Control required type="date" min={conference.startDate} max={conference.endDate} name="sessDate" value={session.sessDate} className="formDate" onChange={handleInputChange} />
                     </Col>
                     <Col sm={4}>
                       <Form.Label>Session start time: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="time" name="sessStart" placeholder="09:00" value={session.sessStart} className="sessStart" onChange={handleInputChange} />
+                      <Form.Control required type="time" name="sessStart" placeholder="09:00" value={session.sessStart} className="formTime" onChange={handleInputChange} />
                     </Col>
                     <Col sm={4}>
                       <Form.Label>Session end time: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="time" name="sessEnd" placeholder="10:00" value={session.sessEnd} className="sessEnd" onChange={handleInputChange} />
+                      <Form.Control required type="time" name="sessEnd" placeholder="10:00" value={session.sessEnd} className="formTime" onChange={handleInputChange} />
                     </Col>
                   </Form.Group>
                 </Row>
@@ -161,7 +161,7 @@ const SessionForm = () => {
                   <Form.Group controlId="formSessWhere">
                     <Col sm={12}>
                       <Form.Label>Session room or location: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="sessRoom" placeholder="Enter a room or location, or TBA or TBD if the room or location hasn't been assigned" value={session.sessRoom} className="sessRoom" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="sessRoom" placeholder="Enter a room or location, or TBA or TBD if the room or location hasn't been assigned" value={session.sessRoom} className="formInput" onChange={handleInputChange} />
                     </Col>
                   </Form.Group>
                 </Row>
@@ -186,7 +186,7 @@ const SessionForm = () => {
                   <Row>
                     <Col sm={3}>
                       <Form.Label>Number of presenters: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="number" min="1" max="15" name="sessNumPres" placeholder="Enter a number, 1-15" value={session.sessNumPres} className="sessNumPres" onChange={handleInputChange} />
+                      <Form.Control required type="number" min="1" max="15" name="sessNumPres" placeholder="Enter a number, 1-15" value={session.sessNumPres} className="formNum" onChange={handleInputChange} />
                     </Col>
                   </Row>
                 </Form.Group>
@@ -195,17 +195,17 @@ const SessionForm = () => {
                   <Row>
                     <Col sm={6}>
                       <Form.Label>Presenter's name: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="sessPresenter" placeholder="Enter presenter's name" value={session.sessPresenter} className="sessPresenter" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="sessPresenter" placeholder="Enter presenter's name" value={session.sessPresenter} className="formInput" onChange={handleInputChange} />
                     </Col>
                     <Col sm={6}>
                       <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="email" name="sessPresenterEmail" placeholder="name@email.com" value={session.sessPresenterEmail} className="sessPresenterEmail" onChange={handleInputChange} />
+                      <Form.Control required type="email" name="sessPresenterEmail" placeholder="name@email.com" value={session.sessPresenterEmail} className="formEmail" onChange={handleInputChange} />
                     </Col>
                   </Row>
                   <Row>
                     <Col sm={12}>
                       <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="sessPresenterOrg" placeholder="Enter organization the presenter represents" value={session.sessPresenterOrg} className="sessPresenterOrg" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="sessPresenterOrg" placeholder="Enter organization the presenter represents" value={session.sessPresenterOrg} className="formInput" onChange={handleInputChange} />
                     </Col>
                   </Row>
                 </Form.Group>
@@ -214,7 +214,7 @@ const SessionForm = () => {
                   <Col sm={12}>
                     <Form.Group controlId="sessPresBio">
                       <Form.Label>Presenter's bio:</Form.Label>
-                      <Form.Control as="textarea" rows={5} type="input" name="sessPresenterBio" placeholder="Enter a short bio of the presenter" value={session.sessPresenterBio} className="sessPresenterBio" onChange={handleInputChange} />
+                      <Form.Control as="textarea" rows={5} type="input" name="sessPresenterBio" placeholder="Enter a short bio of the presenter" value={session.sessPresenterBio} className="formInput" onChange={handleInputChange} />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -223,7 +223,7 @@ const SessionForm = () => {
                   <Col sm={12}>
                     <Form.Group controlId="formPresPic">
                       <Form.Label>Upload presenter's picture:</Form.Label>
-                      <Form.Control type="input" name="sessPresenterPic" placeholder="URL for presenter's picture" value={session.sessPresenterPic} className="sessPresenterPic" onChange={handleInputChange} />
+                      <Form.Control type="input" name="sessPresenterPic" placeholder="URL for presenter's picture" value={session.sessPresenterPic} className="formInput" onChange={handleInputChange} />
                     </Form.Group>
                   </Col>
                 </Row>

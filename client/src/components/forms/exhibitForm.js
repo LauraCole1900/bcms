@@ -51,16 +51,16 @@ const ExhibitForm = () => {
               <Row>
                 <Col sm={8}>
                   <Form.Label>Name of company: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="exhCompany" placeholder="Torchwood Institute" value={exhibitor.exhCompany} className="exhComp" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="exhCompany" placeholder="Torchwood Institute" value={exhibitor.exhCompany} className="formInput" onChange={handleInputChange} />
                 </Col>
                 <Col sm={4}>
                   <Form.Label>Company phone #: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="exhPhone" placeholder="(123)456-7890" value={exhibitor.exhPhone} className="exhPhone" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="exhPhone" placeholder="(123)456-7890" value={exhibitor.exhPhone} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
               <Row>
                 <Form.Label>Address of company: <span className="red">*</span></Form.Label>
-                <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="exhCompAddy" onChange={handleInputChange} />
+                <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="formInput" onChange={handleInputChange} />
               </Row>
             </Form.Group>
 
@@ -68,7 +68,7 @@ const ExhibitForm = () => {
               <Form.Group controlId="exhWorkers">
                 <Col sm={4}>
                   <Form.Label>How many people will be working your exhibit? <span className="red">*</span></Form.Label>
-                  <Form.Control as="select" name="exhWorkers" className="exhSelect" onChange={handleInputChange}>
+                  <Form.Control as="select" name="exhWorkers" className="formSelect" onChange={handleInputChange}>
                     <option value={1} checked={exhibitor.exhWorkers === 1}>1</option>
                     <option value={2} checked={exhibitor.exhWorkers === 2}>2</option>
                     <option value={3} checked={exhibitor.exhWorkers === 3}>3</option>
@@ -89,7 +89,7 @@ const ExhibitForm = () => {
               <Form.Group controlId="numSpaces">
                 <Col sm={4}>
                   <Form.Label>How many spaces do you need? <span className="red">*</span></Form.Label>
-                  <Form.Control as="select" name="exhSpaces" className="exhSpaceSelect" onChange={handleInputChange}>
+                  <Form.Control as="select" name="exhSpaces" className="formSelect" onChange={handleInputChange}>
                     <option value={1} checked={exhibitor.exhSpaces === 1}>1</option>
                     <option value={2} checked={exhibitor.exhSpaces === 2}>2</option>
                     <option value={3} checked={exhibitor.exhSpaces === 3}>3</option>
