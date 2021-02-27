@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
-import "./style.css";
 import { UserAPI } from "../../utils/api";
+import "./style.css";
 
 const UserCard = () => {
   const { user, isAuthenticated } = useAuth0();

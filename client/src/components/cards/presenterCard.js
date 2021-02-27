@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Card, Row, Col, Image } from "react-bootstrap";
-import { SessionAPI } from "../../utils/api";
 import "./style.css";
+
+// Figure out how to add session name(s)?
 
 const PresenterCard = (props) => {
   const [cardRender, setCardRender] = useState(false);
-
-  // Grabs ConfID from URL
-  const urlArray = window.location.href.split("/")
-  const confId = urlArray[urlArray.length - 1]
 
   useEffect(() => {
     setCardRender(true)
