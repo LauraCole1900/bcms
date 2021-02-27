@@ -77,10 +77,10 @@ const ExhibitForm = () => {
                 </Col>
                 <Col sm={8}>
                   <Form.Label>Names of workers (one per line): <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="exhNames" placeholder="Yazmin Khan" value={exhibitor.exhNames[0]} className="exhNameArr" onChange={handleInputChange} />
-                  <Form.Control type="input" name="exhNames" placeholder="Ryan Sinclair" value={exhibitor.exhNames[1]} className="exhNameArr" onChange={handleInputChange} />
-                  <Form.Control required type="input" name="exhNames" placeholder="Graham O'Brien" value={exhibitor.exhNames[2]} className="exhNameArr" onChange={handleInputChange} />
-                  <Form.Control required type="input" name="exhNames" placeholder="Jack Harkness" value={exhibitor.exhNames[3]} className="exhNameArr" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="exhNames" placeholder="Yazmin Khan" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
+                  <Form.Control type="input" name="exhNames" placeholder="Ryan Sinclair" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="exhNames" placeholder="Graham O'Brien" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="exhNames" placeholder="Jack Harkness" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
                 </Col>
               </Form.Group>
             </Row>
