@@ -183,6 +183,7 @@ const ConferenceCard = ({ conference }) => {
                   </div>}
 
                 {isAuthenticated &&
+                conf.confType === "Live" &&
                   cardExhibitConf.indexOf(conf._id) >= 0 &&
                   <div>
                     <Col sm={1}></Col>
@@ -213,6 +214,7 @@ const ConferenceCard = ({ conference }) => {
 
                 {isAuthenticated &&
                   user.email !== conf.creatorEmail &&
+                  conf.confType === "Live" &&
                   cardExhibitConf.indexOf(conf._id) < 0 &&
                   <div>
                     <Col sm={3}></Col>
