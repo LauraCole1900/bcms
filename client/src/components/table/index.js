@@ -24,24 +24,24 @@ const TableComp = (e) => {
   const dataSet = urlArray[urlArray.length - 2];
 
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
-  const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend"];
+  const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend"];
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
 
   // GET conference info for useEffect and callback
   const fetchConf = async (confId) => {
     await ConferenceAPI.getConferenceById(confId)
-    .then(resp => {
-      console.log("table getConfsById", resp.data)
-      setConference(resp.data)
-    })
-    .catch(err => console.log(err))
+      .then(resp => {
+        console.log("table getConfsById", resp.data)
+        setConference(resp.data)
+      })
+      .catch(err => console.log(err))
   }
 
   // GETs attendees for useEffect and callback
   const fetchAttendees = async (confId) => {
     await AttendeeAPI.getAttendees(confId)
       .then(resp => {
-        console.log("table getAttendees", resp.data)
+        console.log("table fetchAttendees", resp.data)
         const attSort = ascendingSort(resp.data, "familyName")
         setAttendees(attSort)
       })
@@ -52,7 +52,7 @@ const TableComp = (e) => {
   const fetchExhibitors = async (confId) => {
     await ExhibitorAPI.getExhibitors(confId)
       .then(resp => {
-        console.log("table getExhibitors", resp.data)
+        console.log("table fetchExhibitors", resp.data)
         const exhSort = ascendingSort(resp.data, "exhFamilyName")
         setExhibitors(exhSort)
       })
@@ -63,7 +63,7 @@ const TableComp = (e) => {
   const fetchPresenters = async (confId) => {
     await PresenterAPI.getPresenters(confId)
       .then(resp => {
-        console.log("table getPresenters", resp.data)
+        console.log("table fetchPresenters", resp.data)
         const presSort = ascendingSort(resp.data, "presFamilyName")
         setPresenters(presSort)
       })
@@ -170,8 +170,8 @@ const TableComp = (e) => {
         break;
       default:
         fetchAttendees(confId);
-      }
-      setPageReady(true);
+    }
+    setPageReady(true);
   }, [confId, dataSet])
 
   return (
@@ -249,15 +249,15 @@ const TableComp = (e) => {
             <tbody>
               {dataSet === "attendees" && (
                 attendees.length > 0
-                  ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} confId={confId} attcb={fetchAttendees} />
+                  ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} attcb={fetchAttendees} />
                   : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
-                  ? <ExhibitorTable data={searchFilter(exhibitors)} conference={conference} confcd={fetchConf} confId={confId} exhcb={fetchExhibitors} />
+                  ? <ExhibitorTable exhibitors={searchFilter(exhibitors)} conference={conference} confcd={fetchConf} exhcb={fetchExhibitors} />
                   : <h3>We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</h3>)}
               {dataSet === "presenters" && (
                 presenters.length > 0
-                  ? <PresenterTable data={searchFilter(presenters)} confId={confId} />
+                  ? <PresenterTable presenters={searchFilter(presenters)} conference={conference} confcb={fetchConf} prescb={fetchPresenters} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>)}
             </tbody>
           </Table>

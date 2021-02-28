@@ -33,8 +33,18 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
+  // FIND exhibitors by confId
+  findByConfId: function (req, res) {
+    console.log("from exhibitorCont findByConfId", req.params.id)
+    db.Exhibitor
+      .find({ confId: req.params.id })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
   // FIND exhibitor by ID
   findById: function (req, res) {
+    console.log("from exhibitorCont findById", req.params.id)
     db.Exhibitor
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))

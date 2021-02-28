@@ -12,7 +12,7 @@ const ExhibitorAPI = {
   // GET exhibitors by conference
   getExhibitors: function (confId) {
     console.log("from API getExhibitors", confId)
-    return axios.get(`/api/exhibitor/${confId}`)
+    return axios.get(`/api/exhibitor/conference/${confId}`)
   },
 
   // GET one exhibitor document to update
