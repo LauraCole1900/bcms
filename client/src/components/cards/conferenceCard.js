@@ -166,24 +166,7 @@ const ConferenceCard = ({ conference }) => {
 
               <Row>
                 {isAuthenticated &&
-                  user.email !== conf.creatorEmail &&
-                  cardAttendConf.indexOf(conf._id) >= 0 &&
-                  <div>
-                    <Col sm={1}></Col>
-                    <Col sm={2}>
-                      <Link to={`/unregister_confirm/${conf._id}`} className={location.pathname === `/unregister_confirm/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Unregister attendee from this conference" className="button">Unregister Attendee</Button>
-                      </Link>
-                    </Col>
-                    <Col sm={2}>
-                      <Link to={`/register_edit/${conf._id}`} className={location.pathname === `/register_edit/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Edit your attendee registration" className="button">Edit attendee registration</Button>
-                      </Link>
-                    </Col>
-                  </div>}
-
-                {isAuthenticated &&
-                conf.confType === "Live" &&
+                  conf.confType === "Live" &&
                   cardExhibitConf.indexOf(conf._id) >= 0 &&
                   <div>
                     <Col sm={1}></Col>
@@ -201,15 +184,21 @@ const ConferenceCard = ({ conference }) => {
 
                 {isAuthenticated &&
                   user.email !== conf.creatorEmail &&
-                  cardAttendConf.indexOf(conf._id) < 0 &&
+                  cardAttendConf.indexOf(conf._id) >= 0 &&
                   <div>
-                    <Col sm={1}></Col>
+                    {conf.confType === "Live"
+                      ? <Col sm={2}></Col>
+                      : <Col sm={7}></Col>}
                     <Col sm={2}>
-                      <Link to={`/register_attend/${conf._id}`} className={location.pathname === `/register_attend/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Register for this conference" className="button">Register as Attendee</Button>
+                      <Link to={`/unregister_confirm/${conf._id}`} className={location.pathname === `/unregister_confirm/${conf._id}` ? "link active" : "link"}>
+                        <Button data-toggle="popover" title="Unregister attendee from this conference" className="button">Unregister Attendee</Button>
                       </Link>
                     </Col>
-                    <Col sm={1}></Col>
+                    <Col sm={2}>
+                      <Link to={`/register_edit/${conf._id}`} className={location.pathname === `/register_edit/${conf._id}` ? "link active" : "link"}>
+                        <Button data-toggle="popover" title="Edit your attendee registration" className="button">Edit attendee registration</Button>
+                      </Link>
+                    </Col>
                   </div>}
 
                 {isAuthenticated &&
@@ -217,12 +206,29 @@ const ConferenceCard = ({ conference }) => {
                   conf.confType === "Live" &&
                   cardExhibitConf.indexOf(conf._id) < 0 &&
                   <div>
-                    <Col sm={3}></Col>
-                    <Col sm={3}>
+                    <Col sm={1}></Col>
+                    <Col sm={2}>
                       <Link to={`/register_exhibit/${conf._id}`} className={location.pathname === `/register_exhibit/${conf._id}` ? "link active" : "link"}>
                         <Button data-toggle="popover" title="Register to exhibit at this conference" className="button">Register as Exhibitor</Button>
                       </Link>
                     </Col>
+                  </div>}
+
+                {isAuthenticated &&
+                  user.email !== conf.creatorEmail &&
+                  cardAttendConf.indexOf(conf._id) < 0 &&
+                  <div>
+                    {conf.confType === "Live"
+                      ? (cardExhibitConf.indexOf(conf._id) < 0
+                        ? <Col sm={4}></Col>
+                        : <Col sm={2}></Col>)
+                      : <Col sm={7}></Col>}
+                    <Col sm={3}>
+                      <Link to={`/register_attend/${conf._id}`} className={location.pathname === `/register_attend/${conf._id}` ? "link active" : "link"}>
+                        <Button data-toggle="popover" title="Register for this conference" className="button">Register as Attendee</Button>
+                      </Link>
+                    </Col>
+                    <Col sm={1}></Col>
                   </div>}
               </Row>
             </Card.Body>
