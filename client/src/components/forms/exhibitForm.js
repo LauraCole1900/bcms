@@ -43,8 +43,8 @@ const ExhibitForm = () => {
 
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    console.log("Exhibitor update", confId, user.email);
-    ExhibitorAPI.updateExhibitor({ ...exhibitor }, confId, user.email)
+    console.log("Exhibitor update", exhibitor._id);
+    ExhibitorAPI.updateExhibitor({ ...exhibitor }, exhibitor._id)
       .then(history.push("/exhibitor_updated"))
       .catch(err => console.log(err))
   };
@@ -122,14 +122,14 @@ const ExhibitForm = () => {
                       <Form.Control type="number" min="1" max="4" name="exhWorkers" className="formNum" value={exhibitor.exhWorkers} onChange={handleInputChange} />
                     </Col>
                     <Col sm={8}>
-                      <Form.Label>Names of workers (separate with commas): <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="exhNames" placeholder="Yazmin Khan" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />
-                      {/* {exhibitor.exhWorkers > 1 &&
-                        <Form.Control type="input" name="exhNames" placeholder="Ryan Sinclair" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />}
+                      <Form.Label>Names of workers (one name per line): <span className="red">*</span></Form.Label>
+                      <Form.Control required type="input" name="exhWorkerName1" placeholder="Yazmin Khan" value={exhibitor.exhWorkerName1} className="exhNameArr" onChange={handleInputChange} />
+                      {exhibitor.exhWorkers > 1 &&
+                        <Form.Control type="input" name="exhWorkerName2" placeholder="Ryan Sinclair" value={exhibitor.exhWorkerName2} className="exhNameArr" onChange={handleInputChange} />}
                       {exhibitor.exhWorkers > 2 &&
-                        <Form.Control required type="input" name="exhNames" placeholder="Graham O'Brien" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />}
+                        <Form.Control required type="input" name="exhWorkerName3" placeholder="Graham O'Brien" value={exhibitor.exhWorkerName3} className="exhNameArr" onChange={handleInputChange} />}
                       {exhibitor.exhWorkers > 3 &&
-                        <Form.Control required type="input" name="exhNames" placeholder="Jack Harkness" value={exhibitor.exhNames} className="exhNameArr" onChange={handleInputChange} />} */}
+                        <Form.Control required type="input" name="exhWorkerName4" placeholder="Jack Harkness" value={exhibitor.exhWorkerName4} className="exhNameArr" onChange={handleInputChange} />}
                     </Col>
                   </Form.Group>
                 </Row>

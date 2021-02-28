@@ -29,16 +29,16 @@ const ExhibitorAPI = {
 
 
   // UPDATE exhibitor information
-  updateExhibitor: function (formObj, email) {
-    console.log ("from API updateExhibitor", formObj, email)
-    return axios.put(`/api/exhibitor/update/${email}`, formObj)
+  updateExhibitor: function (formObj, exhId) {
+    console.log ("from API updateExhibitor", formObj, exhId)
+    return axios.put(`/api/exhibitor/update/${exhId}`, formObj)
   },
 
 
   // DELETE exhibitor
-  deleteExhibitor: function (email) {
-    console.log("from API deleteExhibitor", email)
-    return axios.delete(`/api/exhibitor/delete/${email}`)
+  deleteExhibitor: function (confId, email) {
+    console.log("from API deleteExhibitor", confId, email)
+    return axios.delete(`/api/exhibitor/delete/${confId}/${email}`)
   }
 
 }
