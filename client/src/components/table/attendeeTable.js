@@ -25,14 +25,14 @@ const AttendeeTable = (props) => {
     }
     // API call to update attendee document
     AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
-      .then(props.attcb(props.confId))
+      .then(props.attcb(props.conference._id))
       .catch(err => console.log(err))
     let adminEmail = await getEmail(e.target.dataset.id)
     switch (adminConf) {
       case true:
         // API call to add emails to conference.confAdmins
-        ConferenceAPI.updateConference({ confAdmins: [...props.conference[0].confAdmins, adminEmail] }, props.confId)
-          .then(props.confcb(props.confId))
+        ConferenceAPI.updateConference({ confAdmins: [...props.conference[0].confAdmins, adminEmail] }, props.conference._id)
+          .then(props.confcb(props.conference._id))
           .catch(err => console.log(err))
         break;
       default:
@@ -43,8 +43,8 @@ const AttendeeTable = (props) => {
             console.log({adminArr});
             break;
           default:
-            ConferenceAPI.updateConference({ confAdmins: [...adminArr] }, props.confId)
-              .then(props.confcb(props.confId))
+            ConferenceAPI.updateConference({ confAdmins: [...adminArr] }, props.conference._id)
+              .then(props.confcb(props.conference._id))
               .catch(err => console.log(err))
         }
     }
