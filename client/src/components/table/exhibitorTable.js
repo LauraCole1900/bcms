@@ -11,7 +11,10 @@ const ExhibitorTable = ({ exhibitors }) => {
           <td>{exh.exhEmail}</td>
           <td>{exh.exhPhone}</td>
           <td>{exh.exhCompany}</td>
-          <td>{exh.exhWorkerNames}</td>
+          <td>{exh.exhWorkerName1}</td>
+          <td>{exh.exhWorkerName2}</td>
+          <td>{exh.exhWorkerName3}</td>
+          <td>{exh.exhWorkerName4}</td>
           <td>{exh.exhSpaces}</td>
           <td>{exh.exhAttend}</td>
         </tr>
