@@ -26,7 +26,7 @@ router.route("/update/:id")
   .put(exhibitorController.updateExhibitor);
 
 
-router.route("/delete/:id")
+router.route("/delete/:id/:email")
   .delete(exhibitorController.removeExhibitor);
 
 module.exports = router;

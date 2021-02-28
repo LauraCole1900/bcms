@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
+import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
 import "./style.css"
 
 const Confirm = () => {
@@ -15,6 +15,7 @@ const Confirm = () => {
 
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
+  const unregType = urlArray[urlArray.length - 2]
 
   useEffect(() => {
     ConferenceAPI.getConferenceById(confId)
@@ -28,11 +29,18 @@ const Confirm = () => {
   }, [])
 
   // At some point, this needs to send a message or alert to conference organizer(s)
-  function handleUnregister(confId, email) {
-    console.log("from confirm", conference._id, user.email)
+  function handleAttUnregister(confId, email) {
+    console.log("from confirm attUnreg", conference._id, user.email)
     AttendeeAPI.unregisterAttendee(conference._id, user.email)
-    .then(history.push("/unregistered"))
-    .catch(err => console.log(err));
+      .then(history.push("/unregistered"))
+      .catch(err => console.log(err));
+  }
+
+  function handleExhUnregister(confId, email) {
+    console.log("from confirm exhUnreg", conference._id, user.email)
+    ExhibitorAPI.deleteExhibitor(conference._id, user.email)
+      .then(history.push("/unregistered"))
+      .catch(err => console.log(err));
   }
 
   return (
@@ -43,13 +51,19 @@ const Confirm = () => {
             <Row>
               <Col sm={2}></Col>
               <Col sm={8}>
-                <h1>Are you sure you want to unregister from {conference.confName}?</h1>
+                {unregType === "unregister_confirm" &&
+                  <h1>Are you sure you want to unregister from {conference.confName}?</h1>}
+                {unregType === "unregister_exhibit_confirm" &&
+                  <h1>Are you sure you want to unregister your exhibit from {conference.confName}?</h1>}
               </Col>
             </Row>
             <Row>
               <Col sm={3}></Col>
               <Col sm={2}>
-                <Button data-toggle="popover" title="Unregister" className="button" onClick={handleUnregister} type="submit">Yes, Unregister</Button>
+                {unregType === "unregister_confirm" &&
+                  <Button data-toggle="popover" title="Unregister Attendee" className="button" onClick={handleAttUnregister} type="submit">Yes, Unregister</Button>}
+                {unregType === "unregister_exhibit_confirm" &&
+                  <Button data-toggle="popover" title="Unregister Exhibit" className="button" onClick={handleExhUnregister} type="submit">Yes, Unregister</Button>}
               </Col>
               <Col sm={1}></Col>
               <Col sm={2}>

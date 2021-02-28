@@ -81,8 +81,9 @@ module.exports = {
 
   // DELETE exhibitor
   removeExhibitor: function (req, res) {
+    console.log("from exhibitorCont removeExhibitor", req.params.id, req.params.email)
     db.Exhibitor
-      .findById({ _id: req.params.id })
+      .findOne({ confId: req.params.id, exhEmail: req.params.email })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
