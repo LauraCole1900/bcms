@@ -33,8 +33,27 @@ Login page:
 Profile page:
 ![Profile page](assets/bcms-profile-page-screenshot.png)
 
+Individual conference information, default:
+![Conference card](assets/bcms-conference-card-default-screenshot.png)
+
+Individual conference information, conference's creator:
+![Conference card, creator](assets/bcms-conference-card-creator-screenshot.png)
+
+Individual conference information, conference admins:
+![Conference card, admin](assets/bcms-conference-card-admin-screenshot.png)
+
+Individual conference information, registered attendee:
+![Conference card, attendee](assets/bcms-conference-card-attendee-screenshot.png)
+
+Individual conference information, registered exhibitor:
+![Conference card, exhibitor](assets/bcms-conference-card-exhibitor-screenshot.png)
+
 All Conferences page:
 ![All Conferences page](assets/bcms-all-conf-screenshot.png)
+
+User input form on All Conferences page:
+
+<img src="assets/bcms-conf-user-input-default-screenshot.png" alt="Default: View All" width="175px"> <img src="assets/bcms-conf-user-input-conf-name-screenshot.png" alt="Search by Conference Name" width="175px"> <img src="assets/bcms-conf-user-input-conf-org-screenshot.png" alt="Search by Conference Organization" width="175px">
 
 Conference Details page:
 ![Conference Details page](assets/bcms-conf-details-screenshot.png)
