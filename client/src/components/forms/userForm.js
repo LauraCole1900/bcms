@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { Container, Card, Form, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { UserAPI } from "../../utils/api";
 import "./style.css";
@@ -48,36 +48,42 @@ const UpdateUser = () => {
       {pageReady === true &&
         <Container>
           <Form className="userForm">
-            <Row>
-              <Form.Group controlId="formUserName">
-                <Col sm={6}>
-                  <Form.Label>Given name:</Form.Label>
-                  <Form.Control type="input" name="given_name" placeholder="Martha" value={userInfo.given_name} className="formInput" onChange={handleInputChange} />
-                </Col>
-                <Col sm={6}>
-                  <Form.Label>Family name:</Form.Label>
-                  <Form.Control type="input" name="family_name" placeholder="Jones" value={userInfo.family_name} className="formInput" onChange={handleInputChange} />
-                </Col>
-              </Form.Group>
-            </Row>
 
-            <Row>
-              <Col>
-                <Form.Group controlId="formUserNickname">
-                  <Form.Label>Nickname?</Form.Label>
-                  <Form.Control type="input" name="nickname" placeholder="Enter your nickname" value={userInfo.nickname} className="formInput" onChange={handleInputChange} />
-                </Form.Group>
-              </Col>
-            </Row>
+            <Card className="formCard">
+              <Card.Title><h1>Update Your Information</h1></Card.Title>
+              <Card.Body className="cardBody">
+                <Row>
+                  <Form.Group controlId="formUserName">
+                    <Col sm={6}>
+                      <Form.Label>Given name:</Form.Label>
+                      <Form.Control type="input" name="given_name" placeholder="Martha" value={userInfo.given_name} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                    <Col sm={6}>
+                      <Form.Label>Family name:</Form.Label>
+                      <Form.Control type="input" name="family_name" placeholder="Jones" value={userInfo.family_name} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                  </Form.Group>
+                </Row>
 
-            <Row>
-              <Col>
-                <Form.Group controlId="formUserPicUrl">
-                  <Form.Label>URL of profile pic:</Form.Label>
-                  <Form.Control type="input" name="picture" placeholder="Enter URL of externally-hosted profile picture" value={userInfo.picture} className="formInput" onChange={handleInputChange} />
-                </Form.Group>
-              </Col>
-            </Row>
+                <Row>
+                  <Col sm={12}>
+                    <Form.Group controlId="formUserNickname">
+                      <Form.Label>Nickname?</Form.Label>
+                      <Form.Control type="input" name="nickname" placeholder="Enter your nickname" value={userInfo.nickname} className="formInput" onChange={handleInputChange} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col sm={12}>
+                    <Form.Group controlId="formUserPicUrl">
+                      <Form.Label>URL of profile pic:</Form.Label>
+                      <Form.Control type="input" name="picture" placeholder="Enter URL of externally-hosted profile picture" value={userInfo.picture} className="formInput" onChange={handleInputChange} />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
 
             <Row>
               <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Info</Button>
