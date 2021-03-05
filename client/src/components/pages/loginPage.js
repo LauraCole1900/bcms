@@ -13,7 +13,7 @@ const Login = () => {
         <TitleCard />
         <Card>
           <Card.Body className="login">
-            <h2> Welcome to Blue Star Conference Management System</h2>
+            <h2> Welcome to Bristlecone Conference Management System</h2>
             <Button data-toggle="popover" title="Log in" onClick={() => loginWithRedirect()} className="button">Log in</Button>
           </Card.Body>
         </Card>
