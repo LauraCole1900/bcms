@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Container, Form, Card, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const SessionForm = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const history = useHistory();
   const [session, setSession] = useState();
   const [conference, setConference] = useState();
@@ -69,17 +69,18 @@ const SessionForm = () => {
   }
 
   useEffect(() => {
-    switch (formType) {
-      // GET call to pre-populate the form if the URL indicates this is an existing session
-      case "edit_session":
-        fetchConf(urlId);
-        break;
-      // Puts conference ID in state as session.confId
-      default:
-        setSession({ ...session, confId: urlId })
-        setSessReady(true);
-        fetchConf(urlId);
-
+    if (isAuthenticated) {
+      switch (formType) {
+        // GET call to pre-populate the form if the URL indicates this is an existing session
+        case "edit_session":
+          fetchConf(urlId);
+          break;
+        // Puts conference ID in state as session.confId
+        default:
+          setSession({ ...session, confId: urlId })
+          setSessReady(true);
+          fetchConf(urlId);
+      }
     }
   }, [])
 
@@ -111,6 +112,13 @@ const SessionForm = () => {
 
   return (
     <>
+      {!isAuthenticated &&
+        <Row>
+          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+            log in
+          </Link> to add or edit a session.</h1>
+        </Row>}
+
       {isAuthenticated &&
         sessReady === true &&
         confReady === true &&
