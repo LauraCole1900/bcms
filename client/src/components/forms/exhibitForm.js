@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ExhibitorAPI, UserAPI } from "../../utils/api";
 import "./style.css";
 
 const ExhibitForm = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
   const [exhibitor, setExhibitor] = useState({});
@@ -16,20 +16,21 @@ const ExhibitForm = () => {
   const formType = urlArray[urlArray.length - 2]
 
   useEffect(() => {
-    switch (formType) {
-      case "edit_exhibit":
-        ExhibitorAPI.getExhibitorToUpdate(confId, user.email)
-          .then(resp => {
-            console.log("from exhibitorForm getExhibitorToUpdate", resp.data)
-            const exhObj = resp.data
-            setExhibitor(exhObj)
-          })
-          .catch(err => console.log(err))
-        break;
-      default:
-        setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email, })
+    if (isAuthenticated) {
+      switch (formType) {
+        case "edit_exhibit":
+          ExhibitorAPI.getExhibitorToUpdate(confId, user.email)
+            .then(resp => {
+              console.log("from exhibitorForm getExhibitorToUpdate", resp.data)
+              const exhObj = resp.data
+              setExhibitor(exhObj)
+            })
+            .catch(err => console.log(err))
+          break;
+        default:
+          setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email, })
+      }
     }
-
     setPageReady(true);
   }, [])
 
@@ -59,6 +60,13 @@ const ExhibitForm = () => {
 
   return (
     <>
+      {!isAuthenticated &&
+        <Row>
+          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+            log in
+          </Link> to register.</h1>
+        </Row>}
+
       { pageReady === true &&
         isAuthenticated &&
         <Container>
