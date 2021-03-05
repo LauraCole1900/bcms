@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Container, Card, Form, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Moment from "react-moment";
@@ -8,7 +8,7 @@ import { ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const ConferenceForm = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
   const [conference, setConference] = useState({
@@ -38,18 +38,20 @@ const ConferenceForm = () => {
   const confOffset = new Date().getTimezoneOffset()
 
   useEffect(() => {
-    // GET call to pre-populate the form if the URL indicates this is an existing conference
-    if (confId !== "new_conference") {
-      ConferenceAPI.getConferenceById(confId)
-        .then(resp => {
-          console.log("from conferenceForm getConfById", resp.data);
-          const confArr = resp.data;
-          setConference(confArr[0])
-        })
-        .catch(err => console.log(err))
-    } else {
-      // Puts the user's email in state as conference.creatorEmail
-      setConference({ ...conference, creatorEmail: user.email })
+    if (isAuthenticated) {
+      // GET call to pre-populate the form if the URL indicates this is an existing conference
+      if (confId !== "new_conference") {
+        ConferenceAPI.getConferenceById(confId)
+          .then(resp => {
+            console.log("from conferenceForm getConfById", resp.data);
+            const confArr = resp.data;
+            setConference(confArr[0])
+          })
+          .catch(err => console.log(err))
+      } else {
+        // Puts the user's email in state as conference.creatorEmail
+        setConference({ ...conference, creatorEmail: user.email })
+      }
     }
     setPageReady(true);
   }, []);
@@ -90,6 +92,13 @@ const ConferenceForm = () => {
 
   return (
     <>
+      {!isAuthenticated &&
+        <Row>
+          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+            log in
+          </Link> to create or update a conference.</h1>
+        </Row>}
+
       { pageReady === true &&
         isAuthenticated && (
           <Container>

@@ -36,3 +36,26 @@ form {
 .red {
   color: red;
 }
+
+.authRemind {
+  color: #408ae1;
+  text-align: center;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: bolder;
+}
+
+.login {
+  color: #47532b;
+}
+
+.login:hover {
+  color: #47532b;
+}
+
+.login:active {
+  color: #47532b;
+}
+
+.login:visited {
+  color: #47532b;
+}
