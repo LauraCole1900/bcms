@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const Registration = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
   const [userInfo, setUserInfo] = useState({});
@@ -19,26 +19,27 @@ const Registration = () => {
   console.log("registrationForm update", formType)
 
   useEffect(() => {
-    ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
-        console.log("from registrationForm getConferenceById", resp.data)
-        const confArr = resp.data[0];
-        setConference(confArr);
-      })
-      .catch(err => console.log(err));
-
-    if (formType === "register_edit") {
-      AttendeeAPI.getAttendeeToUpdate(confId, user.email)
+    if (isAuthenticated) {
+      ConferenceAPI.getConferenceById(confId)
         .then(resp => {
-          console.log("from registrationForm getAttendeeToUpdate", resp.data)
-          const attArr = resp.data
-          setAttendee(attArr)
+          console.log("from registrationForm getConferenceById", resp.data)
+          const confArr = resp.data[0];
+          setConference(confArr);
         })
         .catch(err => console.log(err));
-    } else {
-      setAttendee({ ...attendee, confId: confId, email: user.email })
-    }
 
+      if (formType === "register_edit") {
+        AttendeeAPI.getAttendeeToUpdate(confId, user.email)
+          .then(resp => {
+            console.log("from registrationForm getAttendeeToUpdate", resp.data)
+            const attArr = resp.data
+            setAttendee(attArr)
+          })
+          .catch(err => console.log(err));
+      } else {
+        setAttendee({ ...attendee, confId: confId, email: user.email })
+      }
+    }
     setPageReady(true);
   }, [])
 
@@ -64,6 +65,13 @@ const Registration = () => {
 
   return (
     <>
+    {!isAuthenticated &&
+        <Row>
+          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+            log in
+          </Link> to register.</h1>
+        </Row>}
+
       { pageReady === true &&
         isAuthenticated && (
           <Container>
