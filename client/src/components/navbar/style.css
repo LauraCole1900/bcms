@@ -4,9 +4,9 @@
   width: 100%;
   height: 100px;
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .logo {
@@ -26,18 +26,20 @@
   font-family: "Open Sans Condensed", sans-serif;
   color: #e2e2e2;
   display: flex;
+  justify-self: flex-start;
 }
 
 .mylogo {
   font-family: "Romanesco", cursive;
   font-size: 24px;
   color: #cfbfa5;
+  justify-self: flex-start;
 }
 
 .navobj {
   width: 60%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   /* border: 1px solid red; */
 }
 
@@ -59,6 +61,8 @@
 
 .placelink {
   margin-right: 24px;
+  /* display: flex;
+  justify-self: flex-start; */
 }
 
 .navlink {
@@ -80,10 +84,8 @@
   color: #a99f93;
 }
 
-.logout {
-  display: inline;
-  margin-right: 15px;
-  width: 16%;
+.auth {
+  justify-self: flex-end;
 }
 
 .toggle {

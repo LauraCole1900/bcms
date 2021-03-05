@@ -63,10 +63,10 @@ const Navigation = () => {
                 About
               </Link>
               {isAuthenticated
-                ? <Link to={window.location.origin} className="navlink logout" onClick={() => logout({ returnTo: window.location.origin })}>
+                ? <Link to={window.location.origin} className="navlink auth" onClick={() => logout({ returnTo: window.location.origin })}>
                   Logout
                   </Link>
-                : <Link to={window.location.origin} className="navlink login" onClick={() => loginWithRedirect()}>
+                : <Link to={window.location.origin} className="navlink auth" onClick={() => loginWithRedirect()}>
                   Log In
                   </Link>
               }
