@@ -65,7 +65,7 @@ const Registration = () => {
 
   return (
     <>
-    {!isAuthenticated &&
+      {!isAuthenticated &&
         <Row>
           <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
             log in
@@ -118,12 +118,14 @@ const Registration = () => {
                   </Row>
 
                   <Row>
-                    <Form.Group controlId="formRegEmployer">
-                      <Form.Label>Company, organization or school you represent:</Form.Label>
-                      <Form.Control type="input" name="employerName" placeholder="Torchwood Institute" value={attendee.employerName} className="formInput" onChange={handleInputChange} />
-                      <Form.Label>Address of your company, organization or school:</Form.Label>
-                      <Form.Control type="input" name="employerAddress" placeholder="219 W 48th Street, New York, NY" value={attendee.employerAddress} className="formInput" onChange={handleInputChange} />
-                    </Form.Group>
+                    <Col sm={12}>
+                      <Form.Group controlId="formRegEmployer">
+                        <Form.Label>Company, organization or school you represent:</Form.Label>
+                        <Form.Control type="input" name="employerName" placeholder="Torchwood Institute" value={attendee.employerName} className="formInput" onChange={handleInputChange} />
+                        <Form.Label>Address of your company, organization or school:</Form.Label>
+                        <Form.Control type="input" name="employerAddress" placeholder="219 W 48th Street, New York, NY" value={attendee.employerAddress} className="formInput" onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
                   </Row>
                 </Card.Body>
               </Card>
