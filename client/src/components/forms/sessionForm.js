@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Container, Form, Card, Row, Col, Button } from "react-bootstrap";
+import { Container, Form, Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
@@ -117,6 +117,7 @@ const SessionForm = () => {
           <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to add or edit a session.</h1>
+          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       {isAuthenticated &&
