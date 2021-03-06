@@ -46,15 +46,12 @@
 .navtype {
   display: inline;
 }
-
 .mylogo:hover {
   color: #a99f93;
 }
-
 .mylogo:active {
   color: #a99f93;
 }
-
 .mylogo:visited {
   color: #a99f93;
 }
@@ -71,15 +68,12 @@
   color: #cfbfa5;
   font-family: "Open Sans Condensed", sans-serif;
 }
-
 .navlink:hover {
   color: #a99f93;
 }
-
 .navlink:active {
   color: #a99f93;
 }
-
 .navlink:visited {
   color: #a99f93;
 }

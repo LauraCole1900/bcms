@@ -15,14 +15,6 @@ form {
   margin-bottom: 12px;
 }
 
-.button {
-  color: #e2e2e2;
-  background: linear-gradient(to bottom, #899168, #2d321e);
-  border: 2px solid #11130b;
-  border-radius: 10px;
-  margin: 5px 0 5px 0;
-}
-
 .alert {
   color: black;
   font-family: "Open Sans Condensed", sans-serif;
@@ -42,20 +34,4 @@ form {
   text-align: center;
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
-}
-
-.login {
-  color: #47532b;
-}
-
-.login:hover {
-  color: #47532b;
-}
-
-.login:active {
-  color: #47532b;
-}
-
-.login:visited {
-  color: #47532b;
 }

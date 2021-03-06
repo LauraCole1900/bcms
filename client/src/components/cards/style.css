@@ -13,15 +13,12 @@ p {
 a {
   color: #47532b;
 }
-
 a:hover {
   color: #2f3028;
 }
-
 a:active{
   color: #2f3028;
 }
-
 a:visited {
   color: #2f3028;
 }
@@ -63,14 +60,6 @@ a:visited {
   color: #11130b;
   font-family: "Open Sans Condensed", sans-serif;
   margin: 5px 0;
-}
-
-.button {
-  color: #e2e2e2;
-  background: linear-gradient(to bottom, #899168, #2d321e);
-  border: 2px solid #11130b;
-  border-radius: 10px;
-  margin: 5px 0 5px 0;
 }
 
 .title {
