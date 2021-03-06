@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Container, Row, Col, Button, ButtonGroup } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, ButtonGroup } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, UserAPI } from "../../utils/api";
 import "./style.css";
 
 const ProfilePage = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [whichConf, setWhichConf] = useState();
   const [attendConf, setAttendConf] = useState([]);
   const [createConf, setCreateConf] = useState([]);
@@ -182,6 +182,14 @@ const ProfilePage = () => {
 
   return (
     <>
+      {!isAuthenticated &&
+        <Row>
+          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+            log in
+          </Link> to view your profile.</h1>
+          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
+        </Row>}
+
       { pageReady === true &&
         isAuthenticated && (
           <Container>
