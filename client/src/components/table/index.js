@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Table, Form, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
@@ -9,7 +10,7 @@ import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI } from "../../ut
 import "./style.css";
 
 const TableComp = (e) => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [attendees, setAttendees] = useState([]);
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
@@ -159,23 +160,32 @@ const TableComp = (e) => {
   }
 
   useEffect(() => {
-    fetchConf(confId)
+    if (isAuthenticated) {
+      fetchConf(confId)
 
-    switch (dataSet) {
-      case "exhibitors":
-        fetchExhibitors(confId);
-        break;
-      case "presenters":
-        fetchPresenters(confId);
-        break;
-      default:
-        fetchAttendees(confId);
+      switch (dataSet) {
+        case "exhibitors":
+          fetchExhibitors(confId);
+          break;
+        case "presenters":
+          fetchPresenters(confId);
+          break;
+        default:
+          fetchAttendees(confId);
+      }
     }
     setPageReady(true);
   }, [confId, dataSet])
 
   return (
     <>
+      {!isAuthenticated &&
+        <Row>
+          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+            log in
+          </Link> to access this feature.</h1>
+        </Row>}
+
       {isAuthenticated &&
         pageReady === true &&
         <Container fluid>
