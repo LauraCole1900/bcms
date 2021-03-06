@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Container, Card, Form, Row, Col, Button } from "react-bootstrap";
+import { Container, Card, Form, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Moment from "react-moment";
 import "moment-timezone";
@@ -97,6 +97,7 @@ const ConferenceForm = () => {
           <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to create or update a conference.</h1>
+          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       { pageReady === true &&

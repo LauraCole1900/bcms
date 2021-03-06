@@ -32,7 +32,7 @@ const Navigation = () => {
         <Navbar fluid expand="sm" className="navbar">
           <Navbar.Brand className="logo ml-3">
             <div>
-              <Image fluid src="/images/bristlecone-light.png" alt="logo" className="pineTree mylogo" />
+              <Image fluid src="/images/bristlecone-light.png" alt="BCMS logo" className="pineTree mylogo" />
               <Link to="/conferences" className={location.pathname === "/conferences" ? "mylogo active" : "mylogo"}>
                 Bristlecone CMS
               </Link>

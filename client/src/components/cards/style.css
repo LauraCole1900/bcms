@@ -51,6 +51,9 @@ a:visited {
   float: right;
   margin: 13px;
 }
+.deletebtn:hover {
+  background: linear-gradient(to bottom, #ff2200, #6a0e00)
+}
 
 .org {
   margin-left: 50px;
