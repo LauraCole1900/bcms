@@ -353,7 +353,7 @@ const ConferenceForm = () => {
                   <Row>
                     <Form.Group controlId="formSessProposal">
                       <Col sm={4}>
-                        <Form.Label>Will this conference require submitting proposals for sessions? <span className="red">*</span></Form.Label>
+                        <Form.Label>Will this conference require prospective presenters to submit proposals for their sessions? <span className="red">*</span></Form.Label>
                         <Form.Check type="radio" id="confSessPropConfYes" name="confSessProposalConfirm" label="Yes" value="yes" checked={conference.confSessProposalConfirm === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confSessPropConfNo" name="confSessProposalConfirm" label="No" value="no" checked={conference.confSessProposalConfirm === "no"} onChange={handleInputChange} />
                       </Col>
