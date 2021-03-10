@@ -351,40 +351,47 @@ const ConferenceForm = () => {
                   </Row>
 
                   <Row>
-                    <Col sm={6}>
-                      <Form.Group controlId="formSessProposal">
-                        <Form.Label>Does your conference require proposals for sessions?</Form.Label>
+                    <Form.Group controlId="formSessProposal">
+                      <Col sm={4}>
+                        <Form.Label>Will this conference require submitting proposals for sessions? <span className="red">*</span></Form.Label>
                         <Form.Check type="radio" id="confSessPropConfYes" name="confSessProposalConfirm" label="Yes" value="yes" checked={conference.confSessProposalConfirm === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confSessPropConfNo" name="confSessProposalConfirm" label="No" value="no" checked={conference.confSessProposalConfirm === "no"} onChange={handleInputChange} />
-                        {conference.confSessProposalConfirm === "yes"
-                          ? <Form.Text>Prospective presenters will input session information to be reviewed by a review team designated by you. Sessions that are marked as accepted will have their information auto-filled in your conference's "details" section. You or a designated admin will still need to enter sessions into your conference's schedule.</Form.Text>
-                          : <Form.Text>You or a designated admin will need to input session information into your conference's "details" section and schedule.</Form.Text>}
-                      </Form.Group>
-                    </Col>
+                      </Col>
+                      <Col sm={8}>
+                        {conference.confSessProposalConfirm === "yes" &&
+                          <Form.Text>Prospective presenters will input session information to be reviewed by a review team designated by you. Sessions that are marked as accepted will have their information auto-filled in your conference's "details" section. You or a designated admin will still need to enter sessions into your conference's schedule.</Form.Text>}
+                        {conference.confSessProposalConfirm === "no" &&
+                          <Form.Text>You or a designated admin will need to input session information into your conference's "details" section and schedule.</Form.Text>}
+                      </Col>
+                    </Form.Group>
                   </Row>
 
                   <Row>
-                    <Col sm={6}>
-                      <Form.Group controlId="formConfAllergies">
+                    <Form.Group controlId="formConfAllergies">
+                      <Col sm={4}>
                         <Form.Label>Do you need to ask attendees about allergies? <span className="red">*</span></Form.Label>
                         <Form.Check type="radio" id="confAllergiesYes" name="confAllergies" label="Yes" value="yes" checked={conference.confAllergies === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confAllergiesNo" name="confAllergies" label="No" value="no" checked={conference.confAllergies === "no"} onChange={handleInputChange} />
+                      </Col>
+                      <Col sm={8}>
                         {(conference.confAllergies === "yes") &&
                           <Form.Text> Attendees will be asked about allergies on the registration form.</Form.Text>}
-                      </Form.Group>
-                    </Col>
+                      </Col>
+                    </Form.Group>
                   </Row>
 
                   <Row>
-                    <Col sm={6}>
-                      <Form.Group controlId="formConfWaiver">
+                    <Form.Group controlId="formConfWaiver">
+                      <Col sm={4}>
                         <Form.Label>Will a liability waiver be required? <span className="red">*</span></Form.Label>
                         <Form.Check type="radio" id="confWaiverYes" name="confWaiver" label="Yes" value="yes" checked={conference.confWaiver === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confWaiverNo" name="confWaiver" label="No" value="no" checked={conference.confWaiver === "no"} onChange={handleInputChange} />
+                      </Col>
+                      <Col sm={8}>
                         {(conference.confWaiver === "yes") &&
                           <Form.Text>Attendees will be alerted on the registration form that they will be expected to sign a liability waiver upon checking in to the event.</Form.Text>}
-                      </Form.Group>
-                    </Col>
+                      </Col>
+                    </Form.Group>
                   </Row>
                 </Card.Body>
               </Card>
