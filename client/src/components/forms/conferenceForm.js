@@ -353,7 +353,7 @@ const ConferenceForm = () => {
                   <Row>
                     <Col sm={6}>
                       <Form.Group controlId="formSessProposal">
-                        <Form.Label>Does your conference require session proposals?</Form.Label>
+                        <Form.Label>Does your conference require proposals for sessions?</Form.Label>
                         <Form.Check type="radio" id="confSessPropConfYes" name="confSessProposalConfirm" label="Yes" value="yes" checked={conference.confSessProposalConfirm === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confSessPropConfNo" name="confSessProposalConfirm" label="No" value="no" checked={conference.confSessProposalConfirm === "no"} onChange={handleInputChange} />
                         {conference.confSessProposalConfirm === "yes"
@@ -362,7 +362,6 @@ const ConferenceForm = () => {
                       </Form.Group>
                     </Col>
                   </Row>
-
 
                   <Row>
                     <Col sm={6}>
