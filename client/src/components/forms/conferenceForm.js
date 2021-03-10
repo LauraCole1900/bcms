@@ -352,6 +352,20 @@ const ConferenceForm = () => {
 
                   <Row>
                     <Col sm={6}>
+                      <Form.Group controlId="formSessProposal">
+                        <Form.Label>Does your conference require session proposals?</Form.Label>
+                        <Form.Check type="radio" id="confSessPropConfYes" name="confSessProposalConfirm" label="Yes" value="yes" checked={conference.confSessProposalConfirm === "yes"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="confSessPropConfNo" name="confSessProposalConfirm" label="No" value="no" checked={conference.confSessProposalConfirm === "no"} onChange={handleInputChange} />
+                        {conference.confSessProposalConfirm === "yes"
+                          ? <Form.Text>Prospective presenters will input session information to be reviewed by a review team designated by you. Sessions that are marked as accepted will have their information auto-filled in your conference's "details" section. You or a designated admin will still need to enter sessions into your conference's schedule.</Form.Text>
+                          : <Form.Text>You or a designated admin will need to input session information into your conference's "details" section and schedule.</Form.Text>}
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+
+                  <Row>
+                    <Col sm={6}>
                       <Form.Group controlId="formConfAllergies">
                         <Form.Label>Do you need to ask attendees about allergies? <span className="red">*</span></Form.Label>
                         <Form.Check type="radio" id="confAllergiesYes" name="confAllergies" label="Yes" value="yes" checked={conference.confAllergies === "yes"} onChange={handleInputChange} />

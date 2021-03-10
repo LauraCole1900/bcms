@@ -92,6 +92,10 @@ const conferenceSchema = new Schema({
   confEarlyRegSizeConfirm: {
     type: String
   },
+  confSessProposalConfirm: {
+    type: String,
+    required: "Please select whether your conference will accept session proposals from prospective presenters."
+  },
   confAllergies: {
     type: String,
     required: "Please select whether you need attendees to tell you about their allergies."
