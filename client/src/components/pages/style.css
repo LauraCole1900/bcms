@@ -7,6 +7,10 @@ h3 {
   font-family: "Open Sans Condensed", sans-serif;
 }
 
+h4 {
+  font-family: "Open Sans Condensed", sans-serif;
+}
+
 .myConfs {
   text-align: center;
 }
@@ -26,4 +30,8 @@ h3 {
 .red {
   color: red;
   width: 50%;
+}
+
+.error {
+  font-weight: 700;
 }

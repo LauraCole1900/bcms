@@ -7,3 +7,4 @@ export { default as Confirm } from "./confirm";
 export { default as Login } from "./loginPage";
 export { default as Profile } from "./profilePage";
 export { default as Success } from "./success";
+export { default as Error } from "./error";
