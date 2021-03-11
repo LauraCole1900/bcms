@@ -75,8 +75,17 @@ const ConferenceForm = () => {
     console.log("Conference update", confId);
     // PUT call to update conference document
     ConferenceAPI.updateConference({ ...conference }, confId)
-      .then(history.push("/conference_updated"))
-      .catch(err => console.log(err))
+      .then(res => {
+        // If no errors thrown, push to Success page
+        if (!res.err) {
+          history.push("/conference_updated")
+        }
+      })
+      // If yes errors thrown, push to Error page
+      .catch(err => {
+        history.push(`/confupdate_error/${err}`)
+        console.log(err)
+      });
   }
 
   // Handles click on "Submit" button
@@ -85,13 +94,13 @@ const ConferenceForm = () => {
     console.log("Conference submit", conference)
     // POST call to create conference document
     ConferenceAPI.createConference({ ...conference, creatorEmail: user.email })
-      .then(err => {
+      .then(res => {
         // If no errors thrown, push to Success page
-        if (!err) {
+        if (!res.err) {
           history.push("/conference_created")
         }
       })
-      // If errors are thrown, push to Error page
+      // If yes errors thrown, push to Error page
       .catch(err => {
         history.push(`/confcreate_error/${err}`)
         console.log(err)
