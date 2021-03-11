@@ -7,6 +7,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 const Error = (err) => {
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 2]
+  // How do you do this without throwing it into the URL?
   const errId = urlArray[urlArray.length - 1]
   const errMsg = errId.replaceAll("%20", " ")
   console.log({ urlId }, { errId }, { errMsg });

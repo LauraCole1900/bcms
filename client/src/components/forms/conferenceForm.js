@@ -85,10 +85,16 @@ const ConferenceForm = () => {
     console.log("Conference submit", conference)
     // POST call to create conference document
     ConferenceAPI.createConference({ ...conference, creatorEmail: user.email })
-      .then(history.push("/conference_created"))
+      .then(err => {
+        // If no errors thrown, push to Success page
+        if (!err) {
+          history.push("/conference_created")
+        }
+      })
+      // If errors are thrown, push to Error page
       .catch(err => {
-        console.log(err)
         history.push(`/confcreate_error/${err}`)
+        console.log(err)
       });
   }
 
