@@ -13,11 +13,13 @@ const Confirm = () => {
   const [pageReady, setPageReady] = useState(false);
   const [conference, setConference] = useState({});
 
+  // Breaks down the URL
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
   const unregType = urlArray[urlArray.length - 2]
 
   useEffect(() => {
+    // GET call for conference information
     ConferenceAPI.getConferenceById(confId)
       .then(resp => {
         console.log("from confirm getConfById", resp.data)
@@ -28,21 +30,45 @@ const Confirm = () => {
     setPageReady(true);
   }, [])
 
-  // At some point, this needs to send a message or alert to conference organizer(s)
+  // At some point, these need to send a message or alert to conference organizer(s)
+
+  // Handles attendee unregister
   function handleAttUnregister(confId, email) {
     console.log("from confirm attUnreg", conference._id, user.email)
+    // DELETE call to delete attendee document
     AttendeeAPI.unregisterAttendee(conference._id, user.email)
-      .then(history.push("/unregistered"))
-      .catch(err => console.log(err));
+      .then(res => {
+        // If no errors thrown, push to Success page
+        if (!res.err) {
+          history.push("/unregistered")
+        }
+      })
+      // If yes errors thrown, push to Error page
+      .catch(err => {
+        history.push(`/attdel_error/${err}`)
+        console.log(err)
+      });
   }
 
+  // Handles exhibitor unregister
   function handleExhUnregister(confId, email) {
     console.log("from confirm exhUnreg", conference._id, user.email)
+    // DELETE call to delete exhibitor document
     ExhibitorAPI.deleteExhibitor(conference._id, user.email)
-      .then(history.push("/unregistered"))
-      .catch(err => console.log(err));
+      .then(res => {
+        // If no errors thrown, push to Success page
+        if (!res.err) {
+          history.push("/unregistered")
+        }
+      })
+      // If yes errors thrown, push to Error page
+      .catch(err => {
+        history.push(`/exhdel_error/${err}`)
+        console.log(err)
+      });
   }
 
+  
   return (
     <>
       { pageReady === true &&
