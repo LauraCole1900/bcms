@@ -35,7 +35,7 @@ function App() {
         <Route path={["/register_exhibit/*", "/edit_exhibit"]} component={ExhibitForm} />
         <Route path="/update_user" component={UpdateUser} />
         <Route path={["/attendee_updated", "/conference_created", "/conference_updated", "/deleted", "/exhibitor_updated", "/register_success/*", "/session_added", "/session_updated", "/unregistered", "user_updated"]} component={Success} />
-        <Route path={["/attdel_error/*", "/attreg_error/*", "/attupdate_error/*", "/exhdel_error/*", "/exhreg_error/*", "/exhupdate_error/*", "/confcreate_error/*", "/confupdate_error/*", "/userupdate_error/*"]} component={Error} />
+        <Route path={["/attdel_error/*", "/attreg_error/*", "/attupdate_error/*", "/exhdel_error/*", "/exhreg_error/*", "/exhupdate_error/*", "/confcreate_error/*", "/confupdate_error/*", "sesscreate_error/*", "sessupdate_error/*", "/userupdate_error/*"]} component={Error} />
         <Route path={["/register_attend/*", "/register_edit/*"]} component={Registration} />
         <Route path={["/unregister_confirm/*", "/unregister_exhibit_confirm/*"]} component={Confirm} />
         <Route exact path={["/", "/conferences"]} component={AllConfs} />

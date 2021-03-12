@@ -95,9 +95,18 @@ const SessionForm = () => {
     console.log("Session update", urlId);
     // PUT call to update session document
     SessionAPI.updateSession({ ...session }, urlId)
-      .then(history.push("/session_updated"))
-      .catch(err => console.log(err))
-  }
+      .then(res => {
+        // If no errors thrown, push to Success page
+        if (!res.err) {
+          history.push("/session_updated")
+        }
+      })
+      // If yes errors thrown, push to Error page
+      .catch(err => {
+        history.push(`/sessupdate_error/${err}`)
+        console.log(err)
+      })
+  };
 
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
@@ -105,8 +114,17 @@ const SessionForm = () => {
     console.log("Session submit", session)
     // POST call to create session document
     SessionAPI.saveSession({ ...session, confId: urlId })
-      .then(history.push("/session_added"))
-      .catch(err => console.log(err));
+      .then(res => {
+        // If no errors thrown, push to Success page
+        if (!res.err) {
+          history.push("/session_added")
+        }
+      })
+      // If yes errors thrown, push to Error page
+      .catch(err => {
+        history.push(`/sesscreate_error/${err}`)
+        console.log(err)
+      });
   }
 
 
