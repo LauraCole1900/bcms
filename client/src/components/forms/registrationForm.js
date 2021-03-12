@@ -13,6 +13,7 @@ const Registration = () => {
   const [conference, setConference] = useState({});
   const [attendee, setAttendee] = useState({});
 
+  // Breaks down the URL
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
   const formType = urlArray[urlArray.length - 2]
@@ -20,6 +21,7 @@ const Registration = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      // GET call for conference information
       ConferenceAPI.getConferenceById(confId)
         .then(resp => {
           console.log("from registrationForm getConferenceById", resp.data)
@@ -28,40 +30,67 @@ const Registration = () => {
         })
         .catch(err => console.log(err));
 
-      if (formType === "register_edit") {
-        AttendeeAPI.getAttendeeToUpdate(confId, user.email)
-          .then(resp => {
-            console.log("from registrationForm getAttendeeToUpdate", resp.data)
-            const attArr = resp.data
-            setAttendee(attArr)
-          })
-          .catch(err => console.log(err));
-      } else {
-        setAttendee({ ...attendee, confId: confId, email: user.email })
+      switch (formType) {
+        case "register_edit":
+          // GET call to pre-populate form if URL indicates this is an already-registered attendee
+          AttendeeAPI.getAttendeeToUpdate(confId, user.email)
+            .then(resp => {
+              console.log("from registrationForm getAttendeeToUpdate", resp.data)
+              const attArr = resp.data
+              setAttendee(attArr)
+            })
+            .catch(err => console.log(err));
+          break;
+        default:
+          // Sets conference ID in state as attendee.confId and the user's email as attendee.email
+          setAttendee({ ...attendee, confId: confId, email: user.email })
       }
     }
     setPageReady(true);
   }, [])
 
+  // Handles input changes to form fields
   const handleInputChange = (e) => {
     setAttendee({ ...attendee, [e.target.name]: e.target.value })
   };
 
+  // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
     console.log("Attendee update", confId, user.email);
+    // PUT call to update attendee document
     AttendeeAPI.updateAttendee({ ...attendee }, confId, user.email)
-      .then(history.push("/attendee_updated"))
-      .catch(err => console.log(err))
+      .then(res => {
+        // If no errors thrown, push to Success page
+        if (!res.err) {
+          history.push("/attendee_updated")
+        }
+      })
+      // If yes errors thrown, push to Error page
+      .catch(err => {
+        history.push(`/attupdate_error/${err}`)
+        console.log(err)
+      })
   };
 
+  // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Attendee submit", confId, user.email, attendee)
+    // POST call to create attendee document
     AttendeeAPI.registerAttendee({ ...attendee, confId: confId, email: user.email })
-      .then(history.push(`/register_success/${confId}`))
-      .catch(err => console.log(err));
-  }
+      .then(res => {
+        // If no errors thrown, push to Success page
+        if (!res.err) {
+          history.push(`/register_success/${confId}`)
+        }
+      })
+      // If yes errors thrown, push to Error page
+      .catch(err => {
+        history.push(`/attreg_error/${err}`)
+        console.log(err)
+      })
+  };
 
   return (
     <>

@@ -32,6 +32,7 @@ const ConferenceForm = () => {
     confWaiver: "no",
   });
 
+  // Breaks down the URL
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
 

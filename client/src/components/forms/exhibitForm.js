@@ -30,7 +30,7 @@ const ExhibitForm = () => {
             .catch(err => console.log(err))
           break;
         default:
-          // Sets the user's email in state as exhibitor.exhEmail
+          // Sets the conference ID in state as exhibitor.confId and the user's email as exhibitor.exhEmail
           setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email, })
       }
     }
