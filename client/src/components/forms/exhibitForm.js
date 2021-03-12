@@ -46,8 +46,15 @@ const ExhibitForm = () => {
     e.preventDefault();
     console.log("Exhibitor update", exhibitor._id);
     ExhibitorAPI.updateExhibitor({ ...exhibitor }, exhibitor._id)
-      .then(history.push("/exhibitor_updated"))
-      .catch(err => console.log(err))
+      .then(res => {
+        if (!res.err) {
+          history.push("/exhibitor_updated")
+        }
+      })
+      .catch(err => {
+        history.push(`/exhupdate_error/${err}`)
+        console.log(err)
+      })
   };
 
   const handleFormSubmit = (e) => {

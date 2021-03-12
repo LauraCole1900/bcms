@@ -49,7 +49,7 @@ const ConferenceForm = () => {
           })
           .catch(err => console.log(err))
       } else {
-        // Puts the user's email in state as conference.creatorEmail
+        // Sests the user's email in state as conference.creatorEmail
         setConference({ ...conference, creatorEmail: user.email })
       }
     }
