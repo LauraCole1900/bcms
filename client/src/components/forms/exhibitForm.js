@@ -11,6 +11,7 @@ const ExhibitForm = () => {
   const [pageReady, setPageReady] = useState(false);
   const [exhibitor, setExhibitor] = useState({});
 
+  // Breaks down the URL
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
   const formType = urlArray[urlArray.length - 2]
@@ -19,6 +20,7 @@ const ExhibitForm = () => {
     if (isAuthenticated) {
       switch (formType) {
         case "edit_exhibit":
+          // GET call to pre-populate the form if URL indicates this is an existing exhibitor
           ExhibitorAPI.getExhibitorToUpdate(confId, user.email)
             .then(resp => {
               console.log("from exhibitorForm getExhibitorToUpdate", resp.data)
@@ -28,12 +30,14 @@ const ExhibitForm = () => {
             .catch(err => console.log(err))
           break;
         default:
+          // Sets the user's email in state as exhibitor.exhEmail
           setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email, })
       }
     }
     setPageReady(true);
   }, [])
 
+  // Handles input changes to form fields
   const handleInputChange = (e) => {
     setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
   };
@@ -42,28 +46,43 @@ const ExhibitForm = () => {
 
   }
 
+  // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
     console.log("Exhibitor update", exhibitor._id);
+    // PUT call to update exhibitor document
     ExhibitorAPI.updateExhibitor({ ...exhibitor }, exhibitor._id)
       .then(res => {
+        // If no errors thrown, push to Success page
         if (!res.err) {
           history.push("/exhibitor_updated")
         }
       })
+      // If yes errors thrown, push to Error page
       .catch(err => {
         history.push(`/exhupdate_error/${err}`)
         console.log(err)
       })
   };
 
+  // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Exhibitor submit")
+    // POST call to create exhibitor document
     ExhibitorAPI.registerExhibitor({ ...exhibitor, email: user.email })
-      .then(history.push(`/register_success/${confId}`))
-      .catch(err => console.log(err));
-  }
+      .then(res => {
+        // If no errors thrown, push to Success page
+        if (!res.err) {
+          history.push(`/register_success/${confId}`)
+        }
+      })
+      // If yes errors thrown, push to Error page
+      .catch(err => {
+        history.push(`/exhreg_error/${err}`)
+        console.log(err)
+      })
+  };
 
   return (
     <>
