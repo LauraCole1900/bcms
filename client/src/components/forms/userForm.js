@@ -13,6 +13,7 @@ const UpdateUser = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      // GET call to pre-populate the form
       UserAPI.getUserByEmail(user.email)
         .then(resp => {
           console.log("from userInfo getUserByEmail", resp.data);
@@ -24,17 +25,29 @@ const UpdateUser = () => {
     }
   }, [])
 
+  // Handles input changes to form fields
   const handleInputChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
   };
 
+  // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
     console.log("User update", user.email);
+    // PUT call to update user document
     UserAPI.updateUser({ ...user, given_name: userInfo.given_name, family_name: userInfo.family_name }, user.email)
-      .then(history.push("/user_updated"))
-      .catch(err => console.log(err))
+      .then(res => {
+        // If no errors thrown, push to Success page
+        if (!res.err) {
+          history.push("/user_updated")
+        }})
+        // If yes errors thrown, push to Error page
+      .catch(err => {
+        history.push(`/userupdate_error/${err}`)
+        console.log(err)
+      })
   }
+  
 
   return (
     <>
