@@ -39,18 +39,20 @@ const ConferenceForm = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      // GET call to pre-populate the form if the URL indicates this is an existing conference
-      if (confId !== "new_conference") {
-        ConferenceAPI.getConferenceById(confId)
-          .then(resp => {
-            console.log("from conferenceForm getConfById", resp.data);
-            const confArr = resp.data;
-            setConference(confArr[0])
-          })
-          .catch(err => console.log(err))
-      } else {
-        // Sests the user's email in state as conference.creatorEmail
-        setConference({ ...conference, creatorEmail: user.email })
+      switch (confId) {
+        case "edit_conference":
+          // GET call to pre-populate the form if the URL indicates this is an existing conference
+          ConferenceAPI.getConferenceById(confId)
+            .then(resp => {
+              console.log("from conferenceForm getConfById", resp.data);
+              const confArr = resp.data;
+              setConference(confArr[0])
+            })
+            .catch(err => console.log(err))
+          break;
+        default:
+          // Sets the user's email in state as conference.creatorEmail
+          setConference({ ...conference, creatorEmail: user.email })
       }
     }
     setPageReady(true);
