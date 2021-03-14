@@ -6,7 +6,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
 import "./style.css"
 
-const Confirm = () => {
+const ConfirmPage = () => {
   const { user, isAuthenticated } = useAuth0();
   const history = useHistory();
   const location = useLocation();
@@ -105,4 +105,4 @@ const Confirm = () => {
   )
 }
 
-export default Confirm;
+export default ConfirmPage;

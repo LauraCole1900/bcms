@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-const Success = () => {
+const SuccessPage = () => {
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   console.log(urlId);
@@ -69,4 +69,4 @@ const Success = () => {
   )
 }
 
-export default Success;
+export default SuccessPage;

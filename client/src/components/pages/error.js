@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-const Error = (err) => {
+const ErrorPage = (err) => {
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 2]
   // How do you do this without throwing it into the URL?
@@ -64,4 +64,4 @@ const Error = (err) => {
   )
 }
 
-export default Error;
+export default ErrorPage;
