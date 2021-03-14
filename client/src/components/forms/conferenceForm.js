@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Moment from "react-moment";
 import "moment-timezone";
 import { ConferenceAPI } from "../../utils/api";
+import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const ConferenceForm = () => {
@@ -35,12 +36,18 @@ const ConferenceForm = () => {
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
+  const urlType = urlArray[urlArray.length - 2]
+
+  // Modal variables
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleHide = () => setShow(false);
 
   const confOffset = new Date().getTimezoneOffset()
 
   useEffect(() => {
     if (isAuthenticated) {
-      switch (confId) {
+      switch (urlType) {
         case "edit_conference":
           // GET call to pre-populate the form if the URL indicates this is an existing conference
           ConferenceAPI.getConferenceById(confId)
@@ -79,12 +86,13 @@ const ConferenceForm = () => {
     // PUT call to update conference document
     ConferenceAPI.updateConference({ ...conference }, confId)
       .then(res => {
-        // If no errors thrown, push to Success page
+        // If no errors thrown, show Success modal
         if (!res.err) {
-          history.push("/conference_updated")
+          handleShow();
+          <SuccessModal urlId={confId} urlType={urlType} show={show} hide={handleHide} />
         }
       })
-      // If yes errors thrown, push to Error page
+      // If yes errors thrown, show Error modal
       .catch(err => {
         history.push(`/confupdate_error/${err}`)
         console.log(err)
@@ -98,12 +106,12 @@ const ConferenceForm = () => {
     // POST call to create conference document
     ConferenceAPI.createConference({ ...conference, creatorEmail: user.email })
       .then(res => {
-        // If no errors thrown, push to Success page
+        // If no errors thrown, show Success modal
         if (!res.err) {
           history.push("/conference_created")
         }
       })
-      // If yes errors thrown, push to Error page
+      // If yes errors thrown, show Error modal
       .catch(err => {
         history.push(`/confcreate_error/${err}`)
         console.log(err)

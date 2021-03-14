@@ -30,9 +30,9 @@ function App() {
         <Route path={["/attendees/*", "/exhibitors/*", "/presenters/*"]} component={TableComp} />
         <Route path={["/new_conference", "/edit_conference/*"]} component={ConferenceForm} />
         <Route path={["/add_supplemental/*", "/edit_supplemental/*"]} component={Supplemental} />
-        <Route path={["/add_session/*", "/edit_session/*"]} component={SessionForm} />
+        <Route path={["/new_session/*", "/edit_session/*"]} component={SessionForm} />
         <Route path="/propose_session/*" component={SessionProposal} />
-        <Route path={["/register_exhibit/*", "/edit_exhibit"]} component={ExhibitForm} />
+        <Route path={["/register_exhibit/*", "/edit_exhibit/*"]} component={ExhibitForm} />
         <Route path="/update_user" component={UpdateUser} />
         <Route path={["/attendee_updated", "/conference_created", "/conference_updated", "/deleted", "/exhibitor_updated", "/register_success/*", "/session_added", "/session_updated", "/unregistered", "user_updated"]} component={SuccessPage} />
         <Route path={["/attdel_error/*", "/attreg_error/*", "/attupdate_error/*", "/exhdel_error/*", "/exhreg_error/*", "/exhupdate_error/*", "/confcreate_error/*", "/confupdate_error/*", "sesscreate_error/*", "sessupdate_error/*", "/userupdate_error/*"]} component={ErrorPage} />

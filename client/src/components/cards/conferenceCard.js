@@ -158,7 +158,7 @@ const ConferenceCard = ({ conference }) => {
                     </Link>
                   </Col>
                   <Col sm={2}>
-                    <Link to={`/add_session/${conf._id}`} className={location.pathname === `/add_session/${conf._id}`}>
+                    <Link to={`/new_session/${conf._id}`} className={location.pathname === `/new_session/${conf._id}`}>
                       <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
                     </Link>
                   </Col>
