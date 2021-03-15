@@ -7,16 +7,12 @@ const SuccessModal = (props) => {
   // Show onClick of "Update" or "Submit" button, if !res.err
   // Gives success message as does success page
   // Buttons give user choice to return to previous {conference or session}, allConfsPage or profilePage
-  // New uses props.urlId
-  // Edit uses props.urlType EXCEPT
-  // "update_user" uses props.urlId AND
-  // "new_session" and "propose_session" use props.urlType
   // Delete???
 
 
   return (
     <>
-      <Modal show={props.show} onHide={props.hide} keyboard={false}>
+      <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>Success!</Modal.Title>
         </Modal.Header>

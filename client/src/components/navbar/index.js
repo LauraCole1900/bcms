@@ -44,7 +44,7 @@ const Navigation = () => {
               ? <Link to="/profile" className={location.pathname === "/profile" ? "navlink active" : "navlink"}>
                 {userInfo.given_name}!
                 </Link>
-              : <Link className="navlink guest" onClick={() => loginWithRedirect()}>
+              : <Link to={window.location.origin} className="navlink guest" onClick={() => loginWithRedirect()}>
                 Guest!
                 </Link>
             }
