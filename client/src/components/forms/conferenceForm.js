@@ -42,8 +42,14 @@ const ConferenceForm = () => {
 
   // Modal variables
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+
+  // Sets showSuccess to {true} so SuccessModal will show
   const handleShowSuccess = () => setShowSuccess(true);
+  
   const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   const confOffset = new Date().getTimezoneOffset()
 
@@ -91,7 +97,7 @@ const ConferenceForm = () => {
         // If no errors thrown, show Success modal
         if (!res.err) {
           handleShowSuccess();
-          // <SuccessModal conference={conference} urlId={confId} urlType={urlType} show={show} hide={handleHide} />
+          console.log({showSuccess});
         }
       })
       // If yes errors thrown, show Error modal
@@ -134,8 +140,6 @@ const ConferenceForm = () => {
       { pageReady === true &&
         isAuthenticated && (
           <Container>
-
-            <SuccessModal conference={conference} urlId={confId} urlType={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
             <Form className="confForm">
 
@@ -437,6 +441,11 @@ const ConferenceForm = () => {
               </Row>
 
             </Form>
+            
+            <SuccessModal conference={conference} urlId={confId} urlType={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+
+            {/* <ErrorModal conference={conference} urlId={confId} urlType={urlType} show={showErr} hide={e => handleHideErr(e)} /> */}
+
           </Container >
         )
       }
