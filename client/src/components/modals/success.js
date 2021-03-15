@@ -38,6 +38,7 @@ const SuccessModal = (props, e) => {
             (e.id === "unregExh" &&
               <h4>You have unregistered your exhibit from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
           {(props.urlId === "profile" || props.urlId === "conferences" || props.urlType === "details") &&
+            (e.id === "confDelete" || e.id === "sessDelete") &&
             <h4>Delete! Delete! Delete!</h4>}
         </Modal.Body>
         <Modal.Footer>

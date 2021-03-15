@@ -66,7 +66,7 @@ const ConferenceCard = ({ conference }) => {
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user.email === conf.creatorEmail) &&
-                    <Button data-toggle="popover" title="Delete this conference" className="deletebtn" onClick={() => handleDelete(conf._id)}>
+                    <Button data-toggle="popover" title="Delete this conference" className="deletebtn" id="confDelete" onClick={() => handleDelete(conf._id)}>
                       <Image fluid src="/images/trash-can.png" className="delete" alt="Delete" />
                     </Button>}
                 </Col>
