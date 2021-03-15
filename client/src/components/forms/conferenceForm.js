@@ -11,6 +11,7 @@ import "./style.css";
 const ConferenceForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const history = useHistory();
+  let err;
   const [pageReady, setPageReady] = useState(false);
   const [conference, setConference] = useState({
     creatorEmail: "",
@@ -33,6 +34,8 @@ const ConferenceForm = () => {
     confWaiver: "no",
   });
 
+  const confOffset = new Date().getTimezoneOffset()
+
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
   // "/new_conference"
@@ -44,14 +47,65 @@ const ConferenceForm = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showErr, setShowErr] = useState(false);
 
-  // Sets showSuccess to {true} so SuccessModal will show
+  // Sets boolean to show or hide relevant modal
   const handleShowSuccess = () => setShowSuccess(true);
-  
   const handleHideSuccess = () => setShowSuccess(false);
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
-  const confOffset = new Date().getTimezoneOffset()
+  // Finds the length of the conference in days & adds that to conference info in state
+  const findNumDays = (e) => {
+    const confStart = new Date(conference.startDate)
+    const confEnd = new Date(e.target.value)
+    const confNumDays = (confEnd - confStart) / (1000 * 3600 * 24) + 1
+    setConference({ ...conference, [e.target.name]: e.target.value, numDays: confNumDays })
+  };
+
+  // Handles input changes to form fields
+  const handleInputChange = (e) => {
+    setConference({ ...conference, [e.target.name]: e.target.value })
+  };
+
+  // Handles click on "Update" button
+  const handleFormUpdate = (e) => {
+    e.preventDefault();
+    console.log("Conference update", confId);
+    // PUT call to update conference document
+    ConferenceAPI.updateConference({ ...conference }, confId)
+      .then(res => {
+        // If no errors thrown, show Success modal
+        if (!res.err) {
+          handleShowSuccess();
+          console.log({ showSuccess });
+        }
+      })
+      // If yes errors thrown, show Error modal
+      .catch(err => {
+        handleShowErr()
+        console.log(err)
+        return err
+      });
+  }
+
+  // Handles click on "Submit" button
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log("Conference submit", conference)
+    // POST call to create conference document
+    ConferenceAPI.createConference({ ...conference, creatorEmail: user.email })
+      .then(res => {
+        // If no errors thrown, show Success modal
+        if (!res.err) {
+          history.push("/conference_created")
+        }
+      })
+      // If yes errors thrown, show Error modal
+      .catch(err => {
+        history.push(`/confcreate_error/${err}`)
+        console.log(err)
+        return err;
+      });
+  }
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -73,58 +127,6 @@ const ConferenceForm = () => {
     }
     setPageReady(true);
   }, []);
-
-  // Handles input changes to form fields
-  const handleInputChange = (e) => {
-    setConference({ ...conference, [e.target.name]: e.target.value })
-  };
-
-  // Finds the length of the conference in days & adds that to conference info in state
-  const findNumDays = (e) => {
-    const confStart = new Date(conference.startDate)
-    const confEnd = new Date(e.target.value)
-    const confNumDays = (confEnd - confStart) / (1000 * 3600 * 24) + 1
-    setConference({ ...conference, [e.target.name]: e.target.value, numDays: confNumDays })
-  };
-
-  // Handles click on "Update" button
-  const handleFormUpdate = (e) => {
-    e.preventDefault();
-    console.log("Conference update", confId);
-    // PUT call to update conference document
-    ConferenceAPI.updateConference({ ...conference }, confId)
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess();
-          console.log({showSuccess});
-        }
-      })
-      // If yes errors thrown, show Error modal
-      .catch(err => {
-        history.push(`/confupdate_error/${err}`)
-        console.log(err)
-      });
-  }
-
-  // Handles click on "Submit" button
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    console.log("Conference submit", conference)
-    // POST call to create conference document
-    ConferenceAPI.createConference({ ...conference, creatorEmail: user.email })
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          history.push("/conference_created")
-        }
-      })
-      // If yes errors thrown, show Error modal
-      .catch(err => {
-        history.push(`/confcreate_error/${err}`)
-        console.log(err)
-      });
-  }
 
 
   return (
@@ -441,10 +443,10 @@ const ConferenceForm = () => {
               </Row>
 
             </Form>
-            
+
             <SuccessModal conference={conference} urlId={confId} urlType={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-            {/* <ErrorModal conference={conference} urlId={confId} urlType={urlType} errMsg={err} show={showErr} hide={e => handleHideErr(e)} /> */}
+            <ErrorModal conference={conference} urlId={confId} urlType={urlType} errMsg={err} show={showErr} hide={e => handleHideErr(e)} />
 
           </Container >
         )
