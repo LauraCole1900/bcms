@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 
-const ErrorModal = (props) => {
+const ErrorModal = (props, e) => {
   // Shows onClick of "Update" or "Success button", if res.err
   // Gives error message as does error page
   // Logs error message automatically? Where?
@@ -31,8 +31,9 @@ const ErrorModal = (props) => {
             <h4>{props.errMsg}. Your registration for {props.conference.confName} could not be processed at this time.</h4>}
           {props.urlType === "register_edit" &&
             <h4>{props.errMsg}. Your registration for {props.conference.confName} could not be updated at this time.</h4>}
-          {props.urlType === "unregistered" &&
-            <h4>You have unregistered from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>}
+          {(props.urlId === "profile" || props.urlId === "conferences" || props.urlType === "details") &&
+            (e.id === "unregAtt" &&
+            <h4>You have unregistered from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
           {(props.urlId === "profile" || props.urlId === "conferences" || props.urlType === "details") &&
             <h4>{props.errMsg}. Your item could not be deleted at this time.</h4>}
         </Modal.Body>

@@ -172,7 +172,7 @@ const ConferenceCard = ({ conference }) => {
                     <Col sm={1}></Col>
                     <Col sm={2}>
                       <Link to={`/unregister_exhibit_confirm/${conf._id}`} className={location.pathname === `/unregister_exhibit_confirm/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button">Unregister Exhibit</Button>
+                        <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" id="unregExh">Unregister Exhibit</Button>
                       </Link>
                     </Col>
                     <Col sm={2}>
@@ -191,7 +191,7 @@ const ConferenceCard = ({ conference }) => {
                       : <Col sm={7}></Col>}
                     <Col sm={2}>
                       <Link to={`/unregister_confirm/${conf._id}`} className={location.pathname === `/unregister_confirm/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Unregister attendee from this conference" className="button">Unregister Attendee</Button>
+                        <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" id="unregAtt">Unregister Attendee</Button>
                       </Link>
                     </Col>
                     <Col sm={2}>
