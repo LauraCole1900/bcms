@@ -100,7 +100,7 @@ const Registration = () => {
           <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to register.</h1>
-          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
+          <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       { pageReady === true &&

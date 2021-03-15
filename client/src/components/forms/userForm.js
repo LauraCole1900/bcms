@@ -56,7 +56,7 @@ const UpdateUser = () => {
           <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to edit user information.</h1>
-          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
+          <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       {pageReady === true &&

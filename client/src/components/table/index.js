@@ -184,12 +184,12 @@ const TableComp = (e) => {
           <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to access this feature.</h1>
-          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
+          <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       {isAuthenticated &&
         pageReady === true &&
-        <Container fluid>
+        <Container fluid="true">
           <Row>
             <Col lg={6} md={12}>
               <UserCard />

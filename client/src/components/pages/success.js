@@ -22,7 +22,7 @@ const SuccessPage = () => {
   return (
     <>
       { redirect ? <Redirect to="/profile" /> : null}
-      <Container fluid>
+      <Container fluid="true">
         <Row>
           <Col sm={2}></Col>
           <Col sm={8}>

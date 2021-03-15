@@ -73,7 +73,7 @@ const ConfirmPage = () => {
     <>
       { pageReady === true &&
         isAuthenticated && (
-          <Container fluid>
+          <Container fluid="true">
             <Row>
               <Col sm={2}></Col>
               <Col sm={8}>

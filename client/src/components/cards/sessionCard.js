@@ -46,7 +46,7 @@ const SessionCard = (props) => {
                   {isAuthenticated &&
                     (user.email === props.conference[0].creatorEmail || props.conference[0].confAdmins.includes(user.email)) &&
                     <Button data-toggle="popover" title="Delete this session" className="deletebtn" id="sessDelete" onClick={() => handleDelete(sess._id)}>
-                      <Image fluid src="/images/trash-can.png" className="delete" alt="Delete" />
+                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" />
                     </Button>}
                 </Col>
               </Row>

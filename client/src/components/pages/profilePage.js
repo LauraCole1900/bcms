@@ -187,7 +187,7 @@ const ProfilePage = () => {
           <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to view your profile.</h1>
-          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
+          <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       { pageReady === true &&

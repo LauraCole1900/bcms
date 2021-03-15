@@ -29,7 +29,7 @@ const UserCard = () => {
         <Card className="infoCard">
           <Row>
             <Col sm={2}>
-              <Image fluid className="profilePic" src={userInfo.picture} alt="Profile picture" />
+              <Image fluid="true" className="profilePic" src={userInfo.picture} alt="Profile picture" />
             </Col>
             <Col sm={4} className="userInfo">
               <h1 className="userName">{userInfo.given_name} {userInfo.family_name}</h1>

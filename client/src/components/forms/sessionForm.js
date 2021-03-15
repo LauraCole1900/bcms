@@ -135,7 +135,7 @@ const SessionForm = () => {
           <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to add or edit a session.</h1>
-          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
+          <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       {isAuthenticated &&

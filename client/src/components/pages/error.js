@@ -17,7 +17,7 @@ const ErrorPage = (err) => {
 
   return (
     <>
-      <Container fluid>
+      <Container fluid="true">
         <Row>
           <Col sm={2}></Col>
           <Col sm={8}>

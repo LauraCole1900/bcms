@@ -29,10 +29,10 @@ const Navigation = () => {
   return (
     <>
       {pageReady === true &&
-        <Navbar fluid expand="sm" className="navbar">
+        <Navbar fluid="true" expand="sm" className="navbar">
           <Navbar.Brand className="logo ml-3">
             <div>
-              <Image fluid src="/images/bristlecone-light.png" alt="BCMS logo" className="pineTree mylogo" />
+              <Image fluid="true" src="/images/bristlecone-light.png" alt="BCMS logo" className="pineTree mylogo" />
               <Link to="/conferences" className={location.pathname === "/conferences" ? "mylogo active" : "mylogo"}>
                 Bristlecone CMS
               </Link>
@@ -50,7 +50,7 @@ const Navigation = () => {
             }
           </Navbar.Text>
           <Nav className="navobj">
-            <Navbar.Toggle fluid aria-controls="basic-navbar-nav" className="toggle" />
+            <Navbar.Toggle fluid="true" aria-controls="basic-navbar-nav" className="toggle" />
             <Navbar.Collapse id="basic-navbar-nav" className="navobject">
               {isAuthenticated &&
                 <Link to="/profile" className={location.pathname === "/profile" ? "navlink placelink active" : "navlink placelink"}>
