@@ -33,6 +33,8 @@ const SuccessModal = (props) => {
             <h4>You have edited your registration for {props.conference.confName}.</h4>}
           {props.urlType === "unregistered" &&
             <h4>You have unregistered from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>}
+          {(props.urlId === "profile" || props.urlId === "conferences" || props.urlType === "details") &&
+            <h4>Delete! Delete! Delete!</h4>}
         </Modal.Body>
         <Modal.Footer>
           {(props.urlType === "edit_conference" || props.urlType === "edit_session") &&
