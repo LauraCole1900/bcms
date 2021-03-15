@@ -81,7 +81,7 @@ const AllConfs = () => {
 
             {!isAuthenticated &&
               <Row>
-                <h1 className="regRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+                <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
                   log in
                 </Link> to register for any conference.</h1>
               </Row>}
