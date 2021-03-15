@@ -96,13 +96,14 @@ const ConferenceForm = () => {
       .then(res => {
         // If no errors thrown, show Success modal
         if (!res.err) {
-          history.push("/conference_created")
+          handleShowSuccess();
+          console.log({ showSuccess });
         }
       })
       // If yes errors thrown, show Error modal
       .catch(err => {
-        history.push(`/confcreate_error/${err}`)
-        console.log(err)
+        handleShowErr();
+        console.log(err);
         return err;
       });
   }
