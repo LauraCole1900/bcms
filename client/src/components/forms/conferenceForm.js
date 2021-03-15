@@ -35,13 +35,15 @@ const ConferenceForm = () => {
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
+  // "/new_conference"
   const confId = urlArray[urlArray.length - 1]
+  // "/edit_conference/confId"
   const urlType = urlArray[urlArray.length - 2]
 
   // Modal variables
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleHide = () => setShow(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
 
   const confOffset = new Date().getTimezoneOffset()
 
@@ -88,8 +90,8 @@ const ConferenceForm = () => {
       .then(res => {
         // If no errors thrown, show Success modal
         if (!res.err) {
-          handleShow();
-          <SuccessModal urlId={confId} urlType={urlType} show={show} hide={handleHide} />
+          handleShowSuccess();
+          // <SuccessModal conference={conference} urlId={confId} urlType={urlType} show={show} hide={handleHide} />
         }
       })
       // If yes errors thrown, show Error modal
@@ -132,6 +134,9 @@ const ConferenceForm = () => {
       { pageReady === true &&
         isAuthenticated && (
           <Container>
+
+            <SuccessModal conference={conference} urlId={confId} urlType={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+
             <Form className="confForm">
 
               <Card className="formCard">
