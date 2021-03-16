@@ -4,6 +4,7 @@
   border: 2px solid #11130b;
   border-radius: 10px;
   margin: 5px 0 5px 0;
+  font-family: "Open Sans Condensed", sans-serif;
 }
 .button:hover {
   color: #11130b;

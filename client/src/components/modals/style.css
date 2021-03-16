@@ -1,0 +1,21 @@
+.modal {
+  opacity: 1;
+  display: flex!important;
+  align-items: center;
+}
+
+.modalHead {
+  color: #e2e2e2;
+  background: linear-gradient(to top, #899168, #2d321e);
+  display: flex;
+  align-items: center;
+}
+
+.modalBody {
+  background: linear-gradient(to top, #f2f2f2, #a2a2a2)
+}
+
+.modalFooter {
+  padding: 0;
+  border: 0;
+}

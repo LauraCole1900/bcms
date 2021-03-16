@@ -37,9 +37,9 @@ const ConferenceForm = () => {
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
-  // "/new_conference"
+  // Use to refer to "/new_conference"
   const confId = urlArray[urlArray.length - 1]
-  // "/edit_conference/confId"
+  // Use to refer to "/edit_conference/{confId}"
   const urlType = urlArray[urlArray.length - 2]
 
   // Modal variables
@@ -444,9 +444,9 @@ const ConferenceForm = () => {
 
             </Form>
 
-            <SuccessModal conference={conference} urlId={confId} urlType={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+            <SuccessModal conference={conference} urlid={confId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conference} urlId={confId} urlType={urlType} errMsg={err} show={showErr} hide={e => handleHideErr(e)} />
+            <ErrorModal conference={conference} urlid={confId} urltype={urlType} errMsg={err} show={showErr} hide={e => handleHideErr(e)} />
 
           </Container >
         )
