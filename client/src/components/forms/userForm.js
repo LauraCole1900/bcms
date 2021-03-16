@@ -8,9 +8,9 @@ import "./style.css";
 
 const UpdateUser = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  let err;
   const [pageReady, setPageReady] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [errThrown, setErrThrown] = useState();
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
@@ -58,11 +58,11 @@ const UpdateUser = () => {
           handleShowSuccess();
         }
       })
-      // If yes errors thrown, show Error modal
+      // If yes errors thrown, setState(err.message) and show Error modal
       .catch(err => {
-        handleShowErr();
         console.log(err)
-        return err
+        setErrThrown(err.message);
+        handleShowErr();
       })
   }
 
@@ -125,7 +125,7 @@ const UpdateUser = () => {
 
           <SuccessModal urlid={urlId} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-          <ErrorModal urlid={urlId} errmsg={err} show={showErr} hide={e => handleHideErr(e)} />
+          <ErrorModal urlid={urlId} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
         </Container>}
     </>
