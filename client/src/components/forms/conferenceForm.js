@@ -12,6 +12,7 @@ const ConferenceForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   let err;
   const [pageReady, setPageReady] = useState(false);
+  const [errThrown, setErrThrown] = useState();
   const [conference, setConference] = useState({
     creatorEmail: "",
     confName: "",
@@ -77,11 +78,11 @@ const ConferenceForm = () => {
           handleShowSuccess();
         }
       })
-      // If yes errors thrown, show Error modal
+      // If yes errors thrown, setState(err.message) and show Error modal
       .catch(err => {
-        handleShowErr()
-        console.log(err)
-        return err
+        console.log(err);
+        setErrThrown(err.message);
+        handleShowErr();
       });
   }
 
@@ -98,11 +99,11 @@ const ConferenceForm = () => {
           console.log({ showSuccess });
         }
       })
-      // If yes errors thrown, show Error modal
+      // If yes errors thrown, setState(err.message) and show Error modal
       .catch(err => {
-        handleShowErr();
         console.log(err);
-        return err;
+        setErrThrown(err.message);
+        handleShowErr();
       });
   }
 
@@ -445,7 +446,7 @@ const ConferenceForm = () => {
 
             <SuccessModal conference={conference} urlid={confId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conference} urlid={confId} urltype={urlType} errmsg={err} show={showErr} hide={e => handleHideErr(e)} />
+            <ErrorModal conference={conference} urlid={confId} urltype={urlType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
           </Container >
         )

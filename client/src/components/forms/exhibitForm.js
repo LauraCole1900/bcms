@@ -81,7 +81,7 @@ const ExhibitForm = () => {
           handleShowSuccess();
         }
       })
-      // If yes errors thrown, show Error modal
+      // If yes errors thrown, setState(err.message) and show Error modal
       .catch(err => {
         console.log(err);
         setErrThrown(err.message);
@@ -101,7 +101,7 @@ const ExhibitForm = () => {
           handleShowSuccess();
         }
       })
-      // If yes errors thrown, show Error modal
+      // If yes errors thrown, setState(err.message) and show Error modal
       .catch(err => {
         console.log(err)
         setErrThrown(err.message);
