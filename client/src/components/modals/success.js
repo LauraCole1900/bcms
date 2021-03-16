@@ -43,7 +43,7 @@ const SuccessModal = (props, e) => {
             <h4>Delete! Delete! Delete!</h4>}
         {/* </Modal.Body> */}
         <Modal.Footer className="modalFooter">
-          {(props.urltype === "edit_conference" || props.urltype === "edit_session") &&
+          {(props.urltype === "edit_conference" || props.urltype === "edit_session" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit") &&
             <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
               <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
             </Link>}
