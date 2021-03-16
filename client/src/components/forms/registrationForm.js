@@ -8,11 +8,11 @@ import "./style.css";
 
 const Registration = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  let err;
   const [pageReady, setPageReady] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [conference, setConference] = useState({});
   const [attendee, setAttendee] = useState({});
+  const [errThrown, setErrThrown] = useState();
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
@@ -74,16 +74,16 @@ const Registration = () => {
     // PUT call to update attendee document
     AttendeeAPI.updateAttendee({ ...attendee }, confId, user.email)
       .then(res => {
-        // If no errors thrown, push to Success page
+        // If no errors thrown, show Success modal
         if (!res.err) {
           handleShowSuccess();
         }
       })
-      // If yes errors thrown, push to Error page
+      // If yes errors thrown, show Error modal
       .catch(err => {
-        handleShowErr();
         console.log(err);
-        return err
+        setErrThrown(err.message);
+        handleShowErr();
       })
   };
 
@@ -94,16 +94,16 @@ const Registration = () => {
     // POST call to create attendee document
     AttendeeAPI.registerAttendee({ ...attendee, confId: confId, email: user.email })
       .then(res => {
-        // If no errors thrown, push to Success page
+        // If no errors thrown, show Success modal
         if (!res.err) {
           handleShowSuccess();
         }
       })
-      // If yes errors thrown, push to Error page
+      // If yes errors thrown, show Error modal
       .catch(err => {
-        handleShowErr();
         console.log(err);
-        return err;
+        setErrThrown(err.message);
+        handleShowErr();
       })
   };
 
@@ -226,7 +226,7 @@ const Registration = () => {
 
             <SuccessModal conference={conference} urlid={confId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conference} urlid={confId} urltype={formType} errmsg={err} show={showErr} hide={e => handleHideErr(e)} />
+            <ErrorModal conference={conference} urlid={confId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
           </Container>
         )
