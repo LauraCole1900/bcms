@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
+import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const Registration = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const history = useHistory();
+  let err;
   const [pageReady, setPageReady] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [conference, setConference] = useState({});
@@ -15,9 +16,21 @@ const Registration = () => {
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
+  // Use to pull confId from URL
   const confId = urlArray[urlArray.length - 1]
+  // Use to determine "/register_attend/{confId}" or "/register_edit/{confId}"
   const formType = urlArray[urlArray.length - 2]
   console.log("registrationForm update", formType)
+
+  // Modal variables
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -63,13 +76,14 @@ const Registration = () => {
       .then(res => {
         // If no errors thrown, push to Success page
         if (!res.err) {
-          history.push("/attendee_updated")
+          handleShowSuccess();
         }
       })
       // If yes errors thrown, push to Error page
       .catch(err => {
-        history.push(`/attupdate_error/${err}`)
-        console.log(err)
+        handleShowErr();
+        console.log(err);
+        return err
       })
   };
 
@@ -82,17 +96,18 @@ const Registration = () => {
       .then(res => {
         // If no errors thrown, push to Success page
         if (!res.err) {
-          history.push(`/register_success/${confId}`)
+          handleShowSuccess();
         }
       })
       // If yes errors thrown, push to Error page
       .catch(err => {
-        history.push(`/attreg_error/${err}`)
-        console.log(err)
+        handleShowErr();
+        console.log(err);
+        return err;
       })
   };
 
-  
+
   return (
     <>
       {!isAuthenticated &&
@@ -208,6 +223,11 @@ const Registration = () => {
               </Row>
 
             </Form>
+
+            <SuccessModal conference={conference} urlid={confId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+
+            <ErrorModal conference={conference} urlid={confId} urltype={formType} errmsg={err} show={showErr} hide={e => handleHideErr(e)} />
+
           </Container>
         )
       }
