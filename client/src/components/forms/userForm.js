@@ -14,10 +14,8 @@ const UpdateUser = () => {
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
-  // Use to refer to "/new_conference"
+  // Use to refer to "/update_user"
   const urlId = urlArray[urlArray.length - 1]
-  // Use to refer to "/edit_conference/{confId}"
-  const urlType = urlArray[urlArray.length - 2]
 
   // Modal variables
   const [showSuccess, setShowSuccess] = useState(false);
@@ -55,12 +53,12 @@ const UpdateUser = () => {
     // PUT call to update user document
     UserAPI.updateUser({ ...user, given_name: userInfo.given_name, family_name: userInfo.family_name }, user.email)
       .then(res => {
-        // If no errors thrown, push to Success page
+        // If no errors thrown, show Success modal
         if (!res.err) {
           handleShowSuccess();
         }
       })
-      // If yes errors thrown, push to Error page
+      // If yes errors thrown, show Error modal
       .catch(err => {
         handleShowErr();
         console.log(err)
@@ -125,9 +123,9 @@ const UpdateUser = () => {
 
           </Form>
 
-          <SuccessModal urlid={urlId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+          <SuccessModal urlid={urlId} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-          <ErrorModal urlid={urlId} urltype={urlType} errmsg={err} show={showErr} hide={e => handleHideErr(e)} />
+          <ErrorModal urlid={urlId} errmsg={err} show={showErr} hide={e => handleHideErr(e)} />
 
         </Container>}
     </>
