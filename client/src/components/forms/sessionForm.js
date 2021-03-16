@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, Form, Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, SessionAPI } from "../../utils/api";
+import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const SessionForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const history = useHistory();
   const [session, setSession] = useState();
   const [conference, setConference] = useState();
+  const [errThrown, setErrThrown] = useState();
   const [sessReady, setSessReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
 
@@ -20,6 +21,16 @@ const SessionForm = () => {
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const formType = urlArray[urlArray.length - 2]
+
+  // Modal variables
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   const fetchSess = async (sessid) => {
     // Edit existing session: GET session information
@@ -96,15 +107,16 @@ const SessionForm = () => {
     // PUT call to update session document
     SessionAPI.updateSession({ ...session }, urlId)
       .then(res => {
-        // If no errors thrown, push to Success page
+        // If no errors thrown, show Success modal
         if (!res.err) {
-          history.push("/session_updated")
+          handleShowSuccess();
         }
       })
-      // If yes errors thrown, push to Error page
+      // If yes errors thrown, setState(err.message) and show Error modal
       .catch(err => {
-        history.push(`/sessupdate_error/${err}`)
         console.log(err)
+        setErrThrown(err.message);
+        handleShowErr();
       })
   };
 
@@ -117,13 +129,14 @@ const SessionForm = () => {
       .then(res => {
         // If no errors thrown, push to Success page
         if (!res.err) {
-          history.push("/session_added")
+          handleShowSuccess();
         }
       })
       // If yes errors thrown, push to Error page
       .catch(err => {
-        history.push(`/sesscreate_error/${err}`)
         console.log(err)
+        setErrThrown(err.message);
+        handleShowErr();
       });
   }
 
@@ -266,6 +279,11 @@ const SessionForm = () => {
             </Row>
 
           </Form>
+
+          <SuccessModal conference={conference} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+
+          <ErrorModal conference={conference} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+
         </Container>}
     </>
   )

@@ -42,8 +42,8 @@ const SuccessModal = (props, e) => {
             (e.id === "confDelete" || e.id === "sessDelete") &&
             <h4>Delete! Delete! Delete!</h4>}
           <Modal.Footer className="modalFooter">
-            {(props.urltype === "edit_conference" || props.urltype === "edit_session" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit") &&
-              <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
+            {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "edit_session" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit") &&
+              <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
               </Link>}
             <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
