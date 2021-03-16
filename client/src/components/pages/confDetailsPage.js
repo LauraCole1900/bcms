@@ -7,7 +7,7 @@ import { ConferenceAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
   const [conference, setConference] = useState([]);
   const [sessArray, setSessArray] = useState([]);
@@ -119,7 +119,7 @@ const ConfDetails = () => {
 
           <Row>
             <Col sm={1}></Col>
-            <Col sm={3}>
+            <Col sm={2}>
               <ButtonGroup data-toggle="popover">
                 <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
                   <Button title="View schedule" className="button">Schedule</Button>
@@ -129,6 +129,33 @@ const ConfDetails = () => {
                 </Link>
               </ButtonGroup>
             </Col>
+            <Col sm={1}></Col>
+            {isAuthenticated &&
+              (user.email === conference[0].creatorEmail || conference[0].confAdmins.includes(user.email)) &&
+              <>
+                <Col sm={7}>
+                  <ButtonGroup data-toggle="popover">
+                    <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
+                      <Button title="View conference attendees" className="button">Attendees</Button>
+                    </Link>
+                    <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
+                      <Button title="View conference exhibitors" className="button">Exhibitors</Button>
+                    </Link>
+                    <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
+                      <Button title="View conference presenters" className="button">Presenters</Button>
+                    </Link>
+                    <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
+                    </Link>
+                    <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}`}>
+                      <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
+                    </Link>
+                    <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}`}>
+                      <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
+                    </Link>
+                  </ButtonGroup>
+                </Col>
+              </>}
           </Row>
 
           <Row>
