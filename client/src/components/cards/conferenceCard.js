@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
+import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 // Figure out how to add the keynote speaker???
