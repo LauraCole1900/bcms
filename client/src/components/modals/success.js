@@ -41,18 +41,17 @@ const SuccessModal = (props, e) => {
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (e.id === "confDelete" || e.id === "sessDelete") &&
             <h4>Delete! Delete! Delete!</h4>}
-        {/* </Modal.Body> */}
-        <Modal.Footer className="modalFooter">
-          {(props.urltype === "edit_conference" || props.urltype === "edit_session" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit") &&
-            <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
-              <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
-            </Link>}
-          <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
-            <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
-          </Link>
-          <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
-            <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
-          </Link>
+          <Modal.Footer className="modalFooter">
+            {(props.urltype === "edit_conference" || props.urltype === "edit_session" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit") &&
+              <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
+              </Link>}
+            <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
+              <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
+            </Link>
+            <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
+              <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
+            </Link>
           </Modal.Footer>
         </Modal.Body>
       </Modal>
