@@ -65,9 +65,9 @@ const ExhibitForm = () => {
     setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
   };
 
-  const handleSetWorkers = (e) => {
+  // const handleSetWorkers = (e) => {
 
-  }
+  // }
 
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {

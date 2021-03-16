@@ -7,7 +7,7 @@ import { ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const AllConfs = () => {
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [confArray, setConfArray] = useState([]);
   const [searchBy, setSearchBy] = useState("all");
   const [search, setSearch] = useState("");

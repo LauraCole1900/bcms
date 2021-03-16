@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Card, Form, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import Moment from "react-moment";
-import "moment-timezone";
+// import Moment from "react-moment";
+// import "moment-timezone";
 import { ConferenceAPI } from "../../utils/api";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const ConferenceForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  let err;
   const [pageReady, setPageReady] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [conference, setConference] = useState({
@@ -34,7 +33,7 @@ const ConferenceForm = () => {
     confWaiver: "no",
   });
 
-  const confOffset = new Date().getTimezoneOffset()
+  // const confOffset = new Date().getTimezoneOffset()
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
@@ -401,7 +400,7 @@ const ConferenceForm = () => {
                         {conference.confSessProposalConfirm === "yes" &&
                           <Form.Text>Prospective presenters will input session information to be reviewed by a review team designated by you. Sessions that are marked as accepted will have their information auto-filled in your conference's "details" section. You or a designated admin will still need to enter sessions into your conference's schedule.</Form.Text>}
                         {conference.confSessProposalConfirm === "no" &&
-                          <Form.Text>You or a designated admin will need to input session information into your conference's "details" section and schedule.</Form.Text>}
+                          <Form.Text>You or a designated admin will need to input any session information into your conference's "details" section and schedule.</Form.Text>}
                       </Col>
                     </Form.Group>
                   </Row>

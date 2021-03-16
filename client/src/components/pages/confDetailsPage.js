@@ -7,7 +7,7 @@ import { ConferenceAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
   const [conference, setConference] = useState([]);
   const [sessArray, setSessArray] = useState([]);
