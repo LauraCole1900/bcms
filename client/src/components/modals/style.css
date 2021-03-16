@@ -19,3 +19,8 @@
   padding: 0;
   border: 0;
 }
+
+.modalHeadConf {
+  color: #e2e2e2;
+  background: linear-gradient(to top, #ff97ad, #ff2d5a)
+}

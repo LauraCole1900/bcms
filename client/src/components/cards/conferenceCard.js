@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
@@ -11,7 +11,6 @@ import "./style.css";
 
 const ConferenceCard = ({ conference }) => {
   const { user, isAuthenticated } = useAuth0();
-  const history = useHistory();
   const location = useLocation();
   const [cardAttendConf, setCardAttendConf] = useState([]);
   const [cardExhibitConf, setCardExhibitConf] = useState([]);
@@ -37,12 +36,13 @@ const ConferenceCard = ({ conference }) => {
   const handleHideErr = () => setShowErr(false);
 
   // Handles click on "Yes, Delete" button on ConfirmModal
-  function handleDelete(confId) {
+  function handleConfDelete(confId) {
     console.log("from confCard", confId)
+    handleHideConfirm();
     ConferenceAPI.deleteConference(confId)
       .then(res => {
         if (!res.err) {
-        handleShowSuccess();
+          handleShowSuccess();
         }
       })
       .catch(err => {
@@ -51,6 +51,44 @@ const ConferenceCard = ({ conference }) => {
         handleShowErr();
       });
   };
+
+  // Handles click on "Yes, unregister attendee" button on ConfirmModal
+  function handleAttUnreg(confId, email) {
+    console.log("from confirm attUnreg", confId, email)
+    // DELETE call to delete attendee document
+    AttendeeAPI.unregisterAttendee(confId, email)
+      .then(res => {
+        // If no errors thrown, show Success modal
+        if (!res.err) {
+          handleShowSuccess()
+        }
+      })
+      // If yes errors thrown, show Error modal
+      .catch(err => {
+        console.log(err);
+        setErrThrown(err.message);
+        handleShowErr();
+      });
+  }
+
+  // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
+  function handleExhUnreg(confId, email) {
+    console.log("from confirm exhUnreg", confId, email)
+    // DELETE call to delete exhibitor document
+    ExhibitorAPI.deleteExhibitor(confId, email)
+      .then(res => {
+        // If no errors thrown, show Success modal
+        if (!res.err) {
+          handleShowSuccess();
+        }
+      })
+      // If yes errors thrown, show Error modal
+      .catch(err => {
+        console.log(err)
+        setErrThrown(err.message);
+        handleShowErr();
+      });
+  }
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -91,8 +129,8 @@ const ConferenceCard = ({ conference }) => {
                   <Col sm={1}>
                     {isAuthenticated &&
                       (user.email === conf.creatorEmail) &&
-                      <Button data-toggle="popover" title="Delete this conference" className="deletebtn" id="confDelete" onClick={handleShowConfirm}>
-                        <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" />
+                      <Button data-toggle="popover" title="Delete this conference" className="deletebtn" name="confDelete" onClick={handleShowConfirm}>
+                        <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" name="confDelete" />
                       </Button>}
                   </Col>
                 </Row>
@@ -197,7 +235,7 @@ const ConferenceCard = ({ conference }) => {
                       <Col sm={1}></Col>
                       <Col sm={2}>
                         <Link to={`/unregister_exhibit_confirm/${conf._id}`} className={location.pathname === `/unregister_exhibit_confirm/${conf._id}` ? "link active" : "link"}>
-                          <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" id="unregExh">Unregister Exhibit</Button>
+                          <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" name="unregExh">Unregister Exhibit</Button>
                         </Link>
                       </Col>
                       <Col sm={2}>
@@ -216,7 +254,7 @@ const ConferenceCard = ({ conference }) => {
                         : <Col sm={7}></Col>}
                       <Col sm={2}>
                         <Link to={`/unregister_confirm/${conf._id}`} className={location.pathname === `/unregister_confirm/${conf._id}` ? "link active" : "link"}>
-                          <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" id="unregAtt">Unregister Attendee</Button>
+                          <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" name="unregAtt">Unregister Attendee</Button>
                         </Link>
                       </Col>
                       <Col sm={2}>
@@ -259,11 +297,11 @@ const ConferenceCard = ({ conference }) => {
               </Card.Body>
             </Card>
 
-            <ConfirmModal conference={conference} show={showConfirm} hide={e => handleHideConfirm(e)} delete={e => handleDelete(e)} />
+            <ConfirmModal conference={conf} show={showConfirm} hide={e => handleHideConfirm(e)} deleteconf={e => handleConfDelete(e.target._id)} unregatt={e => handleAttUnreg(e.target._id, user.email)} unregexh={e => handleExhUnreg(e.target._id, user.email)} />
 
-            <SuccessModal conference={conference} urlid={confId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+            <SuccessModal conference={conf} urlid={confId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conference} urlid={confId} urltype={urlType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
           </>
         ))

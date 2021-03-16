@@ -106,7 +106,7 @@ const ConfDetails = () => {
 
           {!isAuthenticated &&
             <Row>
-              <h1 className="regRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+              <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
                 log in
                 </Link> to register.</h1>
             </Row>}
