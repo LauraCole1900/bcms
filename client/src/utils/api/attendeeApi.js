@@ -5,7 +5,7 @@ const AttendeeAPI = {
   // POST attendee to database
   registerAttendee: function (formData) {
     console.log("from API registerAttendee", formData)
-    return axios.post("/api/attendee/postsss", formData)
+    return axios.post("/api/attendee/post", formData)
   },
 
 

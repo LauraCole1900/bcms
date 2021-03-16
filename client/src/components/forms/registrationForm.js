@@ -9,16 +9,15 @@ import "./style.css";
 const Registration = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [pageReady, setPageReady] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
   const [conference, setConference] = useState({});
   const [attendee, setAttendee] = useState({});
   const [errThrown, setErrThrown] = useState();
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
-  // Use to pull confId from URL
+  // Use to find confId from the URL
   const confId = urlArray[urlArray.length - 1]
-  // Use to determine "/register_attend/{confId}" or "/register_edit/{confId}"
+  // Use to determine whether submitting new attendee or editing existing attendee
   const formType = urlArray[urlArray.length - 2]
   console.log("registrationForm update", formType)
 

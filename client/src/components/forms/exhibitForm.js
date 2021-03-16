@@ -1,23 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ExhibitorAPI, UserAPI } from "../../utils/api";
+import { ConferenceAPI, ExhibitorAPI } from "../../utils/api";
+import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const ExhibitForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const history = useHistory();
   const [pageReady, setPageReady] = useState(false);
+  const [conference, setConference] = useState({});
   const [exhibitor, setExhibitor] = useState({});
+  const [errThrown, setErrThrown] = useState();
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
+  // Use to find confId from the URL
   const confId = urlArray[urlArray.length - 1]
+  // Use to determine whether submitting new exhibit or editing existing exhibit
   const formType = urlArray[urlArray.length - 2]
+
+  // Modal variables
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   useEffect(() => {
     if (isAuthenticated) {
+      // GET call for conference information
+      ConferenceAPI.getConferenceById(confId)
+        .then(resp => {
+          console.log("from registrationForm getConferenceById", resp.data)
+          const confArr = resp.data[0];
+          setConference(confArr);
+        })
+        .catch(err => console.log(err));
+
       switch (formType) {
         case "edit_exhibit":
           // GET call to pre-populate the form if URL indicates this is an existing exhibitor
@@ -53,15 +76,16 @@ const ExhibitForm = () => {
     // PUT call to update exhibitor document
     ExhibitorAPI.updateExhibitor({ ...exhibitor }, exhibitor._id)
       .then(res => {
-        // If no errors thrown, push to Success page
+        // If no errors thrown, show Success modal
         if (!res.err) {
-          history.push("/exhibitor_updated")
+          handleShowSuccess();
         }
       })
-      // If yes errors thrown, push to Error page
+      // If yes errors thrown, show Error modal
       .catch(err => {
-        history.push(`/exhupdate_error/${err}`)
-        console.log(err)
+        console.log(err);
+        setErrThrown(err.message);
+        handleShowErr();
       })
   };
 
@@ -72,15 +96,16 @@ const ExhibitForm = () => {
     // POST call to create exhibitor document
     ExhibitorAPI.registerExhibitor({ ...exhibitor, email: user.email })
       .then(res => {
-        // If no errors thrown, push to Success page
+        // If no errors thrown, show Success modal
         if (!res.err) {
-          history.push(`/register_success/${confId}`)
+          handleShowSuccess();
         }
       })
-      // If yes errors thrown, push to Error page
+      // If yes errors thrown, show Error modal
       .catch(err => {
-        history.push(`/exhreg_error/${err}`)
         console.log(err)
+        setErrThrown(err.message);
+        handleShowErr();
       })
   };
 
@@ -187,6 +212,11 @@ const ExhibitForm = () => {
             </Row>
 
           </Form>
+
+          <SuccessModal conference={conference} urlid={confId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+
+          <ErrorModal conference={conference} urlid={confId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+
         </Container>}
     </>
   )
