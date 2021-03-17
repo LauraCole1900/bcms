@@ -8,13 +8,13 @@ import "./style.css";
 
 const ProfilePage = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const location = useLocation();
   const [whichConf, setWhichConf] = useState();
   const [attendConf, setAttendConf] = useState([]);
   const [createConf, setCreateConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
   const [presentConf, setPresentConf] = useState([]);
   const [pageReady, setPageReady] = useState(false);
-  const location = useLocation();
 
   // GET conference by ID
   const getConfById = async (confId) => {
