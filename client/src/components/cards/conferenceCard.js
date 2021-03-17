@@ -94,7 +94,7 @@ const ConferenceCard = ({ conference }) => {
       });
   }
 
-  useEffect(() => {
+  useEffect((e) => {
     if (isAuthenticated) {
       console.log(user.email)
       // Retrieves conferences user is registered for to determine whether register or unregister button should render
@@ -115,12 +115,13 @@ const ConferenceCard = ({ conference }) => {
           setCardExhibitConf(cardExhIds);
         })
     }
+    console.log(e);
     setCardRender(true);
   }, [])
 
   return (
     <>
-      {(cardRender === true) &&
+      {cardRender === true &&
         conference.map(conf => (
           <Card className="infoCard" key={conf._id}>
             <Card.Header className="cardTitle">
@@ -264,7 +265,7 @@ const ConferenceCard = ({ conference }) => {
             </Card.Body>
 
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-            <ConfirmModal conference={conf} show={showConfirm} hide={e => handleHideConfirm(e)} deleteconf={() => handleConfDelete(conf._id)} unregatt={() => handleAttUnreg(conf._id, user.email)} unregexh={() => handleExhUnreg(conf._id, user.email)} />
+            <ConfirmModal conference={conf} unregatt={() => handleAttUnreg(conf._id, user.email)} unregexh={() => handleExhUnreg(conf._id, user.email)} show={showConfirm} hide={e => handleHideConfirm(e)} deleteconf={() => handleConfDelete(conf._id)} />
 
             <SuccessModal conference={conf} urlid={confId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
