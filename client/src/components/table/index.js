@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Table, Form, Card, Image } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { Container, Row, Col, Table, Form, Card, Image, ButtonGroup, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
 import AttendeeTable from "./attendeeTable.js";
@@ -10,7 +10,8 @@ import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI } from "../../ut
 import "./style.css";
 
 const TableComp = (e) => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const location = useLocation();
   const [attendees, setAttendees] = useState([]);
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
@@ -19,6 +20,7 @@ const TableComp = (e) => {
   const [searchBy, setSearchBy] = useState("all");
   const [sortAscending, setSortAscending] = useState(false);
   const [pageReady, setPageReady] = useState(false);
+  const [confReady, setConfReady] = useState(false);
 
   const urlArray = window.location.href.split("/");
   const confId = urlArray[urlArray.length - 1];
@@ -36,6 +38,7 @@ const TableComp = (e) => {
         setConference(resp.data)
       })
       .catch(err => console.log(err))
+    setConfReady(true);
   }
 
   // GETs attendees for useEffect and callback
@@ -189,6 +192,7 @@ const TableComp = (e) => {
 
       {isAuthenticated &&
         pageReady === true &&
+        confReady === true &&
         <Container fluid="true">
           <Row>
             <Col lg={6} md={12}>
@@ -198,6 +202,48 @@ const TableComp = (e) => {
               <ConferenceCard conference={conference} />
             </Col>
           </Row>
+
+          <Row>
+            <Col sm={1}></Col>
+            <Col sm={2}>
+              <ButtonGroup data-toggle="popover">
+                <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
+                  <Button title="View schedule" className="button">Schedule</Button>
+                </Link>
+                <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
+                  <Button title="Venue information" className="button">Venue</Button>
+                </Link>
+              </ButtonGroup>
+            </Col>
+            <Col sm={1}></Col>
+            {isAuthenticated &&
+              (user.email === conference[0].creatorEmail || conference[0].confAdmins.includes(user.email)) &&
+              <>
+                <Col sm={7}>
+                  <ButtonGroup data-toggle="popover">
+                    <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
+                      <Button title="View conference attendees" className="button">Attendees</Button>
+                    </Link>
+                    <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
+                      <Button title="View conference exhibitors" className="button">Exhibitors</Button>
+                    </Link>
+                    <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
+                      <Button title="View conference presenters" className="button">Presenters</Button>
+                    </Link>
+                    <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
+                    </Link>
+                    <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}`}>
+                      <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
+                    </Link>
+                    <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}`}>
+                      <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
+                    </Link>
+                  </ButtonGroup>
+                </Col>
+              </>}
+          </Row>
+
           <Row>
             <Col className="center">
               {dataSet === "attendees" &&

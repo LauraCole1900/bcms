@@ -193,42 +193,6 @@ const ConferenceCard = ({ conference }) => {
                     </Row>}
                 </Col>
               </Row>
-              {isAuthenticated &&
-                (user.email === conf.creatorEmail || conf.confAdmins.includes(user.email)) &&
-                <Row>
-                  <Col sm={1}></Col>
-                  <Col sm={1}>
-                    <Link to={`/attendees/${conf._id}`} className={location.pathname === `/attendees/${conf._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View conference attendees" className="button">Attendees</Button>
-                    </Link>
-                  </Col>
-                  <Col sm={1}>
-                    <Link to={`/exhibitors/${conf._id}`} className={location.pathname === `/exhibitors/${conf._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View conference exhibitors" className="button">Exhibitors</Button>
-                    </Link>
-                  </Col>
-                  <Col sm={1}>
-                    <Link to={`/presenters/${conf._id}`} className={location.pathname === `/presenters/${conf._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View conference presenters" className="button">Presenters</Button>
-                    </Link>
-                  </Col>
-                  <Col sm={1}></Col>
-                  <Col sm={2}>
-                    <Link to={`/edit_conference/${conf._id}`} className={location.pathname === `/edit_conference/${conf._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
-                    </Link>
-                  </Col>
-                  <Col sm={2}>
-                    <Link to={`/edit_schedule/${conf._id}`} className={location.pathname === `/edit_schedule/${conf._id}`}>
-                      <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
-                    </Link>
-                  </Col>
-                  <Col sm={2}>
-                    <Link to={`/new_session/${conf._id}`} className={location.pathname === `/new_session/${conf._id}`}>
-                      <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
-                    </Link>
-                  </Col>
-                </Row>}
 
               <Row>
                 {isAuthenticated &&
