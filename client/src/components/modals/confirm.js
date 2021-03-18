@@ -15,6 +15,7 @@ const ConfirmModal = (e, props) => {
           <Modal.Title><h2>Please confirm</h2></Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalBody">
+          <h3>Are you sure?</h3>
           {e.target !== undefined &&
             (e.target.name === "confDelete" &&
               <h3>Are you sure you want to delete this conference? This action can't be undone.</h3>)}

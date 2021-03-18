@@ -91,7 +91,7 @@ const AllConfs = () => {
             </Row>
           </Container>
         </div>
-      )};
+      )}
     </>
   )
 }

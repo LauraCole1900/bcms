@@ -260,11 +260,11 @@ const TableComp = (e) => {
             </Col>
             <Col sm={4}>
               <Card.Body>
-                <Form inline>
+                <Form inline="true">
                   <Row>
                     <Col sm={6}>
                       <Form.Group controlId="confSearchBy">
-                        <Form.Control inline as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
+                        <Form.Control inline="true" as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
                           <option value="all">View All</option>
                           <option value="name">Search by Family Name</option>
                           <option value="email">Search by Email</option>
@@ -275,7 +275,7 @@ const TableComp = (e) => {
                     <Col sm={6}>
                       {(searchBy !== "all") &&
                         <div id="confPageSearch">
-                          <Form.Control inline className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                          <Form.Control inline="true" className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                         </div>}
                     </Col>
                   </Row>
