@@ -27,7 +27,10 @@ const ConfDetails = () => {
         const confObj = resp.data.slice(0)
         setConference(confObj)
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        return false
+      })
 
     setConfReady(true);
   }
@@ -39,7 +42,10 @@ const ConfDetails = () => {
         const sessArr = resp.data.slice(0)
         setSessArray(sessArr);
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        return false
+      })
 
     setSessReady(true);
   }

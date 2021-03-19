@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import "./style.css";
 
@@ -7,6 +7,12 @@ const ConfirmModal = (e, props) => {
   // Asks for confirmation that user wants to take that action
   // If "yes", show SuccessModal or ErrorModal
   // If "no", returns user to page they were on
+
+  useEffect(() => {
+    if (props.show) {
+
+    }
+  }, [props.show])
 
   return (
     <>
