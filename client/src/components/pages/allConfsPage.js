@@ -87,7 +87,9 @@ const AllConfs = () => {
               </Row>}
 
             <Row>
-              <ConferenceCard conference={searchFilter(confArray)} />
+              {confArray.length > 0
+                ? <ConferenceCard conference={searchFilter(confArray)} />
+                : <h3>We can't seem to find any conferences at this time. If you think this is an error, please contact us.</h3>}
             </Row>
           </Container>
         </div>

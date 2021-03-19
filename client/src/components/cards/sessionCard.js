@@ -21,7 +21,7 @@ const SessionCard = (props) => {
   };
 
   useEffect(() => {
-    if (props.session) {
+    if (props.session.length > 0) {
       setCardRender(true)
     }
   }, [props.session])

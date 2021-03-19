@@ -8,10 +8,12 @@ const PresenterCard = (props) => {
   const [cardRender, setCardRender] = useState(false);
 
   useEffect(() => {
-    setCardRender(true)
+    if (props.session.length > 0) {
+      setCardRender(true)
+    }
   }, [])
 
-  
+
   return (
     <>
       { cardRender === true &&
