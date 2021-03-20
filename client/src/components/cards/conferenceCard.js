@@ -29,7 +29,7 @@ const ConferenceCard = ({ conference }) => {
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
-    console.log(e.target.name);
+    console.log(e.target.name, e.target.id);
     setShowConfirm(true);
     console.log({ showConfirm });
   }
@@ -132,8 +132,8 @@ const ConferenceCard = ({ conference }) => {
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user.email === conf.creatorEmail) &&
-                    <Button data-toggle="popover" title="Delete this conference" className="deletebtn" name="confDelete" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" name="confDelete" />
+                    <Button data-toggle="popover" title="Delete this conference" className="deletebtn" id={conf._id} name="confDelete" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" id={conf._id} name="confDelete" />
                     </Button>}
                 </Col>
               </Row>

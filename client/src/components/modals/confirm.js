@@ -8,12 +8,6 @@ const ConfirmModal = (e, props) => {
   // If "yes", show SuccessModal or ErrorModal
   // If "no", returns user to page they were on
 
-  useEffect(() => {
-    if (props.show === true) {
-      
-    }
-  }, [props.show])
-
   return (
     <>
       <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} className="modal" centered={true}>
@@ -37,10 +31,10 @@ const ConfirmModal = (e, props) => {
           <Modal.Footer>
             {e.target !== undefined &&
               (e.target.name === "confDelete" &&
-                <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={props.deleteconf} type="submit">Yes, Delete</Button>)}
+                <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={props.deleteconf(e.target.id)} type="submit">Yes, Delete</Button>)}
             {e.target !== undefined &&
               (e.target.name === "sessDelete" &&
-                <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={props.deletesess} type="submit">Yes, Delete</Button>)}
+                <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={props.deletesess(e.target.id)} type="submit">Yes, Delete</Button>)}
             {e.target !== undefined &&
               (e.target.name === "unregAtt" &&
                 <Button data-toggle="popover" title="Confirm Unregister" className="button" onClick={props.unregatt} type="submit">Yes, Unregister</Button>)}
