@@ -9,8 +9,8 @@ const ConfirmModal = (e, props) => {
   // If "no", returns user to page they were on
 
   useEffect(() => {
-    if (props.show) {
-
+    if (props.show === true) {
+      
     }
   }, [props.show])
 
