@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import "./style.css";
 
@@ -28,7 +28,7 @@ const ConfirmModal = (e, props) => {
           {e.target !== undefined &&
             (e.target.name === "unregExh" &&
               <h3>Are you sure you want to unregister your exhibit from {props.conference.confName}? This action can't be undone.</h3>)}
-          <Modal.Footer>
+          <Modal.Footer className="modalFooter">
             {e.target !== undefined &&
               (e.target.name === "confDelete" &&
                 <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={props.deleteconf(e.target.id)} type="submit">Yes, Delete</Button>)}

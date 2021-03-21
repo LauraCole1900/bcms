@@ -1,3 +1,7 @@
+h3 {
+  font-family: "Open Sans Condensed", sans-serif;
+}
+
 .modal {
   opacity: 1;
   display: flex!important;
@@ -30,5 +34,6 @@
 
 .modalHeadConf {
   color: #e2e2e2;
-  background: linear-gradient(to top, #ff97ad, #ff2d5a)
+  background: linear-gradient(to bottom, #ff9797, #ff2d2d);
+  border-radius: 10px 10px 0 0;
 }

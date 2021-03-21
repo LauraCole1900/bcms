@@ -28,11 +28,7 @@ const ConferenceCard = ({ conference }) => {
   const [showErr, setShowErr] = useState(false);
 
   // Sets boolean to show or hide relevant modal
-  const handleShowConfirm = (e) => {
-    console.log(e.target.name, e.target.id);
-    setShowConfirm(true);
-    console.log({ showConfirm });
-  }
+  const handleShowConfirm = () => setShowConfirm(true);
   const handleHideConfirm = () => setShowConfirm(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
@@ -264,7 +260,7 @@ const ConferenceCard = ({ conference }) => {
             </Card.Body>
 
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-            <ConfirmModal conference={conf} unregatt={() => handleAttUnreg(conf._id, user.email)} unregexh={() => handleExhUnreg(conf._id, user.email)} show={handleShowConfirm} hide={e => handleHideConfirm(e)} deleteconf={() => handleConfDelete(conf._id)} />
+            <ConfirmModal conference={conf} unregatt={() => handleAttUnreg(conf._id, user.email)} unregexh={() => handleExhUnreg(conf._id, user.email)} show={e => handleShowConfirm(e)} hide={e => handleHideConfirm(e)} deleteconf={() => handleConfDelete(conf._id)} />
 
             <SuccessModal conference={conf} urlid={confId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
