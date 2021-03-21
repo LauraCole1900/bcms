@@ -197,9 +197,9 @@ const ConferenceCard = ({ conference }) => {
                   <div>
                     <Col sm={1}></Col>
                     <Col sm={2}>
-                      <Link to={`/unregister_exhibit_confirm/${conf._id}`} className={location.pathname === `/unregister_exhibit_confirm/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" name="unregExh">Unregister Exhibit</Button>
-                      </Link>
+                      {/* <Link to={`/unregister_exhibit_confirm/${conf._id}`} className={location.pathname === `/unregister_exhibit_confirm/${conf._id}` ? "link active" : "link"}> */}
+                        <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" id={conf._id} name="unregExh" onClick={(e) => handleShowConfirm(e)}>Unregister Exhibit</Button>
+                      {/* </Link> */}
                     </Col>
                     <Col sm={2}>
                       <Link to={`/edit_exhibit/${conf._id}`} className={location.pathname === `/edit_exhibit/${conf._id}` ? "link active" : "link"}>
@@ -216,9 +216,9 @@ const ConferenceCard = ({ conference }) => {
                       ? <Col sm={2}></Col>
                       : <Col sm={7}></Col>}
                     <Col sm={2}>
-                      <Link to={`/unregister_confirm/${conf._id}`} className={location.pathname === `/unregister_confirm/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" name="unregAtt">Unregister Attendee</Button>
-                      </Link>
+                      {/* <Link to={`/unregister_confirm/${conf._id}`} className={location.pathname === `/unregister_confirm/${conf._id}` ? "link active" : "link"}> */}
+                        <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" id={conf._id} name="unregAtt" onClick={(e) => handleShowConfirm(e)}>Unregister Attendee</Button>
+                      {/* </Link> */}
                     </Col>
                     <Col sm={2}>
                       <Link to={`/register_edit/${conf._id}`} className={location.pathname === `/register_edit/${conf._id}` ? "link active" : "link"}>

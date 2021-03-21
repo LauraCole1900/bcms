@@ -18,16 +18,16 @@ const ConfirmModal = (e, props) => {
           <h3>Are you sure?</h3>
           {e.target !== undefined &&
             (e.target.name === "confDelete" &&
-              <h3>Are you sure you want to delete this conference? This action can't be undone.</h3>)}
+              <h4>Are you sure you want to delete this conference? This action can't be undone.</h4>)}
           {e.target !== undefined &&
             (e.target.name === "sessDelete" &&
-              <h3>Are you sure you want to delete this session? This action can't be undone.</h3>)}
+              <h4>Are you sure you want to delete this session? This action can't be undone.</h4>)}
           {e.target !== undefined &&
             (e.target.name === "unregAtt" &&
-              <h3>Are you sure you want to unregister from {props.conference.confName}? This action can't be undone.</h3>)}
+              <h4>Are you sure you want to unregister from {props.conference.confName}? This action can't be undone.</h4>)}
           {e.target !== undefined &&
             (e.target.name === "unregExh" &&
-              <h3>Are you sure you want to unregister your exhibit from {props.conference.confName}? This action can't be undone.</h3>)}
+              <h4>Are you sure you want to unregister your exhibit from {props.conference.confName}? This action can't be undone.</h4>)}
           <Modal.Footer className="modalFooter">
             {e.target !== undefined &&
               (e.target.name === "confDelete" &&
