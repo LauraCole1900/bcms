@@ -12,7 +12,7 @@ const ConfirmModal = (e, props) => {
     <>
       <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} className="modal" centered={true}>
         <Modal.Header className="modalHeadConf">
-          <Modal.Title><h2>Please confirm</h2></Modal.Title>
+          <Modal.Title className="modalTitle"><h2>Please confirm</h2></Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalBody">
           <h3>Are you sure?</h3>

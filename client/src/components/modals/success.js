@@ -15,7 +15,7 @@ const SuccessModal = (props, e) => {
     <>
       <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} className="modal" centered={true}>
         <Modal.Header className="modalHead">
-          <Modal.Title><h2>Success!</h2></Modal.Title>
+          <Modal.Title className="modalTitle"><h2>Success!</h2></Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalBody">
           {props.urlid === "update_user" &&

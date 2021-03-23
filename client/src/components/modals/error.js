@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
+import "./style.css"
 
 const ErrorModal = (props, e) => {
   const location = useLocation();
@@ -15,7 +16,7 @@ const ErrorModal = (props, e) => {
     <>
       <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} className="modal" centered={true}>
         <Modal.Header className="modalHead">
-          <Modal.Title><h2>We're sorry.</h2></Modal.Title>
+          <Modal.Title className="modalTitle"><h2>We're sorry.</h2></Modal.Title>
         </Modal.Header>
         <Modal.Body className="modalBody">
           <h3>Gremlins appear to have gotten into our system. Please copy the error message below and send it to us to help us find and banish these gremlins as quickly as we can.</h3>
