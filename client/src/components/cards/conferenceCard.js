@@ -15,6 +15,7 @@ const ConferenceCard = ({ conference }) => {
   const [cardAttendConf, setCardAttendConf] = useState([]);
   const [cardExhibitConf, setCardExhibitConf] = useState([]);
   const [errThrown, setErrThrown] = useState();
+  const [btnName, setBtnName] = useState("");
   const [cardRender, setCardRender] = useState(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
@@ -28,7 +29,11 @@ const ConferenceCard = ({ conference }) => {
   const [showErr, setShowErr] = useState(false);
 
   // Sets boolean to show or hide relevant modal
-  const handleShowConfirm = () => setShowConfirm(true);
+  const handleShowConfirm = (e) => {
+    console.log(e.target.name);
+    setShowConfirm(true);
+    setBtnName(e.target.name);
+  }
   const handleHideConfirm = () => setShowConfirm(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
@@ -260,11 +265,11 @@ const ConferenceCard = ({ conference }) => {
             </Card.Body>
 
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-            <ConfirmModal conference={conf} unregatt={() => handleAttUnreg(conf._id, user.email)} unregexh={() => handleExhUnreg(conf._id, user.email)} show={showConfirm} hide={(e) => handleHideConfirm(e)} deleteconf={() => handleConfDelete(conf._id)} />
+            <ConfirmModal conference={conf} btnname={btnName} deleteconf={() => handleConfDelete(conf._id)} unregatt={() => handleAttUnreg(conf._id, user.email)} unregexh={() => handleExhUnreg(conf._id, user.email)} show={showConfirm} hide={(e) => handleHideConfirm(e)} />
 
-            <SuccessModal conference={conf} urlid={confId} urltype={urlType} show={showSuccess} hide={(e) => handleHideSuccess(e)} />
+            <SuccessModal conference={conf} urlid={confId} urltype={urlType} btnname={btnName} show={showSuccess} hide={(e) => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} show={showErr} hide={(e) => handleHideErr(e)} />
+            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr} hide={(e) => handleHideErr(e)} />
 
           </Card>
 

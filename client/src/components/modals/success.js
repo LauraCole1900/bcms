@@ -33,13 +33,13 @@ const SuccessModal = (props, e) => {
           {props.urltype === "register_edit" &&
             <h4>You have edited your registration for {props.conference.confName}.</h4>}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
-            (e.id === "unregAtt" &&
+            (props.btnname === "unregAtt" &&
               <h4>You have unregistered from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
-            (e.id === "unregExh" &&
+            (props.btnname === "unregExh" &&
               <h4>You have unregistered your exhibit from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
-            (e.id === "confDelete" || e.id === "sessDelete") &&
+            (props.btnname === "confDelete" || props.btnname === "sessDelete") &&
             <h4>Delete! Delete! Delete!</h4>}
           <Modal.Footer className="modalFooter">
             {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "edit_session" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit") &&

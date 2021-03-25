@@ -17,29 +17,29 @@ const ConfirmModal = (e, props) => {
         <Modal.Body className="modalBody">
           <h3>Are you sure?</h3>
           {e.target !== undefined &&
-            (e.target.name === "confDelete" &&
+            (props.btnname === "confDelete" &&
               <h4>Are you sure you want to delete this conference? This action can't be undone.</h4>)}
           {e.target !== undefined &&
-            (e.target.name === "sessDelete" &&
+            (props.btnname === "sessDelete" &&
               <h4>Are you sure you want to delete this session? This action can't be undone.</h4>)}
           {e.target !== undefined &&
-            (e.target.name === "unregAtt" &&
+            (props.btnname === "unregAtt" &&
               <h4>Are you sure you want to unregister from {props.conference.confName}? This action can't be undone.</h4>)}
           {e.target !== undefined &&
-            (e.target.name === "unregExh" &&
+            (props.btnname === "unregExh" &&
               <h4>Are you sure you want to unregister your exhibit from {props.conference.confName}? This action can't be undone.</h4>)}
           <Modal.Footer className="modalFooter">
             {e.target !== undefined &&
-              (e.target.name === "confDelete" &&
+              (props.btnname === "confDelete" &&
                 <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={props.deleteconf(e.target.id)} type="submit">Yes, Delete</Button>)}
             {e.target !== undefined &&
-              (e.target.name === "sessDelete" &&
+              (props.btnname === "sessDelete" &&
                 <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={props.deletesess(e.target.id)} type="submit">Yes, Delete</Button>)}
             {e.target !== undefined &&
-              (e.target.name === "unregAtt" &&
+              (props.btnname === "unregAtt" &&
                 <Button data-toggle="popover" title="Confirm Unregister" className="button" onClick={props.unregatt} type="submit">Yes, Unregister</Button>)}
             {e.target !== undefined &&
-              (e.target.name === "unregExh" &&
+              (props.btnname === "unregExh" &&
                 <Button data-toggle="popover" title="Confirm Unregister" className="button" onClick={props.unregexh} type="submit">Yes, Unregister</Button>)}
             <Button data-toggle="popover" title="No" className="button" onClick={props.hide} type="submit">No, take me back</Button>
           </Modal.Footer>

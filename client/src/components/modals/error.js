@@ -35,16 +35,16 @@ const ErrorModal = (props, e) => {
           {props.urltype === "register_edit" &&
             <h4>{props.errmsg}. Your registration for {props.conference.confName} could not be updated at this time.</h4>}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
-            (e.id === "unregAtt" &&
+            (props.btnname === "unregAtt" &&
               <h4>Your unregistration from {props.conference.confName} could not be processed at this time.</h4>)}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
-            (e.id === "unregExh" &&
+            (props.btnname === "unregExh" &&
               <h4>The unregistration of your exhibit from {props.conference.confName} could not be processed at this time.</h4>)}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
-            (e.id === "confDelete" &&
+            (props.btnname === "confDelete" &&
               <h4>{props.errmsg}. Your conference could not be deleted at this time.</h4>)}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
-            (e.id === "sessDelete" &&
+            (props.btnname === "sessDelete" &&
               <h4>{props.errmsg}. Your session could not be deleted at this time.</h4>)}
           <Modal.Footer className="modalFooter">
             {(props.urltype === "edit_conference" || props.urltype === "edit_session" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urlid === "profile" || props.urlid === "conferences" || props.urlid === "details") &&
