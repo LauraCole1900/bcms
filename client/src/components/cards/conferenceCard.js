@@ -16,6 +16,8 @@ const ConferenceCard = ({ conference }) => {
   const [cardExhibitConf, setCardExhibitConf] = useState([]);
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState("");
+  const [thisId, setThisId] = useState();
+  const [thisName, setThisName] = useState();
   const [cardRender, setCardRender] = useState(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
@@ -30,9 +32,11 @@ const ConferenceCard = ({ conference }) => {
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
-    console.log(e.target.name);
+    console.log(e.target.name, e.target.dataset.confid, e.target.dataset.confname);
     setShowConfirm(true);
     setBtnName(e.target.name);
+    setThisId(e.target.dataset.confid);
+    setThisName(e.target.dataset.confname);
   }
   const handleHideConfirm = () => setShowConfirm(false);
   const handleShowSuccess = () => setShowSuccess(true);
@@ -41,7 +45,6 @@ const ConferenceCard = ({ conference }) => {
   const handleHideErr = () => setShowErr(false);
 
   // Handles click on "Yes, Delete" button on ConfirmModal
-  // Needs to delete attendees, exhibitors, sessions, etc.!
   function handleConfDelete(confId) {
     console.log("from confCard", confId)
     handleHideConfirm();
@@ -172,8 +175,8 @@ const ConferenceCard = ({ conference }) => {
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user.email === conf.creatorEmail) &&
-                    <Button data-toggle="popover" title="Delete this conference" className="deletebtn" id={conf._id} name="confDelete" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" id={conf._id} name="confDelete" />
+                    <Button data-toggle="popover" title="Delete this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} name="confDelete" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" data-confid={conf._id} data-confname={conf.confName} name="confDelete" />
                     </Button>}
                 </Col>
               </Row>
@@ -242,7 +245,7 @@ const ConferenceCard = ({ conference }) => {
                     <Col sm={1}></Col>
                     <Col sm={2}>
                       {/* <Link to={`/unregister_exhibit_confirm/${conf._id}`} className={location.pathname === `/unregister_exhibit_confirm/${conf._id}` ? "link active" : "link"}> */}
-                      <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" id={conf._id} name="unregExh" onClick={(e) => handleShowConfirm(e)}>Unregister Exhibit</Button>
+                      <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregExh" onClick={(e) => handleShowConfirm(e)}>Unregister Exhibit</Button>
                       {/* </Link> */}
                     </Col>
                     <Col sm={2}>
@@ -261,7 +264,7 @@ const ConferenceCard = ({ conference }) => {
                       : <Col sm={7}></Col>}
                     <Col sm={2}>
                       {/* <Link to={`/unregister_confirm/${conf._id}`} className={location.pathname === `/unregister_confirm/${conf._id}` ? "link active" : "link"}> */}
-                      <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" id={conf._id} name="unregAtt" onClick={(e) => handleShowConfirm(e)}>Unregister Attendee</Button>
+                      <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregAtt" onClick={(e) => handleShowConfirm(e)}>Unregister Attendee</Button>
                       {/* </Link> */}
                     </Col>
                     <Col sm={2}>
@@ -304,7 +307,7 @@ const ConferenceCard = ({ conference }) => {
             </Card.Body>
 
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-            <ConfirmModal conference={conf} btnname={btnName} deleteconf={() => handleConfDelete(conf._id)} unregatt={() => handleAttUnreg(conf._id, user.email)} unregexh={() => handleExhUnreg(conf._id, user.email)} show={showConfirm} hide={(e) => handleHideConfirm(e)} />
+            <ConfirmModal btnname={btnName} confname={thisName} deleteconf={() => handleConfDelete(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm} hide={(e) => handleHideConfirm(e)} />
 
             <SuccessModal conference={conf} urlid={confId} urltype={urlType} btnname={btnName} show={showSuccess} hide={(e) => handleHideSuccess(e)} />
 

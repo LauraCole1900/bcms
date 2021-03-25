@@ -17,13 +17,13 @@ const ConfirmModal = (props) => {
         <Modal.Body className="modalBody">
           <h3>Are you sure?</h3>
           {props.btnname === "confDelete" &&
-              <h4>Are you sure you want to delete {props.conference.confName}? This action can't be undone.</h4>}
+              <h4>Are you sure you want to delete {props.confname}? This action can't be undone.</h4>}
           {props.btnname === "sessDelete" &&
               <h4>Are you sure you want to delete {props.session.sessName}? This action can't be undone.</h4>}
           {props.btnname === "unregAtt" &&
-              <h4>Are you sure you want to unregister from {props.conference.confName}? This action can't be undone.</h4>}
+              <h4>Are you sure you want to unregister from {props.confname}? This action can't be undone.</h4>}
           {props.btnname === "unregExh" &&
-              <h4>Are you sure you want to unregister your exhibit from {props.conference.confName}? This action can't be undone.</h4>}
+              <h4>Are you sure you want to unregister your exhibit from {props.confname}? This action can't be undone.</h4>}
           <Modal.Footer className="modalFooter">
             {props.btnname === "confDelete" &&
                 <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={() => props.deleteconf()} type="submit">Yes, Delete</Button>}
