@@ -178,6 +178,8 @@ const TableComp = (e) => {
       }
     }
     setPageReady(true);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [confId, dataSet])
 
   return (

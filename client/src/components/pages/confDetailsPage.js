@@ -56,6 +56,7 @@ const ConfDetails = () => {
     // GET sessions by conference ID
     fetchSess(confId);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [confId])
 
   // Filter response data by user input

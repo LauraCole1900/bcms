@@ -28,7 +28,9 @@ const AllConfs = () => {
         setPageReady(true);
       })
       .catch(err => console.log(err))
-  }, [confArray])
+      
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [confArray, pageReady])
 
   // Filter conferences by user input
   const searchFilter = (data) => {

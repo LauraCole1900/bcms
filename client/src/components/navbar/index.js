@@ -24,6 +24,8 @@ const Navigation = () => {
     } else {
       setPageReady(true);
     }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

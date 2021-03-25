@@ -111,10 +111,8 @@ const ProfilePage = () => {
           const sortedExh = unsortedExh.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
           setExhibitConf(sortedExh)
         }
-      }
-      )
-    }
-    )
+      })
+    })
   }
 
   // Handles click on "Presenting" button
@@ -178,7 +176,9 @@ const ProfilePage = () => {
         setPageReady(true);
         break;
     }
-  }, [createConf, pageReady])
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageReady])
 
   return (
     <>

@@ -93,6 +93,8 @@ const SessionForm = () => {
           fetchConf(urlId);
       }
     }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Handles input changes to form fields
