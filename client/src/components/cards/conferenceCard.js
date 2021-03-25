@@ -159,7 +159,7 @@ const ConferenceCard = ({ conference }) => {
         })
     }
     setCardRender(true);
-  }, [])
+  }, [showConfirm, showSuccess])
 
   return (
     <>

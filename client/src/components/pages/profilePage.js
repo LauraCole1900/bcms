@@ -178,7 +178,7 @@ const ProfilePage = () => {
         setPageReady(true);
         break;
     }
-  }, [pageReady])
+  }, [createConf, pageReady])
 
   return (
     <>
