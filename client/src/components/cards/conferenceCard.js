@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
-import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
+import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, SessionAPI } from "../../utils/api";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
@@ -45,6 +45,42 @@ const ConferenceCard = ({ conference }) => {
   function handleConfDelete(confId) {
     console.log("from confCard", confId)
     handleHideConfirm();
+    AttendeeAPI.deleteAttendees(confId)
+      .then(res => {
+        if (!res.err) {
+          console.log("attendees deleted")
+        }
+      })
+      .catch(err => {
+        console.log("deleting conf attendees", err);
+        setErrThrown(err.message);
+        handleShowErr();
+      })
+
+    ExhibitorAPI.deleteExhibitors(confId)
+      .then(res => {
+        if (!res.err) {
+          console.log("exhibitors deleted")
+        }
+      })
+      .catch(err => {
+        console.log("deleting conf exhibitors", err);
+        setErrThrown(err.message);
+        handleShowErr();
+      })
+
+    SessionAPI.deleteSessions(confId)
+      .then(res => {
+        if (!res.err) {
+          console.log("sessions deleted")
+        }
+      })
+      .catch(err => {
+        console.log("deleting conf sessions", err)
+        setErrThrown(err.message);
+        handleShowErr();
+      })
+
     ConferenceAPI.deleteConference(confId)
       .then(res => {
         if (!res.err) {
@@ -206,7 +242,7 @@ const ConferenceCard = ({ conference }) => {
                     <Col sm={1}></Col>
                     <Col sm={2}>
                       {/* <Link to={`/unregister_exhibit_confirm/${conf._id}`} className={location.pathname === `/unregister_exhibit_confirm/${conf._id}` ? "link active" : "link"}> */}
-                        <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" id={conf._id} name="unregExh" onClick={(e) => handleShowConfirm(e)}>Unregister Exhibit</Button>
+                      <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" id={conf._id} name="unregExh" onClick={(e) => handleShowConfirm(e)}>Unregister Exhibit</Button>
                       {/* </Link> */}
                     </Col>
                     <Col sm={2}>
@@ -225,7 +261,7 @@ const ConferenceCard = ({ conference }) => {
                       : <Col sm={7}></Col>}
                     <Col sm={2}>
                       {/* <Link to={`/unregister_confirm/${conf._id}`} className={location.pathname === `/unregister_confirm/${conf._id}` ? "link active" : "link"}> */}
-                        <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" id={conf._id} name="unregAtt" onClick={(e) => handleShowConfirm(e)}>Unregister Attendee</Button>
+                      <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" id={conf._id} name="unregAtt" onClick={(e) => handleShowConfirm(e)}>Unregister Attendee</Button>
                       {/* </Link> */}
                     </Col>
                     <Col sm={2}>

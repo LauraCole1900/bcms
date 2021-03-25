@@ -23,6 +23,7 @@ router.route("/update/:id")
 router.route("/delete/:id")
   .delete(sessionController.removeSession);
 
-
+router.route("/deleteconf/:id")
+  .delete(sessionController.deleteSessionsByConfId);
 
 module.exports = router;

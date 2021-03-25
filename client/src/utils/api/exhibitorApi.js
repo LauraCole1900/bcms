@@ -39,7 +39,13 @@ const ExhibitorAPI = {
   deleteExhibitor: function (confId, email) {
     console.log("from API deleteExhibitor", confId, email)
     return axios.delete(`/api/exhibitor/delete/${confId}/${email}`)
-  }
+  },
+
+  // DELETE all exhibitors by confId
+  deleteExhibitors: function (confId) {
+    console.log("from API deleteExhibitors", confId)
+    return axios.delete(`/api/exhibitor/deleteconf/${confId}`)
+  },
 
 }
 

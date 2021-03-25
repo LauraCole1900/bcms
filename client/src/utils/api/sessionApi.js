@@ -40,6 +40,11 @@ const SessionAPI = {
     return axios.delete(`/api/session/delete/${sessId}`)
   },
 
+  // DELETE all sessions by confId
+  deleteSessions: function (confId) {
+    console.log("from API deleteSessions", confId)
+    return axios.delete(`/api/session/deleteconf/${confId}`)
+  },
 }
 
 export default SessionAPI;

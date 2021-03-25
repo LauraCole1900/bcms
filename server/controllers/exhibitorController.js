@@ -87,5 +87,15 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
-  }
+  },
+
+  // DELETE exhibitors by confId
+  deleteExhibitorsByConfId: function (req, res) {
+    console.log("from exhibitorCont deleteExhibitorsByConfId", req.params.id)
+    db.Exhibitor
+      .find({ confId: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
 }

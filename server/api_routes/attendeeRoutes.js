@@ -32,4 +32,7 @@ router.route("/update/:id")
 router.route("/delete/:id/:email")
   .delete(attendeeController.removeAttendee);
 
+router.route("/deleteconf/:id")
+  .delete(attendeeController.deleteAttendeesByConfId);
+
 module.exports = router;

@@ -29,4 +29,7 @@ router.route("/update/:id")
 router.route("/delete/:id/:email")
   .delete(exhibitorController.removeExhibitor);
 
+router.route("/deleteconf/:id")
+  .delete(exhibitorController.deleteExhibitorsByConfId);
+
 module.exports = router;
