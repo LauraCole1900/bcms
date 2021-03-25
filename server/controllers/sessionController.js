@@ -58,8 +58,7 @@ module.exports = {
 	removeSession: function (req, res) {
 		console.log("from sessCont removeSession", req.params.id)
 		db.Session
-			.findById({ _id: req.params.id })
-			.then(dbModel => dbModel.remove())
+			.deleteOne({ _id: req.params.id })
 			.then(dbModel => res.json(dbModel))
 			.catch(err => res.status(422).json(err));
 	},
@@ -68,8 +67,7 @@ module.exports = {
 	deleteSessionsByConfId: function (req, res) {
 		console.log("from sessionCont deleteSessionsByConfId", req.params.id)
 		db.Session
-			.find({ confId: req.params.id })
-			.then(dbModel => dbModel.remove())
+			.deleteMany({ confId: req.params.id })
 			.then(dbModel => res.json(dbModel))
 			.catch(err => res.status(422).json(err))
 	},

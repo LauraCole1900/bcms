@@ -5,22 +5,9 @@ module.exports = {
   create: function (req, res) {
     console.log("from exhibitorController create", req.body.email)
     db.Exhibitor
-      .findOne({ email: req.body.email }, function (err, exhibitor) {
-        if (err) {
-          let err = new Error("We're sorry, it looks like gremlins have gotten into our database. Please try again.")
-          err.status = 400;
-          return err;
-        } else if (exhibitor) {
-          let err = new Error("We're sorry, that email has already been registered. Please use another email.")
-          err.status = 400;
-          return err;
-        } else {
-          db.Exhibitor
-            .create(req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err))
-        }
-      })
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
   },
 
 
@@ -83,8 +70,7 @@ module.exports = {
   removeExhibitor: function (req, res) {
     console.log("from exhibitorCont removeExhibitor", req.params.id, req.params.email)
     db.Exhibitor
-      .findOne({ confId: req.params.id, exhEmail: req.params.email })
-      .then(dbModel => dbModel.remove())
+      .deleteOne({ confId: req.params.id, exhEmail: req.params.email })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -93,8 +79,7 @@ module.exports = {
   deleteExhibitorsByConfId: function (req, res) {
     console.log("from exhibitorCont deleteExhibitorsByConfId", req.params.id)
     db.Exhibitor
-      .find({ confId: req.params.id })
-      .then(dbModel => dbModel.remove())
+      .deleteMany({ confId: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },

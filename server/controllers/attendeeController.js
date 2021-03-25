@@ -6,19 +6,10 @@ module.exports = {
   create: function (req, res) {
     console.log("from attendeeController create", req.body)
     db.Attendee
-      // .findOne({ email: req.body.email }, function (err, attendee) {
-      //   if (err) {
-      //     let err = new Error("We're sorry, it looks like gremlins have gotten into our database. Please try again.")
-      //     err.status = 400;
-      //     return err;
-      //   } else {
-      //     db.Attendee
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
-  // })
-  //   },
 
 
   // FIND all attendees
@@ -90,8 +81,7 @@ module.exports = {
   removeAttendee: function (req, res) {
     console.log("from attendeeCont removeAttendee", req.params.id, req.params.email)
     db.Attendee
-      .findOne({ confId: req.params.email, email: req.params.id })
-      .then(dbModel => dbModel.remove())
+      .deleteOne({ confId: req.params.email, email: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -100,8 +90,7 @@ module.exports = {
   deleteAttendeesByConfId: function (req, res) {
     console.log("from attendeeCont deleteAttendeesByConfId", req.params.id)
     db.Attendee
-      .find({ confId: req.params.id })
-      .then(dbModel => dbModel.remove())
+      .deleteMany({ confId: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
