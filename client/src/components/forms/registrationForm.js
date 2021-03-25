@@ -10,7 +10,15 @@ const Registration = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [pageReady, setPageReady] = useState(false);
   const [conference, setConference] = useState({});
-  const [attendee, setAttendee] = useState({});
+  const [attendee, setAttendee] = useState({
+    givenName: "",
+    familyName: "",
+    phone: "",
+    employerName: "",
+    employerAddress: "",
+    emergencyContactName: "",
+    emergencyContactPhone: "",
+  });
   const [errThrown, setErrThrown] = useState();
 
   // Breaks down the URL

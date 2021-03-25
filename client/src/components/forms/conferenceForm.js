@@ -95,7 +95,6 @@ const ConferenceForm = () => {
         // If no errors thrown, show Success modal
         if (!res.err) {
           handleShowSuccess();
-          console.log({ showSuccess });
         }
       })
       // If yes errors thrown, setState(err.message) and show Error modal

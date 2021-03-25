@@ -9,7 +9,6 @@ const attendeeSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true
   },
   givenName: {
     type: String,
