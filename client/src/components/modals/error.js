@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import "./style.css"
 
-const ErrorModal = (props, e) => {
+const ErrorModal = (props) => {
   const location = useLocation();
   // Shows onClick of "Update" or "Success button", if res.err
   // Gives error message as does error page

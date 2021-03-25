@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import "./style.css"
 
-const SuccessModal = (props, e) => {
+const SuccessModal = (props) => {
   const location = useLocation();
   // Show onClick of "Update" or "Submit" button, if !res.err
   // Gives success message as does success page
