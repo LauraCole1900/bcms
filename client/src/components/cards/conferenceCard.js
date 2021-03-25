@@ -41,6 +41,7 @@ const ConferenceCard = ({ conference }) => {
   const handleHideErr = () => setShowErr(false);
 
   // Handles click on "Yes, Delete" button on ConfirmModal
+  // Needs to delete attendees, exhibitors, sessions, etc.!
   function handleConfDelete(confId) {
     console.log("from confCard", confId)
     handleHideConfirm();
@@ -60,6 +61,7 @@ const ConferenceCard = ({ conference }) => {
   // Handles click on "Yes, unregister attendee" button on ConfirmModal
   function handleAttUnreg(confId, email) {
     console.log("from confirm attUnreg", confId, email)
+    handleHideConfirm();
     // DELETE call to delete attendee document
     AttendeeAPI.unregisterAttendee(confId, email)
       .then(res => {
@@ -79,6 +81,7 @@ const ConferenceCard = ({ conference }) => {
   // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
   function handleExhUnreg(confId, email) {
     console.log("from confirm exhUnreg", confId, email)
+    handleHideConfirm();
     // DELETE call to delete exhibitor document
     ExhibitorAPI.deleteExhibitor(confId, email)
       .then(res => {
@@ -117,7 +120,7 @@ const ConferenceCard = ({ conference }) => {
         })
     }
     setCardRender(true);
-  }, [showConfirm])
+  }, [])
 
   return (
     <>

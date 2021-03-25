@@ -17,9 +17,9 @@ const ConfirmModal = (props) => {
         <Modal.Body className="modalBody">
           <h3>Are you sure?</h3>
           {props.btnname === "confDelete" &&
-              <h4>Are you sure you want to delete this conference? This action can't be undone.</h4>}
+              <h4>Are you sure you want to delete {props.conference.confName}? This action can't be undone.</h4>}
           {props.btnname === "sessDelete" &&
-              <h4>Are you sure you want to delete this session? This action can't be undone.</h4>}
+              <h4>Are you sure you want to delete {props.session.sessName}? This action can't be undone.</h4>}
           {props.btnname === "unregAtt" &&
               <h4>Are you sure you want to unregister from {props.conference.confName}? This action can't be undone.</h4>}
           {props.btnname === "unregExh" &&
