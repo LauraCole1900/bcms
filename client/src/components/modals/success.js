@@ -46,12 +46,16 @@ const SuccessModal = (props) => {
               <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
               </Link>}
-            <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
-              <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
-            </Link>
-            <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
-              <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
-            </Link>
+            {props.urlid === "conferences"
+              ? <Button data-toggle="popover" title="Conferences" type="button" className="button" onClick={props.hide}>Conferences</Button>
+              : <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
+              </Link>}
+            {props.urlid === "profile"
+              ? <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.hide}>Profile</Button>
+              : <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
+              </Link>}
           </Modal.Footer>
         </Modal.Body>
       </Modal>
