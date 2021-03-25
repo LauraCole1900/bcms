@@ -28,7 +28,7 @@ const AllConfs = () => {
         setPageReady(true);
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [confArray])
 
   // Filter conferences by user input
   const searchFilter = (data) => {
