@@ -10,13 +10,13 @@
   color: #11130b;
   background: linear-gradient(to bottom, #e2e2e2, #878992);
 }
-.button:active {
+.button:focus {
   color: #11130b;
   background: linear-gradient(to bottom, #e2e2e2, #878992);
 }
-.button:checked {
+.button.active {
   color: #11130b;
-  background: linear-gradient(to bottom, #a99f93, #49453f);
+  background: linear-gradient(to top, #e2e2e2, #878992);
 }
 
 .loading {

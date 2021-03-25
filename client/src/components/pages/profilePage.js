@@ -9,7 +9,7 @@ import "./style.css";
 const ProfilePage = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
-  const [whichConf, setWhichConf] = useState();
+  const [whichConf, setWhichConf] = useState("create");
   const [attendConf, setAttendConf] = useState([]);
   const [createConf, setCreateConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
@@ -172,13 +172,22 @@ const ProfilePage = () => {
       default:
         saveUserToDB();
 
+        ConferenceAPI.getConferencesCreated(user.email)
+          .then(resp => {
+            console.log("getConfCreated", resp.data)
+            const createArr = resp.data
+            const sortedCreate = createArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
+            setCreateConf(sortedCreate)
+          })
+          .catch(err => console.log(err))
+
         // Sets pageReady(true) for page load
         setPageReady(true);
         break;
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageReady])
+  }, [createConf, pageReady])
 
   return (
     <>
@@ -211,7 +220,7 @@ const ProfilePage = () => {
                       key={idx}
                       id={button.id}
                       value={button.value}
-                      checked={whichConf === button.value}
+                      active={whichConf === button.value}
                       title={button.title}
                       className="button"
                       onClick={button.onClick}>{button.name}</Button>
