@@ -90,6 +90,7 @@ const ProfilePage = () => {
       .then(resp => {
         console.log("getConfCreated", resp.data)
         const createArr = resp.data
+        // Sorts conferences by date, latest to earliest
         const sortedCreate = createArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
         setCreateConf(sortedCreate)
       })
@@ -123,6 +124,7 @@ const ProfilePage = () => {
       .then(resp => {
         console.log("getConfPresenting", resp.data)
         const presentArr = resp.data
+        // Sorts conferences by date, latest to earliest
         const sortedPresent = presentArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
         setPresentConf(sortedPresent)
       })
@@ -171,20 +173,19 @@ const ProfilePage = () => {
         return false;
       default:
         saveUserToDB();
+    }
 
-        ConferenceAPI.getConferencesCreated(user.email)
-          .then(resp => {
-            console.log("getConfCreated", resp.data)
-            const createArr = resp.data
-            const sortedCreate = createArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
-            setCreateConf(sortedCreate)
-          })
-          .catch(err => console.log(err))
-
+    ConferenceAPI.getConferencesCreated(user.email)
+      .then(resp => {
+        console.log("getConfCreated", resp.data)
+        const createArr = resp.data
+        // Sorts conferences by date, latest to earliest
+        const sortedCreate = createArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
+        setCreateConf(sortedCreate)
         // Sets pageReady(true) for page load
         setPageReady(true);
-        break;
-    }
+      })
+      .catch(err => console.log(err))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createConf, pageReady])
