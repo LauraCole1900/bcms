@@ -14,7 +14,7 @@ const ErrorModal = (props) => {
 
   return (
     <>
-      <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} centered={true} className={props.urlid === "conferences" || props.urlid === "profile" ? "lightModal" : "modal"}>
+      <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} centered={true} className="modal">
         <Modal.Header className="modalHead">
           <Modal.Title className="modalTitle"><h2>We're sorry.</h2></Modal.Title>
         </Modal.Header>

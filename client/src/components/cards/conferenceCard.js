@@ -26,23 +26,23 @@ const ConferenceCard = ({ conference }) => {
   const urlType = urlArray[urlArray.length - 2]
 
   // Modal variables
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showErr, setShowErr] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(0);
+  const [showSuccess, setShowSuccess] = useState(0);
+  const [showErr, setShowErr] = useState(0);
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
     console.log(e.target.name, e.target.dataset.confid, e.target.dataset.confname);
-    setShowConfirm(true);
+    setShowConfirm(e.target.dataset.confid);
     setBtnName(e.target.name);
     setThisId(e.target.dataset.confid);
     setThisName(e.target.dataset.confname);
   }
-  const handleHideConfirm = () => setShowConfirm(false);
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
+  const handleHideConfirm = () => setShowConfirm(0);
+  const handleShowSuccess = () => setShowSuccess(thisId);
+  const handleHideSuccess = () => setShowSuccess(0);
+  const handleShowErr = () => setShowErr(thisId);
+  const handleHideErr = () => setShowErr(0);
 
   // Handles click on "Yes, Delete" button on ConfirmModal
   function handleConfDelete(confId) {
@@ -309,11 +309,11 @@ const ConferenceCard = ({ conference }) => {
             </Card.Body>
 
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-            <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} deleteconf={() => handleConfDelete(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm} hide={(e) => handleHideConfirm(e)} />
+            <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} deleteconf={() => handleConfDelete(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === conf._id} hide={(e) => handleHideConfirm(e)} />
 
-            <SuccessModal conference={conf} urlid={confId} urltype={urlType} btnname={btnName} show={showSuccess} hide={(e) => handleHideSuccess(e)} />
+            <SuccessModal conference={conf} urlid={confId} urltype={urlType} btnname={btnName} show={showSuccess === conf._id} hide={(e) => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr} hide={(e) => handleHideErr(e)} />
+            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === conf._id} hide={(e) => handleHideErr(e)} />
 
           </Card>
 
