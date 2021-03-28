@@ -285,7 +285,7 @@ const TableComp = (e) => {
               </Card.Body>
             </Col>
           </Row>
-          <Table striped border hover responsive>
+          <Table striped border="true" hover responsive>
             <thead>
               <tr>
                 {dataSet === "attendees" &&
@@ -309,15 +309,15 @@ const TableComp = (e) => {
               {dataSet === "attendees" && (
                 attendees.length > 0
                   ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} attcb={fetchAttendees} />
-                  : <h3>We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</h3>)}
+                  : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
                   ? <ExhibitorTable exhibitors={searchFilter(exhibitors)} conference={conference} confcd={fetchConf} exhcb={fetchExhibitors} />
-                  : <h3>We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</h3>)}
+                  : <tr><td className="tableComm">We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</td></tr>)}
               {dataSet === "presenters" && (
                 presenters.length > 0
                   ? <PresenterTable presenters={searchFilter(presenters)} conference={conference} confcb={fetchConf} prescb={fetchPresenters} />
-                  : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>)}
+                  : <tr><td className="tableComm">We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</td></tr>)}
             </tbody>
           </Table>
         </Container>
