@@ -80,7 +80,7 @@ This project is intended to be used to create and manage conferences, convention
 
 ## Technologies Used
 
-MongoDB, Express, React, Node.js, auth0.com, AWS photo hosting
+MongoDB, Express, React, Node.js, auth0.com, thenBy.js
 
 ## Tests
 
@@ -89,6 +89,8 @@ npm run test
 ## Credits
 
 The original version of this application was developed in collaboration with [Anna Battista](https://github.com/abattista24), [Beni Mahat](https://github.com/benimahat1291), [Travis Messall](https://github.com/tmessall), [Brenda Miller](https://github.com/millerbee), and [Alec Rewinkel](https://github.com/arewinkl) under the name "Cool Cats Conference Planner," which can be found in this repo [here](https://github.com/LauraCole1900/conferencePlanner) and is deployed on Heroku [here](https://conference-planner.herokuapp.com/).
+
+[thenBy.js](https://github.com/Teun/thenBy.js) was created by [Teun Duynstee](https://github.com/Teun).
 
 ## Contributing
 
