@@ -74,7 +74,10 @@ const ConfDetails = () => {
         return data.filter((session) => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       // Filter presenter names
       case "presenterName":
-        return data.filter((session) => session.sessPresenter.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+        return data.filter((session) => session.sessPresenter.includes(search.toLowerCase()) !== -1)
+      // Filter presenter organization
+      case "presenterOrg":
+        return data.filter((session) => session.sessPresenterOrg.includes(search.toLowerCase()) !== -1)
       // Return all response data
       default:
         return (sessArray)
