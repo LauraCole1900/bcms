@@ -43,7 +43,8 @@ const ConfDetails = () => {
         const sessArr = resp.data.slice(0)
         // Sort sessions by date
         const sortedSess = sessArr.sort(
-          firstBy("sessDate")
+          firstBy("sessKeynote", "desc")
+            .thenBy("sessDate")
             .thenBy("sessStart")
         );
         setSessArray(sortedSess);
