@@ -132,7 +132,6 @@ const ConfDetails = () => {
           </Row>
 
           <Row>
-            <Col sm={1}></Col>
             <Col sm={2}>
               <ButtonGroup data-toggle="popover">
                 <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
