@@ -11,7 +11,7 @@ const PresenterCard = (props) => {
     if (props.session.length > 0) {
       setCardRender(true)
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -24,7 +24,9 @@ const PresenterCard = (props) => {
             <Card.Header className="cardTitle">
               <Row>
                 <Col sm={12}>
-                  <h2>{sess.sessPresenter}</h2>
+                  {sess.sessKeynote === "yes"
+                  ? <h2>{sess.sessPresenter}, Keynote Speaker</h2>
+                  : <h2>{sess.sessPresenter}</h2>}
                   <p>{sess.sessPresenterOrg}</p>
                 </Col>
               </Row>
