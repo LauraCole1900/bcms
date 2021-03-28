@@ -33,14 +33,12 @@ const SessionCard = (props) => {
         props.session.map(sess => (
           <Card className="infoCard" key={sess._id}>
             <Card.Header className="cardTitle">
-              {sess.sessKeynote === "yes" &&
-                <Row>
-                  <Col sm={11}>
-                    <h3>Keynote</h3>
-                  </Col>
-                </Row>}
               <Row>
-                <Col sm={11}>
+              {sess.sessKeynote === "yes" &&
+                  <Col sm={2}>
+                    <h3>&nbsp;Keynote:</h3>
+                  </Col>}
+                <Col sm={9}>
                   <h2>{sess.sessName}</h2>
                   <p>{sess.sessPresenter}, {sess.sessPresenterOrg}</p>
                 </Col>

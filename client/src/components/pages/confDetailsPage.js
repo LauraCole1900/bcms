@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { firstBy } from "thenby";
 import { Container, Row, Col, Form, Card, Button, ButtonGroup } from "react-bootstrap";
 import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards"
 import { ConferenceAPI, SessionAPI } from "../../utils/api";
@@ -40,7 +41,12 @@ const ConfDetails = () => {
       .then(resp => {
         console.log("confDetailsPage getSessions", resp.data)
         const sessArr = resp.data.slice(0)
-        setSessArray(sessArr);
+        // Sort sessions by date
+        const sortedSess = sessArr.sort(
+          firstBy("sessDate")
+            .thenBy("sessStart")
+        );
+        setSessArray(sortedSess);
       })
       .catch(err => {
         console.log(err)
@@ -140,7 +146,7 @@ const ConfDetails = () => {
             {isAuthenticated &&
               (user.email === conference[0].creatorEmail || conference[0].confAdmins.includes(user.email)) &&
               <>
-                <Col sm={7}>
+                <Col sm={4}>
                   <ButtonGroup data-toggle="popover">
                     <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
                       <Button title="View conference attendees" className="button">Attendees</Button>
@@ -151,6 +157,11 @@ const ConfDetails = () => {
                     <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
                       <Button title="View conference presenters" className="button">Presenters</Button>
                     </Link>
+                  </ButtonGroup>
+                </Col>
+                <Col sm={1}></Col>
+                <Col sm={4}>
+                  <ButtonGroup data-toggle="popover">
                     <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
                     </Link>
@@ -197,7 +208,7 @@ const ConfDetails = () => {
               </div>}
           </Row>
 
-        </Container>
+        </Container >
       }
     </>
   )

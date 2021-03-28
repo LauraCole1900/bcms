@@ -195,7 +195,7 @@ const TableComp = (e) => {
       {isAuthenticated &&
         pageReady === true &&
         confReady === true &&
-        <Container fluid="true">
+        <Container>
           <Row>
             <Col lg={6} md={12}>
               <UserCard />
