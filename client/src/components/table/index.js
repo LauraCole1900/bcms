@@ -206,7 +206,6 @@ const TableComp = (e) => {
           </Row>
 
           <Row>
-            <Col sm={1}></Col>
             <Col sm={2}>
               <ButtonGroup data-toggle="popover">
                 <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
@@ -221,7 +220,7 @@ const TableComp = (e) => {
             {isAuthenticated &&
               (user.email === conference[0].creatorEmail || conference[0].confAdmins.includes(user.email)) &&
               <>
-                <Col sm={7}>
+                <Col sm={4}>
                   <ButtonGroup data-toggle="popover">
                     <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
                       <Button title="View conference attendees" className="button">Attendees</Button>
@@ -232,6 +231,11 @@ const TableComp = (e) => {
                     <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
                       <Button title="View conference presenters" className="button">Presenters</Button>
                     </Link>
+                  </ButtonGroup>
+                </Col>
+                <Col sm={1}></Col>
+                <Col sm={4}>
+                  <ButtonGroup data-toggle="popover">
                     <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
                     </Link>
@@ -260,15 +264,7 @@ const TableComp = (e) => {
             <Col sm={3} className="subhead">
               <p>Click column headers to sort</p>
             </Col>
-            <Col sm={3}>
-            {dataSet === "attendees" &&
-                <Button data-toggle="popover" title="Add an attendee" className="button">Add Attendee</Button>}
-              {dataSet === "exhibitors" &&
-                <Button data-toggle="popover" title="Add an exhibitor" className="button">Add Exhibitor</Button>}
-              {dataSet === "presenters" &&
-                <Button data-toggle="popover" title="Add a presenter" className="button">Add Presenter</Button>}
-            </Col>
-            <Col sm={4}>
+            <Col sm={7}>
               <Card.Body>
                 <Form inline="true">
                   <Row>
@@ -291,6 +287,14 @@ const TableComp = (e) => {
                   </Row>
                 </Form>
               </Card.Body>
+            </Col>
+            <Col sm={2}>
+              {dataSet === "attendees" &&
+                <Button data-toggle="popover" title="Add an attendee" className="button">Add Attendee</Button>}
+              {dataSet === "exhibitors" &&
+                <Button data-toggle="popover" title="Add an exhibitor" className="button">Add Exhibitor</Button>}
+              {dataSet === "presenters" &&
+                <Button data-toggle="popover" title="Add a presenter" className="button">Add Presenter</Button>}
             </Col>
           </Row>
           <Table striped border="true" hover responsive>
