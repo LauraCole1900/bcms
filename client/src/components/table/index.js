@@ -260,6 +260,14 @@ const TableComp = (e) => {
             <Col sm={3} className="subhead">
               <p>Click column headers to sort</p>
             </Col>
+            <Col sm={3}>
+            {dataSet === "attendees" &&
+                <Button data-toggle="popover" title="Add an attendee" className="button">Add Attendee</Button>}
+              {dataSet === "exhibitors" &&
+                <Button data-toggle="popover" title="Add an exhibitor" className="button">Add Exhibitor</Button>}
+              {dataSet === "presenters" &&
+                <Button data-toggle="popover" title="Add a presenter" className="button">Add Presenter</Button>}
+            </Col>
             <Col sm={4}>
               <Card.Body>
                 <Form inline="true">
