@@ -11,9 +11,17 @@ td {
   text-align: center;
 }
 
+.instr {
+  display: flex;
+  align-items: center;
+}
+
 .subhead {
   color: darkgray;
-  margin-bottom: 20px;
+  margin-bottom: 0;
+  display: flex;
+  justify-self: flex-start;
+  align-self: flex-end;
 }
 
 .adminCheck {
