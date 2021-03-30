@@ -66,12 +66,32 @@ const ConferenceForm = () => {
     setConference({ ...conference, [e.target.name]: e.target.value })
   };
 
+  // Sets user.email as conference.ownerEmail
+  // Checks if user.email is included in conference.confAdmins[] and if so, deletes it from array
   const setOwnerEmail = (e) => {
-    setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email })
+    if (confId !== "new_conference") {
+      if (conference.confAdmins.includes(user.email)) {
+        let admins = conference.confAdmins.filter(email => email !== user.email)
+        setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email, confAdmins: admins })
+      } else {
+        setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email })
+      }
+    } else {
+      setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email })
+    }
   }
 
+  // Checks if user.email is already included in conference.confAdmins[] and if not, sets user.email in conference.confAdmins[]
   const setAdminEmail = (e) => {
-    setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: user.email })
+    if (confId !== "new_conference") {
+      if (conference.confAdmins.includes(user.email)) {
+        setConference({ ...conference, [e.target.name]: e.target.value })
+      } else {
+        setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: user.email })
+      }
+    } else {
+      setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: user.email })
+    }
   }
 
   // Handles click on "Update" button
@@ -160,20 +180,20 @@ const ConferenceForm = () => {
                   <Row>
                     <Col sm={5}>
                       <Form.Group controlId="formConfOwner">
-                        <Form.Label>Are you the owner/primary organizer of this conference?</Form.Label>
-                        <Form.Check type="radio" id="ownerYes" name="ownerConfirm" label="Yes" value="yes" checked={conference.ownerConfirm === "yes"} onChange={setOwnerEmail} />
-                        <Form.Check type="radio" id="ownerNo" name="ownerConfirm" label="No" value="no" checked={conference.ownerConfirm === "no"} onChange={setAdminEmail} />
+                        <Form.Label>Are you the owner/primary organizer of this conference? <span className="red">*</span></Form.Label>
+                        <Form.Check type="radio" id="ownerYes" name="ownerConfirm" label="Yes" value="yes" checked={conference.ownerEmail !== "" && conference.ownerEmail === user.email} onChange={setOwnerEmail} />
+                        <Form.Check type="radio" id="ownerNo" name="ownerConfirm" label="No" value="no" checked={conference.ownerEmail !== "" && conference.ownerEmail !== user.email} onChange={setAdminEmail} />
                       </Form.Group>
                     </Col>
                     <Col sm={7}>
                       {conference.ownerConfirm === "yes" &&
                         <Form.Text>The email that is currently logged in has been set as the owner's email.</Form.Text>}
                       {conference.ownerConfirm === "no" &&
-                        <div><Form.Text>The email that is currently logged in has been set as a conference admin. Please add yourself as an attendee when you finish this form.</Form.Text>
-                        <Form.Group controlId="formOwnerEmail">
-                          <Form.Label>What is the owner's/primary organizer's email?</Form.Label>
-                          <Form.Control type="email" name="ownerEmail" placeholder="name@email.com" value={conference.ownerEmail} className="formInput" onChange={handleInputChange} />
-                        </Form.Group>
+                        <div><Form.Text>The email that is currently logged in has been set as a conference admin. Please add yourself as an attendee when you finish this form either by clicking "Register as attendee" or "View details" for this conference.</Form.Text>
+                          <Form.Group controlId="formOwnerEmail">
+                            <Form.Label>What is the owner's/primary organizer's email? <span className="red">*</span></Form.Label>
+                            <Form.Control type="email" name="ownerEmail" placeholder="name@email.com" value={conference.ownerEmail} className="formInput" onChange={handleInputChange} />
+                          </Form.Group>
                         </div>}
                     </Col>
                   </Row>
