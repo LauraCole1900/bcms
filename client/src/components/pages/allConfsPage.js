@@ -30,7 +30,7 @@ const AllConfs = () => {
       .catch(err => console.log(err))
       
       // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confArray, pageReady])
+  }, [])
 
   // Filter conferences by user input
   const searchFilter = (data) => {
