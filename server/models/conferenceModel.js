@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const conferenceSchema = new Schema({
+  ownerConfirm: {
+    type: String,
+    required: true
+  },
   ownerEmail: {
     type: String,
     required: true

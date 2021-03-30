@@ -13,6 +13,7 @@ const ConferenceForm = () => {
   const [pageReady, setPageReady] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [conference, setConference] = useState({
+    ownerConfirm: "",
     ownerEmail: "",
     confName: "",
     confOrg: "",
@@ -65,6 +66,14 @@ const ConferenceForm = () => {
     setConference({ ...conference, [e.target.name]: e.target.value })
   };
 
+  const setOwnerEmail = (e) => {
+    setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email })
+  }
+
+  const setAdminEmail = (e) => {
+    setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: user.email })
+  }
+
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
@@ -90,7 +99,7 @@ const ConferenceForm = () => {
     e.preventDefault();
     console.log("Conference submit", conference)
     // POST call to create conference document
-    ConferenceAPI.createConference({ ...conference, ownerEmail: user.email })
+    ConferenceAPI.createConference({ ...conference })
       .then(res => {
         // If no errors thrown, show Success modal
         if (!res.err) {
@@ -119,12 +128,12 @@ const ConferenceForm = () => {
             .catch(err => console.log(err))
           break;
         default:
-          // Sets the user's email in state as conference.ownerEmail
-          setConference({ ...conference, ownerEmail: user.email })
+          // Sets any existing conference information in state
+          setConference({ ...conference })
       }
     }
     setPageReady(true);
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -148,6 +157,27 @@ const ConferenceForm = () => {
               <Card className="formCard">
                 <Card.Title><h1>Basic Information</h1></Card.Title>
                 <Card.Body className="cardBody">
+                  <Row>
+                    <Col sm={5}>
+                      <Form.Group controlId="formConfOwner">
+                        <Form.Label>Are you the owner/primary organizer of this conference?</Form.Label>
+                        <Form.Check type="radio" id="ownerYes" name="ownerConfirm" label="Yes" value="yes" checked={conference.ownerConfirm === "yes"} onChange={setOwnerEmail} />
+                        <Form.Check type="radio" id="ownerNo" name="ownerConfirm" label="No" value="no" checked={conference.ownerConfirm === "no"} onChange={setAdminEmail} />
+                      </Form.Group>
+                    </Col>
+                    <Col sm={7}>
+                      {conference.ownerConfirm === "yes" &&
+                        <Form.Text>The email that is currently logged in has been set as the owner's email.</Form.Text>}
+                      {conference.ownerConfirm === "no" &&
+                        <div><Form.Text>The email that is currently logged in has been set as a conference admin. Please add yourself as an attendee when you finish this form.</Form.Text>
+                        <Form.Group controlId="formOwnerEmail">
+                          <Form.Label>What is the owner's/primary organizer's email?</Form.Label>
+                          <Form.Control type="email" name="ownerEmail" placeholder="name@email.com" value={conference.ownerEmail} className="formInput" onChange={handleInputChange} />
+                        </Form.Group>
+                        </div>}
+                    </Col>
+                  </Row>
+
                   <Row>
                     <Col sm={12}>
                       <Form.Group controlId="formConfName">
