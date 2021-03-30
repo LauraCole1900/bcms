@@ -261,10 +261,8 @@ const TableComp = (e) => {
             </Col>
           </Row>
           <Row className="instr">
-            <Col sm={3}>
-              <p className="subhead">Click column headers to sort</p>
-            </Col>
-            <Col sm={7}>
+            <Col sm={4}></Col>
+            <Col sm={6}>
               <Card.Body>
                 <Form inline="true">
                   <Row>
@@ -295,6 +293,11 @@ const TableComp = (e) => {
                 <Button data-toggle="popover" title="Add an exhibitor" className="button">Add Exhibitor</Button>}
               {dataSet === "presenters" &&
                 <Button data-toggle="popover" title="Add a presenter" className="button">Add Presenter</Button>}
+            </Col>
+          </Row>
+          <Row className="instr">
+            <Col sm={3}>
+              <p className="subhead">Click column headers to sort</p>
             </Col>
           </Row>
           <Table striped border="true" hover responsive>
