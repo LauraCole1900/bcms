@@ -176,7 +176,7 @@ const ConferenceCard = ({ conference }) => {
                 </Col>
                 <Col sm={1}>
                   {isAuthenticated &&
-                    (user.email === conf.creatorEmail) &&
+                    (user.email === conf.ownerEmail) &&
                     <Button data-toggle="popover" title="Delete this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} name="confDelete" onClick={(e) => handleShowConfirm(e)}>
                       <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" data-confid={conf._id} data-confname={conf.confName} name="confDelete" />
                     </Button>}
@@ -256,7 +256,7 @@ const ConferenceCard = ({ conference }) => {
                   </div>}
 
                 {isAuthenticated &&
-                  user.email !== conf.creatorEmail &&
+                  user.email !== conf.ownerEmail &&
                   cardAttendConf.indexOf(conf._id) >= 0 &&
                   <div>
                     {conf.confType === "Live"
@@ -273,7 +273,7 @@ const ConferenceCard = ({ conference }) => {
                   </div>}
 
                 {isAuthenticated &&
-                  user.email !== conf.creatorEmail &&
+                  user.email !== conf.ownerEmail &&
                   conf.confType === "Live" &&
                   cardExhibitConf.indexOf(conf._id) < 0 &&
                   <div>
@@ -286,7 +286,7 @@ const ConferenceCard = ({ conference }) => {
                   </div>}
 
                 {isAuthenticated &&
-                  user.email !== conf.creatorEmail &&
+                  user.email !== conf.ownerEmail &&
                   cardAttendConf.indexOf(conf._id) < 0 &&
                   <div>
                     {conf.confType === "Live"
