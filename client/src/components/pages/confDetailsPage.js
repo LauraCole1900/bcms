@@ -168,10 +168,10 @@ const ConfDetails = () => {
                     <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
                     </Link>
-                    <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}`}>
+                    <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
                     </Link>
-                    <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}`}>
+                    <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
                     </Link>
                   </ButtonGroup>
