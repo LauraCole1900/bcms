@@ -218,7 +218,7 @@ const TableComp = (e) => {
             </Col>
             <Col sm={1}></Col>
             {isAuthenticated &&
-              (user.email === conference[0].creatorEmail || conference[0].confAdmins.includes(user.email)) &&
+              (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
               <>
                 <Col sm={4}>
                   <ButtonGroup data-toggle="popover">

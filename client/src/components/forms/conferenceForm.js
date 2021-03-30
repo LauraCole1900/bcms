@@ -13,7 +13,7 @@ const ConferenceForm = () => {
   const [pageReady, setPageReady] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [conference, setConference] = useState({
-    creatorEmail: "",
+    ownerEmail: "",
     confName: "",
     confOrg: "",
     confDesc: "",
@@ -90,7 +90,7 @@ const ConferenceForm = () => {
     e.preventDefault();
     console.log("Conference submit", conference)
     // POST call to create conference document
-    ConferenceAPI.createConference({ ...conference, creatorEmail: user.email })
+    ConferenceAPI.createConference({ ...conference, ownerEmail: user.email })
       .then(res => {
         // If no errors thrown, show Success modal
         if (!res.err) {
@@ -119,8 +119,8 @@ const ConferenceForm = () => {
             .catch(err => console.log(err))
           break;
         default:
-          // Sets the user's email in state as conference.creatorEmail
-          setConference({ ...conference, creatorEmail: user.email })
+          // Sets the user's email in state as conference.ownerEmail
+          setConference({ ...conference, ownerEmail: user.email })
       }
     }
     setPageReady(true);

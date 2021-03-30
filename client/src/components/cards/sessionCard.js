@@ -44,7 +44,7 @@ const SessionCard = (props) => {
                 </Col>
                 <Col sm={1}>
                   {isAuthenticated &&
-                    (user.email === props.conference[0].creatorEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                    (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
                     <Button data-toggle="popover" title="Delete this session" className="deletebtn" name="sessDelete" onClick={() => handleDelete(sess._id)}>
                       <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" name="sessDelete" />
                     </Button>}
@@ -64,7 +64,7 @@ const SessionCard = (props) => {
                 </Col>
               </Row>
               {isAuthenticated &&
-                (user.email === props.conference[0].creatorEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
                 <Row>
                   <Col sm={1}></Col>
                   <Col sm={5}>

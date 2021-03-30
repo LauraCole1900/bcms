@@ -156,7 +156,7 @@ const SessionForm = () => {
       {isAuthenticated &&
         sessReady === true &&
         confReady === true &&
-        (user.email === conference.creatorEmail || conference.confAdmins.includes(user.email)) &&
+        (user.email === conference.ownerEmail || conference.confAdmins.includes(user.email)) &&
         <Container>
           <Form className="sessForm">
 

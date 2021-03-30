@@ -33,7 +33,7 @@ module.exports = {
   findByEmail: function (req, res) {
     console.log("from confCont findByEmail", req.params.email)
     db.Conference
-      .find({ creatorEmail: req.params.email })
+      .find({ ownerEmail: req.params.email })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

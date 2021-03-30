@@ -245,7 +245,7 @@ const ProfilePage = () => {
             {whichConf === "create" &&
               (createConf.length > 0
                 ? <ConferenceCard conference={createConf} />
-                : <h3>We're sorry, you don't seem to created any conferences at this time.</h3>)
+                : <h3>We're sorry, you don't seem to have created any conferences at this time.</h3>)
             }
             {whichConf === "exhibit" &&
               (exhibitConf.length > 0
