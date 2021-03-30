@@ -161,10 +161,25 @@ const ProfilePage = () => {
     onClick: handleShowPresenting
   }]
 
+  // Get user by email
+  const fetchUser = async (email) => {
+    return UserAPI.getUserByEmail(email)
+      .then(resp => {
+        const userObj = resp.data
+        return userObj
+      })
+      .catch(err => console.log(err))
+  }
+
   // Save user to database
   const saveUserToDB = async () => {
-    UserAPI.saveUser(user)
-      .catch(err => console.log(err))
+    let savedUser = await fetchUser(user.email)
+    if (savedUser) {
+      return false
+    } else {
+      UserAPI.saveUser(user)
+        .catch(err => console.log(err))
+    }
   }
 
   useEffect(() => {
