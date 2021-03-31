@@ -21,6 +21,7 @@ const ConfDetails = () => {
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
 
+  // GETs conference by confId
   const fetchConf = async (confId) => {
     await ConferenceAPI.getConferenceById(confId)
       .then(resp => {
@@ -36,6 +37,8 @@ const ConfDetails = () => {
     setConfReady(true);
   }
 
+  // ---------- Figure out how to render presenters only once, even when presenting multiple sessions!!!!! ----------
+  // GETs sessions by confId
   const fetchSess = async (confId) => {
     await SessionAPI.getSessions(confId)
       .then(resp => {
