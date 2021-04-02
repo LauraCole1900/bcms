@@ -3,7 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import "./style.css";
 
 const ConfirmModal = (props) => {
-  // Shows onClick of "Delete" or "Unregister" button
+  // Shows onClick of "Cancel", "Delete" or "Unregister" button
   // Asks for confirmation that user wants to take that action
   // If "yes", show SuccessModal or ErrorModal
   // If "no", returns user to page they were on
@@ -16,8 +16,8 @@ const ConfirmModal = (props) => {
         </Modal.Header>
         <Modal.Body className="modalBody">
           <h3>Are you sure?</h3>
-          {props.btnname === "confDelete" &&
-            <h4>Are you sure you want to delete {props.confname}? This action can't be undone.</h4>}
+          {props.btnname === "confCancel" &&
+            <h4>Are you sure you want to cancel {props.confname}? This can be undone later if circumstances change.</h4>}
           {props.btnname === "sessDelete" &&
             <h4>Are you sure you want to delete {props.session.sessName}? This action can't be undone.</h4>}
           {props.btnname === "unregAtt" &&
@@ -25,8 +25,8 @@ const ConfirmModal = (props) => {
           {props.btnname === "unregExh" &&
             <h4>Are you sure you want to unregister your exhibit from {props.confname}? This action can't be undone.</h4>}
           <Modal.Footer className="modalFooter">
-            {props.btnname === "confDelete" &&
-              <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={() => props.deleteconf()} type="submit">Yes, Delete</Button>}
+            {props.btnname === "confCancel" &&
+              <Button data-toggle="popover" title="Confirm Cancel" className="button" onClick={() => props.cancelconf()} type="submit">Yes, Cancel</Button>}
             {props.btnname === "sessDelete" &&
               <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={() => props.deletesess()} type="submit">Yes, Delete</Button>}
             {props.btnname === "unregAtt" &&

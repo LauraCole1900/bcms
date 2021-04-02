@@ -92,6 +92,8 @@ The original version of this application was developed in collaboration with [An
 
 [thenBy.js](https://github.com/Teun/thenBy.js) was created by [Teun Duynstee](https://github.com/Teun).
 
+"Cancel event" icon made by [Those Icons](https://www.flaticon.com/authors/those-icons) from [www.flaticon.com](https://www.flaticon.com/).
+
 ## Contributing
 
 We believe code is never finished, and welcome your contributions to enhance the application's functionality. Please adhere to the Code of Conduct for the Contributor Covenant, version 2.0, at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.

@@ -113,6 +113,10 @@ const conferenceSchema = new Schema({
   },
   confAdmins: {
     type: [ String ]
+  },
+  confCancel: {
+    type: [String],
+    required
   }
 });
 

@@ -41,8 +41,8 @@ const ErrorModal = (props) => {
             (props.btnname === "unregExh" &&
               <h4>The unregistration of your exhibit from {props.conference.confName} could not be processed at this time.</h4>)}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
-            (props.btnname === "confDelete" &&
-              <h4>{props.errmsg}. Your conference could not be deleted at this time.</h4>)}
+            (props.btnname === "confCancel" &&
+              <h4>{props.errmsg}. Your conference could not be cancelled at this time.</h4>)}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "sessDelete" &&
               <h4>{props.errmsg}. Your session could not be deleted at this time.</h4>)}

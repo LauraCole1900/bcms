@@ -32,6 +32,7 @@ const ConferenceForm = () => {
     confEarlyRegConfirm: "no",
     confAllergies: "no",
     confWaiver: "no",
+    confCancel: "no",
   });
 
   // const confOffset = new Date().getTimezoneOffset()

@@ -39,8 +39,11 @@ const SuccessModal = (props) => {
             (props.btnname === "unregExh" &&
               <h4>You have unregistered your exhibit from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
-            (props.btnname === "confDelete" || props.btnname === "sessDelete") &&
-            <h4>Delete! Delete! Delete!</h4>}
+            (props.btnname === "confCancel" &&
+            <h4>{props.conference.confName} has been cancelled. An email will be sent to any registered participants.</h4>)}
+          {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
+            (props.btnname === "sessDelete" &&
+            <h4>Delete! Delete! Delete!</h4>)}
           <Modal.Footer className="modalFooter">
             {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "edit_session" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit") &&
               <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
