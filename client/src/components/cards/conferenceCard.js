@@ -44,6 +44,20 @@ const ConferenceCard = ({ conference }) => {
   const handleShowErr = () => setShowErr(thisId);
   const handleHideErr = () => setShowErr(0);
 
+  // Finds registered attendees
+  const fetchAttendees = async (confId) => {
+    console.log("from confCard", confId)
+    await AttendeeAPI.getAttendees(confId)
+    .then(res => {
+      const numAttendees = res.data.length
+      return numAttendees
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    })
+  }
+
   // Handles click on "Yes, Delete" button on ConfirmModal
   function handleConfDelete(confId) {
     console.log("from confCard", confId)
