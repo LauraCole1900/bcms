@@ -46,7 +46,7 @@ const ConferenceCard = ({ conference }) => {
 
   // Finds registered attendees
   const fetchAttendees = async (confId) => {
-    console.log("from confCard", confId)
+    console.log("from confCard fetchAttendees", confId)
     await AttendeeAPI.getAttendees(confId)
     .then(res => {
       const numAttendees = res.data.length
@@ -59,7 +59,7 @@ const ConferenceCard = ({ conference }) => {
   }
 
   // Handles click on "Yes, Delete" button on ConfirmModal
-  function handleConfDelete(confId) {
+  const handleConfDelete = (confId) => {
     console.log("from confCard", confId)
     handleHideConfirm();
     AttendeeAPI.deleteAttendees(confId)
@@ -112,7 +112,7 @@ const ConferenceCard = ({ conference }) => {
   };
 
   // Handles click on "Yes, unregister attendee" button on ConfirmModal
-  function handleAttUnreg(confId, email) {
+  const handleAttUnreg = (confId, email) => {
     console.log("from confirm attUnreg", confId, email)
     handleHideConfirm();
     // DELETE call to delete attendee document
@@ -132,7 +132,7 @@ const ConferenceCard = ({ conference }) => {
   }
 
   // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
-  function handleExhUnreg(confId, email) {
+  const handleExhUnreg = (confId, email) => {
     console.log("from confirm exhUnreg", confId, email)
     handleHideConfirm();
     // DELETE call to delete exhibitor document
