@@ -48,64 +48,52 @@ const ConferenceCard = ({ conference }) => {
   const fetchAttendees = async (confId) => {
     console.log("from confCard fetchAttendees", confId)
     await AttendeeAPI.getAttendees(confId)
-    .then(res => {
-      const numAttendees = res.data.length
-      return numAttendees
-    })
-    .catch(err => {
-      console.log(err)
-      return false
-    })
+      .then(res => {
+        const numAttendees = res.data.length
+        return numAttendees
+      })
+      .catch(err => {
+        console.log(err)
+        return false
+      })
   }
 
   // Handles click on "Yes, Cancel" button on ConfirmModal
   const handleConfCancel = (confId) => {
     console.log("from confCard", confId)
     handleHideConfirm();
-    AttendeeAPI.deleteAttendees(confId)
+    AttendeeAPI.getAttendees(confId)
       .then(res => {
         if (!res.err) {
-          console.log("attendees deleted")
+          console.log("from confCard getAttendees", res.data)
         }
       })
       .catch(err => {
-        console.log("deleting conf attendees", err);
+        console.log("from confCard getAttendees", err);
         setErrThrown(err.message);
         handleShowErr();
       })
 
-    ExhibitorAPI.deleteExhibitors(confId)
+    ExhibitorAPI.getExhibitors(confId)
       .then(res => {
         if (!res.err) {
-          console.log("exhibitors deleted")
+          console.log("from confCard getExhibitors", res.data)
         }
       })
       .catch(err => {
-        console.log("deleting conf exhibitors", err);
+        console.log("from confCard getExhibitors", err);
         setErrThrown(err.message);
         handleShowErr();
       })
 
-    SessionAPI.deleteSessions(confId)
-      .then(res => {
-        if (!res.err) {
-          console.log("sessions deleted")
-        }
-      })
-      .catch(err => {
-        console.log("deleting conf sessions", err)
-        setErrThrown(err.message);
-        handleShowErr();
-      })
-
-    ConferenceAPI.deleteConference(confId)
+    ConferenceAPI.updateConference({ ...conference, confCancel: "yes" }, confId)
       .then(res => {
         if (!res.err) {
           handleShowSuccess();
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log("from confCard updateConf", err);
         setErrThrown(err.message);
         handleShowErr();
       });
@@ -256,6 +244,7 @@ const ConferenceCard = ({ conference }) => {
               <Row>
                 {isAuthenticated &&
                   conf.confType === "Live" &&
+                  conf.confCancel === "no" &&
                   cardExhibitConf.indexOf(conf._id) >= 0 &&
                   <div>
                     <Col sm={1}></Col>
@@ -271,6 +260,7 @@ const ConferenceCard = ({ conference }) => {
 
                 {isAuthenticated &&
                   user.email !== conf.ownerEmail &&
+                  conf.confCancel === "no" &&
                   cardAttendConf.indexOf(conf._id) >= 0 &&
                   <div>
                     {conf.confType === "Live"
@@ -289,6 +279,7 @@ const ConferenceCard = ({ conference }) => {
                 {isAuthenticated &&
                   user.email !== conf.ownerEmail &&
                   conf.confType === "Live" &&
+                  conf.confCancel === "no" &&
                   cardExhibitConf.indexOf(conf._id) < 0 &&
                   <div>
                     <Col sm={1}></Col>
@@ -301,6 +292,7 @@ const ConferenceCard = ({ conference }) => {
 
                 {isAuthenticated &&
                   user.email !== conf.ownerEmail &&
+                  conf.confCancel === "no" &&
                   cardAttendConf.indexOf(conf._id) < 0 &&
                   <div>
                     {conf.confType === "Live"
@@ -314,6 +306,14 @@ const ConferenceCard = ({ conference }) => {
                       </Link>
                     </Col>
                     <Col sm={1}></Col>
+                  </div>}
+
+                {conf.confCancel === "yes" &&
+                  <div>
+                    <Col sm={1}></Col>
+                    <Col sm={10}>
+                      <h3 className="cancel">This event has been cancelled.</h3>
+                    </Col>
                   </div>}
               </Row>
             </Card.Body>

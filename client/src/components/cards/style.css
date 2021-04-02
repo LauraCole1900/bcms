@@ -102,3 +102,12 @@ a:visited {
   border: 3px solid red;
   padding: 0 13px;
 }
+
+.cancel {
+  color: black;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 700;
+  background-color: #ff8686;
+  border: 3px solid red;
+  padding: 0 13px;
+}

@@ -115,8 +115,8 @@ const conferenceSchema = new Schema({
     type: [ String ]
   },
   confCancel: {
-    type: [String],
-    required
+    type: String,
+    required: true
   }
 });
 

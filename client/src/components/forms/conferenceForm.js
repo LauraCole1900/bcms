@@ -175,6 +175,19 @@ const ConferenceForm = () => {
 
             <Form className="confForm">
 
+              {conference.confCancel === "yes" &&
+                <Card className="formCard">
+                  <Card.Title className="alert"><h1>This conference has been marked "cancelled". Uncancel?</h1></Card.Title>
+                  <Card.Body>
+                    <Row>
+                      <Col sm={6}>
+                        <Form.Check type="radio" id="uncancelYes" name="confCancel" label="Yes, uncancel" value="no" checked={conference.concCancel === "yes"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="uncancelNo" name="confCancel" label="No, keep cancelled" value="yes" checked={conference.confCancel === "no"} onChange={handleInputChange} />
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Card>}
+
               <Card className="formCard">
                 <Card.Title><h1>Basic Information</h1></Card.Title>
                 <Card.Body className="cardBody">
