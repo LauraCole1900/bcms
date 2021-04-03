@@ -142,7 +142,7 @@ const ConferenceCard = ({ conference }) => {
   useEffect(() => {
     if (isAuthenticated) {
       console.log(user.email)
-      // Retrieves conferences user is registered for to determine whether register or unregister button should render
+      // Retrieves conferences user is registered to attend to determine whether register or unregister button should render
       AttendeeAPI.getConferencesAttending(user.email)
         .then(resp => {
           const cardAttArr = resp.data
@@ -195,41 +195,50 @@ const ConferenceCard = ({ conference }) => {
                   <Card.Text>{conf.confDesc}</Card.Text>
                 </Col>
                 <Col sm={5} className="vitals">
-                  {conf.numDays === 1
-                    ? <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - {conf.confEndTime}</p></Row></div>
-                    : <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - <Moment format="ddd, D MMM YYYY" withTitle>{conf.endDate}</Moment> @{conf.confEndTime}</p></Row></div>}
-                  <Row><p>Type: {conf.confType}</p></Row>
-                  <Row>
-                    {(conf.confType === "Live") &&
-                      <p><a href={`https://www.google.com/maps/search/${conf.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{conf.confLoc}</a></p>}
-                    {(conf.confType === "Virtual") &&
-                      (conf.confLocUrl !== undefined) &&
-                      <p><a href={conf.confLocUrl} rel="noreferrer noopener" target="_blank">{conf.confLoc}</a></p>}
-                    {(conf.confType === "Virtual") &&
-                      (conf.confLocUrl === undefined) &&
-                      <p>{conf.confLoc}</p>}
-                  </Row>
-                  {(conf.confType === "Live") &&
-                    (conf.confLocUrl !== undefined) &&
-                    <Row>
-                      <p><a href={conf.confLocUrl} rel="noreferrer noopener" target="_blank">{conf.confLocName}</a></p>
-                    </Row>}
-                  <Row>
-                    <Col>
-                      {conf.confType === "Live"
-                        ? (conf.confRegDeadline === conf.endDate
-                          ? <p>Registration available at the door.</p>
-                          : <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confRegDeadline}</Moment></p>)
-                        : <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confRegDeadline}</Moment></p>}
-                      {(conf.confFee === "yes")
-                        ? (conf.confEarlyRegConfirm === "yes"
-                          ? <p>Registration fee: ${conf.confEarlyRegFee}.00 before <Moment format="ddd, D MMM YYYY" withTitle>{conf.confEarlyRegDeadline}</Moment>; increases to ${conf.confFeeAmt}.00 after</p>
-                          : <p>Registration fee: ${conf.confFeeAmt}.00</p>)
-                        : <p>Registration is free!</p>}
-                      {conf.confEarlyRegSwagConfirm === "yes" &&
-                        <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confEarlyRegDeadline}</Moment> to also receive {conf.confEarlyRegSwagType}</p>}
-                    </Col>
-                  </Row>
+                  {conf.confCancel === "no" &&
+                    <div>
+                      {conf.numDays === 1
+                        ? <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - {conf.confEndTime}</p></Row></div>
+                        : <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - <Moment format="ddd, D MMM YYYY" withTitle>{conf.endDate}</Moment> @{conf.confEndTime}</p></Row></div>}
+                      <Row><p>Type: {conf.confType}</p></Row>
+                      <Row>
+                        {(conf.confType === "Live") &&
+                          <p><a href={`https://www.google.com/maps/search/${conf.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{conf.confLoc}</a></p>}
+                        {(conf.confType === "Virtual") &&
+                          (conf.confLocUrl !== undefined) &&
+                          <p><a href={conf.confLocUrl} rel="noreferrer noopener" target="_blank">{conf.confLoc}</a></p>}
+                        {(conf.confType === "Virtual") &&
+                          (conf.confLocUrl === undefined) &&
+                          <p>{conf.confLoc}</p>}
+                      </Row>
+                      {(conf.confType === "Live") &&
+                        (conf.confLocUrl !== undefined) &&
+                        <Row>
+                          <p><a href={conf.confLocUrl} rel="noreferrer noopener" target="_blank">{conf.confLocName}</a></p>
+                        </Row>}
+                      <Row>
+                        <Col>
+                          {conf.confType === "Live"
+                            ? (conf.confRegDeadline === conf.endDate
+                              ? <p>Registration available at the door.</p>
+                              : <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confRegDeadline}</Moment></p>)
+                            : <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confRegDeadline}</Moment></p>}
+                          {(conf.confFee === "yes")
+                            ? (conf.confEarlyRegConfirm === "yes"
+                              ? <p>Registration fee: ${conf.confEarlyRegFee}.00 before <Moment format="ddd, D MMM YYYY" withTitle>{conf.confEarlyRegDeadline}</Moment>; increases to ${conf.confFeeAmt}.00 after</p>
+                              : <p>Registration fee: ${conf.confFeeAmt}.00</p>)
+                            : <p>Registration is free!</p>}
+                          {conf.confEarlyRegSwagConfirm === "yes" &&
+                            <p>Register by <Moment format="ddd, D MMM YYYY" withTitle>{conf.confEarlyRegDeadline}</Moment> to also receive {conf.confEarlyRegSwagType}</p>}
+                        </Col>
+                      </Row>
+                    </div>}
+
+                  {conf.confCancel === "yes" &&
+                    <div>
+                      <h3 className="cancel">This event has been cancelled.</h3>
+                    </div>}
+
                   {urlType !== "details" &&
                     <Row>
                       <Col sm={4}>
@@ -308,13 +317,6 @@ const ConferenceCard = ({ conference }) => {
                     <Col sm={1}></Col>
                   </div>}
 
-                {conf.confCancel === "yes" &&
-                  <div>
-                    <Col sm={1}></Col>
-                    <Col sm={10}>
-                      <h3 className="cancel">This event has been cancelled.</h3>
-                    </Col>
-                  </div>}
               </Row>
             </Card.Body>
 

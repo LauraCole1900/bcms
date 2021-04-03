@@ -180,9 +180,14 @@ const ConferenceForm = () => {
                   <Card.Title className="alert"><h1>This conference has been marked "cancelled". Uncancel?</h1></Card.Title>
                   <Card.Body>
                     <Row>
+                      <Col sm={12}>
+                        <h3>Please remember to scroll to the bottom of the page and click "Update Form" after changing this!</h3>
+                      </Col>
+                    </Row>
+                    <Row>
                       <Col sm={6}>
-                        <Form.Check type="radio" id="uncancelYes" name="confCancel" label="Yes, uncancel" value="no" checked={conference.concCancel === "yes"} onChange={handleInputChange} />
-                        <Form.Check type="radio" id="uncancelNo" name="confCancel" label="No, keep cancelled" value="yes" checked={conference.confCancel === "no"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="uncancelYes" name="confCancel" label="Yes, uncancel" value="no" checked={conference.confCancel === "no"} onChange={handleInputChange} />
+                        <Form.Check type="radio" id="uncancelNo" name="confCancel" label="No, keep cancelled" value="yes" checked={conference.confCancel === "yes"} onChange={handleInputChange} />
                       </Col>
                     </Row>
                   </Card.Body>
