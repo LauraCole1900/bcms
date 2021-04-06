@@ -55,8 +55,9 @@ const ConferenceCard = ({ conference }) => {
         return attEmails
       })
       .catch(err => {
-        console.log(err)
-        return false
+        console.log("from confCard fetAttEmails", err)
+        setErrThrown(err.message);
+        handleShowErr();
       })
   }
 
@@ -66,17 +67,7 @@ const ConferenceCard = ({ conference }) => {
     console.log("from confCard", confId)
     handleHideConfirm();
     let attEmailArr = await fetchAttendeeEmails(confId);
-    AttendeeAPI.getAttendees(confId)
-      .then(res => {
-        if (!res.err) {
-          console.log("from confCard getAttendees", res.data)
-        }
-      })
-      .catch(err => {
-        console.log("from confCard getAttendees", err);
-        setErrThrown(err.message);
-        handleShowErr();
-      })
+    // send-email functionality for registered attendees goes here
 
     ExhibitorAPI.getExhibitors(confId)
       .then(res => {
