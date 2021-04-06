@@ -44,13 +44,14 @@ const ConferenceCard = ({ conference }) => {
   const handleShowErr = () => setShowErr(thisId);
   const handleHideErr = () => setShowErr(0);
 
-  // Finds registered attendees
-  const fetchAttendees = async (confId) => {
+  // GETs registered attendees' emails
+  const fetchAttendeeEmails = async (confId) => {
     console.log("from confCard fetchAttendees", confId)
     await AttendeeAPI.getAttendees(confId)
       .then(res => {
         // map through res.data and pull all emails into an array
-        const attEmails = res.data.length
+        const attData = res.data
+        let attEmails = attData.map(attData => attData.email)
         return attEmails
       })
       .catch(err => {
@@ -61,9 +62,10 @@ const ConferenceCard = ({ conference }) => {
 
   // Handles click on "Yes, Cancel" button on ConfirmModal
   // Will need to have email functionality to email registered participants
-  const handleConfCancel = (confId) => {
+  const handleConfCancel = async (confId) => {
     console.log("from confCard", confId)
     handleHideConfirm();
+    let attEmailArr = await fetchAttendeeEmails(confId);
     AttendeeAPI.getAttendees(confId)
       .then(res => {
         if (!res.err) {
