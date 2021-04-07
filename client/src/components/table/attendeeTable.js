@@ -31,7 +31,7 @@ const AttendeeTable = (props) => {
     switch (adminConf) {
       case true:
         // API call to add emails to conference.confAdmins
-        ConferenceAPI.updateConference({ ...props.conference[0], confAdmins: [...props.conference[0].confAdmins, adminEmail] }, props.conference._id)
+        ConferenceAPI.updateConference({ ...props.conference[0], confAdmins: [...props.conference[0].confAdmins, adminEmail] }, props.conference[0]._id)
           .then(props.confcb(props.conference[0]._id))
           .catch(err => console.log(err))
         break;
