@@ -45,7 +45,7 @@ const Registration = () => {
       ConferenceAPI.getConferenceById(confId)
         .then(resp => {
           console.log("from regForm fetchConf", resp.data)
-          const confArr = resp.data;
+          const confArr = resp.data[0];
           console.log({confArr});
           setConference(confArr);
         })
