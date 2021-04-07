@@ -44,8 +44,9 @@ const Registration = () => {
       // GET call for conference information
       ConferenceAPI.getConferenceById(confId)
         .then(resp => {
-          console.log("from registrationForm getConferenceById", resp.data)
-          const confArr = resp.data[0];
+          console.log("from regForm fetchConf", resp.data)
+          const confArr = resp.data;
+          console.log({confArr});
           setConference(confArr);
         })
         .catch(err => console.log(err));
@@ -146,7 +147,8 @@ const Registration = () => {
                 </Card.Title>
                 <Card.Body className="cardBody">
                   <Row>
-                    {(user.email === conference.ownerEmail || conference.confAdmins.includes(user.email))
+                    {/* Need to add confAdmins to below, but can't get it working */}
+                    {(conference.ownerEmail === user.email)
                       ? <Col sm={12}>
                         <Form.Group controlId="formRegEmail">
                           <Form.Label>Attendee email: <span className="red">*</span></Form.Label>
