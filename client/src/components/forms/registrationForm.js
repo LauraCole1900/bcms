@@ -46,7 +46,7 @@ const Registration = () => {
         .then(resp => {
           console.log("from regForm fetchConf", resp.data)
           const confArr = resp.data[0];
-          console.log({confArr});
+          console.log({ confArr });
           setConference(confArr);
         })
         .catch(err => console.log(err));
@@ -80,9 +80,9 @@ const Registration = () => {
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    console.log("Attendee update", confId, user.email);
+    console.log("Attendee update", confId, attendee.email);
     // PUT call to update attendee document
-    AttendeeAPI.updateAttendee({ ...attendee }, confId, user.email)
+    AttendeeAPI.updateAttendee({ ...attendee }, confId, attendee.email)
       .then(res => {
         // If no errors thrown, show Success modal
         if (!res.err) {
@@ -100,9 +100,9 @@ const Registration = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Attendee submit", confId, user.email, attendee)
+    console.log("Attendee submit", confId, attendee)
     // POST call to create attendee document
-    AttendeeAPI.registerAttendee({ ...attendee, confId: confId, email: user.email })
+    AttendeeAPI.registerAttendee({ ...attendee, confId: confId })
       .then(res => {
         // If no errors thrown, show Success modal
         if (!res.err) {
@@ -147,18 +147,14 @@ const Registration = () => {
                 </Card.Title>
                 <Card.Body className="cardBody">
                   <Row>
-                    {/* Need to add confAdmins to below, but can't get it working */}
-                    {(conference.ownerEmail === user.email)
-                      ? <Col sm={12}>
-                        <Form.Group controlId="formRegEmail">
-                          <Form.Label>Attendee email: <span className="red">*</span></Form.Label>
-                          <Form.Control type="email" name="email" placeholder="name@email.com" value={attendee.email} className="formInput" onChange={handleInputChange} />
-                        </Form.Group>
-                      </Col>
-                      : <Col sm={12}>
-                        <p className="subtitle">Please note that BCMS automatically assigns the logged-in email as your contact email.</p>
-                      </Col>}
+                    <Col sm={4}>
+                      <Form.Group controlId="formRegEmail">
+                        <Form.Label>Attendee email: <span className="red">*</span></Form.Label>
+                        <Form.Control type="email" name="email" placeholder="name@email.com" value={attendee.email} className="formInput" onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
                   </Row>
+
                   <Row>
                     <Form.Group controlId="formRegName">
                       <Col sm={6}>
