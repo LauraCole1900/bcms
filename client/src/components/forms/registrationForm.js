@@ -67,7 +67,7 @@ const Registration = () => {
       }
     }
     setPageReady(true);
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -121,7 +121,7 @@ const Registration = () => {
     <>
       {!isAuthenticated &&
         <Row>
-          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+          <h1 className="authRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to register.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
@@ -143,20 +143,20 @@ const Registration = () => {
                       <h1>Personal & Professional Information</h1>
                     </Col>
                   </Row>
-                  <Row>
-                    {(user.email === conference.ownerEmail || conference.confAdmins.includes(user.email))
-                    ? <Col sm={12}>
-                      <Form.Group controlId="formRegEmail">
-                        <Form.Label>Attendee email: <span className="red">*</span></Form.Label>
-                        <Form.Control type="email" name="email" placeholder="name@email.com" value={attendee.email} className="formInput" onChange={handleInputChange} />
-                      </Form.Group>
-                    </Col>
-                    : <Col sm={12}>
-                      <p className="subtitle">Please note that BCMS automatically assigns the logged-in email as your contact email.</p>
-                    </Col>}
-                  </Row>
                 </Card.Title>
                 <Card.Body className="cardBody">
+                  <Row>
+                    {(user.email === conference.ownerEmail || conference.confAdmins.includes(user.email))
+                      ? <Col sm={12}>
+                        <Form.Group controlId="formRegEmail">
+                          <Form.Label>Attendee email: <span className="red">*</span></Form.Label>
+                          <Form.Control type="email" name="email" placeholder="name@email.com" value={attendee.email} className="formInput" onChange={handleInputChange} />
+                        </Form.Group>
+                      </Col>
+                      : <Col sm={12}>
+                        <p className="subtitle">Please note that BCMS automatically assigns the logged-in email as your contact email.</p>
+                      </Col>}
+                  </Row>
                   <Row>
                     <Form.Group controlId="formRegName">
                       <Col sm={6}>
