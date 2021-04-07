@@ -186,7 +186,7 @@ const TableComp = (e) => {
     <>
       {!isAuthenticated &&
         <Row>
-          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+          <h1 className="authRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to access this feature.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
@@ -288,9 +288,13 @@ const TableComp = (e) => {
             </Col>
             <Col sm={2}>
               {dataSet === "attendees" &&
-                <Button data-toggle="popover" title="Add an attendee" className="button">Add Attendee</Button>}
+                <Link to={`/register_attend/${confId}`} className={location.pathname === `/register_attend/${confId}` ? "link active" : "link"}>
+                  <Button data-toggle="popover" title="Add an attendee" className="button">Add Attendee</Button>
+                </Link>}
               {dataSet === "exhibitors" &&
-                <Button data-toggle="popover" title="Add an exhibitor" className="button">Add Exhibitor</Button>}
+                <Link to={`/register_exhibit/${confId}`} className={location.pathname === `/register_exhibit/${confId}` ? "link active" : "link"}>
+                  <Button data-toggle="popover" title="Add an exhibitor" className="button">Add Exhibitor</Button>
+                </Link>}
               {dataSet === "presenters" &&
                 <Button data-toggle="popover" title="Add a presenter" className="button">Add Presenter</Button>}
             </Col>
