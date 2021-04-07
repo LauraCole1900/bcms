@@ -144,9 +144,16 @@ const Registration = () => {
                     </Col>
                   </Row>
                   <Row>
-                    <Col sm={12}>
-                      <p className="subtitle">Please note that BCMS automatically assigns the logged-in email as your contact email.</p>
+                    {(user.email === conference.ownerEmail || conference.confAdmins.includes(user.email))
+                    ? <Col sm={12}>
+                      <Form.Group controlId="formRegEmail">
+                        <Form.Label>Attendee email: <span className="red">*</span></Form.Label>
+                        <Form.Control type="email" name="email" placeholder="name@email.com" value={attendee.email} className="formInput" onChange={handleInputChange} />
+                      </Form.Group>
                     </Col>
+                    : <Col sm={12}>
+                      <p className="subtitle">Please note that BCMS automatically assigns the logged-in email as your contact email.</p>
+                    </Col>}
                   </Row>
                 </Card.Title>
                 <Card.Body className="cardBody">
