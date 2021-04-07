@@ -24,15 +24,15 @@ const AttendeeTable = (props) => {
         adminConf = true;
     }
     // API call to update attendee document
-    AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf })
-      .then(props.attcb(props.conference._id))
+    AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf },)
+      .then(props.attcb(props.conference[0]._id))
       .catch(err => console.log(err))
     let adminEmail = await getEmail(e.target.dataset.id)
     switch (adminConf) {
       case true:
         // API call to add emails to conference.confAdmins
-        ConferenceAPI.updateConference({ confAdmins: [...props.conference[0].confAdmins, adminEmail] }, props.conference._id)
-          .then(props.confcb(props.conference._id))
+        ConferenceAPI.updateConference({ ...props.conference[0], confAdmins: [...props.conference[0].confAdmins, adminEmail] }, props.conference._id)
+          .then(props.confcb(props.conference[0]._id))
           .catch(err => console.log(err))
         break;
       default:
@@ -43,8 +43,8 @@ const AttendeeTable = (props) => {
             console.log({adminArr});
             break;
           default:
-            ConferenceAPI.updateConference({ confAdmins: [...adminArr] }, props.conference._id)
-              .then(props.confcb(props.conference._id))
+            ConferenceAPI.updateConference({ confAdmins: [...adminArr] }, props.conference[0]._id)
+              .then(props.confcb(props.conference[0]._id))
               .catch(err => console.log(err))
         }
     }
