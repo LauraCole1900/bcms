@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Col, Form, Button, Image } from "react-bootstrap";
+import { Form, Button, Image } from "react-bootstrap";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
@@ -73,8 +73,8 @@ const AttendeeTable = (props) => {
             </Link>
           </td>
           <td>
-            <Button data-toggle="popover" title="Delete this attendee" className="tbldeletebtn" data-confid={props.conference._id} data-confname={props.conference.confName} name="unregAtt" onClick={props.delete}>
-              <Image fluid="true" src="/images/trash-can.png" className="tbldelete" alt="Delete this attendee" data-confid={props.conference._id} data-confname={props.conference.confName} name="unregAtt" onClick={props.delete} />
+            <Button data-toggle="popover" title="Delete this attendee" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} name="admUnregAtt" onClick={props.delete}>
+              <Image fluid="true" src="/images/trash-can.png" className="tbldelete" alt="Delete this attendee" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} name="admUnregAtt" onClick={props.delete} />
             </Button>
           </td>
         </tr>

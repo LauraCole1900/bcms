@@ -20,9 +20,14 @@ const TableComp = (e) => {
   const [search, setSearch] = useState("");
   const [searchBy, setSearchBy] = useState("all");
   const [sortAscending, setSortAscending] = useState(false);
+  const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState("");
   const [thisId, setThisId] = useState();
-  const [thisName, setThisName] = useState();
+  const [thisEmail, setThisEmail] = useState();
+  const [confName, setConfName] = useState();
+  const [attName, setAttName] = useState();
+  const [exhName, setExhName] = useState();
+  const [presName, setPresName] = useState();
   const [pageReady, setPageReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
 
@@ -31,27 +36,71 @@ const TableComp = (e) => {
   const dataSet = urlArray[urlArray.length - 2];
   
   // Modal variables
-  const [showConfirm, setShowConfirm] = useState(0);
-  const [showSuccess, setShowSuccess] = useState(0);
-  const [showErr, setShowErr] = useState(0);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+  
+    const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
+    const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend"];
+    const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
   
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
-    console.log(e.target.name, e.target.dataset.confid, e.target.dataset.confname);
-    setShowConfirm(e.target.dataset.confid);
+    console.log(e.target.name, e.target.dataset.confid, e.target.dataset.confname, e.target.dataset.attname, e.target.dataset.email);
+    setShowConfirm(true);
     setBtnName(e.target.name);
     setThisId(e.target.dataset.confid);
-    setThisName(e.target.dataset.confname);
+    setConfName(e.target.dataset.confname);
+    setThisEmail(e.target.dataset.email);
+    setAttName(e.target.dataset.attname);
+    setExhName(e.target.dataset.exhname);
+    setPresName(e.target.dataset.presname);
   }
-  const handleHideConfirm = () => setShowConfirm(0);
-  const handleShowSuccess = () => setShowSuccess(thisId);
-  const handleHideSuccess = () => setShowSuccess(0);
-  const handleShowErr = () => setShowErr(thisId);
-  const handleHideErr = () => setShowErr(0);
+  const handleHideConfirm = () => setShowConfirm(false);
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
-  const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
-  const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend"];
-  const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
+  // Handles click on "Yes, unregister attendee" button on ConfirmModal
+  const handleAttUnreg = (confId, email) => {
+    console.log("from confirm attUnreg", confId, email)
+    handleHideConfirm();
+    // DELETE call to delete attendee document
+    AttendeeAPI.unregisterAttendee(confId, email)
+      .then(res => {
+        // If no errors thrown, show Success modal
+        if (!res.err) {
+          handleShowSuccess()
+        }
+      })
+      // If yes errors thrown, show Error modal
+      .catch(err => {
+        console.log(err);
+        setErrThrown(err.message);
+        handleShowErr();
+      });
+  }
+
+  // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
+  const handleExhUnreg = (confId, email) => {
+    console.log("from confirm exhUnreg", confId, email)
+    handleHideConfirm();
+    // DELETE call to delete exhibitor document
+    ExhibitorAPI.deleteExhibitor(confId, email)
+      .then(res => {
+        // If no errors thrown, show Success modal
+        if (!res.err) {
+          handleShowSuccess();
+        }
+      })
+      // If yes errors thrown, show Error modal
+      .catch(err => {
+        console.log(err)
+        setErrThrown(err.message);
+        handleShowErr();
+      });
+  }
 
   // GET conference info for useEffect and callback
   const fetchConf = async (confId) => {
@@ -363,12 +412,17 @@ const TableComp = (e) => {
             </tbody>
           </Table>
 
+          {/* Applies to Attendees, Exhibitors & Presenters ONLY, not to Conferences */}
+          {/* Click on 'delete' button, ConfirmModal pops up */}
+          {/* ConfirmModal needs button name, conf name, urlid, unregatt(), unregexh(), delpres(), attendee name */}
+          {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
+
           {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-          <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === conf._id} hide={(e) => handleHideConfirm(e)} />
+          <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} exhname={exhName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
 
-          <SuccessModal conference={conf} urlid={confId} urltype={urlType} btnname={btnName} show={showSuccess === conf._id} hide={(e) => handleHideSuccess(e)} />
+          <SuccessModal conference={conference} urlid={confId} urltype={dataSet} btnname={btnName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === conf._id} hide={(e) => handleHideErr(e)} />
+          <ErrorModal conference={conference} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={(e) => handleHideErr(e)} />
 
         </Container>
       }
