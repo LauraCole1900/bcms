@@ -33,3 +33,29 @@ td {
   font-size: 24px;
   border: none;
 }
+
+.tbldelete, .tbledit {
+  max-width: 20px;
+}
+
+.tbleditbtn {
+  color: #cfbfa5;
+  background: linear-gradient(to bottom, #899168, #2d321e);
+  float: right;
+  max-width: 40px;
+  padding: 6px;
+}
+.tbleditbtn:hover {
+  background: linear-gradient(to bottom, #e2e2e2, #878992)
+}
+
+.tbldeletebtn {
+  color: #cfbfa5;
+  background: linear-gradient(to bottom, #899168, #2d321e);
+  float: right;
+  max-width: 40px;
+  padding: 6px;
+}
+.tbldeletebtn:hover {
+  background: linear-gradient(to bottom, #ff2200, #6a0e00)
+}

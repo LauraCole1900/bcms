@@ -1,9 +1,11 @@
 import React from "react";
-import { Form } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { Col, Form, Button, Image } from "react-bootstrap";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
 const AttendeeTable = (props) => {
+  const location = useLocation();
 
   const getEmail = (id) => {
     const adminObj = props.attendees.find(attendees => attendees._id === id)
@@ -40,7 +42,7 @@ const AttendeeTable = (props) => {
         const index = adminArr.indexOf(adminEmail)
         switch (index > -1) {
           case false:
-            console.log({adminArr});
+            console.log({ adminArr });
             break;
           default:
             ConferenceAPI.updateConference({ confAdmins: [...adminArr] }, props.conference[0]._id)
@@ -63,6 +65,18 @@ const AttendeeTable = (props) => {
           <td>{att.emergencyContactPhone}</td>
           <td>{att.allergies}</td>
           <td><Form.Check type="checkbox" name="isAdmin" value={att.isAdmin} data-id={att._id} aria-label="adminCheck" className="adminCheck" checked={att.isAdmin === true} onChange={handleInputChange} /></td>
+          <td>
+            <Link to={`/register_edit/${att.confId}`} className={location.pathname === `/register_edit/${att.confId}` ? "link active" : "link"}>
+              <Button data-toggle="popover" title="Edit this attendee" className="tbleditbtn">
+                <Image fluid="true" src="/images/edit-icon-2.png" className="tbledit" alt="Edit this attendee" data-attid={att._id} name="attEdit" />
+              </Button>
+            </Link>
+          </td>
+          <td>
+            <Button data-toggle="popover" title="Delete this attendee" className="tbldeletebtn" data-confid={props.conference._id} data-confname={props.conference.confName} name="unregAtt" onClick={props.delete}>
+              <Image fluid="true" src="/images/trash-can.png" className="tbldelete" alt="Delete this attendee" data-confid={props.conference._id} data-confname={props.conference.confName} name="unregAtt" onClick={props.delete} />
+            </Button>
+          </td>
         </tr>
       ))
       }

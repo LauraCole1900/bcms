@@ -6,6 +6,7 @@ import { ConferenceCard, UserCard } from "../cards";
 import AttendeeTable from "./attendeeTable.js";
 import ExhibitorTable from "./exhibitorTable.js";
 import PresenterTable from "./presenterTable.js";
+import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI } from "../../utils/api";
 import "./style.css";
 
@@ -19,12 +20,34 @@ const TableComp = (e) => {
   const [search, setSearch] = useState("");
   const [searchBy, setSearchBy] = useState("all");
   const [sortAscending, setSortAscending] = useState(false);
+  const [btnName, setBtnName] = useState("");
+  const [thisId, setThisId] = useState();
+  const [thisName, setThisName] = useState();
   const [pageReady, setPageReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
 
   const urlArray = window.location.href.split("/");
   const confId = urlArray[urlArray.length - 1];
   const dataSet = urlArray[urlArray.length - 2];
+  
+  // Modal variables
+  const [showConfirm, setShowConfirm] = useState(0);
+  const [showSuccess, setShowSuccess] = useState(0);
+  const [showErr, setShowErr] = useState(0);
+  
+  // Sets boolean to show or hide relevant modal
+  const handleShowConfirm = (e) => {
+    console.log(e.target.name, e.target.dataset.confid, e.target.dataset.confname);
+    setShowConfirm(e.target.dataset.confid);
+    setBtnName(e.target.name);
+    setThisId(e.target.dataset.confid);
+    setThisName(e.target.dataset.confname);
+  }
+  const handleHideConfirm = () => setShowConfirm(0);
+  const handleShowSuccess = () => setShowSuccess(thisId);
+  const handleHideSuccess = () => setShowSuccess(0);
+  const handleShowErr = () => setShowErr(thisId);
+  const handleHideErr = () => setShowErr(0);
 
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend"];
@@ -327,7 +350,7 @@ const TableComp = (e) => {
             <tbody>
               {dataSet === "attendees" && (
                 attendees.length > 0
-                  ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} attcb={fetchAttendees} />
+                  ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} attcb={fetchAttendees} delete={handleShowConfirm} />
                   : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
@@ -339,6 +362,14 @@ const TableComp = (e) => {
                   : <tr><td className="tableComm">We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</td></tr>)}
             </tbody>
           </Table>
+
+          {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
+          <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === conf._id} hide={(e) => handleHideConfirm(e)} />
+
+          <SuccessModal conference={conf} urlid={confId} urltype={urlType} btnname={btnName} show={showSuccess === conf._id} hide={(e) => handleHideSuccess(e)} />
+
+          <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === conf._id} hide={(e) => handleHideErr(e)} />
+
         </Container>
       }
     </>
