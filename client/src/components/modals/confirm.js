@@ -30,7 +30,7 @@ const ConfirmModal = (props) => {
             <h4>Are you sure you want to unregister {props.exhname}'s exhibit from {props.confname}? This action can't be undone.</h4>}
           <Modal.Footer className="modalFooter">
             {props.btnname === "confCancel" &&
-              <Button data-toggle="popover" title="Confirm Cancel" className="button" onClick={() => props.cancelconf()} type="submit">Yes, Cancel</Button>}
+              <Button data-toggle="popover" title="Confirm Cancel" className="button" onClick={() => props.cancelconf()} type="submit">Yes, Cancel {props.confname}</Button>}
             {props.btnname === "sessDelete" &&
               <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={() => props.deletesess()} type="submit">Yes, Delete</Button>}
             {(props.btnname === "unregAtt" || props.btnname === "admUnregAtt") &&

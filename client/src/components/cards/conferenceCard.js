@@ -158,7 +158,7 @@ const ConferenceCard = ({ conference }) => {
     setCardRender(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showConfirm, showSuccess])
+  }, [showSuccess])
 
   return (
     <>
