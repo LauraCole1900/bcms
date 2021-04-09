@@ -35,6 +35,15 @@ const SuccessModal = (props) => {
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregAtt" &&
               <h4>You have unregistered from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
+          {props.urltype === "attendees" &&
+            (props.btnname === "admUnregAtt" &&
+              <h4>You have unregistered {props.attname} from {props.conference.confName}.</h4>)}
+          {props.urltype === "exhibitors" &&
+            (props.btnname === "admUnregExh" &&
+              <h4>You have unregistered {props.exhname}'s exhibit from {props.conference.confName}.</h4>)}
+          {props.urltype === "presenters" &&
+            (props.btnname === "admUnregPres" &&
+              <h4>{props.presname} is no longer presenting at {props.conference.confName}.</h4>)}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregExh" &&
               <h4>You have unregistered your exhibit from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
@@ -45,7 +54,7 @@ const SuccessModal = (props) => {
             (props.btnname === "sessDelete" &&
               <h4>Delete! Delete! Delete!</h4>)}
           <Modal.Footer className="modalFooter">
-            {props.urltype === "details"
+            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters")
               ? <Button data-toggle="popover" title={props.conference.confName} type="button" className="button" onClick={props.hide}>{props.conference.confName}</Button>
               : <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>

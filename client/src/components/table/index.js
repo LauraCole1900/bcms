@@ -418,11 +418,11 @@ const TableComp = (e) => {
           {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
 
           {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-          <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} exhname={exhName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
+          <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
 
-          <SuccessModal conference={conference} urlid={confId} urltype={dataSet} btnname={btnName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
+          <SuccessModal conference={conference[0]} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conference} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={(e) => handleHideErr(e)} />
+          <ErrorModal conference={conference[0]} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={(e) => handleHideErr(e)} />
 
         </Container>
       }
