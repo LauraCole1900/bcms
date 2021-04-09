@@ -252,7 +252,7 @@ const TableComp = (e) => {
     setPageReady(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confId, dataSet])
+  }, [confId, dataSet, showSuccess])
 
   return (
     <>
