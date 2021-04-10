@@ -11,6 +11,7 @@ const Registration = () => {
   const [pageReady, setPageReady] = useState(false);
   const [conference, setConference] = useState({});
   const [attendee, setAttendee] = useState({
+    email: "",
     givenName: "",
     familyName: "",
     phone: "",
@@ -265,16 +266,16 @@ const Registration = () => {
               </Card>
 
               <Row>
-                {(formType === "register_edit")
+                {(formType === "register_edit" || formType === "admin_edit_att")
                   ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                   : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
               </Row>
 
             </Form>
 
-            <SuccessModal conference={conference} urlid={confId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+            <SuccessModal conference={conference} urlid={confId} urltype={formType} attname={attendee.givenName + " " + attendee.familyName} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conference} urlid={confId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+            <ErrorModal conference={conference} urlid={confId} urltype={formType} errmsg={errThrown} attname={attendee.givenName + " " + attendee.familyName} show={showErr} hide={e => handleHideErr(e)} />
 
           </Container>
         )

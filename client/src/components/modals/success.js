@@ -30,8 +30,12 @@ const SuccessModal = (props) => {
             <h4>You have updated your session.</h4>}
           {props.urltype === "register_attend" &&
             <h4>You have registered for {props.conference.confName}.</h4>}
+          {props.urltype === "admin_register_att" &&
+            <h4>You have registered {props.attname} for {props.conference.confName}.</h4>}
           {props.urltype === "register_edit" &&
             <h4>You have edited your registration for {props.conference.confName}.</h4>}
+          {props.urltype === "admin_edit_att" &&
+            <h4>You have edited {props.attname}'s registration for {props.conference.confName}.</h4>}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregAtt" &&
               <h4>You have unregistered from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}

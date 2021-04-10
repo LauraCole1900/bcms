@@ -32,8 +32,12 @@ const ErrorModal = (props) => {
             <h4>{props.errmsg}. Your session was not updated.</h4>}
           {props.urltype === "register_attend" &&
             <h4>{props.errmsg}. Your registration for {props.conference.confName} could not be processed at this time.</h4>}
+          {props.urltype === "admin_register_att" &&
+            <h4>{props.errmsg}. Your registration of {props.attname} for {props.conference.confName} could not be processed at this time.</h4>}
           {props.urltype === "register_edit" &&
             <h4>{props.errmsg}. Your registration for {props.conference.confName} could not be updated at this time.</h4>}
+          {props.urltype === "admin_edit_att" &&
+            <h4>{props.errmsg}. Your registration of {props.attname} for {props.conference.confName} could not be updated at this time.</h4>}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregAtt" &&
               <h4>Your unregistration from {props.conference.confName} could not be processed at this time.</h4>)}
