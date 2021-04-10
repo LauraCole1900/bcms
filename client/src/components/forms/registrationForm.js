@@ -52,17 +52,6 @@ const Registration = () => {
       .catch(err => console.log(err));
   }
 
-  const fetchAttById = async (id) => {
-    await AttendeeAPI.getAttendeeById(id)
-      .then(resp => {
-        console.log("from registrationForm getAttendeeById", resp.data)
-        const attObj = resp.data;
-        return attObj
-      })
-      .catch(err => console.log(err));
-    return false
-  }
-
   useEffect(() => {
     if (isAuthenticated) {
       switch (formType) {
