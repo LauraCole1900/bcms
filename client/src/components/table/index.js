@@ -34,16 +34,16 @@ const TableComp = (e) => {
   const urlArray = window.location.href.split("/");
   const confId = urlArray[urlArray.length - 1];
   const dataSet = urlArray[urlArray.length - 2];
-  
+
   // Modal variables
   const [showConfirm, setShowConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showErr, setShowErr] = useState(false);
-  
-    const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
-    const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend"];
-    const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
-  
+
+  const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
+  const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend"];
+  const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
+
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
     console.log(e.target.name, e.target.dataset.confid, e.target.dataset.confname, e.target.dataset.attname, e.target.dataset.email);

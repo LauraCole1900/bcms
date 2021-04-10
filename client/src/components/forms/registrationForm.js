@@ -42,7 +42,7 @@ const Registration = () => {
 
   // GET call for conference information
   const fetchConf = async (id) => {
-    ConferenceAPI.getConferenceById(id)
+    await ConferenceAPI.getConferenceById(id)
       .then(resp => {
         console.log("from regForm fetchConf", resp.data)
         const confArr = resp.data[0];
@@ -52,18 +52,19 @@ const Registration = () => {
       .catch(err => console.log(err));
   }
 
+  const fetchAttById = async (id) => {
+    await AttendeeAPI.getAttendeeById(id)
+      .then(resp => {
+        console.log("from registrationForm getAttendeeById", resp.data)
+        const attObj = resp.data;
+        return attObj
+      })
+      .catch(err => console.log(err));
+    return false
+  }
+
   useEffect(() => {
     if (isAuthenticated) {
-      // GET call for conference information
-      // ConferenceAPI.getConferenceById(confId)
-      //   .then(resp => {
-      //     console.log("from regForm fetchConf", resp.data)
-      //     const confArr = resp.data[0];
-      //     console.log({ confArr });
-      //     setConference(confArr);
-      //   })
-      //   .catch(err => console.log(err));
-
       switch (formType) {
         case "register_edit":
           fetchConf(confId);
@@ -81,10 +82,9 @@ const Registration = () => {
           AttendeeAPI.getAttendeeById(confId)
             .then(resp => {
               console.log("from registrationForm getAttendeeById", resp.data)
-              const attObj = resp.data
-              setAttendee(attObj);
+              setAttendee(resp.data);
+              fetchConf(resp.data.confId)
             })
-            .then(fetchConf(attendee.confId))
             .catch(err => console.log(err));
           break;
         case "admin_register_att":
