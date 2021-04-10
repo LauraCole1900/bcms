@@ -73,7 +73,7 @@ const Registration = () => {
             .catch(err => console.log(err));
           break;
         case "admin_register_att":
-          // Sets conference ID in state as attendee.confId
+          // Sets conference ID in state as attendee.confId but leaves attendee.email blank
           setAttendee({ ...attendee, confId: confId })
           break;
         default:
