@@ -41,8 +41,8 @@ const AttendeeAPI = {
   },
 
   // UPDATE attendee information by attId
-  updateAttendeeById: function (id, data) {
-    console.log("from API updateAttendeeById", id, data)
+  updateAttendeeById: function (data, id) {
+    console.log("from API updateAttendeeById", data, id)
     return axios.put(`/api/attendee/update/${id}`, data)
   },
 
