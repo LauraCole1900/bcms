@@ -53,7 +53,7 @@ const Registration = () => {
 
       switch (formType) {
         case "register_edit":
-          // GET call to pre-populate form if URL indicates this is an already-registered attendee
+          // GET call by confId and user.email to pre-populate form if URL indicates this is an already-registered attendee
           AttendeeAPI.getAttendeeToUpdate(confId, user.email)
             .then(resp => {
               console.log("from registrationForm getAttendeeToUpdate", resp.data)
@@ -61,6 +61,20 @@ const Registration = () => {
               setAttendee(attArr)
             })
             .catch(err => console.log(err));
+          break;
+        case "admin_edit_att":
+          // GET call by the attId in the URL to pre-populate form
+          AttendeeAPI.getAttendeeById(confId)
+            .then(resp => {
+              console.log("from registrationForm getAttendeeById", resp.data)
+              const attObj = resp.data
+              setAttendee(attObj);
+            })
+            .catch(err => console.log(err));
+          break;
+        case "admin_register_att":
+          // Sets conference ID in state as attendee.confId
+          setAttendee({ ...attendee, confId: confId })
           break;
         default:
           // Sets conference ID in state as attendee.confId and the user's email as attendee.email
@@ -80,21 +94,41 @@ const Registration = () => {
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    console.log("Attendee update", confId, attendee.email);
-    // PUT call to update attendee document
-    AttendeeAPI.updateAttendee({ ...attendee }, confId, attendee.email)
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess();
-        }
-      })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      .catch(err => {
-        console.log(err);
-        setErrThrown(err.message);
-        handleShowErr();
-      })
+    switch (formType) {
+      case "admin_edit_att":
+        console.log("Attendee update", confId)
+        // PUT call to update attendee document by attId in the URL
+        AttendeeAPI.updateAttendeeById({ ...attendee }, confId)
+          .then(res => {
+            // If no errors thrown, show Success modal
+            if (!res.err) {
+              handleShowSuccess();
+            }
+          })
+          // If yes errors thrown, setState(err.message) and show Error modal
+          .catch(err => {
+            console.log(err);
+            setErrThrown(err.message);
+            handleShowErr();
+          })
+        break;
+      default:
+        console.log("Attendee update", confId, attendee.email);
+        // PUT call to update attendee document by confId and email
+        AttendeeAPI.updateAttendee({ ...attendee }, confId, attendee.email)
+          .then(res => {
+            // If no errors thrown, show Success modal
+            if (!res.err) {
+              handleShowSuccess();
+            }
+          })
+          // If yes errors thrown, setState(err.message) and show Error modal
+          .catch(err => {
+            console.log(err);
+            setErrThrown(err.message);
+            handleShowErr();
+          })
+    }
   };
 
   // Handles click on "Submit" button

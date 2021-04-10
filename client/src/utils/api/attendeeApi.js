@@ -9,6 +9,12 @@ const AttendeeAPI = {
   },
 
 
+  // GET one attendee by attID
+  getAttendeeById: function (attId) {
+    console.log("from API getAttendeeById", attId)
+    return axios.get(`/api/attendee/${attId}`)
+  },
+  
   // GET attendees by conference
   getAttendees: function (confId) {
     console.log("from API getAttendees", confId)
@@ -21,7 +27,7 @@ const AttendeeAPI = {
     return axios.get(`/api/attendee/conferences/${email}`)
   },
 
-  // GET one attendee document to update
+  // GET one attendee document to update by email and conference ID
   getAttendeeToUpdate: function (email, confId) {
     console.log("from API getAttendeeToUpdate", email, confId)
     return axios.get(`/api/attendee/conference/${confId}/${email}`)
@@ -34,7 +40,7 @@ const AttendeeAPI = {
     return axios.put(`/api/attendee/update/${confId}/${email}`, formData)
   },
 
-  // UPDATE attendee information by confId and email
+  // UPDATE attendee information by attId
   updateAttendeeById: function (id, data) {
     console.log("from API updateAttendeeById", id, data)
     return axios.put(`/api/attendee/update/${id}`, data)

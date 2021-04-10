@@ -66,7 +66,7 @@ const AttendeeTable = (props) => {
           <td>{att.allergies}</td>
           <td><Form.Check type="checkbox" name="isAdmin" value={att.isAdmin} data-id={att._id} aria-label="adminCheck" className="adminCheck" checked={att.isAdmin === true} onChange={handleInputChange} /></td>
           <td>
-            <Link to={`/register_edit/${att.confId}`} className={location.pathname === `/register_edit/${att.confId}` ? "link active" : "link"}>
+            <Link to={`/admin_edit_att/${att._id}`} className={location.pathname === `/admin_edit_att/${att._id}` ? "link active" : "link"}>
               <Button data-toggle="popover" title="Edit this attendee" className="tbleditbtn">
                 <Image fluid="true" src="/images/edit-icon-2.png" className="tbledit" alt="Edit this attendee" data-attid={att._id} name="attEdit" />
               </Button>

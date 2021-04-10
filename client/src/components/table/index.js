@@ -360,11 +360,11 @@ const TableComp = (e) => {
             </Col>
             <Col sm={2}>
               {dataSet === "attendees" &&
-                <Link to={`/register_attend/${confId}`} className={location.pathname === `/register_attend/${confId}` ? "link active" : "link"}>
+                <Link to={`/admin_register_att/${confId}`} className={location.pathname === `/admin_register_att/${confId}` ? "link active" : "link"}>
                   <Button data-toggle="popover" title="Add an attendee" className="button">Add Attendee</Button>
                 </Link>}
               {dataSet === "exhibitors" &&
-                <Link to={`/register_exhibit/${confId}`} className={location.pathname === `/register_exhibit/${confId}` ? "link active" : "link"}>
+                <Link to={`/admin_register_exh/${confId}`} className={location.pathname === `/admin_register_exh/${confId}` ? "link active" : "link"}>
                   <Button data-toggle="popover" title="Add an exhibitor" className="button">Add Exhibitor</Button>
                 </Link>}
               {dataSet === "presenters" &&
