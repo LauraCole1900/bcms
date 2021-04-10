@@ -40,20 +40,33 @@ const Registration = () => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
+  // GET call for conference information
+  const fetchConf = async (id) => {
+    ConferenceAPI.getConferenceById(id)
+      .then(resp => {
+        console.log("from regForm fetchConf", resp.data)
+        const confArr = resp.data[0];
+        console.log({ confArr });
+        setConference(confArr);
+      })
+      .catch(err => console.log(err));
+  }
+
   useEffect(() => {
     if (isAuthenticated) {
       // GET call for conference information
-      ConferenceAPI.getConferenceById(confId)
-        .then(resp => {
-          console.log("from regForm fetchConf", resp.data)
-          const confArr = resp.data[0];
-          console.log({ confArr });
-          setConference(confArr);
-        })
-        .catch(err => console.log(err));
+      // ConferenceAPI.getConferenceById(confId)
+      //   .then(resp => {
+      //     console.log("from regForm fetchConf", resp.data)
+      //     const confArr = resp.data[0];
+      //     console.log({ confArr });
+      //     setConference(confArr);
+      //   })
+      //   .catch(err => console.log(err));
 
       switch (formType) {
         case "register_edit":
+          fetchConf(confId);
           // GET call by confId and user.email to pre-populate form if URL indicates this is an already-registered attendee
           AttendeeAPI.getAttendeeToUpdate(confId, user.email)
             .then(resp => {
@@ -71,13 +84,16 @@ const Registration = () => {
               const attObj = resp.data
               setAttendee(attObj);
             })
+            .then(fetchConf(attendee.confId))
             .catch(err => console.log(err));
           break;
         case "admin_register_att":
+          fetchConf(confId);
           // Sets conference ID in state as attendee.confId but leaves attendee.email blank
           setAttendee({ ...attendee, confId: confId })
           break;
         default:
+          fetchConf(confId);
           // Sets conference ID in state as attendee.confId and the user's email as attendee.email
           setAttendee({ ...attendee, confId: confId, email: user.email })
       }
