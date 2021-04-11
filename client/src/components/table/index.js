@@ -403,7 +403,7 @@ const TableComp = (e) => {
                   : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
               {dataSet === "exhibitors" && (
                 exhibitors.length > 0
-                  ? <ExhibitorTable exhibitors={searchFilter(exhibitors)} conference={conference} confcd={fetchConf} exhcb={fetchExhibitors} />
+                  ? <ExhibitorTable exhibitors={searchFilter(exhibitors)} conference={conference} confcd={fetchConf} exhcb={fetchExhibitors} delete={handleShowConfirm} />
                   : <tr><td className="tableComm">We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</td></tr>)}
               {dataSet === "presenters" && (
                 presenters.length > 0
