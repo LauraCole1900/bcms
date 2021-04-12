@@ -77,12 +77,6 @@ const ExhibitForm = () => {
     setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
   };
 
-  // Adds workers to exhWorkerNames array
-  const handleSetWorkers = (e) => {
-    let workerArray = exhibitor.exhWorkerNames.concat(e.target.value)
-    setExhibitor({ ...exhibitor, exhWorkerNames: workerArray })
-  }
-
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
