@@ -13,7 +13,7 @@ const AttendeeTable = (props) => {
     return adminEmail
   }
 
-  // Click handler for checkbox
+  // Click handler for "isAdmin" checkbox
   const handleInputChange = async (e) => {
     console.log("Attendee table", e.target.value, e.target.dataset.id);
     let adminConf;

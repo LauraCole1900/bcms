@@ -10,7 +10,17 @@ const ExhibitForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [pageReady, setPageReady] = useState(false);
   const [conference, setConference] = useState({});
-  const [exhibitor, setExhibitor] = useState({});
+  const [exhibitor, setExhibitor] = useState({
+    exhGivenName: "",
+    exhFamilyName: "",
+    exhEmail: "",
+    exhCompany: "",
+    exhPhone: "",
+    exhCompanyAddress: "",
+    exhWorkers: 1,
+    exhWorkerNames: [],
+    exhSpaces: 1
+  });
   const [errThrown, setErrThrown] = useState();
 
   // Breaks down the URL
@@ -67,6 +77,7 @@ const ExhibitForm = () => {
     setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
   };
 
+  // Adds workers to exhWorkerNames array
   // const handleSetWorkers = (e) => {
 
   // }
@@ -185,13 +196,13 @@ const ExhibitForm = () => {
                     </Col>
                     <Col sm={8}>
                       <Form.Label>Names of workers (one name per line): <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="exhWorkerName1" placeholder="Yazmin Khan" value={exhibitor.exhWorkerName1} className="exhNameArr" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="exhWorkerNames" placeholder="Yazmin Khan" value={exhibitor.exhWorkerNames[0]} className="exhNameArr" onChange={handleInputChange} />
                       {exhibitor.exhWorkers > 1 &&
-                        <Form.Control type="input" name="exhWorkerName2" placeholder="Ryan Sinclair" value={exhibitor.exhWorkerName2} className="exhNameArr" onChange={handleInputChange} />}
+                        <Form.Control type="input" name="exhWorkerNames" placeholder="Ryan Sinclair" value={exhibitor.exhWorkerNames[1]} className="exhNameArr" onChange={handleInputChange} />}
                       {exhibitor.exhWorkers > 2 &&
-                        <Form.Control required type="input" name="exhWorkerName3" placeholder="Graham O'Brien" value={exhibitor.exhWorkerName3} className="exhNameArr" onChange={handleInputChange} />}
+                        <Form.Control required type="input" name="exhWorkerNames" placeholder="Graham O'Brien" value={exhibitor.exhWorkerNames[2]} className="exhNameArr" onChange={handleInputChange} />}
                       {exhibitor.exhWorkers > 3 &&
-                        <Form.Control required type="input" name="exhWorkerName4" placeholder="Jack Harkness" value={exhibitor.exhWorkerName4} className="exhNameArr" onChange={handleInputChange} />}
+                        <Form.Control required type="input" name="exhWorkerNames" placeholder="Jack Harkness" value={exhibitor.exhWorkerNames[3]} className="exhNameArr" onChange={handleInputChange} />}
                     </Col>
                   </Form.Group>
                 </Row>
