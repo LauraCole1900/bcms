@@ -78,9 +78,10 @@ const ExhibitForm = () => {
   };
 
   // Adds workers to exhWorkerNames array
-  // const handleSetWorkers = (e) => {
-
-  // }
+  const handleSetWorkers = (e) => {
+    const workerArray = exhibitor.exhWorkerNames.concat(e.target.value)
+    setExhibitor({ ...exhibitor, exhWorkerNames: workerArray })
+  }
 
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
@@ -196,13 +197,13 @@ const ExhibitForm = () => {
                     </Col>
                     <Col sm={8}>
                       <Form.Label>Names of workers (one name per line): <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="exhWorkerNames" placeholder="Yazmin Khan" value={exhibitor.exhWorkerNames[0]} className="exhNameArr" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="exhWorkerNames" placeholder="Yazmin Khan" value={exhibitor.exhWorkerNames[0]} className="exhNameArr" onChange={handleSetWorkers} />
                       {exhibitor.exhWorkers > 1 &&
-                        <Form.Control type="input" name="exhWorkerNames" placeholder="Ryan Sinclair" value={exhibitor.exhWorkerNames[1]} className="exhNameArr" onChange={handleInputChange} />}
+                        <Form.Control type="input" name="exhWorkerNames" placeholder="Ryan Sinclair" value={exhibitor.exhWorkerNames[1]} className="exhNameArr" onChange={handleSetWorkers} />}
                       {exhibitor.exhWorkers > 2 &&
-                        <Form.Control required type="input" name="exhWorkerNames" placeholder="Graham O'Brien" value={exhibitor.exhWorkerNames[2]} className="exhNameArr" onChange={handleInputChange} />}
+                        <Form.Control required type="input" name="exhWorkerNames" placeholder="Graham O'Brien" value={exhibitor.exhWorkerNames[2]} className="exhNameArr" onChange={handleSetWorkers} />}
                       {exhibitor.exhWorkers > 3 &&
-                        <Form.Control required type="input" name="exhWorkerNames" placeholder="Jack Harkness" value={exhibitor.exhWorkerNames[3]} className="exhNameArr" onChange={handleInputChange} />}
+                        <Form.Control required type="input" name="exhWorkerNames" placeholder="Jack Harkness" value={exhibitor.exhWorkerNames[3]} className="exhNameArr" onChange={handleSetWorkers} />}
                     </Col>
                   </Form.Group>
                 </Row>
