@@ -78,7 +78,7 @@ const Registration = () => {
           break;
         case "admin_register_att":
           fetchConf(confId);
-          // Sets conference ID in state as attendee.confId but leaves attendee.email blank
+          // Sets conference ID in state as attendee.confId
           setAttendee({ ...attendee, confId: confId })
           break;
         default:

@@ -40,20 +40,24 @@ const ExhibitForm = () => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
+  // GET call for conference information
+  const fetchConf = async (id) => {
+    await ConferenceAPI.getConferenceById(id)
+      .then(resp => {
+        console.log("from exhibitForm getConferenceById", resp.data)
+        const confArr = resp.data[0];
+        console.log({ confArr })
+        setConference(confArr);
+      })
+      .catch(err => console.log(err));
+  }
+
   useEffect(() => {
     if (isAuthenticated) {
-      // GET call for conference information
-      ConferenceAPI.getConferenceById(confId)
-        .then(resp => {
-          console.log("from registrationForm getConferenceById", resp.data)
-          const confArr = resp.data[0];
-          setConference(confArr);
-        })
-        .catch(err => console.log(err));
-
       switch (formType) {
         case "edit_exhibit":
-          // GET call to pre-populate the form if URL indicates this is an existing exhibitor
+          fetchConf(confId)
+          // GET call by confId and user.email to pre-populate the form if URL indicates this is an existing exhibitor
           ExhibitorAPI.getExhibitorToUpdate(confId, user.email)
             .then(resp => {
               console.log("from exhibitorForm getExhibitorToUpdate", resp.data)
@@ -62,13 +66,28 @@ const ExhibitForm = () => {
             })
             .catch(err => console.log(err))
           break;
+        case "admin_edit_exh":
+          // GET call by the exhId in the URL to pre-populate the form
+          ExhibitorAPI.getExhibitorById(confId)
+            .then(resp => {
+              console.log("from exhibitForm getExhibitorById", resp.data)
+              setExhibitor(resp.data)
+              fetchConf(resp.data.confId)
+            })
+          break;
+        case "admin_register_exh":
+          fetchConf(confId);
+          // Sets confId in state as exhibitor.confId
+          setExhibitor({ ...exhibitor, confId: confId })
+          break;
         default:
+          fetchConf(confId);
           // Sets the conference ID in state as exhibitor.confId and the user's email as exhibitor.exhEmail
-          setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email, })
+          setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email })
       }
     }
     setPageReady(true);
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -139,21 +158,22 @@ const ExhibitForm = () => {
                     <h1>Company Information</h1>
                   </Col>
                 </Row>
-                <Row>
-                  <Col sm={12}>
-                    <p className="subtitle">Please note that BCMS automatically assigns the logged-in email as the contact email.</p>
-                  </Col>
-                </Row>
               </Card.Title>
               <Card.Body className="cardBody">
                 <Form.Group controlId="exhContactPerson">
                   <Row>
                     <Col sm={6}>
-                      <Form.Label>Contact person's given name: <span className="red">*</span></Form.Label>
+                      <Form.Label>Contact email: <span className="red">*</span></Form.Label>
+                      <Form.Control required type="email" name="exhEmail" placeholder="name@email.com" value={exhibitor.exhEmail} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Label>Contact person's first name: <span className="red">*</span></Form.Label>
                       <Form.Control required type="input" name="exhGivenName" placeholder="Jack" value={exhibitor.exhGivenName} className="formInput" onChange={handleInputChange} />
                     </Col>
                     <Col sm={6}>
-                      <Form.Label>Contact person's family name: <span className="red">*</span></Form.Label>
+                      <Form.Label>Contact person's last name: <span className="red">*</span></Form.Label>
                       <Form.Control required type="input" name="exhFamilyName" placeholder="Harkness" value={exhibitor.exhFamilyName} className="formInput" onChange={handleInputChange} />
                     </Col>
                   </Row>
@@ -221,9 +241,9 @@ const ExhibitForm = () => {
 
           </Form>
 
-          <SuccessModal conference={conference} urlid={confId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+          <SuccessModal conference={conference} urlid={confId} urltype={formType} exhname={exhibitor.exhCompany} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conference} urlid={confId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+          <ErrorModal conference={conference} urlid={confId} urltype={formType} errmsg={errThrown} exhname={exhibitor.exhCompany} show={showErr} hide={e => handleHideErr(e)} />
 
         </Container>}
     </>
