@@ -234,7 +234,7 @@ const ExhibitForm = () => {
             </Card>
 
             <Row>
-              {(formType === "register_exhibit")
+              {(formType === "register_exhibit" || formType === "admin_register_exh")
                 ? <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>
                 : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>}
             </Row>
