@@ -146,6 +146,10 @@ const ConfDetails = () => {
                 <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
                   <Button title="Venue information" className="button">Venue</Button>
                 </Link>
+                {conference[0].confSessProposalConfirm === "yes" &&
+                  <Link to={`/propose_session/${confId}`} className={location.pathname === `/propose_session/${confId}` ? "link active" : "link"}>
+                    <Button title="Session proposal form" className="button">Session proposal form</Button>
+                  </Link>}
               </ButtonGroup>
             </Col>
             <Col sm={1}></Col>
