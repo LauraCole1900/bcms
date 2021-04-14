@@ -31,7 +31,7 @@ function App() {
         <Route path={["/new_conference", "/edit_conference/*"]} component={ConferenceForm} />
         <Route path={["/add_supplemental/*", "/edit_supplemental/*"]} component={Supplemental} />
         <Route path={["/new_session/*", "/edit_session/*"]} component={SessionForm} />
-        <Route path="/propose_session/*" component={SessionProposal} />
+        <Route path={["/propose_session/*", "/edit_sess_proposal/*"]} component={SessionProposal} />
         <Route path={["/register_exhibit/*", "/edit_exhibit/*", "/admin_register_exh/*", "/admin_edit_exh/*"]} component={ExhibitForm} />
         <Route path="/update_user" component={UpdateUser} />
         <Route path={["/register_attend/*", "/register_edit/*", "/admin_register_att/*", "/admin_edit_att/*"]} component={Registration} />

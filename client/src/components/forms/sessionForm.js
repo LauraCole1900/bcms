@@ -79,24 +79,6 @@ const SessionForm = () => {
     }
   }
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      switch (formType) {
-        // GET call to pre-populate the form if the URL indicates this is an existing session
-        case "edit_session":
-          fetchConf(urlId);
-          break;
-        // Puts conference ID in state as session.confId
-        default:
-          setSession({ ...session, confId: urlId })
-          setSessReady(true);
-          fetchConf(urlId);
-      }
-    }
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     setSession({ ...session, [e.target.name]: e.target.value })
@@ -141,6 +123,24 @@ const SessionForm = () => {
         handleShowErr();
       });
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      switch (formType) {
+        // GET call to pre-populate the form if the URL indicates this is an existing session
+        case "edit_session":
+          fetchConf(urlId);
+          break;
+        // Puts conference ID in state as session.confId
+        default:
+          setSession({ ...session, confId: urlId })
+          setSessReady(true);
+          fetchConf(urlId);
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
 
   return (
