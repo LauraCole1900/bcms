@@ -151,6 +151,25 @@ const SessionProposal = () => {
           </Link> to access the session proposal form.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
+
+        {isAuthenticated &&
+        sessReady === true &&
+        confReady === true &&
+        <Container>
+          <Form className="sessPropForm">
+
+            <Card className="formCard">
+              <Card.Title><h1>Presenter Information</h1></Card.Title>
+
+              <Card.Body className="cardBody">
+                <Row>
+                  
+                </Row>
+              </Card.Body>
+            </Card>
+
+          </Form>
+        </Container>}
     </>
   )
 }
