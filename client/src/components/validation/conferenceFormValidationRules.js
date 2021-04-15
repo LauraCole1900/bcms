@@ -13,34 +13,30 @@ const confValidate = (conference) => {
   }
 
   // conference name errors
-  if (!conference.confName || conference.confName < 3) {
+  if (!conference.confName || conference.confName.length < 3) {
     errors.confName = "Please name your conference!"
   }
 
   // presenting organization errors
-  if (!conference.confOrg || conference.confOrg < 3) {
+  if (!conference.confOrg || conference.confOrg.length < 3) {
     errors.confOrg = "Please tell us the organization presenting your conference."
   }
 
   // conference description errors
   if (!conference.confDesc) {
     errors.confDesc = "Please describe or summarize your conference."
-  } else if (conference.confDesc < 50) {
+  } else if (conference.confDesc.length < 50) {
     errors.confDesc = "We want to know more! Please use 50 or more characters to describe or summarize your conference."
   }
 
   // start-date errors
   if (!conference.startDate) {
     errors.startDate = "When does your conference start?"
-  } else if (!/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.text(conference.startDate)) {
-    errors.startDate = "When does your conference start? Please enter the date in dd/mm/yyyy or dd-mm-yyyy format."
   }
 
   // end-date errors
   if (!conference.endDate) {
     errors.endDate = "When does your conference end?"
-  } else if (!/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.text(conference.endDate)) {
-    errors.endDate = "When does your conference end? Please enter the date in dd/mm/yyyy or dd-mm-yyyy format."
   }
 
   // start time errors
@@ -66,8 +62,6 @@ const confValidate = (conference) => {
   // registration deadline errors
   if (!conference.confRegDeadline) {
     errors.confRegDeadline = "Please tell us the registration deadline. If there is no registration deadline, please enter the conference's end date."
-  } else if (!/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.text(conference.confRegDeadline)) {
-    errors.confRegDeadline = "When is the registration deadline? Please enter the date in dd/mm/yyyy or dd-mm-yyyy format."
   }
 
   // keynote errors

@@ -110,41 +110,55 @@ const ConferenceForm = () => {
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    console.log("Conference update", confId);
-    // PUT call to update conference document
-    ConferenceAPI.updateConference({ ...conference }, confId)
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess();
-        }
-      })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      .catch(err => {
-        console.log(err);
-        setErrThrown(err.message);
-        handleShowErr();
-      });
+    // Validates required inputs
+    const validationErrors = confValidate(conference);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    if (noErrors) {
+      console.log("Conference update", confId);
+      // PUT call to update conference document
+      ConferenceAPI.updateConference({ ...conference }, confId)
+        .then(res => {
+          // If no errors thrown, show Success modal
+          if (!res.err) {
+            handleShowSuccess();
+          }
+        })
+        // If yes errors thrown, setState(err.message) and show Error modal
+        .catch(err => {
+          console.log(err);
+          setErrThrown(err.message);
+          handleShowErr();
+        });
+    } else {
+      console.log({ validationErrors });
+    }
   }
 
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Conference submit", conference)
-    // POST call to create conference document
-    ConferenceAPI.createConference({ ...conference })
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess();
-        }
-      })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      .catch(err => {
-        console.log(err);
-        setErrThrown(err.message);
-        handleShowErr();
-      });
+    // Validates required inputs
+    const validationErrors = confValidate(conference);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    if (noErrors) {
+      console.log("Conference submit", conference)
+      // POST call to create conference document
+      ConferenceAPI.createConference({ ...conference })
+        .then(res => {
+          // If no errors thrown, show Success modal
+          if (!res.err) {
+            handleShowSuccess();
+          }
+        })
+        // If yes errors thrown, setState(err.message) and show Error modal
+        .catch(err => {
+          console.log(err);
+          setErrThrown(err.message);
+          handleShowErr();
+        });
+    } else {
+      console.log({ validationErrors });
+    }
   }
 
   useEffect(() => {
