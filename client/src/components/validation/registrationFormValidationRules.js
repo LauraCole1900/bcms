@@ -1,5 +1,5 @@
-const RegValidate = (values) => {
+const regValidate = (values) => {
 
 }
 
-export default RegValidate;
+export default regValidate;

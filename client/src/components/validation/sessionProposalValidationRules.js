@@ -1,5 +1,5 @@
-const SessPropValidate = (values) => {
+const sessPropValidate = (values) => {
 
 }
 
-export default SessPropValidate;
+export default sessPropValidate;

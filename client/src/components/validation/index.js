@@ -1,5 +1,5 @@
-export { default as ConfValidate } from "./conferenceFormValidationRules";
-export { default as ExhibitValidate} from "./exhibitFormValidationRules";
-export { default as RegValidate } from "./registrationFormValidationRules";
-export { default as SessValidate } from "./sessionFormValidationRules";
-export { default as SessPropValidate } from "./sessionProposalValidationRules";
+export { default as confValidate } from "./conferenceFormValidationRules";
+export { default as exhibitValidate} from "./exhibitFormValidationRules";
+export { default as regValidate } from "./registrationFormValidationRules";
+export { default as sessValidate } from "./sessionFormValidationRules";
+export { default as sessPropValidate } from "./sessionProposalValidationRules";

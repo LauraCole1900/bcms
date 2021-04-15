@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import "moment-timezone";
 import { ConferenceAPI } from "../../utils/api";
 import { ErrorModal, SuccessModal } from "../modals";
+import { confValidate } from "../validation";
 import "./style.css";
 
 const ConferenceForm = () => {

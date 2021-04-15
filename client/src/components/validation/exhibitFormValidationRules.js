@@ -1,5 +1,5 @@
-const ExhibitValidate = (values) => {
+const exhibitValidate = (values) => {
 
 }
 
-export default ExhibitValidate;
+export default exhibitValidate;
