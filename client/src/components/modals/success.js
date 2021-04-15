@@ -66,9 +66,10 @@ const SuccessModal = (props) => {
             (props.btnname === "sessDelete" &&
               <h4>Delete! Delete! Delete!</h4>)}
           <Modal.Footer className="modalFooter">
-            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters")
-              ? <Button data-toggle="popover" title={props.conference.confName} type="button" className="button" onClick={props.hide}>{props.conference.confName}</Button>
-              : <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
+            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
+              <Button data-toggle="popover" title={props.conference.confName} type="button" className="button" onClick={props.hide}>{props.conference.confName}</Button>}
+            {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
+              <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
               </Link>}
             {props.urlid === "conferences"
