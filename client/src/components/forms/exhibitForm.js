@@ -18,7 +18,10 @@ const ExhibitForm = () => {
     exhPhone: "",
     exhCompanyAddress: "",
     exhWorkers: 1,
-    exhWorkerNames: [],
+    exhWorkerName1: "",
+    exhWorkerName2: "",
+    exhWorkerName3: "",
+    exhWorkerName4: "",
     exhSpaces: 1
   });
   const [errThrown, setErrThrown] = useState();
