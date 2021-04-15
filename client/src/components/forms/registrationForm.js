@@ -19,6 +19,8 @@ const Registration = () => {
     employerAddress: "",
     emergencyContactName: "",
     emergencyContactPhone: "",
+    allergyConfirm: "",
+    allergies: "",
   });
   const [errThrown, setErrThrown] = useState();
 
