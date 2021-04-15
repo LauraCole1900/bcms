@@ -35,3 +35,9 @@ form {
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
 }
+
+.error {
+  background-color: red;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: bolder;
+}

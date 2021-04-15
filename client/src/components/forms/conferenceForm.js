@@ -13,6 +13,7 @@ const ConferenceForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [pageReady, setPageReady] = useState(false);
   const [errThrown, setErrThrown] = useState();
+  const [errors, setErrors] = useState();
   const [conference, setConference] = useState({
     ownerConfirm: "",
     ownerEmail: "",
@@ -113,6 +114,7 @@ const ConferenceForm = () => {
     // Validates required inputs
     const validationErrors = confValidate(conference);
     const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors)
     if (noErrors) {
       console.log("Conference update", confId);
       // PUT call to update conference document
@@ -234,11 +236,13 @@ const ConferenceForm = () => {
                       {conference.ownerConfirm === "yes" &&
                         <Form.Text>The email that is currently logged in has been set as the owner's email.</Form.Text>}
                       {conference.ownerConfirm === "no" &&
-                        <div><Form.Text>The email that is currently logged in has been set as a conference admin. Please add yourself as an attendee when you finish this form either by clicking "Register as attendee" or "View details" for this conference.</Form.Text>
+                        <div><Form.Text>Please add yourself as an attendee when you finish this form either by clicking "Register as attendee" or "View details" for this conference.</Form.Text>
                           <Form.Group controlId="formOwnerEmail">
                             <Form.Label>What is the owner's/primary organizer's email? <span className="red">*</span></Form.Label>
                             <Form.Control type="email" name="ownerEmail" placeholder="name@email.com" value={conference.ownerEmail} className="formInput" onChange={handleInputChange} />
                           </Form.Group>
+                          {/* {errors.ownerEmail &&
+                          <div className="error"><p>{errors.ownerEmail}</p></div>} */}
                         </div>}
                     </Col>
                   </Row>
