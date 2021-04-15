@@ -15,6 +15,7 @@ const ConferenceForm = () => {
   const [conference, setConference] = useState({
     ownerConfirm: "",
     ownerEmail: "",
+    confAdmins: [],
     confName: "",
     confOrg: "",
     confDesc: "",
@@ -25,11 +26,21 @@ const ConferenceForm = () => {
     confEndTime: "",
     confType: "",
     confLoc: "",
+    confLocName: "",
+    confLocUrl: "",
     confRegDeadline: "",
-    confEarlyRegDeadline: "",
+    confKeynote: "",
     confCapConfirm: "no",
+    confAttendCap: "",
     confFee: "no",
+    confFeeAmt: "",
     confEarlyRegConfirm: "no",
+    confEarlyRegDeadline: "",
+    confEarlyRegFee: "",
+    confEarlyRegSwagConfirm: "",
+    confEarlyRegSwagType: "",
+    confEarlyRegSizeConfirm: "",
+    confSessProposalConfirm: "",
     confAllergies: "no",
     confWaiver: "no",
     confCancel: "no",
@@ -181,7 +192,7 @@ const ConferenceForm = () => {
                   <Card.Body>
                     <Row>
                       <Col sm={12}>
-                        <h3>Please remember to scroll to the bottom of the page and click "Update Form" after changing this!</h3>
+                        <h3>This section will disappear after you change it. Please remember to scroll to the bottom of the page and click "Update Form" anyway!</h3>
                       </Col>
                     </Row>
                     <Row>

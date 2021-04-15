@@ -68,7 +68,7 @@ const conferenceSchema = new Schema({
     required: "Please select whether your conference has a cap on the number of attendees."
   },
   confAttendCap: {
-    type: String
+    type: Number
   },
   confFee: {
     type: String,
