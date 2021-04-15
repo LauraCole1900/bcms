@@ -8,7 +8,20 @@ import "./style.css";
 
 const SessionForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const [session, setSession] = useState();
+  const [session, setSession] = useState({
+    sessName: "",
+    sessNumPres: 1,
+    sessPresenter: "",
+    sessPresenterEmail: "",
+    sessPresenterBio: "",
+    sessPresenterPic: "",
+    sessPresenterOrg: "",
+    sessDate: "",
+    sessStart: "",
+    sessEnd: "",
+    sessKeynote: "",
+    sessRoom: ""
+  });
   const [conference, setConference] = useState();
   const [errThrown, setErrThrown] = useState();
   const [sessReady, setSessReady] = useState(false);
