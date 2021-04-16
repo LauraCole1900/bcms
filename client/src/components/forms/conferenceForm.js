@@ -13,7 +13,7 @@ const ConferenceForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [pageReady, setPageReady] = useState(false);
   const [errThrown, setErrThrown] = useState();
-  const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState({});
   const [conference, setConference] = useState({
     ownerConfirm: "",
     ownerEmail: "",
@@ -118,7 +118,7 @@ const ConferenceForm = () => {
     // Validates required inputs
     const validationErrors = confValidate(conference);
     const noErrors = Object.keys(validationErrors).length === 0;
-    setErrors(validationErrors)
+    setErrors(validationErrors);
     if (noErrors) {
       console.log("Conference update", confId);
       // PUT call to update conference document
@@ -146,6 +146,7 @@ const ConferenceForm = () => {
     // Validates required inputs
     const validationErrors = confValidate(conference);
     const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
     if (noErrors) {
       console.log("Conference submit", conference)
       // POST call to create conference document
@@ -245,8 +246,8 @@ const ConferenceForm = () => {
                             <Form.Label>What is the owner's/primary organizer's email? <span className="red">*</span></Form.Label>
                             <Form.Control type="email" name="ownerEmail" placeholder="name@email.com" value={conference.ownerEmail} className="formInput" onChange={e => handleInputChange(e)} onSubmit={e => setOwnerEmail(e)} />
                           </Form.Group>
-                          {/* {errors.ownerEmail.length > 0 &&
-                          <div className="error"><p>{errors.ownerEmail}</p></div>} */}
+                          {errors.ownerEmail &&
+                            <div className="error"><p>{errors.ownerEmail}</p></div>}
                         </div>}
                     </Col>
                   </Row>
