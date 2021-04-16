@@ -244,10 +244,10 @@ const ConferenceForm = () => {
                         <div><Form.Text>Please add yourself as an attendee when you finish this form either by clicking "Register as attendee" or "View details" for this conference.</Form.Text>
                           <Form.Group controlId="formOwnerEmail">
                             <Form.Label>What is the owner's/primary organizer's email? <span className="red">*</span></Form.Label>
+                            {errors.ownerEmail &&
+                              <div className="error"><p>{errors.ownerEmail}</p></div>}
                             <Form.Control type="email" name="ownerEmail" placeholder="name@email.com" value={conference.ownerEmail} className="formInput" onChange={e => handleInputChange(e)} onSubmit={e => setOwnerEmail(e)} />
                           </Form.Group>
-                          {errors.ownerEmail &&
-                            <div className="error"><p>{errors.ownerEmail}</p></div>}
                         </div>}
                     </Col>
                   </Row>
@@ -256,10 +256,10 @@ const ConferenceForm = () => {
                     <Col sm={12}>
                       <Form.Group controlId="formConfName">
                         <Form.Label>Name of conference: <span className="red">*</span></Form.Label>
+                        {errors.confName &&
+                          <div className="error"><p>{errors.confName}</p></div>}
                         <Form.Control required type="input" name="confName" placeholder="Enter conference name" value={conference.confName} className="formInput" onChange={handleInputChange} />
                       </Form.Group>
-                      {errors.confName &&
-                        <div className="error"><p>{errors.confName}</p></div>}
                     </Col>
                   </Row>
 
@@ -267,10 +267,10 @@ const ConferenceForm = () => {
                     <Col sm={12}>
                       <Form.Group controlId="formConfOrg">
                         <Form.Label>Conference organization: <span className="red">*</span></Form.Label>
+                        {errors.confOrg &&
+                          <div className="error"><p>{errors.confOrg}</p></div>}
                         <Form.Control required type="input" name="confOrg" placeholder="Enter name of organizing body" value={conference.confOrg} className="formInput" onChange={handleInputChange} />
                       </Form.Group>
-                      {errors.confOrg &&
-                        <div className="error"><p>{errors.confOrg}</p></div>}
                     </Col>
                   </Row>
 
@@ -278,10 +278,10 @@ const ConferenceForm = () => {
                     <Col sm={12}>
                       <Form.Group controlId="formConfDesc">
                         <Form.Label>Conference description (min 50 characters): <span className="red">*</span></Form.Label>
+                        {errors.confDesc &&
+                          <div className="error"><p>{errors.confDesc}</p></div>}
                         <Form.Control required as="textarea" rows={10} type="input" name="confDesc" placeholder="Enter conference description" value={conference.confDesc} className="formText" onChange={handleInputChange} />
                       </Form.Group>
-                      {errors.confDesc &&
-                        <div className="error"><p>{errors.confDesc}</p></div>}
                     </Col>
                   </Row>
                 </Card.Body>
@@ -294,10 +294,14 @@ const ConferenceForm = () => {
                     <Form.Group controlId="formConfDates">
                       <Col sm={4}>
                         <Form.Label>Conference start date: <span className="red">*</span></Form.Label>
+                        {errors.startDate &&
+                          <div className="error"><p>{errors.startDate}</p></div>}
                         <Form.Control required type="date" name="startDate" placeholder="2021/01/01" value={conference.startDate} className="formDate" onChange={handleInputChange} />
                       </Col>
                       <Col sm={4}>
                         <Form.Label>Conference end date: <span className="red">*</span></Form.Label>
+                        {errors.endDate &&
+                          <div className="error"><p>{errors.endDate}</p></div>}
                         <Form.Control required type="date" min={conference.startDate} name="endDate" placeholder="2021/01/01" value={conference.endDate} className="formDate" onChange={findNumDays} />
                       </Col>
                       {conference.startDate !== "" &&
@@ -312,10 +316,14 @@ const ConferenceForm = () => {
                     <Form.Group controlId="formConfTimes">
                       <Col sm={4}>
                         <Form.Label>Conference start time: <span className="red">*</span></Form.Label>
+                        {errors.confStartTime &&
+                          <div className="error"><p>{errors.confStartTime}</p></div>}
                         <Form.Control required type="time" name="confStartTime" placeholder="09:00" value={conference.confStartTime} className="formTime" onChange={handleInputChange} />
                       </Col>
                       <Col sm={4}>
                         <Form.Label>Conference end time: <span className="red">*</span></Form.Label>
+                        {errors.confEndTime &&
+                          <div className="error"><p>{errors.confEndTime}</p></div>}
                         <Form.Control required type="time" name="confEndTime" placeholder="17:00" value={conference.confEndTime} className="formTime" onChange={handleInputChange} />
                       </Col>
                     </Form.Group>
@@ -325,6 +333,8 @@ const ConferenceForm = () => {
                     <Col sm={12}>
                       <Form.Group controlId="formConfType">
                         <Form.Label>Live or Virtual? <span className="red">*</span></Form.Label>
+                        {errors.confType &&
+                          <div className="error"><p>{errors.confType}</p></div>}
                         <Form.Check type="radio" id="confLive" name="confType" label="Live" value="Live" checked={conference.confType === "Live"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confVirtual" name="confType" label="Virtual" value="Virtual" checked={conference.confType === "Virtual"} onChange={handleInputChange} />
                       </Form.Group>
@@ -337,6 +347,8 @@ const ConferenceForm = () => {
                         <Col sm={12}>
                           <Form.Group controlId="formConfLocLive">
                             <Form.Label>Venue: <span className="red">*</span></Form.Label>
+                            {errors.confLocLive &&
+                              <div className="error"><p>{errors.confLocLive}</p></div>}
                             <Form.Control required type="input" name="confLocName" placeholder="Enter venue name" value={conference.confLocName} className="formInput" onChange={handleInputChange} />
                             <Form.Control required type="input" name="confLoc" placeholder="Enter venue address" value={conference.confLoc} className="formInput" onChange={handleInputChange} />
                           </Form.Group>
@@ -360,6 +372,8 @@ const ConferenceForm = () => {
                         <Col sm={12}>
                           <Form.Group controlId="formConfLocVir">
                             <Form.Label>Message or link text: <span className="red">*</span></Form.Label>
+                            {errors.confLocVir &&
+                              <div className="error"><p>{errors.confLocVir}</p></div>}
                             <Form.Control required type="input" name="confLoc" placeholder="Enter link text or advisory that URL will be emailed to attendees at a future date" value={conference.confLoc} className="formInput" onChange={handleInputChange} />
                           </Form.Group>
                         </Col>
@@ -386,6 +400,8 @@ const ConferenceForm = () => {
                       <Form.Group controlId="formRegDeadline">
                         <Form.Label>Registration deadline: <span className="red">*</span></Form.Label><br />
                         <Form.Text className="subtitle" muted>If attendees may register through the entire conference, please enter the conference's end date.</Form.Text>
+                        {errors.confRegDeadline &&
+                          <div className="error"><p>{errors.confRegDeadline}</p></div>}
                         <Form.Control required type="date" max={conference.endDate} name="confRegDeadline" placeholder="2021/01/01" value={conference.confRegDeadline} className="formDate" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
@@ -395,6 +411,8 @@ const ConferenceForm = () => {
                     <Col sm={6}>
                       <Form.Group controlId="formConfFeeConfirm">
                         <Form.Label>Will a registration fee be charged? <span className="red">*</span></Form.Label>
+                        {errors.confFee &&
+                          <div className="error"><p>{errors.confFee}</p></div>}
                         <Form.Check type="radio" id="confFeeYes" name="confFee" label="Yes" value="yes" checked={conference.confFee === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confFeeNo" name="confFee" label="No" value="no" checked={conference.confFee === "no"} onChange={handleInputChange} />
                       </Form.Group>
@@ -403,8 +421,10 @@ const ConferenceForm = () => {
                     {(conference.confFee === "yes") &&
                       <Col sm={6}>
                         <Form.Group controlId="formConfFeeAmt">
-                          <Form.Label>Registration fee amount:</Form.Label><br />
+                          <Form.Label>Registration fee amount: <span className="red">*</span></Form.Label><br />
                           <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
+                          {errors.confFeeAmt &&
+                            <div className="error"><p>{errors.confFeeAmt}</p></div>}
                           <Form.Control type="number" min="0" name="confFeeAmt" placeholder="300" value={conference.confFeeAmt} className="formNum" onChange={handleInputChange}></Form.Control>
                         </Form.Group>
                       </Col>}
@@ -414,6 +434,9 @@ const ConferenceForm = () => {
                     <Col sm={4}>
                       <Form.Group controlId="formEarlyRegConfirm">
                         <Form.Label>Will there be incentives for early registration? <span className="red">*</span></Form.Label>
+                        <Form.Text className="subtitle" muted>"Incentives" includes a reduced registration fee.</Form.Text>
+                        {errors.earlyRegConfirm &&
+                          <div className="error"><p>{errors.earlyRegConfirm}</p></div>}
                         <Form.Check type="radio" id="earlyRegYes" name="confEarlyRegConfirm" label="Yes" value="yes" checked={conference.confEarlyRegConfirm === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="earlyRegNo" name="confEarlyRegConfirm" label="No" value="no" checked={conference.confEarlyRegConfirm === "no"} onChange={handleInputChange} />
                       </Form.Group>
@@ -423,15 +446,19 @@ const ConferenceForm = () => {
                       <div>
                         <Col sm={4}>
                           <Form.Group controlId="formEarlyRegDeadline">
-                            <Form.Label>Early registration deadline:</Form.Label>
+                            <Form.Label>Early registration deadline: <span className="red">*</span></Form.Label>
+                            {errors.earlyRegDeadline &&
+                              <div className="error"><p>{errors.earlyRegDeadline}</p></div>}
                             <Form.Control required type="date" max={conference.endDate} name="confEarlyRegDeadline" placeholder="2021/01/01" value={conference.confEarlyRegDeadline} className="formDate" onChange={handleInputChange} />
                           </Form.Group>
                         </Col>
 
                         <Col sm={4}>
                           <Form.Group controlId="formEarlyRegFee">
-                            <Form.Label>Early registration fee amount:</Form.Label><br />
+                            <Form.Label>Early registration fee amount: <span className="red">*</span></Form.Label><br />
                             <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
+                            {errors.confEarlyRegFee &&
+                              <div className="error"><p>{errors.confEarlyRegFee}</p></div>}
                             <Form.Control type="number" name="confEarlyRegFee" placeholder="150" value={conference.EarlyRegFee} className="formNum" onChange={handleInputChange} />
                           </Form.Group>
                         </Col>
@@ -476,6 +503,8 @@ const ConferenceForm = () => {
                     <Col sm={6}>
                       <Form.Group controlId="formConfKeynote">
                         <Form.Label>Will this conference have a keynote speaker? <span className="red">*</span></Form.Label>
+                        {errors.confKeynote &&
+                          <div className="error"><p>{errors.confKeynote}</p></div>}
                         <Form.Check type="radio" id="confKeynoteYes" name="confKeynote" label="Yes" value="yes" checked={conference.confKeynote === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confKeynoteNo" name="confKeynote" label="No" value="no" checked={conference.confKeynote === "no"} onChange={handleInputChange} />
                       </Form.Group>

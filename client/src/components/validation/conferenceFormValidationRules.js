@@ -55,8 +55,12 @@ const confValidate = (conference) => {
   }
 
   // conference location errors
-  if (!conference.confLoc) {
-    errors.confLoc = "Please enter your conference location or URL. If the URL will be sent to registered attendees later, please enter that in the URL field."
+  if (conference.confType === "Live" && !conference.confLoc) {
+    errors.confLocLive = "Please enter your conference venue's name and address."
+  }
+
+  if (conference.confType === "Virtual" && !conference.confLoc) {
+    errors.confLocVir = "Please enter your conference's URL. If the URL will be sent to registered attendees later, please enter that in the URL field."
   }
 
   // registration deadline errors
@@ -79,9 +83,21 @@ const confValidate = (conference) => {
     errors.confFee = "Please indicate whether there will be a registration fee."
   }
 
-  // early-registration deadline errors
+  if (conference.confFee === "yes" && !conference.confFeeAmt) {
+    errors.confFeeAmt = "Please tell us the registration fee amount."
+  }
+
+  // early registration errors
   if (!conference.confEarlyRegConfirm) {
-    errors.confEarlyRegConfirm = "Please indicate whether there is a deadline for early registration."
+    errors.confEarlyRegConfirm = "Please indicate whether there will be incentives for early registration."
+  }
+
+  if (conference.confEarlyRegConfirm === "yes" && !conference.confEarlyRegDeadline) {
+    errors.confEarlyRegDeadline = "Please tell us the deadline for early registration."
+  }
+
+  if (conference.confEarlyRegConfirm === "yes" && !conference.confEarlyRegFee) {
+    errors.confEarlyRegFee = "Please tell us the early registration fee amount."
   }
 
   // session proposal errors
