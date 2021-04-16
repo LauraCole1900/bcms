@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
+import { regValidate } from "../../utils/validation";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
