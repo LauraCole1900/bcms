@@ -1,4 +1,4 @@
-const exhibitValidate = (exhibitor) => {
+const exhValidate = (exhibitor) => {
   let errors = {};
 
   // name errors
@@ -55,6 +55,8 @@ const exhibitValidate = (exhibitor) => {
   if (!exhibitor.exhSpaces) {
     errors.exhSpaces = "How big is your exhibit? Please tell us how many spaces you need."
   }
+
+  return errors;
 }
 
-export default exhibitValidate;
+export default exhValidate;

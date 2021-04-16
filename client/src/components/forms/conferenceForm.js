@@ -196,7 +196,7 @@ const ConferenceForm = () => {
     <>
       {!isAuthenticated &&
         <Row>
-          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+          <h1 className="authRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to create or update a conference.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>

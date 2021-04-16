@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, ExhibitorAPI } from "../../utils/api";
-import { exhibitValidate } from "../../utils/validation";
+import { exhValidate } from "../../utils/validation";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
@@ -66,7 +66,7 @@ const ExhibitForm = () => {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     // Validates required inputs
-    const validationErrors = exhibitValidate(exhibitor);
+    const validationErrors = exhValidate(exhibitor);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
@@ -84,7 +84,7 @@ const ExhibitForm = () => {
           console.log(err);
           setErrThrown(err.message);
           handleShowErr();
-        })
+        });
     } else {
       console.log({ validationErrors });
     }
@@ -94,25 +94,25 @@ const ExhibitForm = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Validates required inputs
-    const validationErrors = exhibitValidate(exhibitor);
+    const validationErrors = exhValidate(exhibitor);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-    console.log("Exhibitor submit")
-    // POST call to create exhibitor document
-    ExhibitorAPI.registerExhibitor({ ...exhibitor, email: user.email })
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess();
-        }
-      })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      .catch(err => {
-        console.log(err)
-        setErrThrown(err.message);
-        handleShowErr();
-      })
+      console.log("Exhibitor submit", exhibitor)
+      // POST call to create exhibitor document
+      ExhibitorAPI.registerExhibitor({ ...exhibitor })
+        .then(res => {
+          // If no errors thrown, show Success modal
+          if (!res.err) {
+            handleShowSuccess();
+          }
+        })
+        // If yes errors thrown, setState(err.message) and show Error modal
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
+        })
     } else {
       console.log({ validationErrors });
     }
@@ -162,7 +162,7 @@ const ExhibitForm = () => {
     <>
       {!isAuthenticated &&
         <Row>
-          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
+          <h1 className="authRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
             log in
           </Link> to register.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
@@ -186,16 +186,22 @@ const ExhibitForm = () => {
                   <Row>
                     <Col sm={6}>
                       <Form.Label>Contact email: <span className="red">*</span></Form.Label>
+                      {errors.exhEmail &&
+                        <div className="error"><p>{errors.exhEmail}</p></div>}
                       <Form.Control required type="email" name="exhEmail" placeholder="name@email.com" value={exhibitor.exhEmail} className="formInput" onChange={handleInputChange} />
                     </Col>
                   </Row>
                   <Row>
                     <Col sm={6}>
                       <Form.Label>Contact person's first name: <span className="red">*</span></Form.Label>
+                      {errors.exhGivenName &&
+                        <div className="error"><p>{errors.exhGivenName}</p></div>}
                       <Form.Control required type="input" name="exhGivenName" placeholder="Jack" value={exhibitor.exhGivenName} className="formInput" onChange={handleInputChange} />
                     </Col>
                     <Col sm={6}>
                       <Form.Label>Contact person's last name: <span className="red">*</span></Form.Label>
+                      {errors.exhFamilyName &&
+                        <div className="error"><p>{errors.exhFamilyName}</p></div>}
                       <Form.Control required type="input" name="exhFamilyName" placeholder="Harkness" value={exhibitor.exhFamilyName} className="formInput" onChange={handleInputChange} />
                     </Col>
                   </Row>
