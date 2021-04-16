@@ -10,6 +10,8 @@ import "./style.css";
 const ExhibitForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [pageReady, setPageReady] = useState(false);
+  const [errThrown, setErrThrown] = useState();
+  const [errors, setErrors] = useState({});
   const [conference, setConference] = useState({});
   const [exhibitor, setExhibitor] = useState({
     exhGivenName: "",
@@ -25,7 +27,6 @@ const ExhibitForm = () => {
     exhWorkerName4: "",
     exhSpaces: 1
   });
-  const [errThrown, setErrThrown] = useState();
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
@@ -64,26 +65,39 @@ const ExhibitForm = () => {
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    console.log("Exhibitor update", exhibitor._id);
-    // PUT call to update exhibitor document
-    ExhibitorAPI.updateExhibitor({ ...exhibitor }, exhibitor._id)
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess();
-        }
-      })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      .catch(err => {
-        console.log(err);
-        setErrThrown(err.message);
-        handleShowErr();
-      })
+    // Validates required inputs
+    const validationErrors = exhibitValidate(exhibitor);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
+      console.log("Exhibitor update", exhibitor._id);
+      // PUT call to update exhibitor document
+      ExhibitorAPI.updateExhibitor({ ...exhibitor }, exhibitor._id)
+        .then(res => {
+          // If no errors thrown, show Success modal
+          if (!res.err) {
+            handleShowSuccess();
+          }
+        })
+        // If yes errors thrown, setState(err.message) and show Error modal
+        .catch(err => {
+          console.log(err);
+          setErrThrown(err.message);
+          handleShowErr();
+        })
+    } else {
+      console.log({ validationErrors });
+    }
   };
 
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    // Validates required inputs
+    const validationErrors = exhibitValidate(exhibitor);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
     console.log("Exhibitor submit")
     // POST call to create exhibitor document
     ExhibitorAPI.registerExhibitor({ ...exhibitor, email: user.email })
@@ -99,6 +113,9 @@ const ExhibitForm = () => {
         setErrThrown(err.message);
         handleShowErr();
       })
+    } else {
+      console.log({ validationErrors });
+    }
   };
 
   useEffect(() => {
