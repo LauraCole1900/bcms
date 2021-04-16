@@ -86,8 +86,10 @@ const ConferenceForm = () => {
     if (confId !== "new_conference") {
       if (conference.confAdmins.includes(user.email)) {
         let admins = conference.confAdmins.filter(email => email !== user.email)
+        console.log("setOwnerEmail to user", admins);
         setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email, confAdmins: admins })
       } else {
+        console.log("setOwnerEmail from user", user.email)
         setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email })
       }
     } else {
@@ -99,12 +101,14 @@ const ConferenceForm = () => {
   const setAdminEmail = (e) => {
     if (confId !== "new_conference") {
       if (conference.confAdmins.includes(user.email)) {
+        console.log("setAdminEmail already includes user")
         setConference({ ...conference, [e.target.name]: e.target.value })
       } else {
-        setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: user.email })
+        console.log("setAdminEmail to include user")
+        setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: [...conference.confAdmins, user.email] })
       }
     } else {
-      setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: user.email })
+      setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: [...conference.confAdmins, user.email] })
     }
   }
 
@@ -239,9 +243,9 @@ const ConferenceForm = () => {
                         <div><Form.Text>Please add yourself as an attendee when you finish this form either by clicking "Register as attendee" or "View details" for this conference.</Form.Text>
                           <Form.Group controlId="formOwnerEmail">
                             <Form.Label>What is the owner's/primary organizer's email? <span className="red">*</span></Form.Label>
-                            <Form.Control type="email" name="ownerEmail" placeholder="name@email.com" value={conference.ownerEmail} className="formInput" onChange={handleInputChange} />
+                            <Form.Control type="email" name="ownerEmail" placeholder="name@email.com" value={conference.ownerEmail} className="formInput" onChange={e => handleInputChange(e)} onSubmit={e => setOwnerEmail(e)} />
                           </Form.Group>
-                          {/* {errors.ownerEmail &&
+                          {/* {errors.ownerEmail.length > 0 &&
                           <div className="error"><p>{errors.ownerEmail}</p></div>} */}
                         </div>}
                     </Col>
