@@ -258,6 +258,8 @@ const ConferenceForm = () => {
                         <Form.Label>Name of conference: <span className="red">*</span></Form.Label>
                         <Form.Control required type="input" name="confName" placeholder="Enter conference name" value={conference.confName} className="formInput" onChange={handleInputChange} />
                       </Form.Group>
+                      {errors.confName &&
+                        <div className="error"><p>{errors.confName}</p></div>}
                     </Col>
                   </Row>
 
@@ -267,15 +269,19 @@ const ConferenceForm = () => {
                         <Form.Label>Conference organization: <span className="red">*</span></Form.Label>
                         <Form.Control required type="input" name="confOrg" placeholder="Enter name of organizing body" value={conference.confOrg} className="formInput" onChange={handleInputChange} />
                       </Form.Group>
+                      {errors.confOrg &&
+                        <div className="error"><p>{errors.confOrg}</p></div>}
                     </Col>
                   </Row>
 
                   <Row>
                     <Col sm={12}>
                       <Form.Group controlId="formConfDesc">
-                        <Form.Label>Conference description: <span className="red">*</span></Form.Label>
+                        <Form.Label>Conference description (min 50 characters): <span className="red">*</span></Form.Label>
                         <Form.Control required as="textarea" rows={10} type="input" name="confDesc" placeholder="Enter conference description" value={conference.confDesc} className="formText" onChange={handleInputChange} />
                       </Form.Group>
+                      {errors.confDesc &&
+                        <div className="error"><p>{errors.confDesc}</p></div>}
                     </Col>
                   </Row>
                 </Card.Body>

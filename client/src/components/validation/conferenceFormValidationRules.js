@@ -26,7 +26,7 @@ const confValidate = (conference) => {
   if (!conference.confDesc) {
     errors.confDesc = "Please describe or summarize your conference."
   } else if (conference.confDesc.length < 50) {
-    errors.confDesc = "We want to know more! Please use 50 or more characters to describe or summarize your conference."
+    errors.confDesc = "We want to know more! Please use 50 characters or more to describe or summarize your conference."
   }
 
   // start-date errors
