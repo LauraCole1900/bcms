@@ -447,8 +447,8 @@ const ConferenceForm = () => {
                         <Col sm={4}>
                           <Form.Group controlId="formEarlyRegDeadline">
                             <Form.Label>Early registration deadline: <span className="red">*</span></Form.Label>
-                            {errors.earlyRegDeadline &&
-                              <div className="error"><p>{errors.earlyRegDeadline}</p></div>}
+                            {errors.confEarlyRegDeadline &&
+                              <div className="error"><p>{errors.confEarlyRegDeadline}</p></div>}
                             <Form.Control required type="date" max={conference.endDate} name="confEarlyRegDeadline" placeholder="2021/01/01" value={conference.confEarlyRegDeadline} className="formDate" onChange={handleInputChange} />
                           </Form.Group>
                         </Col>
@@ -469,7 +469,9 @@ const ConferenceForm = () => {
                     <Row>
                       <Col sm={4}>
                         <Form.Group controlId="formEarlyRegSwagConfirm">
-                          <Form.Label>Will there be additional incentives for early registration?</Form.Label>
+                          <Form.Label>Will there be additional incentives for early registration? <span className="red">*</span></Form.Label>
+                          {errors.confEarlyRegSwagConfirm &&
+                            <div className="error"><p>{errors.confEarlyRegSwagConfirm}</p></div>}
                           <Form.Check type="radio" id="earlyRegSwagYes" name="confEarlyRegSwagConfirm" label="Yes" value="yes" checked={conference.confEarlyRegSwagConfirm === "yes"} onChange={handleInputChange} />
                           <Form.Check type="radio" id="earlyRegSwagNo" name="confEarlyRegSwagConfirm" label="No" value="no" checked={conference.confEarlyRegSwagConfirm === "no"} onChange={handleInputChange} />
                         </Form.Group>
@@ -510,10 +512,13 @@ const ConferenceForm = () => {
                       </Form.Group>
                     </Col>
                   </Row>
+
                   <Row>
                     <Col sm={6}>
                       <Form.Group controlId="formConfCapConfirm">
                         <Form.Label>Will there be a cap on the number of attendees? <span className="red">*</span></Form.Label>
+                        {errors.confCapConfirm &&
+                          <div className="error"><p>{errors.confCapComfirm}</p></div>}
                         <Form.Check type="radio" id="confCapYes" name="confCapConfirm" label="Yes" value="yes" checked={conference.confCapConfirm === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confCapNo" name="confCapConfirm" label="No" value="no" checked={conference.confCapConfirm === "no"} onChange={handleInputChange} />
                       </Form.Group>
@@ -522,8 +527,10 @@ const ConferenceForm = () => {
                     {(conference.confCapConfirm === "yes") &&
                       <Col sm={6}>
                         <Form.Group controlId="formConfAttendCap">
-                          <Form.Label>Maximum number of attendees:</Form.Label><br />
+                          <Form.Label>Maximum number of attendees: <span className="red">*</span></Form.Label><br />
                           <Form.Text className="subtitle" muted>Please enter only numbers with no decimals or commas.</Form.Text>
+                          {errors.confAttendCap &&
+                            <div className="error"><p>{errors.confAttendCap}</p></div>}
                           <Form.Control type="number" min="0" name="confAttendCap" placeholder="50" className="formNum" value={conference.confAttendCap} onChange={handleInputChange} />
                         </Form.Group>
                       </Col>}
@@ -533,6 +540,8 @@ const ConferenceForm = () => {
                     <Form.Group controlId="formSessProposal">
                       <Col sm={4}>
                         <Form.Label>Will this conference require prospective presenters to submit proposals for their sessions? <span className="red">*</span></Form.Label>
+                        {errors.confSessProposalConfirm &&
+                          <div className="error"><p>{errors.confSessProposalConfirm}</p></div>}
                         <Form.Check type="radio" id="confSessPropConfYes" name="confSessProposalConfirm" label="Yes" value="yes" checked={conference.confSessProposalConfirm === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confSessPropConfNo" name="confSessProposalConfirm" label="No" value="no" checked={conference.confSessProposalConfirm === "no"} onChange={handleInputChange} />
                       </Col>
@@ -549,6 +558,8 @@ const ConferenceForm = () => {
                     <Form.Group controlId="formConfAllergies">
                       <Col sm={4}>
                         <Form.Label>Do you need to ask attendees about allergies? <span className="red">*</span></Form.Label>
+                        {errors.confAllergies &&
+                          <div className="error"><p>{errors.confAllergies}</p></div>}
                         <Form.Check type="radio" id="confAllergiesYes" name="confAllergies" label="Yes" value="yes" checked={conference.confAllergies === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confAllergiesNo" name="confAllergies" label="No" value="no" checked={conference.confAllergies === "no"} onChange={handleInputChange} />
                       </Col>
@@ -563,6 +574,8 @@ const ConferenceForm = () => {
                     <Form.Group controlId="formConfWaiver">
                       <Col sm={4}>
                         <Form.Label>Will a liability waiver be required? <span className="red">*</span></Form.Label>
+                        {errors.confWaiver &&
+                          <div className="error"><p>{errors.confWaiver}</p></div>}
                         <Form.Check type="radio" id="confWaiverYes" name="confWaiver" label="Yes" value="yes" checked={conference.confWaiver === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confWaiverNo" name="confWaiver" label="No" value="no" checked={conference.confWaiver === "no"} onChange={handleInputChange} />
                       </Col>

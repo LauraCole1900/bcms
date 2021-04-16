@@ -78,6 +78,10 @@ const confValidate = (conference) => {
     errors.confCapConfirm = "Please indicate whether there is a cap on the number of attendees."
   }
 
+  if (conference.confCapConfirm === "yes" && !conference.confAttendCap) {
+    errors.confAttendCap = "Please tell us the maximum number of attendees."
+  }
+
   // registration fee errors
   if (!conference.confFee) {
     errors.confFee = "Please indicate whether there will be a registration fee."
@@ -98,6 +102,10 @@ const confValidate = (conference) => {
 
   if (conference.confEarlyRegConfirm === "yes" && !conference.confEarlyRegFee) {
     errors.confEarlyRegFee = "Please tell us the early registration fee amount."
+  }
+
+  if (conference.confEarlyRegConfirm === "yes" && !conference.confEarlyRegSwagConfirm) {
+    errors.confEarlyRegSwagConfirm = "Please tell us whether early registrants will be getting any kind of swag."
   }
 
   // session proposal errors
