@@ -56,45 +56,6 @@ const ExhibitForm = () => {
       .catch(err => console.log(err));
   }
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      switch (formType) {
-        case "edit_exhibit":
-          fetchConf(confId)
-          // GET call by confId and user.email to pre-populate the form if URL indicates this is an existing exhibitor
-          ExhibitorAPI.getExhibitorToUpdate(confId, user.email)
-            .then(resp => {
-              console.log("from exhibitorForm getExhibitorToUpdate", resp.data)
-              const exhObj = resp.data
-              setExhibitor(exhObj)
-            })
-            .catch(err => console.log(err))
-          break;
-        case "admin_edit_exh":
-          // GET call by the exhId in the URL to pre-populate the form
-          ExhibitorAPI.getExhibitorById(confId)
-            .then(resp => {
-              console.log("from exhibitForm getExhibitorById", resp.data)
-              setExhibitor(resp.data)
-              fetchConf(resp.data.confId)
-            })
-          break;
-        case "admin_register_exh":
-          fetchConf(confId);
-          // Sets confId in state as exhibitor.confId
-          setExhibitor({ ...exhibitor, confId: confId })
-          break;
-        default:
-          fetchConf(confId);
-          // Sets the conference ID in state as exhibitor.confId and the user's email as exhibitor.exhEmail
-          setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email })
-      }
-    }
-    setPageReady(true);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
@@ -139,6 +100,46 @@ const ExhibitForm = () => {
         handleShowErr();
       })
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      switch (formType) {
+        case "edit_exhibit":
+          fetchConf(confId)
+          // GET call by confId and user.email to pre-populate the form if URL indicates this is an existing exhibitor
+          ExhibitorAPI.getExhibitorToUpdate(confId, user.email)
+            .then(resp => {
+              console.log("from exhibitorForm getExhibitorToUpdate", resp.data)
+              const exhObj = resp.data
+              setExhibitor(exhObj)
+            })
+            .catch(err => console.log(err))
+          break;
+        case "admin_edit_exh":
+          // GET call by the exhId in the URL to pre-populate the form
+          ExhibitorAPI.getExhibitorById(confId)
+            .then(resp => {
+              console.log("from exhibitForm getExhibitorById", resp.data)
+              setExhibitor(resp.data)
+              fetchConf(resp.data.confId)
+            })
+          break;
+        case "admin_register_exh":
+          fetchConf(confId);
+          // Sets confId in state as exhibitor.confId
+          setExhibitor({ ...exhibitor, confId: confId })
+          break;
+        default:
+          fetchConf(confId);
+          // Sets the conference ID in state as exhibitor.confId and the user's email as exhibitor.exhEmail
+          setExhibitor({ ...exhibitor, confId: confId, exhEmail: user.email })
+      }
+    }
+    setPageReady(true);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
 
   return (
     <>

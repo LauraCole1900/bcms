@@ -55,46 +55,6 @@ const Registration = () => {
       .catch(err => console.log(err));
   }
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      switch (formType) {
-        case "register_edit":
-          fetchConf(confId);
-          // GET call by confId and user.email to pre-populate form if URL indicates this is an already-registered attendee
-          AttendeeAPI.getAttendeeToUpdate(confId, user.email)
-            .then(resp => {
-              console.log("from registrationForm getAttendeeToUpdate", resp.data)
-              const attArr = resp.data
-              setAttendee(attArr)
-            })
-            .catch(err => console.log(err));
-          break;
-        case "admin_edit_att":
-          // GET call by the attId in the URL to pre-populate form
-          AttendeeAPI.getAttendeeById(confId)
-            .then(resp => {
-              console.log("from registrationForm getAttendeeById", resp.data)
-              setAttendee(resp.data);
-              fetchConf(resp.data.confId)
-            })
-            .catch(err => console.log(err));
-          break;
-        case "admin_register_att":
-          fetchConf(confId);
-          // Sets conference ID in state as attendee.confId
-          setAttendee({ ...attendee, confId: confId })
-          break;
-        default:
-          fetchConf(confId);
-          // Sets conference ID in state as attendee.confId and the user's email as attendee.email
-          setAttendee({ ...attendee, confId: confId, email: user.email })
-      }
-    }
-    setPageReady(true);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     setAttendee({ ...attendee, [e.target.name]: e.target.value })
@@ -159,6 +119,46 @@ const Registration = () => {
         handleShowErr();
       })
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      switch (formType) {
+        case "register_edit":
+          fetchConf(confId);
+          // GET call by confId and user.email to pre-populate form if URL indicates this is an already-registered attendee
+          AttendeeAPI.getAttendeeToUpdate(confId, user.email)
+            .then(resp => {
+              console.log("from registrationForm getAttendeeToUpdate", resp.data)
+              const attArr = resp.data
+              setAttendee(attArr)
+            })
+            .catch(err => console.log(err));
+          break;
+        case "admin_edit_att":
+          // GET call by the attId in the URL to pre-populate form
+          AttendeeAPI.getAttendeeById(confId)
+            .then(resp => {
+              console.log("from registrationForm getAttendeeById", resp.data)
+              setAttendee(resp.data);
+              fetchConf(resp.data.confId)
+            })
+            .catch(err => console.log(err));
+          break;
+        case "admin_register_att":
+          fetchConf(confId);
+          // Sets conference ID in state as attendee.confId
+          setAttendee({ ...attendee, confId: confId })
+          break;
+        default:
+          fetchConf(confId);
+          // Sets conference ID in state as attendee.confId and the user's email as attendee.email
+          setAttendee({ ...attendee, confId: confId, email: user.email })
+      }
+    }
+    setPageReady(true);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
 
   return (
