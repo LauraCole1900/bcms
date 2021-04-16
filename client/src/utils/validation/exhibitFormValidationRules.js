@@ -38,16 +38,16 @@ const exhValidate = (exhibitor) => {
     errors.exhWorkers = "Please tell us how many people will be working your exhibit."
   }
 
-  if ((exhibitor.exhWorkers === 1 || exhibitor.exhWorkers === 2 || exhibitor.exhWorkers === 3 || exhibitor.exhWorkers === 4) && !exhibitor.exhWorkerName1) {
+  if ([exhibitor.exhWorkers === 1 || exhibitor.exhWorkers === 2 || exhibitor.exhWorkers === 3 || exhibitor.exhWorkers === 4] && !exhibitor.exhWorkerName1) {
     errors.exhWorkerName1 = "Please tell us who will be working your exhibit."
   }
-  if ((exhibitor.exhWorkers === 2 || exhibitor.exhWorkers === 3 || exhibitor.exhWorkers === 4) && !exhibitor.exhWorkerName1) {
+  if ([exhibitor.exhWorkers === 2 || exhibitor.exhWorkers === 3 || exhibitor.exhWorkers === 4] && !exhibitor.exhWorkerName1) {
     errors.exhWorkerName2 = "Please tell us who else will be working your exhibit."
   }
-  if ((exhibitor.exhWorkers === 3 || exhibitor.exhWorkers === 4) && !exhibitor.exhWorkerName1) {
+  if ([exhibitor.exhWorkers === 3 || exhibitor.exhWorkers === 4] && !exhibitor.exhWorkerName1) {
     errors.exhWorkerName3 = "Please tell us who else will be working your exhibit."
   }
-  if (exhibitor.exhWorkers === 4 && !exhibitor.exhWorkerName1) {
+  if ([exhibitor.exhWorkers === 4] && !exhibitor.exhWorkerName4) {
     errors.exhWorkerName4 = "Please tell us who else will be working your exhibit."
   }
 

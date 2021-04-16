@@ -93,6 +93,7 @@ const ExhibitForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    console.log(exhibitor.exhWorkers)
     // Validates required inputs
     const validationErrors = exhValidate(exhibitor);
     const noErrors = Object.keys(validationErrors).length === 0;
@@ -211,16 +212,22 @@ const ExhibitForm = () => {
                   <Row>
                     <Col sm={8}>
                       <Form.Label>Name of company: <span className="red">*</span></Form.Label>
+                      {errors.exhCompany &&
+                        <div className="error"><p>{errors.exhCompany}</p></div>}
                       <Form.Control required type="input" name="exhCompany" placeholder="Torchwood Institute" value={exhibitor.exhCompany} className="formInput" onChange={handleInputChange} />
                     </Col>
                     <Col sm={4}>
                       <Form.Label>Company phone #: <span className="red">*</span></Form.Label>
+                      {errors.exhPhone &&
+                        <div className="error"><p>{errors.exhPhone}</p></div>}
                       <Form.Control required type="input" name="exhPhone" placeholder="(123)456-7890" value={exhibitor.exhPhone} className="formInput" onChange={handleInputChange} />
                     </Col>
                   </Row>
                   <Row>
                     <Col sm={12}>
                       <Form.Label>Address of company: <span className="red">*</span></Form.Label>
+                      {errors.exhCompanyAddress &&
+                        <div className="error"><p>{errors.exhCompanyAddress}</p></div>}
                       <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="formInput" onChange={handleInputChange} />
                     </Col>
                   </Row>
@@ -235,17 +242,33 @@ const ExhibitForm = () => {
                   <Form.Group controlId="exhWorkers">
                     <Col sm={4}>
                       <Form.Label>How many people will be working your exhibit? <span className="red">*</span></Form.Label>
+                      {errors.exhWorkers &&
+                        <div className="error"><p>{errors.exhWorkers}</p></div>}
                       <Form.Control type="number" min="1" max="4" name="exhWorkers" className="formNum" value={exhibitor.exhWorkers} onChange={handleInputChange} />
                     </Col>
                     <Col sm={8}>
                       <Form.Label>Names of workers (one name per line): <span className="red">*</span></Form.Label>
+                      {errors.exhWorkerName1 &&
+                        <div className="error"><p>{errors.exhWorkerName1}</p></div>}
                       <Form.Control required type="input" name="exhWorkerName1" placeholder="Yazmin Khan" value={exhibitor.exhWorkerName1} className="exhNameArr" onChange={handleInputChange} />
                       {exhibitor.exhWorkers > 1 &&
-                        <Form.Control type="input" name="exhWorkerName2" placeholder="Ryan Sinclair" value={exhibitor.exhWorkerName2} className="exhNameArr" onChange={handleInputChange} />}
+                        <div>
+                          {errors.exhWorkerName2 &&
+                            <div className="error"><p>{errors.exhWorkerName2}</p></div>}
+                          <Form.Control type="input" name="exhWorkerName2" placeholder="Ryan Sinclair" value={exhibitor.exhWorkerName2} className="exhNameArr" onChange={handleInputChange} />
+                        </div>}
                       {exhibitor.exhWorkers > 2 &&
-                        <Form.Control required type="input" name="exhWorkerName3" placeholder="Graham O'Brien" value={exhibitor.exhWorkerName3} className="exhNameArr" onChange={handleInputChange} />}
+                        <div>
+                          {errors.exhWorkerName3 &&
+                            <div className="error"><p>{errors.exhWorkerName3}</p></div>}
+                          <Form.Control required type="input" name="exhWorkerName3" placeholder="Graham O'Brien" value={exhibitor.exhWorkerName3} className="exhNameArr" onChange={handleInputChange} />
+                        </div>}
                       {exhibitor.exhWorkers > 3 &&
-                        <Form.Control required type="input" name="exhWorkerName4" placeholder="Jack Harkness" value={exhibitor.exhWorkerName4} className="exhNameArr" onChange={handleInputChange} />}
+                        <div>
+                          {errors.exhWorkerName4 &&
+                            <div className="error"><p>{errors.exhWorkerName4}</p></div>}
+                          <Form.Control required type="input" name="exhWorkerName4" placeholder="Jack Harkness" value={exhibitor.exhWorkerName4} className="exhNameArr" onChange={handleInputChange} />
+                        </div>}
                     </Col>
                   </Form.Group>
                 </Row>
@@ -254,6 +277,8 @@ const ExhibitForm = () => {
                   <Form.Group controlId="numSpaces">
                     <Col sm={4}>
                       <Form.Label>How many spaces do you need? <span className="red">*</span></Form.Label>
+                      {errors.exhSpaces &&
+                        <div className="error"><p>{errors.exhSpaces}</p></div>}
                       <Form.Control type="number" min="1" max="5" name="exhSpaces" className="formNum" value={exhibitor.exhSpaces} onChange={handleInputChange} />
                     </Col>
                   </Form.Group>
