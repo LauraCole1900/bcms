@@ -1,5 +1,6 @@
 const confValidate = (conference) => {
   let errors = {};
+  
   // ownership errors
   if (!conference.ownerConfirm) {
     errors.ownerConfirm = "Please tell us whether you are the owner or primary organizer of this conference."
