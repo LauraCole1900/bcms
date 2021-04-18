@@ -24,6 +24,7 @@ const Registration = () => {
     allergies: "",
   });
   const [errThrown, setErrThrown] = useState();
+  const [errors, setErrors] = useState({});
 
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
@@ -63,61 +64,77 @@ const Registration = () => {
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    switch (formType) {
-      case "admin_edit_att":
-        console.log("Attendee update", confId)
-        // PUT call to update attendee document by attId in the URL
-        AttendeeAPI.updateAttendeeById({ ...attendee }, confId)
-          .then(res => {
-            // If no errors thrown, show Success modal
-            if (!res.err) {
-              handleShowSuccess();
-            }
-          })
-          // If yes errors thrown, setState(err.message) and show Error modal
-          .catch(err => {
-            console.log(err);
-            setErrThrown(err.message);
-            handleShowErr();
-          })
-        break;
-      default:
-        console.log("Attendee update", confId, attendee.email);
-        // PUT call to update attendee document by confId and email
-        AttendeeAPI.updateAttendee({ ...attendee }, confId, attendee.email)
-          .then(res => {
-            // If no errors thrown, show Success modal
-            if (!res.err) {
-              handleShowSuccess();
-            }
-          })
-          // If yes errors thrown, setState(err.message) and show Error modal
-          .catch(err => {
-            console.log(err);
-            setErrThrown(err.message);
-            handleShowErr();
-          })
+    // Validates required inputs
+    const validationErrors = regValidate(attendee, conference);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
+      switch (formType) {
+        case "admin_edit_att":
+          console.log("Attendee update", confId)
+          // PUT call to update attendee document by attId in the URL
+          AttendeeAPI.updateAttendeeById({ ...attendee }, confId)
+            .then(res => {
+              // If no errors thrown, show Success modal
+              if (!res.err) {
+                handleShowSuccess();
+              }
+            })
+            // If yes errors thrown, setState(err.message) and show Error modal
+            .catch(err => {
+              console.log(err);
+              setErrThrown(err.message);
+              handleShowErr();
+            })
+          break;
+        default:
+          console.log("Attendee update", confId, attendee.email);
+          // PUT call to update attendee document by confId and email
+          AttendeeAPI.updateAttendee({ ...attendee }, confId, attendee.email)
+            .then(res => {
+              // If no errors thrown, show Success modal
+              if (!res.err) {
+                handleShowSuccess();
+              }
+            })
+            // If yes errors thrown, setState(err.message) and show Error modal
+            .catch(err => {
+              console.log(err);
+              setErrThrown(err.message);
+              handleShowErr();
+            })
+      }
+    } else {
+      console.log({ validationErrors });
     }
   };
 
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Attendee submit", confId, attendee)
-    // POST call to create attendee document
-    AttendeeAPI.registerAttendee({ ...attendee, confId: confId })
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess();
-        }
-      })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      .catch(err => {
-        console.log(err);
-        setErrThrown(err.message);
-        handleShowErr();
-      })
+    // Validates required inputs
+    const validationErrors = regValidate(attendee, conference);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
+      console.log("Attendee submit", confId, attendee)
+      // POST call to create attendee document
+      AttendeeAPI.registerAttendee({ ...attendee, confId: confId })
+        .then(res => {
+          // If no errors thrown, show Success modal
+          if (!res.err) {
+            handleShowSuccess();
+          }
+        })
+        // If yes errors thrown, setState(err.message) and show Error modal
+        .catch(err => {
+          console.log(err);
+          setErrThrown(err.message);
+          handleShowErr();
+        })
+    } else {
+      console.log({ validationErrors });
+    }
   };
 
   useEffect(() => {
