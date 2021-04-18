@@ -65,7 +65,7 @@ const Registration = () => {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     // Validates required inputs
-    const validationErrors = regValidate(attendee, conference);
+    const validationErrors = regValidate([attendee, conference]);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
@@ -113,7 +113,7 @@ const Registration = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Validates required inputs
-    const validationErrors = regValidate(attendee, conference);
+    const validationErrors = regValidate([attendee, conference]);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
@@ -210,6 +210,8 @@ const Registration = () => {
                     <Col sm={4}>
                       <Form.Group controlId="formRegEmail">
                         <Form.Label>Attendee email: <span className="red">*</span></Form.Label>
+                        {errors.email &&
+                          <div className="error"><p>{errors.email}</p></div>}
                         <Form.Control type="email" name="email" placeholder="name@email.com" value={attendee.email} className="formInput" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
@@ -219,10 +221,14 @@ const Registration = () => {
                     <Form.Group controlId="formRegName">
                       <Col sm={6}>
                         <Form.Label>First name: <span className="red"><span className="red">*</span></span></Form.Label>
+                        {errors.givenName &&
+                          <div className="error"><p>{errors.givenName}</p></div>}
                         <Form.Control required type="input" name="givenName" placeholder="Martha" value={attendee.givenName} className="formInput" onChange={handleInputChange} />
                       </Col>
                       <Col sm={6}>
                         <Form.Label>Last name: <span className="red">*</span></Form.Label>
+                        {errors.familyName &&
+                          <div className="error"><p>{errors.familyName}</p></div>}
                         <Form.Control required type="input" name="familyName" placeholder="Jones" value={attendee.familyName} className="formInput" onChange={handleInputChange} />
                       </Col>
                     </Form.Group>
@@ -232,6 +238,8 @@ const Registration = () => {
                     <Form.Group controlId="formRegPhone">
                       <Col sm={6}>
                         <Form.Label>Contact phone #: <span className="red">*</span></Form.Label><br />
+                        {errors.phone &&
+                          <div className="error"><p>{errors.phone}</p></div>}
                         <Form.Control required type="input" name="phone" placeholder="(123)456-7890" value={attendee.phone} className="formInput" onChange={handleInputChange} />
                       </Col>
                     </Form.Group>
@@ -277,12 +285,16 @@ const Registration = () => {
                       <Form.Group controlId="allergyConfirm">
                         <Col sm={6}>
                           <Form.Label>Do you have known allergies? <span className="red">*</span></Form.Label>
+                          {errors.allergyConfirm &&
+                            <div className="error"><p>{errors.allergyConfirm}</p></div>}
                           <Form.Check type="radio" id="allergiesYes" name="allergyConfirm" label="Yes" value="yes" checked={attendee.allergyConfirm === "yes"} onChange={handleInputChange} />
                           <Form.Check type="radio" id="allergiesNo" name="allergyConfirm" label="No" value="no" checked={attendee.allergyConfirm === "no"} onChange={handleInputChange} />
                         </Col>
                         {(attendee.allergyConfirm === "yes") &&
                           <Col sm={6}>
                             <Form.Label>Please list your allergies:</Form.Label>
+                            {errors.allergies &&
+                              <div className="error"><p>{errors.allergies}</p></div>}
                             <Form.Control as="textarea" rows={5} name="allergies" placeholder="Peanuts, Eggs, Soy, Milk, Bee stings, Penicillin, etc." value={attendee.allergies} className="formText" onChange={handleInputChange} />
                           </Col>}
                       </Form.Group>

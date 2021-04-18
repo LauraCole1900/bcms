@@ -1,4 +1,4 @@
-const regValidate = (conference, attendee) => {
+const regValidate = ([attendee, conference]) => {
   let errors = {};
 
   // email errors
