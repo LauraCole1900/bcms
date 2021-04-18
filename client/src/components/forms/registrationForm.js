@@ -201,11 +201,11 @@ const Registration = () => {
                   <Row>
                     <Form.Group controlId="formRegName">
                       <Col sm={6}>
-                        <Form.Label>Given name: <span className="red"><span className="red">*</span></span></Form.Label>
+                        <Form.Label>First name: <span className="red"><span className="red">*</span></span></Form.Label>
                         <Form.Control required type="input" name="givenName" placeholder="Martha" value={attendee.givenName} className="formInput" onChange={handleInputChange} />
                       </Col>
                       <Col sm={6}>
-                        <Form.Label>Family name: <span className="red">*</span></Form.Label>
+                        <Form.Label>Last name: <span className="red">*</span></Form.Label>
                         <Form.Control required type="input" name="familyName" placeholder="Jones" value={attendee.familyName} className="formInput" onChange={handleInputChange} />
                       </Col>
                     </Form.Group>
@@ -259,7 +259,7 @@ const Registration = () => {
                     <Row>
                       <Form.Group controlId="allergyConfirm">
                         <Col sm={6}>
-                          <Form.Label>Do you have known allergies?</Form.Label>
+                          <Form.Label>Do you have known allergies? <span className="red">*</span></Form.Label>
                           <Form.Check type="radio" id="allergiesYes" name="allergyConfirm" label="Yes" value="yes" checked={attendee.allergyConfirm === "yes"} onChange={handleInputChange} />
                           <Form.Check type="radio" id="allergiesNo" name="allergyConfirm" label="No" value="no" checked={attendee.allergyConfirm === "no"} onChange={handleInputChange} />
                         </Col>

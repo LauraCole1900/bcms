@@ -12,7 +12,7 @@ const exhValidate = (exhibitor) => {
 
   // email errors
   if (!exhibitor.exhEmail) {
-    errors.exhEmail = "How do we get ahold of you? Please enter your email."
+    errors.exhEmail = "How do we contact you? Please enter your email."
   } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(exhibitor.exhEmail)) {
     errors.exhEmail = "The system gremlins don't recognize your email as valid. Please enter a valid email."
   }
