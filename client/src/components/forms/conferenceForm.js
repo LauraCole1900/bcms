@@ -14,7 +14,7 @@ const ConferenceForm = () => {
   const [pageReady, setPageReady] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState({});
-  const [charRem, setCharRem] = useState(1000);
+  const [charRem, setCharRem] = useState(750);
   const [conference, setConference] = useState({
     ownerConfirm: "",
     ownerEmail: "",

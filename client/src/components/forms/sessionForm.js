@@ -24,6 +24,7 @@ const SessionForm = () => {
     sessRoom: ""
   });
   const [conference, setConference] = useState();
+  const [charRem, setCharRem] = useState(750);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState({});
   const [sessReady, setSessReady] = useState(false);
@@ -98,6 +99,14 @@ const SessionForm = () => {
   const handleInputChange = (e) => {
     setSession({ ...session, [e.target.name]: e.target.value })
   };
+  
+  // Handles character limit and input changes for textarea
+  const handleTextArea = (e) => {
+    const charCount = e.target.value.length;
+    const charLeft = 750 - charCount;
+    setCharRem(charLeft);
+    setSession({ ...session, [e.target.name]: e.target.value.slice(0, 750) })
+  }
 
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
@@ -209,10 +218,11 @@ const SessionForm = () => {
                 <Row>
                   <Col sm={12}>
                     <Form.Group controlId="formSessDesc">
-                      <Form.Label>Session description: <span className="red">*</span></Form.Label>
+                      <Form.Label>Session description (min 10 characters, max 750 characters): <span className="red">*</span></Form.Label>
                       {errors.sessDesc &&
                         <div className="error"><p>{errors.sessDesc}</p></div>}
-                      <Form.Control required as="textarea" rows={10} type="input" name="sessDesc" placeholder="Enter session description" value={session.sessDesc} className="formText" onChange={handleInputChange} />
+                      <Form.Control required as="textarea" rows={10} type="input" name="sessDesc" placeholder="Enter session description" value={session.sessDesc} className="formText" onChange={handleTextArea} />
+                      <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                     </Form.Group>
                   </Col>
                 </Row>
