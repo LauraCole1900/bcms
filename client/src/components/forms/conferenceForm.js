@@ -14,6 +14,7 @@ const ConferenceForm = () => {
   const [pageReady, setPageReady] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState({});
+  const [charRem, setCharRem] = useState(1000);
   const [conference, setConference] = useState({
     ownerConfirm: "",
     ownerEmail: "",
@@ -79,6 +80,14 @@ const ConferenceForm = () => {
   const handleInputChange = (e) => {
     setConference({ ...conference, [e.target.name]: e.target.value })
   };
+
+  // Handles character limit and input changes for textarea
+  const handleTextArea = (e) => {
+    const charCount = e.target.value.length;
+    const charLeft = 750 - charCount;
+    setCharRem(charLeft);
+    setConference({ ...conference, [e.target.name]: e.target.value.slice(0, 750) })
+  }
 
   // Sets user.email as conference.ownerEmail
   // Checks if user.email is included in conference.confAdmins[] and if so, deletes it from array
@@ -277,10 +286,11 @@ const ConferenceForm = () => {
                   <Row>
                     <Col sm={12}>
                       <Form.Group controlId="formConfDesc">
-                        <Form.Label>Conference description (min 50 characters): <span className="red">*</span></Form.Label>
+                        <Form.Label>Conference description (min 50 characters, max 750 characters): <span className="red">*</span></Form.Label>
                         {errors.confDesc &&
                           <div className="error"><p>{errors.confDesc}</p></div>}
-                        <Form.Control required as="textarea" rows={10} type="input" name="confDesc" placeholder="Enter conference description" value={conference.confDesc} className="formText" onChange={handleInputChange} />
+                        <Form.Control required as="textarea" rows={10} type="input" name="confDesc" placeholder="Enter conference description" value={conference.confDesc} className="formText" onChange={handleTextArea} />
+                        <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                       </Form.Group>
                     </Col>
                   </Row>
