@@ -30,7 +30,7 @@ Features:
 Attendee:
   * Full CRUD access to own information - DONE
   * GET access to conference session and exhibit hall maps
-  * GET access to session schedules, including who is presenting
+  * GET access to session schedules, including who is presenting - DONE
 
 Exhibitor:
   * Attendee access PLUS:
@@ -39,7 +39,7 @@ Exhibitor:
   * Ability to POST, UPDATE, and DELETE exhibit information
   * Ability to sell merch through app?
   * Ability to GET schedule
-  * Ability to link to website
+  * Ability to link to website - DONE
   * Set up as a store?
 
 Presenter:
@@ -62,7 +62,7 @@ Organizer:
   * Full CRUD access to schedule
   * Full CRUD access to exhibit hall map
   * Full CRUD access to sessions map
-  * Ability to GET and DELETE attendee information for any attendee
+  * Ability to GET and DELETE attendee information for any attendee - full CRUD access DONE
   * Ability to GET and DELETE/Set Not Attending exhibitor information for any exhibitor
   * Ability to GET and DELETE/Set Not Attending presenter information for any presenter
   * Alerts for when presenters and exhibitors delete themselves/set as Not Attending
@@ -180,3 +180,27 @@ Ability to translate content and render it in different font sizes
 Ability to cap number of attendees
 Registration form
 An “un-register” feature
+
+
+Hi, all, I'm struggling with a cross-referencing problem in a MERN-stack app I'm building as a personal project. User story for this specific bit goes something like this (I've never written a user story before, so pardon any errors):
+
+As a conference organizer, I want to
+  Enter information about individual sessions, including
+    * which conference the session belongs to
+    * title
+    * description
+    * date
+    * time
+    * location
+    * whether it's a keynote
+    * presenter name(s)
+    * presenter organization(s)
+    * presenter bio(s)
+    * presenter email(s)/phone #(s)/website(s)
+    * presenter photo(s)
+  Such that
+    Participants can view sessions AND/OR presenters, AND
+    When viewing by sessions, they display with appropriate presenter information, AND
+    When viewing by presenters, presenter information displays once, regardless of how many sessions they're presenting.
+
+I've got the data-entering stuff working, but I'm struggling with the very last line. Right now, I'm leaning toward storing the presenter info and the session info in separate collections, but I have no idea how to cross-reference the data on submission, since neither document necessarily exists yet and I don't know how to grab an ID as it's created to store in the other document (session._id in the presenter doc and/or presenter._id in the session doc). I've thought of multiple pages on the form so that the session document can submit separately from the presenter document, but I can't figure out which values would allow me to GET the first document to cross-reference to the second document. If I store all of the data in a single document, I'm not sure how to display presenter information only once if someone is presenting several sessions. How would you approach this?
