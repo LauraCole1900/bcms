@@ -12,6 +12,7 @@ const ExhibitForm = () => {
   const [pageReady, setPageReady] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState({});
+  const [charRem, setCharRem] = useState(150);
   const [conference, setConference] = useState({});
   const [exhibitor, setExhibitor] = useState({
     exhGivenName: "",
@@ -61,6 +62,14 @@ const ExhibitForm = () => {
   const handleInputChange = (e) => {
     setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
   };
+
+  // Handles character limit and input changes for textarea
+  const handleTextArea = (e) => {
+    const charCount = e.target.value.length;
+    const charLeft = 150 - charCount;
+    setCharRem(charLeft);
+    setExhibitor({ ...exhibitor, [e.target.name]: e.target.value.slice(0, 150) })
+  }
 
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
@@ -233,11 +242,12 @@ const ExhibitForm = () => {
                   </Row>
                   <Row>
                     <Col sm={12}>
-                      <Form.Label>Description of company or organization: <span className="red">*</span></Form.Label>
-                      <Form.Text className="subtitle" muted>What types of goods or services does your company or organization provide?</Form.Text>
+                      <Form.Label>Description of company or organization: <span className="red">*</span></Form.Label><br />
+                      <Form.Text className="subtitle" muted>What does your company or organization do?</Form.Text>
                       {errors.exhDesc &&
                         <div className="error"><p>{errors.exhDesc}</p></div>}
-                      <Form.Control required as="textarea" rows={5} type="input" name="exhDesc" placeholder="What do you do?" value={exhibitor.exhDesc} className="formText" onChange={handleInputChange} />
+                      <Form.Control required as="textarea" rows={5} type="input" name="exhDesc" placeholder="What do you do?" value={exhibitor.exhDesc} className="formText" onChange={handleTextArea} />
+                      <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                     </Col>
                   </Row>
                   <Row>

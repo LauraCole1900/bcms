@@ -99,7 +99,7 @@ const SessionForm = () => {
   const handleInputChange = (e) => {
     setSession({ ...session, [e.target.name]: e.target.value })
   };
-  
+
   // Handles character limit and input changes for textarea
   const handleTextArea = (e) => {
     const charCount = e.target.value.length;
