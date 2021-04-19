@@ -103,7 +103,7 @@ const SessionForm = () => {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     // Validates required inputs
-    const validationErrors = sessValidate(session);
+    const validationErrors = sessValidate([session, conference]);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
@@ -131,7 +131,7 @@ const SessionForm = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Validates required inputs
-    const validationErrors = sessValidate(session);
+    const validationErrors = sessValidate([session, conference]);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
@@ -199,6 +199,8 @@ const SessionForm = () => {
                   <Col sm={12}>
                     <Form.Group controlId="formSessName">
                       <Form.Label>Name of session: <span className="red">*</span></Form.Label>
+                      {errors.sessName &&
+                        <div className="error"><p>{errors.sessName}</p></div>}
                       <Form.Control required type="input" name="sessName" placeholder="Enter session name" value={session.sessName} className="formInput" onChange={handleInputChange} />
                     </Form.Group>
                   </Col>
@@ -208,6 +210,8 @@ const SessionForm = () => {
                   <Col sm={12}>
                     <Form.Group controlId="formSessDesc">
                       <Form.Label>Session description: <span className="red">*</span></Form.Label>
+                      {errors.sessDesc &&
+                        <div className="error"><p>{errors.sessDesc}</p></div>}
                       <Form.Control required as="textarea" rows={10} type="input" name="sessDesc" placeholder="Enter session description" value={session.sessDesc} className="formText" onChange={handleInputChange} />
                     </Form.Group>
                   </Col>
@@ -217,14 +221,20 @@ const SessionForm = () => {
                   <Form.Group controlId="formSessWhen">
                     <Col sm={4}>
                       <Form.Label>Session date: <span className="red">*</span></Form.Label>
+                      {errors.sessDate &&
+                        <div className="error"><p>{errors.sessDate}</p></div>}
                       <Form.Control required type="date" min={conference.startDate} max={conference.endDate} name="sessDate" value={session.sessDate} className="formDate" onChange={handleInputChange} />
                     </Col>
                     <Col sm={4}>
                       <Form.Label>Session start time: <span className="red">*</span></Form.Label>
+                      {errors.sessStart &&
+                        <div className="error"><p>{errors.sessStart}</p></div>}
                       <Form.Control required type="time" name="sessStart" placeholder="09:00" value={session.sessStart} className="formTime" onChange={handleInputChange} />
                     </Col>
                     <Col sm={4}>
                       <Form.Label>Session end time: <span className="red">*</span></Form.Label>
+                      {errors.sessEnd &&
+                        <div className="error"><p>{errors.sessEnd}</p></div>}
                       <Form.Control required type="time" name="sessEnd" placeholder="10:00" value={session.sessEnd} className="formTime" onChange={handleInputChange} />
                     </Col>
                   </Form.Group>
@@ -235,6 +245,8 @@ const SessionForm = () => {
                     <Form.Group controlId="formSessWhere">
                       <Col sm={12}>
                         <Form.Label>Session room or location: <span className="red">*</span></Form.Label>
+                        {errors.sessRoom &&
+                          <div className="error"><p>{errors.sessRoom}</p></div>}
                         <Form.Control required type="input" name="sessRoom" placeholder="Enter a room or location, or TBA or TBD if the room or location hasn't been assigned" value={session.sessRoom} className="formInput" onChange={handleInputChange} />
                       </Col>
                     </Form.Group>
@@ -245,6 +257,8 @@ const SessionForm = () => {
                     <Col sm={6}>
                       <Form.Group controlId="formSessKeynote">
                         <Form.Label>Is this a keynote session? <span className="red">*</span></Form.Label>
+                        {errors.sessKeynote &&
+                          <div className="error"><p>{errors.sessKeynote}</p></div>}
                         <Form.Check type="radio" id="sessKeyYes" name="sessKeynote" label="Yes" value="yes" checked={session.sessKeynote === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="sessKeyNo" name="sessKeynote" label="No" value="no" checked={session.sessKeynote === "no"} onChange={handleInputChange} />
                       </Form.Group>
