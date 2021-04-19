@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { AboutBCMS, AllConfs, ConfDetails, Login, Profile, Schedule, Venue } from "./components/pages";
+import { AboutBCMS, AllConfs, ConfDetails, ConfExhibits, Login, Profile, Schedule, Venue } from "./components/pages";
 import Navbar from "./components/navbar";
 import TableComp from "./components/table"
 import { ConferenceForm, ExhibitForm, Registration, SessionForm, SessionProposal, Supplemental, UpdateUser } from "./components/forms";
@@ -27,6 +27,7 @@ function App() {
         <Route path="/details/*" component={ConfDetails} />
         <Route path={["/schedule/*", "edit_schedule/*"]} component={Schedule} />
         <Route path="/venue/*" component={Venue} />
+        <Route path="/exhibits/*" component={ConfExhibits} />
         <Route path={["/attendees/*", "/exhibitors/*", "/presenters/*"]} component={TableComp} />
         <Route path={["/new_conference", "/edit_conference/*"]} component={ConferenceForm} />
         <Route path={["/add_supplemental/*", "/edit_supplemental/*"]} component={Supplemental} />
