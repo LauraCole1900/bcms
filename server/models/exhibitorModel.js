@@ -30,6 +30,9 @@ const exhibitorSchema = new Schema({
     type: String,
     required: "Please enter the exhibitor company's address."
   },
+  exhWebsite: {
+    type: String,
+  },
   exhWorkers: {
     type: Number,
     required: "Please select how many workers are associated with this exhibit."

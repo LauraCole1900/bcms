@@ -231,6 +231,12 @@ const ExhibitForm = () => {
                       <Form.Control required type="input" name="exhCompanyAddress" placeholder="123 Main Street, Springfield, IL" value={exhibitor.exhCompanyAddress} className="formInput" onChange={handleInputChange} />
                     </Col>
                   </Row>
+                  <Row>
+                    <Col sm={12}>
+                      <Form.Label>Company website:</Form.Label>
+                      <Form.Control type="input" name="exhWebsite" placeholder="www.companywebsite.com" value={exhibitor.exhWebsite} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                  </Row>
                 </Form.Group>
               </Card.Body>
             </Card>
