@@ -34,14 +34,22 @@ const SessionCard = (props) => {
           <Card className="infoCard" key={sess._id}>
             <Card.Header className="cardTitle">
               <Row>
-              {sess.sessKeynote === "yes" &&
-                  <Col sm={2}>
-                    <h3>&nbsp;Keynote:</h3>
-                  </Col>}
-                <Col sm={9}>
-                  <h2>{sess.sessName}</h2>
-                  <p>{sess.sessPresenter}, {sess.sessPresenterOrg}</p>
-                </Col>
+                {sess.sessKeynote === "yes"
+                  ? <div>
+                    <Col sm={2}>
+                      <h3>&nbsp;Keynote:</h3>
+                    </Col>
+                    <Col sm={9}>
+                      <h2>{sess.sessName}</h2>
+                      <p>{sess.sessPresenter}, {sess.sessPresenterOrg}</p>
+                    </Col>
+                  </div>
+                  : <div>
+                    <Col sm={11}>
+                      <h2>{sess.sessName}</h2>
+                      <p>{sess.sessPresenter}, {sess.sessPresenterOrg}</p>
+                    </Col>
+                  </div>}
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
