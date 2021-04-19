@@ -26,6 +26,11 @@ const exhValidate = (exhibitor) => {
     errors.exhCompanyAddress = "Where are you located? Please enter the physical address for your company, organization, or school."
   }
 
+  // description errors
+  if (!exhibitor.exhDesc) {
+    errors.exhDesc = "What does your company/organization do?"
+  }
+
   // phone errors
   if (!exhibitor.exhPhone) {
     errors.exhPhone = "How can we call you? Please enter a phone number."

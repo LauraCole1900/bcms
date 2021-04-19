@@ -30,6 +30,13 @@ const exhibitorSchema = new Schema({
     type: String,
     required: "Please enter the exhibitor company's address."
   },
+  exhDesc: {
+    type: String,
+    required: "Please enter a description of what your company does."
+  },
+  exhLogo: {
+    type: String,
+  },
   exhWebsite: {
     type: String,
   },
@@ -59,6 +66,9 @@ const exhibitorSchema = new Schema({
   },
   exhPaid: {
     type: Boolean
+  },
+  exhBoothNum: {
+    type: String
   }
 })
 

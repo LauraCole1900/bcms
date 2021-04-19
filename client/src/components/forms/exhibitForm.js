@@ -233,6 +233,21 @@ const ExhibitForm = () => {
                   </Row>
                   <Row>
                     <Col sm={12}>
+                      <Form.Label>Description of company or organization: <span className="red">*</span></Form.Label>
+                      <Form.Text className="subtitle" muted>What types of goods or services does your company or organization provide?</Form.Text>
+                      {errors.exhDesc &&
+                        <div className="error"><p>{errors.exhDesc}</p></div>}
+                      <Form.Control required as="textarea" rows={5} type="input" name="exhDesc" placeholder="What do you do?" value={exhibitor.exhDesc} className="formText" onChange={handleInputChange} />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm={12}>
+                      <Form.Label>Company logo:</Form.Label>
+                      <Form.Control type="input" name="exhLogo" placeholder="Upload logo here" value={exhibitor.exhLogo} className="formInput" onChange={handleInputChange} />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col sm={12}>
                       <Form.Label>Company website:</Form.Label>
                       <Form.Control type="input" name="exhWebsite" placeholder="www.companywebsite.com" value={exhibitor.exhWebsite} className="formInput" onChange={handleInputChange} />
                     </Col>
