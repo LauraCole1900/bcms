@@ -25,6 +25,7 @@ const SessionForm = () => {
   });
   const [conference, setConference] = useState();
   const [errThrown, setErrThrown] = useState();
+  const [errors, setErrors] = useState({});
   const [sessReady, setSessReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
 
@@ -101,41 +102,57 @@ const SessionForm = () => {
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    console.log("Session update", urlId);
-    // PUT call to update session document
-    SessionAPI.updateSession({ ...session }, urlId)
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess();
-        }
-      })
-      // If yes errors thrown, setState(err.message) and show Error modal
-      .catch(err => {
-        console.log(err)
-        setErrThrown(err.message);
-        handleShowErr();
-      })
+    // Validates required inputs
+    const validationErrors = sessValidate(session);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
+      console.log("Session update", urlId);
+      // PUT call to update session document
+      SessionAPI.updateSession({ ...session }, urlId)
+        .then(res => {
+          // If no errors thrown, show Success modal
+          if (!res.err) {
+            handleShowSuccess();
+          }
+        })
+        // If yes errors thrown, setState(err.message) and show Error modal
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
+        })
+    } else {
+      console.log({ validationErrors });
+    }
   };
 
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Session submit", session)
-    // POST call to create session document
-    SessionAPI.saveSession({ ...session, confId: urlId })
-      .then(res => {
-        // If no errors thrown, push to Success page
-        if (!res.err) {
-          handleShowSuccess();
-        }
-      })
-      // If yes errors thrown, push to Error page
-      .catch(err => {
-        console.log(err)
-        setErrThrown(err.message);
-        handleShowErr();
-      });
+    // Validates required inputs
+    const validationErrors = sessValidate(session);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setErrors(validationErrors);
+    if (noErrors) {
+      console.log("Session submit", session)
+      // POST call to create session document
+      SessionAPI.saveSession({ ...session, confId: urlId })
+        .then(res => {
+          // If no errors thrown, push to Success page
+          if (!res.err) {
+            handleShowSuccess();
+          }
+        })
+        // If yes errors thrown, push to Error page
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
+        });
+    } else {
+      console.log({ validationErrors });
+    }
   }
 
   useEffect(() => {

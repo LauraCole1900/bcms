@@ -249,6 +249,8 @@ const Registration = () => {
                     <Col sm={12}>
                       <Form.Group controlId="formRegEmployer">
                         <Form.Label>Company, organization or school you represent:</Form.Label>
+                        {errors.employerName &&
+                          <div className="error"><p>{errors.employerName}</p></div>}
                         <Form.Control type="input" name="employerName" placeholder="Torchwood Institute" value={attendee.employerName} className="formInput" onChange={handleInputChange} />
                         <Form.Label>Address of your company, organization or school:</Form.Label>
                         <Form.Control type="input" name="employerAddress" placeholder="219 W 48th Street, New York, NY" value={attendee.employerAddress} className="formInput" onChange={handleInputChange} />

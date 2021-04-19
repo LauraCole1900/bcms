@@ -23,6 +23,11 @@ const regValidate = ([attendee, conference]) => {
     errors.phone = "The system gremlins don't recognize a valid phone number. Please enter a valid phone number."
   }
 
+  // company errors
+  if (!attendee.employerName) {
+    errors.employerName = "Who do you represent? Please enter the name of your company, organization, or school, or n/a if not applicable."
+  }
+
   // allergies errors
   if (conference.confAllergies === "yes" && !attendee.allergyConfirm) {
     errors.allergyConfirm = "We want you to be safe! Please tell us if you have known allergies."
