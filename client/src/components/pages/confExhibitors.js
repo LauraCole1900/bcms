@@ -84,6 +84,39 @@ const ConfExhibits = () => {
               {isAuthenticated &&
                 <UserCard />}
             </Col>
+          </Row>
+
+          {!isAuthenticated &&
+            <Row>
+              <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
+                log in
+                </Link> to register for this conference.</h1>
+            </Row>}
+
+          <Row>
+            <Col sm={12}>
+              <ConferenceCard conference={conference} />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm={4}>
+              <ButtonGroup data-toggle="popover">
+                <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
+                  <Button title="View schedule" className="button">Schedule</Button>
+                </Link>
+                <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
+                  <Button title="Venue information" className="button">Venue</Button>
+                </Link>
+              </ButtonGroup>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col sm={4}>
+              <h1>Exhibitors</h1>
+            </Col>
+            <Col sm={4}></Col>
             <Col sm={4}>
               <Card.Body>
                 <Form inline>
@@ -105,82 +138,19 @@ const ConfExhibits = () => {
               </Card.Body>
             </Col>
           </Row>
-
-          {!isAuthenticated &&
-            <Row>
-              <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
-                log in
-                </Link> to register for this conference.</h1>
-            </Row>}
-
-          <Row>
-            <Col sm={12}>
-              <ConferenceCard conference={conference} />
-            </Col>
-          </Row>
-
-          <Row>
-            <Col sm={2}>
-              <ButtonGroup data-toggle="popover">
-                <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
-                  <Button title="View schedule" className="button">Schedule</Button>
-                </Link>
-                <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
-                  <Button title="Venue information" className="button">Venue</Button>
-                </Link>
-              </ButtonGroup>
-            </Col>
-            <Col sm={1}></Col>
-            {isAuthenticated &&
-              (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
-              <>
-                <Col sm={4}>
-                  <ButtonGroup data-toggle="popover">
-                    <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
-                      <Button title="View conference attendees" className="button">Attendees</Button>
-                    </Link>
-                    <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
-                      <Button title="View conference exhibitors" className="button">Exhibitors</Button>
-                    </Link>
-                    <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
-                      <Button title="View conference presenters" className="button">Presenters</Button>
-                    </Link>
-                  </ButtonGroup>
-                </Col>
-                <Col sm={1}></Col>
-                <Col sm={4}>
-                  <ButtonGroup data-toggle="popover">
-                    <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
-                    </Link>
-                    <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
-                    </Link>
-                    <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
-                    </Link>
-                  </ButtonGroup>
-                </Col>
-              </>}
-          </Row>
-
           <Row>
             {searchBy === "exhComp" &&
               <Col sm={12}>
-                <h1>Exhibitors</h1>
                 {exhArray.length > 0
                   ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
                   : <h3>We can't seem to find any exhibitors for this conference based on your search criteria. If you think this is an error, please contact us.</h3>}
               </Col>}
             {searchBy === "allExh" &&
-              <div>
-                <Col sm={12}>
-                  <h1>Exhibitors</h1>
-                  {exhArray.length > 0
-                    ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
-                    : <h3>We can't seem to find any exhibitors for this conference. If you think this is an error, please contact us.</h3>}
-                </Col>
-              </div>}
+              <Col sm={12}>
+                {exhArray.length > 0
+                  ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
+                  : <h3>We can't seem to find any exhibitors for this conference. If you think this is an error, please contact us.</h3>}
+              </Col>}
           </Row>
 
         </Container >
