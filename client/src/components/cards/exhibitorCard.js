@@ -25,14 +25,14 @@ const ExhibitorCard = (props) => {
               <Row>
                 <Col sm={12}>
                   <h2>{exh.exhCompany}</h2>
+                  <p>Booth #{exh.exhBoothNum}</p>
                 </Col>
               </Row>
             </Card.Header>
             <Card.Body className="infoCardBody">
               <Row>
                 <Col sm={8}>
-                  <Card.Text>{exh.exhCompanyDesc}
-                    {exh.exhBoothNum}</Card.Text>
+                  <Card.Text>{exh.exhDesc}</Card.Text>
                 </Col>
                 {props.exhibitor.exhCompanyLogo !== undefined &&
                   <Col sm={4}>
