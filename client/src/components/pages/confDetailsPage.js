@@ -60,15 +60,6 @@ const ConfDetails = () => {
     setSessReady(true);
   }
 
-  useEffect(() => {
-    // GET conference by ID
-    fetchConf(confId);
-    // GET sessions by conference ID
-    fetchSess(confId);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confId])
-
   // Filter response data by user input
   const searchFilter = (data) => {
     switch (searchBy) {
@@ -86,6 +77,15 @@ const ConfDetails = () => {
         return (sessArray)
     }
   }
+
+  useEffect(() => {
+    // GET conference by ID
+    fetchConf(confId);
+    // GET sessions by conference ID
+    fetchSess(confId);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [confId])
 
 
   return (
