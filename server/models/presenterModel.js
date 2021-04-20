@@ -14,6 +14,14 @@ const presenterSchema = new Schema({
     type: String,
     required: "Please enter the presenter's family name."
   },
+  presOrg: {
+    type: String,
+    required: "Please enter the presenter's organization."
+  },
+  presBio: {
+    type: String,
+    required: "Please enter a short bio of the presenter."
+  },
   presEmail: {
     type: String,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
@@ -23,11 +31,10 @@ const presenterSchema = new Schema({
     type: String,
     required: "Please enter the presenter's phone number."
   },
-  presOrg: {
-    type: String,
-    required: "Please enter the presenter's organization."
-  },
   presWebsite: {
+    type: String,
+  },
+  presPic: {
     type: String,
   },
   presSessionIds: {
