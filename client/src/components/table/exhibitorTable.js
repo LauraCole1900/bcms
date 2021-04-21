@@ -6,18 +6,27 @@ import "./style.css";
 
 const ExhibitorTable = (props) => {
   const location = useLocation();
-  const [booth, setBooth] = useState(props.exhibitors.exhBoothNum);
+  const exhArr = props.exhibitors
+  const [exhibitor, setExhibitor] = useState();
+  let idx;
+
+  // finds the index of the document with the given ID
+  const findIndex = (e) => {
+    idx = exhArr.findIndex(exh => exh._id === e.target.dataset.id);
+    return idx
+  };
 
   // handles input to booth number field
   const handleInputChange = (e) => {
-    setBooth(e.target.value)
+    findIndex(e);
+    setExhibitor({ ...exhArr[idx], [e.target.name]: e.target.value })
   }
 
   // APT call to update exhibitor document onSubmit
   const handleSubmit = (e) => {
     if (e.charCode === 13 && e.shiftKey === false) {
-      console.log("from exhTable handleSubmit", { booth })
-      ExhibitorAPI.updateExhibitor({ exhBoothNum: booth }, e.target.dataset.id)
+      console.log("from exhTable handleSubmit", { exhibitor })
+      ExhibitorAPI.updateExhibitor({ ...exhibitor }, e.target.dataset.id)
         .then(props.exhcb(props.conference[0]._id))
         .catch(err => console.log(err))
     }
@@ -38,7 +47,7 @@ const ExhibitorTable = (props) => {
           <td>{exh.exhWorkerName4}</td>
           <td>{exh.exhSpaces}</td>
           <td>{exh.exhAttend}</td>
-          <td><Form.Control type="input" name="exhBoothNum" value={booth} data-id={exh._id} className="formInput" onChange={handleInputChange} onKeyPress={handleSubmit} /></td>
+          <td><Form.Control type="input" name="exhBoothNum" value={exh.exhBoothNum} data-id={exh._id} className="formInput" onChange={handleInputChange} onKeyPress={handleSubmit} /></td>
           <td>
             <Link to={`/admin_edit_exh/${exh._id}`} className={location.pathname === `/admin_edit_exh/${exh._id}` ? "link active" : "link"}>
               <Button data-toggle="popover" title="Edit this exhibit" className="tbleditbtn">
