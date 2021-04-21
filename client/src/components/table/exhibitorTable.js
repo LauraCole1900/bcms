@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Form, Image } from "react-bootstrap";
+import { ExhibitorAPI } from "../../utils/api";
 import "./style.css";
 
 const ExhibitorTable = (props) => {
@@ -12,8 +13,14 @@ const ExhibitorTable = (props) => {
     setExhibitor({ ...exhibitor, exhBoothNum: e.target.value })
   }
 
-  const handleSubmit = () => {
-
+  // APT call to update exhibitor document onSubmit
+  const handleSubmit = (e) => {
+    if (e.charCode === 13 && e.shiftKey === false) {
+      console.log({ exhibitor })
+      ExhibitorAPI.updateExhibitor(e.target.dataset.id, { ...exhibitor })
+        .then(props.exhcb(props.conference[0]._id))
+        .catch(err => console.log(err))
+    }
   }
 
   return (
@@ -31,7 +38,7 @@ const ExhibitorTable = (props) => {
           <td>{exh.exhWorkerName4}</td>
           <td>{exh.exhSpaces}</td>
           <td>{exh.exhAttend}</td>
-          <td><Form.Control type="input" name="exhBoothNum" value={exh.exhBoothNum} data-id={exh._id} className="formInput" onChange={handleInputChange} onSubmit={handleSubmit} /></td>
+          <td><Form.Control type="input" name="exhBoothNum" value={exh.exhBoothNum} data-id={exh._id} className="formInput" onChange={handleInputChange} onKeyPress={handleSubmit} /></td>
           <td>
             <Link to={`/admin_edit_exh/${exh._id}`} className={location.pathname === `/admin_edit_exh/${exh._id}` ? "link active" : "link"}>
               <Button data-toggle="popover" title="Edit this exhibit" className="tbleditbtn">
