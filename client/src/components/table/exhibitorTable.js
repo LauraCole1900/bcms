@@ -6,7 +6,9 @@ import "./style.css";
 
 const ExhibitorTable = (props) => {
   const location = useLocation();
-  const [exhibitor, setExhibitor] = useState();
+  const [exhibitor, setExhibitor] = useState({
+    exhBoothNum: ""
+  });
 
   // handles input to booth number field
   const handleInputChange = (e) => {
@@ -16,8 +18,8 @@ const ExhibitorTable = (props) => {
   // APT call to update exhibitor document onSubmit
   const handleSubmit = (e) => {
     if (e.charCode === 13 && e.shiftKey === false) {
-      console.log({ exhibitor })
-      ExhibitorAPI.updateExhibitor(e.target.dataset.id, { ...exhibitor })
+      console.log("from exhTable handleSubmit", { [e.target.name]: e.target.value })
+      ExhibitorAPI.updateExhibitor({ [e.target.name]: e.target.value }, e.target.dataset.id)
         .then(props.exhcb(props.conference[0]._id))
         .catch(err => console.log(err))
     }

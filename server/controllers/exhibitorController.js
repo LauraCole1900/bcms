@@ -59,6 +59,7 @@ module.exports = {
 
   // UPDATE exhibitor
   updateExhibitor: function (req, res) {
+    console.log("from exhibitorCont updateExhibitor", req.params.id, req.body)
     db.Exhibitor
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
