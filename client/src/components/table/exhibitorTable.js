@@ -6,20 +6,18 @@ import "./style.css";
 
 const ExhibitorTable = (props) => {
   const location = useLocation();
-  const [exhibitor, setExhibitor] = useState({
-    exhBoothNum: ""
-  });
+  const [booth, setBooth] = useState(props.exhibitors.exhBoothNum);
 
   // handles input to booth number field
   const handleInputChange = (e) => {
-    setExhibitor({ ...exhibitor, exhBoothNum: e.target.value })
+    setBooth(e.target.value)
   }
 
   // APT call to update exhibitor document onSubmit
   const handleSubmit = (e) => {
     if (e.charCode === 13 && e.shiftKey === false) {
-      console.log("from exhTable handleSubmit", { [e.target.name]: e.target.value })
-      ExhibitorAPI.updateExhibitor({ [e.target.name]: e.target.value }, e.target.dataset.id)
+      console.log("from exhTable handleSubmit", { booth })
+      ExhibitorAPI.updateExhibitor({ exhBoothNum: booth }, e.target.dataset.id)
         .then(props.exhcb(props.conference[0]._id))
         .catch(err => console.log(err))
     }
@@ -40,7 +38,7 @@ const ExhibitorTable = (props) => {
           <td>{exh.exhWorkerName4}</td>
           <td>{exh.exhSpaces}</td>
           <td>{exh.exhAttend}</td>
-          <td><Form.Control type="input" name="exhBoothNum" value={exh.exhBoothNum} data-id={exh._id} className="formInput" onChange={handleInputChange} onKeyPress={handleSubmit} /></td>
+          <td><Form.Control type="input" name="exhBoothNum" value={booth} data-id={exh._id} className="formInput" onChange={handleInputChange} onKeyPress={handleSubmit} /></td>
           <td>
             <Link to={`/admin_edit_exh/${exh._id}`} className={location.pathname === `/admin_edit_exh/${exh._id}` ? "link active" : "link"}>
               <Button data-toggle="popover" title="Edit this exhibit" className="tbleditbtn">
