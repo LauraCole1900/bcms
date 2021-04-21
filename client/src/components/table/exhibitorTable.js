@@ -22,7 +22,7 @@ const ExhibitorTable = (props) => {
     setExhibitor({ ...exhArr[idx], [e.target.name]: e.target.value })
   }
 
-  // APT call to update exhibitor document onSubmit
+  // API call to update exhibitor document onSubmit
   const handleSubmit = (e) => {
     if (e.charCode === 13 && e.shiftKey === false) {
       console.log("from exhTable handleSubmit", { exhibitor })
