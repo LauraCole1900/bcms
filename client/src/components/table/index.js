@@ -137,7 +137,7 @@ const TableComp = (e) => {
 
   // GETs presenters for useEffect
   const fetchPresenters = async (confId) => {
-    await PresenterAPI.getPresenters(confId)
+    await PresenterAPI.getPresentersByConf(confId)
       .then(resp => {
         console.log("table fetchPresenters", resp.data)
         const presSort = ascendingSort(resp.data, "presFamilyName")

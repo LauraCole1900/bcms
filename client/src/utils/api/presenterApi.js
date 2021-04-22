@@ -9,16 +9,33 @@ const PresenterAPI = {
   },
 
 
+  // GET all presenters
+  getPresenters: function () {
+    return axios.get("/api/presenter")
+  },
+
   // GET presenters by conference
-  getPresenters: function (confId) {
+  getPresentersByConf: function (confId) {
     console.log("from API getPresenters", confId)
-    return axios.get(`/api/presenter/${confId}`)
+    return axios.get(`/api/presenter/conference/${confId}`)
+  },
+
+  // GET one presenter by presId
+  getPresenterById: function (presId) {
+    console.log("from API getPresenterById", presId)
+    return axios.get(`/api/presenter/${presId}`)
+  },
+
+  // GET one presenter by email
+  getPresenterByEmail: function (email) {
+    console.log("from API getPresenterByEmail", email)
+    return axios.get(`/api/presenter/${email}`)
   },
 
 
   // UPDATE presenter information
   updatePresenter: function (formObj, email) {
-    console.log ("from API updatePresenter", formObj, email)
+    console.log("from API updatePresenter", formObj, email)
     return axios.put(`/api/presenter/update/${email}`, formObj)
   },
 

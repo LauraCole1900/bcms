@@ -32,6 +32,7 @@ const ExhibitorTable = (props) => {
     }
   }
 
+
   return (
     <>
       {props.exhibitors.map(exh => (
