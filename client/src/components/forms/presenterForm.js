@@ -207,6 +207,24 @@ const PresenterForm = () => {
           </Link> to add or edit a session.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
+
+      {isAuthenticated &&
+        <Container>
+          <Form className="presForm">
+
+            <Row>
+              {(formType === "edit_presenter_info")
+                ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit</Button>}
+            </Row>
+
+          </Form>
+
+          <SuccessModal conference={conference} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+
+          <ErrorModal conference={conference} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+
+        </Container>}
     </>
   )
 }

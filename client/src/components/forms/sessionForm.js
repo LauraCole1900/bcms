@@ -332,7 +332,7 @@ const SessionForm = () => {
             <Row>
               {(formType === "edit_session")
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+                : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Next Page</Button>}
             </Row>
 
           </Form>
