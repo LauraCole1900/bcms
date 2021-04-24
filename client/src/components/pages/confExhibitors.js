@@ -7,7 +7,7 @@ import { ConferenceAPI, ExhibitorAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfExhibits = () => {
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
   const [conference, setConference] = useState([]);
   const [exhArray, setExhArray] = useState([]);
