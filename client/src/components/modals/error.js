@@ -30,6 +30,10 @@ const ErrorModal = (props) => {
             <h4>{props.errmsg}. Your session was not added.</h4>}
           {props.urltype === "edit_session" &&
             <h4>{props.errmsg}. Your session was not updated.</h4>}
+          {props.urltype === "presenter_info" &&
+            <h4>{props.errmsg}. Presenter(s) was/were not added.</h4>}
+          {props.urltype === "edit_presenter_info" &&
+            <h4>{props.errmsg}. Presenter(s) was/were not updated.</h4>}
           {props.urltype === "register_attend" &&
             <h4>{props.errmsg}. Your registration for {props.conference.confName} could not be processed at this time.</h4>}
           {props.urltype === "admin_register_att" &&
@@ -59,8 +63,12 @@ const ErrorModal = (props) => {
             (props.btnname === "sessDelete" &&
               <h4>{props.errmsg}. Your session could not be deleted at this time.</h4>)}
           <Modal.Footer className="modalFooter">
-            {(props.urltype === "edit_conference" || props.urltype === "edit_session" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urlid === "profile" || props.urlid === "conferences" || props.urlid === "details") &&
+            {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "presenter_info" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urlid === "profile" || props.urlid === "conferences" || props.urlid === "details") &&
               <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
+              </Link>}
+            {(props.urltype === "edit_session" || props.urltype === "edit_presenter_info") &&
+              <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
               </Link>}
             <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
