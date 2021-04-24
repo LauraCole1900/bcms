@@ -57,7 +57,7 @@ const SuccessModal = (props) => {
           {props.urltype === "register_edit" &&
             <h4>You have edited your registration for {props.conference.confName}.</h4>}
 
-          {/* Edit Conference form, owner/admin version */}
+          {/* Edit Attendee form, owner/admin version */}
           {props.urltype === "admin_edit_att" &&
             <h4>You have edited {props.attname}'s registration for {props.conference.confName}.</h4>}
 
