@@ -37,6 +37,14 @@ const SuccessModal = (props) => {
           {props.urltype === "edit_session" &&
             <h4>You have updated your session. Continue to presenter information?</h4>}
 
+          {/* Add Presenter(s) form */}
+          {props.urltype === "presenter_info" &&
+            <h4>You have added presenter information for this session.</h4>}
+
+          {/* Edit Presenter(s) form */}
+          {props.urltype === "edit_presenter_info" &&
+            <h4>You have updated presenter information for this session.</h4>}
+
           {/* Registration form */}
           {props.urltype === "register_attend" &&
             <h4>You have registered for {props.conference.confName}.</h4>}
@@ -111,13 +119,13 @@ const SuccessModal = (props) => {
             {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
               <Button data-toggle="popover" title={props.conference.confName} type="button" className="button" onClick={props.hide}>{props.conference.confName}</Button>}
 
-            {/* Go on to Presenter Form */}
+            {/* Add Session form: go on to Presenter Form */}
             {(props.urltype === "new_session") &&
               <Link to={`/presenter_info/${props.urlid}`} className={location.pathname === `/presenter_info/${props.urlid}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title="Presenter information" type="button" className="button">Next page</Button>
               </Link>}
 
-            {/* Session form: choose whether to go on to presenter form or return to Conference Details page */}
+            {/* Edit Session form: choose whether to go on to presenter form or return to Conference Details page */}
             {(props.urltype === "edit_session") &&
               <>
                 <Link to={`/edit_presenter_info/${props.urlid}`} className={location.pathname === `/edit_presenter_info/${props.urlid}` ? "btnactive" : "btn"} >
@@ -128,7 +136,7 @@ const SuccessModal = (props) => {
                 </Link>
               </>}
 
-            {/* Go to Conference Details page */}
+            {/* Link to Conference Details page */}
             {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urltype !== "edit_session" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
               <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
