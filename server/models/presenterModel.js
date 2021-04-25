@@ -29,7 +29,6 @@ const presenterSchema = new Schema({
   },
   presPhone: {
     type: String,
-    required: "Please enter the presenter's phone number."
   },
   presWebsite: {
     type: String,

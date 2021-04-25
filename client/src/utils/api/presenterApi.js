@@ -26,10 +26,10 @@ const PresenterAPI = {
     return axios.get(`/api/presenter/${presId}`)
   },
 
-  // GET one presenter by email
-  getPresenterByEmail: function (email) {
-    console.log("from API getPresenterByEmail", email)
-    return axios.get(`/api/presenter/${email}`)
+  // GET one presenter by email for this conference
+  getPresenterByEmail: function (email, confId) {
+    console.log("from API getPresenterByEmail", email, confId)
+    return axios.get(`/api/presenter/email/${email}/${confId}`)
   },
 
 

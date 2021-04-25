@@ -53,9 +53,9 @@ module.exports = {
 
   // FIND presenter by email
   findByEmail: function (req, res) {
-    console.log("from presenterCont findByEmail", req.params.email)
+    console.log("from presenterCont findByEmail", req.params.email, req.params.id)
     db.Presenter
-      .findOne(req.params.email)
+      .findOne({ presEmail: req.params.email, confId: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
