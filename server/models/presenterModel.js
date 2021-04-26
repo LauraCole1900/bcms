@@ -39,6 +39,9 @@ const presenterSchema = new Schema({
   presSessionIds: {
     type: [ String ],
     required: true
+  },
+  presKeynote: {
+    type: String
   }
 })
 
