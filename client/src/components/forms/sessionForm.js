@@ -7,6 +7,12 @@ import { sessValidate } from "../../utils/validation";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
+// store presEmail[] in session document
+// cross-ref by presEmail.includes and confId?
+// then, GET session document(s) by confId and sessPresEmail.includes
+// Compare to presSessId.includes[] and eliminate those that match 
+// PUT presenter document with new session._id in presSessionIds[]
+
 const SessionForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [session, setSession] = useState({
