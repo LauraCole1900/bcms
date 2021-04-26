@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { firstBy } from "thenby";
 import { Container, Row, Col, Form, Card, Button, ButtonGroup } from "react-bootstrap";
 import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards"
-import { ConferenceAPI, SessionAPI } from "../../utils/api";
+import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
@@ -12,10 +12,12 @@ const ConfDetails = () => {
   const location = useLocation();
   const [conference, setConference] = useState([]);
   const [sessArray, setSessArray] = useState([]);
+  const [presArray, setPresArray] = useState([]);
   const [searchBy, setSearchBy] = useState("allPnS");
   const [search, setSearch] = useState("");
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
+  const [presReady, setPresReady] = useState(false);
 
   // Pull conference ID from URL
   const urlArray = window.location.href.split("/")
@@ -60,6 +62,22 @@ const ConfDetails = () => {
     setSessReady(true);
   }
 
+  // GETs presenters by confId
+  const fetchPres = async (confId) => {
+    await PresenterAPI.getPresentersByConf(confId)
+    .then(resp => {
+      console.log("confDetailsPage getPresentersByConf", resp.data)
+      const presArr = resp.data.slice(0)
+      setPresArray(presArr)
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    })
+
+    setPresReady(true)
+  }
+
   // Filter response data by user input
   const searchFilter = (data) => {
     switch (searchBy) {
@@ -83,6 +101,8 @@ const ConfDetails = () => {
     fetchConf(confId);
     // GET sessions by conference ID
     fetchSess(confId);
+    // GET presenters by conferenceID
+    fetchPres(confId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [confId])
@@ -92,6 +112,7 @@ const ConfDetails = () => {
     <>
       {confReady === true &&
         sessReady === true &&
+        presReady === true &&
         <Container>
           <Row>
             <Col sm={8}>
@@ -194,7 +215,7 @@ const ConfDetails = () => {
               <Col sm={12}>
                 <h1>Presenters</h1>
                 {sessArray.length > 0
-                  ? <PresenterCard session={searchFilter(sessArray)} conference={conference} />
+                  ? <PresenterCard presenter={searchFilter(presArray)} conference={conference} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allSess" || searchBy === "sessionName") &&
@@ -209,7 +230,7 @@ const ConfDetails = () => {
                 <Col sm={6}>
                   <h1>Presenters</h1>
                   {sessArray.length > 0
-                    ? <PresenterCard session={searchFilter(sessArray)} conference={conference} />
+                    ? <PresenterCard presenter={searchFilter(presArray)} conference={conference} />
                     : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
                 <Col sm={6}>
