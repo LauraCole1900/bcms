@@ -26,7 +26,6 @@ const SessionForm = () => {
     sessRoom: ""
   });
   const [conference, setConference] = useState();
-  const [email, setEmail] = useState();
   const [charRem, setCharRem] = useState(750);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState({});
@@ -102,7 +101,9 @@ const SessionForm = () => {
   const handleInputChange = (e) => {
     setSession({ ...session, [e.target.name]: e.target.value })
     if (e.target.name === "sessPresEmails") {
+      // Splits input to sessPresEmail field at commas to create an array
       let emails = e.target.value.split(",")
+      // Trims empty spaces on either side of emails
       const emailArr = emails.map(email => email.trim())
       setSession({ ...session, sessPresEmails: emailArr })
     }
