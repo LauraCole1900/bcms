@@ -65,15 +65,22 @@ const ConfDetails = () => {
   // GETs presenters by confId
   const fetchPres = async (confId) => {
     await PresenterAPI.getPresentersByConf(confId)
-    .then(resp => {
-      console.log("confDetailsPage getPresentersByConf", resp.data)
-      const presArr = resp.data.slice(0)
-      setPresArray(presArr)
-    })
-    .catch(err => {
-      console.log(err)
-      return false
-    })
+      .then(resp => {
+        console.log("confDetailsPage getPresentersByConf", resp.data)
+        const presArr = resp.data.slice(0)
+        // Sort presenters by last name
+        const sortedPres = presArr.sort(
+          firstBy("presKeynote")
+            .thenBy("presFamilyName")
+            .thenBy("presGivenName")
+        );
+        setPresArray(sortedPres);
+        console.log({ presArray })
+      })
+      .catch(err => {
+        console.log(err)
+        return false
+      })
 
     setPresReady(true)
   }
@@ -86,10 +93,10 @@ const ConfDetails = () => {
         return data.filter((session) => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       // Filter presenter names
       case "presenterName":
-        return data.filter((session) => session.sessPresenter.find(pres => pres.toLowerCase().includes(search.toLowerCase())))
+        return data.filter((presenter) => presenter.presFamilyName.find(pres => pres.toLowerCase().includes(search.toLowerCase())))
       // Filter presenter organization
       case "presenterOrg":
-        return data.filter((session) => session.sessPresenterOrg.find(presOrg => presOrg.toLowerCase().includes(search.toLowerCase())))
+        return data.filter((presenter) => presenter.presOrg.find(presOrg => presOrg.toLowerCase().includes(search.toLowerCase())))
       // Return all response data
       default:
         return (sessArray)
@@ -170,7 +177,7 @@ const ConfDetails = () => {
                 <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
                   <Button title="Exhibit information" className="button">Exhibits</Button>
                 </Link>
-                {conference[0].confSessProposalConfirm === "yes" &&
+                {conference.confSessProposalConfirm === "yes" &&
                   <Link to={`/propose_session/${confId}`} className={location.pathname === `/propose_session/${confId}` ? "link active" : "link"}>
                     <Button title="Session proposal form" className="button">Session proposal form</Button>
                   </Link>}
@@ -215,14 +222,14 @@ const ConfDetails = () => {
               <Col sm={12}>
                 <h1>Presenters</h1>
                 {sessArray.length > 0
-                  ? <PresenterCard presenter={searchFilter(presArray)} conference={conference} />
+                  ? <PresenterCard presenter={searchFilter(presArray)} session={sessArray} conference={conference} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allSess" || searchBy === "sessionName") &&
               <Col sm={12}>
                 <h1>Sessions</h1>
                 {sessArray.length > 0
-                  ? <SessionCard session={searchFilter(sessArray)} conference={conference} />
+                  ? <SessionCard session={searchFilter(sessArray)} presenter={presArray} conference={conference} />
                   : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
@@ -230,13 +237,13 @@ const ConfDetails = () => {
                 <Col sm={6}>
                   <h1>Presenters</h1>
                   {sessArray.length > 0
-                    ? <PresenterCard presenter={searchFilter(presArray)} conference={conference} />
+                    ? <PresenterCard presenter={searchFilter(presArray)} session={sessArray} conference={conference} />
                     : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
                 <Col sm={6}>
                   <h1>Sessions</h1>
                   {sessArray.length > 0
-                    ? <SessionCard session={searchFilter(sessArray)} conference={conference} />
+                    ? <SessionCard session={searchFilter(sessArray)} presenter={presArray} conference={conference} />
                     : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
               </div>}

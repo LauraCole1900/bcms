@@ -11,17 +11,31 @@ const SessionCard = (props) => {
   const history = useHistory();
   const location = useLocation();
   const [cardRender, setCardRender] = useState(false);
+  const [presNames, setPresNames] = useState([]);
+  const [presOrgs, setPresOrgs] = useState([]);
+  const presEmailArr = props.session.sessPresEmails;
 
   // Handles click on delete button
-  function handleDelete(sessId) {
+  const handleDelete = (sessId) => {
     console.log("from sessCard handleDelete", sessId)
     SessionAPI.deleteSession(sessId)
       .then(history.push("/deleted"))
       .catch(err => console.log(err))
   };
 
+  // Creates array of presenter names
+  // Map through presenters
+  // Find where props.session.sessPresEmails.includes(props.presenter.presEmail)
+  // Concat {props.presenter.presGivenName + " " + props.presenter.presFamilyName} to array of presNames
+  // const findPres = () => {
+  //   let pres = props.presenter.forEach(sess => sess.sessPresEmails.includes(props.presenter.presEmail))
+  //   setPresNames(...presNames, pres.presGivenName + " " + pres.presFamilyName)
+  //   setPresOrgs(...presOrgs, pres.presOrg)
+  // }
+
   useEffect(() => {
     if (props.session.length > 0) {
+      // findPres(presEmailArr);
       setCardRender(true)
     }
   }, [props.session])
@@ -41,13 +55,13 @@ const SessionCard = (props) => {
                     </Col>
                     <Col sm={9}>
                       <h2>{sess.sessName}</h2>
-                      <p>{sess.sessPresenter}, {sess.sessPresenterOrg}</p>
+                      <p>{presNames}, {presOrgs}</p>
                     </Col>
                   </div>
                   : <div>
                     <Col sm={11}>
                       <h2>{sess.sessName}</h2>
-                      <p>{sess.sessPresenter}, {sess.sessPresenterOrg}</p>
+                      <p>{presNames}, {presOrgs}</p>
                     </Col>
                   </div>}
                 <Col sm={1}>
