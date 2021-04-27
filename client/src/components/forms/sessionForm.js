@@ -18,11 +18,7 @@ const SessionForm = () => {
   const [session, setSession] = useState({
     sessName: "",
     sessNumPres: 1,
-    sessPresenter: "",
-    sessPresenterEmail: "",
-    sessPresenterBio: "",
-    sessPresenterPic: "",
-    sessPresenterOrg: "",
+    sessPresEmails: [],
     sessDate: "",
     sessStart: "",
     sessEnd: "",
@@ -105,6 +101,10 @@ const SessionForm = () => {
   const handleInputChange = (e) => {
     setSession({ ...session, [e.target.name]: e.target.value })
   };
+
+  const handleAddEmails = (e) => {
+    setSession({ ...session.sessPresEmails, [e.target.name]: e.target.value })
+  }
 
   // Handles character limit and input changes for textarea
   const handleTextArea = (e) => {
@@ -280,58 +280,86 @@ const SessionForm = () => {
                       </Form.Group>
                     </Col>
                   </Row>}
-              </Card.Body>
-            </Card>
 
-            <Card className="formCard">
-              <Card.Title><h1>Presenter Information</h1></Card.Title>
-
-              <Card.Body className="cardBody">
                 <Form.Group controlId="formSessNumPres">
                   <Row>
                     <Col sm={3}>
                       <Form.Label>Number of presenters: <span className="red">*</span></Form.Label>
                       <Form.Control required type="number" min="1" max="15" name="sessNumPres" placeholder="Enter a number, 1-15" value={session.sessNumPres} className="formNum" onChange={handleInputChange} />
                     </Col>
+                    <Row>
+                      <Col sm={6}>
+                        <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
+                        <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                      </Col>
+                    </Row>
+                    {/* ----------Need to figure out how to input these individually and push to an array!---------- */}
+                    {session.sessNumPres < 3 &&
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Label>2nd presenter's email: <span className="red">*</span></Form.Label>
+                          <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                        </Col>
+                      </Row>}
+                    {session.sessNumPres < 4 &&
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Label>3rd presenter's email: <span className="red">*</span></Form.Label>
+                          <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                        </Col>
+                      </Row>}
+                    {session.sessNumPres < 5 &&
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Label>4th presenter's email: <span className="red">*</span></Form.Label>
+                          <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                        </Col>
+                      </Row>}
+                    {session.sessNumPres < 6 &&
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Label>5th presenter's email: <span className="red">*</span></Form.Label>
+                          <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                        </Col>
+                      </Row>}
+                    {session.sessNumPres < 7 &&
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Label>6th presenter's email: <span className="red">*</span></Form.Label>
+                          <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                        </Col>
+                      </Row>}
+                    {session.sessNumPres < 8 &&
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Label>7th presenter's email: <span className="red">*</span></Form.Label>
+                          <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                        </Col>
+                      </Row>}
+                    {session.sessNumPres < 9 &&
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Label>9th presenter's email: <span className="red">*</span></Form.Label>
+                          <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                        </Col>
+                      </Row>}
+                    {session.sessNumPres < 10 &&
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Label>9th presenter's email: <span className="red">*</span></Form.Label>
+                          <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                        </Col>
+                      </Row>}
+                    {session.sessNumPres < 11 &&
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Label>10th presenter's email: <span className="red">*</span></Form.Label>
+                          <Form.Control required type="email" name="sessPresEmail" placeholder="name@email.com" value={session.sessPresEmail} className="formEmail" onChange={handleAddEmails} />
+                        </Col>
+                      </Row>}
                   </Row>
                 </Form.Group>
 
-                <Form.Group controlId="sessPresName">
-                  <Row>
-                    <Col sm={6}>
-                      <Form.Label>Presenter's name: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="sessPresenter" placeholder="Enter presenter's name" value={session.sessPresenter} className="formInput" onChange={handleInputChange} />
-                    </Col>
-                    <Col sm={6}>
-                      <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="email" name="sessPresenterEmail" placeholder="name@email.com" value={session.sessPresenterEmail} className="formEmail" onChange={handleInputChange} />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col sm={12}>
-                      <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="sessPresenterOrg" placeholder="Enter organization the presenter represents" value={session.sessPresenterOrg} className="formInput" onChange={handleInputChange} />
-                    </Col>
-                  </Row>
-                </Form.Group>
-
-                <Row>
-                  <Col sm={12}>
-                    <Form.Group controlId="sessPresBio">
-                      <Form.Label>Presenter's bio:</Form.Label>
-                      <Form.Control as="textarea" rows={5} type="input" name="sessPresenterBio" placeholder="Enter a short bio of the presenter" value={session.sessPresenterBio} className="formInput" onChange={handleInputChange} />
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col sm={12}>
-                    <Form.Group controlId="formPresPic">
-                      <Form.Label>Upload presenter's picture:</Form.Label>
-                      <Form.Control type="input" name="sessPresenterPic" placeholder="URL for presenter's picture" value={session.sessPresenterPic} className="formInput" onChange={handleInputChange} />
-                    </Form.Group>
-                  </Col>
-                </Row>
               </Card.Body>
             </Card>
 
