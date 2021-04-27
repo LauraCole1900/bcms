@@ -27,10 +27,12 @@ const SessionCard = (props) => {
   // Map through presenters
   // Find where props.session.sessPresEmails.includes(props.presenter.presEmail)
   // Concat {props.presenter.presGivenName + " " + props.presenter.presFamilyName} to array of presNames
-  // const findNames = (arr) => {
-  //   const presNamesArr = arr.includes(props.presenter.presEmail)
-  //   setPresNames(...presNames, presNamesArr.presGivenName + " " + presNamesArr.presFamilyName)
-  // }
+  const findNames = (arr) => {
+    const presNamesObj = arr.map(arr => arr.includes(props.presenter.presEmail))
+    const presFullName = props.presenter.presGivenName + " " + props.presenter.presFamilyName
+    setPresNames(...presNames, presFullName)
+    console.log({ presNamesObj })
+  }
 
   // const findOrgs = (arr) => {
   //   const presOrgsArr = arr.includes(props.presenter.presEmail)
@@ -39,7 +41,7 @@ const SessionCard = (props) => {
 
   useEffect(() => {
     if (props.session.length > 0) {
-      // findPres(presEmailArr);
+
       setCardRender(true)
     }
 
@@ -61,7 +63,7 @@ const SessionCard = (props) => {
                     </Col>
                     <Col sm={9}>
                       <h2>{sess.sessName}</h2>
-                      <p>{presEmailArr}, {presEmailArr}</p>
+                      <p>{props.presenter.presGivenName} {props.presenter.presFamilyName}, {presEmailArr}</p>
                     </Col>
                   </div>
                   : <div>
