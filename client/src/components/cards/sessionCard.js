@@ -3,7 +3,7 @@ import { useHistory, useLocation, Link } from "react-router-dom";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Moment from "react-moment";
-import { SessionAPI } from "../../utils/api";
+import { PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const SessionCard = (props) => {
@@ -11,9 +11,12 @@ const SessionCard = (props) => {
   const history = useHistory();
   const location = useLocation();
   const [cardRender, setCardRender] = useState(false);
+  const [presenters, setPresenters] = useState();
   const [presNames, setPresNames] = useState([]);
   const [presOrgs, setPresOrgs] = useState([]);
   const presEmailArr = props.session.sessPresEmails;
+  let presObj = [];
+  let names = [];
 
   // Handles click on delete button
   const handleDelete = (sessId) => {
@@ -23,15 +26,36 @@ const SessionCard = (props) => {
       .catch(err => console.log(err))
   };
 
+  // GETs Presenter by email
+  const fetchPres = async (arr, id) => {
+    await arr.forEach(email => {
+      PresenterAPI.getPresenterByEmail(email, id)
+        .then(resp => {
+          presObj = [...presObj, resp.data]
+          if (presObj.length === arr.length) {
+            names = presObj.map(presObj => presObj.presGivenName + " " + presObj.presFamilyName)
+            console.log({ names })
+            setPresNames(names)
+          }
+        })
+    })
+  }
+
   // Creates array of presenter names
+  // I have the emails: session.sessPresEmails
+  // I need to match them to presenter.presEmail, then pull presenter.presGivenName, presenter.presFamilyName,
+  // and presenter.presOrg from those documents
   // Map through presenters
   // Find where props.session.sessPresEmails.includes(props.presenter.presEmail)
   // Concat {props.presenter.presGivenName + " " + props.presenter.presFamilyName} to array of presNames
-  const findNames = (arr) => {
-    const presNamesObj = arr.map(arr => arr.includes(props.presenter.presEmail))
-    const presFullName = props.presenter.presGivenName + " " + props.presenter.presFamilyName
-    setPresNames(...presNames, presFullName)
-    console.log({ presNamesObj })
+  const findNames = async (arr, id) => {
+    const presArr = await fetchPres(arr, id)
+    console.log({ presArr })
+    //     .then(presArr.forEach(name => {
+    //       const presFullName = presenters.presGivenName + " " + presenters.presFamilyName
+    //       setPresNames(...presNames, presFullName)
+    //       console.log({ presNames })
+    //     }))
   }
 
   // const findOrgs = (arr) => {
@@ -54,6 +78,7 @@ const SessionCard = (props) => {
       { cardRender === true &&
         props.session.map(sess => (
           <Card className="infoCard" key={sess._id}>
+            {() => findNames(sess.sessPresEmails, sess.confId)}
             <Card.Header className="cardTitle">
               <Row>
                 {sess.sessKeynote === "yes"
@@ -63,7 +88,7 @@ const SessionCard = (props) => {
                     </Col>
                     <Col sm={9}>
                       <h2>{sess.sessName}</h2>
-                      <p>{props.presenter.presGivenName} {props.presenter.presFamilyName}, {presEmailArr}</p>
+                      <p>{presNames}, {presEmailArr}</p>
                     </Col>
                   </div>
                   : <div>

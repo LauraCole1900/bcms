@@ -237,7 +237,7 @@ const ConfDetails = () => {
               <Col sm={12}>
                 <h1>Sessions</h1>
                 {sessArray.length > 0
-                  ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} />
+                  ? <SessionCard session={searchSess(sessArray)} conference={conference} />
                   : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
@@ -251,7 +251,7 @@ const ConfDetails = () => {
                 <Col sm={6}>
                   <h1>Sessions</h1>
                   {sessArray.length > 0
-                    ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} />
+                    ? <SessionCard session={searchSess(sessArray)} conference={conference} />
                     : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
               </div>}
