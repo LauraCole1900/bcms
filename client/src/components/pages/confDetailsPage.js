@@ -70,12 +70,11 @@ const ConfDetails = () => {
         const presArr = resp.data.slice(0)
         // Sort presenters by last name
         const sortedPres = presArr.sort(
-          firstBy("presKeynote")
+          firstBy("presKeynote", "desc")
             .thenBy("presFamilyName")
             .thenBy("presGivenName")
         );
         setPresArray(sortedPres);
-        console.log({ presArray })
       })
       .catch(err => {
         console.log(err)
@@ -85,21 +84,30 @@ const ConfDetails = () => {
     setPresReady(true)
   }
 
-  // Filter response data by user input
-  const searchFilter = (data) => {
+  // Filter session data by user input
+  const searchSess = (data) => {
     switch (searchBy) {
       // Filter session names
       case "sessionName":
         return data.filter((session) => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-      // Filter presenter names
-      case "presenterName":
-        return data.filter((presenter) => presenter.presFamilyName.find(pres => pres.toLowerCase().includes(search.toLowerCase())))
-      // Filter presenter organization
-      case "presenterOrg":
-        return data.filter((presenter) => presenter.presOrg.find(presOrg => presOrg.toLowerCase().includes(search.toLowerCase())))
       // Return all response data
       default:
         return (sessArray)
+    }
+  }
+
+  // Filter presenter data by user input
+  const searchPres = (data) => {
+    switch (searchBy) {
+      // Filter presenter names
+      case "presenterName":
+        return data.filter((presenter) => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      // Filter presenter organization
+      case "presenterOrg":
+        return data.filter((presenter) => presenter.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      // Return all response data
+      default:
+        return (presArray)
     }
   }
 
@@ -221,29 +229,29 @@ const ConfDetails = () => {
             {searchBy === "allPres" &&
               <Col sm={12}>
                 <h1>Presenters</h1>
-                {sessArray.length > 0
-                  ? <PresenterCard presenter={searchFilter(presArray)} session={sessArray} conference={conference} />
+                {presArray.length > 0
+                  ? <PresenterCard presenter={searchPres(presArray)} session={sessArray} conference={conference} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allSess" || searchBy === "sessionName") &&
               <Col sm={12}>
                 <h1>Sessions</h1>
                 {sessArray.length > 0
-                  ? <SessionCard session={searchFilter(sessArray)} presenter={presArray} conference={conference} />
+                  ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} />
                   : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
               <div>
                 <Col sm={6}>
                   <h1>Presenters</h1>
-                  {sessArray.length > 0
-                    ? <PresenterCard presenter={searchFilter(presArray)} session={sessArray} conference={conference} />
+                  {presArray.length > 0
+                    ? <PresenterCard presenter={searchPres(presArray)} session={sessArray} conference={conference} />
                     : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
                 <Col sm={6}>
                   <h1>Sessions</h1>
                   {sessArray.length > 0
-                    ? <SessionCard session={searchFilter(sessArray)} presenter={presArray} conference={conference} />
+                    ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} />
                     : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
               </div>}
