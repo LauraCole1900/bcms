@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+var trimmedString = {
+  type: String,
+  trim: true
+}
+
 const exhibitorSchema = new Schema({
   confId: {
     type: String,
@@ -45,8 +50,8 @@ const exhibitorSchema = new Schema({
     required: "Please select how many workers are associated with this exhibit."
   },
   exhWorkerNames: {
-    type: [ String ],
-    required: "Please enter the names of the exhibit workers."
+    type: [ trimmedString ],
+    required: "Please enter the names of the exhibit workers.",
   },
   exhSpaces: {
     type: Number,

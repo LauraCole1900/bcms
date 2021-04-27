@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+var trimmedString = {
+  type: String,
+  trim: true
+}
+
 const sessionSchema = new Schema({
   confId: {
     type: String,
@@ -15,8 +20,9 @@ const sessionSchema = new Schema({
     required: "Please enter the number of presenters for this session."
   },
   sessPresEmails: {
-    type: [ String ],
-    required: "Please enter the session presenter's email."
+    type: [ trimmedString ],
+    required: "Please enter the session presenter's email.",
+    trim: true
   },
   sessDate: {
     type: String,

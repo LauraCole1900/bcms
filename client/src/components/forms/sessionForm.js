@@ -103,9 +103,7 @@ const SessionForm = () => {
     if (e.target.name === "sessPresEmails") {
       // Splits input to sessPresEmail field at commas to create an array
       let emails = e.target.value.split(",")
-      // Trims empty spaces on either side of emails
-      const emailArr = emails.map(email => email.trim())
-      setSession({ ...session, sessPresEmails: emailArr })
+      setSession({ ...session, sessPresEmails: emails })
     }
   };
 

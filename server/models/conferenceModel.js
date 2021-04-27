@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+var trimmedString = {
+  type: String,
+  trim: true
+}
+
 const conferenceSchema = new Schema({
   ownerConfirm: {
     type: String,
@@ -112,7 +117,7 @@ const conferenceSchema = new Schema({
     type: Number
   },
   confAdmins: {
-    type: [ String ]
+    type: [ trimmedString ]
   },
   confCancel: {
     type: String,

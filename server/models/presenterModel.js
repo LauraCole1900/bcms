@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+var trimmedString = {
+  type: String,
+  trim: true
+}
+
 const presenterSchema = new Schema({
   confId: {
     type: String,
@@ -37,7 +42,7 @@ const presenterSchema = new Schema({
     type: String,
   },
   presSessionIds: {
-    type: [ String ],
+    type: [ trimmedString ],
     required: true
   },
   presKeynote: {

@@ -64,9 +64,7 @@ const ExhibitForm = () => {
     if (e.target.name === "exhWorkerNames") {
       // Splits input into workerNames field at commas to create an array
       let names = e.target.value.split(",")
-      // Trims empty space at the beginning of each name
-      const nameArr = names.map(name => name.trimLeft());
-      setExhibitor({ ...exhibitor, exhWorkerNames: nameArr })
+      setExhibitor({ ...exhibitor, exhWorkerNames: names })
     }
   };
 
