@@ -44,9 +44,9 @@ module.exports = {
 	},
 
 
-	// PUT session
+	// PUT session by sessId
 	updateSession: function (req, res) {
-		console.log("from sessCont updateSession", req.params)
+		console.log("from sessCont updateSession", req.params.id, req.body)
 		db.Session
 			.findOneAndUpdate({ _id: req.params.id }, req.body)
 			.then(dbModel => res.json(dbModel))

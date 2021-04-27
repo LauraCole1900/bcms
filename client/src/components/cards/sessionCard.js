@@ -27,10 +27,14 @@ const SessionCard = (props) => {
   // Map through presenters
   // Find where props.session.sessPresEmails.includes(props.presenter.presEmail)
   // Concat {props.presenter.presGivenName + " " + props.presenter.presFamilyName} to array of presNames
-  // const findPres = () => {
-  //   let pres = props.presenter.forEach(sess => sess.sessPresEmails.includes(props.presenter.presEmail))
-  //   setPresNames(...presNames, pres.presGivenName + " " + pres.presFamilyName)
-  //   setPresOrgs(...presOrgs, pres.presOrg)
+  // const findNames = (arr) => {
+  //   const presNamesArr = arr.includes(props.presenter.presEmail)
+  //   setPresNames(...presNames, presNamesArr.presGivenName + " " + presNamesArr.presFamilyName)
+  // }
+
+  // const findOrgs = (arr) => {
+  //   const presOrgsArr = arr.includes(props.presenter.presEmail)
+  //   setPresOrgs(...presOrgs, presOrgsArr.presOrg)
   // }
 
   useEffect(() => {
@@ -38,6 +42,8 @@ const SessionCard = (props) => {
       // findPres(presEmailArr);
       setCardRender(true)
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.session])
 
 
@@ -55,7 +61,7 @@ const SessionCard = (props) => {
                     </Col>
                     <Col sm={9}>
                       <h2>{sess.sessName}</h2>
-                      <p>{presNames}, {presOrgs}</p>
+                      <p>{presEmailArr}, {presEmailArr}</p>
                     </Col>
                   </div>
                   : <div>

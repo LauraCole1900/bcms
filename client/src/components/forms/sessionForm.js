@@ -102,9 +102,8 @@ const SessionForm = () => {
   const handleInputChange = (e) => {
     setSession({ ...session, [e.target.name]: e.target.value })
     if (e.target.name === "sessPresEmails") {
-      let emails = []
-      emails.concat(e.target.value)
-      setSession({ sessPresEmails: [emails] })
+      let emails = e.target.value.split(",")
+      setSession({ ...session, sessPresEmails: emails })
     }
   };
 
@@ -292,17 +291,18 @@ const SessionForm = () => {
 
                 <Form.Group controlId="formSessNumPres">
                   <Row>
-                    <Col sm={3}>
+                    {/* <Col sm={3}>
                       <Form.Label>Number of presenters: <span className="red">*</span></Form.Label>
                       <Form.Control required type="number" min="1" max="10" name="sessNumPres" placeholder="Enter a number, 1-15" value={session.sessNumPres} className="formNum" onChange={handleInputChange} />
-                    </Col>
-                    <Col sm={6}>
-                      <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="email" name="sessPresEmails" placeholder="name@email.com" value={session.sessPresEmails[0]} className="formEmail" onChange={handleInputChange} onSubmit={handleAddEmails} />
+                    </Col> */}
+                    <Col sm={12}>
+                      <Form.Label>Presenter emails: <span className="red">*</span></Form.Label><br />
+                      <Form.Text className="subtext" muted>Please separate emails with commas.</Form.Text>
+                      <Form.Control required type="email" name="sessPresEmails" placeholder="name@email.com" value={session.sessPresEmails} className="formEmail" onChange={handleInputChange} />
                     </Col>
                   </Row>
                   {/* ----------Need to figure out how to input these individually and push to an array!---------- */}
-                  {session.sessNumPres > 1 &&
+                  {/* {session.sessNumPres > 1 &&
                     <Row>
                       <Col sm={3}></Col>
                       <Col sm={6}>
@@ -373,7 +373,7 @@ const SessionForm = () => {
                         <Form.Label>10th presenter's email: <span className="red">*</span></Form.Label>
                         <Form.Control required type="email" name="sessPresEmails" placeholder="name@email.com" value={session.sessPresEmails} className="formEmail" onChange={handleAddEmails} />
                       </Col>
-                    </Row>}
+                    </Row>} */}
                 </Form.Group>
 
               </Card.Body>

@@ -9,8 +9,8 @@ const sessValidate = ([session, conference]) => {
   // session description errors
   if (!session.sessDesc) {
     errors.sessDesc = "What is this session about? Please enter a description."
-  } else if (session.sessDesc.length < 50) {
-    errors.sessDesc = "We want to know more! Please use 50 characters or more to describe or summarize this session."
+  } else if (session.sessDesc.length < 10) {
+    errors.sessDesc = "We want to know more! Please use 10 characters or more to describe or summarize this session."
   }
 
   // session date errors
