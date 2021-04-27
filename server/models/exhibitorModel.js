@@ -44,18 +44,9 @@ const exhibitorSchema = new Schema({
     type: Number,
     required: "Please select how many workers are associated with this exhibit."
   },
-  exhWorkerName1: {
-    type: String,
+  exhWorkerNames: {
+    type: [ String ],
     required: "Please enter the names of the exhibit workers."
-  },
-  exhWorkerName2: {
-    type: String
-  },
-  exhWorkerName3: {
-    type: String
-  },
-  exhWorkerName4: {
-    type: String
   },
   exhSpaces: {
     type: Number,

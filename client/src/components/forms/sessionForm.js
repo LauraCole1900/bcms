@@ -103,16 +103,10 @@ const SessionForm = () => {
     setSession({ ...session, [e.target.name]: e.target.value })
     if (e.target.name === "sessPresEmails") {
       let emails = e.target.value.split(",")
-      setSession({ ...session, sessPresEmails: emails })
+      const emailArr = emails.map(email => email.trim())
+      setSession({ ...session, sessPresEmails: emailArr })
     }
   };
-
-  const handleAddEmails = (e) => {
-    // setSession({ ...session, [e.target.name]: e.target.value })
-    let emails = []
-    emails.concat(e.target.value)
-    setSession({ sessPresEmails: [emails] })
-  }
 
   // Handles character limit and input changes for textarea
   const handleTextArea = (e) => {

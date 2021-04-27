@@ -61,6 +61,11 @@ const ExhibitForm = () => {
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
+    if (e.target.name === "exhWorkerNames") {
+      let names = e.target.value.split(",")
+      const nameArr = names.map(name => name.trimLeft());
+      setExhibitor({ ...exhibitor, exhWorkerNames: nameArr })
+    }
   };
 
   // Handles character limit and input changes for textarea
@@ -271,35 +276,18 @@ const ExhibitForm = () => {
               <Card.Body className="cardBody">
                 <Row>
                   <Form.Group controlId="exhWorkers">
-                    <Col sm={4}>
+                    <Col sm={3}>
                       <Form.Label>How many people will be working your exhibit? <span className="red">*</span></Form.Label>
                       {errors.exhWorkers &&
                         <div className="error"><p>{errors.exhWorkers}</p></div>}
                       <Form.Control type="number" min="1" max="4" name="exhWorkers" className="formNum" value={exhibitor.exhWorkers} onChange={handleInputChange} />
                     </Col>
-                    <Col sm={8}>
-                      <Form.Label>Names of workers (one name per line): <span className="red">*</span></Form.Label>
-                      {errors.exhWorkerName1 &&
-                        <div className="error"><p>{errors.exhWorkerName1}</p></div>}
-                      <Form.Control required type="input" name="exhWorkerName1" placeholder="Yazmin Khan" value={exhibitor.exhWorkerName1} className="exhNameArr" onChange={handleInputChange} />
-                      {exhibitor.exhWorkers > 1 &&
-                        <div>
-                          {errors.exhWorkerName2 &&
-                            <div className="error"><p>{errors.exhWorkerName2}</p></div>}
-                          <Form.Control type="input" name="exhWorkerName2" placeholder="Ryan Sinclair" value={exhibitor.exhWorkerName2} className="exhNameArr" onChange={handleInputChange} />
-                        </div>}
-                      {exhibitor.exhWorkers > 2 &&
-                        <div>
-                          {errors.exhWorkerName3 &&
-                            <div className="error"><p>{errors.exhWorkerName3}</p></div>}
-                          <Form.Control required type="input" name="exhWorkerName3" placeholder="Graham O'Brien" value={exhibitor.exhWorkerName3} className="exhNameArr" onChange={handleInputChange} />
-                        </div>}
-                      {exhibitor.exhWorkers > 3 &&
-                        <div>
-                          {errors.exhWorkerName4 &&
-                            <div className="error"><p>{errors.exhWorkerName4}</p></div>}
-                          <Form.Control required type="input" name="exhWorkerName4" placeholder="Jack Harkness" value={exhibitor.exhWorkerName4} className="exhNameArr" onChange={handleInputChange} />
-                        </div>}
+                    <Col sm={9}>
+                      <Form.Label>Names of workers: <span className="red">*</span></Form.Label><br />
+                      <Form.Text className="subtitle" muted>Please separate names with commas</Form.Text>
+                      {errors.exhWorkerNames &&
+                        <div className="error"><p>{errors.exhWorkerNames}</p></div>}
+                      <Form.Control required type="input" name="exhWorkerNames" placeholder="Yazmin Khan" value={exhibitor.exhWorkerNames} className="exhNameArr" onChange={handleInputChange} />
                     </Col>
                   </Form.Group>
                 </Row>
