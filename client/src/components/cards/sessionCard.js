@@ -58,8 +58,8 @@ const SessionCard = (props) => {
             {/* {() => findNames(sess.sessPresEmails, sess.confId)} */}
             <Card.Header className="cardTitle">
               <Row>
-                {sess.sessKeynote === "yes"
-                  ? <div>
+                {sess.sessKeynote === "yes" &&
+                  <div>
                     <Col sm={2}>
                       <h3>&nbsp;Keynote:</h3>
                     </Col>
@@ -68,8 +68,20 @@ const SessionCard = (props) => {
                       <p>{sess.sessPresNames.join(", ")}</p>
                       <p>{sess.sessPresOrgs.join(", ")}</p>
                     </Col>
-                  </div>
-                  : <div>
+                  </div>}
+                {sess.sessPanel === "yes" &&
+                  <div>
+                    <Col sm={2}>
+                      <h3>&nbsp;Panel<br />&nbsp;Discussion:</h3>
+                    </Col>
+                    <Col sm={9}>
+                      <h2>{sess.sessName}</h2>
+                      <p>{sess.sessPresNames.join(", ")}</p>
+                      <p>{sess.sessPresOrgs.join(", ")}</p>
+                    </Col>
+                  </div>}
+                {sess.sessKeynote === "no" && sess.sessPanel === "no" &&
+                  <div>
                     <Col sm={11}>
                       <h2>{sess.sessName}</h2>
                       <p>{sess.sessPresNames.join(", ")}</p>

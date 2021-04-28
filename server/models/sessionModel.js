@@ -46,6 +46,9 @@ const sessionSchema = new Schema({
   sessKeynote: {
     type: String
   },
+  sessPanel: {
+    type: String
+  },
   sessRoom: {
     type: String
   }

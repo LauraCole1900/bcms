@@ -32,6 +32,11 @@ const sessValidate = ([session, conference]) => {
     errors.sessRoom = "Where is this session? Please enter a room or location. If that isn't assigned yet, please enter 'TBA' or 'TBD'."
   }
 
+  // panel discussion errors
+  if (!session.sessPanel) {
+    errors.sessPanel = "Please indicate whether this is a panel discussion."
+  }
+
   // keynote errors
   if (conference.confKeynote === "yes" && !session.sessKeynote) {
     errors.sessKeynote = "Please indicate whether this is a keynote session."
