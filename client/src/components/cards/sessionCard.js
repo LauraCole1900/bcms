@@ -41,31 +41,8 @@ const SessionCard = (props) => {
     })
   }
 
-  // Creates array of presenter names
-  // I have the emails: session.sessPresEmails
-  // I need to match them to presenter.presEmail, then pull presenter.presGivenName, presenter.presFamilyName,
-  // and presenter.presOrg from those documents
-  // Map through presenters
-  // Find where props.session.sessPresEmails.includes(props.presenter.presEmail)
-  // Concat {props.presenter.presGivenName + " " + props.presenter.presFamilyName} to array of presNames
-  const findNames = async (arr, id) => {
-    const presArr = await fetchPres(arr, id)
-    console.log({ presArr })
-    //     .then(presArr.forEach(name => {
-    //       const presFullName = presenters.presGivenName + " " + presenters.presFamilyName
-    //       setPresNames(...presNames, presFullName)
-    //       console.log({ presNames })
-    //     }))
-  }
-
-  // const findOrgs = (arr) => {
-  //   const presOrgsArr = arr.includes(props.presenter.presEmail)
-  //   setPresOrgs(...presOrgs, presOrgsArr.presOrg)
-  // }
-
   useEffect(() => {
     if (props.session.length > 0) {
-
       setCardRender(true)
     }
 
@@ -78,7 +55,7 @@ const SessionCard = (props) => {
       { cardRender === true &&
         props.session.map(sess => (
           <Card className="infoCard" key={sess._id}>
-            {() => findNames(sess.sessPresEmails, sess.confId)}
+            {/* {() => findNames(sess.sessPresEmails, sess.confId)} */}
             <Card.Header className="cardTitle">
               <Row>
                 {sess.sessKeynote === "yes"
@@ -88,13 +65,15 @@ const SessionCard = (props) => {
                     </Col>
                     <Col sm={9}>
                       <h2>{sess.sessName}</h2>
-                      <p>{presNames}, {presEmailArr}</p>
+                      <p>{sess.sessPresNames.join(", ")}</p>
+                      <p>{sess.sessPresOrgs.join(", ")}</p>
                     </Col>
                   </div>
                   : <div>
                     <Col sm={11}>
                       <h2>{sess.sessName}</h2>
-                      <p>{presNames}, {presOrgs}</p>
+                      <p>{sess.sessPresNames.join(", ")}</p>
+                      <p>{sess.sessPresOrgs.join(", ")}</p>
                     </Col>
                   </div>}
                 <Col sm={1}>

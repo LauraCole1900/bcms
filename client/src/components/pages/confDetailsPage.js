@@ -39,7 +39,6 @@ const ConfDetails = () => {
     setConfReady(true);
   }
 
-  // ---------- Figure out how to render presenters only once, even when presenting multiple sessions!!!!! ----------
   // GETs sessions by confId
   const fetchSess = async (confId) => {
     await SessionAPI.getSessions(confId)
@@ -230,14 +229,14 @@ const ConfDetails = () => {
               <Col sm={12}>
                 <h1>Presenters</h1>
                 {presArray.length > 0
-                  ? <PresenterCard presenter={searchPres(presArray)} session={sessArray} conference={conference} />
+                  ? <PresenterCard presenter={searchPres(presArray)} conference={conference} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allSess" || searchBy === "sessionName") &&
               <Col sm={12}>
                 <h1>Sessions</h1>
                 {sessArray.length > 0
-                  ? <SessionCard session={searchSess(sessArray)} conference={conference} />
+                  ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} />
                   : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
@@ -245,13 +244,13 @@ const ConfDetails = () => {
                 <Col sm={6}>
                   <h1>Presenters</h1>
                   {presArray.length > 0
-                    ? <PresenterCard presenter={searchPres(presArray)} session={sessArray} conference={conference} />
+                    ? <PresenterCard presenter={searchPres(presArray)} conference={conference} />
                     : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
                 <Col sm={6}>
                   <h1>Sessions</h1>
                   {sessArray.length > 0
-                    ? <SessionCard session={searchSess(sessArray)} conference={conference} />
+                    ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} />
                     : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
               </div>}
