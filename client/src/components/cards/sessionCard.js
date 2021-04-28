@@ -55,48 +55,63 @@ const SessionCard = (props) => {
       { cardRender === true &&
         props.session.map(sess => (
           <Card className="infoCard" key={sess._id}>
-            {/* {() => findNames(sess.sessPresEmails, sess.confId)} */}
-            <Card.Header className="cardTitle">
-              <Row>
-                {sess.sessKeynote === "yes" &&
-                  <div>
-                    <Col sm={2}>
-                      <h3>&nbsp;Keynote:</h3>
-                    </Col>
-                    <Col sm={9}>
-                      <h2>{sess.sessName}</h2>
-                      <p>{sess.sessPresNames.join(", ")}</p>
-                      <p>{sess.sessPresOrgs.join(", ")}</p>
-                    </Col>
-                  </div>}
-                {sess.sessPanel === "yes" &&
-                  <div>
-                    <Col sm={2}>
-                      <h3>&nbsp;Panel<br />&nbsp;Discussion:</h3>
-                    </Col>
-                    <Col sm={9}>
-                      <h2>{sess.sessName}</h2>
-                      <p>{sess.sessPresNames.join(", ")}</p>
-                      <p>{sess.sessPresOrgs.join(", ")}</p>
-                    </Col>
-                  </div>}
-                {sess.sessKeynote === "no" && sess.sessPanel === "no" &&
-                  <div>
-                    <Col sm={11}>
-                      <h2>{sess.sessName}</h2>
-                      <p>{sess.sessPresNames.join(", ")}</p>
-                      <p>{sess.sessPresOrgs.join(", ")}</p>
-                    </Col>
-                  </div>}
-                <Col sm={1}>
-                  {isAuthenticated &&
-                    (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
-                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" name="sessDelete" onClick={() => handleDelete(sess._id)}>
-                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" name="sessDelete" />
-                    </Button>}
-                </Col>
-              </Row>
-            </Card.Header>
+            {sess.sessKeynote === "yes" &&
+              <Card.Header className="cardTitleKeynote">
+                <Row>
+                  <Col sm={2}>
+                    <h3>&nbsp;Keynote:</h3>
+                  </Col>
+                  <Col sm={9}>
+                    <h2>{sess.sessName}</h2>
+                    <p>{sess.sessPresNames.join(", ")}</p>
+                    <p>{sess.sessPresOrgs.join(", ")}</p>
+                  </Col>
+                  <Col sm={1}>
+                    {isAuthenticated &&
+                      (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                      <Button data-toggle="popover" title="Delete this session" className="deletebtn" name="sessDelete" onClick={() => handleDelete(sess._id)}>
+                        <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" name="sessDelete" />
+                      </Button>}
+                  </Col>
+                </Row>
+              </Card.Header>}
+            {sess.sessPanel === "yes" &&
+              <Card.Header className="cardTitle">
+                <Row>
+                  <Col sm={2}>
+                    <h3>&nbsp;Panel:</h3>
+                  </Col>
+                  <Col sm={9}>
+                    <h2>{sess.sessName}</h2>
+                    <p>{sess.sessPresNames.join(", ")}</p>
+                    <p>{sess.sessPresOrgs.join(", ")}</p>
+                  </Col>
+                  <Col sm={1}>
+                    {isAuthenticated &&
+                      (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                      <Button data-toggle="popover" title="Delete this session" className="deletebtn" name="sessDelete" onClick={() => handleDelete(sess._id)}>
+                        <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" name="sessDelete" />
+                      </Button>}
+                  </Col>
+                </Row>
+              </Card.Header>}
+            {sess.sessKeynote === "no" && sess.sessPanel === "no" &&
+              <Card.Header className="cardTitle">
+                <Row>
+                  <Col sm={11}>
+                    <h2>{sess.sessName}</h2>
+                    <p>{sess.sessPresNames.join(", ")}</p>
+                    <p>{sess.sessPresOrgs.join(", ")}</p>
+                  </Col>
+                  <Col sm={1}>
+                    {isAuthenticated &&
+                      (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                      <Button data-toggle="popover" title="Delete this session" className="deletebtn" name="sessDelete" onClick={() => handleDelete(sess._id)}>
+                        <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete" name="sessDelete" />
+                      </Button>}
+                  </Col>
+                </Row>
+              </Card.Header>}
             <Card.Body className="infoCardBody">
               <Row>
                 <Col sm={8}>
@@ -120,7 +135,7 @@ const SessionCard = (props) => {
                   </Col>
                 </Row>}
             </Card.Body>
-          </Card>
+          </Card >
         ))}
     </>
   )

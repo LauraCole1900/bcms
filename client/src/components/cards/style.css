@@ -38,6 +38,13 @@ a:visited {
   margin-right: -25px;
 }
 
+.cardTitleKeynote {
+  color: #cfbfa5;
+  background: linear-gradient(to top, #408ae1, #032c4b);
+  border-radius: 11px 11px 0 0;
+  margin-right: -25px;
+}
+
 .delete {
   max-width: 25px;
 }
