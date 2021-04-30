@@ -51,6 +51,10 @@ const sessionSchema = new Schema({
   },
   sessRoom: {
     type: String
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 })
 

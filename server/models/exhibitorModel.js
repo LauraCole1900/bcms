@@ -65,6 +65,10 @@ const exhibitorSchema = new Schema({
   },
   exhBoothNum: {
     type: String
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 })
 

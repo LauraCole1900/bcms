@@ -54,6 +54,10 @@ const attendeeSchema = new Schema({
   },
   isExhibitor: {
     type: Boolean
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 })
 
