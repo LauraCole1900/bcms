@@ -30,7 +30,7 @@ const PresenterForm = () => {
   // Grabs conference ID from URL for new presenters or presenter ID from URL for existing presenters
   // Uses URL to determine whether this is adding a session presenter or editing an existing presenter
   // If formType === presenter_info, then urlId === confId
-  // If formType === edit_presenter_info, then urlId === presId
+  // If formType === edit_presenter_info, then urlId === sessId
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const formType = urlArray[urlArray.length - 2]
@@ -63,11 +63,11 @@ const PresenterForm = () => {
 
   // GETs session info by sessId
   // How to GET sessId?
-  const fetchSess = async (sessid) => {
+  const fetchOneSess = async (sessid) => {
     // Edit existing session: GET session information
     return SessionAPI.getSessionById(sessid)
       .then(resp => {
-        console.log("from sessForm getSessById", resp.data)
+        console.log("from presForm getSessById", resp.data)
         const sessObj = resp.data[0]
         setSession(sessObj)
         return sessObj
@@ -78,22 +78,34 @@ const PresenterForm = () => {
       })
   }
 
+  // GETs all sessions by confId, then sorts by date and grabs the most recent one
+  const fetchSessions = async (id) => {
+    // GET all sessions by confId
+    return SessionAPI.getSessions(id)
+      .then(resp => {
+        console.log("from presForm getSessions", resp.data)
+        const sessArr = resp.data
+        const latestSess = sessArr.reduce((r, a) => {
+          return r.date > a.date ? r : a
+        });
+        return latestSess;
+      })
+  }
+
   // GETs conference info by confId
   const fetchConf = async (confid) => {
     switch (formType) {
       // Edit existing presenter
       case "edit_presenter_info":
         // Call fetchPres()
-        let presObj = await fetchPres(confid)
-        console.log({ presObj });
-        // Use response from fetchPres() to GET conference information
-        // Will need to specify presObj.confId[idx]
-        await ConferenceAPI.getConferenceById(presObj.confId)
+        let sessObj = await fetchOneSess(confid)
+        console.log({ sessObj });
+        // Use response from fetchOneSess() to GET conference information
+        await ConferenceAPI.getConferenceById(sessObj.confId)
           .then(resp => {
             console.log("from presForm getConfById", resp.data)
             const confObj = resp.data[0]
             setConference(confObj)
-            setPresReady(true);
             setConfReady(true);
           })
           .catch(err => console.log(err))
@@ -198,6 +210,19 @@ const PresenterForm = () => {
       console.log({ validationErrors });
     }
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      switch (formType) {
+        case "edit_presenter_info":
+          // urlId === sessId
+          fetchConf(urlId)
+          break;
+        default:
+          fetchSessions(urlId)
+      }
+    }
+  })
 
 
 
