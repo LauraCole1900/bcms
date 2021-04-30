@@ -27,6 +27,11 @@ const SessionCard = (props) => {
   };
 
   // GETs Presenter by email
+  // Maps through session.sessPresEmails[]
+  // For each, GETs presenter document with matching email and confId
+  // Maps through presenter document to get presenter.presGivenName + presenter.presFamilyName
+  // Throws that into array
+  // Renders array to card
   const fetchPres = async (arr, id) => {
     await arr.forEach(email => {
       PresenterAPI.getPresenterByEmail(email, id)

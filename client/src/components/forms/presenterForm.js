@@ -134,7 +134,7 @@ const PresenterForm = () => {
     const charCount = e.target.value.length;
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
-    setSession({ ...session, [e.target.name]: e.target.value.slice(0, 750) })
+    setSession({ ...presenter, [e.target.name]: e.target.value.slice(0, 750) })
   }
 
   // Handles click on "Check for existing" button
