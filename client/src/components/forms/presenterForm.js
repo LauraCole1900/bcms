@@ -27,6 +27,7 @@ const PresenterForm = () => {
   const [errors, setErrors] = useState({});
   const [presReady, setPresReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
+  const [sessReady, setSessReady] = useState(false);
 
   // Grabs conference ID from URL for new presenters or presenter ID from URL for existing presenters
   // Uses URL to determine whether this is adding a session presenter or editing an existing presenter
@@ -71,7 +72,7 @@ const PresenterForm = () => {
         console.log("from presForm getSessById", resp.data)
         const sessObj = resp.data[0]
         setSession(sessObj)
-        return sessObj
+        setSessReady(true);
       })
       .catch(err => {
         console.log(err)
@@ -91,6 +92,11 @@ const PresenterForm = () => {
         });
         console.log({ latestSess });
         setSession(latestSess);
+        setSessReady(true);
+      })
+      .catch(err => {
+        console.log(err);
+        return false;
       })
   }
 
@@ -247,6 +253,7 @@ const PresenterForm = () => {
 
       {isAuthenticated &&
         confReady === true &&
+        sessReady === true &&
         (user.email === conference.ownerEmail || conference.confAdmins.includes(user.email)) &&
         <Container>
           <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} />
