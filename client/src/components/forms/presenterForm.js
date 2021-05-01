@@ -65,6 +65,24 @@ const PresenterForm = () => {
       })
   }
 
+  // GETs presenter info by email and confId
+  // No, I need to GET all presenters by sessId to map through them
+  const fetchPresByEmail = async (email, id) => {
+    // GET presenter information
+    return PresenterAPI.getPresenterByEmail(email, id)
+    .then(resp => {
+      console.log("from presForm getPresByEmail", resp.data)
+      const presObj = resp.data[0]
+      setPresenter(presObj)
+      setPresReady(true)
+    })
+    .catch(err => {
+      console.log(err)
+      return false;
+    })
+
+  }
+
   // GETs session info by sessId
   // How to GET sessId?
   const fetchOneSess = async (sessid) => {
@@ -147,24 +165,6 @@ const PresenterForm = () => {
     setPresenter({ ...presenter, [e.target.name]: e.target.value.slice(0, 750) })
   }
 
-  // Handles click on "Check for existing" button
-  const handleEmailCheck = (e) => {
-    console.log("presForm handleEmailCheck", e.target.value)
-    // GETs presenter document by email
-    PresenterAPI.getPresenterByEmail(e.target.value, conference._id)
-      .then(resp => {
-        if (resp.length > 0) {
-          console.log("from presForm handleEmailCheck", resp.data)
-          const presObj = resp.data[0]
-          setPresenter({ ...presenter, presObj })
-          // PUT presenter document with confId added to confId[] and sessId added to sessId[]
-          return true
-        } else {
-          return false
-        }
-      })
-  }
-
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
@@ -223,9 +223,10 @@ const PresenterForm = () => {
     }
   }
 
-  const handlePageLoad = async (id) => {
+  const handlePageLoad = async (email, id) => {
     await fetchConf(id);
     await fetchSessions(id);
+    await fetchPresByEmail(email, id);
   }
 
   useEffect(() => {
