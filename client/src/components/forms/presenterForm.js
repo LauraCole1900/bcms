@@ -213,6 +213,11 @@ const PresenterForm = () => {
     }
   }
 
+  const handlePageLoad = async (id) => {
+    await fetchConf(id);
+    await fetchSessions(id);
+  }
+
   useEffect(() => {
     if (isAuthenticated) {
       switch (formType) {
@@ -221,8 +226,7 @@ const PresenterForm = () => {
           fetchConf(urlId);
           break;
         default:
-          fetchConf(urlId);
-          fetchSessions(urlId);
+          handlePageLoad(urlId);
       }
     }
     

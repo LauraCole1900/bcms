@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Container, Form, Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, SessionAPI } from "../../utils/api";
@@ -15,6 +15,7 @@ import "./style.css";
 
 const SessionForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const history = useHistory();
   const [session, setSession] = useState({
     sessName: "",
     sessNumPres: 1,
@@ -160,7 +161,7 @@ const SessionForm = () => {
         .then(res => {
           // If no errors thrown, push to Success page
           if (!res.err) {
-            handleShowSuccess();
+            history.push(`/presenter_info/${urlId}`)
           }
         })
         // If yes errors thrown, push to Error page

@@ -26,6 +26,13 @@ const PresenterFormCard = (props) => {
       })
   }
 
+  useEffect(() => {
+    if (props.session.length > 0) {
+      setCardRender(true);
+    }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
 
   return (
