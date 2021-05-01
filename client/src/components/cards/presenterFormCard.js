@@ -8,7 +8,7 @@ const PresenterFormCard = (props) => {
   const [presenter, setPresenter] = useState();
 
   // Handles click on "Check for existing" button
-  const handleEmailCheck = (e) => {
+  const handleEmailCheck = () => {
     const email = emailRef.current
     console.log("presForm handleEmailCheck", email.value)
     // GETs presenter document by email
@@ -38,7 +38,7 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="email" name="presEmail" ref={emailRef} placeholder="name@email.com" value={email} className="formEmail" />
+                  <Form.Control required type="email" name="presEmail" ref={emailRef} placeholder="name@email.com" value={email} className="formEmail" readOnly />
                 </Col>
                 <Col sm={6}>
                   <Button data-toggle="popover" title="Check whether presenter already exists in database" className="button" onClick={handleEmailCheck} type="submit">Check for existing</Button>

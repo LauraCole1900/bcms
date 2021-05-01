@@ -156,6 +156,11 @@ const SessionForm = () => {
     setErrors(validationErrors);
     if (noErrors) {
       console.log("Session submit", session)
+      // GET presenter: email + confId
+      // If resp.length === 0
+      // POST presenter: email + confId, all other required values empty strings
+      // If resp.length !== 0
+      // PUT presenter: presSessionIds: [...presSessionIds, session._id]
       // POST call to create session document
       SessionAPI.saveSession({ ...session, confId: urlId })
         .then(res => {
