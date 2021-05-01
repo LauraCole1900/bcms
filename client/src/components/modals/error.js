@@ -107,7 +107,7 @@ const ErrorModal = (props) => {
             {/* Link to Conference Details page when confid === conference._id */}
             {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "presenter_info" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urlid === "profile" || props.urlid === "conferences" || props.urlid === "details") &&
               <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title={props.confName} type="button" className="button">{props.confName}</Button>
+                <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
               </Link>}
 
             {/* Link to Conference Details page when confid !== conference._id */}

@@ -200,9 +200,11 @@ const PresenterForm = () => {
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
+      const idx = session.sessPresEmails.indexOf(presenter.presEmail)
+      console.log({ idx });
       console.log("Presenter submit", presenter)
       // POST call to create presenter document
-      PresenterAPI.savePresenter({ ...presenter, confId: urlId, presEmail: session.sessPresEmails, presSessionIds: [...presenter.presSessionIds, session._id] })
+      PresenterAPI.savePresenter({ ...presenter, confId: urlId, presEmail: session.sessPresEmails[idx], presSessionIds: [...presenter.presSessionIds, session._id] })
         .then(res => {
           // If no errors thrown, push to Success page
           if (!res.err) {
