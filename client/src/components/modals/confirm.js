@@ -23,7 +23,7 @@ const ConfirmModal = (props) => {
 
           {/* Delete Session button */}
           {props.btnname === "sessDelete" &&
-            <h4>Are you sure you want to delete {props.session.sessName}? This action can't be undone.</h4>}
+            <h4>Are you sure you want to delete {props.confname}? This action can't be undone.</h4>}
 
           {/* Unregister button */}
           {props.btnname === "unregAtt" &&

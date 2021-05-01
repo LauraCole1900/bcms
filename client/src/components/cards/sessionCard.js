@@ -3,7 +3,7 @@ import { useHistory, useLocation, Link } from "react-router-dom";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Moment from "react-moment";
-import { PresenterAPI, SessionAPI } from "../../utils/api";
+import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
@@ -12,6 +12,7 @@ const SessionCard = (props) => {
   const history = useHistory();
   const location = useLocation();
   const [cardRender, setCardRender] = useState(false);
+  const [conference, setConference] = useState();
   const [presenters, setPresenters] = useState();
   const [presNames, setPresNames] = useState([]);
   const [presOrgs, setPresOrgs] = useState([]);
@@ -50,6 +51,7 @@ const SessionCard = (props) => {
   // Handles click on "Yes, delete" button on Confirm modal
   const handleSessDelete = (sessId) => {
     console.log("from sessCard handleSessDelete", sessId)
+    handleHideConfirm();
     // ==================== Will need to delete sessId from each presenters' sessId[] ====================
     SessionAPI.deleteSession(sessId)
       .then(res => {
@@ -64,6 +66,20 @@ const SessionCard = (props) => {
         handleShowErr();
       })
   };
+
+    // GETs conference by confId
+    const fetchConf = async (confId) => {
+      await ConferenceAPI.getConferenceById(confId)
+        .then(resp => {
+          console.log("confDetailsPage getConfsById", resp.data)
+          const confObj = resp.data.slice(0)
+          setConference(confObj)
+        })
+        .catch(err => {
+          console.log(err)
+          return false
+        })
+    }
 
   // GETs Presenter by email
   // Maps through session.sessPresEmails[]
@@ -87,6 +103,7 @@ const SessionCard = (props) => {
 
   useEffect(() => {
     if (props.session.length > 0) {
+      fetchConf(urlId);
       setCardRender(true)
     }
 
@@ -182,7 +199,7 @@ const SessionCard = (props) => {
 
             <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(thisId)} show={showConfirm === sess._id} hide={(e) => handleHideConfirm(e)} />
 
-            <SuccessModal session={sess} confname={thisName} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === sess._id} hide={(e) => handleHideSuccess(e)} />
+            <SuccessModal session={sess} confname={conference.confName} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === sess._id} hide={(e) => handleHideSuccess(e)} />
 
             <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === sess._id} hide={(e) => handleHideErr(e)} />
 

@@ -225,7 +225,9 @@ const PresenterForm = () => {
           fetchSessions(urlId);
       }
     }
-  })
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
 
 
