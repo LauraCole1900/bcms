@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Card, Row, Col, Image, Form, Button } from "react-bootstrap";
 import { PresenterAPI } from "../../utils/api";
 import "./style.css";
 
 const PresenterFormCard = (props) => {
+  const emailRef = useRef();
   const [presenter, setPresenter] = useState();
   const [charRem, setCharRem] = useState(750);
 
   // Handles click on "Check for existing" button
   const handleEmailCheck = (e) => {
-    console.log("presForm handleEmailCheck", e.target.value)
+    const email = emailRef.current
+    console.log("presForm handleEmailCheck", email.value)
     // GETs presenter document by email
-    PresenterAPI.getPresenterByEmail(e.target.value, props.conference._id)
+    PresenterAPI.getPresenterByEmail(email.value, props.conference._id)
       .then(resp => {
         if (resp.length > 0) {
           console.log("from presForm handleEmailCheck", resp.data)
@@ -37,7 +39,7 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="email" name="presEmail" placeholder="name@email.com" value={email} className="formEmail" onChange={props.handleInputChange} />
+                  <Form.Control required type="email" name="presEmail" ref={emailRef} placeholder="name@email.com" value={email} className="formEmail" onChange={props.handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Button data-toggle="popover" title="Check whether presenter already exists in database" className="button" onClick={handleEmailCheck} type="submit">Check for existing</Button>

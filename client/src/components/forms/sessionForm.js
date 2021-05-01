@@ -18,10 +18,10 @@ const SessionForm = () => {
   const history = useHistory();
   const [session, setSession] = useState({
     sessName: "",
-    sessNumPres: 1,
     sessPresEmails: [],
     sessPresNames: [],
     sessPresOrgs: [],
+    sessDesc: "",
     sessDate: "",
     sessStart: "",
     sessEnd: "",

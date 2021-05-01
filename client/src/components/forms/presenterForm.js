@@ -19,6 +19,7 @@ const PresenterForm = () => {
     presPhone: "",
     presWebsite: "",
     presPic: "",
+    presSessionIds: []
   });
   const [conference, setConference] = useState();
   const [session, setSession] = useState();
@@ -201,7 +202,7 @@ const PresenterForm = () => {
     if (noErrors) {
       console.log("Presenter submit", presenter)
       // POST call to create presenter document
-      PresenterAPI.savePresenter({ ...presenter, confId: urlId, presSessionIds: [...presenter.presSessionIds, session._id] })
+      PresenterAPI.savePresenter({ ...presenter, confId: urlId, presEmail: session.sessPresEmails, presSessionIds: [...presenter.presSessionIds, session._id] })
         .then(res => {
           // If no errors thrown, push to Success page
           if (!res.err) {
