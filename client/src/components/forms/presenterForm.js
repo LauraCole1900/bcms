@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -10,6 +10,7 @@ import "./style.css";
 
 const PresenterForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const emailRef = useRef();
   const [presenter, setPresenter] = useState({
     presGivenName: "",
     presFamilyName: "",
@@ -204,7 +205,7 @@ const PresenterForm = () => {
       console.log({ idx });
       console.log("Presenter submit", presenter)
       // POST call to create presenter document
-      PresenterAPI.savePresenter({ ...presenter, confId: urlId, presEmail: session.sessPresEmails[idx], presSessionIds: [...presenter.presSessionIds, session._id] })
+      PresenterAPI.savePresenter({ ...presenter, confId: urlId, presEmail: emailRef.current.value, presSessionIds: [...presenter.presSessionIds, session._id] })
         .then(res => {
           // If no errors thrown, push to Success page
           if (!res.err) {
@@ -259,7 +260,7 @@ const PresenterForm = () => {
         sessReady === true &&
         (user.email === conference.ownerEmail || conference.confAdmins.includes(user.email)) &&
         <Container>
-          <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} />
+          <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} charRem={charRem} />
 
           <Row>
             {(formType === "edit_presenter_info" || formType === "admin_edit_pres")

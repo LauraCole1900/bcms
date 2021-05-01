@@ -6,7 +6,6 @@ import "./style.css";
 const PresenterFormCard = (props) => {
   const emailRef = useRef();
   const [presenter, setPresenter] = useState();
-  const [charRem, setCharRem] = useState(750);
 
   // Handles click on "Check for existing" button
   const handleEmailCheck = (e) => {
@@ -39,7 +38,7 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="email" name="presEmail" ref={emailRef} placeholder="name@email.com" value={email} className="formEmail" onChange={props.handleInputChange} />
+                  <Form.Control required type="email" name="presEmail" ref={emailRef} placeholder="name@email.com" value={email} className="formEmail" />
                 </Col>
                 <Col sm={6}>
                   <Button data-toggle="popover" title="Check whether presenter already exists in database" className="button" onClick={handleEmailCheck} type="submit">Check for existing</Button>
@@ -84,7 +83,7 @@ const PresenterFormCard = (props) => {
                 <Form.Group controlId="formPresBio">
                   <Form.Label>Presenter's bio (min 10 characters, max 750 characters): <span className="red">*</span></Form.Label>
                   <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={props.presenter.presBio} className="formInput" onChange={props.handleTextArea} />
-                  <Form.Text muted>Characters remaining: {charRem}</Form.Text>
+                  <Form.Text muted>Characters remaining: {props.charRem}</Form.Text>
                 </Form.Group>
               </Col>
             </Row>
