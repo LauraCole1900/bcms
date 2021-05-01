@@ -312,7 +312,7 @@ const Registration = () => {
 
             </Form>
 
-            <SuccessModal conference={conference} urlid={confId} urltype={formType} attname={attendee.givenName + " " + attendee.familyName} show={showSuccess} hide={e => handleHideSuccess(e)} />
+            <SuccessModal conference={conference} confname={conference.confName} urlid={confId} urltype={formType} attname={attendee.givenName + " " + attendee.familyName} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
             <ErrorModal conference={conference} urlid={confId} urltype={formType} errmsg={errThrown} attname={attendee.givenName + " " + attendee.familyName} show={showErr} hide={e => handleHideErr(e)} />
 

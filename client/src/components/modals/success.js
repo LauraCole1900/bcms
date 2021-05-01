@@ -47,68 +47,68 @@ const SuccessModal = (props) => {
 
           {/* Registration form */}
           {props.urltype === "register_attend" &&
-            <h4>You have registered for {props.conference.confName}.</h4>}
+            <h4>You have registered for {props.confName}.</h4>}
 
           {/* Add Attendee form (available from Attendee Table) */}
           {props.urltype === "admin_register_att" &&
-            <h4>You have registered {props.attname} for {props.conference.confName}.</h4>}
+            <h4>You have registered {props.attname} for {props.confName}.</h4>}
 
           {/* Edit Registration form */}
           {props.urltype === "register_edit" &&
-            <h4>You have edited your registration for {props.conference.confName}.</h4>}
+            <h4>You have edited your registration for {props.confName}.</h4>}
 
           {/* Edit Attendee form, owner/admin version */}
           {props.urltype === "admin_edit_att" &&
-            <h4>You have edited {props.attname}'s registration for {props.conference.confName}.</h4>}
+            <h4>You have edited {props.attname}'s registration for {props.confName}.</h4>}
 
           {/* Register Exhibit form */}
           {props.urltype === "register_exhibit" &&
-            <h4>You have registered your exhibit for {props.conference.confName}.</h4>}
+            <h4>You have registered your exhibit for {props.confName}.</h4>}
 
           {/* Add Exhibitor form (available from Exhibitor Table) */}
           {props.urltype === "admin_register_exh" &&
-            <h4>You have registered {props.exhname}'s exhibit for {props.conference.confName}.</h4>}
+            <h4>You have registered {props.exhname}'s exhibit for {props.confName}.</h4>}
 
           {/* Edit Exhibit form */}
           {props.urltype === "edit_exhibit" &&
-            <h4>You have edited your exhibit's information for {props.conference.confName}.</h4>}
+            <h4>You have edited your exhibit's information for {props.confName}.</h4>}
 
           {/* Edit Exhibit form, owner/admin version */}
           {props.urltype === "admin_edit_exh" &&
-            <h4>You have edited {props.exhname}'s exhibit information for {props.conference.confName}.</h4>}
+            <h4>You have edited {props.exhname}'s exhibit information for {props.confName}.</h4>}
 
           {/* Unregister button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregAtt" &&
-              <h4>You have unregistered from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
+              <h4>You have unregistered from {props.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
 
           {/* Unregister button, owner/admin version */}
           {props.urltype === "attendees" &&
             (props.btnname === "admUnregAtt" &&
-              <h4>You have unregistered {props.attname} from {props.conference.confName}.</h4>)}
+              <h4>You have unregistered {props.attname} from {props.confName}.</h4>)}
 
           {/* Unregister Exhibit button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregExh" &&
-              <h4>You have unregistered your exhibit from {props.conference.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
+              <h4>You have unregistered your exhibit from {props.confName}. If you paid a registration fee, please contact the conference organizers.</h4>)}
 
           {/* Unregister Exhibit, owner/admin version */}
           {props.urltype === "exhibitors" &&
             (props.btnname === "admUnregExh" &&
-              <h4>You have unregistered {props.exhname}'s exhibit from {props.conference.confName}.</h4>)}
+              <h4>You have unregistered {props.exhname}'s exhibit from {props.confName}.</h4>)}
 
           {/* Remove Presenter button, owner/admin version */}
           {props.urltype === "presenters" &&
             (props.btnname === "admUnregPres" &&
-              <h4>{props.presname} is no longer presenting at {props.conference.confName}.</h4>)}
+              <h4>{props.presname} is no longer presenting at {props.confName}.</h4>)}
 
           {/* Cancel Conference button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "confCancel" &&
-              <h4>{props.conference.confName} has been cancelled. An email will be sent to any registered participants.</h4>)}
+              <h4>{props.confName} has been cancelled. An email will be sent to any registered participants.</h4>)}
 
-          {/* Delete button */}
-          {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
+          {/* Delete Session button */}
+          {props.urltype === "details" &&
             (props.btnname === "sessDelete" &&
               <h4>Delete! Delete! Delete!</h4>)}
 
@@ -117,7 +117,7 @@ const SuccessModal = (props) => {
 
             {/* Close modal and return to Conference Details page */}
             {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
-              <Button data-toggle="popover" title={props.conference.confName} type="button" className="button" onClick={props.hide}>{props.conference.confName}</Button>}
+              <Button data-toggle="popover" title={props.confName} type="button" className="button" onClick={props.hide}>{props.confName}</Button>}
 
             {/* Add Session form: go on to Presenter Form */}
             {(props.urltype === "new_session") &&
@@ -132,27 +132,33 @@ const SuccessModal = (props) => {
                   <Button data-toggle="popover" title="Presenter information" type="button" className="button">Yes, edit presenter information</Button>
                 </Link>
                 <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
-                  <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">No, go to {props.conference.confName}</Button>
+                  <Button data-toggle="popover" title={props.confName} type="button" className="button">No, go to {props.confName}</Button>
                 </Link>
               </>}
 
             {/* Link to Conference Details page */}
             {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urltype !== "edit_session" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
               <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
+                <Button data-toggle="popover" title={props.confName} type="button" className="button">{props.confName}</Button>
               </Link>}
 
+            {/* Return to Conferences page */}
+            {props.urlid === "conferences" &&
+              <Button data-toggle="popover" title="Conferences" type="button" className="button" onClick={props.hide}>Conferences</Button>}
+
             {/* Link to Conferences page */}
-            {props.urlid === "conferences"
-              ? <Button data-toggle="popover" title="Conferences" type="button" className="button" onClick={props.hide}>Conferences</Button>
-              : <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
+            {props.urlid !== "conferences" && props.urltype !== "new_session" &&
+              <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
               </Link>}
 
+            {/* Return to Profile page */}
+            {props.urlid === "profile" &&
+              <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.hide}>Profile</Button>}
+
             {/* Link to Profile page */}
-            {props.urlid === "profile"
-              ? <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.hide}>Profile</Button>
-              : <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
+            {props.urlid !== "profile" && props.urltype !== "new_session" &&
+              <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
               </Link>}
 

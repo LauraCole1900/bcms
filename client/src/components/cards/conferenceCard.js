@@ -318,7 +318,7 @@ const ConferenceCard = ({ conference }) => {
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
             <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === conf._id} hide={(e) => handleHideConfirm(e)} />
 
-            <SuccessModal conference={conf} urlid={confId} urltype={urlType} btnname={btnName} show={showSuccess === conf._id} hide={(e) => handleHideSuccess(e)} />
+            <SuccessModal conference={conf} confname={thisName} urlid={confId} urltype={urlType} btnname={btnName} show={showSuccess === conf._id} hide={(e) => handleHideSuccess(e)} />
 
             <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === conf._id} hide={(e) => handleHideErr(e)} />
 

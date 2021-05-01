@@ -4,6 +4,7 @@ import { Container, Form, Card, Row, Col, Button, Image } from "react-bootstrap"
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import { presValidate } from "../../utils/validation";
+import { PresenterFormCard } from "../cards";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
@@ -78,7 +79,7 @@ const PresenterForm = () => {
       })
   }
 
-  // GETs all sessions by confId, then sorts by date and grabs the most recent one
+  // GETs all sessions by confId, then sorts by date and sets the most recent one in state
   const fetchSessions = async (id) => {
     // GET all sessions by confId
     return SessionAPI.getSessions(id)
@@ -88,7 +89,7 @@ const PresenterForm = () => {
         const latestSess = sessArr.reduce((r, a) => {
           return r.date > a.date ? r : a
         });
-        return latestSess;
+        setSession(latestSess);
       })
   }
 
@@ -97,7 +98,7 @@ const PresenterForm = () => {
     switch (formType) {
       // Edit existing presenter
       case "edit_presenter_info":
-        // Call fetchPres()
+        // Call fetchOneSess()
         let sessObj = await fetchOneSess(confid)
         console.log({ sessObj });
         // Use response from fetchOneSess() to GET conference information
@@ -114,6 +115,7 @@ const PresenterForm = () => {
       default:
         // Use ID in URL to GET conference information
         await ConferenceAPI.getConferenceById(confid)
+        console.log({ confid })
           .then(resp => {
             console.log("from presForm getConfById", resp.data)
             const confObj = resp.data[0]
@@ -216,10 +218,11 @@ const PresenterForm = () => {
       switch (formType) {
         case "edit_presenter_info":
           // urlId === sessId
-          fetchConf(urlId)
+          fetchConf(urlId);
           break;
         default:
-          fetchSessions(urlId)
+          fetchConf(urlId);
+          fetchSessions(urlId);
       }
     }
   })
@@ -237,97 +240,12 @@ const PresenterForm = () => {
         </Row>}
 
       {isAuthenticated &&
+        confReady === true &&
         (user.email === conference.ownerEmail || conference.confAdmins.includes(user.email)) &&
         <Container>
-          <Form className="presForm">
+          <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} />
 
-            <Card className="formCard">
-              <Card.Title><h1>Presenter Information</h1></Card.Title>
-
-              <Card.Body className="cardBody">
-                <Form.Group controlId="formNumPres">
-                  <Row>
-                    <Col sm={3}>
-                      <Form.Label>Number of presenters: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="number" min="1" max="15" name="sessNumPres" placeholder="Enter a number, 1-15" value={session.sessNumPres} className="formNum" onChange={handleInputChange} />
-                    </Col>
-                  </Row>
-                </Form.Group>
-
-                <Form.Group controlId="formPresEmail">
-                  <Row>
-                    <Col sm={6}>
-                      <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="email" name="presEmail" placeholder="name@email.com" value={presenter.presEmail} className="formEmail" onChange={handleInputChange} />
-                    </Col>
-                    <Col sm={6}>
-                      <Button data-toggle="popover" title="Check whether presenter already exists in database" className="button" onClick={handleEmailCheck} type="submit">Check for existing</Button>
-                    </Col>
-                  </Row>
-                </Form.Group>
-
-                <Form.Group controlId="formPresName">
-                  <Row>
-                    <Col sm={6}>
-                      <Form.Label>Presenter's first name: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="presGivenName" placeholder="Enter presenter's name" value={presenter.presGivenName} className="formInput" onChange={handleInputChange} />
-                    </Col>
-                    <Col sm={6}>
-                      <Form.Label>Presenter's last name: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="email" name="presFamilyName" placeholder="name@email.com" value={presenter.presFamilyName} className="formEmail" onChange={handleInputChange} />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col sm={12}>
-                      <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
-                      <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={presenter.presOrg} className="formInput" onChange={handleInputChange} />
-                    </Col>
-                  </Row>
-                </Form.Group>
-
-                <Form.Group controlId="formPresContact">
-                  <Row>
-                    <Col sm={4}>
-                      <Form.Label>Presenter's phone:</Form.Label>
-                      <Form.Control type="input" name="presPhone" placeholder="(123)456-7890" value={presenter.presPhone} className="formInput" onChange={handleInputChange} />
-                    </Col>
-                    <Col sm={8}>
-                      <Form.Label>Presenter's website URL:</Form.Label>
-                      <Form.Control type="input" name="presWebsite" placeholder="http://www.website.com" value={presenter.presWebsite} className="formInput" onChange={handleInputChange} />
-                    </Col>
-                  </Row>
-                </Form.Group>
-
-                <Row>
-                  <Col sm={12}>
-                    <Form.Group controlId="formPresBio">
-                      <Form.Label>Presenter's bio (min 10 characters, max 750 characters):</Form.Label>
-                      <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={presenter.presBio} className="formInput" onChange={handleTextArea} />
-                      <Form.Text muted>Characters remaining: {charRem}</Form.Text>
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col sm={12}>
-                    <Form.Group controlId="formPresPic">
-                      <Form.Label>Upload presenter's picture:</Form.Label>
-                      <Form.Control type="input" name="presPic" placeholder="URL for presenter's picture" value={presenter.presPic} className="formInput" onChange={handleInputChange} />
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-
-            <Row>
-              {(formType === "edit_presenter_info")
-                ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit</Button>}
-            </Row>
-
-          </Form>
-
-          <SuccessModal conference={conference} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+          <SuccessModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
           <ErrorModal conference={conference} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 

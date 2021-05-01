@@ -606,7 +606,7 @@ const ConferenceForm = () => {
 
             </Form>
 
-            <SuccessModal conference={conference} urlid={confId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+            <SuccessModal conference={conference} confname={conference.confName} urlid={confId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
             <ErrorModal conference={conference} urlid={confId} urltype={urlType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
