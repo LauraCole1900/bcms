@@ -136,6 +136,10 @@ const SuccessModal = (props) => {
                 </Link>
               </>}
 
+            {/* Return to Conference Details page */}
+            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
+              <Button data-toggle="popover" title={props.confName} type="button" className="button">{props.confName}</Button>}
+
             {/* Link to Conference Details page */}
             {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urltype !== "edit_session" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
               <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >

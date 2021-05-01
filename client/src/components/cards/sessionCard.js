@@ -12,6 +12,7 @@ const SessionCard = (props) => {
   const history = useHistory();
   const location = useLocation();
   const [cardRender, setCardRender] = useState(false);
+  const [confReady, setConfReady] = useState(false);
   const [conference, setConference] = useState();
   const [presenters, setPresenters] = useState();
   const [presNames, setPresNames] = useState([]);
@@ -67,19 +68,20 @@ const SessionCard = (props) => {
       })
   };
 
-    // GETs conference by confId
-    const fetchConf = async (confId) => {
-      await ConferenceAPI.getConferenceById(confId)
-        .then(resp => {
-          console.log("confDetailsPage getConfsById", resp.data)
-          const confObj = resp.data.slice(0)
-          setConference(confObj)
-        })
-        .catch(err => {
-          console.log(err)
-          return false
-        })
-    }
+  // GETs conference by confId
+  const fetchConf = async (confId) => {
+    await ConferenceAPI.getConferenceById(confId)
+      .then(resp => {
+        console.log("confDetailsPage getConfsById", resp.data)
+        const confObj = resp.data.slice(0)
+        setConference(confObj)
+      })
+      .catch(err => {
+        console.log(err)
+        return false
+      })
+    setConfReady(true);
+  }
 
   // GETs Presenter by email
   // Maps through session.sessPresEmails[]
@@ -114,6 +116,7 @@ const SessionCard = (props) => {
   return (
     <>
       { cardRender === true &&
+        confReady === true &&
         props.session.map(sess => (
           <Card className="infoCard" key={sess._id}>
             {sess.sessKeynote === "yes" &&
