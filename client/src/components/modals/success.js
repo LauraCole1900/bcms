@@ -117,7 +117,7 @@ const SuccessModal = (props) => {
 
             {/* Close modal and return to Conference Details page */}
             {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
-              <Button data-toggle="popover" title={props.confName} type="button" className="button" onClick={props.hide}>{props.confName}</Button>}
+              <Button data-toggle="popover" title={props.confName} type="button" className="button" onClick={props.hide}>Return to Details</Button>}
 
             {/* Add Session form: go on to Presenter Form */}
             {(props.urltype === "new_session") &&
@@ -135,10 +135,6 @@ const SuccessModal = (props) => {
                   <Button data-toggle="popover" title={props.confName} type="button" className="button">No, go to {props.confName}</Button>
                 </Link>
               </>}
-
-            {/* Return to Conference Details page */}
-            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
-              <Button data-toggle="popover" title={props.confName} type="button" className="button">{props.confName}</Button>}
 
             {/* Link to Conference Details page */}
             {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urltype !== "edit_session" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
