@@ -420,9 +420,9 @@ const TableComp = (e) => {
           {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
           <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
 
-          <SuccessModal conference={conference[0]} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
+          <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conference[0]} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={(e) => handleHideErr(e)} />
+          <ErrorModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={(e) => handleHideErr(e)} />
 
         </Container>
       }

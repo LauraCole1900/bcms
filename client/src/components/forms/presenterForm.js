@@ -89,6 +89,7 @@ const PresenterForm = () => {
         const latestSess = sessArr.reduce((r, a) => {
           return r.date > a.date ? r : a
         });
+        console.log({ latestSess });
         setSession(latestSess);
       })
   }
@@ -115,7 +116,6 @@ const PresenterForm = () => {
       default:
         // Use ID in URL to GET conference information
         await ConferenceAPI.getConferenceById(confid)
-        console.log({ confid })
           .then(resp => {
             console.log("from presForm getConfById", resp.data)
             const confObj = resp.data[0]
@@ -247,7 +247,7 @@ const PresenterForm = () => {
 
           <SuccessModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conference} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+          <ErrorModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
         </Container>}
     </>
