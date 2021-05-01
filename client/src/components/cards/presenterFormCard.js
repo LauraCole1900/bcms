@@ -80,7 +80,7 @@ const PresenterFormCard = (props) => {
             <Row>
               <Col sm={12}>
                 <Form.Group controlId="formPresBio">
-                  <Form.Label>Presenter's bio (min 10 characters, max 750 characters):</Form.Label>
+                  <Form.Label>Presenter's bio (min 10 characters, max 750 characters): <span className="red">*</span></Form.Label>
                   <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={props.presenter.presBio} className="formInput" onChange={props.handleTextArea} />
                   <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                 </Form.Group>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Form, Card, Row, Col, Button, Image } from "react-bootstrap";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import { presValidate } from "../../utils/validation";
@@ -142,7 +142,7 @@ const PresenterForm = () => {
     const charCount = e.target.value.length;
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
-    setSession({ ...presenter, [e.target.name]: e.target.value.slice(0, 750) })
+    setPresenter({ ...presenter, [e.target.name]: e.target.value.slice(0, 750) })
   }
 
   // Handles click on "Check for existing" button
@@ -201,7 +201,7 @@ const PresenterForm = () => {
     if (noErrors) {
       console.log("Presenter submit", presenter)
       // POST call to create presenter document
-      PresenterAPI.savePresenter({ ...presenter, confId: urlId })
+      PresenterAPI.savePresenter({ ...presenter, confId: urlId, presSessionIds: [...presenter.presSessionIds, session._id] })
         .then(res => {
           // If no errors thrown, push to Success page
           if (!res.err) {
@@ -235,7 +235,7 @@ const PresenterForm = () => {
           handlePageLoad(urlId);
       }
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -257,6 +257,12 @@ const PresenterForm = () => {
         (user.email === conference.ownerEmail || conference.confAdmins.includes(user.email)) &&
         <Container>
           <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} />
+
+          <Row>
+            {(formType === "edit_presenter_info" || formType === "admin_edit_pres")
+              ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+              : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+          </Row>
 
           <SuccessModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
