@@ -80,7 +80,6 @@ const PresenterForm = () => {
       console.log(err)
       return false;
     })
-
   }
 
   // GETs session info by sessId

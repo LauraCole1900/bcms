@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Container, Form, Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ConferenceAPI, SessionAPI } from "../../utils/api";
+import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import { sessValidate } from "../../utils/validation";
 import { ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
@@ -29,6 +29,17 @@ const SessionForm = () => {
     sessPanel: "",
     sessRoom: ""
   });
+  const [presenter, setPresenter] = useState({
+    presGivenName: "",
+    presFamilyName: "",
+    presOrg: "",
+    presBio: "",
+    presEmail: "",
+    presPhone: "",
+    presWebsite: "",
+    presPic: "",
+    presSessionIds: []
+  })
   const [conference, setConference] = useState();
   const [charRem, setCharRem] = useState(750);
   const [errThrown, setErrThrown] = useState();
@@ -62,6 +73,20 @@ const SessionForm = () => {
         const sessObj = resp.data[0]
         setSession(sessObj)
         return sessObj
+      })
+      .catch(err => {
+        console.log(err)
+        return false;
+      })
+  }
+
+  const fetchPresByEmail = async (email, id) => {
+    // GET presenter information
+    return PresenterAPI.getPresenterByEmail(email, id)
+      .then(resp => {
+        console.log("from presForm getPresByEmail", resp.data)
+        const presObj = resp.data[0]
+        setPresenter(presObj)
       })
       .catch(err => {
         console.log(err)
@@ -156,6 +181,7 @@ const SessionForm = () => {
     setErrors(validationErrors);
     if (noErrors) {
       console.log("Session submit", session)
+      // session.sessPresEmails.forEach:
       // GET presenter: email + confId
       // If resp.length === 0
       // POST presenter: email + confId, all other required values empty strings
