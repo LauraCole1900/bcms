@@ -142,16 +142,6 @@ const SuccessModal = (props) => {
                 <Button data-toggle="popover" title={props.confName} type="button" className="button">{props.confName}</Button>
               </Link>}
 
-            {/* Return to Conferences page */}
-            {props.urlid === "conferences" &&
-              <Button data-toggle="popover" title="Conferences" type="button" className="button" onClick={props.hide}>Conferences</Button>}
-
-            {/* Link to Conferences page */}
-            {props.urlid !== "conferences" && props.urltype !== "new_session" &&
-              <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
-              </Link>}
-
             {/* Return to Profile page */}
             {props.urlid === "profile" &&
               <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.hide}>Profile</Button>}
@@ -160,6 +150,16 @@ const SuccessModal = (props) => {
             {props.urlid !== "profile" && props.urltype !== "new_session" &&
               <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
+              </Link>}
+
+            {/* Return to Conferences page */}
+            {props.urlid === "conferences" &&
+              <Button data-toggle="popover" title="Conferences" type="button" className="button" onClick={props.hide}>Conferences</Button>}
+
+            {/* Link to Conferences page */}
+            {props.urlid !== "conferences" && props.urltype !== "new_session" &&
+              <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
               </Link>}
 
           </Modal.Footer>

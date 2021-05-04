@@ -116,14 +116,14 @@ const ErrorModal = (props) => {
                 <Button data-toggle="popover" title={props.confName} type="button" className="button">{props.confName}</Button>
               </Link>}
 
-            {/* Link to Conferences page */}
-            <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
-              <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
-            </Link>
-
             {/* Link to Profile page */}
             <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
               <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
+            </Link>
+
+            {/* Link to Conferences page */}
+            <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
+              <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
             </Link>
             
           </Modal.Footer>
