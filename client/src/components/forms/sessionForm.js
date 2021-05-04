@@ -34,7 +34,6 @@ const SessionForm = () => {
     presFamilyName: "",
     presOrg: "",
     presBio: "",
-    presPic: "",
     presSessionIds: []
   })
   const [conference, setConference] = useState();
@@ -199,7 +198,7 @@ const SessionForm = () => {
         const trimmedEmail = email.trim();
         const presObj = fetchPresByEmail(trimmedEmail, session.confId)
           .then(pres => {
-            if (presObj) {
+            if (presenter.presGivenName !== "") {
               console.log({ sessId });
               PresenterAPI.updatePresenterByEmail({ ...presObj, presSessionIds: [...presenter.presSessionIds, sessId] }, trimmedEmail, session.confId)
                 .then(resp => {

@@ -5,22 +5,9 @@ module.exports = {
   create: function (req, res) {
     console.log("from presenterController create", req.body)
     db.Presenter
-      .findOne({ email: req.body.email, confId: req.body.confId }, function (err, presenter) {
-        if (err) {
-          let err = new Error("We're sorry, it looks like gremlins have gotten into our database. Please try again.")
-          err.status = 400;
-          return err;
-        } else if (presenter) {
-          let err = new Error("We're sorry, that email has already been registered. Please use another email.")
-          err.status = 400;
-          return err;
-        } else {
-          db.Presenter
-            .create(req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err))
-        }
-      })
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
   },
 
 

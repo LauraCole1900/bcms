@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+mongoose.Schema.Types.String.checkRequired(v => v != null);
+
 var trimmedString = {
   type: String,
   trim: true
@@ -29,7 +31,6 @@ const presenterSchema = new Schema({
   },
   presEmail: {
     type: String,
-    match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
     required: "Please enter the presenter's email."
   },
   presPhone: {
