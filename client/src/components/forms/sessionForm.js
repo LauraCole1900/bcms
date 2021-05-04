@@ -82,11 +82,11 @@ const SessionForm = () => {
 
   const fetchPresByEmail = async (email, id) => {
     // GET presenter information
-    return PresenterAPI.getPresenterByEmail(email, id)
+    await PresenterAPI.getPresenterByEmail(email, id)
       .then(resp => {
         console.log("from sessForm getPresByEmail", resp.data)
-        const presObj = resp.data[0]
-        setPresenter(presObj)
+        const presObj = resp.data
+        return presObj;
       })
       .catch(err => {
         console.log(err)
@@ -173,7 +173,7 @@ const SessionForm = () => {
   };
 
   // Handles click on "Submit" button
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     let sessId;
     // Validates required inputs
@@ -183,7 +183,7 @@ const SessionForm = () => {
     if (noErrors) {
       console.log("Session submit", session)
       // POST call to create session document
-      SessionAPI.saveSession({ ...session, confId: urlId })
+      await SessionAPI.saveSession({ ...session, confId: urlId })
         .then(resp => {
           console.log(resp);
           const id = resp.data._id;
@@ -201,7 +201,7 @@ const SessionForm = () => {
       emailArr.forEach(email => {
         const pres = fetchPresByEmail(email, session.confId)
         if (pres.length === 0) {
-          PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presSessionIds: [sessId] })
+          PresenterAPI.savePresenter({ ...pres, confId: session.confId, presSessionIds: [sessId] })
             .then(resp => {
               console.log({ sessId });
             })
@@ -210,10 +210,10 @@ const SessionForm = () => {
               setErrThrown(err.message);
               handleShowErr();
             })
-        } else {
-          PresenterAPI.updatePresenterByEmail({ presSessionIds: [...presenter.presSessionIds, sessId] }, email, session.confId)
+          } else {
+          console.log({ sessId });
+          PresenterAPI.updatePresenterByEmail({ presSessionIds: [...pres.presSessionIds, sessId] }, email, session.confId)
             .then(resp => {
-              console.log({ sessId });
             })
             .catch(err => {
               console.log(err)
@@ -230,7 +230,7 @@ const SessionForm = () => {
       // PUT presenter: presSessionIds: [...presSessionIds, session._id]
 
       // .then(resp => {
-      // If no errors thrown, push to Success page
+      // If no errors thrown, push to Presenters form
       // if (!res.err) {
       //   history.push(`/presenter_info/${urlId}`)
       //         }

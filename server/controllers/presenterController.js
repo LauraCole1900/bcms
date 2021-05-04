@@ -74,7 +74,7 @@ module.exports = {
   updatePresenterByEmail: function (req, res) {
     console.log("from presenterCont updatePresenterByEmail", req.params.email, req.params.id)
     db.Presenter
-      .findOneAndUpdate({ email: req.params.email, confId: req.params.id }, req.body)
+      .findOneAndUpdate({ presEmail: req.params.email, confId: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
