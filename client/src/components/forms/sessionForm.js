@@ -84,7 +84,7 @@ const SessionForm = () => {
     // GET presenter information
     return PresenterAPI.getPresenterByEmail(email, id)
       .then(resp => {
-        console.log("from presForm getPresByEmail", resp.data)
+        console.log("from sessForm getPresByEmail", resp.data)
         const presObj = resp.data[0]
         setPresenter(presObj)
       })
@@ -155,9 +155,9 @@ const SessionForm = () => {
       console.log("Session update", urlId);
       // PUT call to update session document
       SessionAPI.updateSession({ ...session }, urlId)
-        .then(res => {
+        .then(resp => {
           // If no errors thrown, show Success modal
-          if (!res.err) {
+          if (!resp.err) {
             handleShowSuccess();
           }
         })
@@ -175,6 +175,7 @@ const SessionForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    let sessId;
     // Validates required inputs
     const validationErrors = sessValidate([session, conference]);
     const noErrors = Object.keys(validationErrors).length === 0;
@@ -183,22 +184,37 @@ const SessionForm = () => {
       console.log("Session submit", session)
       // POST call to create session document
       SessionAPI.saveSession({ ...session, confId: urlId })
-        .then(res => {
-          console.log(res);
+        .then(resp => {
+          console.log(resp);
+          const id = resp.data._id;
+          console.log({ id });
+          sessId = id;
+          return sessId;
+        })
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
         })
       const emailArr = session.sessPresEmails
       console.log(emailArr);
       emailArr.forEach(email => {
         const pres = fetchPresByEmail(email, session.confId)
         if (pres.length === 0) {
-          PresenterAPI.savePresenter({ ...presenter })
+          PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presSessionIds: [sessId] })
+            .then(resp => {
+              console.log({ sessId });
+            })
             .catch(err => {
-              console.log(err)
+              console.log(err);
               setErrThrown(err.message);
               handleShowErr();
             })
         } else {
-          PresenterAPI.updatePresenterByEmail({ ...presenter, presSessionIds: [...presenter.presSessionIds, session._id] }, email, session.confId)
+          PresenterAPI.updatePresenterByEmail({ presSessionIds: [...presenter.presSessionIds, sessId] }, email, session.confId)
+            .then(resp => {
+              console.log({ sessId });
+            })
             .catch(err => {
               console.log(err)
               setErrThrown(err.message);
@@ -213,7 +229,7 @@ const SessionForm = () => {
       // If resp.length !== 0
       // PUT presenter: presSessionIds: [...presSessionIds, session._id]
 
-      // .then(res => {
+      // .then(resp => {
       // If no errors thrown, push to Success page
       // if (!res.err) {
       //   history.push(`/presenter_info/${urlId}`)
