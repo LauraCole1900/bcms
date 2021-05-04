@@ -51,45 +51,45 @@ const ErrorModal = (props) => {
 
           {/* Registration form */}
           {props.urltype === "register_attend" &&
-            <h4>{props.errmsg}. Your registration for {props.confName} could not be processed at this time.</h4>}
+            <h4>{props.errmsg}. Your registration for {props.confname} could not be processed at this time.</h4>}
 
           {/* Add Attendee form (available from Attendee Table) */}
           {props.urltype === "admin_register_att" &&
-            <h4>{props.errmsg}. Your registration of {props.attname} for {props.confName} could not be processed at this time.</h4>}
+            <h4>{props.errmsg}. Your registration of {props.attname} for {props.confname} could not be processed at this time.</h4>}
 
           {/* Edit Registration form */}
           {props.urltype === "register_edit" &&
-            <h4>{props.errmsg}. Your registration for {props.confName} could not be updated at this time.</h4>}
+            <h4>{props.errmsg}. Your registration for {props.confname} could not be updated at this time.</h4>}
 
           {/* Edit Attendee form, owner/admin version */}
           {props.urltype === "admin_edit_att" &&
-            <h4>{props.errmsg}. Your registration of {props.attname} for {props.confName} could not be updated at this time.</h4>}
+            <h4>{props.errmsg}. Your registration of {props.attname} for {props.confname} could not be updated at this time.</h4>}
           
           {/* Register Exhibit form */}
           {props.urltype === "register_exhibit" &&
-            <h4>{props.errmsg}. The registration of your exhibit for {props.confName} could not be processed at this time.</h4>}
+            <h4>{props.errmsg}. The registration of your exhibit for {props.confname} could not be processed at this time.</h4>}
 
           {/* Add Exhibitor form (available from Exhibitor Table) */}
           {props.urltype === "admin_register_exh" &&
-            <h4>{props.errmsg}. Your registration of {props.exhname}'s exhibit for {props.confName} could not be processed at this time.</h4>}
+            <h4>{props.errmsg}. Your registration of {props.exhname}'s exhibit for {props.confname} could not be processed at this time.</h4>}
 
           {/* Edit Exhibit form */}
           {props.urltype === "edit_exhibit" &&
-            <h4>{props.errmsg}. The registration of your exhibit for {props.confName} could not be updated at this time.</h4>}
+            <h4>{props.errmsg}. The registration of your exhibit for {props.confname} could not be updated at this time.</h4>}
 
           {/* Edit Exhibitor form, owner/admin version */}
           {props.urltype === "admin_edit_exh" &&
-            <h4>{props.errmsg}. Your registration of {props.exhname}'s exhibit for {props.confName} could not be updated at this time.</h4>}
+            <h4>{props.errmsg}. Your registration of {props.exhname}'s exhibit for {props.confname} could not be updated at this time.</h4>}
 
           {/* Unregister button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregAtt" &&
-              <h4>Your unregistration from {props.confName} could not be processed at this time.</h4>)}
+              <h4>Your unregistration from {props.confname} could not be processed at this time.</h4>)}
 
           {/* Unregister Exhibit button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregExh" &&
-              <h4>The unregistration of your exhibit from {props.confName} could not be processed at this time.</h4>)}
+              <h4>The unregistration of your exhibit from {props.confname} could not be processed at this time.</h4>)}
             
           {/* Cancel Conference button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
@@ -107,13 +107,13 @@ const ErrorModal = (props) => {
             {/* Link to Conference Details page when confid === conference._id */}
             {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "presenter_info" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urlid === "profile" || props.urlid === "conferences" || props.urlid === "details") &&
               <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title={props.conference.confName} type="button" className="button">{props.conference.confName}</Button>
+                <Button data-toggle="popover" title={props.conference.confname} type="button" className="button">{props.conference.confname}</Button>
               </Link>}
 
             {/* Link to Conference Details page when confid !== conference._id */}
             {(props.urltype === "edit_session" || props.urltype === "edit_presenter_info") &&
               <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title={props.confName} type="button" className="button">{props.confName}</Button>
+                <Button data-toggle="popover" title={props.confname} type="button" className="button">{props.confname}</Button>
               </Link>}
 
             {/* Link to Profile page */}
