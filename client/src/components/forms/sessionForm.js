@@ -201,7 +201,6 @@ const SessionForm = () => {
           .then(pres => {
             if (presObj) {
               console.log({ sessId });
-              console.log({ presenter });
               PresenterAPI.updatePresenterByEmail({ ...presObj, presSessionIds: [...presenter.presSessionIds, sessId] }, trimmedEmail, session.confId)
                 .then(resp => {
                   console.log("updatePresenter", resp)
