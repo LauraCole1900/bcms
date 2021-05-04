@@ -86,7 +86,8 @@ const SessionForm = () => {
       .then(resp => {
         console.log("from sessForm getPresByEmail", resp.data)
         const presObj = resp.data
-        return presObj;
+        setPresenter(presObj);
+        return presObj
       })
       .catch(err => {
         console.log(err)
@@ -199,9 +200,11 @@ const SessionForm = () => {
       const emailArr = session.sessPresEmails
       console.log(emailArr);
       emailArr.forEach(email => {
-        const pres = fetchPresByEmail(email, session.confId)
-        if (pres.length === 0) {
-          PresenterAPI.savePresenter({ ...pres, confId: session.confId, presSessionIds: [sessId] })
+        fetchPresByEmail(email, session.confId)
+        .then(pres => {
+          console.log(presenter)
+        if (presenter.length === 0) {
+          PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presSessionIds: [sessId] })
             .then(resp => {
               console.log({ sessId });
             })
@@ -212,7 +215,7 @@ const SessionForm = () => {
             })
           } else {
           console.log({ sessId });
-          PresenterAPI.updatePresenterByEmail({ presSessionIds: [...pres.presSessionIds, sessId] }, email, session.confId)
+          PresenterAPI.updatePresenterByEmail({ presSessionIds: [...presenter.presSessionIds, sessId] }, email, session.confId)
             .then(resp => {
             })
             .catch(err => {
@@ -222,6 +225,7 @@ const SessionForm = () => {
             })
         }
       })
+    })
       // session.sessPresEmails.forEach:
       // GET presenter: email + confId
       // If resp.length === 0
