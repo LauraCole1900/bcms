@@ -61,11 +61,20 @@ module.exports = {
   },
 
 
-  // UPDATE presenter
+  // UPDATE presenter by ID
   updatePresenter: function (req, res) {
     console.log("from presenterCont updatePresenter", req.params.id)
     db.Presenter
       .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
+  // UPDATE presenter by email and confId
+  updatePresenterByEmail: function (req, res) {
+    console.log("from presenterCont updatePresenterByEmail", req.params.email, req.params.id)
+    db.Presenter
+      .findOneAndUpdate({ email: req.params.email, _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },

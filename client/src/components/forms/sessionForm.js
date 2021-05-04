@@ -181,28 +181,53 @@ const SessionForm = () => {
     setErrors(validationErrors);
     if (noErrors) {
       console.log("Session submit", session)
+      // POST call to create session document
+      SessionAPI.saveSession({ ...session, confId: urlId })
+        .then(res => {
+          console.log(res);
+        })
+      const emailArr = session.sessPresEmails
+      console.log(emailArr);
+      emailArr.forEach(email => {
+        const pres = fetchPresByEmail(email, session.confId)
+        if (pres.length === 0) {
+          PresenterAPI.savePresenter({ ...presenter })
+            .catch(err => {
+              console.log(err)
+              setErrThrown(err.message);
+              handleShowErr();
+            })
+        } else {
+          PresenterAPI.updatePresenterByEmail({ ...presenter, presSessionIds: [...presenter.presSessionIds, session._id] }, email, session.confId)
+            .catch(err => {
+              console.log(err)
+              setErrThrown(err.message);
+              handleShowErr();
+            })
+        }
+      })
       // session.sessPresEmails.forEach:
       // GET presenter: email + confId
       // If resp.length === 0
       // POST presenter: email + confId, all other required values empty strings
       // If resp.length !== 0
       // PUT presenter: presSessionIds: [...presSessionIds, session._id]
-      // POST call to create session document
-      SessionAPI.saveSession({ ...session, confId: urlId })
-        .then(res => {
-          // If no errors thrown, push to Success page
-          if (!res.err) {
-            history.push(`/presenter_info/${urlId}`)
-          }
-        })
-        // If yes errors thrown, push to Error page
-        .catch(err => {
-          console.log(err)
-          setErrThrown(err.message);
-          handleShowErr();
-        });
-    } else {
-      console.log({ validationErrors });
+
+      // .then(res => {
+      // If no errors thrown, push to Success page
+      // if (!res.err) {
+      //   history.push(`/presenter_info/${urlId}`)
+      //         }
+      // })
+      // If yes errors thrown, push to Error page
+      //     .catch(err => {
+      //       console.log(err)
+      //       setErrThrown(err.message);
+      //       handleShowErr();
+      //     });
+      // } else {
+      //   console.log({ validationErrors });
+      // }
     }
   }
 

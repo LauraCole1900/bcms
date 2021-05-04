@@ -19,7 +19,10 @@ router.route("/email/:email/:id")
   .get(presenterController.findByEmail);
 
 
-router.route("/update/:id")
+router.route("/update/email/:email/:id")
+  .put(presenterController.updatePresenterByEmail);
+
+router.route("/update/id/:id")
   .put(presenterController.updatePresenter);
 
 
