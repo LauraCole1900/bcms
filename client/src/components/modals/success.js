@@ -132,7 +132,7 @@ const SuccessModal = (props) => {
                   <Button data-toggle="popover" title="Presenter information" type="button" className="button">Yes, edit presenter information</Button>
                 </Link>
                 <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
-                  <Button data-toggle="popover" title={props.confName} type="button" className="button">No, go to {props.confName}</Button>
+                  <Button data-toggle="popover" title={props.confname} type="button" className="button">No, go to {props.confname}</Button>
                 </Link>
               </>}
 
