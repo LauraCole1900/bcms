@@ -82,7 +82,7 @@ const SessionForm = () => {
     await PresenterAPI.getPresenterByEmail(email, id)
       .then(resp => {
         console.log("from sessForm fetchPresByEmail", resp.data)
-        const presObj = resp.data
+        const presObj = resp.data;
         setPresenter(presObj);
         return presObj
       })
@@ -196,11 +196,13 @@ const SessionForm = () => {
       const emailArr = session.sessPresEmails
       console.log(emailArr);
       emailArr.forEach(email => {
-        const presObj = fetchPresByEmail(email, session.confId)
+        const trimmedEmail = email.trim();
+        const presObj = fetchPresByEmail(trimmedEmail, session.confId)
           .then(pres => {
-            if (presObj.length > 0) {
+            if (presObj) {
               console.log({ sessId });
-              PresenterAPI.updatePresenterByEmail({ ...presObj, presSessionIds: [...presenter.presSessionIds, sessId] }, email, session.confId)
+              console.log({ presenter });
+              PresenterAPI.updatePresenterByEmail({ ...presObj, presSessionIds: [...presenter.presSessionIds, sessId] }, trimmedEmail, session.confId)
                 .then(resp => {
                   console.log("updatePresenter", resp)
                 })
@@ -211,7 +213,7 @@ const SessionForm = () => {
                 })
             } else {
               console.log({ sessId })
-              PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId] })
+              PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: trimmedEmail, presKeynote: session.sessKeynote, presSessionIds: [sessId] })
                 .then(resp => {
                   console.log("savePresenter", resp);
                 })
