@@ -26,8 +26,6 @@ const PresenterFormCard = (props) => {
       })
   }
 
-  // Notes for 5/6: changed to mapping over the presenters, changed key, changed email value to pres.presEmail, removed "Check for existing" button
-
 
   return (
     <>
