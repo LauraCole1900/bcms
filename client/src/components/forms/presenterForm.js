@@ -224,10 +224,10 @@ const PresenterForm = () => {
     }
   }
 
-  const handlePageLoad = async (email, id) => {
+  const handlePageLoad = async (id, email) => {
     await fetchConf(id);
     await fetchSessions(id);
-    await fetchPresByEmail(email, id);
+    await fetchPresByEmail(id, email);
   }
 
   useEffect(() => {
