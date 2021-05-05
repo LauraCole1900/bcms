@@ -233,22 +233,13 @@ const SessionForm = () => {
           handleShowErr();
         })
       const emailArr = session.sessPresEmails
-      console.log(emailArr);
       emailArr.forEach(email => {
         const trimmedEmail = email.trim()
-        handlePres(trimmedEmail, session.confId, sessId, session);
-      })
-      .then(resp => {
-        // If no errors thrown, push to Presenters form
-        if (!resp.err) {
-          history.push(`/presenter_info/${urlId}`)
-        }
-      })
-      // If yes errors thrown, push to Error page
-      .catch(err => {
-        console.log(err)
-        setErrThrown(err.message);
-        handleShowErr();
+        handlePres(trimmedEmail, session.confId, sessId, session)
+          .then(resp => {
+            // If no errors thrown, push to Presenters form
+            history.push(`/presenter_info/${urlId}`)
+          })
       });
     } else {
       console.log({ validationErrors });

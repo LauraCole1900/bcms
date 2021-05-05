@@ -73,7 +73,9 @@ const PresenterForm = () => {
     .then(resp => {
       console.log("from presForm getPresByEmail", resp.data)
       const presObj = resp.data[0]
-      setPresenter(presObj)
+      const filteredPres = presObj.filter(pres => pres.presSessionIds.includes(session._id))
+      console.log({ filteredPres });
+      setPresenter(filteredPres)
       setPresReady(true)
     })
     .catch(err => {
