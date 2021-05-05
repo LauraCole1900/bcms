@@ -78,17 +78,44 @@ const SessionForm = () => {
 
   const fetchPresByEmail = async (email, id) => {
     // GET presenter information
-    await PresenterAPI.getPresenterByEmail(email, id)
+    return PresenterAPI.getPresenterByEmail(email, id)
       .then(resp => {
         console.log("from sessForm fetchPresByEmail", resp.data)
         const presObj = resp.data;
-        setPresenter(presObj);
+        console.log({ presObj });
+        // setPresenter(presObj);
         return presObj
       })
       .catch(err => {
         console.log(err)
         return false;
       })
+  }
+
+  const handlePres = async (email, confId, sessId, session) => {
+    let pres = await fetchPresByEmail(email, confId);
+    console.log({ pres });
+    if (pres) {
+      PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
+        .then(resp => {
+          console.log("updatePresenter", resp)
+        })
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
+        })
+    } else {
+      PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId] })
+        .then(resp => {
+          console.log("savePresenter", resp);
+        })
+        .catch(err => {
+          console.log(err);
+          setErrThrown(err.message);
+          handleShowErr();
+        })
+    }
   }
 
   const fetchConf = async (confid) => {
@@ -195,33 +222,8 @@ const SessionForm = () => {
       const emailArr = session.sessPresEmails
       console.log(emailArr);
       emailArr.forEach(email => {
-        const trimmedEmail = email.trim();
-        const presObj = fetchPresByEmail(trimmedEmail, session.confId)
-          .then(pres => {
-            if (presenter.presGivenName !== "") {
-              console.log({ sessId });
-              PresenterAPI.updatePresenterByEmail({ ...presObj, presSessionIds: [...presenter.presSessionIds, sessId] }, trimmedEmail, session.confId)
-                .then(resp => {
-                  console.log("updatePresenter", resp)
-                })
-                .catch(err => {
-                  console.log(err)
-                  setErrThrown(err.message);
-                  handleShowErr();
-                })
-            } else {
-              console.log({ sessId })
-              PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: trimmedEmail, presKeynote: session.sessKeynote, presSessionIds: [sessId] })
-                .then(resp => {
-                  console.log("savePresenter", resp);
-                })
-                .catch(err => {
-                  console.log(err);
-                  setErrThrown(err.message);
-                  handleShowErr();
-                })
-            }
-          })
+        const trimmedEmail = email.trim()
+        handlePres(trimmedEmail, session.confId, sessId, session);
       })
       // session.sessPresEmails.forEach:
       // GET presenter: email + confId
