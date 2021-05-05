@@ -68,24 +68,27 @@ const PresenterForm = () => {
   // GETs presenter info by email and confId
   // No, I need to GET all presenters by sessId to map through them
   const fetchPresByEmail = async (email, id) => {
+    let presArr = []
     // GET presenter information
     return PresenterAPI.getPresenterByEmail(email, id)
-    .then(resp => {
-      console.log("from presForm getPresByEmail", resp.data)
-      const presObj = resp.data[0]
-      const filteredPres = presObj.filter(pres => pres.presSessionIds.includes(session._id))
-      console.log({ filteredPres });
-      setPresenter(filteredPres)
-      setPresReady(true)
-    })
-    .catch(err => {
-      console.log(err)
-      return false;
-    })
+      .then(resp => {
+        console.log("from presForm getPresByEmail", resp.data)
+        const presObj = resp.data;
+        // const filteredPres = presObj.filter(pres => pres.presSessionIds.includes(session._id))
+        // console.log({ filteredPres });
+        presArr = [...presObj, presObj]
+        if (presArr.length === session.sessPresEmails.length) {
+          setPresenter(presArr)
+        }
+        setPresReady(true)
+      })
+      .catch(err => {
+        console.log(err)
+        return false;
+      })
   }
 
   // GETs session info by sessId
-  // How to GET sessId?
   const fetchOneSess = async (sessid) => {
     // Edit existing session: GET session information
     return SessionAPI.getSessionById(sessid)
@@ -114,6 +117,7 @@ const PresenterForm = () => {
         console.log({ latestSess });
         setSession(latestSess);
         setSessReady(true);
+        return latestSess;
       })
       .catch(err => {
         console.log(err);
@@ -224,10 +228,12 @@ const PresenterForm = () => {
     }
   }
 
-  const handlePageLoad = async (id, email) => {
+  const handlePageLoad = async (id) => {
     await fetchConf(id);
-    await fetchSessions(id);
-    await fetchPresByEmail(id, email);
+    const sssn = await fetchSessions(id)
+      .then(email => {
+        sssn.sessPresEmails.map(email => fetchPresByEmail(email, id))
+      })
   }
 
   useEffect(() => {

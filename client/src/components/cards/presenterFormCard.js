@@ -26,11 +26,13 @@ const PresenterFormCard = (props) => {
       })
   }
 
+  // Notes for 5/6: changed to mapping over the presenters, changed key, changed email value to pres.presEmail, removed "Check for existing" button
+
 
   return (
     <>
-      {props.session.sessPresEmails.map(email => (
-        <Card className="formCard" key={props.session._id + props.session.sessPresEmails.indexOf(email)}>
+      {props.presenter.map(pres => (
+        <Card className="formCard" key={pres._id}>
           <Card.Title><h1>Presenter Information</h1></Card.Title>
 
           <Card.Body className="cardBody">
@@ -38,10 +40,7 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="email" name="presEmail" ref={emailRef} placeholder="name@email.com" value={email} className="formEmail" readOnly />
-                </Col>
-                <Col sm={6}>
-                  <Button data-toggle="popover" title="Check whether presenter already exists in database" className="button" onClick={handleEmailCheck} type="submit">Check for existing</Button>
+                  <Form.Control required type="email" name="presEmail" ref={emailRef} placeholder="name@email.com" value={props.presenter.presEmail} className="formEmail" readOnly />
                 </Col>
               </Row>
             </Form.Group>
