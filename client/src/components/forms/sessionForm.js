@@ -29,7 +29,7 @@ const SessionForm = () => {
     sessPanel: "",
     sessRoom: ""
   });
-  const presenter = {
+  let presenter = {
     presGivenName: "",
     presFamilyName: "",
     presOrg: "",
