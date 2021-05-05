@@ -29,13 +29,13 @@ const SessionForm = () => {
     sessPanel: "",
     sessRoom: ""
   });
-  const [presenter, setPresenter] = useState({
+  const presenter = {
     presGivenName: "",
     presFamilyName: "",
     presOrg: "",
     presBio: "",
     presSessionIds: []
-  })
+  };
   const [conference, setConference] = useState();
   const [charRem, setCharRem] = useState(750);
   const [errThrown, setErrThrown] = useState();
