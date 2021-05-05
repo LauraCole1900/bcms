@@ -93,19 +93,26 @@ const SessionForm = () => {
   }
 
   const handlePres = async (email, confId, sessId, session) => {
+    // Check whether presenter already exists for that conference
     let pres = await fetchPresByEmail(email, confId);
-    console.log({ pres });
     if (pres) {
-      PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
-        .then(resp => {
-          console.log("updatePresenter", resp)
-        })
-        .catch(err => {
-          console.log(err)
-          setErrThrown(err.message);
-          handleShowErr();
-        })
+      // If presenter exists, check whether sessId is already in presSessionIds[]
+      if (pres.presSessionIds.includes(sessId)) {
+        return false
+      } else {
+        // If presenter exists without sessId, add new session ID to presSessionIds[]
+        PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
+          .then(resp => {
+            console.log("updatePresenter", resp)
+          })
+          .catch(err => {
+            console.log(err)
+            setErrThrown(err.message);
+            handleShowErr();
+          })
+      }
     } else {
+      // If presenter doesn't exist, create new presenter document
       PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId] })
         .then(resp => {
           console.log("savePresenter", resp);
@@ -191,6 +198,12 @@ const SessionForm = () => {
           setErrThrown(err.message);
           handleShowErr();
         })
+      const emailArr = session.sessPresEmails
+      console.log(emailArr);
+      emailArr.forEach(email => {
+        const trimmedEmail = email.trim()
+        handlePres(trimmedEmail, session.confId, urlId, session);
+      })
     } else {
       console.log({ validationErrors });
     }
@@ -225,28 +238,20 @@ const SessionForm = () => {
         const trimmedEmail = email.trim()
         handlePres(trimmedEmail, session.confId, sessId, session);
       })
-      // session.sessPresEmails.forEach:
-      // GET presenter: email + confId
-      // If resp.length === 0
-      // POST presenter: email + confId, all other required values empty strings
-      // If resp.length !== 0
-      // PUT presenter: presSessionIds: [...presSessionIds, session._id]
-
       // .then(resp => {
-      // If no errors thrown, push to Presenters form
-      // if (!res.err) {
-      //   history.push(`/presenter_info/${urlId}`)
-      //         }
+      //   // If no errors thrown, push to Presenters form
+      //   if (!resp.err) {
+      //     history.push(`/presenter_info/${urlId}`)
+      //   }
       // })
-      // If yes errors thrown, push to Error page
-      //     .catch(err => {
-      //       console.log(err)
-      //       setErrThrown(err.message);
-      //       handleShowErr();
-      //     });
-      // } else {
-      //   console.log({ validationErrors });
-      // }
+      // // If yes errors thrown, push to Error page
+      // .catch(err => {
+      //   console.log(err)
+      //   setErrThrown(err.message);
+      //   handleShowErr();
+      // });
+    } else {
+      console.log({ validationErrors });
     }
   }
 
