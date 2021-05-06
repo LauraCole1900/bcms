@@ -24,6 +24,7 @@ const SessionCard = (props) => {
   const [thisName, setThisName] = useState();
   const presEmailArr = props.session.sessPresEmails;
   let nameArr = [];
+  let orgArr = [];
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
   const urlArray = window.location.href.split("/")
@@ -97,6 +98,14 @@ const SessionCard = (props) => {
     return nameArr;
   }
 
+  const fetchPresOrgs = (id) => {
+    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(id))
+    const presOrg = thesePres.map(pres => pres.presOrg)
+    orgArr = [...new Set(presOrg)]
+    console.log(orgArr)
+    return orgArr;
+  }
+
   useEffect(() => {
     if (props.session.length > 0) {
       fetchConf(urlId);
@@ -122,7 +131,7 @@ const SessionCard = (props) => {
                   <Col sm={9}>
                     <h2>{sess.sessName}</h2>
                     <p>{fetchPresNames(sess._id).join(", ")}</p>
-                    <p>{sess.sessPresOrgs.join(", ")}</p>
+                    <p>{fetchPresOrgs(sess._id).join(", ")}</p>
                   </Col>
                   <Col sm={1}>
                     {isAuthenticated &&
@@ -142,7 +151,7 @@ const SessionCard = (props) => {
                   <Col sm={9}>
                     <h2>{sess.sessName}</h2>
                     <p>{fetchPresNames(sess._id).join(", ")}</p>
-                    <p>{sess.sessPresOrgs.join(", ")}</p>
+                    <p>{fetchPresOrgs(sess._id).join(", ")}</p>
                   </Col>
                   <Col sm={1}>
                     {isAuthenticated &&
@@ -159,7 +168,7 @@ const SessionCard = (props) => {
                   <Col sm={11}>
                     <h2>{sess.sessName}</h2>
                     <p>{fetchPresNames(sess._id).join(", ")}</p>
-                    <p>{sess.sessPresOrgs.join(", ")}</p>
+                    <p>{fetchPresOrgs(sess._id).join(", ")}</p>
                   </Col>
                   <Col sm={1}>
                     {isAuthenticated &&
