@@ -30,6 +30,7 @@ const PresenterForm = () => {
   const [presReady, setPresReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
+  let latestSess;
 
   // Grabs conference ID from URL for new presenters or presenter ID from URL for existing presenters
   // Uses URL to determine whether this is adding a session presenter or editing an existing presenter
@@ -76,7 +77,9 @@ const PresenterForm = () => {
         const presObj = resp.data;
         presArr = [{ ...presObj }, presObj]
         console.log({ presArr })
-        setPresenter(presArr)
+        if (presArr.length === latestSess.sessPresEmails.length) {
+          setPresenter(presArr)
+        }
         setPresReady(true)
       })
       .catch(err => {
@@ -108,7 +111,7 @@ const PresenterForm = () => {
       .then(resp => {
         console.log("from presForm getSessions", resp.data)
         const sessArr = resp.data
-        const latestSess = sessArr.reduce((r, a) => {
+        latestSess = sessArr.reduce((r, a) => {
           return r.date > a.date ? r : a
         });
         console.log({ latestSess });

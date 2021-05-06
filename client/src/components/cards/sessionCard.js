@@ -6,6 +6,7 @@ import Moment from "react-moment";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 const SessionCard = (props) => {
   const { user, isAuthenticated } = useAuth0();
@@ -90,6 +91,7 @@ const SessionCard = (props) => {
   // Throws that into array
   // Renders array to card
   const fetchPres = async (arr, id) => {
+    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(props.session._id))
     await arr.forEach(email => {
       PresenterAPI.getPresenterByEmail(email, id)
         .then(resp => {
@@ -106,6 +108,7 @@ const SessionCard = (props) => {
   useEffect(() => {
     if (props.session.length > 0) {
       fetchConf(urlId);
+      fetchPres(props.session.sessPresEmails);
       setCardRender(true)
     }
 
