@@ -23,8 +23,7 @@ const SessionCard = (props) => {
   const [thisId, setThisId] = useState();
   const [thisName, setThisName] = useState();
   const presEmailArr = props.session.sessPresEmails;
-  let presObj = [];
-  let names = [];
+  let nameArr = [];
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
   const urlArray = window.location.href.split("/")
@@ -90,25 +89,17 @@ const SessionCard = (props) => {
   // Maps through presenter document to get presenter.presGivenName + presenter.presFamilyName
   // Throws that into array
   // Renders array to card
-  const fetchPres = async (arr, id) => {
-    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(props.session._id))
-    await arr.forEach(email => {
-      PresenterAPI.getPresenterByEmail(email, id)
-        .then(resp => {
-          presObj = [...presObj, resp.data]
-          if (presObj.length === arr.length) {
-            names = presObj.map(presObj => presObj.presGivenName + " " + presObj.presFamilyName)
-            console.log({ names })
-            setPresNames(names)
-          }
-        })
-    })
+  const fetchPresNames = (id) => {
+    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(id))
+    const presName = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName)
+    nameArr = [presName]
+    console.log(nameArr)
+    return nameArr;
   }
 
   useEffect(() => {
     if (props.session.length > 0) {
       fetchConf(urlId);
-      fetchPres(props.session.sessPresEmails);
       setCardRender(true)
     }
 
@@ -130,7 +121,7 @@ const SessionCard = (props) => {
                   </Col>
                   <Col sm={9}>
                     <h2>{sess.sessName}</h2>
-                    <p>{sess.sessPresNames.join(", ")}</p>
+                    <p>{fetchPresNames(sess._id).join(", ")}</p>
                     <p>{sess.sessPresOrgs.join(", ")}</p>
                   </Col>
                   <Col sm={1}>
@@ -150,7 +141,7 @@ const SessionCard = (props) => {
                   </Col>
                   <Col sm={9}>
                     <h2>{sess.sessName}</h2>
-                    <p>{sess.sessPresNames.join(", ")}</p>
+                    <p>{fetchPresNames(sess._id).join(", ")}</p>
                     <p>{sess.sessPresOrgs.join(", ")}</p>
                   </Col>
                   <Col sm={1}>
@@ -167,7 +158,7 @@ const SessionCard = (props) => {
                 <Row>
                   <Col sm={11}>
                     <h2>{sess.sessName}</h2>
-                    <p>{sess.sessPresNames.join(", ")}</p>
+                    <p>{fetchPresNames(sess._id).join(", ")}</p>
                     <p>{sess.sessPresOrgs.join(", ")}</p>
                   </Col>
                   <Col sm={1}>
