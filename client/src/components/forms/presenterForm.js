@@ -74,12 +74,9 @@ const PresenterForm = () => {
       .then(resp => {
         console.log("from presForm getPresByEmail", resp.data)
         const presObj = resp.data;
-        // const filteredPres = presObj.filter(pres => pres.presSessionIds.includes(session._id))
-        // console.log({ filteredPres });
-        presArr = [...presObj, presObj]
-        if (presArr.length === session.sessPresEmails.length) {
-          setPresenter(presArr)
-        }
+        presArr = [{ ...presObj }, presObj]
+        console.log({ presArr })
+        setPresenter(presArr)
         setPresReady(true)
       })
       .catch(err => {
@@ -230,9 +227,9 @@ const PresenterForm = () => {
 
   const handlePageLoad = async (id) => {
     await fetchConf(id);
-    const sssn = await fetchSessions(id)
-      .then(email => {
-        sssn.sessPresEmails.map(email => fetchPresByEmail(email, id))
+    await fetchSessions(id)
+      .then(sess => {
+        sess.sessPresEmails.map(email => fetchPresByEmail(email, id))
       })
   }
 
@@ -266,6 +263,7 @@ const PresenterForm = () => {
       {isAuthenticated &&
         confReady === true &&
         sessReady === true &&
+        presReady === true &&
         (user.email === conference.ownerEmail || conference.confAdmins.includes(user.email)) &&
         <Container>
           <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} charRem={charRem} />
