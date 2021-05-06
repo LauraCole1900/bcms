@@ -63,18 +63,18 @@ const SessionCard = (props) => {
         PresenterAPI.deletePresenter(pres.presEmail, pres.confId)
       }
     })
-    // SessionAPI.deleteSession(sessId)
-    //   .then(res => {
-    //     // If no errors thrown, show Success modal
-    //     if (!res.err) {
-    //       handleShowSuccess();
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //     setErrThrown(err.message);
-    //     handleShowErr();
-    //   })
+    SessionAPI.deleteSession(sessId)
+      .then(res => {
+        // If no errors thrown, show Success modal
+        if (!res.err) {
+          handleShowSuccess();
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        setErrThrown(err.message);
+        handleShowErr();
+      })
   };
 
   // GETs conference by confId
