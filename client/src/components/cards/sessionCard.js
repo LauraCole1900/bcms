@@ -15,9 +15,7 @@ const SessionCard = (props) => {
   const [cardRender, setCardRender] = useState(false);
   const [confReady, setConfReady] = useState(false);
   const [conference, setConference] = useState();
-  const [presenters, setPresenters] = useState();
-  const [presNames, setPresNames] = useState([]);
-  const [presOrgs, setPresOrgs] = useState([]);
+  const [presenter, setPresenter] = useState();
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState("");
   const [thisId, setThisId] = useState();
@@ -55,18 +53,28 @@ const SessionCard = (props) => {
     console.log("from sessCard handleSessDelete", sessId)
     handleHideConfirm();
     // ==================== Will need to delete sessId from each presenters' sessId[] ====================
-    SessionAPI.deleteSession(sessId)
-      .then(res => {
-        // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess();
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        setErrThrown(err.message);
-        handleShowErr();
-      })
+    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
+    const presSessions = thesePres.map(pres => pres.presSessionIds.filter(id => id !== sessId))
+    console.log("from sessCard handleSessDelete presSessions", presSessions);
+    thesePres.forEach(pres => {
+      if (presSessions[0].length > 0) {
+        PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: presSessions[0] }, pres.presEmail, pres.confId)
+      } else {
+        PresenterAPI.deletePresenter(pres.presEmail, pres.confId)
+      }
+    })
+    // SessionAPI.deleteSession(sessId)
+    //   .then(res => {
+    //     // If no errors thrown, show Success modal
+    //     if (!res.err) {
+    //       handleShowSuccess();
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //     setErrThrown(err.message);
+    //     handleShowErr();
+    //   })
   };
 
   // GETs conference by confId
@@ -84,22 +92,18 @@ const SessionCard = (props) => {
     setConfReady(true);
   }
 
-  // GETs Presenter by email
-  // Maps through session.sessPresEmails[]
-  // For each, GETs presenter document with matching email and confId
-  // Maps through presenter document to get presenter.presGivenName + presenter.presFamilyName
-  // Throws that into array
-  // Renders array to card
-  const fetchPresNames = (id) => {
-    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(id))
+  // Filters props.presenter by sessId, then maps through the result to pull out presenter names
+  const fetchPresNames = (sessId) => {
+    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
     const presName = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName)
     nameArr = [presName]
     console.log(nameArr)
     return nameArr;
   }
 
-  const fetchPresOrgs = (id) => {
-    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(id))
+  // Filters props.presenter by sessId, then maps through the result to put out presenter organizations
+  const fetchPresOrgs = (sessId) => {
+    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
     const presOrg = thesePres.map(pres => pres.presOrg)
     orgArr = [...new Set(presOrg)]
     console.log(orgArr)

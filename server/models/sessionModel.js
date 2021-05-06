@@ -19,14 +19,6 @@ const sessionSchema = new Schema({
     type: [ trimmedString ],
     required: "Please enter the session presenter's email.",
   },
-  sessPresNames: {
-    type: [ trimmedString ],
-    required: "Please enter presenter name(s)."
-  },
-  sessPresOrgs: {
-    type: [ trimmedString ],
-    required: "Please enter the organization(s) the presenter(s) represent."
-  },
   sessDate: {
     type: String,
     required: "Please enter the date for this session."

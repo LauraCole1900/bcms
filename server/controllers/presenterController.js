@@ -59,7 +59,7 @@ module.exports = {
 
   // UPDATE presenter by email and confId
   updatePresenterByEmail: function (req, res) {
-    console.log("from presenterCont updatePresenterByEmail", req.params.email, req.params.id)
+    console.log("from presenterCont updatePresenterByEmail", req.params.email, req.params.id, req.body)
     db.Presenter
       .findOneAndUpdate({ presEmail: req.params.email, confId: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
@@ -69,10 +69,10 @@ module.exports = {
 
   // DELETE presenter
   removePresenter: function (req, res) {
-    console.log("from presenterCont removePresenter", req.params.id)
+    console.log("from presenterCont removePresenter", req.params.email, req.params.id)
     db.Presenter
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
+      .findOneAndDelete({ presEmail: req.params.email, confId: req.params.id })
+      // .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   }

@@ -47,9 +47,9 @@ const PresenterAPI = {
 
 
   // DELETE presenter
-  deletePresenter: function (email) {
-    console.log("from API deletePresenter", email)
-    return axios.delete(`/api/presenter/delete/${email}`)
+  deletePresenter: function (email, confId) {
+    console.log("from API deletePresenter", email, confId)
+    return axios.delete(`/api/presenter/delete/${email}/${confId}`)
   }
 
 }

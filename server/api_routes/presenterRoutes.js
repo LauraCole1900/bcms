@@ -26,7 +26,7 @@ router.route("/update/id/:id")
   .put(presenterController.updatePresenter);
 
 
-router.route("/delete/:id")
+router.route("/delete/:email/:id")
   .delete(presenterController.removePresenter);
 
 module.exports = router;
