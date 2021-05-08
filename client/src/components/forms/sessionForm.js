@@ -282,6 +282,12 @@ const SessionForm = () => {
         <Container>
           <Form className="sessForm">
 
+            <Row>
+              {(formType === "edit_session")
+                ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Next Page</Button>}
+            </Row>
+
             <Card className="formCard">
               <Card.Title><h1>Basic Information</h1></Card.Title>
 
@@ -382,7 +388,7 @@ const SessionForm = () => {
             <Row>
               {(formType === "edit_session")
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Next Page</Button>}
+                : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Next Page</Button>}
             </Row>
 
           </Form>
