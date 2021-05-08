@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
@@ -11,6 +11,7 @@ import "./style.css";
 const PresenterForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const emailRef = useRef();
+  const history = useHistory();
   const [presenter, setPresenter] = useState({
     presGivenName: "",
     presFamilyName: "",
@@ -269,12 +270,28 @@ const PresenterForm = () => {
         presReady === true &&
         (user.email === conference.ownerEmail || conference.confAdmins.includes(user.email)) &&
         <Container>
+          <Row>
+            <Col sm={2}>
+              <Button data-toggle="popover" title="Go Back" className="button" onClick={() => history.goBack()} type="submit">Go Back</Button>
+            </Col>
+            <Col sm={2}>
+              {(formType === "edit_presenter_info" || formType === "admin_edit_pres")
+                ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+            </Col>
+          </Row>
+          
           <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} charRem={charRem} />
 
           <Row>
-            {(formType === "edit_presenter_info" || formType === "admin_edit_pres")
-              ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-              : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+            <Col sm={2}>
+              <Button data-toggle="popover" title="Go Back" className="button" onClick={() => history.goBack()} type="submit">Go Back</Button>
+            </Col>
+            <Col sm={2}>
+              {(formType === "edit_presenter_info" || formType === "admin_edit_pres")
+                ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+            </Col>
           </Row>
 
           <SuccessModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
