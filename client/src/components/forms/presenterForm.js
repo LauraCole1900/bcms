@@ -238,7 +238,7 @@ const PresenterForm = () => {
       .then(sess => {
         sess.sessPresEmails.map(email => fetchPresByEmail(email, id))
       })
-      console.log("from presForm pageLoad", presenter)
+      console.log("from presForm pageLoad", presArr)
   }
 
   useEffect(() => {
