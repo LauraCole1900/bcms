@@ -82,7 +82,7 @@ const PresenterForm = () => {
         console.log({ presArr })
         if (presArr.length === latestSess.sessPresEmails.length) {
           setPresenter(presArr)
-          // return presArr
+          return presArr
         }
         setPresReady(true)
       })
@@ -238,6 +238,7 @@ const PresenterForm = () => {
       .then(sess => {
         sess.sessPresEmails.map(email => fetchPresByEmail(email, id))
       })
+      console.log("from presForm pageLoad", presenter)
   }
 
   useEffect(() => {
@@ -284,7 +285,7 @@ const PresenterForm = () => {
             </Col>
           </Row>
 
-          <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} charRem={charRem} />
+          <PresenterFormCard presenter={presArr} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} charRem={charRem} />
 
           <Row>
             <Col sm={2}>
