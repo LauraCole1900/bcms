@@ -238,7 +238,7 @@ const SessionForm = () => {
         handlePres(trimmedEmail, session.confId, sessId, session)
           .then(resp => {
             // If no errors thrown, push to Presenters form
-            history.push(`/new_session_2/${urlId}`)
+            history.push(`/new_session_2/${urlId}`, {params: [session]})
           })
       });
     } else {

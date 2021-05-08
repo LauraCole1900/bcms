@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
@@ -12,6 +12,7 @@ const PresenterForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const emailRef = useRef();
   const history = useHistory();
+  const location = useLocation();
   const [presenter, setPresenter] = useState({
     presGivenName: "",
     presFamilyName: "",
@@ -32,6 +33,7 @@ const PresenterForm = () => {
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
   let latestSess;
+  let presArr = [];
 
   // Grabs conference ID from URL for new presenters or presenter ID from URL for existing presenters
   // Uses URL to determine whether this is adding a session presenter or editing an existing presenter
@@ -70,16 +72,17 @@ const PresenterForm = () => {
   // GETs presenter info by email and confId
   // No, I need to GET all presenters by sessId to map through them
   const fetchPresByEmail = async (email, id) => {
-    let presArr = []
     // GET presenter information
     return PresenterAPI.getPresenterByEmail(email, id)
       .then(resp => {
         console.log("from presForm getPresByEmail", resp.data)
         const presObj = resp.data;
-        presArr = [{ ...presObj }, presObj]
+        console.log({ presObj })
+        presArr = [...presArr, presObj]
         console.log({ presArr })
         if (presArr.length === latestSess.sessPresEmails.length) {
           setPresenter(presArr)
+          // return presArr
         }
         setPresReady(true)
       })
@@ -280,7 +283,7 @@ const PresenterForm = () => {
                 : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
             </Col>
           </Row>
-          
+
           <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} charRem={charRem} />
 
           <Row>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card, Row, Col, Image, Form, Button } from "react-bootstrap";
 import { PresenterAPI } from "../../utils/api";
 import "./style.css";
@@ -25,6 +25,10 @@ const PresenterFormCard = (props) => {
         }
       })
   }
+
+  useEffect(() => {
+    console.log(props.presenter)
+  })
 
 
   return (
