@@ -82,9 +82,9 @@ const PresenterForm = () => {
         console.log({ presArr })
         if (presArr.length === latestSess.sessPresEmails.length) {
           setPresenter(presArr)
+          setPresReady(true);
           return presArr
         }
-        setPresReady(true)
       })
       .catch(err => {
         console.log(err)
