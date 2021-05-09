@@ -7,7 +7,7 @@ import AttendeeTable from "./attendeeTable.js";
 import ExhibitorTable from "./exhibitorTable.js";
 import PresenterTable from "./presenterTable.js";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
-import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI } from "../../utils/api";
+import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, SessionAPI, PresenterAPI } from "../../utils/api";
 import "./style.css";
 
 const TableComp = (e) => {
@@ -17,6 +17,7 @@ const TableComp = (e) => {
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
   const [presenters, setPresenters] = useState([]);
+  const [sessNames, setSessNames] = useState([]);
   const [search, setSearch] = useState("");
   const [searchBy, setSearchBy] = useState("all");
   const [sortAscending, setSortAscending] = useState(false);
@@ -42,7 +43,7 @@ const TableComp = (e) => {
 
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend", "exhBoothNum"];
-  const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionName"];
+  const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionNames"];
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
@@ -146,6 +147,13 @@ const TableComp = (e) => {
       })
       .catch(err => console.log(err))
   }
+  const fetchSessions = async (sessId) => {
+    await SessionAPI.getSessions(sessId)
+      .then(resp => {
+        console.log("table fetchSessions", resp.data)
+        setSessNames(resp.data.sessName)
+      })
+  }
 
   // Search method
   const getFilteredData = (data, arr, prop) => {
@@ -245,7 +253,11 @@ const TableComp = (e) => {
           fetchExhibitors(confId);
           break;
         case "presenters":
-          fetchPresenters(confId);
+          fetchPresenters(confId)
+          // .then(pres => {
+          //   pres.presSessionIds.map(id => fetchSessions(id))
+          //   console.log("from table fetchSess", sessNames);
+          // });
           break;
         default:
           fetchAttendees(confId);
@@ -409,7 +421,7 @@ const TableComp = (e) => {
                   : <tr><td className="tableComm">We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</td></tr>)}
               {dataSet === "presenters" && (
                 presenters.length > 0
-                  ? <PresenterTable presenters={searchFilter(presenters)} conference={conference} confcb={fetchConf} prescb={fetchPresenters} />
+                  ? <PresenterTable presenters={searchFilter(presenters)} conference={conference} sessnames={sessNames} confcb={fetchConf} prescb={fetchPresenters} />
                   : <tr><td className="tableComm">We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</td></tr>)}
             </tbody>
           </Table>
