@@ -160,20 +160,20 @@ const PresenterForm = () => {
   }
 
   // Handles input changes to form fields
-  const handleInputChange = (value) => {
+  const handleInputChange = (data) => {
     // find where object._id that matches dataset.id and stick data on that object
     // let presData = presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres)
-    setPresenter(value)
+    setPresenter(data)
     console.log({ presenter });
   };
 
   // Handles character limit and input changes for textarea
-  const handleTextArea = (value) => {
+  const handleTextArea = (data) => {
     // const charCount = value.length;
     // const charLeft = 750 - charCount;
     // setCharRem(charLeft);
     // let presData = presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres)
-    setPresenter(value);
+    setPresenter(data);
     console.log({ presenter });
   }
 

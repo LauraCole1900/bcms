@@ -4,7 +4,7 @@ import { PresenterAPI } from "../../utils/api";
 import "./style.css";
 
 const PresenterFormCard = (props) => {
-  const [presenter, setPresenter] = useState(props.presenter);
+  const [pres, setPres] = useState(props.presenter);
   const [charRem, setCharRem] = useState(750);
 
   // // Handles input changes to form fields
@@ -26,8 +26,8 @@ const PresenterFormCard = (props) => {
 
   const handleInputChange = (e) => {
     const { dataset, name, value } = e.target;
-    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
-    props.handleChange(presenter);
+    setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
+    props.handleChange({ ...pres, [name]: value });
   }
 
   const handleTextArea = (e) => {
@@ -35,20 +35,20 @@ const PresenterFormCard = (props) => {
     const charCount = value.length;
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
-    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres));
-    props.handleText(presenter);
+    setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres));
+    props.handleText({ ...pres, [name]: value });
   }
 
   useEffect(() => {
-    console.log("from presFormCard useEffect", presenter)
+    console.log("from presFormCard useEffect", pres)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presenter])
+  }, [pres])
 
 
   return (
     <>
-      {presenter.map(pres => (
+      {pres.map(pres => (
         <Card className="formCard" key={pres._id}>
           <Card.Title><h1>Presenter Information</h1></Card.Title>
 
