@@ -13,27 +13,27 @@ const sessionSchema = new Schema({
   },
   sessName: {
     type: String,
-    required: "Please enter a name for your session."
+    required: true
   },
   sessPresEmails: {
     type: [ trimmedString ],
-    required: "Please enter the session presenter's email.",
+    required: true,
   },
   sessDate: {
     type: String,
-    required: "Please enter the date for this session."
+    required: true
   },
   sessStart: {
     type: String,
-    required: "Please enter the starting time for this session."
+    required: true
   },
   sessEnd: {
     type: String,
-    required: "Please enter the ending time for this session."
+    required: true
   },
   sessDesc: {
     type: String,
-    required: "Please enter the session's description."
+    required: true
   },
   sessKeynote: {
     type: String

@@ -160,13 +160,17 @@ const PresenterForm = () => {
 
   // Sets inputs to form fields in state
   const handleInputChange = (data) => {
-    setPresenter(data)
+    const presData = data;
+    console.log({ presData });
+    setPresenter(presData);
     console.log({ presenter });
   };
 
   // Sets textarea inputs in state
   const handleTextArea = (data) => {
-    setPresenter(data);
+    const presData = data;
+    console.log({ presData });
+    setPresenter(presData);
     console.log({ presenter });
   }
 

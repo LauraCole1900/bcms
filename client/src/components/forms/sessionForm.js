@@ -34,6 +34,9 @@ const SessionForm = () => {
     presFamilyName: "",
     presOrg: "",
     presBio: "",
+    presPhone: "",
+    presWebsite: "",
+    presPic: "",
     presSessionIds: []
   };
   const [conference, setConference] = useState();

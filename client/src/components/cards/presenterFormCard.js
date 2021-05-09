@@ -12,7 +12,8 @@ const PresenterFormCard = (props) => {
     const { dataset, name, value } = e.target;
     // Finds where Object._id === dataset.id and concatenates data there
     setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
-    props.handleChange({ ...pres, [name]: value });
+    props.handleChange({ ...pres });
+    console.log({ pres });
   }
 
   // Handles character limit and input changes for textarea
@@ -23,7 +24,8 @@ const PresenterFormCard = (props) => {
     setCharRem(charLeft);
     // Finds where Object._id === dataset.id and concatenates data there
     setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres));
-    props.handleText({ ...pres, [name]: value });
+    props.handleText({ ...pres });
+    console.log({ pres });
   }
 
   useEffect(() => {
