@@ -7,22 +7,22 @@ const PresenterFormCard = (props) => {
   const [presenter, setPresenter] = useState(props.presenter);
   const [charRem, setCharRem] = useState(750);
 
-  // Handles input changes to form fields
-  const handleInputChange = (e) => {
-    const { dataset, name, value } = e.target
-    // find where object._id that matches dataset.id and stick data on that object
-    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
-    console.log({ presenter });
-  };
+  // // Handles input changes to form fields
+  // const handleInputChange = (e) => {
+  //   const { dataset, name, value } = e.target
+  //   // find where object._id that matches dataset.id and stick data on that object
+  //   setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
+  //   console.log({ presenter });
+  // };
 
-  // Handles character limit and input changes for textarea
-  const handleTextArea = (e) => {
-    const { dataset, name, value } = e.target
-    const charCount = value.length;
-    const charLeft = 750 - charCount;
-    setCharRem(charLeft);
-    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
-  }
+  // // Handles character limit and input changes for textarea
+  // const handleTextArea = (e) => {
+  //   const { dataset, name, value } = e.target
+  //   const charCount = value.length;
+  //   const charLeft = 750 - charCount;
+  //   setCharRem(charLeft);
+  //   setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
+  // }
 
   useEffect(() => {
     console.log("from presFormCard useEffect", presenter)
@@ -51,17 +51,17 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's first name: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={props.handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Form.Label>Presenter's last name: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={props.handleInputChange} />
                 </Col>
               </Row>
               <Row>
                 <Col sm={12}>
                   <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={pres.presOrg} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={pres.presOrg} data-id={pres._id} className="formInput" onChange={props.handleInputChange} />
                 </Col>
               </Row>
             </Form.Group>
@@ -70,11 +70,11 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={4}>
                   <Form.Label>Presenter's phone:</Form.Label>
-                  <Form.Control type="input" name="presPhone" placeholder="(123)456-7890" value={pres.presPhone} className="formInput" data-id={pres._id} onChange={handleInputChange} />
+                  <Form.Control type="input" name="presPhone" placeholder="(123)456-7890" value={pres.presPhone} className="formInput" data-id={pres._id} onChange={props.handleInputChange} />
                 </Col>
                 <Col sm={8}>
                   <Form.Label>Presenter's website URL:</Form.Label>
-                  <Form.Control type="input" name="presWebsite" placeholder="http://www.website.com" value={pres.presWebsite} className="formInput" data-id={pres._id} onChange={handleInputChange} />
+                  <Form.Control type="input" name="presWebsite" placeholder="http://www.website.com" value={pres.presWebsite} className="formInput" data-id={pres._id} onChange={props.handleInputChange} />
                 </Col>
               </Row>
             </Form.Group>
@@ -83,8 +83,8 @@ const PresenterFormCard = (props) => {
               <Col sm={12}>
                 <Form.Group controlId="formPresBio">
                   <Form.Label>Presenter's bio (min 10 characters, max 750 characters): <span className="red">*</span></Form.Label>
-                  <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} data-id={pres._id} className="formInput" onChange={handleTextArea} />
-                  <Form.Text muted>Characters remaining: {charRem}</Form.Text>
+                  <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} data-id={pres._id} className="formInput" onChange={props.handleTextArea} />
+                  <Form.Text muted>Characters remaining: {props.charRem}</Form.Text>
                 </Form.Group>
               </Col>
             </Row>
@@ -93,7 +93,7 @@ const PresenterFormCard = (props) => {
               <Col sm={12}>
                 <Form.Group controlId="formPresPic">
                   <Form.Label>Upload presenter's picture:</Form.Label>
-                  <Form.Control type="input" name="presPic" placeholder="URL for presenter's picture" value={pres.presPic} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  <Form.Control type="input" name="presPic" placeholder="URL for presenter's picture" value={pres.presPic} data-id={pres._id} className="formInput" onChange={props.handleInputChange} />
                 </Form.Group>
               </Col>
             </Row>
