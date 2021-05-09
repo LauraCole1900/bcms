@@ -26,12 +26,17 @@ const PresenterFormCard = (props) => {
 
   const handleInputChange = (e) => {
     const { dataset, name, value } = e.target;
-    props.handleInputChange(dataset, name, value);
+    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
+    props.handleChange(presenter);
   }
 
   const handleTextArea = (e) => {
     const { dataset, name, value } = e.target;
-    props.handleTextArea(dataset, name, value)
+    const charCount = value.length;
+    const charLeft = 750 - charCount;
+    setCharRem(charLeft);
+    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres));
+    props.handleText(presenter);
   }
 
   useEffect(() => {
@@ -102,7 +107,7 @@ const PresenterFormCard = (props) => {
                   {props.errors.presBio &&
                     <div className="error">{props.errors.presBio}</div>}
                   <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} data-id={pres._id} className="formInput" onChange={handleTextArea} />
-                  <Form.Text muted>Characters remaining: {props.charRem}</Form.Text>
+                  <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                 </Form.Group>
               </Col>
             </Row>

@@ -160,18 +160,21 @@ const PresenterForm = () => {
   }
 
   // Handles input changes to form fields
-  const handleInputChange = (dataset, name, value) => {
+  const handleInputChange = (value) => {
     // find where object._id that matches dataset.id and stick data on that object
-    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
+    // let presData = presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres)
+    setPresenter(value)
     console.log({ presenter });
   };
 
   // Handles character limit and input changes for textarea
-  const handleTextArea = (dataset, name, value) => {
-    const charCount = value.length;
-    const charLeft = 750 - charCount;
-    setCharRem(charLeft);
-    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
+  const handleTextArea = (value) => {
+    // const charCount = value.length;
+    // const charLeft = 750 - charCount;
+    // setCharRem(charLeft);
+    // let presData = presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres)
+    setPresenter(value);
+    console.log({ presenter });
   }
 
   // Handles click on "Update" button
@@ -287,7 +290,7 @@ const PresenterForm = () => {
             </Col>
           </Row>
 
-          <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} charRem={charRem} handleInputChange={handleInputChange} handleTextArea={handleTextArea} />
+          <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} charRem={charRem} handleChange={handleInputChange} handleText={handleTextArea} />
 
           <Row>
             <Col sm={2}>
