@@ -283,7 +283,7 @@ const PresenterForm = () => {
             </Col>
           </Row>
 
-          <PresenterFormCard presenter={presArr} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} charRem={charRem} />
+          <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} charRem={charRem} />
 
           <Row>
             <Col sm={2}>
