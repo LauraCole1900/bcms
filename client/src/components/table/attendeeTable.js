@@ -15,10 +15,11 @@ const AttendeeTable = (props) => {
 
   // Click handler for "isAdmin" checkbox
   const handleInputChange = async (e) => {
-    console.log("Attendee table", e.target.value, e.target.dataset.id);
+    const { dataset, name, value } = e.target;
+    console.log("Attendee table", value, dataset.id);
     let adminConf;
     // Define data to be changed based on existing checkbox value
-    switch (e.target.value) {
+    switch (value) {
       case "true":
         adminConf = false;
         break;
@@ -26,10 +27,10 @@ const AttendeeTable = (props) => {
         adminConf = true;
     }
     // API call to update attendee document
-    AttendeeAPI.updateAttendeeById(e.target.dataset.id, { [e.target.name]: adminConf },)
+    AttendeeAPI.updateAttendeeById(dataset.id, { [name]: adminConf },)
       .then(props.attcb(props.conference[0]._id))
       .catch(err => console.log(err))
-    let adminEmail = await getEmail(e.target.dataset.id)
+    let adminEmail = await getEmail(dataset.id)
     switch (adminConf) {
       case true:
         // API call to add emails to conference.confAdmins
