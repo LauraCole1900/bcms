@@ -24,6 +24,16 @@ const PresenterFormCard = (props) => {
   //   setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
   // }
 
+  const handleInputChange = (e) => {
+    const { dataset, name, value } = e.target;
+    props.handleInputChange(dataset, name, value);
+  }
+
+  const handleTextArea = (e) => {
+    const { dataset, name, value } = e.target;
+    props.handleTextArea(dataset, name, value)
+  }
+
   useEffect(() => {
     console.log("from presFormCard useEffect", presenter)
 
@@ -53,13 +63,13 @@ const PresenterFormCard = (props) => {
                   <Form.Label>Presenter's first name: <span className="red">*</span></Form.Label>
                   {props.errors.presGivenName &&
                     <div className="error">{props.errors.presGivenName}</div>}
-                  <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={props.handleInputChange} />
+                  <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Form.Label>Presenter's last name: <span className="red">*</span></Form.Label>
                   {props.errors.presFamilyName &&
                     <div className="error">{props.errors.presFamilyName}</div>}
-                  <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={props.handleInputChange} />
+                  <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
               <Row>
@@ -67,7 +77,7 @@ const PresenterFormCard = (props) => {
                   <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
                   {props.errors.presOrg &&
                     <div className="error">{props.errors.presOrg}</div>}
-                  <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={pres.presOrg} data-id={pres._id} className="formInput" onChange={props.handleInputChange} />
+                  <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={pres.presOrg} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
             </Form.Group>
@@ -76,11 +86,11 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={4}>
                   <Form.Label>Presenter's phone:</Form.Label>
-                  <Form.Control type="input" name="presPhone" placeholder="(123)456-7890" value={pres.presPhone} className="formInput" data-id={pres._id} onChange={props.handleInputChange} />
+                  <Form.Control type="input" name="presPhone" placeholder="(123)456-7890" value={pres.presPhone} className="formInput" data-id={pres._id} onChange={handleInputChange} />
                 </Col>
                 <Col sm={8}>
                   <Form.Label>Presenter's website URL:</Form.Label>
-                  <Form.Control type="input" name="presWebsite" placeholder="http://www.website.com" value={pres.presWebsite} className="formInput" data-id={pres._id} onChange={props.handleInputChange} />
+                  <Form.Control type="input" name="presWebsite" placeholder="http://www.website.com" value={pres.presWebsite} className="formInput" data-id={pres._id} onChange={handleInputChange} />
                 </Col>
               </Row>
             </Form.Group>
@@ -91,7 +101,7 @@ const PresenterFormCard = (props) => {
                   <Form.Label>Presenter's bio (min 10 characters, max 750 characters): <span className="red">*</span></Form.Label>
                   {props.errors.presBio &&
                     <div className="error">{props.errors.presBio}</div>}
-                  <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} data-id={pres._id} className="formInput" onChange={props.handleTextArea} />
+                  <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} data-id={pres._id} className="formInput" onChange={handleTextArea} />
                   <Form.Text muted>Characters remaining: {props.charRem}</Form.Text>
                 </Form.Group>
               </Col>
@@ -101,7 +111,7 @@ const PresenterFormCard = (props) => {
               <Col sm={12}>
                 <Form.Group controlId="formPresPic">
                   <Form.Label>Upload presenter's picture:</Form.Label>
-                  <Form.Control type="input" name="presPic" placeholder="URL for presenter's picture" value={pres.presPic} data-id={pres._id} className="formInput" onChange={props.handleInputChange} />
+                  <Form.Control type="input" name="presPic" placeholder="URL for presenter's picture" value={pres.presPic} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Form.Group>
               </Col>
             </Row>
