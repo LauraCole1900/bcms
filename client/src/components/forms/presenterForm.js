@@ -185,9 +185,9 @@ const PresenterForm = () => {
       console.log("Presenter update", presenter);
       // PUT call to update presenter document
       PresenterAPI.updatePresenter({ ...presenter }, urlId)
-        .then(res => {
+        .then(resp => {
           // If no errors thrown, show Success modal
-          if (!res.err) {
+          if (!resp.err) {
             handleShowSuccess();
           }
         })
@@ -205,28 +205,28 @@ const PresenterForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Validates required inputs
-    // const validationErrors = presValidate([presenter, conference]);
-    // const noErrors = Object.keys(validationErrors).length === 0;
-    // setErrors(validationErrors);
-    // if (noErrors) {
-      console.log("Presenter submit", presenter)
+    console.log("Presenter submit", presenter)
+    presenter.forEach(pres => {
+      // Validates required inputs
+      // const validationErrors = presValidate(pres);
+      // const noErrors = Object.keys(validationErrors).length === 0;
+      // setErrors(validationErrors);
+      // if (noErrors) {
       // PUT call to update presenter document
-      presenter.forEach(pres => {
-        PresenterAPI.updatePresenter({ ...pres }, pres._id)
-          .then(res => {
-            // If no errors thrown, push to Success page
-            if (!res.err) {
-              handleShowSuccess();
-            }
-          })
-          // If yes errors thrown, push to Error page
-          .catch(err => {
-            console.log(err)
-            setErrThrown(err.message);
-            handleShowErr();
-          });
-      });
+      PresenterAPI.updatePresenter({ ...pres }, pres._id)
+        .then(resp => {
+          // If no errors thrown, push to Success page
+          if (!resp.err) {
+            handleShowSuccess();
+          }
+        })
+        // If yes errors thrown, push to Error page
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
+        });
+    });
     // } else {
     //   console.log({ validationErrors });
     // }
