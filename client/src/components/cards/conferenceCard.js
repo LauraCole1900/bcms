@@ -32,11 +32,12 @@ const ConferenceCard = ({ conference }) => {
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
-    console.log(e.target.name, e.target.dataset.confid, e.target.dataset.confname);
-    setShowConfirm(e.target.dataset.confid);
-    setBtnName(e.target.name);
-    setThisId(e.target.dataset.confid);
-    setThisName(e.target.dataset.confname);
+    const { dataset, name } = e.target;
+    console.log(name, dataset.confid, dataset.confname);
+    setShowConfirm(dataset.confid);
+    setBtnName(name);
+    setThisId(dataset.confid);
+    setThisName(dataset.confname);
   }
   const handleHideConfirm = () => setShowConfirm(0);
   const handleShowSuccess = () => setShowSuccess(thisId);
