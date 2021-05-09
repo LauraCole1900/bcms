@@ -45,7 +45,8 @@ const UpdateUser = () => {
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value })
   };
 
   // Handles click on "Update" button
