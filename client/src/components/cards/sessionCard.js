@@ -36,11 +36,12 @@ const SessionCard = (props) => {
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
-    console.log(e.target.name, e.target.dataset.sessid, e.target.dataset.sessname);
-    setShowConfirm(e.target.dataset.sessid);
-    setBtnName(e.target.name);
-    setThisId(e.target.dataset.sessid);
-    setThisName(e.target.dataset.sessname);
+    const { dataset, name } = e.target;
+    console.log(name, dataset.sessid, dataset.sessname);
+    setShowConfirm(dataset.sessid);
+    setBtnName(name);
+    setThisId(dataset.sessid);
+    setThisName(dataset.sessname);
   }
   const handleHideConfirm = () => setShowConfirm(0);
   const handleShowSuccess = () => setShowSuccess(thisId);
