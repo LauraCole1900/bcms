@@ -76,9 +76,7 @@ const PresenterForm = () => {
     return PresenterAPI.getPresenterByEmail(email, id)
       .then(resp => {
         console.log("from presForm getPresByEmail", resp.data)
-        const presObj = resp.data;
-        console.log({ presObj })
-        presArr = [...presArr, presObj]
+        presArr = [...presArr, resp.data]
         console.log({ presArr })
         if (presArr.length === latestSess.sessPresEmails.length) {
           setPresenter(presArr)
@@ -237,8 +235,8 @@ const PresenterForm = () => {
     await fetchSessions(id)
       .then(sess => {
         sess.sessPresEmails.map(email => fetchPresByEmail(email, id))
+        console.log("from presForm pageLoad", presenter)
       })
-      console.log("from presForm pageLoad", presArr)
   }
 
   useEffect(() => {
