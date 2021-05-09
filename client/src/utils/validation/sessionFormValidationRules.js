@@ -43,7 +43,7 @@ const sessValidate = ([session, conference]) => {
   }
 
   // session presenter email errors
-  if (!session.sessPresEmails) {
+  if (!session.sessPresEmails.length) {
     errors.sessPresEmails = "Please enter the emails of the presenter(s)."
   }
 

@@ -378,9 +378,9 @@ const SessionForm = () => {
                   <Row>
                     <Col sm={12}>
                       <Form.Label>Presenter emails: <span className="red">*</span></Form.Label><br />
+                      <Form.Text className="subtext" muted>Please separate emails with commas.</Form.Text>
                       {errors.sessPresEmails &&
                         <div className="error"><p>{errors.sessPresEmails}</p></div>}
-                      <Form.Text className="subtext" muted>Please separate emails with commas.</Form.Text>
                       <Form.Control required type="email" name="sessPresEmails" placeholder="name@email.com" value={session.sessPresEmails} className="formEmail" onChange={handleInputChange} />
                     </Col>
                   </Row>
