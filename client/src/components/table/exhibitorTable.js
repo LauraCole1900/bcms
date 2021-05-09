@@ -12,21 +12,24 @@ const ExhibitorTable = (props) => {
 
   // finds the index of the document with the given ID
   const findIndex = (e) => {
-    idx = exhArr.findIndex(exh => exh._id === e.target.dataset.id);
+    const { dataset } = e.target;
+    idx = exhArr.findIndex(exh => exh._id === dataset.id);
     return idx
   };
 
   // handles input to booth number field
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
     findIndex(e);
-    setExhibitor({ ...exhArr[idx], [e.target.name]: e.target.value })
+    setExhibitor({ ...exhArr[idx], [name]: value })
   }
 
   // API call to update exhibitor document onSubmit
   const handleSubmit = (e) => {
+    const { dataset } = e.target;
     if (e.charCode === 13 && e.shiftKey === false) {
       console.log("from exhTable handleSubmit", { exhibitor })
-      ExhibitorAPI.updateExhibitor({ ...exhibitor }, e.target.dataset.id)
+      ExhibitorAPI.updateExhibitor({ ...exhibitor }, dataset.id)
         .then(props.exhcb(props.conference[0]._id))
         .catch(err => console.log(err))
     }
