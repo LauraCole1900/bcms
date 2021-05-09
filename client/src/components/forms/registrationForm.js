@@ -58,7 +58,8 @@ const Registration = () => {
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
-    setAttendee({ ...attendee, [e.target.name]: e.target.value })
+    const { name, value } = e.target;
+    setAttendee({ ...attendee, [name]: value })
   };
 
   // Handles click on "Update" button
