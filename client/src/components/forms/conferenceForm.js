@@ -54,7 +54,7 @@ const ConferenceForm = () => {
   // Breaks down the URL
   const urlArray = window.location.href.split("/")
   // Use to refer to "/new_conference"
-  const confId = urlArray[urlArray.length - 1]
+  const urlId = urlArray[urlArray.length - 1]
   // Use to refer to "/edit_conference/{confId}"
   const urlType = urlArray[urlArray.length - 2]
 
@@ -96,7 +96,7 @@ const ConferenceForm = () => {
   // Checks if user.email is included in conference.confAdmins[] and if so, deletes it from array
   const setOwnerEmail = (e) => {
     const { name, value } = e.target;
-    if (confId !== "new_conference") {
+    if (urlId !== "new_conference") {
       if (conference.confAdmins.includes(user.email)) {
         let admins = conference.confAdmins.filter(email => email !== user.email)
         console.log("setOwnerEmail to user", admins);
@@ -113,7 +113,7 @@ const ConferenceForm = () => {
   // Checks if user.email is already included in conference.confAdmins[] and if not, sets user.email in conference.confAdmins[]
   const setAdminEmail = (e) => {
     const { name, value } = e.target;
-    if (confId !== "new_conference") {
+    if (urlId !== "new_conference") {
       if (conference.confAdmins.includes(user.email)) {
         console.log("setAdminEmail already includes user")
         setConference({ ...conference, [name]: value })
@@ -134,12 +134,12 @@ const ConferenceForm = () => {
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("Conference update", confId);
+      console.log("Conference update", urlId);
       // PUT call to update conference document
-      ConferenceAPI.updateConference({ ...conference }, confId)
-        .then(res => {
+      ConferenceAPI.updateConference({ ...conference }, urlId)
+        .then(resp => {
           // If no errors thrown, show Success modal
-          if (!res.err) {
+          if (!resp.err) {
             handleShowSuccess();
           }
         })
@@ -165,9 +165,9 @@ const ConferenceForm = () => {
       console.log("Conference submit", conference)
       // POST call to create conference document
       ConferenceAPI.createConference({ ...conference })
-        .then(res => {
+        .then(resp => {
           // If no errors thrown, show Success modal
-          if (!res.err) {
+          if (!resp.err) {
             handleShowSuccess();
           }
         })
@@ -187,7 +187,7 @@ const ConferenceForm = () => {
       switch (urlType) {
         case "edit_conference":
           // GET call to pre-populate the form if the URL indicates this is an existing conference
-          ConferenceAPI.getConferenceById(confId)
+          ConferenceAPI.getConferenceById(urlId)
             .then(resp => {
               console.log("from conferenceForm getConfById", resp.data);
               const confArr = resp.data;
@@ -604,16 +604,16 @@ const ConferenceForm = () => {
               </Card>
 
               <Row>
-                {(confId !== "new_conference")
+                {(urlId !== "new_conference")
                   ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                   : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
               </Row>
 
             </Form>
 
-            <SuccessModal conference={conference} confname={conference.confName} urlid={confId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+            <SuccessModal conference={conference} confname={conference.confName} urlid={urlId} urltype={urlType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conference} confname={conference.confName} urlid={confId} urltype={urlType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+            <ErrorModal conference={conference} confname={conference.confName} urlid={urlId} urltype={urlType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
           </Container >
         )

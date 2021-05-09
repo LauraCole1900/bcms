@@ -60,20 +60,22 @@ const ExhibitForm = () => {
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
-    setExhibitor({ ...exhibitor, [e.target.name]: e.target.value })
-    if (e.target.name === "exhWorkerNames") {
+    const { name, value } = e.target;
+    setExhibitor({ ...exhibitor, [name]: value })
+    if (name === "exhWorkerNames") {
       // Splits input into workerNames field at commas to create an array
-      let names = e.target.value.split(",")
+      let names = value.split(",")
       setExhibitor({ ...exhibitor, exhWorkerNames: names })
     }
   };
 
   // Handles character limit and input changes for textarea
   const handleTextArea = (e) => {
-    const charCount = e.target.value.length;
+    const { name, value } = e.target;
+    const charCount = value.length;
     const charLeft = 150 - charCount;
     setCharRem(charLeft);
-    setExhibitor({ ...exhibitor, [e.target.name]: e.target.value.slice(0, 150) })
+    setExhibitor({ ...exhibitor, [name]: value.slice(0, 150) })
   }
 
   // Handles click on "Update" button
@@ -87,9 +89,9 @@ const ExhibitForm = () => {
       console.log("Exhibitor update", exhibitor._id);
       // PUT call to update exhibitor document
       ExhibitorAPI.updateExhibitor({ ...exhibitor }, exhibitor._id)
-        .then(res => {
+        .then(resp => {
           // If no errors thrown, show Success modal
-          if (!res.err) {
+          if (!resp.err) {
             handleShowSuccess();
           }
         })
@@ -116,9 +118,9 @@ const ExhibitForm = () => {
       console.log("Exhibitor submit", exhibitor)
       // POST call to create exhibitor document
       ExhibitorAPI.registerExhibitor({ ...exhibitor })
-        .then(res => {
+        .then(resp => {
           // If no errors thrown, show Success modal
-          if (!res.err) {
+          if (!resp.err) {
             handleShowSuccess();
           }
         })
