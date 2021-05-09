@@ -46,15 +46,16 @@ const TableComp = (e) => {
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
-    console.log(e.target.name, e.target.dataset.confid, e.target.dataset.confname, e.target.dataset.attname, e.target.dataset.email);
+    const { dataset, name } = e.target;
+    console.log(name, dataset.confid, dataset.confname, dataset.attname, dataset.email);
     setShowConfirm(true);
-    setBtnName(e.target.name);
-    setThisId(e.target.dataset.confid);
-    setConfName(e.target.dataset.confname);
-    setThisEmail(e.target.dataset.email);
-    setAttName(e.target.dataset.attname);
-    setExhName(e.target.dataset.exhname);
-    setPresName(e.target.dataset.presname);
+    setBtnName(name);
+    setThisId(dataset.confid);
+    setConfName(dataset.confname);
+    setThisEmail(dataset.email);
+    setAttName(dataset.attname);
+    setExhName(dataset.exhname);
+    setPresName(dataset.presname);
   }
   const handleHideConfirm = () => setShowConfirm(false);
   const handleShowSuccess = () => setShowSuccess(true);
@@ -216,19 +217,20 @@ const TableComp = (e) => {
 
   // Sort by column header
   const sortBy = (e) => {
+    const { innerHTML } = e.target;
     switch (dataSet) {
       case "exhibitors":
-        const sortExh = (sortAscending) ? ascendingSort(exhibitors, e.target.innerHTML) : descendingSort(exhibitors, e.target.innerHTML)
+        const sortExh = (sortAscending) ? ascendingSort(exhibitors, innerHTML) : descendingSort(exhibitors, innerHTML)
         setExhibitors(sortExh)
         ascendingSortSet();
         break;
       case "presenters":
-        const sortPres = (sortAscending) ? ascendingSort(presenters, e.target.innerHTML) : descendingSort(presenters, e.target.innerHTML)
+        const sortPres = (sortAscending) ? ascendingSort(presenters, innerHTML) : descendingSort(presenters, innerHTML)
         setPresenters(sortPres)
         ascendingSortSet();
         break;
       default:
-        const sortAtt = (sortAscending) ? ascendingSort(attendees, e.target.innerHTML) : descendingSort(attendees, e.target.innerHTML)
+        const sortAtt = (sortAscending) ? ascendingSort(attendees, innerHTML) : descendingSort(attendees, innerHTML)
         setAttendees(sortAtt)
         ascendingSortSet();
     }
