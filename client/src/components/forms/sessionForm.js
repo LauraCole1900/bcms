@@ -159,20 +159,22 @@ const SessionForm = () => {
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
-    setSession({ ...session, [e.target.name]: e.target.value })
-    if (e.target.name === "sessPresEmails") {
+    const { name, value } = e.target;
+    setSession({ ...session, [name]: value })
+    if (name === "sessPresEmails") {
       // Splits input to sessPresEmail field at commas to create an array
-      let emails = e.target.value.split(",")
+      let emails = value.split(",")
       setSession({ ...session, sessPresEmails: emails })
     }
   };
 
   // Handles character limit and input changes for textarea
   const handleTextArea = (e) => {
-    const charCount = e.target.value.length;
+    const { name, value } = e.target;
+    const charCount = value.length;
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
-    setSession({ ...session, [e.target.name]: e.target.value.slice(0, 750) })
+    setSession({ ...session, [name]: value.slice(0, 750) })
   }
 
   // Handles click on "Update" button
