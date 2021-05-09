@@ -23,8 +23,10 @@ const PresenterFormCard = (props) => {
   }
 
   useEffect(() => {
-    console.log("from presFormCard useEffect", props.presenter)
-  }, [])
+    console.log("from presFormCard useEffect", presenter)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presenter])
 
 
   return (
