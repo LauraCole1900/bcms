@@ -197,20 +197,22 @@ const PresenterForm = () => {
       const idx = session.sessPresEmails.indexOf(presenter.presEmail)
       console.log({ idx });
       console.log("Presenter submit", presenter)
-      // POST call to create presenter document
-      PresenterAPI.savePresenter({ ...presenter, confId: urlId, presEmail: emailRef.current.value, presSessionIds: [...presenter.presSessionIds, session._id] })
-        .then(res => {
-          // If no errors thrown, push to Success page
-          if (!res.err) {
-            handleShowSuccess();
-          }
-        })
-        // If yes errors thrown, push to Error page
-        .catch(err => {
-          console.log(err)
-          setErrThrown(err.message);
-          handleShowErr();
-        });
+      // PUT call to update presenter document
+      presenter.forEach(pres => {
+        PresenterAPI.updatePresenter({ ...presenter }, pres._id)
+          .then(res => {
+            // If no errors thrown, push to Success page
+            if (!res.err) {
+              handleShowSuccess();
+            }
+          })
+          // If yes errors thrown, push to Error page
+          .catch(err => {
+            console.log(err)
+            setErrThrown(err.message);
+            handleShowErr();
+          });
+      });
     } else {
       console.log({ validationErrors });
     }

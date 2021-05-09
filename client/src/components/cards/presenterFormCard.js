@@ -10,16 +10,18 @@ const PresenterFormCard = (props) => {
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { dataset, name, value } = e.target
-    setPresenter({ ...presenter, _id: dataset.id, [name]: value })
+    // find where object._id that matches dataset.id and stick data on that object
+    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
+    console.log({ presenter });
   };
 
   // Handles character limit and input changes for textarea
   const handleTextArea = (e) => {
-    const { name, value } = e.target
+    const { dataset, name, value } = e.target
     const charCount = value.length;
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
-    setPresenter({ ...presenter, [name]: value.slice(0, 750) })
+    setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
   }
 
   useEffect(() => {
@@ -49,11 +51,11 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's first name: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="presGivenName" placeholder="Bilbo" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Form.Label>Presenter's last name: <span className="red">*</span></Form.Label>
-                  <Form.Control required type="input" name="presFamilyName" placeholder="Baggins" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
               <Row>

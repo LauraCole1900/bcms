@@ -1,4 +1,5 @@
 const db = require("../models")
+const { findOneAndDelete } = require("../models/attendeeModel")
 
 module.exports = {
   // CREATE new presenter in database
@@ -50,7 +51,7 @@ module.exports = {
 
   // UPDATE presenter by ID
   updatePresenter: function (req, res) {
-    console.log("from presenterCont updatePresenter", req.params.id)
+    console.log("from presenterCont updatePresenter", req.params.id, req.body)
     db.Presenter
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
@@ -67,12 +68,20 @@ module.exports = {
   },
 
 
-  // DELETE presenter
+  // DELETE presenter by presId
   removePresenter: function (req, res) {
-    console.log("from presenterCont removePresenter", req.params.email, req.params.id)
+    console.log("from presenterCont removePresenter", req.params.id)
+    db.Presenter
+      .findOneAndDelete({ _id: req.params.id })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
+  // DELETE presenter by email and confId
+  removePresenterByEmail: function (req, res) {
+    console.log("from presenterCont removePresenterByEmail", req.params.email, req.params.id)
     db.Presenter
       .findOneAndDelete({ presEmail: req.params.email, confId: req.params.id })
-      // .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   }

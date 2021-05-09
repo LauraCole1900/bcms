@@ -19,14 +19,17 @@ router.route("/email/:email/:id")
   .get(presenterController.findByEmail);
 
 
-router.route("/update/email/:email/:id")
-  .put(presenterController.updatePresenterByEmail);
-
 router.route("/update/id/:id")
   .put(presenterController.updatePresenter);
 
+router.route("/update/email/:email/:id")
+  .put(presenterController.updatePresenterByEmail);
 
-router.route("/delete/:email/:id")
+
+router.route("/delete/id/:id")
+  .delete(presenterController.removePresenter)
+
+router.route("/delete/email/:email/:id")
   .delete(presenterController.removePresenter);
 
 module.exports = router;

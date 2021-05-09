@@ -61,7 +61,7 @@ const SessionCard = (props) => {
       if (presSessions[0].length > 0) {
         PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: presSessions[0] }, pres.presEmail, pres.confId)
       } else {
-        PresenterAPI.deletePresenter(pres.presEmail, pres.confId)
+        PresenterAPI.deletePresenterByEmail(pres.presEmail, pres.confId)
       }
     })
     SessionAPI.deleteSession(sessId)
