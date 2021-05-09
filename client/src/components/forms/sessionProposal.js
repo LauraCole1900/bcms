@@ -81,7 +81,8 @@ const SessionProposal = () => {
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
-    setSession({ ...session, [e.target.name]: e.target.value })
+    const { name, value } = e.target;
+    setSession({ ...session, [name]: value })
   };
 
   // Handles click on "Update" button
