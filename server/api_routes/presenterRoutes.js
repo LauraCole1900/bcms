@@ -30,6 +30,6 @@ router.route("/delete/id/:id")
   .delete(presenterController.removePresenter)
 
 router.route("/delete/email/:email/:id")
-  .delete(presenterController.removePresenter);
+  .delete(presenterController.removePresenterByEmail);
 
 module.exports = router;
