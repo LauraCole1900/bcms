@@ -26,7 +26,6 @@ const PresenterForm = () => {
   });
   const [conference, setConference] = useState();
   const [session, setSession] = useState();
-  const [charRem, setCharRem] = useState(750);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState({});
   const [presReady, setPresReady] = useState(false);
@@ -159,19 +158,6 @@ const PresenterForm = () => {
     }
   }
 
-  // Handles input changes to form fields
-  const handleInputChange = (e) => {
-    setPresenter({ ...presenter, _id: e.target.dataset.id, [e.target.name]: e.target.value })
-  };
-
-  // Handles character limit and input changes for textarea
-  const handleTextArea = (e) => {
-    const charCount = e.target.value.length;
-    const charLeft = 750 - charCount;
-    setCharRem(charLeft);
-    setPresenter({ ...presenter, [e.target.name]: e.target.value.slice(0, 750) })
-  }
-
   // Handles click on "Update" button
   const handleFormUpdate = (e) => {
     e.preventDefault();
@@ -283,7 +269,7 @@ const PresenterForm = () => {
             </Col>
           </Row>
 
-          <PresenterFormCard presenter={presenter} session={session} conference={conference} handleInputChange={handleInputChange} handleTextArea={handleTextArea} charRem={charRem} />
+          <PresenterFormCard presenter={presenter} session={session} conference={conference} />
 
           <Row>
             <Col sm={2}>

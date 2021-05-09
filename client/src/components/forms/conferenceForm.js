@@ -70,54 +70,59 @@ const ConferenceForm = () => {
 
   // Finds the length of the conference in days & adds that to conference info in state
   const findNumDays = (e) => {
+    const { name, value } = e.target;
     const confStart = new Date(conference.startDate)
-    const confEnd = new Date(e.target.value)
+    const confEnd = new Date(value)
     const confNumDays = (confEnd - confStart) / (1000 * 3600 * 24) + 1
-    setConference({ ...conference, [e.target.name]: e.target.value, numDays: confNumDays })
+    setConference({ ...conference, [name]: value, numDays: confNumDays })
   };
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
-    setConference({ ...conference, [e.target.name]: e.target.value })
+    const { name, value } = e.target;
+    setConference({ ...conference, [name]: value })
   };
 
   // Handles character limit and input changes for textarea
   const handleTextArea = (e) => {
-    const charCount = e.target.value.length;
+    const { name, value } = e.target;
+    const charCount = value.length;
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
-    setConference({ ...conference, [e.target.name]: e.target.value.slice(0, 750) })
+    setConference({ ...conference, [name]: value.slice(0, 750) })
   }
 
   // Sets user.email as conference.ownerEmail
   // Checks if user.email is included in conference.confAdmins[] and if so, deletes it from array
   const setOwnerEmail = (e) => {
+    const { name, value } = e.target;
     if (confId !== "new_conference") {
       if (conference.confAdmins.includes(user.email)) {
         let admins = conference.confAdmins.filter(email => email !== user.email)
         console.log("setOwnerEmail to user", admins);
-        setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email, confAdmins: admins })
+        setConference({ ...conference, [name]: value, ownerEmail: user.email, confAdmins: admins })
       } else {
         console.log("setOwnerEmail from user", user.email)
-        setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email })
+        setConference({ ...conference, [name]: value, ownerEmail: user.email })
       }
     } else {
-      setConference({ ...conference, [e.target.name]: e.target.value, ownerEmail: user.email })
+      setConference({ ...conference, [name]: value, ownerEmail: user.email })
     }
   }
 
   // Checks if user.email is already included in conference.confAdmins[] and if not, sets user.email in conference.confAdmins[]
   const setAdminEmail = (e) => {
+    const { name, value } = e.target;
     if (confId !== "new_conference") {
       if (conference.confAdmins.includes(user.email)) {
         console.log("setAdminEmail already includes user")
-        setConference({ ...conference, [e.target.name]: e.target.value })
+        setConference({ ...conference, [name]: value })
       } else {
         console.log("setAdminEmail to include user")
-        setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: [...conference.confAdmins, user.email] })
+        setConference({ ...conference, [name]: value, confAdmins: [...conference.confAdmins, user.email] })
       }
     } else {
-      setConference({ ...conference, [e.target.name]: e.target.value, confAdmins: [...conference.confAdmins, user.email] })
+      setConference({ ...conference, [name]: value, confAdmins: [...conference.confAdmins, user.email] })
     }
   }
 
