@@ -240,7 +240,7 @@ const SessionForm = () => {
         handlePres(trimmedEmail, session.confId, sessId, session)
           .then(resp => {
             // If no errors thrown, push to Presenters form
-            history.push(`/new_session_2/${urlId}`, {params: [session]})
+            history.push(`/new_session_2/${urlId}`, { params: [session] })
           })
       });
     } else {
@@ -378,6 +378,8 @@ const SessionForm = () => {
                   <Row>
                     <Col sm={12}>
                       <Form.Label>Presenter emails: <span className="red">*</span></Form.Label><br />
+                      {errors.sessPresEmails &&
+                        <div className="error"><p>{errors.sessPresEmails}</p></div>}
                       <Form.Text className="subtext" muted>Please separate emails with commas.</Form.Text>
                       <Form.Control required type="email" name="sessPresEmails" placeholder="name@email.com" value={session.sessPresEmails} className="formEmail" onChange={handleInputChange} />
                     </Col>

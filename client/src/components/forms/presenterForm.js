@@ -26,7 +26,6 @@ const PresenterForm = () => {
   });
   const [conference, setConference] = useState();
   const [session, setSession] = useState();
-  const [charRem, setCharRem] = useState(750);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState({});
   const [presReady, setPresReady] = useState(false);
@@ -159,20 +158,14 @@ const PresenterForm = () => {
     }
   }
 
-  // Handles input changes to form fields
+  // Sets inputs to form fields in state
   const handleInputChange = (data) => {
-    // find where object._id that matches dataset.id and stick data on that object
-    // let presData = presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres)
     setPresenter(data)
     console.log({ presenter });
   };
 
-  // Handles character limit and input changes for textarea
+  // Sets textarea inputs in state
   const handleTextArea = (data) => {
-    // const charCount = value.length;
-    // const charLeft = 750 - charCount;
-    // setCharRem(charLeft);
-    // let presData = presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres)
     setPresenter(data);
     console.log({ presenter });
   }
@@ -181,11 +174,11 @@ const PresenterForm = () => {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     // Validates required inputs
-    const validationErrors = presValidate([presenter, conference]);
+    const validationErrors = presValidate(presenter);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
-      console.log("Presenter update", urlId);
+      console.log("Presenter update", presenter);
       // PUT call to update presenter document
       PresenterAPI.updatePresenter({ ...presenter }, urlId)
         .then(res => {
@@ -209,16 +202,14 @@ const PresenterForm = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Validates required inputs
-    const validationErrors = presValidate([presenter, conference]);
-    const noErrors = Object.keys(validationErrors).length === 0;
-    setErrors(validationErrors);
-    if (noErrors) {
-      const idx = session.sessPresEmails.indexOf(presenter.presEmail)
-      console.log({ idx });
+    // const validationErrors = presValidate([presenter, conference]);
+    // const noErrors = Object.keys(validationErrors).length === 0;
+    // setErrors(validationErrors);
+    // if (noErrors) {
       console.log("Presenter submit", presenter)
       // PUT call to update presenter document
       presenter.forEach(pres => {
-        PresenterAPI.updatePresenter({ ...presenter }, pres._id)
+        PresenterAPI.updatePresenter({ ...pres }, pres._id)
           .then(res => {
             // If no errors thrown, push to Success page
             if (!res.err) {
@@ -232,9 +223,9 @@ const PresenterForm = () => {
             handleShowErr();
           });
       });
-    } else {
-      console.log({ validationErrors });
-    }
+    // } else {
+    //   console.log({ validationErrors });
+    // }
   }
 
   const handlePageLoad = async (id) => {
@@ -290,7 +281,7 @@ const PresenterForm = () => {
             </Col>
           </Row>
 
-          <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} charRem={charRem} handleChange={handleInputChange} handleText={handleTextArea} />
+          <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} handleChange={handleInputChange} handleText={handleTextArea} />
 
           <Row>
             <Col sm={2}>

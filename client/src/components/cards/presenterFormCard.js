@@ -7,34 +7,21 @@ const PresenterFormCard = (props) => {
   const [pres, setPres] = useState(props.presenter);
   const [charRem, setCharRem] = useState(750);
 
-  // // Handles input changes to form fields
-  // const handleInputChange = (e) => {
-  //   const { dataset, name, value } = e.target
-  //   // find where object._id that matches dataset.id and stick data on that object
-  //   setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
-  //   console.log({ presenter });
-  // };
-
-  // // Handles character limit and input changes for textarea
-  // const handleTextArea = (e) => {
-  //   const { dataset, name, value } = e.target
-  //   const charCount = value.length;
-  //   const charLeft = 750 - charCount;
-  //   setCharRem(charLeft);
-  //   setPresenter(presenter.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
-  // }
-
+  // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { dataset, name, value } = e.target;
+    // Finds where Object._id === dataset.id and concatenates data there
     setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
     props.handleChange({ ...pres, [name]: value });
   }
 
+  // Handles character limit and input changes for textarea
   const handleTextArea = (e) => {
     const { dataset, name, value } = e.target;
     const charCount = value.length;
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
+    // Finds where Object._id === dataset.id and concatenates data there
     setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres));
     props.handleText({ ...pres, [name]: value });
   }
@@ -43,7 +30,7 @@ const PresenterFormCard = (props) => {
     console.log("from presFormCard useEffect", pres)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pres])
+  }, [])
 
 
   return (
@@ -67,13 +54,13 @@ const PresenterFormCard = (props) => {
                 <Col sm={6}>
                   <Form.Label>Presenter's first name: <span className="red">*</span></Form.Label>
                   {props.errors.presGivenName &&
-                    <div className="error">{props.errors.presGivenName}</div>}
+                    <div className="error"><p>{props.errors.presGivenName}</p></div>}
                   <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Form.Label>Presenter's last name: <span className="red">*</span></Form.Label>
                   {props.errors.presFamilyName &&
-                    <div className="error">{props.errors.presFamilyName}</div>}
+                    <div className="error"><p>{props.errors.presFamilyName}</p></div>}
                   <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
@@ -81,7 +68,7 @@ const PresenterFormCard = (props) => {
                 <Col sm={12}>
                   <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
                   {props.errors.presOrg &&
-                    <div className="error">{props.errors.presOrg}</div>}
+                    <div className="error"><p>{props.errors.presOrg}</p></div>}
                   <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={pres.presOrg} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
@@ -105,7 +92,7 @@ const PresenterFormCard = (props) => {
                 <Form.Group controlId="formPresBio">
                   <Form.Label>Presenter's bio (min 10 characters, max 750 characters): <span className="red">*</span></Form.Label>
                   {props.errors.presBio &&
-                    <div className="error">{props.errors.presBio}</div>}
+                    <div className="error"><p>{props.errors.presBio}</p></div>}
                   <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} data-id={pres._id} className="formInput" onChange={handleTextArea} />
                   <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                 </Form.Group>

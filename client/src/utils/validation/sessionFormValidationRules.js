@@ -42,6 +42,11 @@ const sessValidate = ([session, conference]) => {
     errors.sessKeynote = "Please indicate whether this is a keynote session."
   }
 
+  // session presenter email errors
+  if (!session.sessPresEmails) {
+    errors.sessPresEmails = "Please enter the emails of the presenter(s)."
+  }
+
   return errors;
 }
 
