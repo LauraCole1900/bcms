@@ -161,7 +161,7 @@ const PresenterForm = () => {
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
-    setPresenter({ ...presenter, [e.target.name]: e.target.value })
+    setPresenter({ ...presenter, _id: e.target.dataset.id, [e.target.name]: e.target.value })
   };
 
   // Handles character limit and input changes for textarea
