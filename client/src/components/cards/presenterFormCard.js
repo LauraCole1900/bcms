@@ -9,15 +9,17 @@ const PresenterFormCard = (props) => {
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
-    setPresenter({ ...presenter, _id: e.target.dataset.id, [e.target.name]: e.target.value })
+    const { dataset, name, value } = e.target
+    setPresenter({ ...presenter, _id: dataset.id, [name]: value })
   };
 
   // Handles character limit and input changes for textarea
   const handleTextArea = (e) => {
-    const charCount = e.target.value.length;
+    const { name, value } = e.target
+    const charCount = value.length;
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
-    setPresenter({ ...presenter, [e.target.name]: e.target.value.slice(0, 750) })
+    setPresenter({ ...presenter, [name]: value.slice(0, 750) })
   }
 
   useEffect(() => {
