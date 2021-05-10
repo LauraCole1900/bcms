@@ -183,6 +183,7 @@ const ConferenceForm = () => {
   }
 
   useEffect(() => {
+    console.log({errors});
     if (isAuthenticated) {
       switch (urlType) {
         case "edit_conference":
@@ -533,7 +534,7 @@ const ConferenceForm = () => {
                       <Form.Group controlId="formConfCapConfirm">
                         <Form.Label>Will there be a cap on the number of attendees? <span className="red">*</span></Form.Label>
                         {errors.confCapConfirm &&
-                          <div className="error"><p>{errors.confCapComfirm}</p></div>}
+                          <div className="error"><p>{errors.confCapConfirm}</p></div>}
                         <Form.Check type="radio" id="confCapYes" name="confCapConfirm" label="Yes" value="yes" checked={conference.confCapConfirm === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confCapNo" name="confCapConfirm" label="No" value="no" checked={conference.confCapConfirm === "no"} onChange={handleInputChange} />
                       </Form.Group>
@@ -604,7 +605,7 @@ const ConferenceForm = () => {
               </Card>
 
               <Row>
-                {errors &&
+                {Object.keys(errors).length !== 0 &&
                   <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
               </Row>
               <Row>
