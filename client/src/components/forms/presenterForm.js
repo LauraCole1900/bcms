@@ -13,7 +13,7 @@ const PresenterForm = () => {
   const emailRef = useRef();
   const history = useHistory();
   const location = useLocation();
-  const [presenter, setPresenter] = useState({});
+  const [presenter, setPresenter] = useState([]);
   const [conference, setConference] = useState();
   const [session, setSession] = useState();
   const [errThrown, setErrThrown] = useState();
@@ -152,6 +152,7 @@ const PresenterForm = () => {
   const handleInputChange = (data) => {
     const presData = data;
     console.log({ presData });
+    console.log(typeof presData);
     setPresenter(presData);
     console.log({ presenter });
   };
@@ -196,6 +197,7 @@ const PresenterForm = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Presenter submit", presenter)
+    console.log(typeof presenter);
     presenter.forEach(pres => {
       console.log("Presenter submit", presenter)
       // Validates required inputs

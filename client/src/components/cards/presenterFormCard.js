@@ -11,8 +11,8 @@ const PresenterFormCard = (props) => {
   const handleInputChange = (e) => {
     const { dataset, name, value } = e.target;
     // Finds where Object._id === dataset.id and concatenates data there
-    setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres))
-    props.handleChange({ ...pres, [name]: value });
+    setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }))
+    props.handleChange([...pres]);
     console.log({ pres });
   }
 
@@ -23,8 +23,8 @@ const PresenterFormCard = (props) => {
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
     // Finds where Object._id === dataset.id and concatenates data there
-    setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : pres));
-    props.handleText({ ...pres, [name]: value });
+    setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }));
+    props.handleText([...pres]);
     console.log({ pres });
   }
 

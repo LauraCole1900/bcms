@@ -13,7 +13,6 @@ const UserCard = () => {
   useEffect(() => {
     UserAPI.getUserByEmail(user.email)
       .then(resp => {
-        console.log("from userCard getUserByEmail", resp.data);
         const userArr = resp.data;
         setUserInfo(userArr);
       })
