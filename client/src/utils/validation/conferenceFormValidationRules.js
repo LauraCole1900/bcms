@@ -48,6 +48,8 @@ const confValidate = (conference) => {
   // end time errors
   if (!conference.confEndTime) {
     errors.confEndTime = "What time does your conference end? Don't worry, you'll have the option to create a full schedule later."
+  } else if (conference.startDate === conference.endDate && conference.confStartTime >= conference.confEndTime) {
+    errors.confEndTime = "For a 1-day conference, the end time must be later than the start time. Please choose a different end time."
   }
 
   // conference type errors

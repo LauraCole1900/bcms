@@ -604,6 +604,10 @@ const ConferenceForm = () => {
               </Card>
 
               <Row>
+                {errors &&
+                  <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+              </Row>
+              <Row>
                 {(urlId !== "new_conference")
                   ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                   : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
