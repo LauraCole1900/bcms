@@ -197,7 +197,6 @@ const PresenterForm = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log("Presenter submit", presenter)
-    console.log(typeof presenter);
     presenter.forEach(pres => {
       console.log("Presenter submit", presenter)
       // Validates required inputs

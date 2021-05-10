@@ -338,7 +338,7 @@ const SessionForm = () => {
                       <Form.Label>Session end time: <span className="red">*</span></Form.Label>
                       {errors.sessEnd &&
                         <div className="error"><p>{errors.sessEnd}</p></div>}
-                      <Form.Control required type="time" name="sessEnd" placeholder="10:00" value={session.sessEnd} className="formTime" onChange={handleInputChange} />
+                      <Form.Control required type="time" name="sessEnd" placeholder="10:00" min={session.sessStart} value={session.sessEnd} className="formTime" onChange={handleInputChange} />
                     </Col>
                   </Form.Group>
                 </Row>
