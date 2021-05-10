@@ -15,7 +15,6 @@ const SessionCard = (props) => {
   const [cardRender, setCardRender] = useState(false);
   const [confReady, setConfReady] = useState(false);
   const [conference, setConference] = useState();
-  const [presenter, setPresenter] = useState();
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState("");
   const [thisId, setThisId] = useState();
@@ -53,7 +52,7 @@ const SessionCard = (props) => {
   const handleSessDelete = (sessId) => {
     console.log("from sessCard handleSessDelete", sessId)
     handleHideConfirm();
-    // ==================== Will need to delete sessId from each presenters' sessId[] ====================
+    // Deletes sessId from each presenters' sessId[]
     const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
     const presSessions = thesePres.map(pres => pres.presSessionIds.filter(id => id !== sessId))
     console.log("from sessCard handleSessDelete presSessions", presSessions);
@@ -64,6 +63,7 @@ const SessionCard = (props) => {
         PresenterAPI.deletePresenterByEmail(pres.presEmail, pres.confId)
       }
     })
+    // Deletes session from DB
     SessionAPI.deleteSession(sessId)
       .then(res => {
         // If no errors thrown, show Success modal
@@ -82,7 +82,6 @@ const SessionCard = (props) => {
   const fetchConf = async (confId) => {
     await ConferenceAPI.getConferenceById(confId)
       .then(resp => {
-        console.log("confDetailsPage getConfsById", resp.data)
         const confObj = resp.data.slice(0)
         setConference(confObj)
       })
@@ -98,7 +97,6 @@ const SessionCard = (props) => {
     const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
     const presName = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName)
     nameArr = [presName]
-    console.log(nameArr)
     return nameArr;
   }
 
@@ -107,7 +105,6 @@ const SessionCard = (props) => {
     const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
     const presOrg = thesePres.map(pres => pres.presOrg)
     orgArr = [...new Set(presOrg)]
-    console.log(orgArr)
     return orgArr;
   }
 
