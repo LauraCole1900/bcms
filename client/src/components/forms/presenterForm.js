@@ -280,6 +280,10 @@ const PresenterForm = () => {
           <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} handleChange={handleInputChange} handleText={handleTextArea} />
 
           <Row>
+            {errors &&
+              <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+          </Row>
+          <Row>
             <Col sm={2}>
               {(formType === "edit_presenter_info" || formType === "admin_edit_pres")
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>

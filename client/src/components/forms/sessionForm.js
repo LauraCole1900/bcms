@@ -393,6 +393,10 @@ const SessionForm = () => {
             </Card>
 
             <Row>
+              {errors &&
+                <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+            </Row>
+            <Row>
               {(formType === "edit_session")
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                 : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Next Page</Button>}

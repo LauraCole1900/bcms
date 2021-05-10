@@ -306,6 +306,10 @@ const Registration = () => {
               </Card>
 
               <Row>
+                {errors &&
+                  <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+              </Row>
+              <Row>
                 {(formType === "register_edit" || formType === "admin_edit_att")
                   ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                   : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
