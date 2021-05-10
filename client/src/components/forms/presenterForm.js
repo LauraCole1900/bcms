@@ -43,9 +43,9 @@ const PresenterForm = () => {
   const handleHideErr = () => setShowErr(false);
 
   // GETs presenter info by presId
-  const fetchPres = async (presid) => {
+  const fetchPres = async (presId) => {
     // Edit existing presenter: GET presenter information
-    return PresenterAPI.getPresenterById(presid)
+    return PresenterAPI.getPresenterById(presId)
       .then(resp => {
         console.log("from presForm getPresById", resp.data)
         const presObj = resp.data[0]
@@ -80,9 +80,9 @@ const PresenterForm = () => {
   }
 
   // GETs session info by sessId
-  const fetchOneSess = async (sessid) => {
+  const fetchOneSess = async (sessId) => {
     // Edit existing session: GET session information
-    return SessionAPI.getSessionById(sessid)
+    return SessionAPI.getSessionById(sessId)
       .then(resp => {
         console.log("from presForm getSessById", resp.data)
         const sessObj = resp.data[0]
@@ -117,12 +117,12 @@ const PresenterForm = () => {
   }
 
   // GETs conference info by confId
-  const fetchConf = async (confid) => {
+  const fetchConf = async (confId) => {
     switch (formType) {
       // Edit existing presenter
       case "edit_presenter_info":
         // Call fetchOneSess()
-        let sessObj = await fetchOneSess(confid)
+        let sessObj = await fetchOneSess(confId)
         console.log({ sessObj });
         // Use response from fetchOneSess() to GET conference information
         await ConferenceAPI.getConferenceById(sessObj.confId)
@@ -137,7 +137,7 @@ const PresenterForm = () => {
       // New session
       default:
         // Use ID in URL to GET conference information
-        await ConferenceAPI.getConferenceById(confid)
+        await ConferenceAPI.getConferenceById(confId)
           .then(resp => {
             console.log("from presForm getConfById", resp.data)
             const confObj = resp.data[0]
@@ -198,7 +198,7 @@ const PresenterForm = () => {
     e.preventDefault();
     console.log("Presenter submit", presenter)
     presenter.forEach(pres => {
-      console.log("Presenter submit", presenter)
+      console.log("Presenter submit forEach", presenter)
       // Validates required inputs
       const validationErrors = presValidate(pres);
       const noErrors = Object.keys(validationErrors).length === 0;
