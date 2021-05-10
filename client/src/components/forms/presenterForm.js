@@ -201,28 +201,28 @@ const PresenterForm = () => {
     presenter.forEach(pres => {
       console.log("Presenter submit", presenter)
       // Validates required inputs
-      // const validationErrors = presValidate(pres);
-      // const noErrors = Object.keys(validationErrors).length === 0;
-      // setErrors(validationErrors);
-      // if (noErrors) {
-      // PUT call to update presenter document
-      PresenterAPI.updatePresenter({ ...pres }, pres._id)
-        .then(resp => {
-          // If no errors thrown, push to Success page
-          if (!resp.err) {
-            handleShowSuccess();
-          }
-        })
-        // If yes errors thrown, push to Error page
-        .catch(err => {
-          console.log(err)
-          setErrThrown(err.message);
-          handleShowErr();
-        });
+      const validationErrors = presValidate(pres);
+      const noErrors = Object.keys(validationErrors).length === 0;
+      setErrors(validationErrors);
+      if (noErrors) {
+        // PUT call to update presenter document
+        PresenterAPI.updatePresenter({ ...pres }, pres._id)
+          .then(resp => {
+            // If no errors thrown, push to Success page
+            if (!resp.err) {
+              handleShowSuccess();
+            }
+          })
+          // If yes errors thrown, push to Error page
+          .catch(err => {
+            console.log(err)
+            setErrThrown(err.message);
+            handleShowErr();
+          });
+      } else {
+        console.log({ validationErrors });
+      }
     });
-    // } else {
-    //   console.log({ validationErrors });
-    // }
   }
 
   const handlePageLoad = async (id) => {

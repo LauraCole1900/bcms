@@ -2,10 +2,10 @@ const presValidate = (presenter) => {
   let errors = {};
 
   // name errors
-  if (presenter.givenName === "") {
+  if (presenter.presGivenName === "") {
     errors.presGivenName = "Who is presenting this session? Please enter the presenter's first name."
   }
-  if (presenter.familyName === "") {
+  if (presenter.presFamilyName === "") {
     errors.presFamilyName = "Who is presenting this session? Please enter the presenter's last name."
   }
 
