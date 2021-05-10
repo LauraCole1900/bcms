@@ -25,8 +25,8 @@ const sessValidate = ([session, conference]) => {
 
   if (!session.sessEnd) {
     errors.sessEnd = "When does this session end? Please enter an end time."
-  } else if (session.sessEnd < session.sessStart) {
-    errors.sessEnd = "End time can't be earlier than the start time. Please choose a different end time."
+  } else if (session.sessStart >= session.sessEnd) {
+    errors.sessEnd = "End time must be later than the start time. Please choose a different end time."
   }
 
   // session location errors
