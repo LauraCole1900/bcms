@@ -13,17 +13,7 @@ const PresenterForm = () => {
   const emailRef = useRef();
   const history = useHistory();
   const location = useLocation();
-  const [presenter, setPresenter] = useState({
-    presGivenName: "",
-    presFamilyName: "",
-    presOrg: "",
-    presBio: "",
-    presEmail: "",
-    presPhone: "",
-    presWebsite: "",
-    presPic: "",
-    presSessionIds: []
-  });
+  const [presenter, setPresenter] = useState({});
   const [conference, setConference] = useState();
   const [session, setSession] = useState();
   const [errThrown, setErrThrown] = useState();
@@ -207,6 +197,7 @@ const PresenterForm = () => {
     e.preventDefault();
     console.log("Presenter submit", presenter)
     presenter.forEach(pres => {
+      console.log("Presenter submit", presenter)
       // Validates required inputs
       // const validationErrors = presValidate(pres);
       // const noErrors = Object.keys(validationErrors).length === 0;
@@ -276,12 +267,12 @@ const PresenterForm = () => {
         <Container>
           <Row>
             <Col sm={2}>
-              <Button data-toggle="popover" title="Go Back" className="button" onClick={() => history.goBack()} type="submit">Go Back</Button>
-            </Col>
-            <Col sm={2}>
               {(formType === "edit_presenter_info" || formType === "admin_edit_pres")
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+            </Col>
+            <Col sm={2}>
+              <Button data-toggle="popover" title="Go Back" className="button" onClick={() => history.goBack()} type="submit">Go Back</Button>
             </Col>
           </Row>
 
@@ -289,12 +280,12 @@ const PresenterForm = () => {
 
           <Row>
             <Col sm={2}>
-              <Button data-toggle="popover" title="Go Back" className="button" onClick={() => history.goBack()} type="submit">Go Back</Button>
-            </Col>
-            <Col sm={2}>
               {(formType === "edit_presenter_info" || formType === "admin_edit_pres")
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+            </Col>
+            <Col sm={2}>
+              <Button data-toggle="popover" title="Go Back" className="button" onClick={() => history.goBack()} type="submit">Go Back</Button>
             </Col>
           </Row>
 
