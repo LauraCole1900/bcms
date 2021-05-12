@@ -35,7 +35,7 @@ const SuccessModal = (props) => {
 
           {/* Edit Session form */}
           {props.urltype === "edit_session" &&
-            <h4>You have updated your session. Continue to presenter information?</h4>}
+            <h4>You have updated your session.</h4>}
 
           {/* Add Presenter(s) form */}
           {props.urltype === "new_session_pres" &&
@@ -125,19 +125,8 @@ const SuccessModal = (props) => {
                 <Button data-toggle="popover" title="Presenter information" type="button" className="button">Next page</Button>
               </Link>}
 
-            {/* Edit Session form: choose whether to go on to presenter form or return to Conference Details page */}
-            {(props.urltype === "edit_session") &&
-              <>
-                <Link to={`/edit_presenter/${props.urlid}`} className={location.pathname === `/edit_presenter/${props.urlid}` ? "btnactive" : "btn"} >
-                  <Button data-toggle="popover" title="Presenter information" type="button" className="button">Yes, edit presenter information</Button>
-                </Link>
-                <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
-                  <Button data-toggle="popover" title={props.confname} type="button" className="button">No, go to {props.confname}</Button>
-                </Link>
-              </>}
-
             {/* Link to Conference Details page */}
-            {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urltype !== "edit_session" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
+            {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
               <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.confname} type="button" className="button">{props.confname}</Button>
               </Link>}
