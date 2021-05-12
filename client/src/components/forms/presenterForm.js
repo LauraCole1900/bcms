@@ -84,10 +84,10 @@ const PresenterForm = () => {
     return SessionAPI.getSessionById(sessId)
       .then(resp => {
         console.log("from presForm fetchOneSess", resp.data)
-        const sessObj = resp.data[0]
-        setSession(sessObj);
+        latestSess = resp.data[0]
+        setSession(latestSess);
         setSessReady(true);
-        return sessObj;
+        return latestSess;
       })
       .catch(err => {
         console.log(err)
@@ -123,8 +123,8 @@ const PresenterForm = () => {
       case "edit_presenter":
         // Call fetchOneSess()
         latestSess = await fetchOneSess(id)
-          .then(sessObj => {
-            sessObj.sessPresEmails.map(email => fetchPresByEmail(email, sessObj.confId))
+          .then(sess => {
+            sess.sessPresEmails.map(email => fetchPresByEmail(email, latestSess.confId))
             console.log("from presForm fetchConf", presenter)
           })
         // Use response from fetchOneSess() to GET conference information

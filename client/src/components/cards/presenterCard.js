@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Card, Row, Col, Image } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { Card, Row, Col, Button, Image } from "react-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
 import "./style.css";
 
 // Figure out how to add session name(s)?
 
 const PresenterCard = (props) => {
+  const { user, isAuthenticated } = useAuth0();
+  const location = useLocation();
   const [cardRender, setCardRender] = useState(false);
 
   useEffect(() => {
@@ -41,6 +45,16 @@ const PresenterCard = (props) => {
                     <Image src={pres.presPic} alt={pres.presGivenName + " " + pres.presFamilyName} />
                   </Col>}
               </Row>
+              {isAuthenticated &&
+                (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                <Row>
+                  <Col sm={1}></Col>
+                  <Col sm={5}>
+                    <Link to={`/edit_presenter/${pres._id}`} className={location.pathname === `/edit_presenter/${pres._id}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Edit session" className="button">Edit Presenter</Button>
+                    </Link>
+                  </Col>
+                </Row>}
             </Card.Body>
           </Card>
         ))
