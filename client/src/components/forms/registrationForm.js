@@ -192,11 +192,26 @@ const Registration = () => {
       { pageReady === true &&
         isAuthenticated && (
           <Container>
-            {(conference.confWaiver === "yes") &&
-              <div className="alert">
-                <h5>A signed liability waiver will be required to participate in this event. It will be available at check-in to the event.</h5>
-              </div>}
             <Form className="regForm">
+              
+              <Row>
+                <Col sm={2}>
+                  {(formType === "register_edit" || formType === "admin_edit_att")
+                    ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                    : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={12}>
+                  {Object.keys(errors).length !== 0 &&
+                    <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+                </Col>
+              </Row>
+
+              {(conference.confWaiver === "yes") &&
+                <div className="alert">
+                  <h5>A signed liability waiver will be required to participate in this event. It will be available at check-in to the event.</h5>
+                </div>}
 
               <Card className="formCard">
                 <Card.Title>
@@ -306,13 +321,17 @@ const Registration = () => {
               </Card>
 
               <Row>
-                {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+                <Col sm={12}>
+                  {Object.keys(errors).length !== 0 &&
+                    <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+                </Col>
               </Row>
               <Row>
-                {(formType === "register_edit" || formType === "admin_edit_att")
-                  ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                  : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+                <Col sm={2}>
+                  {(formType === "register_edit" || formType === "admin_edit_att")
+                    ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                    : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+                </Col>
               </Row>
 
             </Form>
