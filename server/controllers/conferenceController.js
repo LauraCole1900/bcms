@@ -11,7 +11,7 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-  
+
   // GET all conferences
   findAll: function (req, res) {
     db.Conference
@@ -19,15 +19,15 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.statue(422).json(err))
   },
-  
-    // GET conference by confId
-    findById: function (req, res) {
-      console.log("from confCont findById", req.params.id)
-      db.Conference
-        .find(ObjectId(req.params.id))
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err));
-    },
+
+  // GET conference by confId
+  findById: function (req, res) {
+    console.log("from confCont findById", req.params.id)
+    db.Conference
+      .find(ObjectId(req.params.id))
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 
   // GET conferences associated with user's email
   findByEmail: function (req, res) {
@@ -60,9 +60,9 @@ module.exports = {
   findConfExhibiting: function (req, res) {
     console.log("from confCont findConfExhibiting", req.params.email)
     db.Conference
-    .find({ confExhibitors: req.params.email })
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err));
+      .find({ confExhibitors: req.params.email })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
 
 
