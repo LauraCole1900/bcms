@@ -42,11 +42,11 @@ const ErrorModal = (props) => {
             <h4>{props.errmsg}. Your session was not updated.</h4>}
 
           {/* Add Presenter(s) form */}
-          {props.urltype === "presenter_info" &&
+          {props.urltype === "new_session_pres" &&
             <h4>{props.errmsg}. Presenter(s) was/were not added.</h4>}
 
           {/* Edit Presenter(s) form */}
-          {props.urltype === "edit_presenter_info" &&
+          {props.urltype === "edit_presenter" &&
             <h4>{props.errmsg}. Presenter(s) was/were not updated.</h4>}
 
           {/* Registration form */}
@@ -105,13 +105,13 @@ const ErrorModal = (props) => {
           <Modal.Footer className="modalFooter">
 
             {/* Link to Conference Details page when confid === conference._id */}
-            {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "presenter_info" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urlid === "profile" || props.urlid === "conferences" || props.urlid === "details") &&
+            {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "new_session_pres" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urlid === "profile" || props.urlid === "conferences" || props.urlid === "details") &&
               <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.confname} type="button" className="button">{props.confname}</Button>
               </Link>}
 
             {/* Link to Conference Details page when confid !== conference._id */}
-            {(props.urltype === "edit_session" || props.urltype === "edit_presenter_info") &&
+            {(props.urltype === "edit_session" || props.urltype === "edit_presenter") &&
               <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.confname} type="button" className="button">{props.confname}</Button>
               </Link>}

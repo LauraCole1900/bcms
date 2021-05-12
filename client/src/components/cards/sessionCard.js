@@ -65,9 +65,9 @@ const SessionCard = (props) => {
     })
     // Deletes session from DB
     SessionAPI.deleteSession(sessId)
-      .then(res => {
+      .then(resp => {
         // If no errors thrown, show Success modal
-        if (!res.err) {
+        if (!resp.err) {
           handleShowSuccess();
         }
       })

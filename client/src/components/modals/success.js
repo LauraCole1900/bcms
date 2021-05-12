@@ -38,11 +38,11 @@ const SuccessModal = (props) => {
             <h4>You have updated your session. Continue to presenter information?</h4>}
 
           {/* Add Presenter(s) form */}
-          {props.urltype === "presenter_info" &&
+          {props.urltype === "new_session_pres" &&
             <h4>You have added presenter information for this session.</h4>}
 
           {/* Edit Presenter(s) form */}
-          {props.urltype === "edit_presenter_info" &&
+          {props.urltype === "edit_presenter" &&
             <h4>You have updated presenter information for this session.</h4>}
 
           {/* Registration form */}
@@ -121,14 +121,14 @@ const SuccessModal = (props) => {
 
             {/* Add Session form: go on to Presenter Form */}
             {(props.urltype === "new_session") &&
-              <Link to={`/presenter_info/${props.urlid}`} className={location.pathname === `/presenter_info/${props.urlid}` ? "btnactive" : "btn"} >
+              <Link to={`/new_session_pres/${props.urlid}`} className={location.pathname === `/new_session_pres/${props.urlid}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title="Presenter information" type="button" className="button">Next page</Button>
               </Link>}
 
             {/* Edit Session form: choose whether to go on to presenter form or return to Conference Details page */}
             {(props.urltype === "edit_session") &&
               <>
-                <Link to={`/edit_presenter_info/${props.urlid}`} className={location.pathname === `/edit_presenter_info/${props.urlid}` ? "btnactive" : "btn"} >
+                <Link to={`/edit_presenter/${props.urlid}`} className={location.pathname === `/edit_presenter/${props.urlid}` ? "btnactive" : "btn"} >
                   <Button data-toggle="popover" title="Presenter information" type="button" className="button">Yes, edit presenter information</Button>
                 </Link>
                 <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >

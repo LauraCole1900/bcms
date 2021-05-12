@@ -26,8 +26,8 @@ const PresenterForm = () => {
 
   // Grabs conference ID from URL for new presenters or presenter ID from URL for existing presenters
   // Uses URL to determine whether this is adding a session presenter or editing an existing presenter
-  // If formType === presenter_info, then urlId === confId
-  // If formType === edit_presenter_info, then urlId === sessId
+  // If formType === new_session_pres, then urlId === confId
+  // If formType === edit_presenter, then urlId === sessId
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const formType = urlArray[urlArray.length - 2]
@@ -59,12 +59,11 @@ const PresenterForm = () => {
   }
 
   // GETs presenter info by email and confId
-  // No, I need to GET all presenters by sessId to map through them
   const fetchPresByEmail = async (email, id) => {
     // GET presenter information
     return PresenterAPI.getPresenterByEmail(email, id)
       .then(resp => {
-        console.log("from presForm getPresByEmail", resp.data)
+        console.log("from presForm fetchPresByEmail", resp.data)
         presArr = [...presArr, resp.data]
         console.log({ presArr })
         if (presArr.length === latestSess.sessPresEmails.length) {
@@ -84,10 +83,11 @@ const PresenterForm = () => {
     // Edit existing session: GET session information
     return SessionAPI.getSessionById(sessId)
       .then(resp => {
-        console.log("from presForm getSessById", resp.data)
+        console.log("from presForm fetchOneSess", resp.data)
         const sessObj = resp.data[0]
-        setSession(sessObj)
+        setSession(sessObj);
         setSessReady(true);
+        return sessObj;
       })
       .catch(err => {
         console.log(err)
@@ -117,15 +117,18 @@ const PresenterForm = () => {
   }
 
   // GETs conference info by confId
-  const fetchConf = async (confId) => {
+  const fetchConf = async (id) => {
     switch (formType) {
       // Edit existing presenter
-      case "edit_presenter_info":
+      case "edit_presenter":
         // Call fetchOneSess()
-        let sessObj = await fetchOneSess(confId)
-        console.log({ sessObj });
+        latestSess = await fetchOneSess(id)
+          .then(sessObj => {
+            sessObj.sessPresEmails.map(email => fetchPresByEmail(email, sessObj.confId))
+            console.log("from presForm fetchConf", presenter)
+          })
         // Use response from fetchOneSess() to GET conference information
-        await ConferenceAPI.getConferenceById(sessObj.confId)
+        await ConferenceAPI.getConferenceById(latestSess.confId)
           .then(resp => {
             console.log("from presForm getConfById", resp.data)
             const confObj = resp.data[0]
@@ -137,7 +140,7 @@ const PresenterForm = () => {
       // New session
       default:
         // Use ID in URL to GET conference information
-        await ConferenceAPI.getConferenceById(confId)
+        await ConferenceAPI.getConferenceById(id)
           .then(resp => {
             console.log("from presForm getConfById", resp.data)
             const confObj = resp.data[0]
@@ -205,7 +208,7 @@ const PresenterForm = () => {
       setErrors(validationErrors);
       if (noErrors) {
         // PUT call to update presenter document
-        PresenterAPI.updatePresenterById({ ...pres }, pres._id)
+        PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
           .then(resp => {
             // If no errors thrown, push to Success page
             if (!resp.err) {
@@ -236,7 +239,7 @@ const PresenterForm = () => {
   useEffect(() => {
     if (isAuthenticated) {
       switch (formType) {
-        case "edit_presenter_info":
+        case "edit_presenter":
           // urlId === sessId
           fetchConf(urlId);
           break;
@@ -268,7 +271,7 @@ const PresenterForm = () => {
         <Container>
           <Row>
             <Col sm={2}>
-              {(formType === "edit_presenter_info" || formType === "admin_edit_pres")
+              {(formType === "edit_presenter" || formType === "admin_edit_pres")
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
             </Col>
@@ -287,7 +290,7 @@ const PresenterForm = () => {
           </Row>
           <Row>
             <Col sm={2}>
-              {(formType === "edit_presenter_info" || formType === "admin_edit_pres")
+              {(formType === "edit_presenter" || formType === "admin_edit_pres")
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
             </Col>
