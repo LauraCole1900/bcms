@@ -20,14 +20,14 @@ router.route("/email/:email/:id")
 
 
 router.route("/update/id/:id")
-  .put(presenterController.updatePresenter);
+  .put(presenterController.updatePresenterById);
 
 router.route("/update/email/:email/:id")
   .put(presenterController.updatePresenterByEmail);
 
 
 router.route("/delete/id/:id")
-  .delete(presenterController.removePresenter)
+  .delete(presenterController.removePresenterById);
 
 router.route("/delete/email/:email/:id")
   .delete(presenterController.removePresenterByEmail);

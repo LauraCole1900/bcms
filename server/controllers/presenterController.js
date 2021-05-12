@@ -50,8 +50,8 @@ module.exports = {
 
 
   // UPDATE presenter by ID
-  updatePresenter: function (req, res) {
-    console.log("from presenterCont updatePresenter", req.params.id, req.body)
+  updatePresenterById: function (req, res) {
+    console.log("from presenterCont updatePresenterById", req.params.id, req.body)
     db.Presenter
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
@@ -69,8 +69,8 @@ module.exports = {
 
 
   // DELETE presenter by presId
-  removePresenter: function (req, res) {
-    console.log("from presenterCont removePresenter", req.params.id)
+  removePresenterById: function (req, res) {
+    console.log("from presenterCont removePresenterById", req.params.id)
     db.Presenter
       .findOneAndDelete({ _id: req.params.id })
       .then(dbModel => res.json(dbModel))
