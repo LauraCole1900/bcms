@@ -22,6 +22,7 @@ const PresenterForm = () => {
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
   let latestSess;
+  let presObj;
   let presArr = [];
 
   // Grabs conference ID from URL for new presenters or presenter ID from URL for existing presenters
@@ -48,8 +49,9 @@ const PresenterForm = () => {
     return PresenterAPI.getPresenterById(presId)
       .then(resp => {
         console.log("from presForm getPresById", resp.data)
-        const presObj = resp.data[0]
-        setPresenter(presObj)
+        presObj = resp.data
+        setPresenter([presObj])
+        setPresReady(true);
         return presObj
       })
       .catch(err => {
@@ -116,24 +118,22 @@ const PresenterForm = () => {
       })
   }
 
-  // GETs conference info by confId
+  // GET conference information
   const fetchConf = async (id) => {
     switch (formType) {
       // Edit existing presenter
+      // GETs conference info by presId
       case "edit_presenter":
-        // Call fetchOneSess()
-        latestSess = await fetchOneSess(id)
-          .then(sess => {
-            sess.sessPresEmails.map(email => fetchPresByEmail(email, latestSess.confId))
-            console.log("from presForm fetchConf", presenter)
-          })
-        // Use response from fetchOneSess() to GET conference information
-        await ConferenceAPI.getConferenceById(latestSess.confId)
+        // Call fetchPres()
+        presObj = await fetchPres(id)
+        // Use response from fetchPres() to GET conference information
+        ConferenceAPI.getConferenceById(presObj.confId)
           .then(resp => {
             console.log("from presForm getConfById", resp.data)
             const confObj = resp.data[0]
             setConference(confObj)
             setConfReady(true);
+            setSessReady(true);
           })
           .catch(err => console.log(err))
         break;
@@ -172,13 +172,13 @@ const PresenterForm = () => {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     // Validates required inputs
-    const validationErrors = presValidate(presenter);
+    const validationErrors = presValidate(presenter[0]);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
       console.log("Presenter update", presenter);
       // PUT call to update presenter document
-      PresenterAPI.updatePresenter({ ...presenter }, urlId)
+      PresenterAPI.updatePresenterByEmail({ ...presenter[0] }, presenter[0].presEmail, presenter[0].confId)
         .then(resp => {
           // If no errors thrown, show Success modal
           if (!resp.err) {
