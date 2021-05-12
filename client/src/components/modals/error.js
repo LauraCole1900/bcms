@@ -64,7 +64,7 @@ const ErrorModal = (props) => {
           {/* Edit Attendee form, owner/admin version */}
           {props.urltype === "admin_edit_att" &&
             <h4>{props.errmsg}. Your registration of {props.attname} for {props.confname} could not be updated at this time.</h4>}
-          
+
           {/* Register Exhibit form */}
           {props.urltype === "register_exhibit" &&
             <h4>{props.errmsg}. The registration of your exhibit for {props.confname} could not be processed at this time.</h4>}
@@ -90,7 +90,7 @@ const ErrorModal = (props) => {
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregExh" &&
               <h4>The unregistration of your exhibit from {props.confname} could not be processed at this time.</h4>)}
-            
+
           {/* Cancel Conference button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "confCancel" &&
@@ -103,6 +103,10 @@ const ErrorModal = (props) => {
 
           {/* Navigation buttons */}
           <Modal.Footer className="modalFooter">
+
+            {/* Close modal and return to Conference Details page */}
+            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
+              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Details</Button>}
 
             {/* Link to Conference Details page when confid === conference._id */}
             {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "new_session_pres" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urlid === "profile" || props.urlid === "conferences" || props.urlid === "details") &&
@@ -125,7 +129,7 @@ const ErrorModal = (props) => {
             <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
               <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
             </Link>
-            
+
           </Modal.Footer>
         </Modal.Body>
       </Modal>
