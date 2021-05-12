@@ -13,8 +13,6 @@ const SessionCard = (props) => {
   const history = useHistory();
   const location = useLocation();
   const [cardRender, setCardRender] = useState(false);
-  const [confReady, setConfReady] = useState(false);
-  const [conference, setConference] = useState();
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState("");
   const [thisId, setThisId] = useState();
@@ -78,20 +76,6 @@ const SessionCard = (props) => {
       })
   };
 
-  // GETs conference by confId
-  const fetchConf = async (confId) => {
-    await ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
-        const confObj = resp.data.slice(0)
-        setConference(confObj)
-      })
-      .catch(err => {
-        console.log(err)
-        return false
-      })
-    setConfReady(true);
-  }
-
   // Filters props.presenter by sessId, then maps through the result to pull out presenter names
   const fetchPresNames = (sessId) => {
     const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
@@ -110,7 +94,7 @@ const SessionCard = (props) => {
 
   useEffect(() => {
     if (props.session.length > 0) {
-      fetchConf(urlId);
+      // fetchConf(urlId);
       setCardRender(true)
     }
 
@@ -121,7 +105,6 @@ const SessionCard = (props) => {
   return (
     <>
       { cardRender === true &&
-        confReady === true &&
         props.session.map(sess => (
           <Card className="infoCard" key={sess._id}>
             {sess.sessKeynote === "yes" &&
@@ -207,7 +190,7 @@ const SessionCard = (props) => {
 
             <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(thisId)} show={showConfirm === sess._id} hide={(e) => handleHideConfirm(e)} />
 
-            <SuccessModal session={sess} confname={conference.confName} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === sess._id} hide={(e) => handleHideSuccess(e)} />
+            <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === sess._id} hide={(e) => handleHideSuccess(e)} />
 
             <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === sess._id} hide={(e) => handleHideErr(e)} />
 
