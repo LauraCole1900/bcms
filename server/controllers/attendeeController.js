@@ -1,5 +1,5 @@
+const ObjectId = require("mongodb").ObjectId;
 const db = require("../models")
-const { findOne } = require("../models/userModel")
 
 module.exports = {
   // CREATE new attendee in database

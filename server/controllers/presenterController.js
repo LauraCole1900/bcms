@@ -1,5 +1,5 @@
+const ObjectId = require("mongodb").ObjectId;
 const db = require("../models")
-const { findOneAndDelete } = require("../models/attendeeModel")
 
 module.exports = {
   // CREATE new presenter in database

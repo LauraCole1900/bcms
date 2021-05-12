@@ -205,7 +205,7 @@ const PresenterForm = () => {
       setErrors(validationErrors);
       if (noErrors) {
         // PUT call to update presenter document
-        PresenterAPI.updatePresenterById(pres, pres._id)
+        PresenterAPI.updatePresenterById({ ...pres }, pres._id)
           .then(resp => {
             // If no errors thrown, push to Success page
             if (!resp.err) {
