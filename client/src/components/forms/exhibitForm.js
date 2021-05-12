@@ -200,7 +200,7 @@ const ExhibitForm = () => {
             <Row>
               <Col sm={12}>
                 {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
               </Col>
             </Row>
 
@@ -324,7 +324,7 @@ const ExhibitForm = () => {
             <Row>
               <Col sm={12}>
                 {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
               </Col>
             </Row>
             <Row>

@@ -277,13 +277,13 @@ const PresenterForm = () => {
             </Col>
           </Row>
           {Object.keys(errors).length !== 0 &&
-            <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+            <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
 
           <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} handleChange={handleInputChange} handleText={handleTextArea} />
 
           <Row>
             {Object.keys(errors).length !== 0 &&
-              <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+              <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
           </Row>
           <Row>
             <Col sm={2}>

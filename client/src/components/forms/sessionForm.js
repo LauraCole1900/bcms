@@ -297,17 +297,9 @@ const SessionForm = () => {
             <Row>
               <Col sm={12}>
                 {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
               </Col>
             </Row>
-
-            <Row>
-              {(formType === "edit_session")
-                ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Next Page</Button>}
-            </Row>
-            {Object.keys(errors).length !== 0 &&
-              <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
 
             <Card className="formCard">
               <Card.Title><h1>Basic Information</h1></Card.Title>
@@ -411,7 +403,7 @@ const SessionForm = () => {
             <Row>
               <Col sm={12}>
                 {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
               </Col>
             </Row>
             <Row>
