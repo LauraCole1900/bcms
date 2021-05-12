@@ -190,6 +190,20 @@ const ExhibitForm = () => {
         <Container>
           <Form className="exhForm">
 
+            <Row>
+              <Col sm={2}>
+                {(formType === "register_exhibit" || formType === "admin_register_exh")
+                  ? <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>
+                  : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>}
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={12}>
+                {Object.keys(errors).length !== 0 &&
+                  <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+              </Col>
+            </Row>
+
             <Card className="formCard">
               <Card.Title>
                 <Row>
@@ -308,13 +322,17 @@ const ExhibitForm = () => {
             </Card>
 
             <Row>
-              {Object.keys(errors).length !== 0 &&
-                <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+              <Col sm={12}>
+                {Object.keys(errors).length !== 0 &&
+                  <div className="error"><p>The gremlins have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+              </Col>
             </Row>
             <Row>
-              {(formType === "register_exhibit" || formType === "admin_register_exh")
-                ? <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>
-                : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>}
+              <Col sm={2}>
+                {(formType === "register_exhibit" || formType === "admin_register_exh")
+                  ? <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>
+                  : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>}
+              </Col>
             </Row>
 
           </Form>
