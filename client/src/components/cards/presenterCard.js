@@ -51,6 +51,8 @@ const PresenterCard = (props) => {
               <Row>
                 <Col sm={8}>
                   <Card.Text>{pres.presBio}</Card.Text>
+                  {pres.presWebsite !== "" &&
+                    <p>Website: <a href={pres.presWebsite} rel="noreferrer noopener" target="_blank">{pres.presWebsite}</a></p>}
                 </Col>
                 {props.presenter.presPic !== undefined &&
                   <Col sm={4}>
