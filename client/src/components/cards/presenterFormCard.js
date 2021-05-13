@@ -11,7 +11,7 @@ const PresenterFormCard = (props) => {
     const { dataset, name, value } = e.target;
     // Finds where Object._id === dataset.id and concatenates data there
     pres = (pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }))
-    props.handleChange([...pres]);
+    props.handleChange([...pres], e.target.dataset);
     console.log({ pres });
   }
 
@@ -23,7 +23,7 @@ const PresenterFormCard = (props) => {
     setCharRem(charLeft);
     // Finds where Object._id === dataset.id and concatenates data there
     pres = (pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }));
-    props.handleText([...pres]);
+    props.handleText([...pres], e.target.dataset);
     console.log({ pres });
   }
 

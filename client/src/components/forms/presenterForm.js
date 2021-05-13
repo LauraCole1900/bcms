@@ -152,9 +152,10 @@ const PresenterForm = () => {
   }
 
   // Sets inputs to form fields in state
-  const handleInputChange = (data) => {
+  const handleInputChange = (data, dataset) => {
     const presData = data;
-    console.log({ presData });
+    const dataSet = dataset;
+    console.log({ presData }, { dataSet });
     setPresenter(presData);
     switch (changeToggle) {
       case true:
@@ -167,10 +168,17 @@ const PresenterForm = () => {
   };
 
   // Sets textarea inputs in state
-  const handleTextArea = (data) => {
+  const handleTextArea = (data, dataset) => {
     const presData = data;
-    console.log({ presData });
-
+    const dataSet = dataset;
+    console.log({ presData }, { dataSet });
+    switch (changeToggle) {
+      case true:
+        setChangeToggle(false);
+        break;
+      default:
+        setChangeToggle(true);
+    };
     setPresenter(presData);
     console.log({ presenter });
   }
@@ -206,6 +214,7 @@ const PresenterForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    let valid;
     console.log("Presenter submit", presenter)
     presenter.forEach(pres => {
       console.log("Presenter submit forEach", presenter)
@@ -216,22 +225,24 @@ const PresenterForm = () => {
       if (noErrors) {
         // PUT call to update presenter document
         PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
-          .then(resp => {
-            // If no errors thrown, push to Success page
-            if (!resp.err) {
-              handleShowSuccess();
-            }
-          })
-          // If yes errors thrown, push to Error page
-          .catch(err => {
-            console.log(err)
-            setErrThrown(err.message);
-            handleShowErr();
-          });
+        .then(resp => {
+          valid = resp.err
+          return valid;
+        })
       } else {
         console.log({ validationErrors });
       }
-    });
+    })
+      // .then(resp => {
+        // If no errors thrown, push to Success page
+        if (valid.length === 0) {
+          handleShowSuccess();
+        } else {
+      // If yes errors thrown, push to Error page
+        console.log(valid)
+        setErrThrown(valid);
+        handleShowErr();
+      };
   }
 
   const handlePageLoad = async (id) => {
