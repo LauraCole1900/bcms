@@ -4,14 +4,14 @@ import { PresenterAPI } from "../../utils/api";
 import "./style.css";
 
 const PresenterFormCard = (props) => {
-  const [pres, setPres] = useState(props.presenter);
+  let pres = props.presenter;
   const [charRem, setCharRem] = useState(750);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { dataset, name, value } = e.target;
     // Finds where Object._id === dataset.id and concatenates data there
-    setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }))
+    pres = (pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }))
     props.handleChange([...pres]);
     console.log({ pres });
   }
@@ -23,7 +23,7 @@ const PresenterFormCard = (props) => {
     const charLeft = 750 - charCount;
     setCharRem(charLeft);
     // Finds where Object._id === dataset.id and concatenates data there
-    setPres(pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }));
+    pres = (pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }));
     props.handleText([...pres]);
     console.log({ pres });
   }
