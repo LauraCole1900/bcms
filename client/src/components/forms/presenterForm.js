@@ -15,7 +15,6 @@ const PresenterForm = () => {
   const [presenter, setPresenter] = useState([]);
   const [conference, setConference] = useState();
   const [session, setSession] = useState();
-  const [changeToggle, setChangeToggle] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState({});
   const [presReady, setPresReady] = useState(false);
@@ -157,13 +156,6 @@ const PresenterForm = () => {
     const dataSet = dataset;
     console.log({ presData }, { dataSet });
     setPresenter(presData);
-    switch (changeToggle) {
-      case true:
-        setChangeToggle(false);
-        break;
-      default:
-        setChangeToggle(true);
-    };
     console.log({ presenter });
   };
 
@@ -172,13 +164,6 @@ const PresenterForm = () => {
     const presData = data;
     const dataSet = dataset;
     console.log({ presData }, { dataSet });
-    switch (changeToggle) {
-      case true:
-        setChangeToggle(false);
-        break;
-      default:
-        setChangeToggle(true);
-    };
     setPresenter(presData);
     console.log({ presenter });
   }
