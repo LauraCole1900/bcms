@@ -25,16 +25,28 @@ const PresenterCard = (props) => {
       { cardRender === true &&
         props.presenter.map(pres => (
           <Card className="infoCard" key={pres._id}>
-            <Card.Header className="cardTitle">
-              <Row>
-                <Col sm={12}>
-                  {pres.presKeynote === "yes"
-                  ? <h2>{pres.presGivenName} {pres.presFamilyName}, Keynote Speaker</h2>
-                  : <h2>{pres.presGivenName} {pres.presFamilyName}</h2>}
-                  <p>{pres.presOrg}</p>
-                </Col>
-              </Row>
-            </Card.Header>
+            {pres.presKeynote === "yes"
+              ? <>
+                <Card.Header className="cardTitleKeynote">
+                  <Row>
+                    <Col sm={12}>
+                      <h2>{pres.presGivenName} {pres.presFamilyName}, Keynote Speaker</h2>
+                      <p>{pres.presOrg}</p>
+                    </Col>
+                  </Row>
+                </Card.Header>
+              </>
+              :
+              <>
+                <Card.Header className="cardTitle">
+                  <Row>
+                    <Col sm={12}>
+                      <h2>{pres.presGivenName} {pres.presFamilyName}</h2>
+                      <p>{pres.presOrg}</p>
+                    </Col>
+                  </Row>
+                </Card.Header>
+              </>}
             <Card.Body className="infoCardBody">
               <Row>
                 <Col sm={8}>
