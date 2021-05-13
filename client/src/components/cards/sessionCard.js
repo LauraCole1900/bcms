@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import Moment from "react-moment";
-import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
+import { PresenterAPI, SessionAPI } from "../../utils/api";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 import { propTypes } from "react-bootstrap/esm/Image";
 
 const SessionCard = (props) => {
   const { user, isAuthenticated } = useAuth0();
-  const history = useHistory();
   const location = useLocation();
   const [cardRender, setCardRender] = useState(false);
   const [errThrown, setErrThrown] = useState();
