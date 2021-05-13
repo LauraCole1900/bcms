@@ -11,7 +11,34 @@ const AllConfs = () => {
   const [confArray, setConfArray] = useState([]);
   const [searchBy, setSearchBy] = useState("all");
   const [search, setSearch] = useState("");
+  const [changeToggle, setChangeToggle] = useState(false);
   const [pageReady, setPageReady] = useState(false);
+
+
+  // Filter conferences by user input
+  const searchFilter = (data) => {
+    switch (searchBy) {
+      // Filter by conference name
+      case "name":
+        return data.filter((conference) => conference.confName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      // Filter by presenting organization
+      case "org":
+        return data.filter((conference) => conference.confOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      // Return all conferences
+      default:
+        return (confArray)
+    }
+  }
+
+  const handleToggle = () => {
+    switch (changeToggle) {
+      case true:
+        setChangeToggle(false);
+        break;
+      default:
+        setChangeToggle(true);
+    }
+  }
 
   useEffect(() => {
     // GET conferences
@@ -28,24 +55,9 @@ const AllConfs = () => {
         setPageReady(true);
       })
       .catch(err => console.log(err))
-      
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
-  // Filter conferences by user input
-  const searchFilter = (data) => {
-    switch (searchBy) {
-      // Filter by conference name
-      case "name":
-        return data.filter((conference) => conference.confName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-      // Filter by presenting organization
-      case "org":
-        return data.filter((conference) => conference.confOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
-      // Return all conferences
-      default:
-        return (confArray)
-    }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [changeToggle])
 
 
   return (
@@ -90,7 +102,7 @@ const AllConfs = () => {
 
             <Row>
               {confArray.length > 0
-                ? <ConferenceCard conference={searchFilter(confArray)} />
+                ? <ConferenceCard conference={searchFilter(confArray)} change={handleToggle} />
                 : <h3>We can't seem to find any upcoming conferences. If you think this is an error, please contact us.</h3>}
             </Row>
           </Container>

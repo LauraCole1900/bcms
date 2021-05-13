@@ -42,9 +42,15 @@ const SessionCard = (props) => {
   }
   const handleHideConfirm = () => setShowConfirm(0);
   const handleShowSuccess = () => setShowSuccess(thisId);
-  const handleHideSuccess = () => setShowSuccess(0);
+  const handleHideSuccess = () => {
+    setShowSuccess(0);
+    props.change();
+  }
   const handleShowErr = () => setShowErr(thisId);
-  const handleHideErr = () => setShowErr(0);
+  const handleHideErr = () => {
+    setShowErr(0);
+    props.change();
+  }
 
   // Handles click on "Yes, delete" button on Confirm modal
   const handleSessDelete = (sessId) => {

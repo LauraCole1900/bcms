@@ -9,7 +9,7 @@ import "./style.css";
 
 // Figure out how to add the keynote speaker???
 
-const ConferenceCard = ({ conference }) => {
+const ConferenceCard = (props) => {
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
   const [cardAttendConf, setCardAttendConf] = useState([]);
@@ -41,9 +41,15 @@ const ConferenceCard = ({ conference }) => {
   }
   const handleHideConfirm = () => setShowConfirm(0);
   const handleShowSuccess = () => setShowSuccess(thisId);
-  const handleHideSuccess = () => setShowSuccess(0);
+  const handleHideSuccess = () => {
+    setShowSuccess(0);
+    props.change();
+  }
   const handleShowErr = () => setShowErr(thisId);
-  const handleHideErr = () => setShowErr(0);
+  const handleHideErr = () => {
+    setShowErr(0);
+    props.change();
+  }
 
   // GETs registered attendees' emails
   const fetchAttendeeEmails = async (confId) => {
@@ -82,7 +88,7 @@ const ConferenceCard = ({ conference }) => {
         handleShowErr();
       })
 
-    ConferenceAPI.updateConference({ ...conference, confCancel: "yes" }, confId)
+    ConferenceAPI.updateConference({ ...props.conference, confCancel: "yes" }, confId)
       .then(res => {
         if (!res.err) {
           handleShowSuccess();
@@ -164,7 +170,7 @@ const ConferenceCard = ({ conference }) => {
   return (
     <>
       {cardRender === true &&
-        conference.map(conf => (
+        props.conference.map(conf => (
           <Card className="infoCard" key={conf._id}>
             <Card.Header className="cardTitle">
               <Row>

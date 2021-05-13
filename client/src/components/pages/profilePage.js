@@ -14,6 +14,7 @@ const ProfilePage = () => {
   const [createConf, setCreateConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
   const [presentConf, setPresentConf] = useState([]);
+  const [changeToggle, setChangeToggle] = useState(false);
   const [pageReady, setPageReady] = useState(false);
 
   // GET conference by ID
@@ -181,6 +182,16 @@ const ProfilePage = () => {
         .catch(err => console.log(err))
     }
   }
+  
+  const handleToggle = () => {
+    switch (changeToggle) {
+      case true:
+        setChangeToggle(false);
+        break;
+      default:
+        setChangeToggle(true);
+    }
+  }
 
   useEffect(() => {
     switch (pageReady) {
@@ -203,7 +214,7 @@ const ProfilePage = () => {
       .catch(err => console.log(err))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createConf, pageReady])
+  }, [createConf, pageReady, changeToggle])
   
 
   return (
@@ -255,22 +266,22 @@ const ProfilePage = () => {
               <h3>Please select which of your conferences to view.</h3>}
             {whichConf === "attend" &&
               (attendConf.length > 0
-                ? <ConferenceCard conference={attendConf} />
+                ? <ConferenceCard conference={attendConf} change={handleToggle} />
                 : <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>)
             }
             {whichConf === "create" &&
               (createConf.length > 0
-                ? <ConferenceCard conference={createConf} />
+                ? <ConferenceCard conference={createConf} change={handleToggle} />
                 : <h3>We're sorry, you don't seem to have created any conferences at this time.</h3>)
             }
             {whichConf === "exhibit" &&
               (exhibitConf.length > 0
-                ? <ConferenceCard conference={exhibitConf} />
+                ? <ConferenceCard conference={exhibitConf} change={handleToggle} />
                 : <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>)
             }
             {whichConf === "present" &&
               (presentConf.length > 0
-                ? <ConferenceCard conference={presentConf} />
+                ? <ConferenceCard conference={presentConf} change={handleToggle} />
                 : <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>)
             }
           </Container >

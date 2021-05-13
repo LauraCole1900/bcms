@@ -15,6 +15,7 @@ const ConfDetails = () => {
   const [presArray, setPresArray] = useState([]);
   const [searchBy, setSearchBy] = useState("allPnS");
   const [search, setSearch] = useState("");
+  const [changeToggle, setChangeToggle] = useState(false);
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
   const [presReady, setPresReady] = useState(false);
@@ -110,6 +111,16 @@ const ConfDetails = () => {
     }
   }
 
+  const handleToggle = () => {
+    switch (changeToggle) {
+      case true:
+        setChangeToggle(false);
+        break;
+      default:
+        setChangeToggle(true);
+    }
+  }
+
   useEffect(() => {
     // GET conference by ID
     fetchConf(confId);
@@ -119,7 +130,7 @@ const ConfDetails = () => {
     fetchPres(confId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confId])
+  }, [changeToggle, confId])
 
 
   return (
@@ -229,14 +240,14 @@ const ConfDetails = () => {
               <Col sm={12}>
                 <h1>Presenters</h1>
                 {presArray.length > 0
-                  ? <PresenterCard presenter={searchPres(presArray)} conference={conference} />
+                  ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
                   : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allSess" || searchBy === "sessionName") &&
               <Col sm={12}>
                 <h1>Sessions</h1>
                 {sessArray.length > 0
-                  ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} />
+                  ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
                   : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
               </Col>}
             {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
@@ -244,13 +255,13 @@ const ConfDetails = () => {
                 <Col sm={6}>
                   <h1>Presenters</h1>
                   {presArray.length > 0
-                    ? <PresenterCard presenter={searchPres(presArray)} conference={conference} />
+                    ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
                     : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
                 <Col sm={6}>
                   <h1>Sessions</h1>
                   {sessArray.length > 0
-                    ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} />
+                    ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
                     : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                 </Col>
               </div>}
