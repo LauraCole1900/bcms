@@ -16,7 +16,10 @@ router.route("/conference/:id")
   .get(presenterController.findByConfId);
 
 router.route("/email/:email/:id")
-  .get(presenterController.findByEmail);
+  .get(presenterController.findByEmailAndConfId);
+
+router.route("/conferences/:email")
+.get(presenterController.findByEmail);
 
 
 router.route("/update/id/:id")

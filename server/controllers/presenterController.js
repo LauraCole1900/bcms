@@ -39,13 +39,22 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-  // FIND presenter by email
-  findByEmail: function (req, res) {
-    console.log("from presenterCont findByEmail", req.params.email, req.params.id)
+  // FIND presenter by email and Conference ID
+  findByEmailAndConfId: function (req, res) {
+    console.log("from presenterCont findByEmailAndConfId", req.params.email, req.params.id)
     db.Presenter
       .findOne({ presEmail: req.params.email, confId: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
+  },
+
+  // FIND by presenter email
+  findByEmail: function (req, res) {
+    console.log("from presenterCont findByEmail", req.params.email)
+    db.Presenter
+    .find({ presEmail: req.params.email })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err))
   },
 
 

@@ -179,7 +179,7 @@ const ConfDetails = () => {
 
           <Row>
             <Col sm={12}>
-              <ConferenceCard conference={conference} />
+              <ConferenceCard conference={conference} change={handleToggle} />
             </Col>
           </Row>
 

@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Image, Button, ButtonGroup } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
-import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, UserAPI } from "../../utils/api";
+import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, UserAPI } from "../../utils/api";
 import "./style.css";
 
 const ProfilePage = () => {
@@ -21,7 +21,6 @@ const ProfilePage = () => {
   const getConfById = async (confId) => {
     return ConferenceAPI.getConferenceById(confId)
       .then(resp => {
-        console.log(resp)
         return resp
       })
       .catch(err => {
@@ -58,6 +57,20 @@ const ProfilePage = () => {
       })
   }
 
+  // GET IDs of conferences at which user is presenting
+  const getPresentingConferenceIds = async (email) => {
+    return PresenterAPI.getConferencesPresenting(email)
+      .then(resp => {
+        const presData = resp.data
+        const presResult = presData.map(conf => conf.confId)
+        return presResult
+      })
+      .catch(err => {
+        console.log(err)
+        return false
+      })
+  }
+
   // Handles click on buttons to determine which set of conferences to display
   const handleInputChange = (e) => {
     const whichConf = e.target.value
@@ -80,6 +93,7 @@ const ProfilePage = () => {
           setAttendConf(sortedAtt)
         }
       })
+        .catch(err => console.log(err))
     })
   }
 
@@ -114,22 +128,28 @@ const ProfilePage = () => {
           setExhibitConf(sortedExh)
         }
       })
+        .catch(err => console.log(err))
     })
   }
 
   // Handles click on "Presenting" button
-  const handleShowPresenting = (e) => {
+  const handleShowPresenting = async (e) => {
     handleInputChange(e);
-    // Creates array of conferences at which the user is exhibiting
-    ConferenceAPI.getConferencesPresenting(user.email)
-      .then(resp => {
-        console.log("getConfPresenting", resp.data)
-        const presentArr = resp.data
-        // Sorts conferences by date, latest to earliest
-        const sortedPresent = presentArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
-        setPresentConf(sortedPresent)
+    let unsortedPres = [];
+    let presConfIds = await getPresentingConferenceIds(user.email)
+    // Map through the array of confIds to get info on each conference
+    // Push each conference object to new array
+    presConfIds.forEach(confId => {
+      getConfById(confId).then(resp => {
+        unsortedPres = [...unsortedPres, resp.data[0]]
+        // When new array is same length as confIds array, sort new array & set it in state
+        if (unsortedPres.length === presConfIds.length) {
+          const sortedPres = unsortedPres.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+          setPresentConf(sortedPres)
+        }
       })
-      .catch(err => console.log(err))
+        .catch(err => console.log(err))
+    })
   }
 
   // Defines button properties
@@ -182,7 +202,7 @@ const ProfilePage = () => {
         .catch(err => console.log(err))
     }
   }
-  
+
   const handleToggle = () => {
     switch (changeToggle) {
       case true:
@@ -214,8 +234,8 @@ const ProfilePage = () => {
       .catch(err => console.log(err))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createConf, pageReady, changeToggle])
-  
+  }, [changeToggle])
+
 
   return (
     <>

@@ -143,7 +143,6 @@ const ConferenceCard = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log(user.email)
       // Retrieves conferences user is registered to attend to determine whether register or unregister button should render
       AttendeeAPI.getConferencesAttending(user.email)
         .then(resp => {
@@ -165,7 +164,7 @@ const ConferenceCard = (props) => {
     setCardRender(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showSuccess])
+  }, [])
 
   return (
     <>

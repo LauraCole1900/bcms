@@ -32,6 +32,12 @@ const PresenterAPI = {
     return axios.get(`/api/presenter/email/${email}/${confId}`)
   },
 
+  // GET conferences by presenter
+  getConferencesPresenting: function (email) {
+    console.log("from API getConferencesPresenting", email)
+    return axios.get(`/api/presenter/conferences/${email}`)
+  },
+
 
   // UPDATE presenter information by id
   updatePresenterById: function (formObj, presId) {

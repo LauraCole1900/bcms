@@ -9,16 +9,16 @@ const AttendeeAPI = {
   },
 
 
-  // GET one attendee by attID
-  getAttendeeById: function (attId) {
-    console.log("from API getAttendeeById", attId)
-    return axios.get(`/api/attendee/${attId}`)
-  },
-  
   // GET attendees by conference
   getAttendees: function (confId) {
     console.log("from API getAttendees", confId)
     return axios.get(`/api/attendee/conference/${confId}`)
+  },
+
+  // GET one attendee by attID
+  getAttendeeById: function (attId) {
+    console.log("from API getAttendeeById", attId)
+    return axios.get(`/api/attendee/${attId}`)
   },
 
   // GET conferences by attendee
