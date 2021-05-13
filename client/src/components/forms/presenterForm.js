@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -10,7 +10,6 @@ import "./style.css";
 
 const PresenterForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const emailRef = useRef();
   const history = useHistory();
   const location = useLocation();
   const [presenter, setPresenter] = useState([]);
@@ -82,21 +81,21 @@ const PresenterForm = () => {
   }
 
   // GETs session info by sessId
-  const fetchOneSess = async (sessId) => {
-    // Edit existing session: GET session information
-    return SessionAPI.getSessionById(sessId)
-      .then(resp => {
-        console.log("from presForm fetchOneSess", resp.data)
-        latestSess = resp.data[0]
-        setSession(latestSess);
-        setSessReady(true);
-        return latestSess;
-      })
-      .catch(err => {
-        console.log(err)
-        return false;
-      })
-  }
+  // const fetchOneSess = async (sessId) => {
+  //   // Edit existing session: GET session information
+  //   return SessionAPI.getSessionById(sessId)
+  //     .then(resp => {
+  //       console.log("from presForm fetchOneSess", resp.data)
+  //       latestSess = resp.data[0]
+  //       setSession(latestSess);
+  //       setSessReady(true);
+  //       return latestSess;
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //       return false;
+  //     })
+  // }
 
   // GETs all sessions by confId, then sorts by date and sets the most recent one in state
   const fetchSessions = async (id) => {
