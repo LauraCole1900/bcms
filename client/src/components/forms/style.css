@@ -40,4 +40,5 @@ form {
   background-color: red;
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
+  border-radius: 5px;
 }
