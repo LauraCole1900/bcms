@@ -210,24 +210,24 @@ const PresenterForm = () => {
       if (noErrors) {
         // PUT call to update presenter document
         PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
-        .then(resp => {
-          valid = resp.err
-          return valid;
-        })
+          .then(resp => {
+            valid = resp.err
+            return valid;
+          })
       } else {
         console.log({ validationErrors });
       }
     })
-      // .then(resp => {
-        // If no errors thrown, push to Success page
-        if (valid.length === 0) {
-          handleShowSuccess();
-        } else {
+    // .then(resp => {
+    // If no errors thrown, push to Success page
+    if (valid.length === 0) {
+      handleShowSuccess();
+    } else {
       // If yes errors thrown, push to Error page
-        console.log(valid)
-        setErrThrown(valid);
-        handleShowErr();
-      };
+      console.log(valid)
+      setErrThrown(valid);
+      handleShowErr();
+    };
   }
 
   const handlePageLoad = async (id) => {
@@ -283,14 +283,20 @@ const PresenterForm = () => {
             </Col>
           </Row>
           {Object.keys(errors).length !== 0 &&
-            <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
+            <Row>
+              <Col sm={12}>
+                <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+              </Col>
+            </Row>}
 
           <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} handleChange={handleInputChange} handleText={handleTextArea} />
 
-          <Row>
-            {Object.keys(errors).length !== 0 &&
-              <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
-          </Row>
+          {Object.keys(errors).length !== 0 &&
+            <Row>
+              <Col sm={12}>
+                <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+              </Col>
+            </Row>}
           <Row>
             <Col sm={2}>
               {(formType === "edit_presenter" || formType === "admin_edit_pres")

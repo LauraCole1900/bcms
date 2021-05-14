@@ -197,12 +197,12 @@ const ExhibitForm = () => {
                   : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>}
               </Col>
             </Row>
-            <Row>
-              <Col sm={12}>
-                {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
-              </Col>
-            </Row>
+            {Object.keys(errors).length !== 0 &&
+              <Row>
+                <Col sm={12}>
+                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+                </Col>
+              </Row>}
 
             <Card className="formCard">
               <Card.Title>
@@ -321,12 +321,12 @@ const ExhibitForm = () => {
               </Card.Body>
             </Card>
 
-            <Row>
-              <Col sm={12}>
-                {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
-              </Col>
-            </Row>
+            {Object.keys(errors).length !== 0 &&
+              <Row>
+                <Col sm={12}>
+                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+                </Col>
+              </Row>}
             <Row>
               <Col sm={2}>
                 {(formType === "register_exhibit" || formType === "admin_register_exh")

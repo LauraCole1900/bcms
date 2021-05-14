@@ -230,12 +230,12 @@ const ConferenceForm = () => {
                     : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
                 </Col>
               </Row>
-              <Row>
-                <Col sm={12}>
-                  {Object.keys(errors).length !== 0 &&
-                    <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
-                </Col>
-              </Row>
+              {Object.keys(errors).length !== 0 &&
+                <Row>
+                  <Col sm={12}>
+                    <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+                  </Col>
+                </Row>}
 
               {conference.confCancel === "yes" &&
                 <Card className="formCard">
@@ -618,10 +618,12 @@ const ConferenceForm = () => {
                 </Card.Body>
               </Card>
 
-              <Row>
-                {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
-              </Row>
+              {Object.keys(errors).length !== 0 &&
+                <Row>
+                  <Col sm={12}>
+                    <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+                  </Col>
+                </Row>}
               <Row>
                 <Col sm={2}>
                   {(urlId !== "new_conference")

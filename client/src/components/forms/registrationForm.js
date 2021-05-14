@@ -193,7 +193,7 @@ const Registration = () => {
         isAuthenticated && (
           <Container>
             <Form className="regForm">
-              
+
               <Row>
                 <Col sm={2}>
                   {(formType === "register_edit" || formType === "admin_edit_att")
@@ -201,12 +201,12 @@ const Registration = () => {
                     : <Button data-toggle="popover" title="Update" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
                 </Col>
               </Row>
-              <Row>
-                <Col sm={12}>
-                  {Object.keys(errors).length !== 0 &&
-                    <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
-                </Col>
-              </Row>
+              {Object.keys(errors).length !== 0 &&
+                <Row>
+                  <Col sm={12}>
+                    <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+                  </Col>
+                </Row>}
 
               {(conference.confWaiver === "yes") &&
                 <div className="alert">
@@ -320,12 +320,12 @@ const Registration = () => {
                 </Card.Body>
               </Card>
 
-              <Row>
-                <Col sm={12}>
-                  {Object.keys(errors).length !== 0 &&
-                    <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
-                </Col>
-              </Row>
+              {Object.keys(errors).length !== 0 &&
+                <Row>
+                  <Col sm={12}>
+                    <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+                  </Col>
+                </Row>}
               <Row>
                 <Col sm={2}>
                   {(formType === "register_edit" || formType === "admin_edit_att")

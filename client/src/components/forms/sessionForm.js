@@ -294,12 +294,12 @@ const SessionForm = () => {
                   : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Next Page</Button>}
               </Col>
             </Row>
-            <Row>
-              <Col sm={12}>
-                {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
-              </Col>
-            </Row>
+            {Object.keys(errors).length !== 0 &&
+              <Row>
+                <Col sm={12}>
+                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+                </Col>
+              </Row>}
 
             <Card className="formCard">
               <Card.Title><h1>Basic Information</h1></Card.Title>
@@ -400,12 +400,12 @@ const SessionForm = () => {
               </Card.Body>
             </Card>
 
-            <Row>
-              <Col sm={12}>
-                {Object.keys(errors).length !== 0 &&
-                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>}
-              </Col>
-            </Row>
+            {Object.keys(errors).length !== 0 &&
+              <Row>
+                <Col sm={12}>
+                  <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
+                </Col>
+              </Row>}
             <Row>
               <Col sm={2}>
                 {(formType === "edit_session")
