@@ -54,7 +54,7 @@ const PresenterCard = (props) => {
                   {pres.presWebsite !== "" &&
                     <p>Website: <a href={pres.presWebsite} rel="noreferrer noopener" target="_blank">{pres.presWebsite}</a></p>}
                 </Col>
-                {props.presenter.presPic !== "" &&
+                {pres.presPic !== "" &&
                   <Col sm={4} className="presPic">
                     <Image fluid="true" className="presPicStyle" src={pres.presPic} alt={pres.presGivenName + " " + pres.presFamilyName} />
                   </Col>}

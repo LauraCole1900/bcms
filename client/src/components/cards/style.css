@@ -133,4 +133,7 @@ a:visited {
 
 .presPicStyle {
   width: 100px;
+  border: 2px solid #11130b;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px #11130b;
 }
