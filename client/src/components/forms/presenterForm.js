@@ -211,7 +211,16 @@ const PresenterForm = () => {
         // PUT call to update presenter document
         PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
           .then(resp => {
-            valid = resp.err
+            if (!resp.err) {
+              return false
+            }
+          })
+          // If yes errors thrown, push to Error modal
+          .catch(err => {
+            console.log(err);
+            valid = err;
+            setErrThrown(err.message);
+            handleShowErr();
             return valid;
           })
       } else {
@@ -220,16 +229,11 @@ const PresenterForm = () => {
     })
     // .then(resp => {
     // If no errors thrown, push to Success page
-    if ((!valid && !validationErrors) || (!valid && Object.keys(validationErrors).length === 0)) {
+    if (!valid && Object.keys(validationErrors).length === 0) {
       handleShowSuccess();
-    } else if (validationErrors && !valid) {
+    } else if (!valid && Object.keys(validationErrors).length > 0) {
       return false;
-    } else if (valid && !validationErrors) {
-      // If yes errors thrown, push to Error page
-      console.log(valid)
-      setErrThrown(valid);
-      handleShowErr();
-    };
+    }
   }
 
   const handlePageLoad = async (id) => {
