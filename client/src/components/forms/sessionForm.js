@@ -331,21 +331,15 @@ const SessionForm = () => {
                 <Row>
                   <Form.Group controlId="formSessWhen">
                     <Col sm={4}>
-                      <Form.Label>Session date: <span className="red">*</span></Form.Label>
-                      {errors.sessDate &&
-                        <div className="error"><p>{errors.sessDate}</p></div>}
+                      <Form.Label>Session date:</Form.Label>
                       <Form.Control required type="date" min={conference.startDate} max={conference.endDate} name="sessDate" value={session.sessDate} className="formDate" onChange={handleInputChange} />
                     </Col>
                     <Col sm={4}>
-                      <Form.Label>Session start time: <span className="red">*</span></Form.Label>
-                      {errors.sessStart &&
-                        <div className="error"><p>{errors.sessStart}</p></div>}
+                      <Form.Label>Session start time:</Form.Label>
                       <Form.Control required type="time" name="sessStart" placeholder="09:00" value={session.sessStart} className="formTime" onChange={handleInputChange} />
                     </Col>
                     <Col sm={4}>
-                      <Form.Label>Session end time: <span className="red">*</span></Form.Label>
-                      {errors.sessEnd &&
-                        <div className="error"><p>{errors.sessEnd}</p></div>}
+                      <Form.Label>Session end time:</Form.Label>
                       <Form.Control required type="time" name="sessEnd" placeholder="10:00" min={session.sessStart} value={session.sessEnd} className="formTime" onChange={handleInputChange} />
                     </Col>
                   </Form.Group>

@@ -14,20 +14,20 @@ const sessValidate = ([session, conference]) => {
   }
 
   // session date errors
-  if (!session.sessDate) {
-    errors.sessDate = "When is this session? Please enter a date."
-  }
+  // if (!session.sessDate) {
+  //   errors.sessDate = "When is this session? Please enter a date."
+  // }
 
   // session time errors
-  if (!session.sessStart) {
-    errors.sessStart = "When does this session start? Please enter a start time."
-  }
+  // if (!session.sessStart) {
+  //   errors.sessStart = "When does this session start? Please enter a start time."
+  // }
 
-  if (!session.sessEnd) {
-    errors.sessEnd = "When does this session end? Please enter an end time."
-  } else if (session.sessStart >= session.sessEnd) {
-    errors.sessEnd = "End time must be later than the start time. Please choose a different end time."
-  }
+  // if (!session.sessEnd) {
+  //   errors.sessEnd = "When does this session end? Please enter an end time."
+  // } else if (session.sessStart >= session.sessEnd) {
+  //   errors.sessEnd = "End time must be later than the start time. Please choose a different end time."
+  // }
 
   // session location errors
   if (conference.confType === "Live" && !session.sessRoom) {

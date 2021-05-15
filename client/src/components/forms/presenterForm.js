@@ -220,9 +220,9 @@ const PresenterForm = () => {
     })
     // .then(resp => {
     // If no errors thrown, push to Success page
-    if (!valid && validationErrors.length === 0) {
+    if ((!valid && !validationErrors) || (!valid && Object.keys(validationErrors).length === 0)) {
       handleShowSuccess();
-    } else if (!valid && validationErrors) {
+    } else if (validationErrors && !valid) {
       return false;
     } else if (valid && !validationErrors) {
       // If yes errors thrown, push to Error page

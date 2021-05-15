@@ -20,16 +20,13 @@ const sessionSchema = new Schema({
     required: true,
   },
   sessDate: {
-    type: String,
-    required: true
+    type: String
   },
   sessStart: {
-    type: String,
-    required: true
+    type: String
   },
   sessEnd: {
-    type: String,
-    required: true
+    type: String
   },
   sessDesc: {
     type: String,
