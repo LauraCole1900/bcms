@@ -125,3 +125,12 @@ a:visited {
   font-weight: bolder;
   border-radius: 5px;
 }
+
+.presPic {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.presPicStyle {
+  width: 100px;
+}
