@@ -41,7 +41,7 @@ const PresenterAPI = {
 
   // UPDATE presenter information by id
   updatePresenterById: function (formObj, presId) {
-    console.log("from updatePresenterById", formObj, presId)
+    console.log("from API updatePresenterById", formObj, presId)
     return axios.put(`/api/presenter/update/id/${presId}`)
   },
 

@@ -199,12 +199,12 @@ const PresenterForm = () => {
   // Handles click on "Submit" button
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    let validationErrors;
     let valid;
-    console.log("Presenter submit", presenter)
     presenter.forEach(pres => {
       console.log("Presenter submit forEach", presenter)
       // Validates required inputs
-      const validationErrors = presValidate(pres);
+      validationErrors = presValidate(pres);
       const noErrors = Object.keys(validationErrors).length === 0;
       setErrors(validationErrors);
       if (noErrors) {
@@ -220,9 +220,11 @@ const PresenterForm = () => {
     })
     // .then(resp => {
     // If no errors thrown, push to Success page
-    if (valid.length === 0) {
+    if (!valid && validationErrors.length === 0) {
       handleShowSuccess();
-    } else {
+    } else if (!valid && validationErrors) {
+      return false;
+    } else if (valid && !validationErrors) {
       // If yes errors thrown, push to Error page
       console.log(valid)
       setErrThrown(valid);
