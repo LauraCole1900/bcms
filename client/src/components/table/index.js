@@ -300,6 +300,9 @@ const TableComp = (e) => {
                 <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
                   <Button title="Venue information" className="button">Venue</Button>
                 </Link>
+                <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
+                  <Button title="Exhibit information" className="button">Exhibits</Button>
+                </Link>
               </ButtonGroup>
             </Col>
             <Col sm={1}></Col>
