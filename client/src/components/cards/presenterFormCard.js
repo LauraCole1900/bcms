@@ -54,22 +54,22 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's first name: <span className="red">*</span></Form.Label>
-                  {props.errors.presGivenName &&
-                    <div className="error"><p>{props.errors.presGivenName}</p></div>}
+                  {(props.errors.presGivenName && Card.key === pres._id) &&
+                    <div className="error" data-id={pres._id}><p>{props.errors.presGivenName}</p></div>}
                   <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Form.Label>Presenter's last name: <span className="red">*</span></Form.Label>
-                  {props.errors.presFamilyName &&
-                    <div className="error"><p>{props.errors.presFamilyName}</p></div>}
+                  {(props.errors.presFamilyName && Card.key === pres._id) &&
+                    <div className="error" data-id={pres._id}><p>{props.errors.presFamilyName}</p></div>}
                   <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
               <Row>
                 <Col sm={12}>
                   <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
-                  {props.errors.presOrg &&
-                    <div className="error"><p>{props.errors.presOrg}</p></div>}
+                  {(props.errors.presOrg && Card.key === pres._id) &&
+                    <div className="error" data-id={pres._id}><p>{props.errors.presOrg}</p></div>}
                   <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={pres.presOrg} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
@@ -92,8 +92,8 @@ const PresenterFormCard = (props) => {
               <Col sm={12}>
                 <Form.Group controlId="formPresBio">
                   <Form.Label>Presenter's bio (min 10 characters, max 750 characters): <span className="red">*</span></Form.Label>
-                  {props.errors.presBio &&
-                    <div className="error"><p>{props.errors.presBio}</p></div>}
+                  {(props.errors.presBio && Card.key === pres._id) &&
+                    <div className="error" data-id={pres._id}><p>{props.errors.presBio}</p></div>}
                   <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} data-id={pres._id} className="formInput" onChange={handleTextArea} />
                   <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                 </Form.Group>
