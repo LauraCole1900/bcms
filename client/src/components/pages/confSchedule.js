@@ -24,6 +24,8 @@ const Schedule = () => {
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
 
+  // 
+
   const fetchConf = async (id) => {
     await ConferenceAPI.getConferenceById(id)
       .then(resp => {
