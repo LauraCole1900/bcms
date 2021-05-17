@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorModal, SuccessModal } from "../modals"
@@ -9,7 +9,11 @@ import "./style.css";
 const ScheduleForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState();
-  const [schedule, setSchedule] = useState();
+  const [schedule, setSchedule] = useState({
+    confId: "",
+    schedRooms: [],
+    schedTimes: []
+  });
   const [errThrown, setErrThrown] = useState();
   const [confReady, setConfReady] = useState(false);
 
@@ -103,7 +107,7 @@ const ScheduleForm = () => {
         <Row>
           <h1 className="authRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
             log in
-          </Link> to add or edit a session.</h1>
+          </Link> to create or edit the schedule.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
@@ -115,9 +119,9 @@ const ScheduleForm = () => {
 
             <Row>
               <Col sm={2}>
-                {(formType === "edit_presenter" || formType === "admin_edit_pres")
-                  ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                  : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+                {(Object.keys(schedule.confId).length !== 0)
+                  ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
+                  : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Update Schedule</Button>}
               </Col>
             </Row>
 
@@ -147,9 +151,9 @@ const ScheduleForm = () => {
 
             <Row>
               <Col sm={2}>
-                {(formType === "edit_session")
-                  ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
-                  : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Next Page</Button>}
+                {(Object.keys(schedule.confId).length !== 0)
+                  ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
+                  : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Update Schedule</Button>}
               </Col>
             </Row>
 
