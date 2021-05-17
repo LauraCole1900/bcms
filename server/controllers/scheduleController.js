@@ -28,5 +28,5 @@ module.exports = {
       .findOneAndUpdate({ confId: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => console.log(err))
-  }
-}
+  },
+};
