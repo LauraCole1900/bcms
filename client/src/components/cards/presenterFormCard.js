@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Card, Row, Col, Image, Form } from "react-bootstrap";
 import "./style.css";
 
 const PresenterFormCard = (props) => {
   let pres = props.presenter;
+  const presId = useRef();
   const [charRem, setCharRem] = useState(750);
 
   // Handles input changes to form fields
@@ -54,23 +55,23 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's first name: <span className="red">*</span></Form.Label>
-                  {(props.errors.presGivenName && Card.key === pres._id) &&
-                    <div className="error" data-id={pres._id}><p>{props.errors.presGivenName}</p></div>}
-                  <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  {props.errors.presGivenName &&
+                    <div className="error"><p>{props.errors.presGivenName}</p></div>}
+                  <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} ref={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Form.Label>Presenter's last name: <span className="red">*</span></Form.Label>
-                  {(props.errors.presFamilyName && Card.key === pres._id) &&
-                    <div className="error" data-id={pres._id}><p>{props.errors.presFamilyName}</p></div>}
-                  <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  {props.errors.presFamilyName &&
+                    <div className="error"><p>{props.errors.presFamilyName}</p></div>}
+                  <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} ref={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
               <Row>
                 <Col sm={12}>
                   <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
-                  {(props.errors.presOrg && Card.key === pres._id) &&
-                    <div className="error" data-id={pres._id}><p>{props.errors.presOrg}</p></div>}
-                  <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={pres.presOrg} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  {props.errors.presOrg &&
+                    <div className="error"><p>{props.errors.presOrg}</p></div>}
+                  <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={pres.presOrg} ref={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
             </Form.Group>
@@ -79,11 +80,11 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={4}>
                   <Form.Label>Presenter's phone:</Form.Label>
-                  <Form.Control type="input" name="presPhone" placeholder="(123)456-7890" value={pres.presPhone} className="formInput" data-id={pres._id} onChange={handleInputChange} />
+                  <Form.Control type="input" name="presPhone" placeholder="(123)456-7890" value={pres.presPhone} className="formInput" ref={pres._id} onChange={handleInputChange} />
                 </Col>
                 <Col sm={8}>
                   <Form.Label>Presenter's website URL:</Form.Label>
-                  <Form.Control type="input" name="presWebsite" placeholder="http://www.website.com" value={pres.presWebsite} className="formInput" data-id={pres._id} onChange={handleInputChange} />
+                  <Form.Control type="input" name="presWebsite" placeholder="http://www.website.com" value={pres.presWebsite} className="formInput" ref={pres._id} onChange={handleInputChange} />
                 </Col>
               </Row>
             </Form.Group>
@@ -92,9 +93,9 @@ const PresenterFormCard = (props) => {
               <Col sm={12}>
                 <Form.Group controlId="formPresBio">
                   <Form.Label>Presenter's bio (min 10 characters, max 750 characters): <span className="red">*</span></Form.Label>
-                  {(props.errors.presBio && Card.key === pres._id) &&
-                    <div className="error" data-id={pres._id}><p>{props.errors.presBio}</p></div>}
-                  <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} data-id={pres._id} className="formInput" onChange={handleTextArea} />
+                  {props.errors.presBio &&
+                    <div className="error"><p>{props.errors.presBio}</p></div>}
+                  <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} ref={pres._id} className="formInput" onChange={handleTextArea} />
                   <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                 </Form.Group>
               </Col>
@@ -104,7 +105,7 @@ const PresenterFormCard = (props) => {
               <Col sm={12}>
                 <Form.Group controlId="formPresPic">
                   <Form.Label>Upload presenter's picture:</Form.Label>
-                  <Form.Control type="input" name="presPic" placeholder="URL for presenter's picture" value={pres.presPic} data-id={pres._id} className="formInput" onChange={handleInputChange} />
+                  <Form.Control type="input" name="presPic" placeholder="URL for presenter's picture" value={pres.presPic} ref={pres._id} className="formInput" onChange={handleInputChange} />
                 </Form.Group>
               </Col>
             </Row>
