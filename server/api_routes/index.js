@@ -4,6 +4,7 @@ const apiAttendee = require("./attendeeRoutes");
 const apiConference = require("./conferenceRoutes");
 const apiExhibitor = require("./exhibitorRoutes");
 const apiPresenter = require("./presenterRoutes");
+const apiSchedule = require("./scheduleRoutes");
 const apiSession = require("./sessionRoutes")
 const apiUser = require("./userRoutes");
 
@@ -12,6 +13,7 @@ router.use("/api/attendee", apiAttendee);
 router.use("/api/conference", apiConference);
 router.use("/api/exhibitor", apiExhibitor);
 router.use("/api/presenter", apiPresenter);
+router.use("/api/schedule", apiSchedule);
 router.use("/api/session", apiSession);
 router.use("/api/user", apiUser);
 
