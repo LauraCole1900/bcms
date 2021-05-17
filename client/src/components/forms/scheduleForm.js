@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
+import { ErrorModal, SuccessModal } from "../modals"
 import { ScheduleAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
@@ -9,13 +10,23 @@ const ScheduleForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState();
   const [schedule, setSchedule] = useState();
+  const [errThrown, setErrThrown] = useState();
   const [confReady, setConfReady] = useState(false);
-
 
   // Grabs conference ID from URL
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
   const formType = urlArray[urlArray.length - 2];
+
+  // Modal variables
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
 
   const fetchConf = async (id) => {
@@ -42,11 +53,39 @@ const ScheduleForm = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
+    console.log("Schedule submit", schedule)
+    // POST call to create schedule document
+    ScheduleAPI.saveSchedule({ ...schedule, confId: confId })
+      .then(resp => {
+        // If no errors thrown, show Success modal
+        if (!resp.err) {
+          handleShowSuccess();
+        }
+      })
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
+        })
   }
 
   const handleFormUpdate = (e) => {
     e.preventDefault();
+    console.log("Schedule update", confId);
+    // PUT call to update schedule document
+    ScheduleAPI.updateSchedule({ ...schedule }, confId)
+      .then(resp => {
+        // If no errors thrown, show Success modal
+        if (!resp.err) {
+          handleShowSuccess();
+        }
+      })
+      // If yes errors thrown, setState(err.message) and show Error modal
+      .catch(err => {
+        console.log(err)
+        setErrThrown(err.message);
+        handleShowErr();
+      })
 
   }
 
@@ -106,7 +145,20 @@ const ScheduleForm = () => {
               </Card.Body>
             </Card>
 
+            <Row>
+              <Col sm={2}>
+                {(formType === "edit_session")
+                  ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                  : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Next Page</Button>}
+              </Col>
+            </Row>
+
           </Form>
+
+          <SuccessModal conference={conference} confname={conference.confName} urlid={confId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+
+          <ErrorModal conference={conference} confname={conference.confName} urlid={confId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+
         </Container>}
     </>
   )
