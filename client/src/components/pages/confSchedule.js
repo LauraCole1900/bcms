@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Container, Row, Col, Button, ButtonGroup } from "react-bootstrap";
+import { Container, Row, Col, Button, ButtonGroup, Table } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
@@ -82,7 +82,15 @@ const Schedule = () => {
             </Col>
           </Row>
 
-
+          <Row>
+            <Table striped border="true" hover responsive>
+              <thead>
+                <tr>
+                  
+                </tr>
+              </thead>
+            </Table>
+          </Row>
         </Container>}
     </>
   )

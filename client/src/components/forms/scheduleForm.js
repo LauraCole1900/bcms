@@ -13,6 +13,7 @@ const ScheduleForm = () => {
   // Grabs conference ID from URL
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
+  const formType = urlArray[urlArray.length - 2];
 
 
   const fetchConf = async (id) => {
@@ -22,6 +23,16 @@ const ScheduleForm = () => {
         setConference(resp.data[0])
         setConfReady(true)
       })
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+  }
+
+  const handleFormUpdate = (e) => {
+    e.preventDefault();
+
   }
 
   useEffect(() => {
@@ -43,8 +54,16 @@ const ScheduleForm = () => {
         </Row>}
 
       {isAuthenticated &&
+        confReady === true &&
         (user.email === conference.ownerEmail || conference.confAdmins.includes(user.email)) &&
         <Container>
+          <Row>
+            <Col sm={2}>
+              {(formType === "edit_presenter" || formType === "admin_edit_pres")
+                ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Form</Button>
+                : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Submit Form</Button>}
+            </Col>
+          </Row>
         </Container>}
     </>
   )
