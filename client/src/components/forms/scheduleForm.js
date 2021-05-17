@@ -6,7 +6,7 @@ import { ErrorModal, SuccessModal } from "../modals"
 import { ScheduleAPI, ConferenceAPI } from "../../utils/api";
 import "./style.css";
 
-const ScheduleForm = () => {
+const ScheduleForm = (props) => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState();
   const [schedule, setSchedule] = useState({
@@ -33,14 +33,14 @@ const ScheduleForm = () => {
   const handleHideErr = () => setShowErr(false);
 
 
-  const fetchConf = async (id) => {
-    await ConferenceAPI.getConferenceById(id)
-      .then(resp => {
-        console.log("from schedForm fetchConf", resp.data)
-        setConference(resp.data[0])
-        setConfReady(true)
-      })
-  }
+  // const fetchConf = async (id) => {
+  //   await ConferenceAPI.getConferenceById(id)
+  //     .then(resp => {
+  //       console.log("from schedForm fetchConf", resp.data)
+  //       setConference(resp.data[0])
+  //       setConfReady(true)
+  //     })
+  // }
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -48,18 +48,18 @@ const ScheduleForm = () => {
     if (name === "schedRooms") {
       // Splits input to sessPresEmail field at commas to create an array
       let rooms = value.split(",")
-      setSchedule({ ...schedule, schedRooms: rooms })
+      setSchedule({ ...props.schedule, schedRooms: rooms })
     } else if (name === "schedTimes") {
       let times = value.split(",")
-      setSchedule({ ...schedule, schedTimes: times })
+      setSchedule({ ...props.schedule, schedTimes: times })
     }
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Schedule submit", schedule)
+    console.log("Schedule submit", props.schedule)
     // POST call to create schedule document
-    ScheduleAPI.saveSchedule({ ...schedule, confId: confId })
+    ScheduleAPI.saveSchedule({ ...props.schedule, confId: props.conference._id })
       .then(resp => {
         // If no errors thrown, show Success modal
         if (!resp.err) {
@@ -75,9 +75,9 @@ const ScheduleForm = () => {
 
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    console.log("Schedule update", confId);
+    console.log("Schedule update", props.conference._id);
     // PUT call to update schedule document
-    ScheduleAPI.updateSchedule({ ...schedule }, confId)
+    ScheduleAPI.updateSchedule({ ...props.schedule }, props.conference._id)
       .then(resp => {
         // If no errors thrown, show Success modal
         if (!resp.err) {
@@ -93,13 +93,13 @@ const ScheduleForm = () => {
 
   }
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchConf(confId);
-    }
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     fetchConf(confId);
+  //   }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // }, [])
 
   return (
     <>
@@ -113,13 +113,13 @@ const ScheduleForm = () => {
 
       {isAuthenticated &&
         confReady === true &&
-        (user.email === conference.ownerEmail || conference.confAdmins.includes(user.email)) &&
+        (user.email === props.conference.ownerEmail || props.conference.confAdmins.includes(user.email)) &&
         <Container>
           <Form className="schedForm">
 
             <Row>
               <Col sm={2}>
-                {(Object.keys(schedule.confId).length !== 0)
+                {(Object.keys(props.schedule.confId).length !== 0)
                   ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
                   : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Update Schedule</Button>}
               </Col>
@@ -132,7 +132,7 @@ const ScheduleForm = () => {
                     <Form.Group controlId="formSchedRooms">
                       <Form.Label>Room names:</Form.Label><br />
                       <Form.Text className="subtitle" muted>Please separate room names with commas.</Form.Text>
-                      <Form.Control type="input" name="schedRooms" placeholder="Enter room names here" value={schedule.schedRooms} className="formInput" onChange={handleInputChange} />
+                      <Form.Control type="input" name="schedRooms" placeholder="Enter room names here" value={props.schedule.schedRooms} className="formInput" onChange={handleInputChange} />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -142,7 +142,7 @@ const ScheduleForm = () => {
                     <Form.Group controlId="formSchedTimes">
                       <Form.Label>Time blocks:</Form.Label><br />
                       <Form.Text className="subtitle" muted>Please use the form hh:mm am/pm-hh:mm am/pm and separate by commas.</Form.Text>
-                      <Form.Control type="input" name="schedTimes" placeholder="Enter time blocks here" value={schedule.schedTimes} className="formInput" onChange={handleInputChange} />
+                      <Form.Control type="input" name="schedTimes" placeholder="Enter time blocks here" value={props.schedule.schedTimes} className="formInput" onChange={handleInputChange} />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -151,7 +151,7 @@ const ScheduleForm = () => {
 
             <Row>
               <Col sm={2}>
-                {(Object.keys(schedule.confId).length !== 0)
+                {(Object.keys(props.schedule.confId).length !== 0)
                   ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
                   : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Update Schedule</Button>}
               </Col>
@@ -159,9 +159,9 @@ const ScheduleForm = () => {
 
           </Form>
 
-          <SuccessModal conference={conference} confname={conference.confName} urlid={confId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+          <SuccessModal conference={props.conference} confname={props.conference.confName} urlid={props.urlid} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conference} confname={conference.confName} urlid={confId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+          <ErrorModal conference={props.conference} confname={props.conference.confName} urlid={confId} urltype={props.urltype} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
         </Container>}
     </>

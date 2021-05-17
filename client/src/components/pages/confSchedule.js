@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, ButtonGroup, Table } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
+import { ScheduleForm } from "../forms";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
@@ -18,12 +19,13 @@ const Schedule = () => {
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
   const [conference, setConference] = useState();
+  const [schedule, setSchedule] = useState();
   const [confReady, setConfReady] = useState(false);
 
   // Grabs conference ID from URL
   const urlArray = window.location.href.split("/")
-  const confId = urlArray[urlArray.length - 1]
-
+  const urlId = urlArray[urlArray.length - 1]
+  const urlType = urlArray[urlArray.length - 2]
   // 
 
   const fetchConf = async (id) => {
@@ -38,7 +40,7 @@ const Schedule = () => {
   }
 
   useEffect(() => {
-    fetchConf(confId);
+    fetchConf(urlId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -63,13 +65,13 @@ const Schedule = () => {
           <Row>
             <Col sm={4}>
               <ButtonGroup data-toggle="popover">
-                <Link to={`/details/${confId}`} className={location.pathname === `/details/${confId}` ? "link active" : "link"}>
+                <Link to={`/details/${urlId}`} className={location.pathname === `/details/${urlId}` ? "link active" : "link"}>
                   <Button title="View details" className="button">Details</Button>
                 </Link>
-                <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
+                <Link to={`/venue/${urlId}`} className={location.pathname === `/venue/${urlId}` ? "link active" : "link"}>
                   <Button title="Venue information" className="button">Venue</Button>
                 </Link>
-                <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
+                <Link to={`/exhibits/${urlId}`} className={location.pathname === `/exhibits/${urlId}` ? "link active" : "link"}>
                   <Button title="Exhibit information" className="button">Exhibits</Button>
                 </Link>
               </ButtonGroup>
@@ -83,10 +85,14 @@ const Schedule = () => {
           </Row>
 
           <Row>
+            <ScheduleForm conference={conference} schedule={schedule} urlid={urlId} urltype={urlType} />
+          </Row>
+
+          <Row>
             <Table striped border="true" hover responsive>
               <thead>
                 <tr>
-                  
+
                 </tr>
               </thead>
             </Table>
