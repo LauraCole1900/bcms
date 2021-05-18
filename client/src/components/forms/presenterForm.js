@@ -175,24 +175,26 @@ const PresenterForm = () => {
     const validationErrors = presValidate(presenter[0]);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
-    if (noErrors) {
-      console.log("Presenter update", presenter);
-      // PUT call to update presenter document
-      PresenterAPI.updatePresenterByEmail({ ...presenter[0] }, presenter[0].presEmail, presenter[0].confId)
-        .then(resp => {
-          // If no errors thrown, show Success modal
-          if (!resp.err) {
-            handleShowSuccess();
-          }
-        })
-        // If yes errors thrown, setState(err.message) and show Error modal
-        .catch(err => {
-          console.log(err)
-          setErrThrown(err.message);
-          handleShowErr();
-        })
-    } else {
-      console.log({ validationErrors });
+    switch (noErrors) {
+      case true:
+        console.log("Presenter update", presenter);
+        // PUT call to update presenter document
+        PresenterAPI.updatePresenterByEmail({ ...presenter[0] }, presenter[0].presEmail, presenter[0].confId)
+          .then(resp => {
+            // If no errors thrown, show Success modal
+            if (!resp.err) {
+              handleShowSuccess();
+            }
+          })
+          // If yes errors thrown, setState(err.message) and show Error modal
+          .catch(err => {
+            console.log(err)
+            setErrThrown(err.message);
+            handleShowErr();
+          })
+        break;
+      default:
+        console.log({ validationErrors });
     }
   };
 
@@ -201,54 +203,48 @@ const PresenterForm = () => {
     e.preventDefault();
     let validationErrors;
     let valid;
-    let idx;
     presenter.forEach(pres => {
       console.log("Presenter submit forEach", presenter)
-      idx = presenter.indexOf(pres)
+      const idx = presenter.indexOf(pres)
       console.log(idx);
       // Validates required inputs
       validationErrors = presValidate(pres);
       errors[idx] = validationErrors;
       const noErrors = Object.keys(validationErrors).length === 0;
       setErrors([...errors], errors);
-      if (noErrors) {
-        // PUT call to update presenter document
-        PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
-          .then(resp => {
-            if (!resp.err) {
-              return false
-            }
-          })
-          // If yes errors thrown, push to Error modal
-          .catch(err => {
-            console.log(err);
-            valid = err;
-            setErrThrown(err.message);
-            handleShowErr();
-            return valid;
-          })
-      } else {
-        console.log({ validationErrors });
-        console.log({ errors });
+      switch (noErrors) {
+        case true:
+          // PUT call to update presenter document
+          PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
+            .then(resp => {
+              if (!resp.err) {
+                return false
+              }
+            })
+            // If yes errors thrown, push to Error modal
+            .catch(err => {
+              console.log(err);
+              valid = err;
+              setErrThrown(err.message);
+              handleShowErr();
+              return valid;
+            })
+          break;
+        default:
+          console.log({ validationErrors });
+          console.log({ errors });
       }
     })
-    // .then(resp => {
     // If no errors thrown, push to Success page
     if (!valid) {
       const errorBool = errors.every(err => Object.keys(err).length === 0)
-      if (errorBool === true) {
-        handleShowSuccess();
-      } else {
-        console.log({ errors })
-        console.log({ errorBool })
-        return false;
+      switch (errorBool) {
+        case true:
+          handleShowSuccess();
+          break;
+        default:
+          return false;
       }
-      // } && errors === {}) {
-      //   console.log({ errors });
-      //   handleShowSuccess();
-      // } else if (!valid && Object.keys(errors[idx]).length > 0) {
-      //   console.log({ errors });
-      //   return false;
     }
   }
 
