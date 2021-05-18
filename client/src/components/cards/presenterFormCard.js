@@ -4,7 +4,7 @@ import "./style.css";
 
 const PresenterFormCard = (props) => {
   let pres = props.presenter;
-  const presId = useRef();
+  const presRef = useRef();
   const [charRem, setCharRem] = useState(750);
 
   // Handles input changes to form fields
