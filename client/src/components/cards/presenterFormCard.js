@@ -28,7 +28,7 @@ const PresenterFormCard = (props) => {
   }
 
   useEffect(() => {
-    console.log("from presFormCard useEffect", pres)
+    console.log("from presFormCard useEffect", pres, props.idx)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -36,7 +36,7 @@ const PresenterFormCard = (props) => {
 
   return (
     <>
-      {pres.map(pres => (
+      {pres.map((pres, index) => (
         <Card className="formCard" key={pres._id}>
           <Card.Title><h1>Presenter Information</h1></Card.Title>
 
@@ -54,22 +54,25 @@ const PresenterFormCard = (props) => {
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's first name: <span className="red">*</span></Form.Label>
-                  {props.errors.presGivenName &&
-                    <div className="error" data-id={pres._id}><p>{props.errors.presGivenName}</p></div>}
+                  {props.errors[index] &&
+                    (props.errors[index].presGivenName &&
+                      <div className="error"><p>{props.errors[index].presGivenName}</p></div>)}
                   <Form.Control required type="input" name="presGivenName" placeholder="Samwise" value={pres.presGivenName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
                 <Col sm={6}>
                   <Form.Label>Presenter's last name: <span className="red">*</span></Form.Label>
-                  {props.errors.presFamilyName &&
-                    <div className="error" data-id={pres._id}><p>{props.errors.presFamilyName}</p></div>}
+                  {props.errors[index] &&
+                    (props.errors[index].presFamilyName &&
+                      <div className="error"><p>{props.errors[index].presFamilyName}</p></div>)}
                   <Form.Control required type="input" name="presFamilyName" placeholder="Gamgee" value={pres.presFamilyName} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
               <Row>
                 <Col sm={12}>
                   <Form.Label>Presenter's organization: <span className="red">*</span></Form.Label>
-                  {props.errors.presOrg &&
-                    <div className="error" data-id={pres._id}><p>{props.errors.presOrg}</p></div>}
+                  {props.errors[index] &&
+                    (props.errors[index].presOrg &&
+                      <div className="error"><p>{props.errors[index].presOrg}</p></div>)}
                   <Form.Control required type="input" name="presOrg" placeholder="Enter organization the presenter represents" value={pres.presOrg} data-id={pres._id} className="formInput" onChange={handleInputChange} />
                 </Col>
               </Row>
@@ -92,8 +95,9 @@ const PresenterFormCard = (props) => {
               <Col sm={12}>
                 <Form.Group controlId="formPresBio">
                   <Form.Label>Presenter's bio (min 10 characters, max 750 characters): <span className="red">*</span></Form.Label>
-                  {props.errors.presBio &&
-                    <div className="error" data-id={pres._id}><p>{props.errors.presBio}</p></div>}
+                  {props.errors[index] &&
+                    (props.errors[index].presBio &&
+                      <div className="error"><p>{props.errors[index].presBio}</p></div>)}
                   <Form.Control as="textarea" rows={10} type="input" name="presBio" placeholder="Enter a short bio of the presenter" value={pres.presBio} data-id={pres._id} className="formInput" onChange={handleTextArea} />
                   <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                 </Form.Group>

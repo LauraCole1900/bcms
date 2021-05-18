@@ -23,6 +23,7 @@ const PresenterForm = () => {
   let latestSess;
   let presObj;
   let presArr = [];
+  let idx = 0;
 
   // Grabs conference ID from URL for new presenters or presenter ID from URL for existing presenters
   // Uses URL to determine whether this is adding a session presenter or editing an existing presenter
@@ -205,8 +206,8 @@ const PresenterForm = () => {
     let valid;
     presenter.forEach(pres => {
       console.log("Presenter submit forEach", presenter)
-      const idx = presenter.indexOf(pres)
-      console.log(idx);
+      idx = presenter.indexOf(pres)
+      console.log({ idx });
       // Validates required inputs
       validationErrors = presValidate(pres);
       errors[idx] = validationErrors;
@@ -246,6 +247,7 @@ const PresenterForm = () => {
           return false;
       }
     }
+    return idx;
   }
 
   const handlePageLoad = async (id) => {
@@ -300,16 +302,16 @@ const PresenterForm = () => {
               <Button data-toggle="popover" title="Go Back" className="button" onClick={() => history.goBack()} type="submit">Go Back</Button>
             </Col>
           </Row>
-          {(Object.keys(errors).length !== 0 && errors.every(err => Object.keys(err).length !== 0)) &&
+          {(Object.keys(errors).length !== 0 && errors.every(err => err.length !== 0)) &&
             <Row>
               <Col sm={12}>
                 <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
               </Col>
             </Row>}
 
-          <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} handleChange={handleInputChange} handleText={handleTextArea} />
+          <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} idx={idx} handleChange={handleInputChange} handleText={handleTextArea} />
 
-          {(Object.keys(errors).length !== 0 && errors.every(err => Object.keys(err).length !== 0)) &&
+          {(Object.keys(errors).length !== 0 && errors.every(err => err.length !== 0)) &&
             <Row>
               <Col sm={12}>
                 <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
