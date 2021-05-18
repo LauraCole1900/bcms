@@ -16,7 +16,7 @@ const PresenterForm = () => {
   const [conference, setConference] = useState();
   const [session, setSession] = useState();
   const [errThrown, setErrThrown] = useState();
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
   const [presReady, setPresReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
