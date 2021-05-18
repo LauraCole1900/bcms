@@ -209,7 +209,7 @@ const PresenterForm = () => {
       validationErrors = presValidate(pres);
       errors[idx] = validationErrors;
       const noErrors = Object.keys(validationErrors).length === 0;
-      setErrors({ ...errors }, errors);
+      setErrors([ ...errors ], errors);
       if (noErrors) {
         // PUT call to update presenter document
         PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
