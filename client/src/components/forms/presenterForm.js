@@ -207,8 +207,9 @@ const PresenterForm = () => {
       console.log(idx);
       // Validates required inputs
       validationErrors = presValidate(pres);
+      errors[idx] = validationErrors;
       const noErrors = Object.keys(validationErrors).length === 0;
-      setErrors({ ...errors }, validationErrors);
+      setErrors({ ...errors }, errors);
       if (noErrors) {
         // PUT call to update presenter document
         PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
