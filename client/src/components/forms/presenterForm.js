@@ -201,15 +201,16 @@ const PresenterForm = () => {
     e.preventDefault();
     let validationErrors;
     let valid;
+    let idx;
     presenter.forEach(pres => {
       console.log("Presenter submit forEach", presenter)
-      const idx = presenter.indexOf(pres)
+      idx = presenter.indexOf(pres)
       console.log(idx);
       // Validates required inputs
       validationErrors = presValidate(pres);
       errors[idx] = validationErrors;
       const noErrors = Object.keys(validationErrors).length === 0;
-      setErrors([ ...errors ], errors);
+      setErrors([...errors], errors);
       if (noErrors) {
         // PUT call to update presenter document
         PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
@@ -233,10 +234,21 @@ const PresenterForm = () => {
     })
     // .then(resp => {
     // If no errors thrown, push to Success page
-    if (!valid && Object.keys(validationErrors).length === 0) {
-      handleShowSuccess();
-    } else if (!valid && Object.keys(validationErrors).length > 0) {
-      return false;
+    if (!valid) {
+      const errorBool = errors.every(err => Object.keys(err).length === 0)
+      if (errorBool === true) {
+        handleShowSuccess();
+      } else {
+        console.log({ errors })
+        console.log({ errorBool })
+        return false;
+      }
+      // } && errors === {}) {
+      //   console.log({ errors });
+      //   handleShowSuccess();
+      // } else if (!valid && Object.keys(errors[idx]).length > 0) {
+      //   console.log({ errors });
+      //   return false;
     }
   }
 
@@ -292,7 +304,7 @@ const PresenterForm = () => {
               <Button data-toggle="popover" title="Go Back" className="button" onClick={() => history.goBack()} type="submit">Go Back</Button>
             </Col>
           </Row>
-          {Object.keys(errors).length !== 0 &&
+          {(Object.keys(errors).length !== 0 && errors.every(err => Object.keys(err).length !== 0)) &&
             <Row>
               <Col sm={12}>
                 <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
@@ -301,7 +313,7 @@ const PresenterForm = () => {
 
           <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} handleChange={handleInputChange} handleText={handleTextArea} />
 
-          {Object.keys(errors).length !== 0 &&
+          {(Object.keys(errors).length !== 0 && errors.every(err => Object.keys(err).length !== 0)) &&
             <Row>
               <Col sm={12}>
                 <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
