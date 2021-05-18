@@ -203,10 +203,12 @@ const PresenterForm = () => {
     let valid;
     presenter.forEach(pres => {
       console.log("Presenter submit forEach", presenter)
+      const idx = presenter.indexOf(pres)
+      console.log(idx);
       // Validates required inputs
       validationErrors = presValidate(pres);
       const noErrors = Object.keys(validationErrors).length === 0;
-      setErrors(validationErrors);
+      setErrors({ ...errors }, validationErrors);
       if (noErrors) {
         // PUT call to update presenter document
         PresenterAPI.updatePresenterByEmail({ ...pres }, pres.presEmail, pres.confId)
@@ -225,6 +227,7 @@ const PresenterForm = () => {
           })
       } else {
         console.log({ validationErrors });
+        console.log({ errors });
       }
     })
     // .then(resp => {
