@@ -9,7 +9,7 @@ router.route("/post")
 router.route("/")
   .get(sessionController.findAll);
 
-router.route("/conference/:confid")
+router.route("/conference/:confId")
   .get(sessionController.findByConfId);
 
 router.route("/:id")

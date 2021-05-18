@@ -21,9 +21,9 @@ module.exports = {
 
 	// GET sessions by confId
 	findByConfId: function (req, res) {
-		console.log("from sessCont findByConfId", req.params.id)
+		console.log("from sessCont findByConfId", req.params.confId)
 		db.Session
-			.find({ confId: req.params.id })
+			.find({ confId: req.params.confId })
 			.then(dbModel => { res.json(dbModel) })
 			.catch(err => {
 				console.log(err)
