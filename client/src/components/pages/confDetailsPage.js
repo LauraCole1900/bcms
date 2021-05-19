@@ -209,7 +209,7 @@ const ConfDetails = () => {
             {isAuthenticated &&
               (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
               <>
-                <Col sm={4}>
+                <Col sm={4} className="flexCenter">
                   <ButtonGroup data-toggle="popover">
                     <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
                       <Button title="View conference attendees" className="button">Attendees</Button>
@@ -223,7 +223,7 @@ const ConfDetails = () => {
                   </ButtonGroup>
                 </Col>
                 <Col sm={1}></Col>
-                <Col sm={4}>
+                <Col sm={4} className="flexEnd">
                   <ButtonGroup data-toggle="popover">
                     <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
@@ -239,7 +239,11 @@ const ConfDetails = () => {
               </>}
           </Row>
           {conference[0].confSessProposalCommittee.includes(user.email) &&
-            <Button data-toggle="popover" title="View Session Proposals" className="button">View Session Proposals</Button>}
+            <>
+              <Col sm={12} className="flexEnd">
+                <Button data-toggle="popover" title="View Session Proposals" className="button">View Session Proposals</Button>
+              </Col>
+            </>}
 
           <Row>
             {searchBy === "allPres" &&

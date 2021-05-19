@@ -35,3 +35,13 @@ h4 {
 .error {
   font-weight: 700;
 }
+
+.flexEnd {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+}
