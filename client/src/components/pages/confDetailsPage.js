@@ -46,8 +46,10 @@ const ConfDetails = () => {
       .then(resp => {
         console.log("confDetailsPage getSessions", resp.data)
         const sessArr = resp.data.slice(0)
+        // Filter sessions by acceptance status
+        const filteredSess = sessArr.filter(sess => sess.sessAccepted === "yes")
         // Sort sessions by date
-        const sortedSess = sessArr.sort(
+        const sortedSess = filteredSess.sort(
           firstBy("sessKeynote", "desc")
             .thenBy("sessDate")
             .thenBy("sessStart")
@@ -68,8 +70,10 @@ const ConfDetails = () => {
       .then(resp => {
         console.log("confDetailsPage getPresentersByConf", resp.data)
         const presArr = resp.data.slice(0)
+        // Filter presenters by acceptance status
+        const filteredPres = presArr.filter(pres => pres.presAccepted === "yes")
         // Sort presenters by last name
-        const sortedPres = presArr.sort(
+        const sortedPres = filteredPres.sort(
           firstBy("presKeynote", "desc")
             .thenBy("presFamilyName")
             .thenBy("presGivenName")

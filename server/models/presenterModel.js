@@ -49,6 +49,10 @@ const presenterSchema = new Schema({
   presKeynote: {
     type: String
   },
+  presAccepted: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
