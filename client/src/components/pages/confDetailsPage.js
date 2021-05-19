@@ -238,6 +238,8 @@ const ConfDetails = () => {
                 </Col>
               </>}
           </Row>
+          {conference[0].confSessProposalCommittee.includes(user.email) &&
+            <Button data-toggle="popover" title="View Session Proposals" className="button">View Session Proposals</Button>}
 
           <Row>
             {searchBy === "allPres" &&
