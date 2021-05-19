@@ -41,6 +41,10 @@ const sessionSchema = new Schema({
   sessRoom: {
     type: String
   },
+  sessAccepted: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now

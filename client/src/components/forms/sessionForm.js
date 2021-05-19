@@ -225,7 +225,7 @@ const SessionForm = () => {
     if (noErrors) {
       console.log("Session submit", session)
       // POST call to create session document
-      await SessionAPI.saveSession({ ...session, confId: urlId })
+      await SessionAPI.saveSession({ ...session, confId: urlId, sessAccepted: "yes" })
         .then(resp => {
           console.log(resp);
           sessId = resp.data._id;
