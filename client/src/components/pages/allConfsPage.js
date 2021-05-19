@@ -45,8 +45,8 @@ const AllConfs = () => {
     ConferenceAPI.getConferences()
       .then(resp => {
         const confArr = resp.data;
-        // Filter conferences by date, so only upcoming conferences render
-        const filteredConf = confArr.filter(a => new Date(a.startDate) - new Date() >= 0);
+        // Filter conferences by date, so only current & upcoming conferences render
+        const filteredConf = confArr.filter(a => new Date(a.endDate) - new Date() >= 0);
         // Sort filtered conferences by date, earliest to latest
         const sortedConf = filteredConf.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
         // Set conferences in state
