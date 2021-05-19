@@ -44,6 +44,8 @@ const ConferenceForm = () => {
     confEarlyRegSwagType: "",
     confEarlyRegSizeConfirm: "",
     confSessProposalConfirm: "",
+    confSessProposalDeadline: "",
+    confSessProposalCommittee: [],
     confAllergies: "no",
     confWaiver: "no",
     confCancel: "no",
@@ -81,6 +83,11 @@ const ConferenceForm = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setConference({ ...conference, [name]: value })
+    if (name === "confSessProposalCommittee") {
+      // Splits input into confSessProposalCommittee field at commas to create an array
+      let emails = value.split(",")
+      setConference({ ...conference, confSessProposalCommittee: emails })
+    }
   };
 
   // Handles character limit and input changes for textarea
@@ -575,12 +582,23 @@ const ConferenceForm = () => {
                         <Form.Check type="radio" id="confSessPropConfYes" name="confSessProposalConfirm" label="Yes" value="yes" checked={conference.confSessProposalConfirm === "yes"} onChange={handleInputChange} />
                         <Form.Check type="radio" id="confSessPropConfNo" name="confSessProposalConfirm" label="No" value="no" checked={conference.confSessProposalConfirm === "no"} onChange={handleInputChange} />
                       </Col>
-                      <Col sm={8}>
-                        {conference.confSessProposalConfirm === "yes" &&
-                          <Form.Text>Prospective presenters will input session information to be reviewed by a review team designated by you. Sessions that are marked as accepted will have their information auto-filled in your conference's "details" section. You or a designated admin will still need to enter sessions into your conference's schedule.</Form.Text>}
-                        {conference.confSessProposalConfirm === "no" &&
-                          <Form.Text>You or a designated admin will need to input any session information into your conference's "details" section and schedule.</Form.Text>}
-                      </Col>
+                      {conference.confSessProposalConfirm === "yes" &&
+                        <>
+                          <Col sm={4}>
+                            <Form.Label>Deadline for submitting proposals: <span className="red">*</span></Form.Label>
+                            {errors.confSessProposalDeadline &&
+                              <div className="error"><p>{errors.confSessProposalDeadline}</p></div>}
+                            <Form.Control type="date" max={conference.startDate} name="confSessProposalDeadline" placeholder="2021/01/01" value={conference.confSessProposalDeadline} className="formDate" onChange={handleInputChange} />
+                          </Col>
+                          <Col sm={4}>
+                            <Form.Label>Emails of members of proposal-review committee:</Form.Label><br />
+                            <Form.Text className="subtitle" muted>Please separate emails with commas</Form.Text>
+                            <Form.Control type="input" name="confSessProposalCommittee" placeholder="name@email.com" value={conference.confSessProposalCommittee} className="formInput" onChange={handleInputChange} /></Col>
+                        </>}
+                      {conference.confSessProposalConfirm === "no" &&
+                        <Col sm={8}>
+                          <Form.Text>You or a designated admin will need to input any session information into your conference's "details" section and schedule.</Form.Text>
+                        </Col>}
                     </Form.Group>
                   </Row>
 

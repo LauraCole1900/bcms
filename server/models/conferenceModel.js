@@ -105,6 +105,12 @@ const conferenceSchema = new Schema({
     type: String,
     required: "Please select whether your conference will require proposals for sessions from prospective presenters."
   },
+  confSessProposalDeadline: {
+    type: String
+  },
+  confSessProposalCommittee: {
+    type: [ trimmedString ]
+  },
   confAllergies: {
     type: String,
     required: "Please select whether you need attendees to tell you about their allergies."

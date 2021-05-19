@@ -116,6 +116,10 @@ const confValidate = (conference) => {
     errors.confSessProposalConfirm = "Please indicate whether your conference will require proposals for sessions from prospective presenters."
   }
 
+  if (conference.confSessProposalConfirm === "yes" && !conference.confSessProposalDeadline) {
+    errors.confSessProposalDeadline = "Please tell us the deadline for submitting session proposals."
+  }
+
   // allergies errors
   if (!conference.confAllergies) {
     errors.confAllergies = "Please indicate whether you need to ask attendees to tell you about their allergies."
