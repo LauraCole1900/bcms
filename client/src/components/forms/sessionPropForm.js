@@ -6,7 +6,7 @@ import { ConferenceAPI, SessionAPI } from "../../utils/api";
 import { sessPropValidate } from "../../utils/validation";
 import "./style.css";
 
-const SessionProposal = () => {
+const SessionPropForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [session, setSession] = useState();
   const [conference, setConference] = useState();
@@ -176,4 +176,4 @@ const SessionProposal = () => {
   )
 }
 
-export default SessionProposal;
+export default SessionPropForm;

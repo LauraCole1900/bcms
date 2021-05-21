@@ -5,5 +5,5 @@ export { default as PresenterForm } from "./presenterForm";
 export { default as Registration } from "./registrationForm";
 export { default as ScheduleForm } from "./scheduleForm";
 export { default as SessionForm } from "./sessionForm";
-export { default as SessionProposal } from "./sessionProposal";
+export { default as SessionPropForm } from "./sessionPropForm";
 export { default as UpdateUser } from "./userForm";
