@@ -19,6 +19,15 @@ const sessionSchema = new Schema({
     type: [ trimmedString ],
     required: true,
   },
+  sessPropContName: {
+    type: String
+  },
+  sessPropContEmail: {
+    type: String
+  },
+  sessPropContPhone: {
+    type: String
+  },
   sessDate: {
     type: String
   },
