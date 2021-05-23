@@ -219,7 +219,7 @@ const SessionForm = () => {
     e.preventDefault();
     let sessId;
     // Validates required inputs
-    const validationErrors = sessValidate([session, conference]);
+    const validationErrors = sessValidate([session, conference, formType]);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     if (noErrors) {
@@ -300,6 +300,24 @@ const SessionForm = () => {
                   <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
                 </Col>
               </Row>}
+
+            {(formType === "propose_session" || formType === "edit_propose_session") &&
+              <Card className="formCard">
+                <Card.Title><h1>Contact Information</h1></Card.Title>
+
+                <Card.Body className="cardBody">
+                  <Row>
+                    <Col sm={6}>
+                      <Form.Group controlId="formSessPropContactName">
+                        <Form.Label>Contact person's name: <span className="red">*</span></Form.Label>
+                        {errors.sessPropContName &&
+                          <div className="error"><p>{errors.sessPropContName}</p></div>}
+                        <Form.Control type="input" name="sessPropContName" placeholder="Martha Jones" value={session.sessPropContName} className="formInput" onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>}
 
             <Card className="formCard">
               <Card.Title><h1>Basic Information</h1></Card.Title>

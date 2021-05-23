@@ -1,5 +1,16 @@
-const sessValidate = ([session, conference]) => {
+const sessValidate = ([session, conference, formType]) => {
   let errors = {};
+
+  // session proposal contact errors
+  if ((formType === "propose_session" || formType === "edit_propose_session") && !session.sessPropContName) {
+    errors.sessPropContName = "Who is the contact person for this proposed session? Please give us their name."
+  }
+  if ((formType === "propose_session" || formType === "edit_propose_session") && !session.sessPropContEmail) {
+    errors.sessPropContEmail = "What is the contact person's email?"
+  }
+  if ((formType === "propose_session" || formType === "edit_propose_session") && !session.sessPropContPhone) {
+    errors.sessPropContPhone = "What is the contact person's phone number?"
+  }
 
   // session name errors
   if (!session.sessName) {
