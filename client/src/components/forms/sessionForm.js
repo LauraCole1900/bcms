@@ -48,8 +48,8 @@ const SessionForm = () => {
 
   // Grabs conference ID from URL for new sessions or session ID from URL for existing sessions
   // Uses URL to determine whether this is a new session or an existing session
-  // If formType === add_session, then urlId === confId
-  // If formType === edit_session, then urlId === sessId
+  // If formType === add_session or propose_session, then urlId === confId
+  // If formType === edit_session or edit_propose_session, then urlId === sessId
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const formType = urlArray[urlArray.length - 2]
@@ -130,8 +130,8 @@ const SessionForm = () => {
 
   const fetchConf = async (confid) => {
     switch (formType) {
-      // Edit existing session
-      case "edit_session":
+      // Edit existing session or proposal
+      case "edit_session" || "edit_propose_session":
         // Call fetchSess()
         let sessObj = await fetchSess(confid)
         console.log({ sessObj });
@@ -146,7 +146,7 @@ const SessionForm = () => {
           })
           .catch(err => console.log(err))
         break;
-      // New session
+      // New session or proposal
       default:
         // Use ID in URL to GET conference information
         await ConferenceAPI.getConferenceById(confid)
@@ -306,16 +306,30 @@ const SessionForm = () => {
                 <Card.Title><h1>Contact Information</h1></Card.Title>
 
                 <Card.Body className="cardBody">
-                  <Row>
-                    <Col sm={6}>
-                      <Form.Group controlId="formSessPropContactName">
+                  <Form.Group controlId="formSessPropContactInfo">
+                    <Row>
+                      <Col sm={6}>
                         <Form.Label>Contact person's name: <span className="red">*</span></Form.Label>
                         {errors.sessPropContName &&
                           <div className="error"><p>{errors.sessPropContName}</p></div>}
                         <Form.Control type="input" name="sessPropContName" placeholder="Martha Jones" value={session.sessPropContName} className="formInput" onChange={handleInputChange} />
-                      </Form.Group>
-                    </Col>
-                  </Row>
+                      </Col>
+                      <Col sm={6}>
+                        <Form.Label>Contact person's email: <span className="red">*</span></Form.Label>
+                        {errors.sessPropContEmail &&
+                          <div className="error"><p>{errors.sessPropContEmail}</p></div>}
+                        <Form.Control type="email" name="sessPropContEmail" placeholder="name@email.com" value={session.sessPropContEmail} className="formEmail" onChange={handleInputChange} />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col sm={6}>
+                        <Form.Label>Contact person's phone: <span className="red">*</span></Form.Label>
+                        {errors.sessPropContPhone &&
+                          <div className="error"><p>{errors.sessPropContPhone}</p></div>}
+                        <Form.Control type="input" name="sessPropContPhone" placeholder="(123)456-7890" value={session.sessPropContPhone} className="formInput" onChange={handleInputChange} />
+                      </Col>
+                    </Row>
+                  </Form.Group>
                 </Card.Body>
               </Card>}
 
