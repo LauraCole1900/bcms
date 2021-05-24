@@ -41,6 +41,14 @@ const ErrorModal = (props) => {
           {props.urltype === "edit_session" &&
             <h4>{props.errmsg}. Your session was not updated.</h4>}
 
+          {/* Propose Session form */}
+          {props.urltype === "propose_session" &&
+            <h4>{props.errmsg}. Your session proposal was not added.</h4>}
+
+          {/* Edit Session Proposal form */}
+          {props.urltype === "propose_session_edit" &&
+            <h4>{props.errmsg}. Your session proposal was not updated.</h4>}
+
           {/* Add Presenter(s) form */}
           {props.urltype === "new_session_pres" &&
             <h4>{props.errmsg}. Presenter(s) was/were not added.</h4>}

@@ -242,8 +242,19 @@ const SessionForm = () => {
         const trimmedEmail = email.trim()
         handlePres(trimmedEmail, session.confId, sessId, session)
           .then(resp => {
-            // If no errors thrown, push to Presenters form
-            history.push(`/new_session_pres/${urlId}`, { params: [session] })
+            if (!resp.err) {
+              // If no errors thrown, push to Presenters form (new session) or Supplemental Materials form (propose session)
+              if (formType === "new_session") {
+                history.push(`/new_session_pres/${urlId}`, { params: [session] })
+              } else if (formType === "propose_session") {
+                history.push(`/propose_session_supp/${urlId}`)
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            setErrThrown(err.message);
+            handleShowErr();
           })
       });
     } else {

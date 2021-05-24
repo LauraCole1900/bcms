@@ -37,6 +37,14 @@ const SuccessModal = (props) => {
           {props.urltype === "edit_session" &&
             <h4>You have updated your session.</h4>}
 
+          {/* Propose Session form */}
+          {props.urltype === "propose_session" &&
+            <h4>You have added basic information for your proposal. Click "Next Page" to add supplemental information.</h4>}
+
+          {/* Edit Session Proposal form */}
+          {props.urltype === "edit_propose_session" &&
+            <h4>You have updated your proposal. Click "Next Page" to edit supplemental information.</h4>}
+
           {/* Add Presenter(s) form */}
           {props.urltype === "new_session_pres" &&
             <h4>You have added presenter information for this session.</h4>}
@@ -122,6 +130,12 @@ const SuccessModal = (props) => {
             {/* Add Session form: go on to Presenter Form */}
             {(props.urltype === "new_session") &&
               <Link to={`/new_session_pres/${props.urlid}`} className={location.pathname === `/new_session_pres/${props.urlid}` ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title="Presenter information" type="button" className="button">Next page</Button>
+              </Link>}
+
+            {/* Propose Session form: go on to Supplemental Information Form */}
+            {(props.urltype === "propose_session") &&
+              <Link to={`/propose_session_supp/${props.urlid}`} className={location.pathname === `/propose_session_supp/${props.urlid}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title="Presenter information" type="button" className="button">Next page</Button>
               </Link>}
 
