@@ -45,13 +45,29 @@ const SuccessModal = (props) => {
           {props.urltype === "edit_propose_session" &&
             <h4>You have updated your proposal. Click "Next Page" to edit supplemental information.</h4>}
 
+          {/* Session Proposal Supplemental form */}
+          {props.urltype === "propose_session_supp" &&
+            <h4>You have added supplemental information for your proposal. Click "Next Page" to add presenter information.</h4>}
+
+          {/* Edit Session Proposal Supplemental form */}
+          {props.urltype === "edit_propose_session_supp" &&
+            <h4>You have updated supplemental information for your proposal. Click "Next Page" to edit presenter information.</h4>}
+
           {/* Add Presenter(s) form */}
           {props.urltype === "new_session_pres" &&
-            <h4>You have added presenter information for this session.</h4>}
+            <h4>You have added your session.</h4>}
 
           {/* Edit Presenter(s) form */}
           {props.urltype === "edit_presenter" &&
             <h4>You have updated presenter information for this session.</h4>}
+
+          {/* Session Proposal Presenter form */}
+          {props.urltype === "propose_session_pres" &&
+            <h4>You have added presenter information for your proposal.</h4>}
+
+          {/* Edit Session Proposal Presenter form */}
+          {props.urltype === "edit_propose_session_pres" &&
+            <h4>You have updated presenter information for your proposal.</h4>}
 
           {/* Registration form */}
           {props.urltype === "register_attend" &&
@@ -136,6 +152,24 @@ const SuccessModal = (props) => {
             {/* Propose Session form: go on to Supplemental Information Form */}
             {(props.urltype === "propose_session") &&
               <Link to={`/propose_session_supp/${props.urlid}`} className={location.pathname === `/propose_session_supp/${props.urlid}` ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title="Supplemental information" type="button" className="button">Next page</Button>
+              </Link>}
+
+            {/* Propose Session form: go on to Presenter Form */}
+            {(props.urltype === "propose_session_supp") &&
+              <Link to={`/propose_session_pres/${props.urlid}`} className={location.pathname === `/propose_session_pres/${props.urlid}` ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title="Presenter information" type="button" className="button">Next page</Button>
+              </Link>}
+
+            {/* Edit Propose Session form: go on to Supplemental Information Form */}
+            {(props.urltype === "edit_propose_session") &&
+              <Link to={`/edit_propose_session_supp/${props.urlid}`} className={location.pathname === `/edit_propose_session_supp/${props.urlid}` ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title="Supplemental information" type="button" className="button">Next page</Button>
+              </Link>}
+
+            {/* Edit Propose Session form: go on to Presenter Form */}
+            {(props.urltype === "edit_propose_session_supp") &&
+              <Link to={`/edit_propose_session_pres/${props.urlid}`} className={location.pathname === `/edit_propose_session_pres/${props.urlid}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title="Presenter information" type="button" className="button">Next page</Button>
               </Link>}
 

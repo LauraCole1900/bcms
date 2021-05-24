@@ -49,6 +49,14 @@ const ErrorModal = (props) => {
           {props.urltype === "propose_session_edit" &&
             <h4>{props.errmsg}. Your session proposal was not updated.</h4>}
 
+          {/* Session Proposal Supplemental form */}
+          {props.urltype === "propose_session_supp" &&
+            <h4>{props.errmsg}. Supplemental information for your proposal was not added.</h4>}
+
+          {/* Edit Session Proposal Supplemental form */}
+          {props.urltype === "edit_propose_session_supp" &&
+            <h4>{props.errmsg}. Supplemental information for your proposal was not updated.</h4>}
+
           {/* Add Presenter(s) form */}
           {props.urltype === "new_session_pres" &&
             <h4>{props.errmsg}. Presenter(s) was/were not added.</h4>}
@@ -56,6 +64,14 @@ const ErrorModal = (props) => {
           {/* Edit Presenter(s) form */}
           {props.urltype === "edit_presenter" &&
             <h4>{props.errmsg}. Presenter(s) was/were not updated.</h4>}
+
+          {/* Session Proposal Presenter form */}
+          {props.urltype === "propose_session_pres" &&
+            <h4>{props.errmsg}. Presenter information for your proposal was not added.</h4>}
+
+          {/* Edit Session Proposal Presenter form */}
+          {props.urltype === "edit_propose_session_pres" &&
+            <h4>{props.errmsg}. Presenter information for your proposal was not updated.</h4>}
 
           {/* Registration form */}
           {props.urltype === "register_attend" &&

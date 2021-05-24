@@ -6,4 +6,5 @@ export { default as Registration } from "./registrationForm";
 export { default as ScheduleForm } from "./scheduleForm";
 export { default as SessionForm } from "./sessionForm";
 export { default as SessionPropForm } from "./sessionPropForm";
+export { default as SessSuppForm } from "./sessSuppForm";
 export { default as UpdateUser } from "./userForm";
