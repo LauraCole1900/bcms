@@ -19,15 +19,17 @@ const SessionForm = () => {
   const [session, setSession] = useState({
     sessName: "",
     sessPresEmails: [],
-    sessPresNames: [],
-    sessPresOrgs: [],
+    sessPropContName: "",
+    sessPropContEmail: "",
+    sessPropContPhone: "",
     sessDesc: "",
     sessDate: "",
     sessStart: "",
     sessEnd: "",
     sessKeynote: "",
     sessPanel: "",
-    sessRoom: ""
+    sessRoom: "",
+    sessAccepted: ""
   });
   let presenter = {
     presGivenName: "",

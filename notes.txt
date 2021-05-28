@@ -12,12 +12,12 @@ Features:
   * Session location highlights on map for attendees?
   * 4 permission levels: organizer, presenter, exhibitor, and attendee - MANAGED THROUGH DATABASE
     * Is exhibitor permission really different from presenter permission?
-  * List of exhibitors
-  * Bios of presenters?
+  * List of exhibitors - DONE
+  * Bios of presenters - DONE
   * Music conference - list of performing groups?
   * Search function for presenters & exhibitors, attendees (maybe this only for organizers? Why?)
   * Exhibitors given the option to transact business through the app or link to their website
-  * Presenters given the option to link to their website
+  * Presenters given the option to link to their website - DONE
   * Translated?
   * Breakout sessions vs. tracks
   * Preferred method of communication: email vs text, enter info as is required by that
@@ -35,8 +35,8 @@ Attendee:
 Exhibitor:
   * Attendee access PLUS:
   * Full CRUD access to own information - DONE
-  * Full CRUD access to exhibit information
-  * Ability to POST, UPDATE, and DELETE exhibit information
+  * Full CRUD access to exhibit information - DONE
+  * Ability to POST, UPDATE, and DELETE exhibit information - DONE
   * Ability to sell merch through app?
   * Ability to GET schedule
   * Ability to link to website - DONE
@@ -47,7 +47,7 @@ Presenter:
   * Full CRUD access to own information, including sessions
   * Ability to POST and UPDATE supplemental materials for own presentation
   * Ability to GET schedule
-  * Ability to link to website
+  * Ability to link to website - DONE
   * Ability to insert video or slideshow content
 
 Organizer:

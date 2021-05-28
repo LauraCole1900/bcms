@@ -21,11 +21,11 @@ const ExhibitForm = () => {
     exhCompany: "",
     exhPhone: "",
     exhCompanyAddress: "",
+    exhDesc: "",
+    exhLogo: "",
+    exhWebsite: "",
     exhWorkers: 1,
-    exhWorkerName1: "",
-    exhWorkerName2: "",
-    exhWorkerName3: "",
-    exhWorkerName4: "",
+    exhWorkerNames: [],
     exhSpaces: 1
   });
 

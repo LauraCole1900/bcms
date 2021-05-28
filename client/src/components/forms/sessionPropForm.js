@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Container, Form, Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, SessionAPI } from "../../utils/api";
-import { sessPropValidate } from "../../utils/validation";
 import "./style.css";
 
 const SessionPropForm = () => {
