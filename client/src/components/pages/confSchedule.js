@@ -84,15 +84,16 @@ const Schedule = () => {
             </Col>
           </Row>
 
-          <Row>
-            <ScheduleForm conference={conference} schedule={schedule} urlid={urlId} urltype={urlType} />
-          </Row>
+          {schedule.confId === undefined &&
+            <Row>
+              <ScheduleForm conference={conference} schedule={schedule} urlid={urlId} urltype={urlType} />
+            </Row>}
 
           <Row>
             <Table striped border="true" hover responsive>
               <thead>
                 <tr>
-
+                  
                 </tr>
               </thead>
             </Table>
