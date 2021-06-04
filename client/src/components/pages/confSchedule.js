@@ -101,7 +101,7 @@ const Schedule = () => {
           {isAuthenticated &&
             (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
             <Row>
-              <ScheduleForm conference={conference[0]} schedule={schedule} urlid={urlId} urltype={urlType} />
+              <ScheduleForm conference={conference[0]} schedule={schedule[0]} urlid={urlId} urltype={urlType} />
             </Row>
           }
 
