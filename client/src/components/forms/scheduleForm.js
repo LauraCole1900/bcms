@@ -56,9 +56,9 @@ const ScheduleForm = (props) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Schedule submit", props.schedule)
+    console.log("Schedule submit", schedule)
     // POST call to create schedule document
-    ScheduleAPI.saveSchedule({ ...props.schedule, confId: props.conference._id })
+    ScheduleAPI.saveSchedule({ ...schedule, confId: props.conference._id })
       .then(resp => {
         // If no errors thrown, show Success modal
         if (!resp.err) {
@@ -76,7 +76,7 @@ const ScheduleForm = (props) => {
     e.preventDefault();
     console.log("Schedule update", props.conference._id);
     // PUT call to update schedule document
-    ScheduleAPI.updateSchedule({ ...props.schedule }, props.conference._id)
+    ScheduleAPI.updateSchedule({ ...schedule }, props.conference._id)
       .then(resp => {
         // If no errors thrown, show Success modal
         if (!resp.err) {

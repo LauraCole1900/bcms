@@ -93,14 +93,14 @@ const Schedule = () => {
 
           <Row>
             <Col sm={12} className="myConfs">
-              <h1>{conference.confName} Schedule</h1>
+              <h1>{conference[0].confName} Schedule</h1>
             </Col>
           </Row>
 
           {isAuthenticated &&
             (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
             <Row>
-              <ScheduleForm conference={conference} schedule={schedule} urlid={urlId} urltype={urlType} />
+              <ScheduleForm conference={conference[0]} schedule={schedule} urlid={urlId} urltype={urlType} />
             </Row>
           }
 

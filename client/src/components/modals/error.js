@@ -137,7 +137,7 @@ const ErrorModal = (props) => {
               <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Details</Button>}
 
             {/* Link to Conference Details page when confid === conference._id */}
-            {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "new_session_pres" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urlid === "profile" || props.urlid === "conferences" || props.urlid === "details") &&
+            {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "new_session_pres" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urltype === "schedule" || props.urlid === "profile" || props.urlid === "conferences") &&
               <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.confname} type="button" className="button">{props.confname}</Button>
               </Link>}
