@@ -115,7 +115,7 @@ const ScheduleForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {props.schedule !== undefined
+              {props.schedule.length !== 0
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Create Schedule</Button>}
             </Col>

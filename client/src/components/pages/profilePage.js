@@ -214,24 +214,26 @@ const ProfilePage = () => {
   }
 
   useEffect(() => {
-    switch (pageReady) {
-      case true:
-        return false;
-      default:
-        saveUserToDB();
-    }
+    if (isAuthenticated) {
+      switch (pageReady) {
+        case true:
+          return false;
+        default:
+          saveUserToDB();
+      }
 
-    ConferenceAPI.getConferencesCreated(user.email)
-      .then(resp => {
-        console.log("getConfCreated", resp.data)
-        const createArr = resp.data
-        // Sorts conferences by date, latest to earliest
-        const sortedCreate = createArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
-        setCreateConf(sortedCreate)
-        // Sets pageReady(true) for page load
-        setPageReady(true);
-      })
-      .catch(err => console.log(err))
+      ConferenceAPI.getConferencesCreated(user.email)
+        .then(resp => {
+          console.log("getConfCreated", resp.data)
+          const createArr = resp.data
+          // Sorts conferences by date, latest to earliest
+          const sortedCreate = createArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
+          setCreateConf(sortedCreate)
+          // Sets pageReady(true) for page load
+          setPageReady(true);
+        })
+        .catch(err => console.log(err))
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [changeToggle, createConf])
@@ -247,8 +249,9 @@ const ProfilePage = () => {
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
-      { pageReady === true &&
-        isAuthenticated && (
+      {isAuthenticated &&
+        pageReady === true &&
+        (
           <Container>
             <Row>
               <Col sm={3}></Col>
