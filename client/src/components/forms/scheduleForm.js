@@ -116,7 +116,7 @@ const ScheduleForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {schedule?.confId !== undefined
+              {schedule?.confId?.length !==0
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Create Schedule</Button>}
             </Col>
@@ -148,7 +148,7 @@ const ScheduleForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {schedule?.confId !== undefined
+              {schedule?.confId?.length !== 0
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
                 : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Create Schedule</Button>}
             </Col>
