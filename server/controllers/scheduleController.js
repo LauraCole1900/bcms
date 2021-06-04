@@ -7,26 +7,35 @@ module.exports = {
     db.Schedule
       .create(req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => console.log(err))
+      .catch(err => res.status(422).json(err))
   },
 
 
   // GET schedule by confId
   findByConfId: function (req, res) {
-    console.log("from schedCont findByConfId", req.params.id)
+    console.log("from scheduleCont findByConfId", req.params.id)
     db.Schedule
       .find({ confId: req.params.id })
       .then(dbModel => res.json(dbModel))
-      .catch(err => console.log(err))
+      .catch(err => res.status(422).json(err))
   },
 
 
-  // PUT schedule by confId
-  updateScheduleByConfId: function (req, res) {
-    console.log("from schedConf updateScheduleByConfId", req.params.id)
+  // UPDATE schedule by ID
+  updateScheduleById: function (req, res) {
+    console.log("from scheduleCont updateSchedule", req.params, req.body)
     db.Schedule
-      .findOneAndUpdate({ confId: req.params.id }, req.body)
+      .updateOne({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => console.log(err))
+      .catch(err => res.status(422).json(err))
+  },
+
+  // UPDATE schedule by confId
+  updateScheduleByConfId: function (req, res) {
+    console.log("from scheduleCont updateScheduleByConfId", req.params.id, req.body)
+    db.Schedule
+      .updateOne({ confId: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
   },
 };

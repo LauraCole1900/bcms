@@ -7,11 +7,14 @@ router.route("/post")
 
 
 router.route("/conference/:id")
-.get(scheduleController.findByConfId);
+  .get(scheduleController.findByConfId);
 
+
+router.route("/update/:id")
+  .put(scheduleController.updateScheduleById);
 
 router.route("/update/conference/:id")
-.put(scheduleController.updateScheduleByConfId);
+  .put(scheduleController.updateScheduleByConfId);
 
 
 module.exports = router;

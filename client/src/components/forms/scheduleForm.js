@@ -70,9 +70,9 @@ const ScheduleForm = (props) => {
 
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    console.log("Schedule update", props.conference._id);
+    console.log("Schedule update", schedule._id);
     // PUT call to update schedule document
-    ScheduleAPI.updateSchedule({ ...schedule }, props.conference._id)
+    ScheduleAPI.updateScheduleById({ ...schedule }, schedule._id)
       .then(resp => {
         // If no errors thrown, show Success modal
         if (!resp.err) {
