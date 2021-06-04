@@ -33,6 +33,10 @@ const ErrorModal = (props) => {
           {props.urltype === "edit_conference" &&
             <h4>{props.errmsg}. Your conference was not updated.</h4>}
 
+          {/* Create Schedule form */}
+          {props.urltype === "schedule" &&
+            <h4>{props.errmsg}. Your schedule was not created.</h4>}
+
           {/* Add Session form */}
           {props.urltype === "new_session" &&
             <h4>{props.errmsg}. Your session was not added.</h4>}

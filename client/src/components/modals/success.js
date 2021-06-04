@@ -29,6 +29,10 @@ const SuccessModal = (props) => {
           {props.urltype === "edit_conference" &&
             <h4>You have updated your conference.</h4>}
 
+          {/* Create Schedule form */}
+          {props.urltype === "schedule" &&
+            <h4>You have created the headers for your conference schedule.</h4>}
+
           {/* Add Session form */}
           {props.urltype === "new_session" &&
             <h4>You have added a session. Click "Next Page" to add presenter information.</h4>}
