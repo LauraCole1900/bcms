@@ -8,7 +8,6 @@ import "./style.css";
 
 const ScheduleForm = (props) => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const [conference, setConference] = useState();
   const [schedule, setSchedule] = useState({
     confId: "",
     schedRooms: [],
@@ -116,7 +115,7 @@ const ScheduleForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {schedule?.confId?.length !==0
+              {props.schedule !== undefined
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Create Schedule</Button>}
             </Col>
@@ -148,7 +147,7 @@ const ScheduleForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {schedule?.confId?.length !== 0
+              {props.schedule !== undefined
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
                 : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Create Schedule</Button>}
             </Col>
