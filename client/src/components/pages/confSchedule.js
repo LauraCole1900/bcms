@@ -62,6 +62,7 @@ const Schedule = () => {
   return (
     <>
       {confReady === true &&
+        schedReady === true &&
         <Container>
           <Row>
             {isAuthenticated &&
