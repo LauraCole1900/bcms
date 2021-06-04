@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, ButtonGroup, Table } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
 import { ScheduleForm } from "../forms";
-import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
+import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const Schedule = () => {
@@ -21,6 +21,7 @@ const Schedule = () => {
   const [conference, setConference] = useState();
   const [schedule, setSchedule] = useState();
   const [confReady, setConfReady] = useState(false);
+  const [schedReady, setSchedReady] = useState(false);
 
   // Grabs conference ID from URL
   const urlArray = window.location.href.split("/")
@@ -31,7 +32,7 @@ const Schedule = () => {
   const fetchConf = async (id) => {
     await ConferenceAPI.getConferenceById(id)
       .then(resp => {
-        console.log("from presForm getConfById", resp.data)
+        console.log("from confSched getConfById", resp.data)
         const confObj = resp.data;
         setConference(confObj)
         setConfReady(true);
@@ -39,8 +40,20 @@ const Schedule = () => {
       .catch(err => console.log(err))
   }
 
+  const fetchSched = async (id) => {
+    await ScheduleAPI.getScheduleByConfId(id)
+      .then(resp => {
+        console.log("from confSched getSchedByConfId", resp.data)
+        const schedObj = resp.data;
+        setSchedule(schedObj)
+        setSchedReady(true);
+      })
+      .catch(err => console.log(err));
+  }
+
   useEffect(() => {
     fetchConf(urlId);
+    fetchSched(urlId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -84,16 +97,18 @@ const Schedule = () => {
             </Col>
           </Row>
 
-          {schedule.confId === undefined &&
+          {isAuthenticated &&
+            (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
             <Row>
               <ScheduleForm conference={conference} schedule={schedule} urlid={urlId} urltype={urlType} />
-            </Row>}
+            </Row>
+          }
 
           <Row>
             <Table striped border="true" hover responsive>
               <thead>
                 <tr>
-                  
+
                 </tr>
               </thead>
             </Table>
