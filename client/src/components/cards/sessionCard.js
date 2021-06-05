@@ -60,7 +60,7 @@ const SessionCard = (props) => {
     hours = hours % 12;
     hours = hours ? hours : 12
     minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
-    const timeStr = `${hours}:${minutes} ${ampm}`
+    const timeStr = `${hours}:${minutes}${ampm}`
     return timeStr
   };
 
