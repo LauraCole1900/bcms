@@ -1,3 +1,11 @@
+:root {
+  --lightSil: #e2e2e2;
+  --darkSil: #878992;
+  --darkRed: #6a0e00;
+  --lightForest: #899168;
+  --medForest: #2d321e;
+}
+
 h3 {
   font-family: "Open Sans Condensed", sans-serif;
 }
@@ -10,13 +18,13 @@ h3 {
 }
 
 .modal-content {
-  border: 1px solid #e2e2e2;
+  border: 1px solid var(--lightSil);
   border-radius: 10px;
 }
 
 .modalHead {
-  color: #e2e2e2;
-  background: linear-gradient(to top, #899168, #2d321e);
+  color: var(--lightSil);
+  background: linear-gradient(to top, var(--lightForest), var(--medForest));
   display: flex;
   align-items: center;
   border-radius: 10px 10px 0 0;
@@ -28,7 +36,7 @@ h3 {
 }
 
 .modalBody {
-  background: linear-gradient(to top, #f2f2f2, #a2a2a2);
+  background: linear-gradient(to top, var(--lightSil), var(--darkSil));
   border-radius: 0 0 10px 10px;
 }
 
@@ -38,8 +46,8 @@ h3 {
 }
 
 .modalHeadConf {
-  color: #e2e2e2;
-  background: linear-gradient(to bottom, #ff2200, #6a0e00);
+  color: var(--lightSil);
+  background: linear-gradient(to bottom, red, var(--darkRed));
   border-radius: 10px 10px 0 0;
   display: flex;
   align-items: center;
