@@ -85,7 +85,7 @@ const SessionCard = (props) => {
   const fetchPresNames = (sessId) => {
     const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
     const presName = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName)
-    nameArr = [presName]
+    nameArr = [presName.join(", ")]
     return nameArr;
   }
 
@@ -120,8 +120,8 @@ const SessionCard = (props) => {
                   </Col>
                   <Col sm={9}>
                     <h2>{sess.sessName}</h2>
-                    <p>{fetchPresNames(sess._id).join(", ")}</p>
-                    <p>{fetchPresOrgs(sess._id).join(", ")}</p>
+                    <p>{fetchPresNames(sess._id)}</p>
+                    <p>{fetchPresOrgs(sess._id)}</p>
                   </Col>
                   <Col sm={1}>
                     {isAuthenticated &&
