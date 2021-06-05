@@ -278,14 +278,14 @@ const TableComp = (e) => {
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
-      {isAuthenticated &&
-        pageReady === true &&
+      {pageReady === true &&
         confReady === true &&
         <Container>
           <Row>
-            <Col lg={6} md={12}>
-              <UserCard />
-            </Col>
+            {isAuthenticated &&
+              <Col lg={6} md={12}>
+                <UserCard />
+              </Col>}
             <Col lg={6} md={12}>
               <ConferenceCard conference={conference} />
             </Col>
