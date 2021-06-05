@@ -27,16 +27,6 @@ const ScheduleForm = (props) => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
-
-  // const fetchConf = async (id) => {
-  //   await ConferenceAPI.getConferenceById(id)
-  //     .then(resp => {
-  //       console.log("from schedForm fetchConf", resp.data)
-  //       setConference(resp.data[0])
-  //       setConfReady(true)
-  //     })
-  // }
-
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
