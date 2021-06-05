@@ -1,3 +1,10 @@
+:root {
+  --sand: #cfbfa5;
+  --medForest: #2d321e;
+  --lightRed: #ff8686;
+  --skyBlue: #408ae1;
+}
+
 form {
   font-size: 16px;
   font-weight: bold;
@@ -5,8 +12,8 @@ form {
 }
 
 .formCard {
-  background-color: #cfbfa5;
-  border: 5px solid #2d321e;
+  background-color: var(--sand);
+  border: 5px solid var(--medForest);
   border-radius: 15px;
   padding: 0 15px;
 }
@@ -20,7 +27,7 @@ form {
   font-family: "Open Sans Condensed", sans-serif;
   font-size: 14px;
   font-weight: 700;
-  background-color: #ff8686;
+  background-color: var(--lightRed);
   border: 3px solid red;
   padding: 0 13px;
 }
@@ -30,7 +37,7 @@ form {
 }
 
 .authRemind {
-  color: #408ae1;
+  color: var(--skyBlue);
   text-align: center;
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
