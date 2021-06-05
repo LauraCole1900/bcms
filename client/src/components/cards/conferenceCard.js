@@ -51,6 +51,19 @@ const ConferenceCard = (props) => {
     props.change();
   }
 
+  // Parses time to 12-hour
+  const parseTime = (time) => {
+    const timeArr = time.split(":");
+    let hours = timeArr[0];
+    let minutes = timeArr[1];
+    const ampm = hours >= 12 ? "pm" : "am"
+    hours = hours % 12;
+    hours = hours ? hours : 12
+    minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
+    const timeStr = `${hours}:${minutes} ${ampm}`
+    return timeStr
+  };
+
   // GETs registered attendees' emails
   const fetchAttendeeEmails = async (confId) => {
     console.log("from confCard fetchAttendees", confId)
@@ -199,8 +212,8 @@ const ConferenceCard = (props) => {
                   {conf.confCancel === "no" &&
                     <div>
                       {conf.numDays === 1
-                        ? <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - {conf.confEndTime}</p></Row></div>
-                        : <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{conf.confStartTime} - <Moment format="ddd, D MMM YYYY" withTitle>{conf.endDate}</Moment> @{conf.confEndTime}</p></Row></div>}
+                        ? <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{parseTime(conf.confStartTime)} - {parseTime(conf.confEndTime)}</p></Row></div>
+                        : <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{parseTime(conf.confStartTime)} - <Moment format="ddd, D MMM YYYY" withTitle>{conf.endDate}</Moment> @{parseTime(conf.confEndTime)}</p></Row></div>}
                       <Row><p>Type: {conf.confType}</p></Row>
                       <Row>
                         {(conf.confType === "Live") &&
