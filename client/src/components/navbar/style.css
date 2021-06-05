@@ -1,5 +1,14 @@
+:root {
+  --lightSil: #e2e2e2;
+  --medSil: #b4b4b4;
+  --sand: #cfbfa5;
+  --medSand: #a99f93;
+  --lightForest: #899168;
+  --medForest: #2d321e;
+}
+
 .navbar {
-  background: linear-gradient(to top, #899168, #2d321e);
+  background: linear-gradient(to top, var(--lightForest), var(--medForest));
   font-size: 16px;
   width: 100%;
   height: 100px;
@@ -18,14 +27,14 @@
 
 .pineTree {
   max-width: 75px;
-  border: 2px solid #b4b4b4;
+  border: 2px solid var(--medSil);
   border-radius: 25%;
   margin-right: 5px;
 }
 
 .hello {
   font-family: "Open Sans Condensed", sans-serif;
-  color: #e2e2e2;
+  color: var(--lightSil);
   display: flex;
   justify-self: flex-start;
 }
@@ -33,7 +42,7 @@
 .mylogo {
   font-family: 'Bilbo Swash Caps', cursive;
   font-size: 24px;
-  color: #cfbfa5;
+  color: var(--sand);
   justify-self: flex-start;
 }
 
@@ -48,13 +57,13 @@
   display: inline;
 }
 .mylogo:hover {
-  color: #a99f93;
+  color: var(--medSand);
 }
 .mylogo:active {
-  color: #a99f93;
+  color: var(--medSand);
 }
 .mylogo:visited {
-  color: #a99f93;
+  color: var(--medSand);
 }
 
 .placelink {
@@ -66,17 +75,17 @@
 .navlink {
   display: inline;
   margin-left: 6px;
-  color: #cfbfa5;
+  color: var(--sand);
   font-family: "Open Sans Condensed", sans-serif;
 }
 .navlink:hover {
-  color: #a99f93;
+  color: var(--medSand);
 }
 .navlink:active {
-  color: #a99f93;
+  color: var(--medSand);
 }
 .navlink:visited {
-  color: #a99f93;
+  color: var(--medSand);
 }
 
 .auth {
@@ -84,8 +93,8 @@
 }
 
 .toggle {
-  color: #cfbfa5;
-  background: linear-gradient(to bottom, #899168, #2d321e);
+  color: var(--sand);
+  background: linear-gradient(to bottom, var(--lightForest), var(--medForest));
   position: absolute;
   right: 10px;
 }
