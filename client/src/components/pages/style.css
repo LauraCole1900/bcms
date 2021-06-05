@@ -1,3 +1,7 @@
+:root {
+  --skyBlue: #408ae1;
+}
+
 h1 {
   font-family: 'Bilbo Swash Caps', cursive;
   font-size: 54px;
@@ -16,7 +20,7 @@ h4 {
 }
 
 .regRemind {
-  color: #408ae1;
+  color: var(--skyBlue);
   text-align: center;
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
