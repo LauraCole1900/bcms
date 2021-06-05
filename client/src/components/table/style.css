@@ -1,3 +1,12 @@
+:root {
+  --lightSil: #e2e2e2;
+  --darkSil: #878992;
+  --sand: #cfbfa5;
+  --lightForest: #899168;
+  --medForest: #2d321e;
+  --darkRed: #6a0e00;
+}
+
 td {
   border: 1px solid black;
   font-family: "Open Sans Condensed", sans-serif;
@@ -39,23 +48,23 @@ td {
 }
 
 .tbleditbtn {
-  color: #cfbfa5;
-  background: linear-gradient(to bottom, #899168, #2d321e);
+  color: var(--sand);
+  background: linear-gradient(to bottom, var(--lightForest), var(--medForest));
   float: right;
   max-width: 40px;
   padding: 6px;
 }
 .tbleditbtn:hover {
-  background: linear-gradient(to bottom, #e2e2e2, #878992)
+  background: linear-gradient(to bottom, var(--lightSil), var(--darkSil))
 }
 
 .tbldeletebtn {
-  color: #cfbfa5;
-  background: linear-gradient(to bottom, #899168, #2d321e);
+  color: var(--sand);
+  background: linear-gradient(to bottom, var(--lightForest), var(--medForest));
   float: right;
   max-width: 40px;
   padding: 6px;
 }
 .tbldeletebtn:hover {
-  background: linear-gradient(to bottom, #ff2200, #6a0e00)
+  background: linear-gradient(to bottom, red, var(--darkRed))
 }
