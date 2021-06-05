@@ -30,14 +30,9 @@ const ScheduleForm = (props) => {
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "schedRooms") {
-      // Splits input to sessPresEmail field at commas to create an array
-      let rooms = value.split(",")
-      setSchedule({ ...schedule, schedRooms: rooms })
-    } else if (name === "schedTimes") {
-      let times = value.split(",")
-      setSchedule({ ...schedule, schedTimes: times })
-    }
+    // Splits inputs at commas to create an array
+    let array = value.split(",")
+    setSchedule({ ...schedule, [name]: array })
   };
 
   const handleFormSubmit = (e) => {
