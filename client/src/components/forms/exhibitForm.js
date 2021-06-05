@@ -303,7 +303,7 @@ const ExhibitForm = () => {
                       <Form.Text className="subtitle" muted>Please separate names with commas</Form.Text>
                       {errors.exhWorkerNames &&
                         <div className="error"><p>{errors.exhWorkerNames}</p></div>}
-                      <Form.Control required type="input" name="exhWorkerNames" placeholder="Yazmin Khan" value={exhibitor.exhWorkerNames} className="exhNameArr" onChange={handleInputChange} />
+                      <Form.Control required type="input" name="exhWorkerNames" placeholder="Yazmin Khan" value={exhibitor.exhWorkerNames.join(", ")} className="exhNameArr" onChange={handleInputChange} />
                     </Col>
                   </Form.Group>
                 </Row>
