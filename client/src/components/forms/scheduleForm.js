@@ -72,10 +72,10 @@ const ScheduleForm = (props) => {
     e.preventDefault();
     console.log("Schedule update", schedule._id);
     // PUT call to update schedule document
-    ScheduleAPI.updateScheduleById({ ...schedule }, schedule._id)
-      .then(resp => {
+    ScheduleAPI.updateAttendeeById({ ...schedule }, schedule._id)
+      .then(res => {
         // If no errors thrown, show Success modal
-        if (!resp.err) {
+        if (!res.err) {
           handleShowSuccess();
         }
       })

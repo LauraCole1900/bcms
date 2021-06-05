@@ -16,17 +16,18 @@ const ScheduleAPI = {
   },
 
 
-  // UPDATE schedule
+  // UPDATE schedule header information by schedId
   updateScheduleById: function (data, id) {
     console.log("from API updateScheduleById", data, id)
-    return axios.put(`/api/schedule/update/${id}`)
+    return axios.put(`/api/schedule/update/${id}`, data)
   },
 
-  // UPDATE schedule info by confId
-  updateScheduleByConfId: function (data, confId) {
-    console.log("from API updateScheduleByConfId", data, confId)
-    return axios.put(`/api/schedule/update/conference/${confId}`)
-  }
+  // UPDATE schedule header information by confId
+  updateScheduleByConfId: function (formData, confId) {
+    console.log("from API updateScheduleByConfId", formData, confId)
+    return axios.put(`/api/schedule/update/conference/${confId}`, formData)
+  },
+
 }
 
 export default ScheduleAPI;
