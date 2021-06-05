@@ -50,6 +50,19 @@ const SessionCard = (props) => {
     setShowErr(0);
     props.change();
   }
+  
+  // Parses time to 12-hour
+  const parseTime = (time) => {
+    const timeArr = time.split(":");
+    let hours = timeArr[0];
+    let minutes = timeArr[1];
+    const ampm = hours >= 12 ? "pm" : "am"
+    hours = hours % 12;
+    hours = hours ? hours : 12
+    minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
+    const timeStr = `${hours}:${minutes} ${ampm}`
+    return timeStr
+  };
 
   // Handles click on "Yes, delete" button on Confirm modal
   const handleSessDelete = (sessId) => {
@@ -140,8 +153,8 @@ const SessionCard = (props) => {
                   </Col>
                   <Col sm={9}>
                     <h2>{sess.sessName}</h2>
-                    <p>{fetchPresNames(sess._id).join(", ")}</p>
-                    <p>{fetchPresOrgs(sess._id).join(", ")}</p>
+                    <p>{fetchPresNames(sess._id)}</p>
+                    <p>{fetchPresOrgs(sess._id)}</p>
                   </Col>
                   <Col sm={1}>
                     {isAuthenticated &&
@@ -157,8 +170,8 @@ const SessionCard = (props) => {
                 <Row>
                   <Col sm={11}>
                     <h2>{sess.sessName}</h2>
-                    <p>{fetchPresNames(sess._id).join(", ")}</p>
-                    <p>{fetchPresOrgs(sess._id).join(", ")}</p>
+                    <p>{fetchPresNames(sess._id)}</p>
+                    <p>{fetchPresOrgs(sess._id)}</p>
                   </Col>
                   <Col sm={1}>
                     {isAuthenticated &&
@@ -176,7 +189,7 @@ const SessionCard = (props) => {
                 </Col>
                 <Col sm={4}>
                   <Row><p>Date: <Moment format="ddd, D MMM YYYY" withTitle>{sess.sessDate}</Moment></p></Row>
-                  <Row><p>Time: {sess.sessStart} - {sess.sessEnd}</p></Row>
+                  <Row><p>Time: {parseTime(sess.sessStart)} - {parseTime(sess.sessEnd)}</p></Row>
                   {props.conference[0].confType === "Live" &&
                     <Row><p>Location: {sess.sessRoom}</p></Row>}
                 </Col>
