@@ -1,12 +1,12 @@
 import React from "react";
 
-const SchedGrid = (props) => {
+const SchedGrid = ({ schedule }) => {
 
 
   return (
     <>
-      {props.sessions.map(sess => {
-        <tr key={sess._id}>
+      {schedule.map(sched => {
+        <tr key={sched._id}>
           <td></td>
         </tr>
       })

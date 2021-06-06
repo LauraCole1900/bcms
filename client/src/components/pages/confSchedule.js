@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, ButtonGroup, Table } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../cards";
 import { ScheduleForm } from "../forms";
+import SchedGrid from "../table/schedGrid.js";
 import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
@@ -106,13 +107,7 @@ const Schedule = () => {
           }
 
           <Row>
-            <Table striped border="true" hover responsive>
-              <thead>
-                <tr>
-
-                </tr>
-              </thead>
-            </Table>
+            <SchedGrid striped border="true" hover responsive schedule={schedule[0]} />
           </Row>
         </Container>}
     </>
