@@ -23,6 +23,7 @@ const Schedule = () => {
   const [schedule, setSchedule] = useState();
   const [confReady, setConfReady] = useState(false);
   const [schedReady, setSchedReady] = useState(false);
+  const dateArr = [];
 
   // Grabs conference ID from URL
   const urlArray = window.location.href.split("/")
@@ -31,20 +32,24 @@ const Schedule = () => {
   // 
 
   const fetchConf = async (id) => {
-    await ConferenceAPI.getConferenceById(id)
+    return ConferenceAPI.getConferenceById(id)
       .then(resp => {
-        console.log("from confSched getConfById", resp.data)
+        console.log("from confSched fetchConf", resp.data)
         const confObj = resp.data;
         setConference(confObj)
         setConfReady(true);
+        return confObj;
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        return false
+      })
   }
 
   const fetchSched = async (id) => {
     await ScheduleAPI.getScheduleByConfId(id)
       .then(resp => {
-        console.log("from confSched getSchedByConfId", resp.data)
+        console.log("from confSched fetchSched", resp.data)
         const schedObj = resp.data;
         setSchedule(schedObj)
         setSchedReady(true);
@@ -52,9 +57,30 @@ const Schedule = () => {
       .catch(err => console.log(err));
   }
 
+  // Creates array of dates to match to schedule grids
+  const createDateArr = async () => {
+    let conf = await fetchConf(urlId);
+    console.log({ conference })
+    if (conf[0].numDays > 1) {
+      for (var i = 0; i < conf[0].numDays; i++) {
+        let thisDate = conf[0].startDate;
+        let thisDateArr = thisDate.split("-");
+        let day = JSON.parse(thisDateArr[2])
+        day = day + i
+        thisDateArr = thisDateArr.slice(0, 2).concat(JSON.stringify(day)).join("-");
+        dateArr.push(thisDateArr);
+        console.log(dateArr);
+      }
+    } else {
+      dateArr.push(conf[0].startDate);
+      console.log(dateArr);
+    }
+  }
+
   useEffect(() => {
-    fetchConf(urlId);
+    // fetchConf(urlId);
     fetchSched(urlId);
+    createDateArr();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -106,9 +132,9 @@ const Schedule = () => {
             </Row>
           }
 
-          <Row>
+          {/* <Row>
             <SchedGrid striped border="true" hover responsive schedule={schedule[0]} />
-          </Row>
+          </Row> */}
         </Container>}
     </>
   )
