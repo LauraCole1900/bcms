@@ -2,15 +2,16 @@
   --lightSil: #e2e2e2;
   --darkSil: #878992;
   --sand: #cfbfa5;
+  --lightRed: #ff8686;
+  --red: #ff0000;
+  --darkRed: #6a0e00;
   --lightForest: #899168;
   --medForest: #2d321e;
   --darkForest: #11130b;
-  --lightRed: #ff8686;
-  --darkRed: #6a0e00;
-  --skyBlue: #408ae1;
-  --darkBlue: #032c4b;
   --greenLinkUnv: #47532b;
   --greenLinkVis: #2f3028;
+  --skyBlue: #408ae1;
+  --darkBlue: #032c4b;
 }
 
 h2 {
@@ -71,7 +72,7 @@ a:visited {
   margin: 13px;
 }
 .deletebtn:hover {
-  background: linear-gradient(to bottom, red, var(--darkRed))
+  background: linear-gradient(to bottom, var(--red), var(--darkRed))
 }
 
 .org {
@@ -121,7 +122,7 @@ a:visited {
   font-size: 14px;
   font-weight: 700;
   background-color: var(--lightRed);
-  border: 3px solid red;
+  border: 3px solid var(--red);
   padding: 0 13px;
 }
 
@@ -130,12 +131,12 @@ a:visited {
   font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 700;
   background-color: var(--lightRed);
-  border: 3px solid red;
+  border: 3px solid var(--red);
   padding: 0 13px;
 }
 
 .error {
-  background-color: red;
+  background-color: var(--red);
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
   border-radius: 5px;

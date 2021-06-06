@@ -1,23 +1,41 @@
+:root {
+  --lightSil: #e2e2e2;
+  --darkSil: #878992;
+  --sand: #cfbfa5;
+  --medSand: #a99f93;
+  --black: #000000;
+  --lightRed: #ff8686;
+  --red: #ff0000;
+  --darkRed: #6a0e00;
+  --lightForest: #899168;
+  --medForest: #2d321e;
+  --darkForest: #11130b;
+  --greenLinkUnv: #47532b;
+  --greenLinkVis: #2f3028;
+  --skyBlue: #408ae1;
+  --darkBlue: #032c4b;
+}
+
 .button {
-  color: #e2e2e2;
-  background: linear-gradient(to bottom, #899168, #2d321e);
-  border: 2px solid #11130b;
+  color: var(--lightSil);
+  background: linear-gradient(to bottom, var(--lightForest), var(--medForest));
+  border: 2px solid var(--darkForest);
   border-radius: 10px;
   margin: 5px 0 5px 0;
   font-family: "Open Sans Condensed", sans-serif;
-  box-shadow: 2px 2px 5px #11130b;
+  box-shadow: 2px 2px 5px var(--darkForest);
 }
 .button:hover {
-  color: #11130b;
-  background: linear-gradient(to bottom, #e2e2e2, #878992);
+  color: var(--darkForest);
+  background: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
 }
 .button:focus {
-  color: #11130b;
-  background: linear-gradient(to bottom, #e2e2e2, #878992);
+  color: var(--darkForest);
+  background: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
 }
 .button.active {
-  color: #11130b;
-  background: linear-gradient(to top, #e2e2e2, #878992);
+  color: var(--darkForest);
+  background: linear-gradient(to top, var(--lightSil), var(--darkSil));
 }
 
 .loading {
@@ -28,7 +46,7 @@
 
 .loadLogo {
   margin-top: 50px;
-  border: 2px solid black;
+  border: 2px solid var(--black);
   border-radius: 25px;
   max-width: 150px;
 }
@@ -39,14 +57,14 @@
 }
 
 .login {
-  color: #47532b;
+  color: var(--greenLinkUnv);
 }
 .login:hover {
-  color: #47532b;
+  color: var(--greenLinkUnv);
 }
 .login:active {
-  color: #47532b;
+  color: var(--greenLinkUnv);
 }
 .login:visited {
-  color: #47532b;
+  color: var(--greenLinkUnv);
 }
