@@ -60,7 +60,6 @@ const Schedule = () => {
   // Creates array of dates to match to schedule grids
   const createDateArr = async () => {
     let conf = await fetchConf(urlId);
-    console.log({ conference })
     if (conf[0].numDays > 1) {
       for (var i = 0; i < conf[0].numDays; i++) {
         let thisDate = conf[0].startDate;
