@@ -1,7 +1,9 @@
 :root {
   --sand: #cfbfa5;
+  --black: #000000;
   --medForest: #2d321e;
   --lightRed: #ff8686;
+  --red: #ff0000;
   --skyBlue: #408ae1;
 }
 
@@ -23,17 +25,17 @@ form {
 }
 
 .alert {
-  color: black;
+  color: var(--black);
   font-family: "Open Sans Condensed", sans-serif;
   font-size: 14px;
   font-weight: 700;
   background-color: var(--lightRed);
-  border: 3px solid red;
+  border: 3px solid var(--red);
   padding: 0 13px;
 }
 
 .red {
-  color: red;
+  color: var(--red);
 }
 
 .authRemind {
@@ -44,7 +46,7 @@ form {
 }
 
 .error {
-  background-color: red;
+  background-color: var(--red);
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
   border-radius: 5px;

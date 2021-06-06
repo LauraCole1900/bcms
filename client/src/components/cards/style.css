@@ -2,14 +2,14 @@
   --lightSil: #e2e2e2;
   --darkSil: #878992;
   --sand: #cfbfa5;
+  --black: #000000;
   --lightRed: #ff8686;
   --red: #ff0000;
   --darkRed: #6a0e00;
   --lightForest: #899168;
-  --medForest: #2d321e;
+  --ltMedForest: #47532b;
+  --dkMedForest: #2d321e;
   --darkForest: #11130b;
-  --greenLinkUnv: #47532b;
-  --greenLinkVis: #2f3028;
   --skyBlue: #408ae1;
   --darkBlue: #032c4b;
 }
@@ -27,16 +27,16 @@ p {
 }
 
 a {
-  color: var(--greenLinkUnv);
+  color: var(--ltMedForest);
 }
 a:hover {
-  color: var(--greenLinkVis);
+  color: var(--dkMedForest);
 }
 a:active{
-  color: var(--greenLinkVis);
+  color: var(--dkMedForest);
 }
 a:visited {
-  color: var(--greenLinkVis);
+  color: var(--dkMedForest);
 }
 
 .infoCard {
@@ -117,7 +117,7 @@ a:visited {
 }
 
 .alert {
-  color: black;
+  color: var(--black);
   font-family: 'Open Sans Condensed', sans-serif;
   font-size: 14px;
   font-weight: 700;
@@ -127,7 +127,7 @@ a:visited {
 }
 
 .cancel {
-  color: black;
+  color: var(--black);
   font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 700;
   background-color: var(--lightRed);

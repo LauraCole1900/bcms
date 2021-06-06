@@ -1,4 +1,6 @@
 :root {
+  --red: #ff0000;
+  --green: #008000;
   --skyBlue: #408ae1;
 }
 
@@ -27,12 +29,12 @@ h4 {
 }
 
 .green {
-  color: green;
+  color: var(--green);
   width: 50%;
 }
 
 .red {
-  color: red;
+  color: var(--red);
   width: 50%;
 }
 

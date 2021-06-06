@@ -7,18 +7,18 @@
   --lightRed: #ff8686;
   --red: #ff0000;
   --darkRed: #6a0e00;
+  --green: #008000;
   --lightForest: #899168;
-  --medForest: #2d321e;
+  --ltMedForest: #47532b;
+  --dkMedForest: #2d321e;
   --darkForest: #11130b;
-  --greenLinkUnv: #47532b;
-  --greenLinkVis: #2f3028;
   --skyBlue: #408ae1;
   --darkBlue: #032c4b;
 }
 
 .button {
   color: var(--lightSil);
-  background: linear-gradient(to bottom, var(--lightForest), var(--medForest));
+  background: linear-gradient(to bottom, var(--lightForest), var(--dkMedForest));
   border: 2px solid var(--darkForest);
   border-radius: 10px;
   margin: 5px 0 5px 0;
@@ -57,14 +57,14 @@
 }
 
 .login {
-  color: var(--greenLinkUnv);
+  color: var(--ltMedForest);
 }
 .login:hover {
-  color: var(--greenLinkUnv);
+  color: var(--ltMedForest);
 }
 .login:active {
-  color: var(--greenLinkUnv);
+  color: var(--ltMedForest);
 }
 .login:visited {
-  color: var(--greenLinkUnv);
+  color: var(--ltMedForest);
 }

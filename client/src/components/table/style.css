@@ -2,13 +2,15 @@
   --lightSil: #e2e2e2;
   --darkSil: #878992;
   --sand: #cfbfa5;
+  --black: #000000;
   --lightForest: #899168;
   --medForest: #2d321e;
+  --red: #ff0000;
   --darkRed: #6a0e00;
 }
 
 td {
-  border: 1px solid black;
+  border: 1px solid var(--black);
   font-family: "Open Sans Condensed", sans-serif;
 }
 
