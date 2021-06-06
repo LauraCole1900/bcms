@@ -2,6 +2,7 @@
   --lightSil: #e2e2e2;
   --darkSil: #878992;
   --sand: #cfbfa5;
+  --darkSand: #6d6860;
   --black: #000000;
   --lightRed: #ff8686;
   --red: #ff0000;
@@ -11,6 +12,7 @@
   --dkMedForest: #2d321e;
   --darkForest: #11130b;
   --skyBlue: #408ae1;
+  --medBlue: #185196;
   --darkBlue: #032c4b;
 }
 
@@ -27,16 +29,16 @@ p {
 }
 
 a {
-  color: var(--ltMedForest);
+  color: var(--medBlue);
 }
 a:hover {
-  color: var(--dkMedForest);
+  color: var(--ltMedForest);
 }
 a:active{
-  color: var(--dkMedForest);
+  color: var(--ltMedForest);
 }
 a:visited {
-  color: var(--dkMedForest);
+  color: var(--ltMedForest);
 }
 
 .infoCard {
@@ -49,7 +51,7 @@ a:visited {
 
 .cardTitle {
   color: var(--sand);
-  background: linear-gradient(to top, var(--lightForest), var(--medForest));
+  background: linear-gradient(to top, var(--lightForest), var(--dkMedForest));
   border-radius: 11px 11px 0 0;
   margin-right: -25px;
 }
@@ -67,7 +69,7 @@ a:visited {
 
 .deletebtn {
   color: var(--sand);
-  background: linear-gradient(to bottom, var(--lightForest), var(--medForest));
+  background: linear-gradient(to bottom, var(--lightForest), var(--dkMedForest));
   float: right;
   margin: 13px;
 }

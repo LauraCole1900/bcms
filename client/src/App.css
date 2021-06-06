@@ -3,6 +3,7 @@
   --darkSil: #878992;
   --sand: #cfbfa5;
   --medSand: #a99f93;
+  --darkSand: #6d6860;
   --black: #000000;
   --lightRed: #ff8686;
   --red: #ff0000;
@@ -13,6 +14,7 @@
   --dkMedForest: #2d321e;
   --darkForest: #11130b;
   --skyBlue: #408ae1;
+  --medBlue: #185196;
   --darkBlue: #032c4b;
 }
 
@@ -57,14 +59,14 @@
 }
 
 .login {
-  color: var(--ltMedForest);
+  color: var(--skyBlue);
 }
 .login:hover {
-  color: var(--ltMedForest);
+  color: var(--medBlue);
 }
 .login:active {
-  color: var(--ltMedForest);
+  color: var(--medBlue);
 }
 .login:visited {
-  color: var(--ltMedForest);
+  color: var(--skyBlue);
 }

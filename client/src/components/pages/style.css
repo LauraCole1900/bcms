@@ -1,7 +1,7 @@
 :root {
   --red: #ff0000;
   --green: #008000;
-  --skyBlue: #408ae1;
+  --ltMedForest: #47532b;
 }
 
 h1 {
@@ -22,7 +22,7 @@ h4 {
 }
 
 .regRemind {
-  color: var(--skyBlue);
+  color: var(--ltMedForest);
   text-align: center;
   font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
