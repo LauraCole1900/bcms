@@ -57,7 +57,7 @@ const Schedule = () => {
       .catch(err => console.log(err));
   }
 
-  // Creates array of dates to match to schedule grids
+  // Creates array of dates to map over to create schedule grids
   const createDateArr = async () => {
     let conf = await fetchConf(urlId);
     if (conf[0].numDays > 1) {
