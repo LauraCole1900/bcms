@@ -17,13 +17,10 @@
 }
 
 h2 {
-  font-family: 'Bilbo Swash Caps', cursive;
   margin: 13px 0 0 13px;
 }
 
 p {
-  font-size: 16px;
-  font-family: "Open Sans Condensed", sans-serif;
   margin-left: 13px;
   font-weight: 600;
 }
@@ -83,20 +80,11 @@ a:visited {
 
 .infoCardBody {
   color: var(--darkForest);
-  font-family: "Open Sans Condensed", sans-serif;
   margin: 5px 0;
 }
 
 .title {
   width: 100%;
-  font-family: 'Bilbo Swash Caps', cursive;
-}
-
-.userCard {
-  color: var(--darkForest);
-  border: 2px solid var(--darkForest);
-  border-radius: 12px;
-  background: linear-gradient(to top, var(--lightSil), var(--darkSil));
 }
 
 .profilePic {
@@ -108,19 +96,8 @@ a:visited {
   margin-left: 10px;
 }
 
-.userName {
-  font-family: 'Bilbo Swash Caps', cursive;
-  font-size: 48px;
-}
-
-.userEmail {
-  font-family: "Open Sans Condensed", sans-serif;
-  font-size: 18px;
-}
-
 .alert {
   color: var(--black);
-  font-family: 'Open Sans Condensed', sans-serif;
   font-size: 14px;
   font-weight: 700;
   background-color: var(--lightRed);
@@ -130,7 +107,6 @@ a:visited {
 
 .cancel {
   color: var(--black);
-  font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 700;
   background-color: var(--lightRed);
   border: 3px solid var(--red);
@@ -139,7 +115,6 @@ a:visited {
 
 .error {
   background-color: var(--red);
-  font-family: "Open Sans Condensed", sans-serif;
   font-weight: bolder;
   border-radius: 5px;
 }

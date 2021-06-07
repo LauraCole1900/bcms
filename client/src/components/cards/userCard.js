@@ -33,8 +33,8 @@ const UserCard = () => {
               <Image fluid="true" className="profilePic" src={userInfo.picture} alt="Profile picture" />
             </Col>
             <Col sm={5} className="userInfo">
-              <h1 className="userName">{userInfo.given_name} {userInfo.family_name}</h1>
-              <h3 className="userEmail">{userInfo.email}</h3>
+              <h2>{userInfo.given_name} {userInfo.family_name}</h2>
+              <h4>{userInfo.email}</h4>
               <Link to={{
                 state: { ...userInfo },
                 pathname: "/update_user"
