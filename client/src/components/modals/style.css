@@ -5,10 +5,7 @@
   --darkRed: #6a0e00;
   --lightForest: #899168;
   --medForest: #2d321e;
-}
-
-h3 {
-  font-family: "Open Sans Condensed", sans-serif;
+  --greenGradientUp: linear-gradient(to top, var(--lightForest), var(--medForest));
 }
 
 .modal {
@@ -25,13 +22,16 @@ h3 {
 
 .modalHead {
   color: var(--lightSil);
-  background: linear-gradient(to top, var(--lightForest), var(--medForest));
+  background: var(--greenGradientUp);
   display: flex;
   align-items: center;
   border-radius: 10px 10px 0 0;
 }
 
-.modalTitle {
+.modalHeadConf {
+  color: var(--lightSil);
+  background: linear-gradient(to bottom, var(--red), var(--darkRed));
+  border-radius: 10px 10px 0 0;
   display: flex;
   align-items: center;
 }
@@ -46,10 +46,7 @@ h3 {
   border: 0;
 }
 
-.modalHeadConf {
-  color: var(--lightSil);
-  background: linear-gradient(to bottom, var(--red), var(--darkRed));
-  border-radius: 10px 10px 0 0;
+.modalTitle {
   display: flex;
   align-items: center;
 }
