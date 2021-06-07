@@ -52,7 +52,7 @@ const Navigation = () => {
             }
           </Navbar.Text>
           <Nav className="navobj">
-            <Navbar.Toggle fluid="true" aria-controls="basic-navbar-nav" className="toggle" />
+            <Navbar.Toggle fluid="true" aria-controls="basic-navbar-nav" className="toggle" data-toggle="popover" title="Show Menu" />
             <Navbar.Collapse id="basic-navbar-nav" className="navobject">
               {isAuthenticated &&
                 <Link to="/profile" className={location.pathname === "/profile" ? "navlink placelink active" : "navlink placelink"}>

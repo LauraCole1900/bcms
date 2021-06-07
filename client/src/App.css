@@ -24,7 +24,7 @@
   --blueGradientUp: linear-gradient(to top, var(--skyBlue), var(--darkBlue));
 }
 
-h1, h2 {
+h1, h2, .mylogo {
   font-family: 'Bilbo Swash Caps', cursive;
 }
 
@@ -36,7 +36,7 @@ h2 {
   font-size: 40px;
 }
 
-h3, h4, h5, p, form, .alert, .authRemind, .cancel, .error, .regRemind {
+h3, h4, h5, p, form, .alert, .authRemind, .cancel, .error, .hello, .navlink, .regRemind {
   font-family: "Open Sans Condensed", sans-serif;
 }
 
