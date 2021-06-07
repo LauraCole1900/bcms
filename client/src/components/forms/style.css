@@ -12,6 +12,12 @@ form {
   font-weight: bold;
 }
 
+.authRemind {
+  color: var(--skyBlue);
+  text-align: center;
+  font-weight: bolder;
+}
+
 .formCard {
   background-color: var(--sand);
   border: 5px solid var(--medForest);
@@ -19,16 +25,10 @@ form {
   padding: 0 15px;
 }
 
-.rowSpace {
-  margin-bottom: 12px;
-}
-
 .red {
   color: var(--red);
 }
 
-.authRemind {
-  color: var(--skyBlue);
-  text-align: center;
-  font-weight: bolder;
+.rowSpace {
+  margin-bottom: 12px;
 }
