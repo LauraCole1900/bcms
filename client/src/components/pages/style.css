@@ -4,15 +4,6 @@
   --ltMedForest: #47532b;
 }
 
-.myConfs, .regRemind {
-  text-align: center;
-}
-
-.regRemind {
-  color: var(--ltMedForest);
-  font-weight: bolder;
-}
-
 .green {
   color: var(--green);
   width: 50%;
@@ -27,12 +18,21 @@
   font-weight: 700;
 }
 
+.flexCenter {
+  display: flex;
+  justify-content: center;
+}
+
 .flexEnd {
   display: flex;
   justify-content: flex-end;
 }
 
-.flexCenter {
-  display: flex;
-  justify-content: center;
+.myConfs, .regRemind {
+  text-align: center;
+}
+
+.regRemind {
+  color: var(--ltMedForest);
+  font-weight: bolder;
 }
