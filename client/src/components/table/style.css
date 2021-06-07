@@ -1,5 +1,6 @@
 :root {
   --lightSil: #e2e2e2;
+  --medSil: #a9a9a9;
   --darkSil: #878992;
   --sand: #cfbfa5;
   --black: #000000;
@@ -7,18 +8,16 @@
   --medForest: #2d321e;
   --red: #ff0000;
   --darkRed: #6a0e00;
+  --silverGradientDown: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
+  --redGradientDown: linear-gradient(to bottom, var(--red), var(--darkRed));
+  --greenGradientDown: linear-gradient(to bottom, var(--lightForest), var(--medForest));
 }
 
 td {
   border: 1px solid var(--black);
-  font-family: "Open Sans Condensed", sans-serif;
 }
 
-.tHead {
-  cursor: pointer;
-}
-
-.center {
+.adminCheck, .center {
   text-align: center;
 }
 
@@ -28,19 +27,14 @@ td {
 }
 
 .subhead {
-  color: darkgray;
+  color: var(--medSil);
   margin-bottom: 0;
   display: flex;
   justify-self: flex-start;
   align-self: flex-end;
 }
 
-.adminCheck {
-  text-align: center;
-}
-
 .tableComm {
-  font-family: "Open Sans Condensed", sans-serif;
   font-size: 24px;
   border: none;
 }
@@ -49,24 +43,22 @@ td {
   max-width: 20px;
 }
 
-.tbleditbtn {
+.tbldeletebtn, .tbleditbtn {
   color: var(--sand);
-  background: linear-gradient(to bottom, var(--lightForest), var(--medForest));
+  background: var(--greenGradientDown);
   float: right;
   max-width: 40px;
   padding: 6px;
-}
-.tbleditbtn:hover {
-  background: linear-gradient(to bottom, var(--lightSil), var(--darkSil))
 }
 
-.tbldeletebtn {
-  color: var(--sand);
-  background: linear-gradient(to bottom, var(--lightForest), var(--medForest));
-  float: right;
-  max-width: 40px;
-  padding: 6px;
-}
 .tbldeletebtn:hover {
-  background: linear-gradient(to bottom, red, var(--darkRed))
+  background: var(--redGradientDown)
+}
+
+.tbleditbtn:hover {
+  background: var(--silverGradientDown)
+}
+
+.tHead {
+  cursor: pointer;
 }

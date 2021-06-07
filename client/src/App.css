@@ -1,5 +1,6 @@
 :root {
   --lightSil: #e2e2e2;
+  --medSil: #a9a9a9;
   --darkSil: #878992;
   --sand: #cfbfa5;
   --medSand: #a99f93;
@@ -36,7 +37,7 @@ h2 {
   font-size: 40px;
 }
 
-h3, h4, h5, p, form, .alert, .authRemind, .cancel, .error, .hello, .navlink, .regRemind {
+h3, h4, h5, p, form, td, .alert, .authRemind, .cancel, .error, .hello, .navlink, .regRemind, .tableComm {
   font-family: "Open Sans Condensed", sans-serif;
 }
 
