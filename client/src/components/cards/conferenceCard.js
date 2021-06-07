@@ -187,7 +187,7 @@ const ConferenceCard = (props) => {
             <Card.Header className="cardTitle">
               <Row>
                 <Col sm={11}>
-                  <h2>{conf.confName}</h2>
+                  <h2 className="title">{conf.confName}</h2>
                   <p className="org">Presented by {conf.confOrg}</p>
                 </Col>
                 <Col sm={1}>

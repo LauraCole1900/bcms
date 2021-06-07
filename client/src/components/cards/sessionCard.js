@@ -132,7 +132,7 @@ const SessionCard = (props) => {
                     <h3>&nbsp;Keynote:</h3>
                   </Col>
                   <Col sm={9}>
-                    <h2>{sess.sessName}</h2>
+                    <h2 className="title">{sess.sessName}</h2>
                     <p>{fetchPresNames(sess._id)}</p>
                     <p>{fetchPresOrgs(sess._id)}</p>
                   </Col>
@@ -152,7 +152,7 @@ const SessionCard = (props) => {
                     <h3>&nbsp;Panel:</h3>
                   </Col>
                   <Col sm={9}>
-                    <h2>{sess.sessName}</h2>
+                    <h2 className="title">{sess.sessName}</h2>
                     <p>{fetchPresNames(sess._id)}</p>
                     <p>{fetchPresOrgs(sess._id)}</p>
                   </Col>
@@ -169,7 +169,7 @@ const SessionCard = (props) => {
               <Card.Header className="cardTitle">
                 <Row>
                   <Col sm={11}>
-                    <h2>{sess.sessName}</h2>
+                    <h2 className="title">{sess.sessName}</h2>
                     <p>{fetchPresNames(sess._id)}</p>
                     <p>{fetchPresOrgs(sess._id)}</p>
                   </Col>

@@ -30,7 +30,7 @@ const PresenterCard = (props) => {
                 <Card.Header className="cardTitleKeynote">
                   <Row>
                     <Col sm={12}>
-                      <h2>{pres.presGivenName} {pres.presFamilyName}, Keynote Speaker</h2>
+                      <h2 className="title">{pres.presGivenName} {pres.presFamilyName}, Keynote Speaker</h2>
                       <p>{pres.presOrg}</p>
                     </Col>
                   </Row>
@@ -41,7 +41,7 @@ const PresenterCard = (props) => {
                 <Card.Header className="cardTitle">
                   <Row>
                     <Col sm={12}>
-                      <h2>{pres.presGivenName} {pres.presFamilyName}</h2>
+                      <h2 className="title">{pres.presGivenName} {pres.presFamilyName}</h2>
                       <p>{pres.presOrg}</p>
                     </Col>
                   </Row>
