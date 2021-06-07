@@ -30,12 +30,26 @@ h2 {
   font-size: 40px;
 }
 
-h3, h4, h5, p, .regRemind, .alert, .cancel, .error {
+h3, h4, h5, p, form, .alert, .authRemind, .cancel, .error, .regRemind {
   font-family: "Open Sans Condensed", sans-serif;
 }
 
 p {
   font-size: 16px;
+}
+
+.alert {
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 700;
+  background-color: var(--lightRed);
+  border: 3px solid var(--red);
+  padding: 0 13px;
+}
+
+.authLogo {
+  display: flex;
+  justify-content: center;
 }
 
 .button {
@@ -60,6 +74,12 @@ p {
   background: linear-gradient(to top, var(--lightSil), var(--darkSil));
 }
 
+.error {
+  background-color: var(--red);
+  font-weight: bolder;
+  border-radius: 5px;
+}
+
 .loading {
   text-align: center;
   vertical-align: middle;
@@ -71,11 +91,6 @@ p {
   border: 2px solid var(--black);
   border-radius: 25px;
   max-width: 150px;
-}
-
-.authLogo {
-  display: flex;
-  justify-content: center;
 }
 
 .login {

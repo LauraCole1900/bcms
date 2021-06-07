@@ -96,27 +96,12 @@ a:visited {
   margin-left: 10px;
 }
 
-.alert {
-  color: var(--black);
-  font-size: 14px;
-  font-weight: 700;
-  background-color: var(--lightRed);
-  border: 3px solid var(--red);
-  padding: 0 13px;
-}
-
 .cancel {
   color: var(--black);
   font-weight: 700;
   background-color: var(--lightRed);
   border: 3px solid var(--red);
   padding: 0 13px;
-}
-
-.error {
-  background-color: var(--red);
-  font-weight: bolder;
-  border-radius: 5px;
 }
 
 .presPic {
