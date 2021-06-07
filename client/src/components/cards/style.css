@@ -14,6 +14,11 @@
   --skyBlue: #408ae1;
   --medBlue: #185196;
   --darkBlue: #032c4b;
+  --silverGradientDown: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
+  --redGradientDown: linear-gradient(to bottom, var(--red), var(--darkRed));
+  --greenGradientUp: linear-gradient(to top, var(--lightForest), var(--medForest));
+  --greenGradientDown: linear-gradient(to bottom, var(--lightForest), var(--medForest));
+  --blueGradientUp: linear-gradient(to top, var(--skyBlue), var(--darkBlue));
 }
 
 h2 {
@@ -39,7 +44,7 @@ a:visited {
 }
 
 .infoCard {
-  background: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
+  background: var(--silverGradientDown);
   border: 2px solid var(--darkForest);
   border-radius: 12px;
   margin: 5px 0;
@@ -48,14 +53,14 @@ a:visited {
 
 .cardTitle {
   color: var(--sand);
-  background: linear-gradient(to top, var(--lightForest), var(--dkMedForest));
+  background: var(--greenGradientUp);
   border-radius: 11px 11px 0 0;
   margin-right: -25px;
 }
 
 .cardTitleKeynote {
   color: var(--sand);
-  background: linear-gradient(to top, var(--skyBlue), var(--darkBlue));
+  background: var(--blueGradientUp);
   border-radius: 11px 11px 0 0;
   margin-right: -25px;
 }
@@ -66,12 +71,12 @@ a:visited {
 
 .deletebtn {
   color: var(--sand);
-  background: linear-gradient(to bottom, var(--lightForest), var(--dkMedForest));
+  background: var(--greenGradientDown);
   float: right;
   margin: 13px;
 }
 .deletebtn:hover {
-  background: linear-gradient(to bottom, var(--red), var(--darkRed))
+  background: var(--redGradientDown);
 }
 
 .org {
