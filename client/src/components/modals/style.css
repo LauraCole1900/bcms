@@ -5,7 +5,11 @@
   --darkRed: #6a0e00;
   --lightForest: #899168;
   --medForest: #2d321e;
+  --silverGradientUp: linear-gradient(to top, var(--lightSil), var(--darkSil));
+  --silverGradientDown: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
+  --redGradientDown: linear-gradient(to bottom, var(--red), var(--darkRed));
   --greenGradientUp: linear-gradient(to top, var(--lightForest), var(--medForest));
+  
 }
 
 .modal {
@@ -15,30 +19,14 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 
+.modalBody {
+  background: var(--silverGradientUp);
+  border-radius: 0 0 10px 10px;
+}
+
 .modal-content {
   border: 1px solid var(--lightSil);
   border-radius: 10px;
-}
-
-.modalHead {
-  color: var(--lightSil);
-  background: var(--greenGradientUp);
-  display: flex;
-  align-items: center;
-  border-radius: 10px 10px 0 0;
-}
-
-.modalHeadConf {
-  color: var(--lightSil);
-  background: linear-gradient(to bottom, var(--red), var(--darkRed));
-  border-radius: 10px 10px 0 0;
-  display: flex;
-  align-items: center;
-}
-
-.modalBody {
-  background: linear-gradient(to top, var(--lightSil), var(--darkSil));
-  border-radius: 0 0 10px 10px;
 }
 
 .modalFooter {
@@ -46,7 +34,20 @@
   border: 0;
 }
 
-.modalTitle {
+.modalHead, .modalHeadConf, .modalTitle {
   display: flex;
   align-items: center;
+}
+
+.modalHead, .modalHeadConf {
+  color: var(--lightSil);
+  border-radius: 10px 10px 0 0;
+}
+
+.modalHead {
+  background: var(--greenGradientUp);
+}
+
+.modalHeadConf {
+  background: var(--redGradientDown);
 }

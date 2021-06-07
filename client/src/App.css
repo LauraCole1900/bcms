@@ -16,6 +16,7 @@
   --skyBlue: #408ae1;
   --medBlue: #185196;
   --darkBlue: #032c4b;
+  --silverGradientUp: linear-gradient(to top, var(--lightSil), var(--darkSil));
   --silverGradientDown: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
   --redGradientDown: linear-gradient(to bottom, var(--red), var(--darkRed));
   --greenGradientUp: linear-gradient(to top, var(--lightForest), var(--medForest));
