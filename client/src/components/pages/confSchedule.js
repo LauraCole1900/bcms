@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, ButtonGroup, Table } from "react-bootstrap";
+import Moment from "react-moment";
 import { ConferenceCard, UserCard } from "../cards";
 import { ScheduleForm } from "../forms";
 import SchedGrid from "../table/schedGrid.js";
@@ -23,6 +24,7 @@ const Schedule = () => {
   const [schedule, setSchedule] = useState();
   const [confReady, setConfReady] = useState(false);
   const [schedReady, setSchedReady] = useState(false);
+  const [dateReady, setDateReady] = useState(false);
   const dateArr = [];
 
   // Grabs conference ID from URL
@@ -60,19 +62,26 @@ const Schedule = () => {
   // Creates array of dates to map over to create schedule grids
   const createDateArr = async () => {
     let conf = await fetchConf(urlId);
-    if (conf[0].numDays > 1) {
-      for (var i = 0; i < conf[0].numDays; i++) {
-        let thisDate = conf[0].startDate;
-        let thisDateArr = thisDate.split("-");
-        let day = JSON.parse(thisDateArr[2])
-        day = day + i
-        thisDateArr = thisDateArr.slice(0, 2).concat(JSON.stringify(day)).join("-");
-        dateArr.push(thisDateArr);
+    switch (conf[0].numDays) {
+      case 1:
+        dateArr.push(conf[0].startDate);
         console.log(dateArr);
-      }
-    } else {
-      dateArr.push(conf[0].startDate);
-      console.log(dateArr);
+        setDateReady(true);
+        return dateArr;
+      default:
+        for (var i = 0; i < conf[0].numDays; i++) {
+          let thisDate = conf[0].startDate;
+          let thisDateArr = thisDate.split("-");
+          let day = JSON.parse(thisDateArr[2])
+          day = day + i
+          thisDateArr = thisDateArr.slice(0, 2).concat(JSON.stringify(day)).join("-");
+          dateArr.push(thisDateArr);
+          console.log(dateArr);
+          if (dateArr.length === conf[0].numDays) {
+            setDateReady(true)
+            return dateArr;
+          }
+        }
     }
   }
 
@@ -89,6 +98,7 @@ const Schedule = () => {
     <>
       {confReady === true &&
         schedReady === true &&
+        dateReady === true &&
         <Container>
           <Row>
             {isAuthenticated &&
@@ -131,9 +141,17 @@ const Schedule = () => {
             </Row>
           }
 
-          {/* <Row>
-            <SchedGrid striped border="true" hover responsive schedule={schedule[0]} />
-          </Row> */}
+          {dateArr.map(date => (
+            <>
+              <Row>
+                <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
+              </Row>
+              <Row>
+                <SchedGrid striped border="true" hover responsive schedule={schedule[0]} dates={dateArr} />
+              </Row>
+            </>
+          ))}
+
         </Container>}
     </>
   )
