@@ -22,6 +22,7 @@ const Schedule = () => {
   const location = useLocation();
   const [conference, setConference] = useState();
   const [schedule, setSchedule] = useState();
+  const [dates, setDates] = useState([]);
   const [confReady, setConfReady] = useState(false);
   const [schedReady, setSchedReady] = useState(false);
   const [dateReady, setDateReady] = useState(false);
@@ -65,7 +66,8 @@ const Schedule = () => {
     switch (conf[0].numDays) {
       case 1:
         dateArr.push(conf[0].startDate);
-        console.log(dateArr);
+        console.log({ dateArr });
+        setDates(dateArr);
         setDateReady(true);
         return dateArr;
       default:
@@ -76,8 +78,9 @@ const Schedule = () => {
           day = day + i
           thisDateArr = thisDateArr.slice(0, 2).concat(JSON.stringify(day)).join("-");
           dateArr.push(thisDateArr);
-          console.log(dateArr);
           if (dateArr.length === conf[0].numDays) {
+            console.log({ dateArr });
+            setDates(dateArr);
             setDateReady(true)
             return dateArr;
           }
@@ -89,6 +92,7 @@ const Schedule = () => {
     // fetchConf(urlId);
     fetchSched(urlId);
     createDateArr();
+    console.log({ dateArr });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -141,15 +145,15 @@ const Schedule = () => {
             </Row>
           }
 
-          {dateArr.map(date => (
-            <>
-              <Row>
-                <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
-              </Row>
-              <Row>
-                <SchedGrid striped border="true" hover responsive schedule={schedule[0]} dates={dateArr} />
-              </Row>
-            </>
+          {dates.map(date => (
+          <>
+            <Row>
+              <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
+            </Row>
+            <Row>
+              <SchedGrid striped border="true" hover responsive schedule={schedule[0]} dates={date} />
+            </Row>
+          </>
           ))}
 
         </Container>}

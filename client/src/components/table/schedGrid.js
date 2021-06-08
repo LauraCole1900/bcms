@@ -7,13 +7,11 @@ const SchedGrid = (props) => {
 
   return (
     <>
-      {props.schedule.map((sched, idx) => (
+      {props.schedule.schedRooms.map((sched, idx) => (
         <>
           <tr key={idx}>
             <th></th>
-            {sched.schedRooms.map((room, ridx) => (
-              <th key={ridx} value={room.value} className="tHead" scope="column">{room}</th>
-            ))}
+
           </tr>
         </>
       ))
