@@ -21,15 +21,15 @@ td {
   text-align: center;
 }
 
-.instr {
-  display: flex;
-  align-items: center;
-}
-
 .allergyWarn {
   display: flex;
   justify-content: flex-end;
   color: var(--red);
+}
+
+.instr {
+  display: flex;
+  align-items: center;
 }
 
 .subhead {
