@@ -92,7 +92,6 @@ const Schedule = () => {
     // fetchConf(urlId);
     fetchSched(urlId);
     createDateArr();
-    console.log({ dateArr });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -151,7 +150,7 @@ const Schedule = () => {
               <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
             </Row>
             <Row>
-              <SchedGrid striped border="true" hover responsive schedule={schedule[0]} dates={date} />
+              <SchedGrid schedule={schedule[0]} dates={date} />
             </Row>
           </>
           ))}
