@@ -26,6 +26,12 @@ td {
   align-items: center;
 }
 
+.allergyWarn {
+  display: flex;
+  justify-content: flex-end;
+  color: var(--red);
+}
+
 .subhead {
   color: var(--medSil);
   margin-bottom: 0;

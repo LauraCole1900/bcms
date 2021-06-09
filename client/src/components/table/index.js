@@ -389,7 +389,9 @@ const TableComp = (e) => {
             </Col>
           </Row>
           <Row className="instr">
-            <Col sm={3}>
+            <Col sm={12}>
+              {dataSet === "attendees" &&
+                <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
               <p className="subhead">Click column headers to sort</p>
             </Col>
           </Row>
