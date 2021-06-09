@@ -21,10 +21,12 @@ const Schedule = () => {
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
   const [conference, setConference] = useState();
+  const [sessions, setSessions] = useState();
   const [schedule, setSchedule] = useState();
   const [dates, setDates] = useState([]);
   const [confReady, setConfReady] = useState(false);
   const [schedReady, setSchedReady] = useState(false);
+  const [sessReady, setSessReady] = useState(false);
   const [dateReady, setDateReady] = useState(false);
   const dateArr = [];
 
@@ -60,6 +62,16 @@ const Schedule = () => {
       .catch(err => console.log(err));
   }
 
+  const fetchSess = async (id) => {
+    await SessionAPI.getSessions(id)
+      .then(resp => {
+        console.log("from confSched fetchSess", resp.data)
+        const sessArr = resp.data;
+        setSessions(sessArr);
+        setSessReady(true);
+      })
+  }
+
   // Creates array of dates to map over to create schedule grids
   const createDateArr = async () => {
     let conf = await fetchConf(urlId);
@@ -89,8 +101,8 @@ const Schedule = () => {
   }
 
   useEffect(() => {
-    // fetchConf(urlId);
     fetchSched(urlId);
+    fetchSess(urlId);
     createDateArr();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -101,6 +113,7 @@ const Schedule = () => {
     <>
       {confReady === true &&
         schedReady === true &&
+        sessReady === true &&
         dateReady === true &&
         <Container>
           <Row>
@@ -144,15 +157,15 @@ const Schedule = () => {
             </Row>
           }
 
-          {dates.map(date => (
-          <>
-            <Row>
-              <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
-            </Row>
-            <Row>
-              <SchedGrid schedule={schedule[0]} dates={date} />
-            </Row>
-          </>
+          {dates.map((date, idx) => (
+            <React.Fragment key={idx}>
+              <Row>
+                <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
+              </Row>
+              <Row>
+                <SchedGrid schedule={schedule[0]} dates={date} />
+              </Row>
+            </React.Fragment>
           ))}
 
         </Container>}
