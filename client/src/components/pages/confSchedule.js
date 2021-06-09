@@ -131,9 +131,6 @@ const Schedule = () => {
           <Row>
             <Col sm={4}>
               <ButtonGroup data-toggle="popover">
-                <Link to={`/details/${urlId}`} className={location.pathname === `/details/${urlId}` ? "link active" : "link"}>
-                  <Button title="View details" className="button">Details</Button>
-                </Link>
                 <Link to={`/venue/${urlId}`} className={location.pathname === `/venue/${urlId}` ? "link active" : "link"}>
                   <Button title="Venue information" className="button">Venue</Button>
                 </Link>
@@ -157,7 +154,7 @@ const Schedule = () => {
             </Row>
           }
 
-          {(schedule.schedRooms && schedule.schedTimes)
+          {schedule.length > 0
             ? <>
               {dates.map((date, idx) => (
                 <React.Fragment key={idx}>
