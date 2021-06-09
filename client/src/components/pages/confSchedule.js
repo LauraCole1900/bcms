@@ -157,16 +157,20 @@ const Schedule = () => {
             </Row>
           }
 
-          {dates.map((date, idx) => (
-            <React.Fragment key={idx}>
-              <Row>
-                <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
-              </Row>
-              <Row>
-                <SchedGrid schedule={schedule[0]} dates={date} />
-              </Row>
-            </React.Fragment>
-          ))}
+          {(schedule.schedRooms && schedule.schedTimes)
+            ? <>
+              {dates.map((date, idx) => (
+                <React.Fragment key={idx}>
+                  <Row>
+                    <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
+                  </Row>
+                  <Row>
+                    <SchedGrid schedule={schedule[0]} dates={date} />
+                  </Row>
+                </React.Fragment>
+              ))}
+            </>
+            : <h3>We can't seem to find a schedule for this conference. If you think this is an error, please contact us.</h3>}
 
         </Container>}
     </>
