@@ -17,7 +17,7 @@ const SchedGrid = (props) => {
           <tr key={tidx}>
             <th className="schHead center" value={time.value}>{time}</th>
             {props.schedule.schedRooms.map((room, rdidx) => (
-            <td data-room={room[rdidx]} data-time={time}></td>))}
+              <td data-room={room} data-time={time}></td>))}
           </tr>
         ))}
       </Table>
