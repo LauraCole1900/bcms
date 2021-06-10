@@ -101,7 +101,6 @@ const ConfDetails = () => {
   }
 
   // Filter presenter data by user input
-  // How to display both searched presenters AND their sessions?
   const searchPres = (data) => {
     switch (searchBy) {
       // Filter presenter names
@@ -113,6 +112,28 @@ const ConfDetails = () => {
       // Return all response data
       default:
         return (presArray)
+    }
+  }
+
+  // Filter sessions by presenter name or presenter org
+  const searchSessPres = (data) => {
+    switch (searchBy) {
+      case "sessionPresenter":
+        let sessArr = [];
+        if (data !== undefined) {
+          const pres = data.filter((presenter) => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+          pres.presSessionIds.forEach(id => {
+            let session = sessArray.map(sess => sess._id === id)
+            sessArr = [...sessArr, session]
+            if (sessArr.length === pres.presSessionIds.length) {
+              return sessArr;
+            }
+          })
+        }
+        break;
+      case "sessionOrg":
+        break;
+      default:
     }
   }
 
@@ -242,6 +263,7 @@ const ConfDetails = () => {
                             <option value="presenterOrg">Search by Presenter Organization</option>
                             <option value="sessionName">Search Sessions by Name</option>
                             <option value="sessionPresenter">Search Sessions by Presenter's Last Name</option>
+                            <option value="sessionOrg">Search Sessions by Organization</option>
                           </Form.Control>
                         </Form.Group>
                       </Row>
@@ -264,12 +286,20 @@ const ConfDetails = () => {
                       ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
                       : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
-                {(searchBy === "allSess" || searchBy === "sessionName" || searchBy === "sessionPresenter") &&
+                {(searchBy === "allSess" || searchBy === "sessionName") &&
                   <Col sm={12}>
                     <h1>Sessions</h1>
                     {sessArray.length > 0
                       ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
                       : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
+                  </Col>}
+                {(searchBy === "sessionPresenter" || searchBy === "sessionOrg") &&
+                  <Col sm={12}>
+                    <h1>Sessions</h1>
+                    {sessArray.length > 0
+                      ? <SessionCard session={searchSessPres(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
+                      : <h3>We can't seem to find any conferences associated with this presenter or organization. If you think this is an error, please contact us.</h3>}
+
                   </Col>}
                 {searchBy === "allPnS" &&
                   <div>

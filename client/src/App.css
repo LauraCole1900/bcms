@@ -69,7 +69,7 @@ p {
   margin: 5px 0 5px 0;
   box-shadow: 2px 2px 5px var(--darkForest);
 }
-.button:hover, .button:focus, .button:active {
+.button:hover, .button:focus, .button:active, .button.active {
   color: var(--darkForest);
   background: var(--silverGradientDown);
 }
@@ -96,10 +96,7 @@ p {
 .login {
   color: var(--skyBlue);
 }
-.login:hover {
-  color: var(--medBlue);
-}
-.login:active {
+.login:hover, .login:active {
   color: var(--medBlue);
 }
 .login:visited {

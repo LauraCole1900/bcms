@@ -35,7 +35,7 @@
   box-shadow: 2px 2px 5px var(--darkForest);
   width: 75%;
 }
-.committeeButton:hover, :focus, :active {
+.committeeButton:hover, .committeeButton:focus, .committeeButton:active {
   color: var(--darkForest);
   background: var(--silverGradientDown);
 }
