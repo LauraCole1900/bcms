@@ -253,7 +253,7 @@ const ConferenceCard = (props) => {
                       <h3 className="cancel">This event has been cancelled.</h3>
                     </div>}
 
-                  {urlType !== "details" &&
+                  {urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                     <Row>
                       <Col sm={4}>
                         <Link to={`/details/${conf._id}`} className={location.pathname === `/details/${conf._id}` ? "link active" : "link"}>
@@ -268,6 +268,7 @@ const ConferenceCard = (props) => {
                 {isAuthenticated &&
                   conf.confType === "Live" &&
                   conf.confCancel === "no" &&
+                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardExhibitConf.indexOf(conf._id) >= 0 &&
                   <div>
                     <Col sm={1}></Col>
@@ -284,6 +285,7 @@ const ConferenceCard = (props) => {
                 {isAuthenticated &&
                   user.email !== conf.ownerEmail &&
                   conf.confCancel === "no" &&
+                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardAttendConf.indexOf(conf._id) >= 0 &&
                   <div>
                     {conf.confType === "Live"
@@ -303,6 +305,7 @@ const ConferenceCard = (props) => {
                   user.email !== conf.ownerEmail &&
                   conf.confType === "Live" &&
                   conf.confCancel === "no" &&
+                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardExhibitConf.indexOf(conf._id) < 0 &&
                   <div>
                     <Col sm={1}></Col>
@@ -316,6 +319,7 @@ const ConferenceCard = (props) => {
                 {isAuthenticated &&
                   user.email !== conf.ownerEmail &&
                   conf.confCancel === "no" &&
+                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardAttendConf.indexOf(conf._id) < 0 &&
                   <div>
                     {conf.confType === "Live"
