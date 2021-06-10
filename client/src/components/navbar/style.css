@@ -74,6 +74,20 @@
   margin-right: 24px;
 }
 
+.sideButton {
+  color: var(--lightSil);
+  background: var(--greenGradientDown);
+  border: 2px solid var(--darkForest);
+  border-radius: 10px;
+  margin: 5px 0 5px 0;
+  box-shadow: 2px 2px 5px var(--darkForest);
+  width: 75%;
+}
+.sideButton:hover, .sideButton:focus, .sideButton:active {
+  color: var(--darkForest);
+  background: var(--silverGradientDown);
+}
+
 .toggle {
   color: var(--sand);
   background: var(--greenGradientDown);

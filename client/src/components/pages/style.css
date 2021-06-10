@@ -39,7 +39,7 @@
   color: var(--darkForest);
   background: var(--silverGradientDown);
 }
-
+/* 
 .sideButton {
   color: var(--lightSil);
   background: var(--greenGradientDown);
@@ -52,7 +52,7 @@
 .sideButton:hover, .sideButton:focus, .sideButton:active {
   color: var(--darkForest);
   background: var(--silverGradientDown);
-}
+} */
 
 .green {
   color: var(--green);
