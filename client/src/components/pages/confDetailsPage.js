@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { firstBy } from "thenby";
-import { Container, Row, Col, Form, Card, Button, ButtonGroup } from "react-bootstrap";
+import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
 import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards"
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
@@ -101,6 +101,7 @@ const ConfDetails = () => {
   }
 
   // Filter presenter data by user input
+  // How to display both searched presenters AND their sessions?
   const searchPres = (data) => {
     switch (searchBy) {
       // Filter presenter names
@@ -146,9 +147,7 @@ const ConfDetails = () => {
 
           {!isAuthenticated &&
             <Row>
-              <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
-                log in
-                          </Link> to register.</h1>
+              <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>log in</Link> to register.</h1>
             </Row>}
 
           <Row>
@@ -186,12 +185,12 @@ const ConfDetails = () => {
                     <Button data-toggle="popover" title="Session proposal form" className="button">Session proposal form</Button>
                   </Link>
                 </Row>}
-                {isAuthenticated && conference[0].confSessProposalCommittee.includes(user.email) &&
-                  <Row>
-                    <Link to={`/session_proposals/${confId}`} className={location.pathname === `/session_proposal/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View Session Proposals" className="committeeButton">View Session Proposals</Button>
-                    </Link>
-                  </Row>}
+              {isAuthenticated && conference[0].confSessProposalCommittee.includes(user.email) &&
+                <Row>
+                  <Link to={`/session_proposals/${confId}`} className={location.pathname === `/session_proposal/${confId}` ? "link active" : "link"}>
+                    <Button data-toggle="popover" title="View Session Proposals" className="committeeButton">View Session Proposals</Button>
+                  </Link>
+                </Row>}
               {isAuthenticated &&
                 (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
                 <>
@@ -239,13 +238,14 @@ const ConfDetails = () => {
                             <option value="allPnS">View All</option>
                             <option value="allPres">View Presenters</option>
                             <option value="allSess">View Sessions</option>
-                            <option value="presenterName">Search by Presenter Name</option>
+                            <option value="presenterName">Search by Presenter's Last Name</option>
                             <option value="presenterOrg">Search by Presenter Organization</option>
                             <option value="sessionName">Search Sessions by Name</option>
+                            <option value="sessionPresenter">Search Sessions by Presenter's Last Name</option>
                           </Form.Control>
                         </Form.Group>
                       </Row>
-                      {(searchBy === "presenterName" || searchBy === "presenterOrg" || searchBy === "sessionName") &&
+                      {(searchBy === "presenterName" || searchBy === "presenterOrg" || searchBy === "sessionName" || searchBy === "sessionPresenter") &&
                         <Row>
                           <div id="sessPageSearch">
                             <Form.Control type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -257,21 +257,21 @@ const ConfDetails = () => {
               </Row>
 
               <Row>
-                {searchBy === "allPres" &&
+                {(searchBy === "allPres" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
                   <Col sm={12}>
                     <h1>Presenters</h1>
                     {presArray.length > 0
                       ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
                       : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
-                {(searchBy === "allSess" || searchBy === "sessionName") &&
+                {(searchBy === "allSess" || searchBy === "sessionName" || searchBy === "sessionPresenter") &&
                   <Col sm={12}>
                     <h1>Sessions</h1>
                     {sessArray.length > 0
                       ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
                       : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
-                {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
+                {searchBy === "allPnS" &&
                   <div>
                     <Col sm={6}>
                       <h1>Presenters</h1>
