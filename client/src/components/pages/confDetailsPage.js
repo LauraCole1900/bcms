@@ -205,7 +205,7 @@ const ConfDetails = () => {
                   <Button data-toggle="popover" title="Exhibit information" className="sideButton">Exhibits</Button>
                 </Link>
               </Row>
-              {conference.confSessProposalConfirm === "yes" &&
+              {conference[0].confSessProposalConfirm === "yes" &&
                 <Row>
                   <Link to={`/propose_session/${confId}`} className={location.pathname === `/propose_session/${confId}` ? "link active" : "link"}>
                     <Button data-toggle="popover" title="Session proposal form" className="sideButton">Session proposal form</Button>
