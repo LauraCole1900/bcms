@@ -7,7 +7,7 @@ import { ConferenceAPI, ExhibitorAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfExhibits = () => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
   const [conference, setConference] = useState([]);
   const [exhArray, setExhArray] = useState([]);
@@ -79,78 +79,126 @@ const ConfExhibits = () => {
       {confReady === true &&
         exhReady === true &&
         <Container>
-          <Row>
-            <Col sm={8}>
-              {isAuthenticated &&
-                <UserCard />}
-            </Col>
-          </Row>
 
           {!isAuthenticated &&
             <Row>
-              <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
-                log in
-                </Link> to register for this conference.</h1>
+              <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>log in</Link> to register for this conference.</h1>
             </Row>}
 
           <Row>
-            <Col sm={12}>
+            {isAuthenticated
+              ? <Col sm={4}>
+                <UserCard />
+              </Col>
+              : <Col sm={2}></Col>}
+
+            <Col sm={8}>
               <ConferenceCard conference={conference} />
             </Col>
           </Row>
 
           <Row>
-            <Col sm={4}>
-              <ButtonGroup data-toggle="popover">
+            <Col sm={2} className="center outline">
+              <Row><h3 className="textTight">Navigation</h3></Row>
+              <Row>
+                <Link to={`/details/${confId}`} className={location.pathname === `/details/${confId}` ? "link active" : "link"}>
+                  <Button data-toggle="popover" title="View details" className="sideButton">Details</Button>
+                </Link>
+              </Row>
+              <Row>
                 <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
-                  <Button title="View schedule" className="button">Schedule</Button>
+                  <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
                 </Link>
+              </Row>
+              <Row>
                 <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
-                  <Button title="Venue information" className="button">Venue</Button>
+                  <Button data-toggle="popover" title="Venue information" className="sideButton">Venue</Button>
                 </Link>
-              </ButtonGroup>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col sm={4}>
-              <h1>Exhibitors</h1>
-            </Col>
-            <Col sm={4}></Col>
-            <Col sm={4}>
-              <Card.Body>
-                <Form inline>
+              </Row>
+              {isAuthenticated &&
+                (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
+                <>
                   <Row>
-                    <Form.Group controlId="exhSearchBy">
-                      <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
-                        <option value="allExh">View All</option>
-                        <option value="exhComp">Search by Company, Organization, or School Name</option>
-                      </Form.Control>
-                    </Form.Group>
+                    <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="View conference attendees" className="adminButton">View Attendees</Button>
+                    </Link>
                   </Row>
-                  {searchBy === "exhComp" &&
-                    <Row>
-                      <div id="exhPageSearch">
-                        <Form.Control type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
-                      </div>
-                    </Row>}
-                </Form>
-              </Card.Body>
+                  <Row>
+                    <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="View conference exhibitors" className="adminButton">View Exhibitors</Button>
+                    </Link>
+                  </Row>
+                  <Row>
+                    <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="View conference presenters" className="adminButton">View Presenters</Button>
+                    </Link>
+                  </Row>
+                  <Row>
+                    <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Edit this conference" className="adminButton">Edit Conference</Button>
+                    </Link>
+                  </Row>
+                  <Row>
+                    <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Edit conference schedule" className="adminButton">Edit Schedule</Button>
+                    </Link>
+                  </Row>
+                  <Row>
+                    <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Add a session" className="adminButton">Add Session</Button>
+                    </Link>
+                  </Row>
+                  <Row>
+                    <Link to={`/admin_register_exh/${confId}`} className={location.pathname === `/admin_register_exh/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Add an exhibitor" className="adminButton">Add Exhibitor</Button>
+                    </Link>
+                  </Row>
+                </>}
             </Col>
-          </Row>
-          <Row>
-            {searchBy === "exhComp" &&
-              <Col sm={12}>
-                {exhArray.length > 0
-                  ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
-                  : <h3>We can't seem to find any exhibitors for this conference based on your search criteria. If you think this is an error, please contact us.</h3>}
-              </Col>}
-            {searchBy === "allExh" &&
-              <Col sm={12}>
-                {exhArray.length > 0
-                  ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
-                  : <h3>We can't seem to find any exhibitors for this conference. If you think this is an error, please contact us.</h3>}
-              </Col>}
+
+            <Col sm={10}>
+              <Row>
+                <Col sm={4}>
+                  <h1>Exhibitors</h1>
+                </Col>
+                <Col sm={4}></Col>
+                <Col sm={4}>
+                  <Card.Body>
+                    <Form inline>
+                      <Row>
+                        <Form.Group controlId="exhSearchBy">
+                          <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
+                            <option value="allExh">View All</option>
+                            <option value="exhComp">Search by Company, Organization, or School Name</option>
+                          </Form.Control>
+                        </Form.Group>
+                      </Row>
+                      {searchBy === "exhComp" &&
+                        <Row>
+                          <div id="exhPageSearch">
+                            <Form.Control type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                          </div>
+                        </Row>}
+                    </Form>
+                  </Card.Body>
+                </Col>
+              </Row>
+              <Row>
+                {searchBy === "exhComp" &&
+                  <Col sm={12}>
+                    {exhArray.length > 0
+                      ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
+                      : <h3>We can't seem to find any exhibitors for this conference based on your search criteria. If you think this is an error, please contact us.</h3>}
+                  </Col>}
+                {searchBy === "allExh" &&
+                  <Col sm={12}>
+                    {exhArray.length > 0
+                      ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
+                      : <h3>We can't seem to find any exhibitors for this conference. If you think this is an error, please contact us.</h3>}
+                  </Col>}
+              </Row>
+
+            </Col>
           </Row>
 
         </Container >

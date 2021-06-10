@@ -65,7 +65,7 @@ const PresenterCard = (props) => {
                   <Col sm={1}></Col>
                   <Col sm={5}>
                     <Link to={`/edit_presenter/${pres._id}`} className={location.pathname === `/edit_presenter/${pres._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit session" className="button">Edit Presenter</Button>
+                      <Button data-toggle="popover" title="Edit presenter" className="button">Edit Presenter</Button>
                     </Link>
                   </Col>
                 </Row>}

@@ -208,7 +208,7 @@ const ConfDetails = () => {
               {conference.confSessProposalConfirm === "yes" &&
                 <Row>
                   <Link to={`/propose_session/${confId}`} className={location.pathname === `/propose_session/${confId}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="Session proposal form" className="button">Session proposal form</Button>
+                    <Button data-toggle="popover" title="Session proposal form" className="sideButton">Session proposal form</Button>
                   </Link>
                 </Row>}
               {isAuthenticated && conference[0].confSessProposalCommittee.includes(user.email) &&
@@ -222,17 +222,17 @@ const ConfDetails = () => {
                 <>
                   <Row>
                     <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View conference attendees" className="adminButton">Attendees</Button>
+                      <Button data-toggle="popover" title="View conference attendees" className="adminButton">View Attendees</Button>
                     </Link>
                   </Row>
                   <Row>
                     <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View conference exhibitors" className="adminButton">Exhibitors</Button>
+                      <Button data-toggle="popover" title="View conference exhibitors" className="adminButton">View Exhibitors</Button>
                     </Link>
                   </Row>
                   <Row>
                     <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View conference presenters" className="adminButton">Presenters</Button>
+                      <Button data-toggle="popover" title="View conference presenters" className="adminButton">View Presenters</Button>
                     </Link>
                   </Row>
                   <Row>
@@ -248,6 +248,16 @@ const ConfDetails = () => {
                   <Row>
                     <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Add a session" className="adminButton">Add Session</Button>
+                    </Link>
+                  </Row>
+                  <Row>
+                    <Link to={`/admin_register_att/${confId}`} className={location.pathname === `/admin_register_att/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Add attendee" className="adminButton">Add Attendee</Button>
+                    </Link>
+                  </Row>
+                  <Row>
+                    <Link to={`/admin_register_exh/${confId}`} className={location.pathname === `/admin_register_exh/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="Add attendee" className="adminButton">Add Exhibit</Button>
                     </Link>
                   </Row>
                 </>}
