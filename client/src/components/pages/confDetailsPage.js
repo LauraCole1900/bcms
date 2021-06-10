@@ -3,7 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { firstBy } from "thenby";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
-import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards"
+import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards";
+import { Sidenav } from "../navbar";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
@@ -188,79 +189,8 @@ const ConfDetails = () => {
           </Row>
 
           <Row>
-            <Col sm={2} className="center outline">
-              <Row><h3 className="textTight">Navigation</h3></Row>
-              <Row>
-                <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
-                </Link>
-              </Row>
-              <Row>
-                <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Venue information" className="sideButton">Venue</Button>
-                </Link>
-              </Row>
-              <Row>
-                <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Exhibit information" className="sideButton">Exhibits</Button>
-                </Link>
-              </Row>
-              {conference[0].confSessProposalConfirm === "yes" &&
-                <Row>
-                  <Link to={`/propose_session/${confId}`} className={location.pathname === `/propose_session/${confId}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="Session proposal form" className="sideButton">Session proposal form</Button>
-                  </Link>
-                </Row>}
-              {isAuthenticated && conference[0].confSessProposalCommittee.includes(user.email) &&
-                <Row>
-                  <Link to={`/session_proposals/${confId}`} className={location.pathname === `/session_proposal/${confId}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="View Session Proposals" className="committeeButton">View Session Proposals</Button>
-                  </Link>
-                </Row>}
-              {isAuthenticated &&
-                (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
-                <>
-                  <Row>
-                    <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View conference attendees" className="adminButton">View Attendees</Button>
-                    </Link>
-                  </Row>
-                  <Row>
-                    <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View conference exhibitors" className="adminButton">View Exhibitors</Button>
-                    </Link>
-                  </Row>
-                  <Row>
-                    <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="View conference presenters" className="adminButton">View Presenters</Button>
-                    </Link>
-                  </Row>
-                  <Row>
-                    <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit this conference" className="adminButton">Edit Conference</Button>
-                    </Link>
-                  </Row>
-                  <Row>
-                    <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit conference schedule" className="adminButton">Edit Schedule</Button>
-                    </Link>
-                  </Row>
-                  <Row>
-                    <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Add a session" className="adminButton">Add Session</Button>
-                    </Link>
-                  </Row>
-                  <Row>
-                    <Link to={`/admin_register_att/${confId}`} className={location.pathname === `/admin_register_att/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Add attendee" className="adminButton">Add Attendee</Button>
-                    </Link>
-                  </Row>
-                  <Row>
-                    <Link to={`/admin_register_exh/${confId}`} className={location.pathname === `/admin_register_exh/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Add attendee" className="adminButton">Add Exhibit</Button>
-                    </Link>
-                  </Row>
-                </>}
+            <Col sm={2}  className="nomargin">
+              <Sidenav conference={conference} />
             </Col>
 
             <Col sm={10}>

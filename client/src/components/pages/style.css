@@ -90,6 +90,11 @@
   text-align: center;
 }
 
+.nomargin {
+  margin: 0;
+  padding: 0;
+}
+
 .outline {
   padding: 0 5px 5px 5px;
   border: 2px solid var(--darkForest);

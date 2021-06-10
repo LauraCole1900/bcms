@@ -11,6 +11,10 @@ import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, SessionAPI, PresenterAPI } fr
 import "./style.css";
 
 const TableComp = (e) => {
+
+  // TO-DO:
+  // Link "Add Presenter" button to PresForm
+
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
   const [attendees, setAttendees] = useState([]);
@@ -292,156 +296,171 @@ const TableComp = (e) => {
           </Row>
 
           <Row>
-            <Col sm={2}>
-              <ButtonGroup data-toggle="popover">
+            <Col sm={2} className="center outline">
+              <Row><h3 className="textTight">Navigation</h3></Row>
+              <Row>
+                <Link to={`/details/${confId}`} className={location.pathname === `/details/${confId}` ? "link active" : "link"}>
+                  <Button data-toggle="popover" title="View schedule" className="sideButton">Details</Button>
+                </Link>
+              </Row>
+              <Row>
                 <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
-                  <Button title="View schedule" className="button">Schedule</Button>
+                  <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
                 </Link>
+              </Row>
+              <Row>
                 <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
-                  <Button title="Venue information" className="button">Venue</Button>
+                  <Button data-toggle="popover" title="Venue information" className="sideButton">Venue</Button>
                 </Link>
+              </Row>
+              <Row>
                 <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
-                  <Button title="Exhibit information" className="button">Exhibits</Button>
+                  <Button data-toggle="popover" title="Exhibit information" className="sideButton">Exhibits</Button>
                 </Link>
-              </ButtonGroup>
-            </Col>
-            <Col sm={1}></Col>
-            {isAuthenticated &&
-              (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
-              <>
-                <Col sm={4}>
-                  <ButtonGroup data-toggle="popover">
+              </Row>
+              {isAuthenticated &&
+                (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
+                <>
+                  <Row>
                     <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
-                      <Button title="View conference attendees" className="button">Attendees</Button>
+                      <Button data-toggle="popover" title="View conference attendees" className="button">Attendees</Button>
                     </Link>
+                  </Row>
+                  <Row>
                     <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
-                      <Button title="View conference exhibitors" className="button">Exhibitors</Button>
+                      <Button data-toggle="popover" title="View conference exhibitors" className="button">Exhibitors</Button>
                     </Link>
+                  </Row>
+                  <Row>
                     <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
-                      <Button title="View conference presenters" className="button">Presenters</Button>
+                      <Button data-toggle="popover" title="View conference presenters" className="button">Presenters</Button>
                     </Link>
-                  </ButtonGroup>
-                </Col>
-                <Col sm={1}></Col>
-                <Col sm={4}>
-                  <ButtonGroup data-toggle="popover">
+                  </Row>
+                  <Row>
                     <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
                     </Link>
+                  </Row>
+                  <Row>
                     <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
                     </Link>
+                  </Row>
+                  <Row>
                     <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}` ? "link active" : "link"}>
                       <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
                     </Link>
-                  </ButtonGroup>
-                </Col>
-              </>}
-          </Row>
-
-          <Row>
-            <Col className="center">
-              {dataSet === "attendees" &&
-                <h1>Attendees</h1>}
-              {dataSet === "exhibitors" &&
-                <h1>Exhibitors</h1>}
-              {dataSet === "presenters" &&
-                <h1>Presenters</h1>}
-            </Col>
-          </Row>
-          <Row className="instr">
-            <Col sm={4}></Col>
-            <Col sm={6}>
-              <Card.Body>
-                <Form inline="true">
-                  <Row>
-                    <Col sm={5}>
-                      <Form.Group controlId="confSearchBy">
-                        <Form.Control inline="true" as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
-                          <option value="all">View All</option>
-                          <option value="name">Search by Family Name</option>
-                          <option value="email">Search by Email</option>
-                          <option value="org">Search by Organization</option>
-                        </Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col sm={4}>
-                      {(searchBy !== "all") &&
-                        <div id="confPageSearch">
-                          <Form.Control inline="true" className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
-                        </div>}
-                    </Col>
                   </Row>
-                </Form>
-              </Card.Body>
+                  <Row>
+                    {dataSet === "attendees" &&
+                      <Link to={`/admin_register_att/${confId}`} className={location.pathname === `/admin_register_att/${confId}` ? "link active" : "link"}>
+                        <Button data-toggle="popover" title="Add an attendee" className="button">Add Attendee</Button>
+                      </Link>}
+                    {dataSet === "exhibitors" &&
+                      <Link to={`/admin_register_exh/${confId}`} className={location.pathname === `/admin_register_exh/${confId}` ? "link active" : "link"}>
+                        <Button data-toggle="popover" title="Add an exhibitor" className="button">Add Exhibitor</Button>
+                      </Link>}
+                    {dataSet === "presenters" &&
+                      <Button data-toggle="popover" title="Add a presenter" className="button">Add Presenter</Button>}
+                  </Row>
+                </>}
             </Col>
-            <Col sm={2}>
-              {dataSet === "attendees" &&
-                <Link to={`/admin_register_att/${confId}`} className={location.pathname === `/admin_register_att/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Add an attendee" className="button">Add Attendee</Button>
-                </Link>}
-              {dataSet === "exhibitors" &&
-                <Link to={`/admin_register_exh/${confId}`} className={location.pathname === `/admin_register_exh/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Add an exhibitor" className="button">Add Exhibitor</Button>
-                </Link>}
-              {dataSet === "presenters" &&
-                <Button data-toggle="popover" title="Add a presenter" className="button">Add Presenter</Button>}
+
+            <Col sm={10}>
+              <Row>
+                <Col className="center">
+                  {dataSet === "attendees" &&
+                    <h1>Attendees</h1>}
+                  {dataSet === "exhibitors" &&
+                    <h1>Exhibitors</h1>}
+                  {dataSet === "presenters" &&
+                    <h1>Presenters</h1>}
+                </Col>
+              </Row>
+              <Row className="instr">
+                <Col sm={4}></Col>
+                <Col sm={6}>
+                  <Card.Body>
+                    <Form inline="true">
+                      <Row>
+                        <Col sm={5}>
+                          <Form.Group controlId="confSearchBy">
+                            <Form.Control inline="true" as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
+                              <option value="all">View All</option>
+                              <option value="name">Search by Family Name</option>
+                              <option value="email">Search by Email</option>
+                              <option value="org">Search by Organization</option>
+                            </Form.Control>
+                          </Form.Group>
+                        </Col>
+                        <Col sm={4}>
+                          {(searchBy !== "all") &&
+                            <div id="confPageSearch">
+                              <Form.Control inline="true" className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                            </div>}
+                        </Col>
+                      </Row>
+                    </Form>
+                  </Card.Body>
+                </Col>
+              </Row>
+              <Row className="instr">
+                <Col sm={12}>
+                  {dataSet === "attendees" &&
+                    <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
+                  <p className="subhead">Click column headers to sort</p>
+                </Col>
+              </Row>
+              <Table striped border="true" hover responsive>
+                <thead>
+                  <tr>
+                    {dataSet === "attendees" &&
+                      attendees.length > 0 && (
+                        attHeaders.map((data, idx) => (
+                          <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
+                        )))}
+                    {dataSet === "exhibitors" &&
+                      exhibitors.length > 0 && (
+                        exhHeaders.map((data, idx) => (
+                          <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
+                        )))}
+                    {dataSet === "presenters" &&
+                      presenters.length > 0 && (
+                        presHeaders.map((data, idx) => (
+                          <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
+                        )))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataSet === "attendees" && (
+                    attendees.length > 0
+                      ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} attcb={fetchAttendees} delete={handleShowConfirm} />
+                      : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
+                  {dataSet === "exhibitors" && (
+                    exhibitors.length > 0
+                      ? <ExhibitorTable exhibitors={searchFilter(exhibitors)} conference={conference} confcd={fetchConf} exhcb={fetchExhibitors} delete={handleShowConfirm} />
+                      : <tr><td className="tableComm">We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</td></tr>)}
+                  {dataSet === "presenters" && (
+                    presenters.length > 0
+                      ? <PresenterTable presenters={searchFilter(presenters)} conference={conference} sessnames={sessNames} confcb={fetchConf} prescb={fetchPresenters} />
+                      : <tr><td className="tableComm">We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</td></tr>)}
+                </tbody>
+              </Table>
+
+              {/* Applies to Attendees, Exhibitors & Presenters ONLY, not to Conferences */}
+              {/* Click on 'delete' button, ConfirmModal pops up */}
+              {/* ConfirmModal needs button name, conf name, urlid, unregatt(), unregexh(), delpres(), attendee name */}
+              {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
+
+              {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
+              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
+
+              <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
+
+              <ErrorModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={(e) => handleHideErr(e)} />
+
             </Col>
           </Row>
-          <Row className="instr">
-            <Col sm={12}>
-              {dataSet === "attendees" &&
-                <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
-              <p className="subhead">Click column headers to sort</p>
-            </Col>
-          </Row>
-          <Table striped border="true" hover responsive>
-            <thead>
-              <tr>
-                {dataSet === "attendees" &&
-                  attendees.length > 0 && (
-                    attHeaders.map((data, idx) => (
-                      <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
-                    )))}
-                {dataSet === "exhibitors" &&
-                  exhibitors.length > 0 && (
-                    exhHeaders.map((data, idx) => (
-                      <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
-                    )))}
-                {dataSet === "presenters" &&
-                  presenters.length > 0 && (
-                    presHeaders.map((data, idx) => (
-                      <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
-                    )))}
-              </tr>
-            </thead>
-            <tbody>
-              {dataSet === "attendees" && (
-                attendees.length > 0
-                  ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} attcb={fetchAttendees} delete={handleShowConfirm} />
-                  : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
-              {dataSet === "exhibitors" && (
-                exhibitors.length > 0
-                  ? <ExhibitorTable exhibitors={searchFilter(exhibitors)} conference={conference} confcd={fetchConf} exhcb={fetchExhibitors} delete={handleShowConfirm} />
-                  : <tr><td className="tableComm">We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</td></tr>)}
-              {dataSet === "presenters" && (
-                presenters.length > 0
-                  ? <PresenterTable presenters={searchFilter(presenters)} conference={conference} sessnames={sessNames} confcb={fetchConf} prescb={fetchPresenters} />
-                  : <tr><td className="tableComm">We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</td></tr>)}
-            </tbody>
-          </Table>
-
-          {/* Applies to Attendees, Exhibitors & Presenters ONLY, not to Conferences */}
-          {/* Click on 'delete' button, ConfirmModal pops up */}
-          {/* ConfirmModal needs button name, conf name, urlid, unregatt(), unregexh(), delpres(), attendee name */}
-          {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
-
-          {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-          <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
-
-          <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
-
-          <ErrorModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={(e) => handleHideErr(e)} />
 
         </Container>
       }

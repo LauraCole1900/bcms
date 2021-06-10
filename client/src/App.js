@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AboutBCMS, AllConfs, AllSessProps, ConfDetails, ConfExhibits, Login, Profile, Schedule, SessPropDetails, Venue } from "./components/pages";
-import Navbar from "./components/navbar";
+import { Navigation } from "./components/navbar";
 import TableComp from "./components/table"
 import { ConferenceForm, ExhibitForm, PresenterForm, Registration, SessionForm, SessSuppForm, Supplemental, UpdateUser } from "./components/forms";
 import "./App.css";
@@ -17,7 +17,7 @@ function App() {
     <Router>
       <header>
         <div>
-          <Navbar />
+          <Navigation />
         </div>
       </header>
       <main>
