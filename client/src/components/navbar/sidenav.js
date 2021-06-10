@@ -124,21 +124,24 @@ const Sidenav = (props) => {
                 <Button data-toggle="popover" title="View details" className="sideButton">Details</Button>
               </Link>
             </Row>}
-          <Row>
-            <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
-            </Link>
-          </Row>
-          <Row>
-            <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="Venue information" className="sideButton">Venue</Button>
-            </Link>
-          </Row>
-          <Row>
-            <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="Exhibit information" className="sideButton">Exhibits</Button>
-            </Link>
-          </Row>
+          {urlType !== "schedule" &&
+            <Row>
+              <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
+                <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
+              </Link>
+            </Row>}
+          {urlType !== "venue" &&
+            <Row>
+              <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
+                <Button data-toggle="popover" title="Venue information" className="sideButton">Venue</Button>
+              </Link>
+            </Row>}
+          {urlType !== "exhibits" &&
+            <Row>
+              <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
+                <Button data-toggle="popover" title="Exhibit information" className="sideButton">Exhibits</Button>
+              </Link>
+            </Row>}
           {isAuthenticated &&
             user.email !== props.conference[0].ownerEmail &&
             props.conference[0].confCancel === "no" &&
