@@ -189,7 +189,7 @@ const ConfDetails = () => {
           </Row>
 
           <Row>
-            <Col sm={2}  className="nomargin">
+            <Col sm={2} className="nomargin">
               <Sidenav conference={conference} />
             </Col>
 

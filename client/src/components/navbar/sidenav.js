@@ -118,6 +118,27 @@ const Sidenav = (props) => {
       {pageReady === true &&
         <Nav fluid="true" className="center outline flex-column" expand="md">
           <Row><h3 className="textTight">Navigation</h3></Row>
+          {urlType !== "details" &&
+            <Row>
+              <Link to={`/details/${confId}`} className={location.pathname === `/details/${confId}` ? "link active" : "link"}>
+                <Button data-toggle="popover" title="View details" className="sideButton">Details</Button>
+              </Link>
+            </Row>}
+          <Row>
+            <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
+              <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
+            </Link>
+          </Row>
+          <Row>
+            <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
+              <Button data-toggle="popover" title="Venue information" className="sideButton">Venue</Button>
+            </Link>
+          </Row>
+          <Row>
+            <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
+              <Button data-toggle="popover" title="Exhibit information" className="sideButton">Exhibits</Button>
+            </Link>
+          </Row>
           {isAuthenticated &&
             user.email !== props.conference[0].ownerEmail &&
             props.conference[0].confCancel === "no" &&
@@ -169,27 +190,6 @@ const Sidenav = (props) => {
                 <Button data-toggle="popover" title="Edit your exhibitor registration" className="sideButton">Edit exhibitor registration</Button>
               </Link>
             </Row>}
-          {urlType !== "details" &&
-            <Row>
-              <Link to={`/details/${confId}`} className={location.pathname === `/details/${confId}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="View details" className="sideButton">Details</Button>
-              </Link>
-            </Row>}
-          <Row>
-            <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
-            </Link>
-          </Row>
-          <Row>
-            <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="Venue information" className="sideButton">Venue</Button>
-            </Link>
-          </Row>
-          <Row>
-            <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="Exhibit information" className="sideButton">Exhibits</Button>
-            </Link>
-          </Row>
           {props.conference[0].confSessProposalConfirm === "yes" &&
             <Row>
               <Link to={`/propose_session/${confId}`} className={location.pathname === `/propose_session/${confId}` ? "link active" : "link"}>
@@ -203,24 +203,26 @@ const Sidenav = (props) => {
               </Link>
             </Row>}
           {isAuthenticated &&
-            urlType === "details" &&
             (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
             <>
-              <Row>
-                <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="View conference attendees" className="adminButton">View Attendees</Button>
-                </Link>
-              </Row>
-              <Row>
-                <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="View conference exhibitors" className="adminButton">View Exhibitors</Button>
-                </Link>
-              </Row>
-              <Row>
-                <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="View conference presenters" className="adminButton">View Presenters</Button>
-                </Link>
-              </Row>
+              {urlType !== "attendees" &&
+                <Row>
+                  <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
+                    <Button data-toggle="popover" title="View conference attendees" className="adminButton">View Attendees</Button>
+                  </Link>
+                </Row>}
+              {urlType !== "exhibitors" &&
+                <Row>
+                  <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
+                    <Button data-toggle="popover" title="View conference exhibitors" className="adminButton">View Exhibitors</Button>
+                  </Link>
+                </Row>}
+              {urlType !== "presenters" &&
+                <Row>
+                  <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
+                    <Button data-toggle="popover" title="View conference presenters" className="adminButton">View Presenters</Button>
+                  </Link>
+                </Row>}
               <Row>
                 <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
                   <Button data-toggle="popover" title="Edit this conference" className="adminButton">Edit Conference</Button>

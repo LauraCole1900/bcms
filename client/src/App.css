@@ -102,3 +102,8 @@ p {
 .login:visited {
   color: var(--skyBlue);
 }
+
+.nomargin {
+  margin: 0;
+  padding: 0;
+}

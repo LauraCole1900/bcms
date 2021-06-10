@@ -10,50 +10,6 @@
   --blueGradientDown: linear-gradient(to bottom, var(--skyBlue), var(--darkBlue));
 }
 
-.adminButton {
-  color: var(--darkForest);
-  font-weight: bold;
-  background: var(--sandGradientDown);
-  border: 2px solid var(--darkForest);
-  border-radius: 10px;
-  margin: 5px 0 5px 0;
-  box-shadow: 2px 2px 5px var(--darkForest);
-  width: 75%;
-}
-.adminButton:hover, .adminButton:focus, .adminButton:active {
-  color: var(--darkForest);
-  font-weight: normal;
-  background: var(--silverGradientDown);
-}
-
-.committeeButton {
-  color: var(--lightSil);
-  background: var(--blueGradientDown);
-  border: 2px solid var(--darkBlue);
-  border-radius: 10px;
-  margin: 5px 0 5px 0;
-  box-shadow: 2px 2px 5px var(--darkForest);
-  width: 75%;
-}
-.committeeButton:hover, .committeeButton:focus, .committeeButton:active {
-  color: var(--darkForest);
-  background: var(--silverGradientDown);
-}
-/* 
-.sideButton {
-  color: var(--lightSil);
-  background: var(--greenGradientDown);
-  border: 2px solid var(--darkForest);
-  border-radius: 10px;
-  margin: 5px 0 5px 0;
-  box-shadow: 2px 2px 5px var(--darkForest);
-  width: 75%;
-}
-.sideButton:hover, .sideButton:focus, .sideButton:active {
-  color: var(--darkForest);
-  background: var(--silverGradientDown);
-} */
-
 .green {
   color: var(--green);
   width: 50%;
@@ -88,11 +44,6 @@
 
 .myConfs, .regRemind {
   text-align: center;
-}
-
-.nomargin {
-  margin: 0;
-  padding: 0;
 }
 
 .outline {
