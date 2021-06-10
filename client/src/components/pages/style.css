@@ -64,6 +64,10 @@
   width: 50%;
 }
 
+.center {
+  text-align: center;
+}
+
 .error {
   font-weight: 700;
 }
@@ -78,11 +82,25 @@
   justify-content: flex-end;
 }
 
+.formPad {
+  padding-left: 25px;
+}
+
 .myConfs, .regRemind {
   text-align: center;
+}
+
+.outline {
+  padding: 0 5px 5px 5px;
+  border: 2px solid var(--darkForest);
+  border-radius: 12px;
 }
 
 .regRemind {
   color: var(--ltMedForest);
   font-weight: bolder;
+}
+
+.textTight {
+  margin: 2px 0 7px 0;
 }

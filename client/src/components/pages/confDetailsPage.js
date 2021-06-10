@@ -188,7 +188,8 @@ const ConfDetails = () => {
           </Row>
 
           <Row>
-            <Col sm={2}>
+            <Col sm={2} className="center outline">
+              <Row><h3 className="textTight">Navigation</h3></Row>
               <Row>
                 <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
                   <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
@@ -254,7 +255,7 @@ const ConfDetails = () => {
 
             <Col sm={10}>
               <Row>
-                <Col sm={3}>
+                <Col sm={3} className="formPad">
                   <Card.Body>
                     <Form inline>
                       <Row>
