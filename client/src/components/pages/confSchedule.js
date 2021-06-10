@@ -10,11 +10,12 @@ import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../../util
 import "./style.css";
 
 const Schedule = () => {
-  // Generates a table for each day of the conference
-  // Room identifiers across the top
-  // Times down the side
+  // Generates a table for each day of the conference - DONE
+  // Room identifiers across the top - DONE
+  // Times down the side - DONE
   // Cells populate from SessionAPI: session cards? Not sure
   // Sessions that take more than one room (keynote, etc) should stretch across those rooms
+  // Sessions that take more than one time block (registration, etc.) should stretch across those times
   // User should be able to click on a table cell to edit that session
   // When editing, user is given a drop-down menu of sessions that already exist in the database?
 

@@ -8,6 +8,11 @@ import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
+  
+  // TO DO
+  // Filter sessions by presenter name
+  // Filter sessions by organization
+  
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
   const [conference, setConference] = useState([]);
@@ -96,7 +101,7 @@ const ConfDetails = () => {
         return data.filter((session) => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       // Return all response data
       default:
-        return (sessArray)
+        return sessArray
     }
   }
 
@@ -111,7 +116,7 @@ const ConfDetails = () => {
         return data.filter((presenter) => presenter.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       // Return all response data
       default:
-        return (presArray)
+        return presArray
     }
   }
 
@@ -120,20 +125,19 @@ const ConfDetails = () => {
     switch (searchBy) {
       case "sessionPresenter":
         let sessArr = [];
-        if (data !== undefined) {
-          const pres = data.filter((presenter) => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-          pres.presSessionIds.forEach(id => {
-            let session = sessArray.map(sess => sess._id === id)
-            sessArr = [...sessArr, session]
-            if (sessArr.length === pres.presSessionIds.length) {
-              return sessArr;
-            }
-          })
-        }
+        const pres = searchPres(data);
+        pres?.presSessionIds?.forEach(id => {
+          let session = sessArray.map(sess => sess._id === id)
+          sessArr = [...sessArr, session]
+          if (sessArr.length === pres.presSessionIds.length) {
+            setSessArray(sessArr);
+          }
+        })
         break;
       case "sessionOrg":
         break;
       default:
+        return sessArray;
     }
   }
 
@@ -267,7 +271,7 @@ const ConfDetails = () => {
                           </Form.Control>
                         </Form.Group>
                       </Row>
-                      {(searchBy === "presenterName" || searchBy === "presenterOrg" || searchBy === "sessionName" || searchBy === "sessionPresenter") &&
+                      {(searchBy === "presenterName" || searchBy === "presenterOrg" || searchBy === "sessionName" || searchBy === "sessionPresenter" || searchBy === "sessionOrg") &&
                         <Row>
                           <div id="sessPageSearch">
                             <Form.Control type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
