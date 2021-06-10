@@ -19,10 +19,12 @@
   --darkBlue: #032c4b;
   --silverGradientUp: linear-gradient(to top, var(--lightSil), var(--darkSil));
   --silverGradientDown: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
+  --sandGradientDown: linear-gradient(to bottom, var(--sand), var(--darkSand));
   --redGradientDown: linear-gradient(to bottom, var(--red), var(--darkRed));
   --greenGradientUp: linear-gradient(to top, var(--lightForest), var(--medForest));
   --greenGradientDown: linear-gradient(to bottom, var(--lightForest), var(--medForest));
   --blueGradientUp: linear-gradient(to top, var(--skyBlue), var(--darkBlue));
+  --blueGradientDown: linear-gradient(to bottom, var(--skyBlue), var(--darkBlue));
 }
 
 h1, h2, .mylogo {
@@ -37,7 +39,7 @@ h2 {
   font-size: 40px;
 }
 
-h3, h4, h5, p, form, td, .alert, .authRemind, .cancel, .error, .hello, .navlink, .regRemind, .tableComm {
+h3, h4, h5, p, form, td, .adminButton, .alert, .authRemind, .button, .cancel, .committeeButton, .error, .hello, .navlink, .regRemind, .sideButton, .tableComm {
   font-family: "Open Sans Condensed", sans-serif;
 }
 
@@ -61,24 +63,15 @@ p {
 
 .button {
   color: var(--lightSil);
-  background: linear-gradient(to bottom, var(--lightForest), var(--dkMedForest));
+  background: var(--greenGradientDown);
   border: 2px solid var(--darkForest);
   border-radius: 10px;
   margin: 5px 0 5px 0;
-  font-family: "Open Sans Condensed", sans-serif;
   box-shadow: 2px 2px 5px var(--darkForest);
 }
-.button:hover {
+.button:hover, .button:focus, .button:active {
   color: var(--darkForest);
-  background: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
-}
-.button:focus {
-  color: var(--darkForest);
-  background: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
-}
-.button.active {
-  color: var(--darkForest);
-  background: linear-gradient(to top, var(--lightSil), var(--darkSil));
+  background: var(--silverGradientDown);
 }
 
 .error {

@@ -1,7 +1,57 @@
 :root {
+  --lightSil: #e2e2e2;
   --red: #ff0000;
   --green: #008000;
+  --darkBlue: #032c4b;
   --ltMedForest: #47532b;
+  --darkForest: #11130b;
+  --sandGradientDown: linear-gradient(to bottom, var(--sand), var(--darkSand));
+  --greenGradientDown: linear-gradient(to bottom, var(--lightForest), var(--medForest));
+  --blueGradientDown: linear-gradient(to bottom, var(--skyBlue), var(--darkBlue));
+}
+
+.adminButton {
+  color: var(--darkForest);
+  font-weight: bold;
+  background: var(--sandGradientDown);
+  border: 2px solid var(--darkForest);
+  border-radius: 10px;
+  margin: 5px 0 5px 0;
+  box-shadow: 2px 2px 5px var(--darkForest);
+  width: 75%;
+}
+.adminButton:hover, .adminButton:focus, .adminButton:active {
+  color: var(--darkForest);
+  font-weight: normal;
+  background: var(--silverGradientDown);
+}
+
+.committeeButton {
+  color: var(--lightSil);
+  background: var(--blueGradientDown);
+  border: 2px solid var(--darkBlue);
+  border-radius: 10px;
+  margin: 5px 0 5px 0;
+  box-shadow: 2px 2px 5px var(--darkForest);
+  width: 75%;
+}
+.committeeButton:hover, :focus, :active {
+  color: var(--darkForest);
+  background: var(--silverGradientDown);
+}
+
+.sideButton {
+  color: var(--lightSil);
+  background: var(--greenGradientDown);
+  border: 2px solid var(--darkForest);
+  border-radius: 10px;
+  margin: 5px 0 5px 0;
+  box-shadow: 2px 2px 5px var(--darkForest);
+  width: 75%;
+}
+.sideButton:hover, .sideButton:focus, .sideButton:active {
+  color: var(--darkForest);
+  background: var(--silverGradientDown);
 }
 
 .green {

@@ -19,7 +19,7 @@ const UserCard = () => {
       .catch(err => console.log(err))
 
     setPageReady(true);
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -29,18 +29,18 @@ const UserCard = () => {
         isAuthenticated &&
         <Card className="infoCard">
           <Row>
-            <Col sm={2}>
+            <Col sm={3}>
               <Image fluid="true" className="profilePic" src={userInfo.picture} alt="Profile picture" />
-            </Col>
-            <Col sm={5} className="userInfo">
-              <h2>{userInfo.given_name} {userInfo.family_name}</h2>
-              <h4>{userInfo.email}</h4>
               <Link to={{
                 state: { ...userInfo },
                 pathname: "/update_user"
               }}>
                 <Button data-toggle="popover" title="Update your info" className="button">Update Your Info</Button>
               </Link>
+            </Col>
+            <Col sm={8} className="userInfo">
+              <h2>{userInfo.given_name} {userInfo.family_name}</h2>
+              <h4>{userInfo.email}</h4>
             </Col>
           </Row>
         </Card>

@@ -143,138 +143,151 @@ const ConfDetails = () => {
         sessReady === true &&
         presReady === true &&
         <Container>
-          <Row>
-            <Col sm={8}>
-              {isAuthenticated &&
-                <UserCard />}
-            </Col>
-            <Col sm={4}>
-              <Card.Body>
-                <Form inline>
-                  <Row>
-                    <Form.Group controlId="sessSearchBy">
-                      <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
-                        <option value="allPnS">View All</option>
-                        <option value="allPres">View Presenters</option>
-                        <option value="allSess">View Sessions</option>
-                        <option value="presenterName">Search by Presenter Name</option>
-                        <option value="presenterOrg">Search by Presenter Organization</option>
-                        <option value="sessionName">Search Sessions by Name</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Row>
-                  {(searchBy === "presenterName" || searchBy === "presenterOrg" || searchBy === "sessionName") &&
-                    <Row>
-                      <div id="sessPageSearch">
-                        <Form.Control type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
-                      </div>
-                    </Row>}
-                </Form>
-              </Card.Body>
-            </Col>
-          </Row>
 
           {!isAuthenticated &&
             <Row>
               <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
                 log in
-                </Link> to register.</h1>
+                          </Link> to register.</h1>
             </Row>}
 
           <Row>
-            <Col sm={12}>
+            {isAuthenticated
+              ? <Col sm={4}>
+                <UserCard />
+              </Col>
+              : <Col sm={2}></Col>}
+
+            <Col sm={8}>
               <ConferenceCard conference={conference} change={handleToggle} />
             </Col>
           </Row>
 
           <Row>
             <Col sm={2}>
-              <ButtonGroup data-toggle="popover">
+              <Row>
                 <Link to={`/schedule/${confId}`} className={location.pathname === `/schedule/${confId}` ? "link active" : "link"}>
-                  <Button title="View schedule" className="button">Schedule</Button>
+                  <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
                 </Link>
+              </Row>
+              <Row>
                 <Link to={`/venue/${confId}`} className={location.pathname === `/venue/${confId}` ? "link active" : "link"}>
-                  <Button title="Venue information" className="button">Venue</Button>
+                  <Button data-toggle="popover" title="Venue information" className="sideButton">Venue</Button>
                 </Link>
+              </Row>
+              <Row>
                 <Link to={`/exhibits/${confId}`} className={location.pathname === `/exhibits/${confId}` ? "link active" : "link"}>
-                  <Button title="Exhibit information" className="button">Exhibits</Button>
+                  <Button data-toggle="popover" title="Exhibit information" className="sideButton">Exhibits</Button>
                 </Link>
-                {conference.confSessProposalConfirm === "yes" &&
+              </Row>
+              {conference.confSessProposalConfirm === "yes" &&
+                <Row>
                   <Link to={`/propose_session/${confId}`} className={location.pathname === `/propose_session/${confId}` ? "link active" : "link"}>
-                    <Button title="Session proposal form" className="button">Session proposal form</Button>
-                  </Link>}
-              </ButtonGroup>
-            </Col>
-            <Col sm={1}></Col>
-            {isAuthenticated &&
-              (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
-              <>
-                <Col sm={4} className="flexCenter">
-                  <ButtonGroup data-toggle="popover">
+                    <Button data-toggle="popover" title="Session proposal form" className="button">Session proposal form</Button>
+                  </Link>
+                </Row>}
+                {isAuthenticated && conference[0].confSessProposalCommittee.includes(user.email) &&
+                  <Row>
+                    <Link to={`/session_proposals/${confId}`} className={location.pathname === `/session_proposal/${confId}` ? "link active" : "link"}>
+                      <Button data-toggle="popover" title="View Session Proposals" className="committeeButton">View Session Proposals</Button>
+                    </Link>
+                  </Row>}
+              {isAuthenticated &&
+                (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
+                <>
+                  <Row>
                     <Link to={`/attendees/${confId}`} className={location.pathname === `/attendees/${confId}` ? "link active" : "link"}>
-                      <Button title="View conference attendees" className="button">Attendees</Button>
+                      <Button data-toggle="popover" title="View conference attendees" className="adminButton">Attendees</Button>
                     </Link>
+                  </Row>
+                  <Row>
                     <Link to={`/exhibitors/${confId}`} className={location.pathname === `/exhibitors/${confId}` ? "link active" : "link"}>
-                      <Button title="View conference exhibitors" className="button">Exhibitors</Button>
+                      <Button data-toggle="popover" title="View conference exhibitors" className="adminButton">Exhibitors</Button>
                     </Link>
+                  </Row>
+                  <Row>
                     <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
-                      <Button title="View conference presenters" className="button">Presenters</Button>
+                      <Button data-toggle="popover" title="View conference presenters" className="adminButton">Presenters</Button>
                     </Link>
-                  </ButtonGroup>
-                </Col>
-                <Col sm={1}></Col>
-                <Col sm={4} className="flexEnd">
-                  <ButtonGroup data-toggle="popover">
+                  </Row>
+                  <Row>
                     <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit this conference" className="button">Edit Conference</Button>
+                      <Button data-toggle="popover" title="Edit this conference" className="adminButton">Edit Conference</Button>
                     </Link>
+                  </Row>
+                  <Row>
                     <Link to={`/edit_schedule/${confId}`} className={location.pathname === `/edit_schedule/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit conference schedule" className="button">Edit Schedule</Button>
+                      <Button data-toggle="popover" title="Edit conference schedule" className="adminButton">Edit Schedule</Button>
                     </Link>
+                  </Row>
+                  <Row>
                     <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Add a session" className="button">Add Session</Button>
+                      <Button data-toggle="popover" title="Add a session" className="adminButton">Add Session</Button>
                     </Link>
-                  </ButtonGroup>
-                </Col>
-              </>}
-          </Row>
-          {isAuthenticated && conference[0].confSessProposalCommittee.includes(user.email) &&
-            <>
-              <Col sm={12} className="flexEnd">
-                <Button data-toggle="popover" title="View Session Proposals" className="button">View Session Proposals</Button>
-              </Col>
-            </>}
+                  </Row>
+                </>}
+            </Col>
 
-          <Row>
-            {searchBy === "allPres" &&
-              <Col sm={12}>
-                <h1>Presenters</h1>
-                {presArray.length > 0
-                  ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
-                  : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
-              </Col>}
-            {(searchBy === "allSess" || searchBy === "sessionName") &&
-              <Col sm={12}>
-                <h1>Sessions</h1>
-                {sessArray.length > 0
-                  ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
-                  : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
-              </Col>}
-            {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
-              <div>
-                <Col sm={6}>
-                  <h1>Presenters</h1>
-                  {presArray.length > 0
-                    ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
-                    : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
+            <Col sm={10}>
+              <Row>
+                <Col sm={3}>
+                  <Card.Body>
+                    <Form inline>
+                      <Row>
+                        <Form.Group controlId="sessSearchBy">
+                          <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
+                            <option value="allPnS">View All</option>
+                            <option value="allPres">View Presenters</option>
+                            <option value="allSess">View Sessions</option>
+                            <option value="presenterName">Search by Presenter Name</option>
+                            <option value="presenterOrg">Search by Presenter Organization</option>
+                            <option value="sessionName">Search Sessions by Name</option>
+                          </Form.Control>
+                        </Form.Group>
+                      </Row>
+                      {(searchBy === "presenterName" || searchBy === "presenterOrg" || searchBy === "sessionName") &&
+                        <Row>
+                          <div id="sessPageSearch">
+                            <Form.Control type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                          </div>
+                        </Row>}
+                    </Form>
+                  </Card.Body>
                 </Col>
-                <Col sm={6}>
-                  <h1>Sessions</h1>
-                  {sessArray.length > 0
-                    ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
-                    : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
-                </Col>
-              </div>}
+              </Row>
+
+              <Row>
+                {searchBy === "allPres" &&
+                  <Col sm={12}>
+                    <h1>Presenters</h1>
+                    {presArray.length > 0
+                      ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
+                      : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
+                  </Col>}
+                {(searchBy === "allSess" || searchBy === "sessionName") &&
+                  <Col sm={12}>
+                    <h1>Sessions</h1>
+                    {sessArray.length > 0
+                      ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
+                      : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
+                  </Col>}
+                {(searchBy === "allPnS" || searchBy === "presenterName" || searchBy === "presenterOrg") &&
+                  <div>
+                    <Col sm={6}>
+                      <h1>Presenters</h1>
+                      {presArray.length > 0
+                        ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
+                        : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
+                    </Col>
+                    <Col sm={6}>
+                      <h1>Sessions</h1>
+                      {sessArray.length > 0
+                        ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
+                        : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
+                    </Col>
+                  </div>}
+              </Row>
+            </Col>
           </Row>
 
         </Container >

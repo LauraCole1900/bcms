@@ -28,7 +28,7 @@ a:hover, a:active, a:visited {
   color: var(--ltMedForest);
 }
 
-h2 {
+h2, h4 {
   margin: 13px 0 0 13px;
 }
 
@@ -105,6 +105,11 @@ p {
 .profilePic {
   border-radius: 50%;
   margin: 5px;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .title {
