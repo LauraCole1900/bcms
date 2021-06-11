@@ -6,6 +6,7 @@ import Moment from "react-moment";
 import { ConferenceCard, UserCard } from "../cards";
 import { ScheduleForm } from "../forms";
 import SchedGrid from "../table/schedGrid.js";
+import { Sidenav } from "../navbar";
 import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
@@ -118,57 +119,53 @@ const Schedule = () => {
         dateReady === true &&
         <Container>
           <Row>
-            {isAuthenticated &&
-              <Col sm={8}>
+            {isAuthenticated
+              ? <Col sm={4}>
                 <UserCard />
-              </Col>}
-          </Row>
-          <Row>
-            <Col sm={12}>
+              </Col>
+              : <Col sm={2}></Col>}
+
+            <Col sm={8}>
               <ConferenceCard conference={conference} />
             </Col>
           </Row>
 
           <Row>
-            <Col sm={4}>
-              <ButtonGroup data-toggle="popover">
-                <Link to={`/venue/${urlId}`} className={location.pathname === `/venue/${urlId}` ? "link active" : "link"}>
-                  <Button title="Venue information" className="button">Venue</Button>
-                </Link>
-                <Link to={`/exhibits/${urlId}`} className={location.pathname === `/exhibits/${urlId}` ? "link active" : "link"}>
-                  <Button title="Exhibit information" className="button">Exhibits</Button>
-                </Link>
-              </ButtonGroup>
+            <Col sm={2} className="nomargin">
+              <Sidenav conference={conference} />
+            </Col>
+
+            <Col sm={10}>
+              <Row>
+                <Col sm={12} className="myConfs formPad">
+                  <h1>{conference[0].confName} Schedule</h1>
+                </Col>
+              </Row>
+
+              {isAuthenticated &&
+                (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
+                <Row className="formPad">
+                  <ScheduleForm conference={conference[0]} schedule={schedule[0]} urlid={urlId} urltype={urlType} />
+                </Row>
+              }
+
+              {schedule.length > 0
+                ? <>
+                  {dates.map((date, idx) => (
+                    <React.Fragment key={idx}>
+                      <Row  className="formPad">
+                        <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
+                      </Row>
+                      <Row className="formPad">
+                        <SchedGrid schedule={schedule[0]} dates={date} />
+                      </Row>
+                    </React.Fragment>
+                  ))}
+                </>
+                : <h3>We can't seem to find a schedule for this conference. If you think this is an error, please contact us.</h3>}
+
             </Col>
           </Row>
-
-          <Row>
-            <Col sm={12} className="myConfs">
-              <h1>{conference[0].confName} Schedule</h1>
-            </Col>
-          </Row>
-
-          {isAuthenticated &&
-            (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
-            <Row>
-              <ScheduleForm conference={conference[0]} schedule={schedule[0]} urlid={urlId} urltype={urlType} />
-            </Row>
-          }
-
-          {schedule.length > 0
-            ? <>
-              {dates.map((date, idx) => (
-                <React.Fragment key={idx}>
-                  <Row>
-                    <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
-                  </Row>
-                  <Row>
-                    <SchedGrid schedule={schedule[0]} dates={date} />
-                  </Row>
-                </React.Fragment>
-              ))}
-            </>
-            : <h3>We can't seem to find a schedule for this conference. If you think this is an error, please contact us.</h3>}
 
         </Container>}
     </>

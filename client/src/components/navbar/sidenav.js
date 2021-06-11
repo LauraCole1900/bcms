@@ -193,7 +193,8 @@ const Sidenav = (props) => {
                 <Button data-toggle="popover" title="Edit your exhibitor registration" className="sideButton">Edit exhibitor registration</Button>
               </Link>
             </Row>}
-          {props.conference[0].confSessProposalConfirm === "yes" &&
+          {isAuthenticated &&
+            props.conference[0].confSessProposalConfirm === "yes" &&
             <Row>
               <Link to={`/propose_session/${confId}`} className={location.pathname === `/propose_session/${confId}` ? "link active" : "link"}>
                 <Button data-toggle="popover" title="Session proposal form" className="sideButton">Session proposal form</Button>
