@@ -9,11 +9,11 @@ import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
-  
+
   // TO DO
   // Filter sessions by presenter name
   // Filter sessions by organization
-  
+
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
   const [conference, setConference] = useState([]);
@@ -99,7 +99,7 @@ const ConfDetails = () => {
     switch (searchBy) {
       // Filter session names
       case "sessionName":
-        return data.filter((session) => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+        return data.filter(session => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       // Return all response data
       default:
         return sessArray
@@ -111,10 +111,12 @@ const ConfDetails = () => {
     switch (searchBy) {
       // Filter presenter names
       case "presenterName":
-        return data.filter((presenter) => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      case "sessionPresenter":
+        return data.filter(presenter => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       // Filter presenter organization
       case "presenterOrg":
-        return data.filter((presenter) => presenter.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      case "sessionOrg":
+        return data.filter(presenter => presenter.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       // Return all response data
       default:
         return presArray
@@ -125,16 +127,22 @@ const ConfDetails = () => {
   const searchSessPres = (data) => {
     switch (searchBy) {
       case "sessionPresenter":
+        let sessIdArr = [];
         let sessArr = [];
-        const pres = searchPres(data);
-        pres?.presSessionIds?.forEach(id => {
-          let session = sessArray.map(sess => sess._id === id)
+        let pres = presArray.filter(presenter => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+        console.log({ pres });
+        sessIdArr = pres.forEach(pres => sessIdArr = [...sessIdArr, pres.presSessionIds]);
+        console.log({ sessIdArr });
+        sessIdArr.forEach(id => {
+          let session = data.map(sess => sess._id === id)
           sessArr = [...sessArr, session]
+          console.log({ sessArr });
           if (sessArr.length === pres.presSessionIds.length) {
             setSessArray(sessArr);
           }
         })
-        break;
+        return sessArray;
+      // break;
       case "sessionOrg":
         break;
       default:
@@ -244,7 +252,6 @@ const ConfDetails = () => {
                     {sessArray.length > 0
                       ? <SessionCard session={searchSessPres(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
                       : <h3>We can't seem to find any conferences associated with this presenter or organization. If you think this is an error, please contact us.</h3>}
-
                   </Col>}
                 {searchBy === "allPnS" &&
                   <div>
