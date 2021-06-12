@@ -137,12 +137,13 @@ const ConfDetails = () => {
 
   // Filter sessions by presenter name or presenter org
   const searchSessPres = (data) => {
+    let pres = [];
+    let sessIdArr = [];
+    let presIdArr = [];
+    let sessArr = [];
     switch (searchBy) {
       case "sessionPresenter":
-        let sessIdArr = [];
-        let presIdArr = [];
-        let sessArr = [];
-        let pres = presArray.filter(presenter => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+        pres = presArray.filter(presenter => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
         console.log({ pres });
         pres.forEach(presenter => {
           presIdArr = getSessIds(presenter);
@@ -150,21 +151,33 @@ const ConfDetails = () => {
           sessIdArr = sessIdArr.concat(presIdArr);
         });
         console.log({ sessIdArr });
-        const filtSessIds = filterSessIds(sessIdArr);
-        console.log({ filtSessIds });
-        filtSessIds.forEach((id, index) => {
+        const filtSessPresIds = filterSessIds(sessIdArr);
+        console.log({ filtSessPresIds });
+        filtSessPresIds.forEach(id => {
           let session = data.filter(sess => (sess._id === id));
           sessArr = [...sessArr, session[0]]
           console.log({ sessArr });
           return sessArr;
         })
-        if (sessArr.length === sessIdArr.length) {
-          setSessArray(sessArr);
-        }
-        return sessArray;
-      // break;
+        return sessArr;
       case "sessionOrg":
-        break;
+        pres = presArray.filter(presenter => presenter.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+        console.log({ pres });
+        pres.forEach(presenter => {
+          presIdArr = getSessIds(presenter);
+          console.log({ presIdArr });
+          sessIdArr = sessIdArr.concat(presIdArr);
+        });
+        console.log({ sessIdArr });
+        const filtSessOrgIds = filterSessIds(sessIdArr);
+        console.log({ filtSessOrgIds });
+        filtSessOrgIds.forEach(id => {
+          let session = data.filter(sess => (sess._id === id));
+          sessArr = [...sessArr, session[0]]
+          console.log({ sessArr });
+          return sessArr;
+        })
+        return sessArr;
       default:
         return sessArray;
     }
