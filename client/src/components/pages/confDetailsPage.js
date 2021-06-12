@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { firstBy } from "thenby";
-import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Card } from "react-bootstrap";
 import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards";
 import { Sidenav } from "../navbar";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
@@ -10,12 +10,12 @@ import "./style.css";
 
 const ConfDetails = () => {
 
-  // TO DO
-  // Filter sessions by presenter name
-  // Filter sessions by organization
+  // Things done:
+  // Dried out filter-sessions-by-presenter code
+  // Commented new methods
+  // Cleaned out unused variables
 
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const location = useLocation();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState([]);
   const [sessArray, setSessArray] = useState([]);
   const [presArray, setPresArray] = useState([]);
@@ -108,73 +108,83 @@ const ConfDetails = () => {
     return filteredIds;
   }
 
-  // Filter session data by user input
-  const searchSess = (data) => {
+  // Filter session array by session name
+  const filterSessName = (arr) => {
+    return arr.filter(session => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+  }
+
+  // Filter presenter array by presenter's last name
+  const filterName = (arr) => {
+    return arr.filter(presenter => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+  }
+
+  // Filter presenter array by presenter's organization
+  const filterOrg = (arr) => {
+    return arr.filter(presenter => presenter.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+  }
+
+  // Filter session array by presenter information
+  const filterSessByPres = (arr1, arr2) => {
+    let sessIdArr = [];
+    let presIdArr = [];
+    let sessArr = [];
+    arr1.forEach(presenter => {
+      presIdArr = getSessIds(presenter);
+      sessIdArr = sessIdArr.concat(presIdArr);
+    });
+    const sessPresIds = filterSessIds(sessIdArr);
+    sessPresIds.forEach(id => {
+      let session = arr2.filter(sess => (sess._id === id));
+      sessArr = [...sessArr, session[0]]
+    })
+    return sessArr;
+  }
+
+  // Filter session array by user input
+  const searchSess = (arr) => {
     switch (searchBy) {
       // Filter session names
       case "sessionName":
-        return data.filter(session => session.sessName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+        return filterSessName(arr);
       // Return all response data
       default:
         return sessArray
     }
   }
 
-  // Filter presenter data by user input
-  const searchPres = (data) => {
+  // Filter presenter array by user input
+  const searchPres = (arr) => {
     switch (searchBy) {
       // Filter presenter names
       case "presenterName":
-      case "sessionPresenter":
-        return data.filter(presenter => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+        return filterName(arr);
       // Filter presenter organization
       case "presenterOrg":
-      case "sessionOrg":
-        return data.filter(presenter => presenter.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+        return filterOrg(arr);
       // Return all response data
       default:
         return presArray
     }
   }
 
-  // Filter sessions by presenter name or presenter org
-  const searchSessPres = (data) => {
+  // Filter session array by presenter name or presenter org
+  const searchSessPres = (arr) => {
     let pres = [];
-    let sessIdArr = [];
-    let presIdArr = [];
-    let sessArr = [];
     switch (searchBy) {
       case "sessionPresenter":
-        pres = presArray.filter(presenter => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-        pres.forEach(presenter => {
-          presIdArr = getSessIds(presenter);
-          sessIdArr = sessIdArr.concat(presIdArr);
-        });
-        const filtSessPresIds = filterSessIds(sessIdArr);
-        filtSessPresIds.forEach(id => {
-          let session = data.filter(sess => (sess._id === id));
-          sessArr = [...sessArr, session[0]]
-          return sessArr;
-        })
-        return sessArr;
+        pres = filterName(presArray);
+        let sessPresArr = filterSessByPres(pres, arr);
+        return sessPresArr;
       case "sessionOrg":
-        pres = presArray.filter(presenter => presenter.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-        pres.forEach(presenter => {
-          presIdArr = getSessIds(presenter);
-          sessIdArr = sessIdArr.concat(presIdArr);
-        });
-        const filtSessOrgIds = filterSessIds(sessIdArr);
-        filtSessOrgIds.forEach(id => {
-          let session = data.filter(sess => (sess._id === id));
-          sessArr = [...sessArr, session[0]]
-          return sessArr;
-        })
-        return sessArr;
+        pres = filterOrg(presArray);
+        let sessOrgArr = filterSessByPres(pres, arr);
+        return sessOrgArr;
       default:
         return sessArray;
     }
   }
 
+  // Triggers toggle to force page re-render on conference cancel or presenter/session delete
   const handleToggle = () => {
     switch (changeToggle) {
       case true:
