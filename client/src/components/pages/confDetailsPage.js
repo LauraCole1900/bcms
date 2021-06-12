@@ -94,12 +94,14 @@ const ConfDetails = () => {
     setPresReady(true)
   }
 
+  // Pull session IDs from presenter.presSessionIds[]
   const getSessIds = (pres) => {
     let idArr = [];
     pres.presSessionIds.map(id => idArr = [...idArr, id]);
     return idArr;
   }
 
+  // Filter duplicate session IDs
   const filterSessIds = (idArr) => {
     const theseIds = idArr.filter(id => idArr.includes(id));
     const filteredIds = [...new Set(theseIds)];
