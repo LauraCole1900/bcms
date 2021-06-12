@@ -94,6 +94,18 @@ const ConfDetails = () => {
     setPresReady(true)
   }
 
+  const getSessIds = (pres) => {
+    let idArr = [];
+    pres.presSessionIds.map(id => idArr = [...idArr, id]);
+    return idArr;
+  }
+
+  const filterSessIds = (idArr) => {
+    const theseIds = idArr.filter(id => idArr.includes(id));
+    const filteredIds = [...new Set(theseIds)];
+    return filteredIds;
+  }
+
   // Filter session data by user input
   const searchSess = (data) => {
     switch (searchBy) {
@@ -128,19 +140,27 @@ const ConfDetails = () => {
     switch (searchBy) {
       case "sessionPresenter":
         let sessIdArr = [];
+        let presIdArr = [];
         let sessArr = [];
         let pres = presArray.filter(presenter => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
         console.log({ pres });
-        sessIdArr = pres.forEach(pres => sessIdArr = [...sessIdArr, pres.presSessionIds]);
+        pres.forEach(presenter => {
+          presIdArr = getSessIds(presenter);
+          console.log({ presIdArr });
+          sessIdArr = sessIdArr.concat(presIdArr);
+        });
         console.log({ sessIdArr });
-        sessIdArr.forEach(id => {
-          let session = data.map(sess => sess._id === id)
-          sessArr = [...sessArr, session]
+        const filtSessIds = filterSessIds(sessIdArr);
+        console.log({ filtSessIds });
+        filtSessIds.forEach((id, index) => {
+          let session = data.filter(sess => (sess._id === id));
+          sessArr = [...sessArr, session[0]]
           console.log({ sessArr });
-          if (sessArr.length === pres.presSessionIds.length) {
-            setSessArray(sessArr);
-          }
+          return sessArr;
         })
+        if (sessArr.length === sessIdArr.length) {
+          setSessArray(sessArr);
+        }
         return sessArray;
       // break;
       case "sessionOrg":
