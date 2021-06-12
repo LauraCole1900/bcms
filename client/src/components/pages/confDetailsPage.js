@@ -144,37 +144,27 @@ const ConfDetails = () => {
     switch (searchBy) {
       case "sessionPresenter":
         pres = presArray.filter(presenter => presenter.presFamilyName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-        console.log({ pres });
         pres.forEach(presenter => {
           presIdArr = getSessIds(presenter);
-          console.log({ presIdArr });
           sessIdArr = sessIdArr.concat(presIdArr);
         });
-        console.log({ sessIdArr });
         const filtSessPresIds = filterSessIds(sessIdArr);
-        console.log({ filtSessPresIds });
         filtSessPresIds.forEach(id => {
           let session = data.filter(sess => (sess._id === id));
           sessArr = [...sessArr, session[0]]
-          console.log({ sessArr });
           return sessArr;
         })
         return sessArr;
       case "sessionOrg":
         pres = presArray.filter(presenter => presenter.presOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-        console.log({ pres });
         pres.forEach(presenter => {
           presIdArr = getSessIds(presenter);
-          console.log({ presIdArr });
           sessIdArr = sessIdArr.concat(presIdArr);
         });
-        console.log({ sessIdArr });
         const filtSessOrgIds = filterSessIds(sessIdArr);
-        console.log({ filtSessOrgIds });
         filtSessOrgIds.forEach(id => {
           let session = data.filter(sess => (sess._id === id));
           sessArr = [...sessArr, session[0]]
-          console.log({ sessArr });
           return sessArr;
         })
         return sessArr;
