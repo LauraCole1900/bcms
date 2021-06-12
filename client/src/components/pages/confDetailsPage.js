@@ -9,12 +9,6 @@ import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
-
-  // Things done:
-  // Dried out filter-sessions-by-presenter code
-  // Commented new methods
-  // Cleaned out unused variables
-
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState([]);
   const [sessArray, setSessArray] = useState([]);
