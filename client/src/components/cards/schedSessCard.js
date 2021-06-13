@@ -12,6 +12,7 @@ const SchedSessCard = (props) => {
     nameArr = [presName.join(", ")]
     return nameArr;
   }
+  
 
   return (
     <Card className="sched">

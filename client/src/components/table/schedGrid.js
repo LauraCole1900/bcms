@@ -8,8 +8,8 @@ const SchedGrid = (props) => {
   // Map over rooms and times to create headers
   // Map over sessions for each table cell
   // session.sessDate === dataset.date &&
-  // (session.sessStart === dataset.starttime || session.sessEnd === dataset.endtime) &&
-  // session.sessRoom === dataset.room
+  // session.sessRoom === dataset.room &&
+  // (session.sessStart === dataset.starttime || session.sessEnd === dataset.endtime)
   // Assign that session to that table cell
   // Merge cells if a single session takes up multiple adjacent cells
 
@@ -24,7 +24,22 @@ const SchedGrid = (props) => {
     return timesArr;
   }
 
+  // Parses time to 12-hour
+  const parseTime = (time) => {
+    const timeArr = time.split(":");
+    let hours = timeArr[0];
+    let minutes = timeArr[1];
+    const ampm = hours >= 12 ? "pm" : "am"
+    hours = hours % 12;
+    hours = hours ? hours : 12
+    minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
+    const timeStr = `${hours}:${minutes}${ampm}`
+    return timeStr
+  };
+
   const sessShow = (sess) => {
+    const sessionStart = parseTime(sess.sessStart)
+    const sessionEnd = parseTime(sess.sessEnd)
     const td = document.body.getElementsByTagName("td");
     console.log({ td })
     const date = this.parentNode.getAttribute("data-date").value;
@@ -32,7 +47,7 @@ const SchedGrid = (props) => {
     // const thisSess = sess.filter(sess => (
     //   sess.sessDate === Element.parentNode.dataset.date &&
     //   sess.sessRoom === Element.parentNode.dataset.room &&
-    //   (sess.sessStart === Element.parentNode.dataset.starttime || sess.sessEnd === Element.parentNode.dataset.endtime)
+    //   (sessionStart === Element.parentNode.dataset.starttime || sessionEnd === Element.parentNode.dataset.endtime)
     // ))
     // console.log(thisSess);
     // return thisSess;
