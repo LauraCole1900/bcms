@@ -15,7 +15,7 @@ Features:
   * List of exhibitors - DONE
   * Bios of presenters - DONE
   * Music conference - list of performing groups?
-  * Search function for presenters & exhibitors, attendees (maybe this only for organizers? Why?)
+  * Search function for presenters & exhibitors - DONE
   * Exhibitors given the option to transact business through the app or link to their website
   * Presenters given the option to link to their website - DONE
   * Translated?
@@ -27,28 +27,30 @@ Features:
   * QR code to scan at check-in?
   * Link to venue website - DONE
 
+Publicly available:
+  * GET access to all conferences - DONE
+  * GET access to all conference sessions, presenters, exhibitors, schedule, and venue information - DONE
+  * GET access to venue and exhibit hall maps
+
 Attendee:
+  * Public access PLUS:
   * Full CRUD access to own information - DONE
-  * GET access to conference session and exhibit hall maps
-  * GET access to session schedules, including who is presenting - DONE
 
 Exhibitor:
   * Attendee access PLUS:
   * Full CRUD access to own information - DONE
   * Full CRUD access to exhibit information - DONE
   * Ability to POST, UPDATE, and DELETE exhibit information - DONE
-  * Ability to sell merch through app?
-  * Ability to GET schedule
   * Ability to link to website - DONE
+  * Ability to sell merch through app?
   * Set up as a store?
 
 Presenter:
   * Attendee access PLUS:
   * Full CRUD access to own information, including sessions
   * Ability to POST and UPDATE supplemental materials for own presentation
-  * Ability to GET schedule
   * Ability to link to website - DONE
-  * Ability to insert video or slideshow content
+  * Ability to upload video or slideshow content
 
 Organizer:
   * Attendee access PLUS:
@@ -57,7 +59,7 @@ Organizer:
   * Sets whether the conference uses breakout sessions, tracks
   * Do breakout sessions need to be signed up for in advance?
   * Sets how many breakout sessions/tracks
-  * Sets which features they want access to
+  * Sets which features they want access to - MANAGED THROUGH DATABASE
   * Can restrict number of attendees - DONE
   * Full CRUD access to schedule
   * Full CRUD access to exhibit hall map
