@@ -1,10 +1,18 @@
 import React from "react";
-import { Row, Col, Button, ButtonGroup, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 
 const SchedGrid = (props) => {
   // Map over rooms and times to create headers
   // Map over sessions for each table cell
-  // Session dates 
+  // session.sessDate === dataset.date &&
+  // (session.sessStart === dataset.startTime || session.sessEnd === dataset.endTime) &&
+  // session.sessRoom === dataset.room
+
+  const splitTimes = (times) => {
+    const timesArr = times.split("-")
+    return timesArr;
+  }
+
   const sessAssign = (e) => {
     const { name, value, dataset } = e.target;
 
@@ -26,7 +34,7 @@ const SchedGrid = (props) => {
             <tr key={tidx}>
               <th className="schHead center" value={time.value}>{time}</th>
               {props.schedule.schedRooms.map((room, rdidx) => (
-                <td key={rdidx} data-room={room} data-time={time} data-date={props.dates[props.i]}></td>))}
+                <td key={rdidx} data-room={room} data-startTime={splitTimes(time)[0]} data-endTime={splitTimes(time)[1]} data-date={props.dates[props.i]}></td>))}
             </tr>
           ))}
         </tbody>
