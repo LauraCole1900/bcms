@@ -7,6 +7,14 @@ const SchedGrid = (props) => {
   // session.sessDate === dataset.date &&
   // (session.sessStart === dataset.startTime || session.sessEnd === dataset.endTime) &&
   // session.sessRoom === dataset.room
+  // Assign that session to that table cell
+  // Merge cells if a single session takes up multiple adjacent cells
+
+  // Assign by click:
+  // onClick, list of sessions comes up
+  // Choose session
+  // On selection, session.sessRoom, session.sessStart and session.sessEnd update in database
+  // Need to parse times?
 
   const splitTimes = (times) => {
     const timesArr = times.split("-")
