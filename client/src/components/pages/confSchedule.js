@@ -24,10 +24,12 @@ const Schedule = () => {
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
   const [conference, setConference] = useState();
+  const [presenters, setPresenters] = useState();
   const [sessions, setSessions] = useState();
   const [schedule, setSchedule] = useState();
   const [dates, setDates] = useState([]);
   const [confReady, setConfReady] = useState(false);
+  const [presReady, setPresReady] = useState(false);
   const [schedReady, setSchedReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
   const [dateReady, setDateReady] = useState(false);
@@ -52,6 +54,18 @@ const Schedule = () => {
         console.log(err)
         return false
       })
+  }
+
+  const fetchPres = async (id) => {
+    await PresenterAPI.getPresentersByConf(id)
+      .then(resp => {
+        console.log("from confSched fetchPres", resp.data)
+        const presObj = resp.data;
+        const filteredPres = presObj.filter(pres => pres.presAccepted === "yes")
+        setPresenters(filteredPres);
+        setPresReady(true);
+      })
+      .catch(err => console.log(err));
   }
 
   const fetchSched = async (id) => {
@@ -104,6 +118,7 @@ const Schedule = () => {
   }
 
   useEffect(() => {
+    fetchPres(urlId);
     fetchSched(urlId);
     fetchSess(urlId);
     createDateArr();
@@ -115,6 +130,7 @@ const Schedule = () => {
   return (
     <>
       {confReady === true &&
+        presReady === true &&
         schedReady === true &&
         sessReady === true &&
         dateReady === true &&
@@ -154,11 +170,11 @@ const Schedule = () => {
                 ? <>
                   {dates.map((date, idx) => (
                     <React.Fragment key={idx}>
-                      <Row  className="formPad">
+                      <Row className="formPad">
                         <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
                       </Row>
                       <Row className="formPad">
-                        <SchedGrid schedule={schedule[0]} sessions={sessions} dates={dates} i={idx} />
+                        <SchedGrid schedule={schedule[0]} sessions={sessions} presenters={presenters} dates={dates} i={idx} />
                       </Row>
                     </React.Fragment>
                   ))}
