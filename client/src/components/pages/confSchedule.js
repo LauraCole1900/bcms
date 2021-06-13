@@ -157,7 +157,7 @@ const Schedule = () => {
                         <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
                       </Row>
                       <Row className="formPad">
-                        <SchedGrid schedule={schedule[0]} dates={date} />
+                        <SchedGrid schedule={schedule[0]} dates={dates} i={idx} />
                       </Row>
                     </React.Fragment>
                   ))}
