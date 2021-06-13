@@ -1,11 +1,14 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import { SchedSessCard } from "../cards";
+import "./style.css";
 
 const SchedGrid = (props) => {
+  let thisSess;
   // Map over rooms and times to create headers
   // Map over sessions for each table cell
   // session.sessDate === dataset.date &&
-  // (session.sessStart === dataset.startTime || session.sessEnd === dataset.endTime) &&
+  // (session.sessStart === dataset.starttime || session.sessEnd === dataset.endtime) &&
   // session.sessRoom === dataset.room
   // Assign that session to that table cell
   // Merge cells if a single session takes up multiple adjacent cells
@@ -19,6 +22,20 @@ const SchedGrid = (props) => {
   const splitTimes = (times) => {
     const timesArr = times.split("-")
     return timesArr;
+  }
+
+  const sessShow = (sess) => {
+    const td = document.body.getElementsByTagName("td");
+    console.log({ td })
+    const date = this.parentNode.getAttribute("data-date").value;
+    console.log({ date });
+    // const thisSess = sess.filter(sess => (
+    //   sess.sessDate === Element.parentNode.dataset.date &&
+    //   sess.sessRoom === Element.parentNode.dataset.room &&
+    //   (sess.sessStart === Element.parentNode.dataset.starttime || sess.sessEnd === Element.parentNode.dataset.endtime)
+    // ))
+    // console.log(thisSess);
+    // return thisSess;
   }
 
   const sessAssign = (e) => {
@@ -42,7 +59,9 @@ const SchedGrid = (props) => {
             <tr key={timeidx}>
               <th className="schHead center" value={time.value}>{time}</th>
               {props.schedule.schedRooms.map((room, roomdataidx) => (
-                <td key={roomdataidx} className="schedCells" data-room={room} data-starttime={splitTimes(time)[0]} data-endtime={splitTimes(time)[1]} data-date={props.dates[props.i]}></td>))}
+                <td key={roomdataidx} className="schedCells" data-room={room} data-starttime={splitTimes(time)[0]} data-endtime={splitTimes(time)[1]} data-date={props.dates[props.i]}>
+                  {/* <SchedSessCard session={props.sessions} presenter={props.presenter} /> */}
+                </td>))}
             </tr>
           ))}
         </tbody>
