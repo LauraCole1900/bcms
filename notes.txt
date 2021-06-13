@@ -29,11 +29,12 @@ Features:
 
 Publicly available:
   * GET access to all conferences - DONE
-  * GET access to all conference sessions, presenters, exhibitors, schedule, and venue information - DONE
+  * GET access to all sessions, presenters, exhibitors, schedule, and venue information for all conferences, but NOT session materials - DONE
   * GET access to venue and exhibit hall maps
 
 Attendee:
   * Public access PLUS:
+  * Access to session materials during and after the session
   * Full CRUD access to own information - DONE
 
 Exhibitor:
