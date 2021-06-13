@@ -32,6 +32,11 @@ td {
   align-items: center;
 }
 
+.schedCells {
+  min-width: 200px;
+  min-height: 50px;
+}
+
 .subhead {
   color: var(--medSil);
   margin-bottom: 0;

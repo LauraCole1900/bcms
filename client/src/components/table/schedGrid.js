@@ -33,16 +33,16 @@ const SchedGrid = (props) => {
         <thead>
           <tr>
             <th className="schHead"></th>
-            {props.schedule.schedRooms.map((room, ridx) => (
-              <th key={ridx} value={room.value} className="schHead center">{room}</th>))}
+            {props.schedule.schedRooms.map((room, roomidx) => (
+              <th key={roomidx} value={room.value} className="schHead center">{room}</th>))}
           </tr>
         </thead>
         <tbody>
-          {props.schedule.schedTimes.map((time, tidx) => (
-            <tr key={tidx}>
+          {props.schedule.schedTimes.map((time, timeidx) => (
+            <tr key={timeidx}>
               <th className="schHead center" value={time.value}>{time}</th>
-              {props.schedule.schedRooms.map((room, rdidx) => (
-                <td key={rdidx} data-room={room} data-startTime={splitTimes(time)[0]} data-endTime={splitTimes(time)[1]} data-date={props.dates[props.i]}></td>))}
+              {props.schedule.schedRooms.map((room, roomdataidx) => (
+                <td key={roomdataidx} className="schedCells" data-room={room} data-starttime={splitTimes(time)[0]} data-endtime={splitTimes(time)[1]} data-date={props.dates[props.i]}></td>))}
             </tr>
           ))}
         </tbody>
