@@ -27,6 +27,12 @@ const SchedSessCard = (props) => {
     nameArr = [presName.join(", ")]
     return nameArr;
   }
+  
+  const sessAssign = (e) => {
+    // probably will make use of props.allSess, props.room, and props.time
+    const { name, value, dataset } = e.target;
+
+  }
 
 
   return (
@@ -41,7 +47,7 @@ const SchedSessCard = (props) => {
               <Button className="button" data-sessid={props.session[0]._id} onClick={(e) => handleShowSession(e)}>Session Details</Button>
             </Card>
             : <Card className="schedBlue">
-              <h3 className="textTight">Click to add session</h3>
+              <h3 className="textTight" onClick={sessAssign}>Click to add session</h3>
             </Card>}
         </>
         : <>
