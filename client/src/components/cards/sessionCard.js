@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -6,12 +6,10 @@ import Moment from "react-moment";
 import { PresenterAPI, SessionAPI } from "../../utils/api";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
-import { propTypes } from "react-bootstrap/esm/Image";
 
 const SessionCard = (props) => {
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
-  const [cardRender, setCardRender] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState("");
   const [thisId, setThisId] = useState();
@@ -50,7 +48,7 @@ const SessionCard = (props) => {
     setShowErr(0);
     props.change();
   }
-  
+
   // Parses time to 12-hour
   const parseTime = (time) => {
     const timeArr = time.split(":");
@@ -110,110 +108,106 @@ const SessionCard = (props) => {
     return orgArr;
   }
 
-  useEffect(() => {
-    if (props.session.length > 0) {
-      // fetchConf(urlId);
-      setCardRender(true)
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.session])
-
 
   return (
     <>
-      { cardRender === true &&
-        props.session.map(sess => (
-          <Card className="infoCard" key={sess._id}>
-            {sess.sessKeynote === "yes" &&
-              <Card.Header className="cardTitleKeynote">
-                <Row>
-                  <Col sm={2}>
-                    <h3>&nbsp;Keynote:</h3>
-                  </Col>
-                  <Col sm={9}>
-                    <h2 className="title">{sess.sessName}</h2>
-                    <p>{fetchPresNames(sess._id)}</p>
-                    <p>{fetchPresOrgs(sess._id)}</p>
-                  </Col>
-                  <Col sm={1}>
-                    {isAuthenticated &&
-                      (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
-                      <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                        <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
-                      </Button>}
-                  </Col>
-                </Row>
-              </Card.Header>}
-            {sess.sessPanel === "yes" &&
-              <Card.Header className="cardTitle">
-                <Row>
-                  <Col sm={2}>
-                    <h3>&nbsp;Panel:</h3>
-                  </Col>
-                  <Col sm={9}>
-                    <h2 className="title">{sess.sessName}</h2>
-                    <p>{fetchPresNames(sess._id)}</p>
-                    <p>{fetchPresOrgs(sess._id)}</p>
-                  </Col>
-                  <Col sm={1}>
-                    {isAuthenticated &&
-                      (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
-                      <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                        <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
-                      </Button>}
-                  </Col>
-                </Row>
-              </Card.Header>}
-            {sess.sessKeynote === "no" && sess.sessPanel === "no" &&
-              <Card.Header className="cardTitle">
-                <Row>
-                  <Col sm={11}>
-                    <h2 className="title">{sess.sessName}</h2>
-                    <p>{fetchPresNames(sess._id)}</p>
-                    <p>{fetchPresOrgs(sess._id)}</p>
-                  </Col>
-                  <Col sm={1}>
-                    {isAuthenticated &&
-                      (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
-                      <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                        <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
-                      </Button>}
-                  </Col>
-                </Row>
-              </Card.Header>}
-            <Card.Body className="infoCardBody">
+      {props.session.map(sess => (
+        <Card className="infoCard" key={sess._id}>
+          {sess.sessKeynote === "yes" &&
+            <Card.Header className="cardTitleKeynote">
               <Row>
-                <Col sm={8}>
-                  <Card.Text>{sess.sessDesc}</Card.Text>
+                <Col sm={2}>
+                  <h3>&nbsp;Keynote:</h3>
                 </Col>
-                <Col sm={4}>
-                  <Row><p>Date: <Moment format="ddd, D MMM YYYY" withTitle>{sess.sessDate}</Moment></p></Row>
-                  <Row><p>Time: {parseTime(sess.sessStart)} - {parseTime(sess.sessEnd)}</p></Row>
-                  {props.conference[0].confType === "Live" &&
-                    <Row><p>Location: {sess.sessRoom}</p></Row>}
+                <Col sm={9}>
+                  <h2 className="title">{sess.sessName}</h2>
+                  <p>{fetchPresNames(sess._id)}</p>
+                  <p>{fetchPresOrgs(sess._id)}</p>
+                </Col>
+                <Col sm={1}>
+                  {isAuthenticated &&
+                    urlType !== "schedule" &&
+                    (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
+                    </Button>}
                 </Col>
               </Row>
-              {isAuthenticated &&
-                (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
-                <Row>
-                  <Col sm={1}></Col>
-                  <Col sm={5}>
-                    <Link to={`/edit_session/${sess._id}`} className={location.pathname === `/edit_session/${sess._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit session" className="button">Edit Session</Button>
-                    </Link>
-                  </Col>
-                </Row>}
-            </Card.Body>
+            </Card.Header>}
+          {sess.sessPanel === "yes" &&
+            <Card.Header className="cardTitle">
+              <Row>
+                <Col sm={2}>
+                  <h3>&nbsp;Panel:</h3>
+                </Col>
+                <Col sm={9}>
+                  <h2 className="title">{sess.sessName}</h2>
+                  <p>{fetchPresNames(sess._id)}</p>
+                  <p>{fetchPresOrgs(sess._id)}</p>
+                </Col>
+                <Col sm={1}>
+                  {isAuthenticated &&
+                    urlType !== "schedule" &&
+                    (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
+                    </Button>}
+                </Col>
+              </Row>
+            </Card.Header>}
+          {sess.sessKeynote === "no" && sess.sessPanel === "no" &&
+            <Card.Header className="cardTitle">
+              <Row>
+                <Col sm={11}>
+                  <h2 className="title">{sess.sessName}</h2>
+                  <p>{fetchPresNames(sess._id)}</p>
+                  <p>{fetchPresOrgs(sess._id)}</p>
+                </Col>
+                <Col sm={1}>
+                  {isAuthenticated &&
+                    urlType !== "schedule" &&
+                    (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
+                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
+                    </Button>}
+                </Col>
+              </Row>
+            </Card.Header>}
+          <Card.Body className="infoCardBody">
+            <Row>
+              <Col sm={8}>
+                <Card.Text>{sess.sessDesc}</Card.Text>
+              </Col>
+              <Col sm={4}>
+                <Row><p>Date: <Moment format="ddd, D MMM YYYY" withTitle>{sess.sessDate}</Moment></p></Row>
+                <Row><p>Time: {parseTime(sess.sessStart)} - {parseTime(sess.sessEnd)}</p></Row>
+                {props.conference[0].confType === "Live" &&
+                  <Row><p>Location: {sess.sessRoom}</p></Row>}
+              </Col>
+            </Row>
+            {isAuthenticated &&
+              (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
+              <Row>
+                <Col sm={1}></Col>
+                <Col sm={5}>
+                  <Link to={`/edit_session/${sess._id}`} className={location.pathname === `/edit_session/${sess._id}` ? "link active" : "link"}>
+                    <Button data-toggle="popover" title="Edit session" className="button">Edit Session</Button>
+                  </Link>
+                </Col>
+              </Row>}
+          </Card.Body>
 
-            <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(thisId)} show={showConfirm === sess._id} hide={(e) => handleHideConfirm(e)} />
+          {urlType !== "schedule" &&
+            <>
+              <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(thisId)} show={showConfirm === sess._id} hide={(e) => handleHideConfirm(e)} />
 
-            <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === sess._id} hide={(e) => handleHideSuccess(e)} />
+              <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === sess._id} hide={(e) => handleHideSuccess(e)} />
 
-            <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === sess._id} hide={(e) => handleHideErr(e)} />
+              <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === sess._id} hide={(e) => handleHideErr(e)} />
+            </>}
 
-          </Card >
-        ))}
+        </Card >
+      ))}
     </>
   )
 }

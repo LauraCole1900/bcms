@@ -4,11 +4,12 @@ import { SessionCard } from "../cards";
 import "./style.css";
 
 const SessionModal = (props) => {
+  console.log("sessModal", props);
 
   return (
     <>
     <Modal show={props.show} onHide={props.hide} centered={true} className="modal">
-      <SessionCard session={props.session} />
+      <SessionCard session={[props.session]} presenter={props.presenter} conference={[props.conference]} />
     </Modal>
     </>
   )

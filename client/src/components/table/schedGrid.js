@@ -46,8 +46,6 @@ const SchedGrid = (props) => {
       sess.sessRoom === room &&
       (parseTime(sess.sessStart) === scheduleStart || parseTime(sess.sessEnd) === scheduleEnd)
     ))
-    console.log({ scheduleDate }, { room }, { scheduleStart }, { scheduleEnd });
-    console.log({ thisSess });
     return thisSess;
   }
 

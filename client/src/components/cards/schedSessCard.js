@@ -10,16 +10,14 @@ const SchedSessCard = (props) => {
 
   // Modal variables
   const [showSession, setShowSession] = useState(0);
-  const [thisId, setThisId] = useState();
 
   const handleShowSession = (e) => {
     const { dataset } = e.target;
     console.log(dataset.sessid);
-    setThisId(dataset.sessid);
+    setShowSession(dataset.sessid);
   }
   const handleHideSession = () => {
     setShowSession(0);
-    props.change();
   }
 
   // Filters props.presenter by sessId, then maps through the result to pull out presenter names
