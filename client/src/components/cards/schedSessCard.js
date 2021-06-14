@@ -26,12 +26,12 @@ const SchedSessCard = (props) => {
               <h3>{props.session.sessName}</h3>
               <h4>{fetchPresNames(props.session._id)}</h4>
             </Card>
-            : <Card className="sched">
+            : <Card className="schedBlue">
               <h3 className="textTight">Click to add session</h3>
             </Card>}
         </>
         : <>
-          <Card className="sched">
+          <Card className="schedBlue">
             <h3 className="textTight">FREE</h3>
           </Card>
         </>}

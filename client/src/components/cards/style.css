@@ -14,21 +14,41 @@
   --skyBlue: #408ae1;
   --medBlue: #185196;
   --darkBlue: #032c4b;
-  --silverGradientDown: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
+  --silverGradientDown: linear-gradient(
+    to bottom,
+    var(--lightSil),
+    var(--darkSil)
+  );
   --redGradientDown: linear-gradient(to bottom, var(--red), var(--darkRed));
-  --greenGradientUp: linear-gradient(to top, var(--lightForest), var(--medForest));
-  --greenGradientDown: linear-gradient(to bottom, var(--lightForest), var(--medForest));
+  --greenGradientUp: linear-gradient(
+    to top,
+    var(--lightForest),
+    var(--medForest)
+  );
+  --greenGradientDown: linear-gradient(
+    to bottom,
+    var(--lightForest),
+    var(--medForest)
+  );
   --blueGradientUp: linear-gradient(to top, var(--skyBlue), var(--darkBlue));
+  --blueGradientDown: linear-gradient(
+    to bottom,
+    var(--skyBlue),
+    var(--darkBlue)
+  );
 }
 
 a {
   color: var(--medBlue);
 }
-a:hover, a:active, a:visited {
+a:hover,
+a:active,
+a:visited {
   color: var(--ltMedForest);
 }
 
-h2, h4 {
+h2,
+h4 {
   margin: 13px 0 0 13px;
 }
 
@@ -45,7 +65,8 @@ p {
   padding: 0 13px;
 }
 
-.cardTitle, .cardTitleKeynote {
+.cardTitle,
+.cardTitleKeynote {
   color: var(--sand);
   border-radius: 11px 11px 0 0;
   margin-right: -25px;
@@ -112,7 +133,8 @@ p {
   justify-content: flex-end;
 }
 
-.sched {
+.sched,
+.schedBlue {
   color: var(--darkForest);
   background: var(--silverGradientDown);
   border: 2px solid var(--darkForest);
@@ -125,6 +147,17 @@ p {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.sched {
+  color: var(--darkForest);
+  background: var(--silverGradientDown);
+  border: 2px solid var(--darkForest);
+}
+
+.schedBlue {
+  color: var(--lightSil);
+  background: var(--blueGradientDown);
 }
 
 .textTight {
