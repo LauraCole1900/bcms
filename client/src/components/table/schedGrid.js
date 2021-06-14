@@ -21,6 +21,7 @@ const SchedGrid = (props) => {
 
   const splitTimes = (times) => {
     const timesArr = times.split("-")
+    console.log({ timesArr });
     return timesArr;
   }
 
@@ -34,23 +35,26 @@ const SchedGrid = (props) => {
     hours = hours ? hours : 12
     minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
     const timeStr = `${hours}:${minutes}${ampm}`
+    console.log({ timeStr })
     return timeStr
   };
 
-  const sessShow = (sess) => {
-    const sessionStart = parseTime(sess.sessStart)
-    const sessionEnd = parseTime(sess.sessEnd)
-    const td = document.body.getElementsByTagName("td");
-    console.log({ td })
-    const date = this.parentNode.getAttribute("data-date").value;
-    console.log({ date });
-    // const thisSess = sess.filter(sess => (
-    //   sess.sessDate === Element.parentNode.dataset.date &&
-    //   sess.sessRoom === Element.parentNode.dataset.room &&
-    //   (sessionStart === Element.parentNode.dataset.starttime || sessionEnd === Element.parentNode.dataset.endtime)
-    // ))
-    // console.log(thisSess);
-    // return thisSess;
+  const filterSess = (sess, room, time) => {
+    console.log({ sess });
+    const sessionDate = sess.sessDate;
+    const sessionRoom = sess.sessRoom;
+    const scheduleDate = props.dates[props.i];
+    const scheduleStart = splitTimes(time)[0];
+    const scheduleEnd = splitTimes(time)[1];
+    thisSess = sess.filter(sess => (
+      sess.sessDate === scheduleDate &&
+      sess.sessRoom === room &&
+      (parseTime(sess.sessStart) === scheduleStart || parseTime(sess.sessEnd) === scheduleEnd)
+    ))
+    console.log({ sessionDate }, { sessionRoom });
+    console.log({ scheduleDate }, { room }, { scheduleStart }, { scheduleEnd });
+    console.log({ thisSess });
+    return thisSess;
   }
 
   const sessAssign = (e) => {
@@ -75,8 +79,9 @@ const SchedGrid = (props) => {
               <th className="schHead center" value={time.value}>{time}</th>
               {props.schedule.schedRooms.map((room, roomdataidx) => (
                 <td key={roomdataidx} className="schedCells" data-room={room} data-starttime={splitTimes(time)[0]} data-endtime={splitTimes(time)[1]} data-date={props.dates[props.i]}>
-                  {/* <SchedSessCard session={props.sessions} presenter={props.presenter} /> */}
-                </td>))}
+                  <SchedSessCard session={filterSess(props.sessions, room, time)} presenters={props.presenters} conference={props.conference} />
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>

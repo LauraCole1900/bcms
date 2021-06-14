@@ -19,6 +19,7 @@ td {
 
 .adminCheck, .center {
   text-align: center;
+  vertical-align: middle;
 }
 
 .allergyWarn {

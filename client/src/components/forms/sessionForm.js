@@ -118,7 +118,7 @@ const SessionForm = () => {
       }
     } else {
       // If presenter doesn't exist, create new presenter document
-      PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId] })
+      PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId], presAccepted: "yes" })
         .then(resp => {
           console.log("savePresenter", resp);
         })

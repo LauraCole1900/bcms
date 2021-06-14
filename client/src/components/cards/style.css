@@ -127,6 +127,11 @@ p {
   flex-wrap: wrap;
 }
 
+.textTight {
+  margin: 0;
+  padding: 0;
+}
+
 .title {
   font-size: 32px;
 }
