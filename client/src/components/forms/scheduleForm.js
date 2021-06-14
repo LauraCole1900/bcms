@@ -102,29 +102,33 @@ const ScheduleForm = (props) => {
             </Col>
           </Row>
 
-          <Card className="formCard">
-            <Card.Body className="cardBody">
-              <Row>
-                <Col sm={12}>
-                  <Form.Group controlId="formSchedRooms">
-                    <Form.Label>Room names:</Form.Label><br />
-                    <Form.Text className="subtitle" muted>Please separate room names with commas.</Form.Text>
-                    <Form.Control type="input" name="schedRooms" placeholder="Enter room names here" value={schedule.schedRooms} className="formInput" onChange={handleInputChange} />
-                  </Form.Group>
-                </Col>
-              </Row>
+          <Row>
+            <Col sm={10}>
+              <Card className="formCard">
+                <Card.Body className="cardBody">
+                  <Row>
+                    <Col sm={12}>
+                      <Form.Group controlId="formSchedRooms">
+                        <Form.Label>Room names:</Form.Label><br />
+                        <Form.Text className="subtitle" muted>Please separate room names with commas.</Form.Text>
+                        <Form.Control type="input" name="schedRooms" placeholder="Enter room names here" value={schedule.schedRooms} className="formInput" onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-              <Row>
-                <Col sm={12}>
-                  <Form.Group controlId="formSchedTimes">
-                    <Form.Label>Time blocks:</Form.Label><br />
-                    <Form.Text className="subtitle" muted>Please use the form hh:mm am/pm-hh:mm am/pm and separate by commas.</Form.Text>
-                    <Form.Control type="input" name="schedTimes" placeholder="Enter time blocks here" value={schedule.schedTimes} className="formInput" onChange={handleInputChange} />
-                  </Form.Group>
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
+                  <Row>
+                    <Col sm={12}>
+                      <Form.Group controlId="formSchedTimes">
+                        <Form.Label>Time blocks:</Form.Label><br />
+                        <Form.Text className="subtitle" muted>Please use the form hh:mm am/pm-hh:mm am/pm and separate by commas.</Form.Text>
+                        <Form.Control type="input" name="schedTimes" placeholder="Enter time blocks here" value={schedule.schedTimes} className="formInput" onChange={handleInputChange} />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
 
           <Row>
             <Col sm={2}>
