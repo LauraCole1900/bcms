@@ -1,9 +1,10 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Button, Card, Row } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./style.css";
 
 const SchedSessCard = (props) => {
+  console.log(props);
   const { user, isAuthenticated } = useAuth0();
   let nameArr = [];
 
@@ -18,22 +19,41 @@ const SchedSessCard = (props) => {
 
   return (
     <>
-      {isAuthenticated &&
-        (user.email === props.conference.ownerEmail || props.conference.confAdmins.includes(user.email))
+      {(isAuthenticated &&
+        (user.email === props.conference.ownerEmail || props.conference.confAdmins.includes(user.email)))
         ? <>
-          {props.schedule !== undefined
+          {props.session[0] !== undefined
             ? <Card className="sched">
-              <h3>{props.session.sessName}</h3>
-              <h4>{fetchPresNames(props.session._id)}</h4>
+              <Row>
+                <h3 className="textTight">{props.session[0].sessName}</h3>
+              </Row>
+              <Row>
+                <p>{fetchPresNames(props.session[0]._id)}</p>
+              </Row>
+              <Row>
+                <Button className="button">Session Details</Button>
+              </Row>
             </Card>
             : <Card className="schedBlue">
               <h3 className="textTight">Click to add session</h3>
             </Card>}
         </>
         : <>
-          <Card className="schedBlue">
-            <h3 className="textTight">FREE</h3>
-          </Card>
+          {props.session[0] !== undefined
+            ? <Card className="sched">
+              <Row className="maxWidth">
+                <h3 className="textTight">{props.session[0].sessName}</h3><br />
+              </Row>
+              <Row className="maxWidth">
+                <p className="textTight">{fetchPresNames(props.session[0]._id)}</p><br />
+              </Row>
+              <Row className="maxWidth">
+                <Button className="button">Session Details</Button>
+              </Row>
+            </Card>
+            : <Card className="schedBlue">
+              <h3 className="textTight">FREE</h3>
+            </Card>}
         </>}
     </>
   )

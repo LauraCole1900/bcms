@@ -107,6 +107,11 @@ p {
   margin: 5px 0;
 }
 
+.maxWidth {
+  width: 100%;
+  text-align: center;
+}
+
 .org {
   margin-left: 50px;
 }

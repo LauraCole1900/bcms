@@ -21,7 +21,6 @@ const SchedGrid = (props) => {
 
   const splitTimes = (times) => {
     const timesArr = times.split("-")
-    console.log({ timesArr });
     return timesArr;
   }
 
@@ -35,14 +34,10 @@ const SchedGrid = (props) => {
     hours = hours ? hours : 12
     minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
     const timeStr = `${hours}:${minutes}${ampm}`
-    console.log({ timeStr })
     return timeStr
   };
 
   const filterSess = (sess, room, time) => {
-    console.log({ sess });
-    const sessionDate = sess.sessDate;
-    const sessionRoom = sess.sessRoom;
     const scheduleDate = props.dates[props.i];
     const scheduleStart = splitTimes(time)[0];
     const scheduleEnd = splitTimes(time)[1];
@@ -51,7 +46,6 @@ const SchedGrid = (props) => {
       sess.sessRoom === room &&
       (parseTime(sess.sessStart) === scheduleStart || parseTime(sess.sessEnd) === scheduleEnd)
     ))
-    console.log({ sessionDate }, { sessionRoom });
     console.log({ scheduleDate }, { room }, { scheduleStart }, { scheduleEnd });
     console.log({ thisSess });
     return thisSess;
