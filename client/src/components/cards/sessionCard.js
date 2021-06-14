@@ -131,6 +131,10 @@ const SessionCard = (props) => {
                     <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
                       <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
                     </Button>}
+                  {urlType === "schedule" &&
+                    <Button data-toggle="popover" title="Close" className="button closeBtn" onClick={props.hide}>
+                      <Image fluid="true" src="/images/close-icon-2.png" className="button close" alt="Close" />
+                    </Button>}
                 </Col>
               </Row>
             </Card.Header>}
@@ -152,6 +156,10 @@ const SessionCard = (props) => {
                     <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
                       <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
                     </Button>}
+                  {urlType === "schedule" &&
+                    <Button data-toggle="popover" title="Close" className="button closeBtn" onClick={props.hide}>
+                      <Image fluid="true" src="/images/close-icon-2.png" className="button close" alt="Close" />
+                    </Button>}
                 </Col>
               </Row>
             </Card.Header>}
@@ -169,6 +177,10 @@ const SessionCard = (props) => {
                     (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
                     <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
                       <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
+                    </Button>}
+                  {urlType === "schedule" &&
+                    <Button data-toggle="popover" title="Close" className="button closeBtn" onClick={props.hide}>
+                      <Image fluid="true" src="/images/close-icon-2.png" className="button close" alt="Close" />
                     </Button>}
                 </Col>
               </Row>

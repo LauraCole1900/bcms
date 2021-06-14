@@ -49,7 +49,7 @@ const SchedSessCard = (props) => {
             ? <Card className="sched">
               <h3 className="textTight maxWidth">{props.session[0].sessName}</h3><br />
               <p className="textTight maxWidth">{fetchPresNames(props.session[0]._id)}</p><br />
-              <Button className="button" data-sessid={props.session[0]._id} onClick={(e) => handleShowSession(e)}>Session Details</Button>
+              <Button data-toggle="popover" title="Session details" className="button" data-sessid={props.session[0]._id} onClick={(e) => handleShowSession(e)}>Session Details</Button>
             </Card>
             : <Card className="schedBlue">
               <h3 className="textTight">FREE</h3>

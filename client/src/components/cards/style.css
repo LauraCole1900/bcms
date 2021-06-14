@@ -80,6 +80,17 @@ p {
   background: var(--blueGradientUp);
 }
 
+.button.close {
+  margin: 0;
+  padding: 0;
+  max-width: 25px;
+}
+
+.closeBtn {
+  margin: 5px;
+  padding: 5px;
+}
+
 .delete {
   max-width: 25px;
 }
