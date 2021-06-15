@@ -66,7 +66,7 @@ const SchedSessCard = (props) => {
         </>}
 
       {props.session[0] !== undefined &&
-        <SessionModal session={props.session[0]} presenter={props.presenters} conference={props.conference} show={showDetails === props.session[0]._id} hide={(e) => handleHideDetails(e)} />}
+        <SessionModal allsess={props.allSess} session={props.session[0]} presenter={props.presenters} conference={props.conference} show={showDetails === props.session[0]._id} hide={(e) => handleHideDetails(e)} />}
     </>
   )
 }
