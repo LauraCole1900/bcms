@@ -5,6 +5,7 @@ import "./style.css";
 
 const SchedGrid = (props) => {
   let thisSess;
+  let timesArr;
   // Map over rooms and times to create headers
   // Map over sessions for each table cell
   // session.sessDate === dataset.date &&
@@ -20,7 +21,7 @@ const SchedGrid = (props) => {
   // Need to parse times?
 
   const splitTimes = (times) => {
-    const timesArr = times.split("-")
+    timesArr = times.split("-")
     return timesArr;
   }
 
@@ -66,7 +67,7 @@ const SchedGrid = (props) => {
               <th className="schHead center" value={time.value}>{time}</th>
               {props.schedule.schedRooms.map((room, roomdataidx) => (
                 <td key={roomdataidx} className="schedCells center">
-                  <SchedSessCard session={filterSess(props.sessions, room, time)} allSess={props.sessions} presenters={props.presenters} conference={props.conference} room={room} time={time} />
+                  <SchedSessCard session={filterSess(props.sessions, room, time)} allSess={props.sessions} presenters={props.presenters} conference={props.conference} room={room} time={time} startTime={timesArr[0]} endTime={timesArr[1]} />
                 </td>
               ))}
             </tr>

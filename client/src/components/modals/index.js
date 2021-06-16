@@ -1,3 +1,4 @@
+export { default as AssignModal } from "./assignModal";
 export { default as ConfirmModal } from "./confirm";
 export { default as ErrorModal } from "./error";
 export { default as SessionModal } from "./sessModal";

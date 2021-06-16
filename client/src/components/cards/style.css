@@ -105,6 +105,10 @@ p {
   background: var(--redGradientDown);
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .infoCard {
   background: var(--silverGradientDown);
   border: 2px solid var(--darkForest);
