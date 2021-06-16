@@ -1,35 +1,32 @@
 import React, { ChangeEvent, MouseEvent, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { ErrorModal, SuccessModal } from "./index";
 import { SessionAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css"
 
+interface Session {
+  confId: string,
+  sessName: string,
+  sessPresEmails: string[],
+  sessDate: string,
+  sessStart: string,
+  sessEnd: string,
+  sessDesc: string,
+  sessKeynote: string,
+  sessPanel: string,
+  sessRoom: string,
+  sessAccepted: string,
+  _id: string
+}
+
 const AssignModal = (props: any): object => {
+  const history = useHistory();
   const allSess: any[] = props.allSess;
   const filteredSess: any[] = allSess.filter(sess => (sess.sessRoom === "TBA" || sess.sessRoom === "TBD" || sess.sessRoom === "tba" || sess.sessRoom === "tbd"));
   let sessData: any;
   // const [errThrown, setErrThrown] = useState<string>()
   const [session, setSession] = useState<any | void>();
-
-  // Modal variables
-  // const [showSuccess, setShowSuccess] = useState<boolean>(false);
-  // const [showError, setShowError] = useState<boolean>(false);
-
-  // Sets boolean to show or hide relevant modal
-  // const handleShowSuccess = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setBtnName(e.target.name);
-  //   setShowSuccess(true);
-  // }
-  // const handleHideSuccess = () => {
-  //   setShowSuccess(false);
-  //   props.change();
-  // }
-  // const handleShowError = () => setShowError(true);
-  // const handleHideError = () => {
-  //   setShowError(false);
-  //   props.change();
-  // }
 
   // Parse time to 24-hour to store in db
   const dbTime = (time: string): string => {
@@ -42,7 +39,7 @@ const AssignModal = (props: any): object => {
 
   // Handles input changes to form fields
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): any => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     switch (value) {
       case "new":
         sessData = { ...session, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
@@ -59,7 +56,7 @@ const AssignModal = (props: any): object => {
   };
 
   // Handles click on "Update" button
-  const updateSess = (e: MouseEvent): any | void => {
+  const handleUpdateSess = (e: MouseEvent): any | void => {
     e.preventDefault();
     const { name } = e.target as HTMLButtonElement
     props.setBtnName(name);
@@ -77,6 +74,27 @@ const AssignModal = (props: any): object => {
         props.handleShowError();
       })
   }
+
+   // Handles click on "Create" button
+   const handleCreateSess = (e: MouseEvent): any | void => {
+    e.preventDefault();
+    const { name } = e.target as HTMLButtonElement
+    props.setBtnName(name);
+    SessionAPI.saveSession({ confId: props.urlid, sessName: "", sessPresEmails: "", sessDate: props.date, sessStart: props.startTime, sessEnd: props.endTime, sessDesc: "", sessKeynote: "", sessPanel: "", sessRoom: props.room, sessAccepted: "yes" })
+      .then((resp: AxiosResponse<Session>) => {
+        console.log("from assignModal createSess", resp.data)
+        // TS doesn't like resp.err
+        if (resp.status !== 422) {
+          history.push(`/edit_session/${resp.data._id}`)
+        }
+      })
+      .catch((err: AxiosError) => {
+        console.log(err);
+        props.errThrown(err.message);
+        props.handleShowError();
+      })
+  }
+
 
   return (
     <>
@@ -109,8 +127,8 @@ const AssignModal = (props: any): object => {
           <Modal.Footer className="modalFooter">
 
             {session?.sessName !== undefined
-              ? <Button data-toggle="popover" title="Assign" name="Assign" className="button" type="button" onClick={(e) => updateSess(e)}>Assign Session</Button>
-              : <Button data-toggle="popover" title="Create" className="button" type="button" onClick={updateSess}>Create Session</Button>}
+              ? <Button data-toggle="popover" title="Assign" name="Assign" className="button" type="button" onClick={(e) => handleUpdateSess(e)}>Assign Session</Button>
+              : <Button data-toggle="popover" title="Create" className="button" type="button" onClick={handleCreateSess}>Create Session</Button>}
 
             {/* No, take no action button */}
             <Button data-toggle="popover" title="No, take me back" className="button" type="button" onClick={props.hide}>No, take me back</Button>
