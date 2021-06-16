@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+mongoose.Schema.Types.String.checkRequired(v => v != null);
+
 var trimmedString = {
   type: String,
   trim: true
