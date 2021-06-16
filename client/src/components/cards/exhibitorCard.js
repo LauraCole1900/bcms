@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Card, Row, Col, Image } from "react-bootstrap";
 import "./style.css";
 
-// Figure out how to add session name(s)?
-
 const ExhibitorCard = (props) => {
   const [cardRender, setCardRender] = useState(false);
 

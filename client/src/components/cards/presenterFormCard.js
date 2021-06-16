@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Row, Col, Image, Form } from "react-bootstrap";
+import { Card, Row, Col, Form } from "react-bootstrap";
 import "./style.css";
 
 const PresenterFormCard = (props) => {

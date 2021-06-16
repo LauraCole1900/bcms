@@ -3,10 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import "./style.css";
 
 const ConfirmModal = (props) => {
-  // Shows onClick of "Cancel", "Delete" or "Unregister" button
-  // Asks for confirmation that user wants to take that action
-  // If "yes", show SuccessModal or ErrorModal
-  // If "no", returns user to page they were on
+
 
   return (
     <>

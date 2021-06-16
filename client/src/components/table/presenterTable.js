@@ -2,6 +2,8 @@ import React from "react";
 import "./style.css";
 
 const PresenterTable = ({ presenters }) => {
+
+  
   return (
     <>
       {presenters.map(pres => (

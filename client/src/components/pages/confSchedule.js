@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Container, Row, Col, Button, ButtonGroup, Table } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Moment from "react-moment";
 import { ConferenceCard, UserCard } from "../cards";
 import { ScheduleForm } from "../forms";
@@ -11,18 +10,11 @@ import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../../util
 import "./style.css";
 
 const Schedule = () => {
-  // Generates a table for each day of the conference - DONE
-  // Room identifiers across the top - DONE
-  // Times down the side - DONE
-  // Cells populate from SessionAPI: session cards? Not sure
   // Sessions that take more than one room (keynote, etc) should stretch across those rooms
   // Sessions that take more than one time block (registration, etc.) should stretch across those times
   // Registration: need to figure out how to determine if timeblock is after start time and before end time to include in merge
-  // User should be able to click on a table cell to edit that session
-  // When editing, user is given a drop-down menu of sessions that already exist in the database?
 
   const { user, isAuthenticated } = useAuth0();
-  const location = useLocation();
   const [conference, setConference] = useState();
   const [presenters, setPresenters] = useState();
   const [sessions, setSessions] = useState();

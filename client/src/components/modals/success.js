@@ -6,8 +6,6 @@ import "./style.css"
 const SuccessModal = (props) => {
   const location = useLocation();
 
-  // Buttons give user choice to return to previous {conference or session}, allConfsPage or profilePage
-
 
   return (
     <>

@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorModal, SuccessModal } from "../modals"
-import { ScheduleAPI, ConferenceAPI } from "../../utils/api";
+import { ScheduleAPI } from "../../utils/api";
 import "./style.css";
 
 const ScheduleForm = (props) => {
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [schedule, setSchedule] = useState(props.schedule);
   const [errThrown, setErrThrown] = useState();
-  const [confReady, setConfReady] = useState(false);
 
   // Grabs conference ID from URL
   const urlArray = window.location.href.split("/")
@@ -73,13 +72,6 @@ const ScheduleForm = (props) => {
 
   }
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     fetchConf(confId);
-  //   }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
 
   return (
     <>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
@@ -11,7 +11,6 @@ import "./style.css";
 const PresenterForm = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const history = useHistory();
-  const location = useLocation();
   const [presenter, setPresenter] = useState([]);
   const [conference, setConference] = useState();
   const [session, setSession] = useState();

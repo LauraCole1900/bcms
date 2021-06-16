@@ -52,6 +52,7 @@ const AttendeeTable = (props) => {
         }
     }
   }
+  
 
   return (
     <>
