@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { firstBy } from "thenby";
+import Moment from "react-moment";
 import { Container, Row, Col, Form, Card } from "react-bootstrap";
 import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards";
 import { Sidenav } from "../navbar";
@@ -23,6 +24,20 @@ const ConfDetails = () => {
   // Pull conference ID from URL
   const urlArray = window.location.href.split("/")
   const confId = urlArray[urlArray.length - 1]
+
+  // Parses time strings for sorting
+  const timeToSort = (time) => {
+    const timeArr = time.split(":");
+    const hh = timeArr[0];
+    if (hh.length === 1) {
+      const hhh = `0${hh}`;
+      const newTime = `${hhh}:${timeArr[1]}`
+      return newTime;
+    } else {
+      const newTime = `${hh}:${timeArr[1]}`
+      return newTime;
+    }
+  }
 
   // GETs conference by confId
   const fetchConf = async (confId) => {
@@ -48,14 +63,13 @@ const ConfDetails = () => {
         const sessArr = resp.data
         // Filter sessions by acceptance status
         const filteredSess = sessArr.filter(sess => sess.sessAccepted === "yes")
-        // Sort sessions by date
-        const sortedSess = filteredSess.sort(
-          firstBy("sessKeynote", "desc")
-            .thenBy("sessDate")
-            .thenBy("sessStart")
-        );
-        console.log({ sortedSess })
-        setSessArray(sortedSess);
+        // Sort sessions
+        const roomSort = filteredSess.sort((a, b) => (a.sessRoom < b.sessRoom) ? 1 : -1);
+        const timeSort = roomSort.sort((a, b) => (timeToSort(a.sessStart) > timeToSort(b.sessStart)) ? 1 : -1);
+        const dateSort = timeSort.sort((a, b) => (a.sessDate > b.sessDate) ? 1 : -1);
+        const keySort = dateSort.sort((a, b) => (a.sessKeynote < b.sessKeynote) ? 1 : -1);
+        console.log({ keySort })
+        setSessArray(keySort);
       })
       .catch(err => {
         console.log(err)
