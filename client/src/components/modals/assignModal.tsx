@@ -6,6 +6,8 @@ import "./style.css"
 
 const AssignModal = (props: any): object => {
   const allSess: any[] = props.allSess;
+  const filteredSess: any[] = allSess.filter(sess => (sess.sessRoom === "TBA" || sess.sessRoom === "TBD" || sess.sessRoom === "tba" || sess.sessRoom === "tbd"));
+  console.log({ allSess }, { filteredSess });
   const [errThrown, setErrThrown] = useState<string>()
   const [session, setSession] = useState<any | void>();
 
@@ -20,20 +22,28 @@ const AssignModal = (props: any): object => {
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
 
+  // Parse time to 24-hour to store in db
+  // Split hh, mm, am/pm
+  // If pm, hh + 12
+  // Join hh:mm
+  const sTime: string = props.startTime.slice(0, props.startTime.length - 2);
+  const eTime: string = props.endTime.slice(0, props.endTime.length - 2);
+
   // Handles input changes to form fields
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): any => {
     const { value } = e.target;
     switch (value) {
       case "new":
-        setSession({ ...session, sessDate: props.date, sessRoom: props.room, sessStart: props.startTime, sessEnd: props.endTime })
+        setSession({ ...session, sessDate: props.date, sessRoom: props.room, sessStart: sTime, sessEnd: eTime })
         break;
       default:
         const sess = allSess.filter(sess => sess._id === value)[0];
         console.log(sess);
-        setSession({ ...sess, sessDate: props.date, sessRoom: props.room, sessStart: props.startTime, sessEnd: props.endTime })
+        setSession({ ...sess, sessDate: props.date, sessRoom: props.room, sessStart: sTime, sessEnd: eTime })
     }
   };
 
+  // Handles click on "Update" button
   const updateSess = async (e: MouseEvent): Promise<void> => {
     e.preventDefault();
     SessionAPI.updateSession({ ...session }, session._id)
@@ -69,7 +79,7 @@ const AssignModal = (props: any): object => {
                   <Form.Label>Choose session:</Form.Label>
                   <Form.Control as="select" className="formSelect" onChange={handleInputChange}>
                     <option value="new">Create New Session</option>
-                    {allSess.map((sess, idx) => (
+                    {filteredSess.map((sess, idx) => (
                       <option key={idx} value={sess._id}>{sess.sessName}</option>
                     ))}
                   </Form.Control>
@@ -80,7 +90,7 @@ const AssignModal = (props: any): object => {
           </Form>
 
           <Modal.Footer className="modalFooter">
-            
+
             {session?.sessName !== undefined
               ? <Button data-toggle="popover" title="Assign" className="button" type="submit" onClick={updateSess}>Assign Session</Button>
               : <Button data-toggle="popover" title="Create" className="button" type="submit" onClick={updateSess}>Create Session</Button>}
