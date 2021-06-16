@@ -52,7 +52,7 @@ const ConfDetails = () => {
         const sortedSess = filteredSess.sort(
           firstBy("sessKeynote", "desc")
             .thenBy("sessDate")
-            .thenBy(Number("sessStart"))
+            .thenBy("sessStart")
         );
         console.log({ sortedSess })
         setSessArray(sortedSess);
