@@ -46,14 +46,15 @@ const AssignModal = (props: any): object => {
     switch (value) {
       case "new":
         sessData = { ...session, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
+        props.setThisSess(sessData);
         setSession(sessData);
         break;
       default:
         const sess = allSess.filter(sess => sess._id === value)[0];
         sessData = { ...sess, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
+        props.setThisSess(sessData);
         setSession(sessData);
     }
-    console.log({ session }, { sessData })
     return sessData;
   };
 
@@ -71,7 +72,7 @@ const AssignModal = (props: any): object => {
         }
       })
       .catch((err: AxiosError) => {
-        console.log(err.message);
+        console.log(err);
         props.errThrown(err.message);
         props.handleShowError();
       })

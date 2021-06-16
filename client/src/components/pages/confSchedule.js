@@ -110,7 +110,6 @@ const Schedule = () => {
           thisDateArr = thisDateArr.slice(0, 2).concat(JSON.stringify(day)).join("-");
           dateArr.push(thisDateArr);
           if (dateArr.length === conf[0].numDays) {
-            console.log({ dateArr });
             setDates(dateArr);
             setDateReady(true)
             return dateArr;
