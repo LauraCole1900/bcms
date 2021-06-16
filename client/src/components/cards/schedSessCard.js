@@ -71,7 +71,7 @@ const SchedSessCard = (props) => {
       {props.session[0] !== undefined &&
         <SessionModal allsess={props.allSess} session={props.session[0]} presenter={props.presenters} conference={props.conference} show={showDetails === props.session[0]._id} hide={(e) => handleHideDetails(e)} />}
 
-        <AssignModal allSess={props.allSess} conference={props.conference} room={props.room} startTime={props.startTime} endTime={props.endTime} date={props.date} show={showAssign === (props.room && props.time)} hide={(e) => handleHideAssign(e)} urlid={props.urlId} urltype={props.urlType} change={props.change} />
+        <AssignModal allSess={props.allSess} conference={props.conference} room={props.room} startTime={props.startTime} endTime={props.endTime} date={props.date} show={showAssign === (props.room && props.time)} hide={(e) => handleHideAssign(e)} urlid={props.urlid} urltype={props.urltype} change={props.change} />
     </>
   )
 }

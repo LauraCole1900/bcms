@@ -68,7 +68,7 @@ const AssignModal = (props: any): object => {
         }
       })
       .catch((err: AxiosError) => {
-        console.log(err);
+        console.log(err.message);
         setErrThrown(err.message);
         handleShowError();
       })
@@ -117,9 +117,9 @@ const AssignModal = (props: any): object => {
 
         {session?._id !== undefined &&
           <>
-            <SuccessModal session={session} confname={props.conference.confName} conference={props.conference} urlid={props.urlId} urltype={props.urlType} show={showSuccess === true} hide={() => handleHideSuccess()} />
+            <SuccessModal session={session} confname={props.conference.confName} conference={props.conference} urlid={props.urlid} urltype={props.urltype} show={showSuccess === true} hide={() => handleHideSuccess()} />
 
-            <ErrorModal session={session} urlid={props.urlId} urltype={props.urlType} errmsg={errThrown} show={showError === true} hide={() => handleHideError()} />
+            <ErrorModal session={session} confname={props.conference.confName} urlid={props.urlid} urltype={props.urltype} errmsg={errThrown} show={showError === true} hide={() => handleHideError()} />
           </>}
 
       </Modal>
