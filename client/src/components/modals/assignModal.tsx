@@ -8,6 +8,7 @@ import "./style.css"
 const AssignModal = (props: any): object => {
   const allSess: any[] = props.allSess;
   const filteredSess: any[] = allSess.filter(sess => (sess.sessRoom === "TBA" || sess.sessRoom === "TBD" || sess.sessRoom === "tba" || sess.sessRoom === "tbd"));
+  let sessData: any;
   const [errThrown, setErrThrown] = useState<string>()
   const [session, setSession] = useState<any | void>();
 
@@ -31,9 +32,8 @@ const AssignModal = (props: any): object => {
   const dbTime = (time: string): string => {
     const timeArr1: string[] = time.split(":");
     const timeArr2: string[] = [timeArr1[1].slice(0, 2), timeArr1[1].slice(2)];
-    const hh = timeArr2[1] === "pm" ? timeArr1[0] + 12 : timeArr1[0];
+    const hh = timeArr2[1] === "pm" ? JSON.stringify(JSON.parse(timeArr1[0]) + 12) : timeArr1[0];
     const dbTime = `${hh}:${timeArr2[0]}`
-    console.log(timeArr2);
     return dbTime;
   }
 
@@ -42,12 +42,18 @@ const AssignModal = (props: any): object => {
     const { value } = e.target;
     switch (value) {
       case "new":
-        setSession({ ...session, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) })
+        sessData = { ...session, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
+        setSession(sessData);
+        // return sessData;
         break;
       default:
         const sess = allSess.filter(sess => sess._id === value)[0];
-        setSession({ ...sess, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) })
+        sessData = { ...sess, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
+        setSession(sessData);
+        // return sessData
     }
+    console.log({ session }, { sessData })
+    return sessData;
   };
 
   // Handles click on "Update" button
@@ -97,22 +103,23 @@ const AssignModal = (props: any): object => {
           </Form>
 
           <Modal.Footer className="modalFooter">
+            <Row>
+              {session?.sessName !== undefined
+                ? <Button data-toggle="popover" title="Assign" className="button" type="submit" onClick={updateSess}>Assign Session</Button>
+                : <Button data-toggle="popover" title="Create" className="button" type="submit" onClick={updateSess}>Create Session</Button>}
 
-            {session?.sessName !== undefined
-              ? <Button data-toggle="popover" title="Assign" className="button" type="submit" onClick={updateSess}>Assign Session</Button>
-              : <Button data-toggle="popover" title="Create" className="button" type="submit" onClick={updateSess}>Create Session</Button>}
-
-            {/* No, take no action button */}
-            <Button data-toggle="popover" title="No" className="button" onClick={props.hide} type="submit">No, take me back</Button>
+              {/* No, take no action button */}
+              <Button data-toggle="popover" title="No, take me back" className="button" type="submit" onClick={props.hide}>No, take me back</Button>
+            </Row>
 
           </Modal.Footer>
         </Modal.Body>
 
         {session?._id !== undefined &&
           <>
-            <SuccessModal session={session} confname={props.conference.confName} urlid={props.urlId} urltype={props.urlType} show={showSuccess === session?._id} hide={() => handleHideSuccess()} />
+            <SuccessModal session={session} confname={props.conference.confName} conference={props.conference} urlid={props.urlId} urltype={props.urlType} show={showSuccess === true} hide={() => handleHideSuccess()} />
 
-            <ErrorModal session={session} urlid={props.urlId} urltype={props.urlType} errmsg={errThrown} show={showError === session?._id} hide={() => handleHideError()} />
+            <ErrorModal session={session} urlid={props.urlId} urltype={props.urlType} errmsg={errThrown} show={showError === true} hide={() => handleHideError()} />
           </>}
 
       </Modal>
