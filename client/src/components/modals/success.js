@@ -4,7 +4,6 @@ import { Button, Modal } from "react-bootstrap";
 import "./style.css"
 
 const SuccessModal = (props) => {
-  console.log(props.session);
   const location = useLocation();
 
   // Buttons give user choice to return to previous {conference or session}, allConfsPage or profilePage
@@ -35,7 +34,7 @@ const SuccessModal = (props) => {
             props.btnname === undefined &&
             <h4>You have created the headers for your conference schedule.</h4>}
 
-          {/* Create Schedule form */}
+          {/* Create Schedule form, add session */}
           {props.urltype === "schedule" &&
             props.btnname === "Assign" &&
             <h4>You have assigned {props.session.sessName} to your conference schedule.</h4>}
@@ -149,6 +148,10 @@ const SuccessModal = (props) => {
 
           {/* Navigation buttons */}
           <Modal.Footer className="modalFooter">
+
+            {/* Close modal and return to Conference Schedule page */}
+            {props.urltype === "schedule" &&
+              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Schedule</Button>}
 
             {/* Close modal and return to Conference Details page */}
             {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&

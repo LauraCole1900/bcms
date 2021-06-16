@@ -19,9 +19,16 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-.modalBody {
+.modalBody, .modalBodySched {
   background: var(--silverGradientUp);
+}
+
+.modalBody {
   border-radius: 0 0 10px 10px;
+}
+
+.modalBodySched {
+  border-radius: 10px;
 }
 
 .modal-content {

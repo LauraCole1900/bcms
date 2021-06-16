@@ -35,7 +35,13 @@ const ErrorModal = (props) => {
 
           {/* Create Schedule form */}
           {props.urltype === "schedule" &&
+            props.btnname === undefined &&
             <h4>{props.errmsg}. Your schedule was not created.</h4>}
+
+          {/* Create Schedule form, add session */}
+          {props.urltype === "schedule" &&
+            props.btnname === "Assign" &&
+            <h4>{props.errmsg}. {props.session.sessName} was not added to your conference schedule.</h4>}
 
           {/* Add Session form */}
           {props.urltype === "new_session" &&
@@ -131,6 +137,10 @@ const ErrorModal = (props) => {
 
           {/* Navigation buttons */}
           <Modal.Footer className="modalFooter">
+            
+            {/* Close modal and return to Conference Schedule page */}
+            {props.urltype === "schedule" &&
+              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Schedule</Button>}
 
             {/* Close modal and return to Conference Details page */}
             {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&

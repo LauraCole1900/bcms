@@ -107,24 +107,16 @@ const AssignModal = (props: any): object => {
           </Form>
 
           <Modal.Footer className="modalFooter">
-            <Row>
-              {session?.sessName !== undefined
-                ? <Button data-toggle="popover" title="Assign" name="Assign" className="button" type="submit" onClick={(e) => updateSess(e)}>Assign Session</Button>
-                : <Button data-toggle="popover" title="Create" className="button" type="submit" onClick={updateSess}>Create Session</Button>}
 
-              {/* No, take no action button */}
-              <Button data-toggle="popover" title="No, take me back" className="button" type="submit" onClick={props.hide}>No, take me back</Button>
-            </Row>
+            {session?.sessName !== undefined
+              ? <Button data-toggle="popover" title="Assign" name="Assign" className="button" type="button" onClick={(e) => updateSess(e)}>Assign Session</Button>
+              : <Button data-toggle="popover" title="Create" className="button" type="button" onClick={updateSess}>Create Session</Button>}
+
+            {/* No, take no action button */}
+            <Button data-toggle="popover" title="No, take me back" className="button" type="button" onClick={props.hide}>No, take me back</Button>
 
           </Modal.Footer>
         </Modal.Body>
-
-        {/* {session?._id !== undefined &&
-          <>
-            <SuccessModal session={session} confname={props.conference.confName} conference={props.conference} btnname={btnName} urlid={props.urlid} urltype={props.urltype} show={showSuccess === true} hide={() => handleHideSuccess()} />
-
-            <ErrorModal session={session} confname={props.conference.confName} urlid={props.urlid} urltype={props.urltype} errmsg={errThrown} show={showError === true} hide={() => handleHideError()} />
-          </>} */}
 
       </Modal>
     </>
