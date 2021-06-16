@@ -54,6 +54,7 @@ const ConfDetails = () => {
             .thenBy("sessDate")
             .thenBy("sessStart")
         );
+        console.log({ sortedSess })
         setSessArray(sortedSess);
       })
       .catch(err => {

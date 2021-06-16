@@ -13,12 +13,12 @@ const sessValidate = ([session, conference, formType]) => {
   }
 
   // session name errors
-  if (!session.sessName) {
+  if (!session.sessName || session.sessName === "") {
     errors.sessName = "Please enter the name of this session."
   }
 
   // session description errors
-  if (!session.sessDesc) {
+  if (!session.sessDesc || session.sessDesc === "") {
     errors.sessDesc = "What is this session about? Please enter a description."
   } else if (session.sessDesc.length < 10) {
     errors.sessDesc = "We want to know more! Please use 10 characters or more to describe or summarize this session."
@@ -46,17 +46,17 @@ const sessValidate = ([session, conference, formType]) => {
   }
 
   // panel discussion errors
-  if (!session.sessPanel) {
+  if (!session.sessPanel || session.sessPanel === "") {
     errors.sessPanel = "Please indicate whether this is a panel discussion."
   }
 
   // keynote errors
-  if (conference.confKeynote === "yes" && !session.sessKeynote) {
+  if (conference.confKeynote === "yes" && (!session.sessKeynote || session.sessKeynote === "")) {
     errors.sessKeynote = "Please indicate whether this is a keynote session."
   }
 
   // session presenter email errors
-  if (!session.sessPresEmails.length) {
+  if (!session.sessPresEmails.length || session.sessPresEmails[0] === "") {
     errors.sessPresEmails = "Please enter the emails of the presenter(s)."
   }
 

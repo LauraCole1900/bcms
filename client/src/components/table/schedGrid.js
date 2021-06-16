@@ -6,19 +6,6 @@ import "./style.css";
 const SchedGrid = (props) => {
   let thisSess;
   let timesArr;
-  // Map over rooms and times to create headers
-  // Map over sessions for each table cell
-  // session.sessDate === dataset.date &&
-  // session.sessRoom === dataset.room &&
-  // (session.sessStart === dataset.starttime || session.sessEnd === dataset.endtime)
-  // Assign that session to that table cell
-  // Merge cells if a single session takes up multiple adjacent cells
-
-  // Assign by click:
-  // onClick, list of sessions comes up
-  // Choose session
-  // On selection, session.sessRoom, session.sessStart and session.sessEnd update in database
-  // Need to parse times?
 
   const splitTimes = (times) => {
     timesArr = times.split("-")
