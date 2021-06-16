@@ -22,12 +22,9 @@ const SchedSessCard = (props) => {
   }
 
   const handleShowAssign = (e) => {
-    // Probably will make use of props.allSess, props.room, and props.time
-    // Bring up modal to choose from existing sessions + option to create new session
-    // New option sends user to session form
     const { dataset } = e.target;
     console.log(dataset.room, dataset.time);
-    setShowDetails(dataset.room, dataset.time);
+    setShowAssign(dataset.room && dataset.time);
   }
   const handleHideAssign = () => {
     setShowAssign("none");
@@ -51,10 +48,10 @@ const SchedSessCard = (props) => {
             ? <Card className="sched">
               <h3 className="textTight maxWidth">{props.session[0].sessName}</h3><br />
               <p className="textTight maxWidth">{fetchPresNames(props.session[0]._id)}</p><br />
-              <Button className="button" data-sessid={props.session[0]._id} onClick={(e) => handleShowDetails(e)}>Session Details</Button>
+              <Button data-toggle="popover" title="Session Details" className="button" data-sessid={props.session[0]._id} onClick={(e) => handleShowDetails(e)}>Session Details</Button>
             </Card>
             : <Card className="schedBlue">
-              <h3 className="textTight clickable" data-room={props.room} data-time={props.time} onClick={(e) => handleShowAssign(e)}>Click to add session</h3>
+              <h3 data-toggle="popover" title="Assign Session" className="textTight clickable" data-room={props.room} data-time={props.time} onClick={(e) => handleShowAssign(e)}>Click to assign session</h3>
             </Card>}
         </>
         : <>
@@ -72,7 +69,7 @@ const SchedSessCard = (props) => {
       {props.session[0] !== undefined &&
         <SessionModal allsess={props.allSess} session={props.session[0]} presenter={props.presenters} conference={props.conference} show={showDetails === props.session[0]._id} hide={(e) => handleHideDetails(e)} />}
 
-        <AssignModal allSess={props.allSess} room={props.room} startTime={props.startTime} endTime={props.endTime} show={showAssign === (props.room, props.time)} hide={(e) => handleHideAssign(e)} />
+        <AssignModal allSess={props.allSess} room={props.room} startTime={props.startTime} endTime={props.endTime} show={showAssign === (props.room && props.time)} hide={(e) => handleHideAssign(e)} />
     </>
   )
 }
