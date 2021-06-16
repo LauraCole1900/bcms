@@ -67,9 +67,10 @@ const SchedGrid = (props) => {
               <th className="schHead center" value={time.value}>{time}</th>
               {props.schedule.schedRooms.map((room, roomdataidx) => (
                 <td key={roomdataidx} className="schedCells center">
-                  <SchedSessCard session={filterSess(props.sessions, room, time)} allSess={props.sessions} presenters={props.presenters} conference={props.conference} room={room} time={time} startTime={timesArr[0]} endTime={timesArr[1]} date={props.date} />
+                  <SchedSessCard session={filterSess(props.sessions, room, time)} allSess={props.sessions} presenters={props.presenters} conference={props.conference} room={room} time={time} startTime={timesArr[0]} endTime={timesArr[1]} date={props.date} urlid={props.urlId} urltype={props.urlType} change={props.change} />
                 </td>
               ))}
+              <th className="schHead center" value={time.value}>{time}</th>
             </tr>
           ))}
         </tbody>

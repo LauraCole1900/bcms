@@ -1,5 +1,6 @@
 import React, { ChangeEvent, MouseEvent, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { ErrorModal, SuccessModal } from "./index";
 import { SessionAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css"
@@ -7,10 +8,8 @@ import "./style.css"
 const AssignModal = (props: any): object => {
   const allSess: any[] = props.allSess;
   const filteredSess: any[] = allSess.filter(sess => (sess.sessRoom === "TBA" || sess.sessRoom === "TBD" || sess.sessRoom === "tba" || sess.sessRoom === "tbd"));
-  console.log({ allSess }, { filteredSess });
   const [errThrown, setErrThrown] = useState<string>()
   const [session, setSession] = useState<any | void>();
-
 
   // Modal variables
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
@@ -18,9 +17,15 @@ const AssignModal = (props: any): object => {
 
   // Sets boolean to show or hide relevant modal
   const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
+  const handleHideSuccess = () => {
+    setShowSuccess(false);
+    props.change();
+  }
   const handleShowError = () => setShowError(true);
-  const handleHideError = () => setShowError(false);
+  const handleHideError = () => {
+    setShowError(false);
+    props.change();
+  }
 
   // Parse time to 24-hour to store in db
   const dbTime = (time: string): string => {
@@ -41,7 +46,6 @@ const AssignModal = (props: any): object => {
         break;
       default:
         const sess = allSess.filter(sess => sess._id === value)[0];
-        console.log(sess);
         setSession({ ...sess, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) })
     }
   };
@@ -103,6 +107,14 @@ const AssignModal = (props: any): object => {
 
           </Modal.Footer>
         </Modal.Body>
+
+        {session?._id !== undefined &&
+          <>
+            <SuccessModal session={session} confname={props.conference.confName} urlid={props.urlId} urltype={props.urlType} show={showSuccess === session?._id} hide={() => handleHideSuccess()} />
+
+            <ErrorModal session={session} urlid={props.urlId} urltype={props.urlType} errmsg={errThrown} show={showError === session?._id} hide={() => handleHideError()} />
+          </>}
+
       </Modal>
     </>
   )
