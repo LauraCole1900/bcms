@@ -26,20 +26,34 @@ const AssignModal = (props: any): object => {
   // Split hh, mm, am/pm
   // If pm, hh + 12
   // Join hh:mm
-  const sTime: string = props.startTime.slice(0, props.startTime.length - 2);
-  const eTime: string = props.endTime.slice(0, props.endTime.length - 2);
+  const sTime = (time: string): string => {
+    const sTimeArr1: string[] = time.split(":");
+    const sTimeArr2: string[] = [sTimeArr1[1].slice(0, 2), sTimeArr1[1].slice(2)];
+    const sh = sTimeArr2[1] === "pm" ? sTimeArr1[0] + 12 : sTimeArr1[0];
+    const startTime = `${sh}:${sTimeArr2[0]}`
+    console.log(sTimeArr2);
+    return startTime;
+  }
+  const eTime = (time: string): string => {
+    const eTimeArr1: string[] = props.endTime.split(":");
+    const eTimeArr2: string[] = [eTimeArr1[1].slice(0, 2), eTimeArr1[1].slice(2)];
+    const eh = eTimeArr2[1] === "pm" ? JSON.stringify(JSON.parse(eTimeArr1[0]) + 12) : eTimeArr1[0];
+    const endTime = `${eh}:${eTimeArr2[0]}`
+    console.log(endTime);
+    return endTime;
+  }
 
   // Handles input changes to form fields
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): any => {
     const { value } = e.target;
     switch (value) {
       case "new":
-        setSession({ ...session, sessDate: props.date, sessRoom: props.room, sessStart: sTime, sessEnd: eTime })
+        setSession({ ...session, sessDate: props.date, sessRoom: props.room, sessStart: sTime(props.startTime), sessEnd: eTime(props.endTime) })
         break;
       default:
         const sess = allSess.filter(sess => sess._id === value)[0];
         console.log(sess);
-        setSession({ ...sess, sessDate: props.date, sessRoom: props.room, sessStart: sTime, sessEnd: eTime })
+        setSession({ ...sess, sessDate: props.date, sessRoom: props.room, sessStart: sTime(props.startTime), sessEnd: eTime(props.endTime) })
     }
   };
 
