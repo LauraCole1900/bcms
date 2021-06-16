@@ -28,7 +28,8 @@ const AssignModal = (props: any): object => {
         setSession({ ...session, sessDate: props.date, sessRoom: props.room, sessStart: props.startTime, sessEnd: props.endTime })
         break;
       default:
-        const sess = allSess.filter(sess => sess._id === value);
+        const sess = allSess.filter(sess => sess._id === value)[0];
+        console.log(sess);
         setSession({ ...sess, sessDate: props.date, sessRoom: props.room, sessStart: props.startTime, sessEnd: props.endTime })
     }
   };
@@ -79,9 +80,14 @@ const AssignModal = (props: any): object => {
           </Form>
 
           <Modal.Footer className="modalFooter">
+            
             {session?.sessName !== undefined
               ? <Button data-toggle="popover" title="Assign" className="button" type="submit" onClick={updateSess}>Assign Session</Button>
               : <Button data-toggle="popover" title="Create" className="button" type="submit" onClick={updateSess}>Create Session</Button>}
+
+            {/* No, take no action button */}
+            <Button data-toggle="popover" title="No" className="button" onClick={props.hide} type="submit">No, take me back</Button>
+
           </Modal.Footer>
         </Modal.Body>
       </Modal>
