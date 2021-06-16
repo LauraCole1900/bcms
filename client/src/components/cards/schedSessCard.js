@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { AssignModal, SessionModal } from "../modals";
+import { AssignModal, ErrorModal, SessionModal, SuccessModal } from "../modals";
 import "./style.css";
 
 const SchedSessCard = (props) => {
+  console.log(props.session);
   const { user, isAuthenticated } = useAuth0();
   let nameArr = [];
+  const [room, setRoom] = useState("");
+  const [time, setTime] = useState("");
+  const [btnName, setBtnName] = useState("");
+  const [errThrown, setErrThrown] = useState();
 
   // Modal variables
   const [showDetails, setShowDetails] = useState(0);
   const [showAssign, setShowAssign] = useState("none");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   // Show & hide SessionModal
   const handleShowDetails = (e) => {
@@ -26,11 +33,36 @@ const SchedSessCard = (props) => {
   const handleShowAssign = (e) => {
     const { dataset } = e.target;
     console.log(dataset.room, dataset.time);
+    setRoom(dataset.room);
+    setTime(dataset.time);
     setShowAssign(dataset.room && dataset.time);
   }
   const handleHideAssign = () => {
     setShowAssign("none");
   }
+
+  // Show & hide SuccessModal
+  const handleShowSuccess = (e) => {
+    handleHideAssign();
+    setShowSuccess(room && time);
+  }
+  const handleHideSuccess = () => {
+    setShowSuccess("none");
+    props.change();
+  }
+
+  // Show & hide ErrorModal
+  const handleShowError = () => {
+    handleHideAssign();
+    setShowError(room && time);
+  }
+  const handleHideError = () => {
+    setShowError("none");
+    props.change();
+  }
+
+  // sets error message in state
+  const setErrorThrown = (data) => setErrThrown(data);
 
   // Filters props.presenter by sessId, then maps through the result to pull out presenter names
   const fetchPresNames = (sessId) => {
@@ -71,7 +103,11 @@ const SchedSessCard = (props) => {
       {props.session[0] !== undefined &&
         <SessionModal allsess={props.allSess} session={props.session[0]} presenter={props.presenters} conference={props.conference} show={showDetails === props.session[0]._id} hide={(e) => handleHideDetails(e)} />}
 
-        <AssignModal allSess={props.allSess} conference={props.conference} room={props.room} startTime={props.startTime} endTime={props.endTime} date={props.date} show={showAssign === (props.room && props.time)} hide={(e) => handleHideAssign(e)} urlid={props.urlid} urltype={props.urltype} change={props.change} />
+      <AssignModal allSess={props.allSess} conference={props.conference} room={props.room} startTime={props.startTime} endTime={props.endTime} date={props.date} setBtnName={setBtnName} errThrown={setErrorThrown} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} show={showAssign === (props.room && props.time)} hide={(e) => handleHideAssign(e)} urlid={props.urlid} urltype={props.urltype} change={props.change} />
+
+      <SuccessModal session={props.session[0]} confname={props.conference.confName} conference={props.conference} btnname={btnName} urlid={props.urlid} urltype={props.urltype} show={showSuccess === (props.room && props.time)} hide={() => handleHideSuccess()} />
+
+      <ErrorModal session={props.session[0]} confname={props.conference.confName} urlid={props.urlid} urltype={props.urltype} errmsg={errThrown} show={showError === (props.room && props.time)} hide={() => handleHideError()} />
     </>
   )
 }

@@ -9,24 +9,27 @@ const AssignModal = (props: any): object => {
   const allSess: any[] = props.allSess;
   const filteredSess: any[] = allSess.filter(sess => (sess.sessRoom === "TBA" || sess.sessRoom === "TBD" || sess.sessRoom === "tba" || sess.sessRoom === "tbd"));
   let sessData: any;
-  const [errThrown, setErrThrown] = useState<string>()
+  // const [errThrown, setErrThrown] = useState<string>()
   const [session, setSession] = useState<any | void>();
 
   // Modal variables
-  const [showSuccess, setShowSuccess] = useState<boolean>(false);
-  const [showError, setShowError] = useState<boolean>(false);
+  // const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  // const [showError, setShowError] = useState<boolean>(false);
 
   // Sets boolean to show or hide relevant modal
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => {
-    setShowSuccess(false);
-    props.change();
-  }
-  const handleShowError = () => setShowError(true);
-  const handleHideError = () => {
-    setShowError(false);
-    props.change();
-  }
+  // const handleShowSuccess = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setBtnName(e.target.name);
+  //   setShowSuccess(true);
+  // }
+  // const handleHideSuccess = () => {
+  //   setShowSuccess(false);
+  //   props.change();
+  // }
+  // const handleShowError = () => setShowError(true);
+  // const handleHideError = () => {
+  //   setShowError(false);
+  //   props.change();
+  // }
 
   // Parse time to 24-hour to store in db
   const dbTime = (time: string): string => {
@@ -39,38 +42,38 @@ const AssignModal = (props: any): object => {
 
   // Handles input changes to form fields
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): any => {
-    const { value } = e.target;
+    const { name, value } = e.target;
     switch (value) {
       case "new":
         sessData = { ...session, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
         setSession(sessData);
-        // return sessData;
         break;
       default:
         const sess = allSess.filter(sess => sess._id === value)[0];
         sessData = { ...sess, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
         setSession(sessData);
-        // return sessData
     }
     console.log({ session }, { sessData })
     return sessData;
   };
 
   // Handles click on "Update" button
-  const updateSess = async (e: MouseEvent): Promise<void> => {
+  const updateSess = (e: MouseEvent): any | void => {
     e.preventDefault();
+    const { name } = e.target as HTMLButtonElement
+    props.setBtnName(name);
     SessionAPI.updateSession({ ...session }, session._id)
       .then((resp: AxiosResponse<object>) => {
         console.log("from assignModal updateSess", resp.data)
         // TS doesn't like resp.err
         if (resp.status !== 422) {
-          handleShowSuccess();
+          props.handleShowSuccess();
         }
       })
       .catch((err: AxiosError) => {
         console.log(err.message);
-        setErrThrown(err.message);
-        handleShowError();
+        props.errThrown(err.message);
+        props.handleShowError();
       })
   }
 
@@ -105,7 +108,7 @@ const AssignModal = (props: any): object => {
           <Modal.Footer className="modalFooter">
             <Row>
               {session?.sessName !== undefined
-                ? <Button data-toggle="popover" title="Assign" className="button" type="submit" onClick={updateSess}>Assign Session</Button>
+                ? <Button data-toggle="popover" title="Assign" name="Assign" className="button" type="submit" onClick={(e) => updateSess(e)}>Assign Session</Button>
                 : <Button data-toggle="popover" title="Create" className="button" type="submit" onClick={updateSess}>Create Session</Button>}
 
               {/* No, take no action button */}
@@ -115,12 +118,12 @@ const AssignModal = (props: any): object => {
           </Modal.Footer>
         </Modal.Body>
 
-        {session?._id !== undefined &&
+        {/* {session?._id !== undefined &&
           <>
-            <SuccessModal session={session} confname={props.conference.confName} conference={props.conference} urlid={props.urlid} urltype={props.urltype} show={showSuccess === true} hide={() => handleHideSuccess()} />
+            <SuccessModal session={session} confname={props.conference.confName} conference={props.conference} btnname={btnName} urlid={props.urlid} urltype={props.urltype} show={showSuccess === true} hide={() => handleHideSuccess()} />
 
             <ErrorModal session={session} confname={props.conference.confName} urlid={props.urlid} urltype={props.urltype} errmsg={errThrown} show={showError === true} hide={() => handleHideError()} />
-          </>}
+          </>} */}
 
       </Modal>
     </>
