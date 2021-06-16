@@ -39,7 +39,7 @@ const SchedGrid = (props) => {
   };
 
   const filterSess = (sess, room, time) => {
-    const scheduleDate = props.dates[props.i];
+    const scheduleDate = props.date;
     const scheduleStart = splitTimes(time)[0];
     const scheduleEnd = splitTimes(time)[1];
     thisSess = sess.filter(sess => (
@@ -67,7 +67,7 @@ const SchedGrid = (props) => {
               <th className="schHead center" value={time.value}>{time}</th>
               {props.schedule.schedRooms.map((room, roomdataidx) => (
                 <td key={roomdataidx} className="schedCells center">
-                  <SchedSessCard session={filterSess(props.sessions, room, time)} allSess={props.sessions} presenters={props.presenters} conference={props.conference} room={room} time={time} startTime={timesArr[0]} endTime={timesArr[1]} />
+                  <SchedSessCard session={filterSess(props.sessions, room, time)} allSess={props.sessions} presenters={props.presenters} conference={props.conference} room={room} time={time} startTime={timesArr[0]} endTime={timesArr[1]} date={props.date} />
                 </td>
               ))}
             </tr>

@@ -84,7 +84,8 @@ const Schedule = () => {
       .then(resp => {
         console.log("from confSched fetchSess", resp.data)
         const sessArr = resp.data;
-        setSessions(sessArr);
+        const filteredSess = sessArr.filter(sess => sess.sessAccepted === "yes")
+        setSessions(filteredSess);
         setSessReady(true);
       })
   }
@@ -176,7 +177,7 @@ const Schedule = () => {
                         <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
                       </Row>
                       <Row className="formPad">
-                        <SchedGrid schedule={schedule[0]} sessions={sessions} presenters={presenters} conference={conference[0]} dates={dates} i={idx} />
+                        <SchedGrid schedule={schedule[0]} sessions={sessions} presenters={presenters} conference={conference[0]} date={date} i={idx} />
                       </Row>
                     </React.Fragment>
                   ))}

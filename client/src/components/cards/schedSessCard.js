@@ -12,6 +12,7 @@ const SchedSessCard = (props) => {
   const [showDetails, setShowDetails] = useState(0);
   const [showAssign, setShowAssign] = useState("none");
 
+  // Show & hide SessionModal
   const handleShowDetails = (e) => {
     const { dataset } = e.target;
     console.log(dataset.sessid);
@@ -21,6 +22,7 @@ const SchedSessCard = (props) => {
     setShowDetails(0);
   }
 
+  // Show & hide AssignModal
   const handleShowAssign = (e) => {
     const { dataset } = e.target;
     console.log(dataset.room, dataset.time);
@@ -69,7 +71,7 @@ const SchedSessCard = (props) => {
       {props.session[0] !== undefined &&
         <SessionModal allsess={props.allSess} session={props.session[0]} presenter={props.presenters} conference={props.conference} show={showDetails === props.session[0]._id} hide={(e) => handleHideDetails(e)} />}
 
-        <AssignModal allSess={props.allSess} room={props.room} startTime={props.startTime} endTime={props.endTime} show={showAssign === (props.room && props.time)} hide={(e) => handleHideAssign(e)} />
+        <AssignModal allSess={props.allSess} room={props.room} startTime={props.startTime} endTime={props.endTime} date={props.date} show={showAssign === (props.room && props.time)} hide={(e) => handleHideAssign(e)} />
     </>
   )
 }

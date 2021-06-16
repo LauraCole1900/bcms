@@ -7,7 +7,7 @@ import "./style.css"
 const AssignModal = (props: any): object => {
   const allSess: any[] = props.allSess;
   const [errThrown, setErrThrown] = useState<string>()
-  const [session, setSession] = useState<object | void>();
+  const [session, setSession] = useState<any | void>();
 
 
   // Modal variables
@@ -25,17 +25,17 @@ const AssignModal = (props: any): object => {
     const { value } = e.target;
     switch (value) {
       case "new":
-        setSession({ ...session, sessRoom: props.room, sessStart: props.startTime, sessEnd: props.endTime })
+        setSession({ ...session, sessDate: props.date, sessRoom: props.room, sessStart: props.startTime, sessEnd: props.endTime })
         break;
       default:
         const sess = allSess.filter(sess => sess._id === value);
-        setSession({ ...sess, sessRoom: props.room, sessStart: props.startTime, sessEnd: props.endTime })
+        setSession({ ...sess, sessDate: props.date, sessRoom: props.room, sessStart: props.startTime, sessEnd: props.endTime })
     }
   };
 
   const updateSess = async (e: MouseEvent): Promise<void> => {
     e.preventDefault();
-    SessionAPI.updateSession({ ...session }, props.session._id)
+    SessionAPI.updateSession({ ...session }, session._id)
       .then((resp: AxiosResponse<object>) => {
         console.log("from assignModal updateSess", resp.data)
         // TS doesn't like resp.err
@@ -53,6 +53,12 @@ const AssignModal = (props: any): object => {
   return (
     <>
       <Modal show={props.show} onHide={props.hide} backdrop="static" keyboard={false} centered={true} className="modal">
+        <Modal.Title className="modalHead">
+          <h2>Assign Session</h2><br />
+          <p>Date: {props.date}</p>
+          <p>Room: {props.room}</p>
+          <p>Time: {props.startTime}-{props.endTime}</p>
+        </Modal.Title>
         <Modal.Body className="modalBody">
           <Form className="assignForm">
 
@@ -71,8 +77,12 @@ const AssignModal = (props: any): object => {
             </Form.Group>
 
           </Form>
-          { }
-          <Button data-toggle="popover" title="Assign" className="button" type="submit" onClick={updateSess}>Assign Session</Button>
+
+          <Modal.Footer className="modalFooter">
+            {session?.sessName !== undefined
+              ? <Button data-toggle="popover" title="Assign" className="button" type="submit" onClick={updateSess}>Assign Session</Button>
+              : <Button data-toggle="popover" title="Create" className="button" type="submit" onClick={updateSess}>Create Session</Button>}
+          </Modal.Footer>
         </Modal.Body>
       </Modal>
     </>
