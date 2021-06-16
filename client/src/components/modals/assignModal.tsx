@@ -80,7 +80,7 @@ const AssignModal = (props: any): object => {
     e.preventDefault();
     const { name } = e.target as HTMLButtonElement
     props.setBtnName(name);
-    SessionAPI.saveSession({ confId: props.urlid, sessName: "", sessPresEmails: "", sessDate: props.date, sessStart: props.startTime, sessEnd: props.endTime, sessDesc: "", sessKeynote: "", sessPanel: "", sessRoom: props.room, sessAccepted: "yes" })
+    SessionAPI.saveSession({ confId: props.urlid, sessName: "", sessPresEmails: "", sessDate: props.date, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime), sessDesc: "", sessKeynote: "", sessPanel: "", sessRoom: props.room, sessAccepted: "yes" })
       .then((resp: AxiosResponse<Session>) => {
         console.log("from assignModal createSess", resp.data)
         // TS doesn't like resp.err
