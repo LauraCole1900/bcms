@@ -45,14 +45,14 @@ const ConfDetails = () => {
     await SessionAPI.getSessions(confId)
       .then(resp => {
         console.log("confDetailsPage getSessions", resp.data)
-        const sessArr = resp.data.slice(0)
+        const sessArr = resp.data
         // Filter sessions by acceptance status
         const filteredSess = sessArr.filter(sess => sess.sessAccepted === "yes")
         // Sort sessions by date
         const sortedSess = filteredSess.sort(
           firstBy("sessKeynote", "desc")
             .thenBy("sessDate")
-            .thenBy("sessStart")
+            .thenBy(Number("sessStart"))
         );
         console.log({ sortedSess })
         setSessArray(sortedSess);
