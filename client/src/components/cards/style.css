@@ -109,6 +109,11 @@ p {
   cursor: pointer;
 }
 
+.flexEnd {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .infoCard {
   background: var(--silverGradientDown);
   border: 2px solid var(--darkForest);
@@ -146,6 +151,10 @@ p {
 .profilePic {
   border-radius: 50%;
   margin: 5px;
+}
+
+.proposalCard {
+  max-width: 33%;
 }
 
 .right {

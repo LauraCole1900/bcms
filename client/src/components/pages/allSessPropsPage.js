@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
-import { ConferenceCard, SessionCard } from "../cards";
+import { ConferenceCard, SessPropSummaryCard } from "../cards";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
@@ -17,7 +17,8 @@ const AllSessProps = () => {
 
   // Pull conference ID from URL
   const urlArray = window.location.href.split("/")
-  const confId = urlArray[urlArray.length - 1]
+  const confId = urlArray[urlArray.length - 1];
+  const urlType = urlArray[urlArray.length - 2];
 
   const fetchConf = async (id) => {
     await ConferenceAPI.getConferenceById(id)
@@ -93,13 +94,13 @@ const AllSessProps = () => {
 
           <Row>
             <Col sm={12}>
-              <h1>Proposed Sessions for {conference.confName}</h1>
+              <h1>Proposed Sessions for {conference[0].confName}</h1>
             </Col>
           </Row>
 
           <Row>
             {sessArray.length > 0
-              ? <SessionCard session={sessArray} conference={conference} presenter={presArray} />
+              ? <SessPropSummaryCard session={sessArray} conference={conference} presenter={presArray} urlType={urlType} />
               : <h3>We can't seem to find any proposed sessions for this conference. If you think this is an error, please contact us.</h3>}
           </Row>
 

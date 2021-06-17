@@ -4,5 +4,6 @@ export { default as PresenterCard } from "./presenterCard";
 export { default as PresenterFormCard } from "./presenterFormCard";
 export { default as SchedSessCard } from "./schedSessCard";
 export { default as SessionCard } from "./sessionCard";
+export { default as SessPropSummaryCard } from "./sessPropSummCard";
 export { default as TitleCard } from "./titleCard";
 export { default as UserCard } from "./userCard";
