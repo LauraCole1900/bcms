@@ -56,13 +56,14 @@ const AllSessProps = () => {
         const sessArr = resp.data.slice(0);
         // Filter sessions by acceptance status
         const filteredSess = sessArr.filter(sess => sess.sessAccepted === "no")
-        setSessArray(filteredSess)
+        setSessArray(filteredSess);
+        console.log({ filteredSess });
       })
       .catch(err => {
         console.log(err);
         return false
       })
-    setSessReady(true)
+    setSessReady(true);
   }
 
   useEffect(() => {
@@ -78,7 +79,7 @@ const AllSessProps = () => {
     <>
       {!isAuthenticated &&
         <Row>
-          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>log in</Link> to access session proposals.</h1>
+          <h1 className="regRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>log in</Link> to access session proposals.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
