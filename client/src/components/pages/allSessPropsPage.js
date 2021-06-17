@@ -94,7 +94,7 @@ const AllSessProps = () => {
 
           <Row>
             <Col sm={12}>
-              <h1>Proposed Sessions for {conference[0].confName}</h1>
+              <h1 className="center">Proposed Sessions for {conference[0].confName}</h1>
             </Col>
           </Row>
 

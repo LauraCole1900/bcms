@@ -1,30 +1,58 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Card, Row, Col, Button, Image } from "react-bootstrap";
+import { Card, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import Moment from "react-moment";
-import { PresenterAPI, SessionAPI } from "../../utils/api";
-import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import "./style.css";
 
-const SessPropSummaryCard = (props) => {
+interface Presenter {
+  confId: string,
+  presGivenName: string,
+  presFamilyName: string,
+  presOrg: string,
+  presBio: string,
+  presEmail: string,
+  presPhone: string,
+  presWebsite: string,
+  presPic: string,
+  presSessionIds: string[],
+  presKeynote: string,
+  presAccepted: string,
+  _id: string
+}
+
+interface Session {
+  confId: string,
+  sessName: string,
+  sessPresEmails: string[],
+  sessDate: string,
+  sessStart: string,
+  sessEnd: string,
+  sessDesc: string,
+  sessKeynote: string,
+  sessPanel: string,
+  sessRoom: string,
+  sessAccepted: string,
+  _id: string
+}
+
+const SessPropSummaryCard = (props: any) => {
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
-  let nameArr;
-  let orgArr;
+  let nameArr: string[];
+  let orgArr: string[];
 
   // Filters props.presenter by sessId, then maps through the result to pull out presenter names
-  const fetchPresNames = (sessId) => {
-    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
-    const presName = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName)
+  const fetchPresNames = (sessId: string): string[] => {
+    const thesePres: Presenter[] = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
+    const presName: string[] = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName);
     nameArr = [presName.join(", ")]
     return nameArr;
   }
 
   // Filters props.presenter by sessId, then maps through the result to put out presenter organizations
-  const fetchPresOrgs = (sessId) => {
-    const thesePres = props.presenter.filter(pres => pres.presSessionIds.includes(sessId))
-    const presOrg = thesePres.map(pres => pres.presOrg)
+  const fetchPresOrgs = (sessId: string): string[] => {
+    const thesePres: Presenter[] = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
+    const presOrg: string[] = thesePres.map((pres: Presenter) => pres.presOrg)
     orgArr = [...new Set(presOrg)]
     return orgArr;
   }
@@ -32,8 +60,8 @@ const SessPropSummaryCard = (props) => {
 
   return (
     <>
-      {props.session.map(sess => (
-        <Card className="infoCard proposalCard">
+      {props.session.map((sess: Session) => (
+        <Card className="infoCard proposalCard" key={sess._id}>
           <Card.Header className="cardTitle">
             <Row>
               <Col sm={11}>
