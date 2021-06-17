@@ -3,14 +3,16 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import { ConferenceCard, SessionCard } from "../cards";
-import { ConferenceAPI, SessionAPI } from "../../utils/api";
+import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
 const AllSessProps = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState();
+  const [presArray, setPresArray] = useState([]);
   const [sessArray, setSessArray] = useState([]);
   const [confReady, setConfReady] = useState(false);
+  const [presReady, setPresReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
 
   // Pull conference ID from URL
@@ -31,6 +33,22 @@ const AllSessProps = () => {
     setConfReady(true)
   }
 
+  const fetchPres = async (id) => {
+    await PresenterAPI.getPresentersByConf(id)
+      .then(resp => {
+        console.log("sessProposals fetchPres", resp.data)
+        const presArr = resp.data.slice(0);
+        // Filter presenters by acceptance status
+        const filteredPres = presArr.filter(pres => pres.presAccepted === "no")
+        setPresArray(filteredPres)
+      })
+      .catch(err => {
+        console.log(err);
+        return false
+      })
+    setPresReady(true)
+  }
+
   const fetchSess = async (id) => {
     await SessionAPI.getSessions(id)
       .then(resp => {
@@ -49,6 +67,7 @@ const AllSessProps = () => {
 
   useEffect(() => {
     fetchConf(confId);
+    fetchPres(confId);
     fetchSess(confId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,14 +78,13 @@ const AllSessProps = () => {
     <>
       {!isAuthenticated &&
         <Row>
-          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
-            log in
-          </Link> to access session proposals.</h1>
+          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>log in</Link> to access session proposals.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       {isAuthenticated &&
         sessReady === true &&
+        presReady === true &&
         confReady === true &&
         <Container>
 
@@ -80,7 +98,7 @@ const AllSessProps = () => {
 
           <Row>
             {sessArray.length > 0
-              ? <SessionCard session={sessArray} conference={conference} />
+              ? <SessionCard session={sessArray} conference={conference} presenter={presArray} />
               : <h3>We can't seem to find any proposed sessions for this conference. If you think this is an error, please contact us.</h3>}
           </Row>
 
