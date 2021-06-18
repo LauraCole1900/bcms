@@ -12,6 +12,7 @@ const CommitteeForm = (props) => {
   const [member, setMember] = useState(props.member);
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState([]);
+  let commMember;
 
   // Grabs conference ID from URL
   const urlArray = window.location.href.split("/")
@@ -37,6 +38,7 @@ const CommitteeForm = (props) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     props.setBtnName(e.target.dataset.btnname);
+    commMember = member;
     console.log("Committee submit", member)
     const validationErrors = commValidate(member);
     const noErrors = Object.keys(validationErrors).length === 0;
@@ -44,7 +46,7 @@ const CommitteeForm = (props) => {
     switch (noErrors) {
       case true:
         // POST call to create schedule document
-        CommitteeAPI.createCommMember({ ...member, confId: props.conference[0]._id })
+        CommitteeAPI.createCommMember({ ...commMember, confId: props.conference[0]._id })
           .then(resp => {
             // If no errors thrown, show Success modal
             if (!resp.err) {
@@ -65,14 +67,15 @@ const CommitteeForm = (props) => {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     props.setBtnName(e.target.dataset.btnname);
+    commMember = member;
     console.log("Committee member update", confId);
     const validationErrors = commValidate(member);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     switch (noErrors) {
       case true:
-        // PUT call to update schedule document
-        CommitteeAPI.updateScheduleByConfId({ ...member }, confId)
+        // PUT call to update member document
+        CommitteeAPI.updateCommMember({ ...commMember }, confId)
           .then(res => {
             // If no errors thrown, show Success modal
             if (!res.err) {
@@ -155,7 +158,7 @@ const CommitteeForm = (props) => {
             </Col>
           </Row>
 
-          {Object.keys(errors).length > 0 && errors.every(err => err.length > 0) &&
+          {Object.keys(errors).length > 0 &&
             <Row>
               <Col sm={12}>
                 <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
@@ -164,7 +167,7 @@ const CommitteeForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {member === undefined
+              {commMember === undefined
                 ? <Button data-toggle="popover" title="Submit" className="button" data-btnname="addComm" onClick={handleFormSubmit} type="submit">Add Member</Button>
                 : <Button data-toggle="popover" title="Update" className="button" data-btnname="editComm" onClick={handleFormUpdate} type="submit">Update Member Information</Button>}
             </Col>
