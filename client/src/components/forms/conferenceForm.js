@@ -248,7 +248,7 @@ const ConferenceForm = () => {
                   <Card.Body>
                     <Row>
                       <Col sm={12}>
-                        <h3>This section will disappear after you change it. Please remember to scroll to the bottom of the page and click "Update Form" anyway!</h3>
+                        <h3>This section will disappear after you change it. Please remember to click "Update Form" anyway!</h3>
                       </Col>
                     </Row>
                     <Row>

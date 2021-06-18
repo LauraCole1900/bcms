@@ -383,7 +383,7 @@ const TableComp = (e) => {
                     <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
                   <p className="subhead">Click column headers to sort</p>
                   {dataSet === "committee" &&
-                    <CommitteeForm conference={conference} committee={committee} member={member} setBtnName={setBtnName} />}
+                    <CommitteeForm conference={conference} committee={committee} member={member} setBtnName={setBtnName} btnName={btnName} />}
                 </Col>
               </Row>
               <Table striped border="true" hover responsive>
