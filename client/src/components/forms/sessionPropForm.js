@@ -147,9 +147,7 @@ const SessionPropForm = () => {
     <>
       {!isAuthenticated &&
         <Row>
-          <h1 className="authRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>
-            log in
-          </Link> to access the session proposal form.</h1>
+          <h1 className="regRemind">Please <Link className="login" onClick={() => loginWithRedirect()}>log in</Link> to propose a session.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 

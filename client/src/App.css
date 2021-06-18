@@ -109,3 +109,8 @@ p {
   margin: 0;
   padding: 0;
 }
+
+.regRemind {
+  color: var(--ltMedForest);
+  font-weight: bolder;
+}
