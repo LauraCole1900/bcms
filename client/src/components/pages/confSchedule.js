@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col } from "react-bootstrap";
 import Moment from "react-moment";
@@ -14,7 +15,7 @@ const Schedule = () => {
   // Sessions that take more than one time block (registration, etc.) should stretch across those times
   // Registration: need to figure out how to determine if timeblock is after start time and before end time to include in merge
 
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState();
   const [presenters, setPresenters] = useState();
   const [sessions, setSessions] = useState();
@@ -32,7 +33,6 @@ const Schedule = () => {
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const urlType = urlArray[urlArray.length - 2]
-  // 
 
   const fetchConf = async (id) => {
     return ConferenceAPI.getConferenceById(id)
@@ -140,6 +140,12 @@ const Schedule = () => {
         dateReady === true &&
         <Container>
           <Row>
+
+          {!isAuthenticated &&
+            <Row>
+              <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>log in</Link> to register for this conference.</h1>
+            </Row>}
+
             {isAuthenticated
               ? <Col sm={4}>
                 <UserCard />
