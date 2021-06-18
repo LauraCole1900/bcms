@@ -68,7 +68,7 @@ const PresenterForm = () => {
         console.log("from presForm fetchPresByEmail", resp.data)
         presArr = [...presArr, resp.data]
         console.log({ presArr })
-        if (presArr.length === session.sessPresEmails.length) {
+        if (presArr.length === sessObj.sessPresEmails.length) {
           setPresenter(presArr)
           setPresReady(true);
           return presArr
@@ -86,10 +86,11 @@ const PresenterForm = () => {
     return SessionAPI.getSessionById(sessId)
       .then(resp => {
         console.log("from presForm fetchSess", resp.data)
-        sess = resp.data[0]
+        sessObj = resp.data[0];
+        console.log({ sess });
         setSession(sess);
         setSessReady(true);
-        return sess;
+        return sessObj;
       })
       .catch(err => {
         console.log(err)
@@ -141,7 +142,8 @@ const PresenterForm = () => {
       // Presenter for new session
       default:
         // Call fetchSess()
-        sessObj = await fetchSess;
+        sessObj = await fetchSess(id);
+        console.log(sessObj)
         // Use response from fetchSess() to GET conference information
         await ConferenceAPI.getConferenceById(sessObj.confId)
           .then(resp => {
@@ -254,12 +256,12 @@ const PresenterForm = () => {
   }
 
   const handlePageLoad = async (id) => {
-    await fetchConf(id);
     await fetchSess(id)
       .then(sess => {
-        sess.sessPresEmails.map(email => fetchPresByEmail(email, id))
+        sess.sessPresEmails.map(email => fetchPresByEmail(email, sess.confId))
         console.log("from presForm pageLoad", presenter)
       })
+    await fetchConf(id);
   }
 
   useEffect(() => {
