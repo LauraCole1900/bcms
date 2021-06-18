@@ -4,11 +4,12 @@ import { Container, Row, Col, Table, Form, Card, Image, ButtonGroup, Button } fr
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
 import AttendeeTable from "./attendeeTable.js";
+import CommitteeTable from "./committeeTable.tsx";
 import ExhibitorTable from "./exhibitorTable.js";
 import PresenterTable from "./presenterTable.js";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { Sidenav } from "../navbar";
-import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, SessionAPI, PresenterAPI } from "../../utils/api";
+import { AttendeeAPI, CommitteeAPI, ConferenceAPI, ExhibitorAPI, SessionAPI, PresenterAPI } from "../../utils/api";
 import "./style.css";
 
 const TableComp = (e) => {
@@ -19,6 +20,7 @@ const TableComp = (e) => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
   const [attendees, setAttendees] = useState([]);
+  const [committee, setCommittee] = useState([]);
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
   const [presenters, setPresenters] = useState([]);
@@ -32,6 +34,7 @@ const TableComp = (e) => {
   const [thisEmail, setThisEmail] = useState();
   const [confName, setConfName] = useState();
   const [attName, setAttName] = useState();
+  const [commName, setCommName] = useState();
   const [exhName, setExhName] = useState();
   const [presName, setPresName] = useState();
   const [pageReady, setPageReady] = useState(false);
@@ -47,6 +50,7 @@ const TableComp = (e) => {
   const [showErr, setShowErr] = useState(false);
 
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
+  const commHeaders = ["commLastName", "commFirstName", "commEmail", "commPhone", "commOrg", "isChair"]
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend", "exhBoothNum"];
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionNames"];
 
@@ -60,6 +64,7 @@ const TableComp = (e) => {
     setConfName(dataset.confname);
     setThisEmail(dataset.email);
     setAttName(dataset.attname);
+    setCommName(dataset.commname);
     setExhName(dataset.exhname);
     setPresName(dataset.presname);
   }
@@ -88,6 +93,26 @@ const TableComp = (e) => {
         handleShowErr();
       });
   }
+
+    // Handles click on "Yes, delete member" button on ConfirmModal
+    const handleDeleteComm = (email, confId) => {
+      console.log("from confirm deleteComm", email, confId)
+      handleHideConfirm();
+      // DELETE call to delete committee document
+      CommitteeAPI.deleteCommMember(email, confId)
+        .then(res => {
+          // If no errors thrown, show Success modal
+          if (!res.err) {
+            handleShowSuccess()
+          }
+        })
+        // If yes errors thrown, show Error modal
+        .catch(err => {
+          console.log(err);
+          setErrThrown(err.message);
+          handleShowErr();
+        });
+    }
 
   // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
   const handleExhUnreg = (confId, email) => {
@@ -127,6 +152,16 @@ const TableComp = (e) => {
         console.log("table fetchAttendees", resp.data)
         const attSort = ascendingSort(resp.data, "familyName")
         setAttendees(attSort)
+      })
+      .catch(err => console.log(err))
+  }
+
+  const fetchCommittee = async (confId) => {
+    await CommitteeAPI.getCommittee(confId)
+      .then(resp => {
+        console.log("table fetchCommittee", resp.data)
+        const commSort = ascendingSort(resp.data, "commLastName")
+        setCommittee(commSort)
       })
       .catch(err => console.log(err))
   }
@@ -254,15 +289,14 @@ const TableComp = (e) => {
       fetchConf(confId)
 
       switch (dataSet) {
+        case "committee":
+          fetchCommittee(confId);
+          break;
         case "exhibitors":
           fetchExhibitors(confId);
           break;
         case "presenters":
           fetchPresenters(confId)
-          // .then(pres => {
-          //   pres.presSessionIds.map(id => fetchSessions(id))
-          //   console.log("from table fetchSess", sessNames);
-          // });
           break;
         default:
           fetchAttendees(confId);
@@ -307,39 +341,42 @@ const TableComp = (e) => {
                 <Col className="center">
                   {dataSet === "attendees" &&
                     <h1>Attendees</h1>}
+                  {dataSet === "committee" &&
+                    <h1>Session Proposal Review Committee</h1>}
                   {dataSet === "exhibitors" &&
                     <h1>Exhibitors</h1>}
                   {dataSet === "presenters" &&
                     <h1>Presenters</h1>}
                 </Col>
               </Row>
-              <Row className="instr">
-                <Col sm={4}></Col>
-                <Col sm={6}>
-                  <Card.Body>
-                    <Form inline="true">
-                      <Row>
-                        <Col sm={5}>
-                          <Form.Group controlId="confSearchBy">
-                            <Form.Control inline="true" as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
-                              <option value="all">View All</option>
-                              <option value="name">Search by Family Name</option>
-                              <option value="email">Search by Email</option>
-                              <option value="org">Search by Organization</option>
-                            </Form.Control>
-                          </Form.Group>
-                        </Col>
-                        <Col sm={4}>
-                          {(searchBy !== "all") &&
-                            <div id="confPageSearch">
-                              <Form.Control inline="true" className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
-                            </div>}
-                        </Col>
-                      </Row>
-                    </Form>
-                  </Card.Body>
-                </Col>
-              </Row>
+              {dataSet !== "committee" &&
+                <Row className="instr">
+                  <Col sm={4}></Col>
+                  <Col sm={6}>
+                    <Card.Body>
+                      <Form inline="true">
+                        <Row>
+                          <Col sm={5}>
+                            <Form.Group controlId="confSearchBy">
+                              <Form.Control inline="true" as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
+                                <option value="all">View All</option>
+                                <option value="name">Search by Family Name</option>
+                                <option value="email">Search by Email</option>
+                                <option value="org">Search by Organization</option>
+                              </Form.Control>
+                            </Form.Group>
+                          </Col>
+                          <Col sm={4}>
+                            {(searchBy !== "all") &&
+                              <div id="confPageSearch">
+                                <Form.Control inline="true" className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                              </div>}
+                          </Col>
+                        </Row>
+                      </Form>
+                    </Card.Body>
+                  </Col>
+                </Row>}
               <Row className="instr">
                 <Col sm={12}>
                   {dataSet === "attendees" &&
@@ -353,6 +390,11 @@ const TableComp = (e) => {
                     {dataSet === "attendees" &&
                       attendees.length > 0 && (
                         attHeaders.map((data, idx) => (
+                          <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
+                        )))}
+                    {dataSet === "committee" &&
+                      committee.length > 0 && (
+                        commHeaders.map((data, idx) => (
                           <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
                         )))}
                     {dataSet === "exhibitors" &&
@@ -372,6 +414,10 @@ const TableComp = (e) => {
                     attendees.length > 0
                       ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} attcb={fetchAttendees} delete={handleShowConfirm} />
                       : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
+                      {dataSet === "attendees" && (
+                    attendees.length > 0
+                      ? <CommitteeTable committee={committee} conference={conference} confcb={fetchConf} commcb={fetchCommittee} delete={handleShowConfirm} />
+                      : <tr><td className="tableComm">We can't seem to find any members of the session proposal committee at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "exhibitors" && (
                     exhibitors.length > 0
                       ? <ExhibitorTable exhibitors={searchFilter(exhibitors)} conference={conference} confcd={fetchConf} exhcb={fetchExhibitors} delete={handleShowConfirm} />
@@ -389,7 +435,7 @@ const TableComp = (e) => {
               {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
 
               {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
+              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commName={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisId, thisEmail)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
 
               <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
 

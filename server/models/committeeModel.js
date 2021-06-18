@@ -24,6 +24,9 @@ const committeeSchema = new Schema ({
   },
   commPhone: {
     type: String
+  },
+  isChair: {
+    type: String
   }
 });
 
