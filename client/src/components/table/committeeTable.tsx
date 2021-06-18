@@ -79,8 +79,8 @@ const CommitteeTable = (props: any): object => {
           <td><Form.Check type="checkbox" name="isChair" value={comm.isChair} data-id={comm._id} aria-label="adminCheck" className="adminCheck" checked={comm.isChair === "true"} onChange={handleInputChange} /></td>
           <td>
             <Link to={`/admin_edit_att/${comm._id}`} className={location.pathname === `/admin_edit_att/${comm._id}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="Edit this member" className="tbleditbtn" data-btnname="commEdit">
-                <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this member" data-commid={comm._id} data-name="commEdit" />
+              <Button data-toggle="popover" title="Edit this member" className="tbleditbtn" data-btnname="commEdit" onClick={props.setMember}>
+                <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this member" data-commid={comm._id} data-name="commEdit" onClick={props.setMember} />
               </Button>
             </Link>
           </td>

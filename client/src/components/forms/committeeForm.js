@@ -8,7 +8,13 @@ import "./style.css";
 
 const CommitteeForm = (props) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
-  const [member, setMember] = useState(props.member);
+  const [member, setMember] = useState({
+    commFirstName: "",
+    commLastName: "",
+    commEmail: "",
+    commPhone: "",
+    commOrg: "",
+  });
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
 
@@ -132,7 +138,7 @@ const CommitteeForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {Object.keys(props.member).length !== 0
+              {Object.keys(member).length !== 0
                 ? <Button data-toggle="popover" title="Update" className="button" data-btnname="editComm" onClick={handleFormUpdate} type="submit">Update Member Information</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" data-btnname="addComm" onClick={handleFormSubmit} type="submit">Add Member</Button>}
             </Col>

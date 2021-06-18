@@ -22,6 +22,7 @@ const TableComp = (e) => {
   const location = useLocation();
   const [attendees, setAttendees] = useState([]);
   const [committee, setCommittee] = useState([]);
+  const [member, setMember] = useState();
   const [conference, setConference] = useState([]);
   const [exhibitors, setExhibitors] = useState([]);
   const [presenters, setPresenters] = useState([]);
@@ -312,9 +313,7 @@ const TableComp = (e) => {
     <>
       {!isAuthenticated &&
         <Row>
-          <h1 className="authRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
-            log in
-          </Link> to access this feature.</h1>
+          <h1 className="authRemind">Please <Link to={window.location.origin} className="regRemind" onClick={() => loginWithRedirect()}>log in</Link> to access this feature.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
@@ -384,7 +383,7 @@ const TableComp = (e) => {
                     <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
                   <p className="subhead">Click column headers to sort</p>
                   {dataSet === "committee" &&
-                    <CommitteeForm conference={conference} member={committee} setBtnName={setBtnName} />}
+                    <CommitteeForm conference={conference} committee={committee} member={member} setBtnName={setBtnName} />}
                 </Col>
               </Row>
               <Table striped border="true" hover responsive>
@@ -419,7 +418,7 @@ const TableComp = (e) => {
                       : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "committee" && (
                     committee.length > 0
-                      ? <CommitteeTable committee={committee} conference={conference} confcb={fetchConf} commcb={fetchCommittee} delete={handleShowConfirm} />
+                      ? <CommitteeTable committee={committee} conference={conference} confcb={fetchConf} commcb={fetchCommittee} setMember={setMember} delete={handleShowConfirm} />
                       : <tr><td className="tableComm">We can't seem to find any members of the session proposal committee at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "exhibitors" && (
                     exhibitors.length > 0
