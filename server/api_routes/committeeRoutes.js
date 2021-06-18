@@ -9,9 +9,6 @@ router.route("/post")
 router.route("/:id")
   .get(committeeController.findById);
 
-router.route("/conferences/:email")
-  .get(committeeController.findByEmail);
-
 router.route("/conference/:id")
   .get(committeeController.findByConfId);
 

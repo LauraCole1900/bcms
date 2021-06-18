@@ -21,15 +21,6 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-  // FIND by attendee email
-  findByEmail: function (req, res) {
-    console.log("from committeeCont findByEmail", req.params.email)
-    db.Committee
-      .find({ email: req.params.email })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
-  },
-
   // FIND committee members by confId
   findByConfId: function (req, res) {
     console.log("from committeeCont findByConfId", req.params.id)

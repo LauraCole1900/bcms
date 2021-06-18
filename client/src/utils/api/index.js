@@ -1,4 +1,5 @@
 export { default as AttendeeAPI } from "./attendeeApi";
+export { default as CommitteeAPI } from "./committeeApi";
 export { default as ConferenceAPI } from "./conferenceApi";
 export { default as ExhibitorAPI } from "./exhibitorApi";
 export { default as PresenterAPI } from "./presenterApi";
