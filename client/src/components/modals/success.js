@@ -93,6 +93,16 @@ const SuccessModal = (props) => {
           {props.urltype === "admin_edit_att" &&
             <h4>You have edited {props.attname}'s registration for {props.confname}.</h4>}
 
+          {/* Add Committee Member form (available from Committee Table) */}
+          {props.urltype === "committee" &&
+            props.btnName === "addComm" &&
+            <h4>You have added {props.commname} to the session review committee for {props.confname}.</h4>}
+
+          {/* Edit Committee Member form (available from Committee Table) */}
+          {props.urltype === "committee" &&
+            props.btnName === "editComm" &&
+            <h4>You have edited {props.commname}'s information.</h4>}
+
           {/* Register Exhibit form */}
           {props.urltype === "register_exhibit" &&
             <h4>You have registered your exhibit for {props.confname}.</h4>}
@@ -118,6 +128,11 @@ const SuccessModal = (props) => {
           {props.urltype === "attendees" &&
             (props.btnname === "admUnregAtt" &&
               <h4>You have unregistered {props.attname} from {props.confname}.</h4>)}
+
+          {/* Remove Member button (available from Committee Table) */}
+          {props.urltype === "committee" &&
+            (props.btnname === "delComm" &&
+              <h4>You have removed {props.commname} from the session proposal review committee for {props.confname}.</h4>)}
 
           {/* Unregister Exhibit button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
@@ -152,7 +167,7 @@ const SuccessModal = (props) => {
               <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Schedule</Button>}
 
             {/* Close modal and return to Conference Details page */}
-            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
+            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "committee" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
               <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Details</Button>}
 
             {/* Add Session form: go on to Presenter Form */}

@@ -34,6 +34,10 @@ const ConfirmModal = (props) => {
           {props.btnname === "admUnregAtt" &&
             <h4>Are you sure you want to unregister {props.attname} from {props.confname}? This action can't be undone.</h4>}
 
+          {/* Delete Member button, owner/admin version */}
+          {props.btnname === "delComm" &&
+            <h4>Are you sure you want to remove {props.commname} from the {props.confname} session proposal review committee? This action can't be undone.</h4>}
+
           {/* Unregister Exhibit button, owner/admin button */}
           {props.btnname === "admUnregExh" &&
             <h4>Are you sure you want to unregister {props.exhname}'s exhibit from {props.confname}? This action can't be undone.</h4>}
@@ -52,6 +56,10 @@ const ConfirmModal = (props) => {
             {/* Confirm Unregister button */}
             {(props.btnname === "unregAtt" || props.btnname === "admUnregAtt") &&
               <Button data-toggle="popover" title="Confirm Unregister" className="button" onClick={() => props.unregatt()} type="submit">Yes, Unregister</Button>}
+
+            {/* Confirm Remove [committee member] button */}
+            {props.btnname === "delComm" &&
+              <Button data-toggle="popover" title="Confirm Remove" className="button" onClick={() => props.delcomm()} type="submit">Yes, Remove</Button>}
 
             {/* Confirm Unregister Exhibit button */}
             {(props.btnname === "unregExh" || props.btnname === "admUnregExh") &&

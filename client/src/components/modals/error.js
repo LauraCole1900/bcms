@@ -94,6 +94,16 @@ const ErrorModal = (props) => {
           {props.urltype === "admin_edit_att" &&
             <h4>{props.errmsg}. Your registration of {props.attname} for {props.confname} could not be updated at this time.</h4>}
 
+          {/* Add Committee Member form (available from Committee Table) */}
+          {props.urltype === "committee" &&
+            props.btnname === "addComm" &&
+            <h4>{props.errmsg}. {props.commname} could not be added at this time.</h4>}
+
+          {/* Edit Committee Member form (available from Committee Table) */}
+          {props.urltype === "committee" &&
+            props.btnname === "editComm" &&
+            <h4>{props.errmsg}. {props.commname}'s information could not be edited at this time.</h4>}
+
           {/* Register Exhibit form */}
           {props.urltype === "register_exhibit" &&
             <h4>{props.errmsg}. The registration of your exhibit for {props.confname} could not be processed at this time.</h4>}
@@ -113,12 +123,17 @@ const ErrorModal = (props) => {
           {/* Unregister button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregAtt" &&
-              <h4>Your unregistration from {props.confname} could not be processed at this time.</h4>)}
+              <h4>{props.errmsg}. Your unregistration from {props.confname} could not be processed at this time.</h4>)}
+
+          {/* Remove Member button */}
+          {(props.urlid === "committee") &&
+            (props.btnname === "delComm" &&
+              <h4>{props.errmsg}. {props.commname} could not be removed at this time.</h4>)}
 
           {/* Unregister Exhibit button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
             (props.btnname === "unregExh" &&
-              <h4>The unregistration of your exhibit from {props.confname} could not be processed at this time.</h4>)}
+              <h4>{props.errmsg}. The unregistration of your exhibit from {props.confname} could not be processed at this time.</h4>)}
 
           {/* Cancel Conference button */}
           {(props.urlid === "profile" || props.urlid === "conferences" || props.urltype === "details") &&
@@ -132,7 +147,7 @@ const ErrorModal = (props) => {
 
           {/* Navigation buttons */}
           <Modal.Footer className="modalFooter">
-            
+
             {/* Close modal and return to Conference Schedule page */}
             {props.urltype === "schedule" &&
               <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Schedule</Button>}
