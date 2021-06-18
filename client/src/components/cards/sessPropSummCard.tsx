@@ -35,7 +35,7 @@ interface Session {
   _id: string
 }
 
-const SessPropSummaryCard = (props: any) => {
+const SessPropSummaryCard = (props: any): object => {
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
   let nameArr: string[];

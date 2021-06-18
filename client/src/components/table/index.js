@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Container, Row, Col, Table, Form, Card, Image, ButtonGroup, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
+import { CommitteeForm } from "../forms";
 import AttendeeTable from "./attendeeTable.js";
 import CommitteeTable from "./committeeTable.tsx";
 import ExhibitorTable from "./exhibitorTable.js";
@@ -94,25 +95,25 @@ const TableComp = (e) => {
       });
   }
 
-    // Handles click on "Yes, delete member" button on ConfirmModal
-    const handleDeleteComm = (email, confId) => {
-      console.log("from confirm deleteComm", email, confId)
-      handleHideConfirm();
-      // DELETE call to delete committee document
-      CommitteeAPI.deleteCommMember(email, confId)
-        .then(res => {
-          // If no errors thrown, show Success modal
-          if (!res.err) {
-            handleShowSuccess()
-          }
-        })
-        // If yes errors thrown, show Error modal
-        .catch(err => {
-          console.log(err);
-          setErrThrown(err.message);
-          handleShowErr();
-        });
-    }
+  // Handles click on "Yes, delete member" button on ConfirmModal
+  const handleDeleteComm = (email, confId) => {
+    console.log("from confirm deleteComm", email, confId)
+    handleHideConfirm();
+    // DELETE call to delete committee document
+    CommitteeAPI.deleteCommMember(email, confId)
+      .then(res => {
+        // If no errors thrown, show Success modal
+        if (!res.err) {
+          handleShowSuccess()
+        }
+      })
+      // If yes errors thrown, show Error modal
+      .catch(err => {
+        console.log(err);
+        setErrThrown(err.message);
+        handleShowErr();
+      });
+  }
 
   // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
   const handleExhUnreg = (confId, email) => {
@@ -382,6 +383,8 @@ const TableComp = (e) => {
                   {dataSet === "attendees" &&
                     <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
                   <p className="subhead">Click column headers to sort</p>
+                  {dataSet === "committee" &&
+                    <CommitteeForm conference={conference} member={committee} setBtnName={setBtnName} />}
                 </Col>
               </Row>
               <Table striped border="true" hover responsive>
@@ -414,8 +417,8 @@ const TableComp = (e) => {
                     attendees.length > 0
                       ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} attcb={fetchAttendees} delete={handleShowConfirm} />
                       : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
-                      {dataSet === "attendees" && (
-                    attendees.length > 0
+                  {dataSet === "committee" && (
+                    committee.length > 0
                       ? <CommitteeTable committee={committee} conference={conference} confcb={fetchConf} commcb={fetchCommittee} delete={handleShowConfirm} />
                       : <tr><td className="tableComm">We can't seem to find any members of the session proposal committee at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "exhibitors" && (

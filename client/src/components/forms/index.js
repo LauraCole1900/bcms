@@ -1,3 +1,4 @@
+export { default as CommitteeForm } from "./committeeForm";
 export { default as ConferenceForm } from "./conferenceForm";
 export { default as Supplemental } from "./conferenceSupplemental";
 export { default as ExhibitForm } from "./exhibitForm";

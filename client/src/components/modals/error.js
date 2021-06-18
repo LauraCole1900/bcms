@@ -153,7 +153,7 @@ const ErrorModal = (props) => {
               <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Schedule</Button>}
 
             {/* Close modal and return to Conference Details page */}
-            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
+            {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "committee" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
               <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Details</Button>}
 
             {/* Link to Conference Details page when confid === conference._id */}

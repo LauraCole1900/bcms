@@ -30,17 +30,15 @@ const CommitteeForm = (props) => {
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // Splits inputs at commas to create an array
-    let array = value.split(",")
-    setMember({ ...member, [name]: array })
+    setMember({ ...member, [name]: value })
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setBtnName(e.target.dataset.btnname);
+    props.setBtnName(e.target.dataset.btnname);
     console.log("Committee submit", member)
     // POST call to create schedule document
-    CommitteeAPI.createCommMember({ ...member, confId: props.conference._id })
+    CommitteeAPI.createCommMember({ ...member, confId: props.conference[0]._id })
       .then(resp => {
         // If no errors thrown, show Success modal
         if (!resp.err) {
@@ -56,7 +54,7 @@ const CommitteeForm = (props) => {
 
   const handleFormUpdate = (e) => {
     e.preventDefault();
-    setBtnName(e.target.dataset.btnname);
+    props.setBtnName(e.target.dataset.btnname);
     console.log("Committee member update", confId);
     // PUT call to update schedule document
     CommitteeAPI.updateScheduleByConfId({ ...member }, confId)
