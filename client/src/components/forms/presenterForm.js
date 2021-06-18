@@ -306,7 +306,8 @@ const PresenterForm = () => {
               <Button data-toggle="popover" title="Go Back" className="button" onClick={() => history.goBack()} type="submit">Go Back</Button>
             </Col>
           </Row>
-          {(Object.keys(errors).length !== 0 && errors.every(err => err.length !== 0)) &&
+
+          {Object.keys(errors).length > 0 && errors.every(err => err.length > 0) &&
             <Row>
               <Col sm={12}>
                 <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
@@ -315,7 +316,7 @@ const PresenterForm = () => {
 
           <PresenterFormCard presenter={presenter} session={session} conference={conference} errors={errors} idx={idx} handleChange={handleInputChange} handleText={handleTextArea} />
 
-          {(Object.keys(errors).length !== 0 && errors.every(err => err.length !== 0)) &&
+          {Object.keys(errors).length > 0 && errors.every(err => err.length > 0) &&
             <Row>
               <Col sm={12}>
                 <div className="error"><p>The nanobots have detected an error or omission in one or more required fields. Please review this form.</p></div>
