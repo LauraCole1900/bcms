@@ -12,15 +12,6 @@ module.exports = {
   },
 
 
-  // FIND committee members by confId
-  findByConfId: function (req, res) {
-    console.log("from committeeCont findByConfId", req.params.id)
-    db.Committee
-      .find({ confId: req.params.id })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
-  },
-
   // FIND committee member by ID
   findById: function (req, res) {
     console.log("from committeeCont findById", req.params.id)
@@ -35,6 +26,15 @@ module.exports = {
     console.log("from committeeCont findByEmail", req.params.email)
     db.Committee
       .find({ email: req.params.email })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
+  // FIND committee members by confId
+  findByConfId: function (req, res) {
+    console.log("from committeeCont findByConfId", req.params.id)
+    db.Committee
+      .find({ confId: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },

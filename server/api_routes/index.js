@@ -1,6 +1,7 @@
 const path = require("path");
 const router = require("express").Router();
 const apiAttendee = require("./attendeeRoutes");
+const apiCommittee = require("./committeeRoutes");
 const apiConference = require("./conferenceRoutes");
 const apiExhibitor = require("./exhibitorRoutes");
 const apiPresenter = require("./presenterRoutes");
@@ -10,6 +11,7 @@ const apiUser = require("./userRoutes");
 
 // API Routes
 router.use("/api/attendee", apiAttendee);
+router.use("/api/committee", apiCommittee);
 router.use("/api/conference", apiConference);
 router.use("/api/exhibitor", apiExhibitor);
 router.use("/api/presenter", apiPresenter);
