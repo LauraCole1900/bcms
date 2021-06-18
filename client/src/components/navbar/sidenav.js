@@ -227,6 +227,12 @@ const Sidenav = (props) => {
                     <Button data-toggle="popover" title="View conference presenters" className="adminButton">View Presenters</Button>
                   </Link>
                 </Row>}
+                {urlType !== "committee" &&
+                <Row>
+                  <Link to={`/committee/${confId}`} className={location.pathname === `/committee/${confId}` ? "link active" : "link"}>
+                    <Button data-toggle="popover" title="Set proposal review committee" className="adminButton">Set Proposal Review Committee</Button>
+                  </Link>
+                </Row>}
               <Row>
                 <Link to={`/edit_conference/${confId}`} className={location.pathname === `/edit_conference/${confId}` ? "link active" : "link"}>
                   <Button data-toggle="popover" title="Edit this conference" className="adminButton">Edit Conference</Button>

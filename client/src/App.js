@@ -28,7 +28,7 @@ function App() {
         <Route path={["/schedule/*", "edit_schedule/*"]} component={Schedule} />
         <Route path="/venue/*" component={Venue} />
         <Route path="/exhibits/*" component={ConfExhibits} />
-        <Route path={["/attendees/*", "/exhibitors/*", "/presenters/*"]} component={TableComp} />
+        <Route path={["/attendees/*", "/committee/*", "/exhibitors/*", "/presenters/*"]} component={TableComp} />
         <Route path="/session_proposals/*" component={AllSessProps} />
         <Route path="/proposal_details/*" component={SessPropDetails} />
         <Route path={["/new_conference", "/edit_conference/*"]} component={ConferenceForm} />

@@ -68,6 +68,8 @@ p {
   border-radius: 10px;
   margin: 5px 0 5px 0;
   box-shadow: 2px 2px 5px var(--darkForest);
+  display: inline-block;
+  white-space: normal;
 }
 .button:hover, .button:focus, .button:active, .button.active {
   color: var(--darkForest);

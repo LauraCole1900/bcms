@@ -18,6 +18,8 @@
   margin: 5px 0 5px 0;
   box-shadow: 2px 2px 5px var(--darkForest);
   width: 75%;
+  display: inline-block;
+  white-space: normal;
 }
 .adminButton:hover, .adminButton:focus, .adminButton:active {
   color: var(--darkForest);
@@ -37,6 +39,8 @@
   margin: 5px 0 5px 0;
   box-shadow: 2px 2px 5px var(--darkForest);
   width: 75%;
+  display: inline-block;
+  white-space: normal;
 }
 .committeeButton:hover, .committeeButton:focus, .committeeButton:active {
   color: var(--darkForest);
