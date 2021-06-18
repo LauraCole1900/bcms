@@ -200,12 +200,21 @@ const Sidenav = (props) => {
                 <Button data-toggle="popover" title="Session proposal form" className="sideButton">Session proposal form</Button>
               </Link>
             </Row>}
-          {isAuthenticated && props.conference[0].confSessProposalCommittee.includes(user.email) &&
-            <Row>
-              <Link to={`/session_proposals/${confId}`} className={location.pathname === `/session_proposal/${confId}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="View Session Proposals" className="committeeButton">View Session Proposals</Button>
-              </Link>
-            </Row>}
+          {isAuthenticated &&
+            (user.email === props.conference[0].ownerEmail || props.conference[0].confSessProposalCommittee.includes(user.email)) &&
+            <>
+              <Row>
+                <Link to={`/session_proposals/${confId}`} className={location.pathname === `/session_proposal/${confId}` ? "link active" : "link"}>
+                  <Button data-toggle="popover" title="View Session Proposals" className="committeeButton">View Session Proposals</Button>
+                </Link>
+              </Row>
+              {urlType !== "committee" &&
+                <Row>
+                  <Link to={`/committee/${confId}`} className={location.pathname === `/committee/${confId}` ? "link active" : "link"}>
+                    <Button data-toggle="popover" title="Set proposal review committee" className="committeeButton">View Proposal Review Committee</Button>
+                  </Link>
+                </Row>}
+            </>}
           {isAuthenticated &&
             (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
             <>
@@ -225,12 +234,6 @@ const Sidenav = (props) => {
                 <Row>
                   <Link to={`/presenters/${confId}`} className={location.pathname === `/presenters/${confId}` ? "link active" : "link"}>
                     <Button data-toggle="popover" title="View conference presenters" className="adminButton">View Presenters</Button>
-                  </Link>
-                </Row>}
-                {urlType !== "committee" &&
-                <Row>
-                  <Link to={`/committee/${confId}`} className={location.pathname === `/committee/${confId}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="Set proposal review committee" className="adminButton">Set Proposal Review Committee</Button>
                   </Link>
                 </Row>}
               <Row>

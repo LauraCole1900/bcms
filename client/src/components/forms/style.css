@@ -12,12 +12,6 @@ form {
   font-weight: bold;
 }
 
-.authRemind {
-  color: var(--skyBlue);
-  text-align: center;
-  font-weight: bolder;
-}
-
 .formCard {
   background-color: var(--sand);
   border: 5px solid var(--medForest);
