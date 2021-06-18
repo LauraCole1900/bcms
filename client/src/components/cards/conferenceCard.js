@@ -253,7 +253,7 @@ const ConferenceCard = (props) => {
                       <h3 className="cancel">This event has been cancelled.</h3>
                     </div>}
 
-                  {urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
+                  {(confId === "conferences" || confId === "profile") &&
                     <Row>
                       <Col sm={4}>
                         <Link to={`/details/${conf._id}`} className={location.pathname === `/details/${conf._id}` ? "link active" : "link"}>
