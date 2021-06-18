@@ -8,8 +8,8 @@ import "./style.css";
 interface Committee {
   confId: string,
   commEmail: string,
-  commFirstName: string,
-  commLastName: string,
+  commGivenName: string,
+  commFamilyName: string,
   commOrg: string,
   commPhone: string,
   isChair: string,
@@ -78,8 +78,8 @@ const CommitteeTable = (props: any): object => {
     <>
       {props.committee.map((comm: Committee) => (
         <tr key={comm._id}>
-          <td>{comm.commLastName}</td>
-          <td>{comm.commFirstName}</td>
+          <td>{comm.commFamilyName}</td>
+          <td>{comm.commGivenName}</td>
           <td>{comm.commEmail}</td>
           <td>{comm.commPhone}</td>
           <td>{comm.commOrg}</td>
@@ -90,8 +90,8 @@ const CommitteeTable = (props: any): object => {
             </Button>
           </td>
           <td>
-            <Button data-toggle="popover" title="Remove this member" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commFirstName + " " + comm.commLastName} data-email={comm.commEmail} data-btnname="delComm" onClick={props.delete}>
-              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Remove this member" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commFirstName + " " + comm.commLastName} data-email={comm.commEmail} data-btnname="delComm" onClick={props.delete} />
+            <Button data-toggle="popover" title="Remove this member" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} data-btnname="delComm" onClick={props.delete}>
+              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Remove this member" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} data-btnname="delComm" onClick={props.delete} />
             </Button>
           </td>
         </tr>

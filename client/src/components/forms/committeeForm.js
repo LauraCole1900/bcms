@@ -93,11 +93,11 @@ const CommitteeForm = (props) => {
                     <Row>
                       <Col sm={6}>
                         <Form.Label>Member's first name: <span className="red">*</span></Form.Label><br />
-                        <Form.Control type="input" id="formCommFName" name="commFirstName" placeholder="Donna" value={member?.commFirstName} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" id="formCommFName" name="commGivenName" placeholder="Donna" value={member?.commGivenName} className="formInput" onChange={handleInputChange} />
                       </Col>
                       <Col sm={6}>
                         <Form.Label>Member's last name: <span className="red">*</span></Form.Label><br />
-                        <Form.Control type="input" id="formCommLName" name="commLastName" placeholder="Noble" value={member?.commLastName} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" id="formCommLName" name="commFamilyName" placeholder="Noble" value={member?.commFamilyName} className="formInput" onChange={handleInputChange} />
                       </Col>
                     </Row>
                   </Form.Group>

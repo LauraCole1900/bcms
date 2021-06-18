@@ -5,7 +5,7 @@ const regValidate = ([attendee, conference]) => {
   if (!attendee.email) {
     errors.email = "How do we contact you? Please enter your email."
   } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(attendee.email)) {
-    errors.exhEmail = "The system gremlins don't recognize your email as valid. Please enter a valid email."
+    errors.email = "The system gremlins don't recognize your email as valid. Please enter a valid email."
   }
 
   // name errors

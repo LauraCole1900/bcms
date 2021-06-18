@@ -10,11 +10,11 @@ const committeeSchema = new Schema ({
     type: String,
     required: true
   },
-  commFirstName: {
+  commGivenName: {
     type: String,
     required: true
   },
-  commLastName: {
+  commGivenName: {
     type: String,
     required: true
   },

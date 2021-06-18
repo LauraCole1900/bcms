@@ -1,3 +1,4 @@
+export { default as commValidate } from "./committeeFormValidationRules";
 export { default as confValidate } from "./conferenceFormValidationRules";
 export { default as exhValidate } from "./exhibitFormValidationRules";
 export { default as presValidate } from "./presenterFormValidationRules";
