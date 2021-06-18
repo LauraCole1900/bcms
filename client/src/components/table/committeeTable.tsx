@@ -18,7 +18,6 @@ interface Committee {
 
 const CommitteeTable = (props: any): object => {
   const location = useLocation();
-  const [btnName, setBtnName] = useState<string | void>();
 
   const getEmail = (id: string | undefined): string => {
     const chairObj: Committee = props.committee.find((comm: Committee) => comm._id === id)
@@ -27,10 +26,16 @@ const CommitteeTable = (props: any): object => {
   }
 
   // Click handler for "edit member" button
-  const handleClick = (e: MouseEvent, data: object): any | void => {
+  const handleSelect = (e: MouseEvent, data: object): any | void => {
     // e.preventDefault();
     props.setMember(data);
     console.log("click", data);
+  }
+
+  const handleDelete = (e: MouseEvent<HTMLElement>, data: object): any | void => {
+    const { dataset } = e.target as HTMLButtonElement;
+    props.setBtnName(dataset.btnname);
+    props.delete(data);
   }
 
   // Click handler for "isChair" checkbox
@@ -85,13 +90,13 @@ const CommitteeTable = (props: any): object => {
           <td>{comm.commOrg}</td>
           <td><Form.Check type="checkbox" name="isChair" value={comm.isChair} data-id={comm._id} aria-label="adminCheck" className="adminCheck" checked={comm.isChair === "true"} onChange={handleInputChange} /></td>
           <td>
-            <Button data-toggle="popover" title="Edit this member" className="tbleditbtn" data-btnname="commEdit" onClick={(e) => handleClick(e, comm)}>
-              <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this member" data-commid={comm._id} data-name="commEdit" onClick={(e) => handleClick(e, comm)} />
+            <Button data-toggle="popover" title="Edit this member" className="tbleditbtn" data-btnname="commEdit" onClick={(e) => handleSelect(e, comm)}>
+              <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this member" data-commid={comm._id} data-name="commEdit" onClick={(e) => handleSelect(e, comm)} />
             </Button>
           </td>
           <td>
-            <Button data-toggle="popover" title="Remove this member" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} data-btnname="delComm" onClick={props.delete}>
-              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Remove this member" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} data-btnname="delComm" onClick={props.delete} />
+            <Button data-toggle="popover" title="Remove this member" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} data-btnname="delComm" onClick={(e) => handleDelete(e, comm)}>
+              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Remove this member" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} data-btnname="delComm" onClick={(e) => handleDelete(e, comm)} />
             </Button>
           </td>
         </tr>
