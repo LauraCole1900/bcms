@@ -122,6 +122,7 @@ const SessionForm = () => {
       return PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId], presAccepted: "yes" })
         .then(resp => {
           console.log("savePresenter", resp);
+          return resp;
         })
         .catch(err => {
           console.log(err);
@@ -129,7 +130,6 @@ const SessionForm = () => {
           handleShowErr();
         })
       }
-      return resp;
   }
 
   const fetchConf = async (confid) => {
@@ -247,7 +247,7 @@ const SessionForm = () => {
         handlePres(trimmedEmail, session.confId, sessId, session)
           .then(resp => {
             console.log(resp);
-            if (resp.status !== 422) {
+            if (!resp.err) {
               // If no errors thrown, push to Presenters form (new session) or Supplemental Materials form (propose session)
               if (formType === "new_session") {
                 history.push(`/new_session_pres/${sessId}`, { params: [session] })
