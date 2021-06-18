@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -8,13 +8,7 @@ import "./style.css";
 
 const CommitteeForm = (props) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
-  const [member, setMember] = useState({
-    commFirstName: "",
-    commLastName: "",
-    commEmail: "",
-    commPhone: "",
-    commOrg: "",
-  });
+  const [member, setMember] = useState(props.member);
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState();
 
@@ -76,7 +70,6 @@ const CommitteeForm = (props) => {
         setErrThrown(err.message);
         handleShowErr();
       })
-
   }
 
 
@@ -95,28 +88,29 @@ const CommitteeForm = (props) => {
             <Col sm={10}>
               <Card className="formCard">
                 <Card.Body className="cardBody">
-                  <Form.Group controlId="formCommName">
+
+                  <Form.Group>
                     <Row>
                       <Col sm={6}>
                         <Form.Label>Member's first name: <span className="red">*</span></Form.Label><br />
-                        <Form.Control type="input" name="commFirstName" placeholder="Donna" value={member.commFirstName} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" id="formCommFName" name="commFirstName" placeholder="Donna" value={member?.commFirstName} className="formInput" onChange={handleInputChange} />
                       </Col>
                       <Col sm={6}>
                         <Form.Label>Member's last name: <span className="red">*</span></Form.Label><br />
-                        <Form.Control type="input" name="commLastName" placeholder="Noble" value={member.commLastName} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" id="formCommLName" name="commLastName" placeholder="Noble" value={member?.commLastName} className="formInput" onChange={handleInputChange} />
                       </Col>
                     </Row>
                   </Form.Group>
 
-                  <Form.Group controlId="formCommContact">
+                  <Form.Group>
                     <Row>
                       <Col sm={6}>
-                        <Form.Label>Member's email address: <span className="red">*</span></Form.Label>
-                        <Form.Control type="email" name="commEmail" placeholder="name@email.com" value={member.commEmail} className="formInput" onChange={handleInputChange} />
+                        <Form.Label>Member's email: <span className="red">*</span></Form.Label><br />
+                        <Form.Control type="email" id="formCommEmail" name="commEmail" placeholder="name@email.com" value={member?.commEmail} className="formInput" onChange={handleInputChange} />
                       </Col>
                       <Col sm={6}>
-                        <Form.Label>Member's phone:</Form.Label>
-                        <Form.Control type="input" name="commPhone" placeholder="(123) 456-7890" value={member.commPhone} className="formInput" onChange={handleInputChange} />
+                        <Form.Label>Member's phone:</Form.Label><br />
+                        <Form.Control type="input" id="formCommPhone" name="commPhone" placeholder="(123) 456-7890" value={member?.commPhone} className="formInput" onChange={handleInputChange} />
                       </Col>
                     </Row>
                   </Form.Group>
@@ -125,7 +119,7 @@ const CommitteeForm = (props) => {
                     <Col sm={12}>
                       <Form.Group controlId="formCommOrg">
                         <Form.Label>Member's organization: <span className="red">*</span></Form.Label><br />
-                        <Form.Control type="input" name="commOrg" placeholder="Enter the name of the member's organization" value={member.commOrg} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" name="commOrg" placeholder="Enter the name of the member's organization" value={member?.commOrg} className="formInput" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -136,9 +130,9 @@ const CommitteeForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {Object.keys(member).length !== 0
-                ? <Button data-toggle="popover" title="Update" className="button" data-btnname="editComm" onClick={handleFormUpdate} type="submit">Update Member Information</Button>
-                : <Button data-toggle="popover" title="Submit" className="button" data-btnname="addComm" onClick={handleFormSubmit} type="submit">Add Member</Button>}
+              {member === undefined
+                ? <Button data-toggle="popover" title="Submit" className="button" data-btnname="addComm" onClick={handleFormSubmit} type="submit">Add Member</Button>
+                : <Button data-toggle="popover" title="Update" className="button" data-btnname="editComm" onClick={handleFormUpdate} type="submit">Update Member Information</Button>}
             </Col>
           </Row>
 

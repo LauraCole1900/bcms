@@ -288,8 +288,8 @@ const TableComp = (e) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      fetchConf(confId)
-
+      fetchConf(confId);
+      
       switch (dataSet) {
         case "committee":
           fetchCommittee(confId);
@@ -313,7 +313,7 @@ const TableComp = (e) => {
     <>
       {!isAuthenticated &&
         <Row>
-          <h1 className="authRemind">Please <Link to={window.location.origin} className="regRemind" onClick={() => loginWithRedirect()}>log in</Link> to access this feature.</h1>
+          <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>log in</Link> to access this feature.</h1>
           <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 

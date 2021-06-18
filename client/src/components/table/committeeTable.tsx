@@ -26,18 +26,25 @@ const CommitteeTable = (props: any): object => {
     return chairEmail
   }
 
+  // Click handler for "edit member" button
+  const handleClick = (e: MouseEvent, data: object): any | void => {
+    // e.preventDefault();
+    props.setMember(data);
+    console.log("click", data);
+  }
+
   // Click handler for "isChair" checkbox
   const handleInputChange = async (e: ChangeEvent<HTMLInputElement>): Promise<any | void> => {
     const { dataset, name, value } = e.target;
     console.log("Committee table", value, dataset.id);
-    let commChair: boolean;
+    let commChair: string;
     // Define data to be changed based on existing checkbox value
-    switch (JSON.parse(value)) {
-      case true:
-        commChair = false;
+    switch (value) {
+      case "true":
+        commChair = "false";
         break;
       default:
-        commChair = true;
+        commChair = "true";
     }
     // API call to update conference document TO ADD/REMOVE ADMINS -- may not be necessary here!
     ConferenceAPI.updateConference(dataset.id, { [name]: commChair },)
@@ -45,7 +52,7 @@ const CommitteeTable = (props: any): object => {
       .catch((err: AxiosError) => console.log(err))
     let chairEmail = await getEmail(dataset.id)
     switch (commChair) {
-      case true:
+      case "true":
         // API call to add emails to conference.confSessProposalCommittee
         ConferenceAPI.updateConference({ ...props.conference[0], confSessProposalCommittee: [...props.conference[0].confSessProposalCommittee, chairEmail] }, props.conference[0]._id)
           .then(props.confcb(props.conference[0]._id))
@@ -78,11 +85,9 @@ const CommitteeTable = (props: any): object => {
           <td>{comm.commOrg}</td>
           <td><Form.Check type="checkbox" name="isChair" value={comm.isChair} data-id={comm._id} aria-label="adminCheck" className="adminCheck" checked={comm.isChair === "true"} onChange={handleInputChange} /></td>
           <td>
-            <Link to={`/admin_edit_att/${comm._id}`} className={location.pathname === `/admin_edit_att/${comm._id}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="Edit this member" className="tbleditbtn" data-btnname="commEdit" onClick={props.setMember}>
-                <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this member" data-commid={comm._id} data-name="commEdit" onClick={props.setMember} />
-              </Button>
-            </Link>
+            <Button data-toggle="popover" title="Edit this member" className="tbleditbtn" data-btnname="commEdit" onClick={(e) => handleClick(e, comm)}>
+              <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this member" data-commid={comm._id} data-name="commEdit" onClick={(e) => handleClick(e, comm)} />
+            </Button>
           </td>
           <td>
             <Button data-toggle="popover" title="Remove this member" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commFirstName + " " + comm.commLastName} data-email={comm.commEmail} data-btnname="delComm" onClick={props.delete}>

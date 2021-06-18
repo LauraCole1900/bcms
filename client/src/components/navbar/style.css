@@ -116,6 +116,8 @@
   margin: 5px 0 5px 0;
   box-shadow: 2px 2px 5px var(--darkForest);
   width: 75%;
+  display: inline-block;
+  white-space: normal;
 }
 .sideButton:hover, .sideButton:focus, .sideButton:active {
   color: var(--darkForest);
