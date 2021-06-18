@@ -247,19 +247,22 @@ const Sidenav = (props) => {
                 </Link>
               </Row>
               <Row>
-                <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Add a session" className="adminButton">Add Session</Button>
-                </Link>
-              </Row>
-              <Row>
                 <Link to={`/admin_register_att/${confId}`} className={location.pathname === `/admin_register_att/${confId}` ? "link active" : "link"}>
                   <Button data-toggle="popover" title="Add attendee" className="adminButton">Add Attendee</Button>
                 </Link>
               </Row>
               <Row>
                 <Link to={`/admin_register_exh/${confId}`} className={location.pathname === `/admin_register_exh/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Add attendee" className="adminButton">Add Exhibit</Button>
+                  <Button data-toggle="popover" title="Add exhibit" className="adminButton">Add Exhibit</Button>
                 </Link>
+              </Row>
+              <Row>
+                <Link to={`/new_session/${confId}`} className={location.pathname === `/new_session/${confId}` ? "link active" : "link"}>
+                  <Button data-toggle="popover" title="Add a session" className="adminButton">Add Session</Button>
+                </Link>
+              </Row>
+              <Row>
+                <p className="whitespace">New presenters may only be added by adding a new session or editing an existing session.</p>
               </Row>
             </>}
 

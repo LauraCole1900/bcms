@@ -123,6 +123,7 @@ const PresenterForm = () => {
       // Edit existing presenter
       // GETs conference info by presId
       case "edit_presenter":
+      case "admin_edit_pres":
         // Call fetchPres()
         presObj = await fetchPres(id)
         // Use response from fetchPres() to GET conference information
@@ -262,6 +263,7 @@ const PresenterForm = () => {
     if (isAuthenticated) {
       switch (formType) {
         case "edit_presenter":
+        case "admin_edit_pres":
           // urlId === sessId
           fetchConf(urlId);
           break;
