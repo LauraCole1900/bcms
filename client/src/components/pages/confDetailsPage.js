@@ -65,7 +65,7 @@ const ConfDetails = () => {
         // Sort sessions by room, then start time, then date, then keynote
         const roomSort = filteredSess.sort((a, b) => (a.sessRoom < b.sessRoom) ? 1 : -1);
         const timeSort = roomSort.sort((a, b) => (timeToSort(a.sessStart) > timeToSort(b.sessStart)) ? 1 : -1);
-        const dateSort = timeSort.sort((a, b) => (a.sessDate > b.sessDate) ? 1 : -1);
+        const dateSort = timeSort.sort((a, b) => (a.sessDate < b.sessDate) ? 1 : -1);
         const keySort = dateSort.sort((a, b) => (a.sessKeynote < b.sessKeynote) ? 1 : -1);
         setSessArray(keySort);
       })

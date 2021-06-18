@@ -98,6 +98,7 @@ const SessionForm = () => {
   }
 
   const handlePres = async (email, confId, sessId, session) => {
+    let resp;
     // Check whether presenter already exists for that conference
     let pres = await fetchPresByEmail(email, confId);
     if (pres) {
@@ -106,7 +107,7 @@ const SessionForm = () => {
         return false
       } else {
         // If presenter exists without sessId, add new session ID to presSessionIds[]
-        PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
+        await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
           .then(resp => {
             console.log("updatePresenter", resp)
           })
@@ -118,7 +119,7 @@ const SessionForm = () => {
       }
     } else {
       // If presenter doesn't exist, create new presenter document
-      PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId], presAccepted: "yes" })
+      return PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId], presAccepted: "yes" })
         .then(resp => {
           console.log("savePresenter", resp);
         })
@@ -127,7 +128,8 @@ const SessionForm = () => {
           setErrThrown(err.message);
           handleShowErr();
         })
-    }
+      }
+      return resp;
   }
 
   const fetchConf = async (confid) => {
@@ -244,12 +246,13 @@ const SessionForm = () => {
         const trimmedEmail = email.trim()
         handlePres(trimmedEmail, session.confId, sessId, session)
           .then(resp => {
-            if (!resp.err) {
+            console.log(resp);
+            if (resp.status !== 422) {
               // If no errors thrown, push to Presenters form (new session) or Supplemental Materials form (propose session)
               if (formType === "new_session") {
-                history.push(`/new_session_pres/${urlId}`, { params: [session] })
+                history.push(`/new_session_pres/${sessId}`, { params: [session] })
               } else if (formType === "propose_session") {
-                history.push(`/propose_session_supp/${urlId}`)
+                history.push(`/propose_session_supp/${sessId}`)
               }
             }
           })

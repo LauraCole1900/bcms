@@ -19,15 +19,16 @@ const PresenterForm = () => {
   const [presReady, setPresReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
-  let latestSess;
+  let sess;
   let presObj;
+  let sessObj;
   let presArr = [];
   let idx = 0;
 
   // Grabs conference ID from URL for new presenters or presenter ID from URL for existing presenters
   // Uses URL to determine whether this is adding a session presenter or editing an existing presenter
-  // If formType === new_session_pres, then urlId === confId
-  // If formType === edit_presenter, then urlId === sessId
+  // If formType === new_session_pres, then urlId === sessId
+  // If formType === edit_presenter, then urlId === presId
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const formType = urlArray[urlArray.length - 2]
@@ -67,7 +68,7 @@ const PresenterForm = () => {
         console.log("from presForm fetchPresByEmail", resp.data)
         presArr = [...presArr, resp.data]
         console.log({ presArr })
-        if (presArr.length === latestSess.sessPresEmails.length) {
+        if (presArr.length === session.sessPresEmails.length) {
           setPresenter(presArr)
           setPresReady(true);
           return presArr
@@ -80,42 +81,42 @@ const PresenterForm = () => {
   }
 
   // GETs session info by sessId
-  // const fetchOneSess = async (sessId) => {
-  //   // Edit existing session: GET session information
-  //   return SessionAPI.getSessionById(sessId)
+  const fetchSess = async (sessId) => {
+    // Edit existing session: GET session information
+    return SessionAPI.getSessionById(sessId)
+      .then(resp => {
+        console.log("from presForm fetchSess", resp.data)
+        sess = resp.data[0]
+        setSession(sess);
+        setSessReady(true);
+        return sess;
+      })
+      .catch(err => {
+        console.log(err)
+        return false;
+      })
+  }
+
+  // GETs all sessions by confId, then sorts by date and sets the most recent one in state
+  // const fetchSessions = async (id) => {
+  //   // GET all sessions by confId
+  //   return SessionAPI.getSessions(id)
   //     .then(resp => {
-  //       console.log("from presForm fetchOneSess", resp.data)
-  //       latestSess = resp.data[0]
+  //       console.log("from presForm getSessions", resp.data)
+  //       const sessArr = resp.data
+  //       latestSess = sessArr.reduce((r, a) => {
+  //         return r.date > a.date ? r : a
+  //       });
+  //       console.log({ latestSess });
   //       setSession(latestSess);
   //       setSessReady(true);
   //       return latestSess;
   //     })
   //     .catch(err => {
-  //       console.log(err)
+  //       console.log(err);
   //       return false;
   //     })
   // }
-
-  // GETs all sessions by confId, then sorts by date and sets the most recent one in state
-  const fetchSessions = async (id) => {
-    // GET all sessions by confId
-    return SessionAPI.getSessions(id)
-      .then(resp => {
-        console.log("from presForm getSessions", resp.data)
-        const sessArr = resp.data
-        latestSess = sessArr.reduce((r, a) => {
-          return r.date > a.date ? r : a
-        });
-        console.log({ latestSess });
-        setSession(latestSess);
-        setSessReady(true);
-        return latestSess;
-      })
-      .catch(err => {
-        console.log(err);
-        return false;
-      })
-  }
 
   // GET conference information
   const fetchConf = async (id) => {
@@ -137,10 +138,12 @@ const PresenterForm = () => {
           })
           .catch(err => console.log(err))
         break;
-      // New session
+      // Presenter for new session
       default:
-        // Use ID in URL to GET conference information
-        await ConferenceAPI.getConferenceById(id)
+        // Call fetchSess()
+        sessObj = await fetchSess;
+        // Use response from fetchSess() to GET conference information
+        await ConferenceAPI.getConferenceById(sessObj.confId)
           .then(resp => {
             console.log("from presForm getConfById", resp.data)
             const confObj = resp.data[0]
@@ -252,7 +255,7 @@ const PresenterForm = () => {
 
   const handlePageLoad = async (id) => {
     await fetchConf(id);
-    await fetchSessions(id)
+    await fetchSess(id)
       .then(sess => {
         sess.sessPresEmails.map(email => fetchPresByEmail(email, id))
         console.log("from presForm pageLoad", presenter)
