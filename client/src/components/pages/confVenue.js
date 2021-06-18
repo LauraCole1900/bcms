@@ -66,6 +66,18 @@ const Venue = () => {
               <Sidenav conference={conference} />
             </Col>
 
+            <Col sm={10}>
+              <Row>
+                <h1 className="center">Map of Conference Venue</h1>
+              </Row>
+
+              <Row></Row>
+
+              <Row>
+                <h1 className="center">Map of Exhibitor Hall</h1>
+              </Row>
+            </Col>
+
           </Row>
         </Container>}
     </>

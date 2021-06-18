@@ -60,3 +60,9 @@
 .textTight {
   margin: 2px 0 7px 0;
 }
+
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

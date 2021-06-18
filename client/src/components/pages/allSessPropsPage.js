@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import { ConferenceCard, SessPropSummaryCard } from "../cards";
+import { Sidenav } from "../navbar";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
 
@@ -85,23 +86,30 @@ const AllSessProps = () => {
         </Row>}
 
       {isAuthenticated &&
+        confReady === true &&
         sessReady === true &&
         presReady === true &&
-        confReady === true &&
         <Container>
 
           <ConferenceCard conference={conference} />
 
           <Row>
-            <Col sm={12}>
-              <h1 className="center">Proposed Sessions for {conference[0].confName}</h1>
+            <Col sm={2} className="nomargin">
+              <Sidenav conference={conference} />
             </Col>
-          </Row>
 
-          <Row>
-            {sessArray.length > 0
-              ? <SessPropSummaryCard session={sessArray} conference={conference} presenter={presArray} urlType={urlType} />
-              : <h3>We can't seem to find any proposed sessions for this conference. If you think this is an error, please contact us.</h3>}
+            <Col sm={10}>
+              <Row>
+                <h1 className="center">Proposed Sessions for {conference[0].confName}</h1>
+              </Row>
+
+              <Row className="wrap">
+                {sessArray.length > 0
+                  ? <SessPropSummaryCard session={sessArray} conference={conference} presenter={presArray} urlType={urlType} />
+                  : <h3>We can't seem to find any proposed sessions for this conference. If you think this is an error, please contact us.</h3>}
+              </Row>
+            </Col>
+
           </Row>
 
         </Container>}

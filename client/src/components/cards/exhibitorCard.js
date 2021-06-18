@@ -18,7 +18,7 @@ const ExhibitorCard = (props) => {
     <>
       { cardRender === true &&
         props.exhibitor.map(exh => (
-          <Card className="infoCard" key={exh._id}>
+          <Card className="infoCard smallCard" key={exh._id}>
             <Card.Header className="cardTitle">
               <Row>
                 <Col sm={12}>

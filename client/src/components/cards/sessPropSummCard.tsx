@@ -61,7 +61,7 @@ const SessPropSummaryCard = (props: any): object => {
   return (
     <>
       {props.session.map((sess: Session) => (
-        <Card className="infoCard proposalCard" key={sess._id}>
+        <Card className="infoCard smallCard" key={sess._id}>
           <Card.Header className="cardTitle">
             <Row>
               <Col sm={11}>

@@ -105,6 +105,14 @@ const ConfExhibits = () => {
             <Col sm={10}>
               <Row>
                 <Col sm={4}>
+                  <h1>Exhibit Hall</h1>
+                </Col>
+              </Row>
+
+              <Row></Row>
+
+              <Row>
+                <Col sm={4}>
                   <h1>Exhibitors</h1>
                 </Col>
                 <Col sm={4}></Col>
@@ -129,19 +137,19 @@ const ConfExhibits = () => {
                   </Card.Body>
                 </Col>
               </Row>
-              <Row>
+              <Row className="wrap">
                 {searchBy === "exhComp" &&
-                  <Col sm={12}>
+                  <>
                     {exhArray.length > 0
                       ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
                       : <h3>We can't seem to find any exhibitors for this conference based on your search criteria. If you think this is an error, please contact us.</h3>}
-                  </Col>}
+                  </>}
                 {searchBy === "allExh" &&
-                  <Col sm={12}>
+                  <>
                     {exhArray.length > 0
                       ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
                       : <h3>We can't seem to find any exhibitors for this conference. If you think this is an error, please contact us.</h3>}
-                  </Col>}
+                  </>}
               </Row>
 
             </Col>

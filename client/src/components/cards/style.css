@@ -153,10 +153,6 @@ p {
   margin: 5px;
 }
 
-.proposalCard {
-  max-width: 33%;
-}
-
 .right {
   display: flex;
   justify-content: flex-end;
@@ -187,6 +183,10 @@ p {
 .schedBlue {
   color: var(--lightSil);
   background: var(--blueGradientDown);
+}
+
+.smallCard {
+  min-width: 33%;
 }
 
 .textTight {
