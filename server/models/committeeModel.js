@@ -14,7 +14,7 @@ const committeeSchema = new Schema ({
     type: String,
     required: true
   },
-  commGivenName: {
+  commFamilyName: {
     type: String,
     required: true
   },

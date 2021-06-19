@@ -211,7 +211,7 @@ const Sidenav = (props) => {
               {urlType !== "committee" &&
                 <Row>
                   <Link to={`/committee/${confId}`} className={location.pathname === `/committee/${confId}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="Set proposal review committee" className="committeeButton">View Proposal Review Committee</Button>
+                    <Button data-toggle="popover" title="Set proposal review committee" className="committeeButton">Proposal Review Committee</Button>
                   </Link>
                 </Row>}
             </>}
