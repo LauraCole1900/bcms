@@ -33,8 +33,8 @@ const CommitteeTable = (props: any): object => {
   }
 
   const handleDelete = (e: MouseEvent<HTMLElement>, data: object): any | void => {
-    const { dataset } = e.target as HTMLButtonElement;
-    props.setBtnName(dataset.btnname);
+    const { name } = e.target as HTMLButtonElement;
+    props.setBtnName(name);
     props.delete(data);
   }
 
@@ -95,8 +95,8 @@ const CommitteeTable = (props: any): object => {
             </Button>
           </td>
           <td>
-            <Button data-toggle="popover" title="Remove this member" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} data-btnname="delComm" onClick={(e) => handleDelete(e, comm)}>
-              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Remove this member" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} data-btnname="delComm" onClick={(e) => handleDelete(e, comm)} />
+            <Button data-toggle="popover" title="Remove this member" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} name="delComm" onClick={(e) => handleDelete(e, comm)}>
+              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Remove this member" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} onClick={(e) => handleDelete(e, comm)} />
             </Button>
           </td>
         </tr>
