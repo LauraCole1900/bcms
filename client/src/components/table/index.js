@@ -32,6 +32,7 @@ const TableComp = (e) => {
   const [sortAscending, setSortAscending] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState("");
+  const [thisEvent, setThisEvent] = useState();
   const [thisId, setThisId] = useState();
   const [thisEmail, setThisEmail] = useState();
   const [confName, setConfName] = useState();
@@ -58,17 +59,32 @@ const TableComp = (e) => {
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
-    const { dataset, name } = e.target;
-    console.log(name, dataset.confid, dataset.confname, dataset.attname, dataset.email);
-    setShowConfirm(true);
-    setBtnName(name);
-    setThisId(dataset.confid);
-    setConfName(dataset.confname);
-    setThisEmail(dataset.email);
-    setAttName(dataset.attname);
-    setCommName(dataset.commname);
-    setExhName(dataset.exhname);
-    setPresName(dataset.presname);
+    switch (dataSet) {
+      case "committee":
+        console.log(thisEvent);
+        setShowConfirm(true);
+        setBtnName(thisEvent.dataset.name);
+        setThisId(thisEvent.dataset.confid);
+        setConfName(thisEvent.dataset.confname);
+        setThisEmail(thisEvent.dataset.email);
+        setAttName(thisEvent.dataset.attname);
+        setCommName(thisEvent.dataset.commname);
+        setExhName(thisEvent.dataset.exhname);
+        setPresName(thisEvent.dataset.presname);
+        break;
+      default:
+        const { dataset, name } = e.target;
+        console.log(name, dataset.confid, dataset.confname, dataset.attname, dataset.email);
+        setShowConfirm(true);
+        setBtnName(name);
+        setThisId(dataset.confid);
+        setConfName(dataset.confname);
+        setThisEmail(dataset.email);
+        setAttName(dataset.attname);
+        setCommName(dataset.commname);
+        setExhName(dataset.exhname);
+        setPresName(dataset.presname);
+    }
   }
   const handleHideConfirm = () => setShowConfirm(false);
   const handleShowSuccess = () => setShowSuccess(true);
@@ -289,7 +305,7 @@ const TableComp = (e) => {
   useEffect(() => {
     if (isAuthenticated) {
       fetchConf(confId);
-      
+
       switch (dataSet) {
         case "committee":
           fetchCommittee(confId);
@@ -418,7 +434,7 @@ const TableComp = (e) => {
                       : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "committee" && (
                     committee.length > 0
-                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} confcb={fetchConf} commcb={fetchCommittee} setMember={setMember} delete={handleShowConfirm} />
+                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setThisEvent={setThisEvent} confcb={fetchConf} commcb={fetchCommittee} setMember={setMember} delete={handleShowConfirm} />
                       : <tr><td className="tableComm">We can't seem to find any members of the session proposal committee at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "exhibitors" && (
                     exhibitors.length > 0

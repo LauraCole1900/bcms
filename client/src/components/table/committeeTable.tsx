@@ -27,14 +27,17 @@ const CommitteeTable = (props: any): object => {
 
   // Click handler for "edit member" button
   const handleSelect = (e: MouseEvent, data: object): any | void => {
-    // e.preventDefault();
+    e.preventDefault();
     props.setMember(data);
     console.log("click", data);
   }
 
   const handleDelete = (e: MouseEvent<HTMLElement>, data: object): any | void => {
-    const { name } = e.target as HTMLButtonElement;
-    props.setBtnName(name);
+    console.log("click", e.target);
+    const { dataset } = e.target as HTMLButtonElement;
+    console.log(e.target);
+    props.setBtnName(dataset.name);
+    props.setThisEvent(e);
     props.delete(data);
   }
 
@@ -95,8 +98,8 @@ const CommitteeTable = (props: any): object => {
             </Button>
           </td>
           <td>
-            <Button data-toggle="popover" title="Remove this member" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} name="delComm" onClick={(e) => handleDelete(e, comm)}>
-              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Remove this member" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} onClick={(e) => handleDelete(e, comm)} />
+            <Button data-toggle="popover" title="Remove this member" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-email={comm.commEmail} data-name="delComm" onClick={(e) => handleDelete(e, comm)}>
+              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Remove this member" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-commname={comm.commGivenName + " " + comm.commFamilyName} data-name="delComm" data-email={comm.commEmail} />
             </Button>
           </td>
         </tr>
