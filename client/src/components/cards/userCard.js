@@ -25,25 +25,33 @@ const UserCard = () => {
 
   return (
     <>
-      { pageReady === true &&
+      {pageReady === true &&
         isAuthenticated &&
         <Card className="infoCard">
           <Row>
             <Col sm={3}>
-              <Image fluid="true" className="profilePic" src={userInfo.picture} alt="Profile picture" />
-              <Link to={{
-                state: { ...userInfo },
-                pathname: "/update_user"
-              }}>
-                <Button data-toggle="popover" title="Update your info" className="userBtn">Update Your Info</Button>
-              </Link>
+              <Row>
+                <Col sm={12}>
+                  <Image fluid="true" className="profilePic" src={userInfo.picture} alt="Profile picture" />
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={12}>
+                  <Link to={{
+                    state: { ...userInfo },
+                    pathname: "/update_user"
+                  }}>
+                    <Button data-toggle="popover" title="Update your info" className="userBtn">Update Your Info</Button>
+                  </Link>
+                </Col>
+              </Row>
             </Col>
             <Col sm={8} className="userInfo">
               <h2>{userInfo.given_name} {userInfo.family_name}</h2>
               <h4>{userInfo.email}</h4>
             </Col>
           </Row>
-        </Card>
+        </Card >
       }
     </>
   )
