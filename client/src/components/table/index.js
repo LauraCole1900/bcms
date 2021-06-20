@@ -32,7 +32,6 @@ const TableComp = (e) => {
   const [sortAscending, setSortAscending] = useState(false);
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState("");
-  const [thisEvent, setThisEvent] = useState();
   const [thisId, setThisId] = useState();
   const [thisEmail, setThisEmail] = useState();
   const [confName, setConfName] = useState();
@@ -42,6 +41,7 @@ const TableComp = (e) => {
   const [presName, setPresName] = useState();
   const [pageReady, setPageReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
+  let thisEvent;
 
   const urlArray = window.location.href.split("/");
   const confId = urlArray[urlArray.length - 1];
@@ -152,6 +152,12 @@ const TableComp = (e) => {
       });
   }
 
+  // Sets event data as variable to use in modals
+  const setEvent = (data) => {
+    thisEvent = data;
+    return thisEvent;
+  }
+
   // GET conference info for useEffect and callback
   const fetchConf = async (confId) => {
     await ConferenceAPI.getConferenceById(confId)
@@ -174,6 +180,7 @@ const TableComp = (e) => {
       .catch(err => console.log(err))
   }
 
+  // GETs committee members for useEffect and callback
   const fetchCommittee = async (confId) => {
     await CommitteeAPI.getCommittee(confId)
       .then(resp => {
@@ -434,7 +441,7 @@ const TableComp = (e) => {
                       : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "committee" && (
                     committee.length > 0
-                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setThisEvent={setThisEvent} confcb={fetchConf} commcb={fetchCommittee} setMember={setMember} delete={handleShowConfirm} />
+                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setEvent={setEvent} confcb={fetchConf} commcb={fetchCommittee} setMember={setMember} delete={handleShowConfirm} />
                       : <tr><td className="tableComm">We can't seem to find any members of the session proposal committee at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "exhibitors" && (
                     exhibitors.length > 0
@@ -453,7 +460,7 @@ const TableComp = (e) => {
               {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
 
               {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commName={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisId, thisEmail)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
+              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commName={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisEmail, thisId)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
 
               <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
 

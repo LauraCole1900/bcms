@@ -37,7 +37,7 @@ const CommitteeTable = (props: any): object => {
     const { dataset } = e.target as HTMLButtonElement;
     console.log(e.target);
     props.setBtnName(dataset.name);
-    props.setThisEvent(e);
+    props.setEvent(e.target);
     props.delete(data);
   }
 
