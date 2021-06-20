@@ -34,7 +34,7 @@ module.exports = {
   findByIdAndEmail: function (req, res) {
     console.log("from committeeCont findByIdAndEmail", req.params.id, req.params.email)
     db.Committee
-      .findOne({ confId: req.params.email, email: req.params.id })
+      .findOne({ confId: req.params.email, commEmail: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -53,7 +53,7 @@ module.exports = {
   updateCommMember: function (req, res) {
     console.log("from committeeCont updateCommMember", req.params.id, req.params.email)
     db.Committee
-      .findOneAndUpdate({ confId: req.params.id, email: req.params.email }, req.body)
+      .findOneAndUpdate({ confId: req.params.id, commEmail: req.params.email }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -63,7 +63,7 @@ module.exports = {
   deleteCommMember: function (req, res) {
     console.log("from committeeCont deleteCommMember", req.params.id, req.params.email)
     db.Committee
-      .deleteOne({ confId: req.params.email, email: req.params.id })
+      .deleteOne({ confId: req.params.id, commEmail: req.params.email })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
