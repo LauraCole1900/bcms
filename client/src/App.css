@@ -18,17 +18,35 @@
   --medBlue: #185196;
   --darkBlue: #032c4b;
   --silverGradientUp: linear-gradient(to top, var(--lightSil), var(--darkSil));
-  --silverGradientDown: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
+  --silverGradientDown: linear-gradient(
+    to bottom,
+    var(--lightSil),
+    var(--darkSil)
+  );
   --sandGradientDown: linear-gradient(to bottom, var(--sand), var(--darkSand));
   --redGradientDown: linear-gradient(to bottom, var(--red), var(--darkRed));
-  --greenGradientUp: linear-gradient(to top, var(--lightForest), var(--medForest));
-  --greenGradientDown: linear-gradient(to bottom, var(--lightForest), var(--medForest));
+  --greenGradientUp: linear-gradient(
+    to top,
+    var(--lightForest),
+    var(--medForest)
+  );
+  --greenGradientDown: linear-gradient(
+    to bottom,
+    var(--lightForest),
+    var(--medForest)
+  );
   --blueGradientUp: linear-gradient(to top, var(--skyBlue), var(--darkBlue));
-  --blueGradientDown: linear-gradient(to bottom, var(--skyBlue), var(--darkBlue));
+  --blueGradientDown: linear-gradient(
+    to bottom,
+    var(--skyBlue),
+    var(--darkBlue)
+  );
 }
 
-h1, h2, .mylogo {
-  font-family: 'Bilbo Swash Caps', cursive;
+h1,
+h2,
+.mylogo {
+  font-family: "Bilbo Swash Caps", cursive;
 }
 
 h1 {
@@ -39,7 +57,25 @@ h2 {
   font-size: 40px;
 }
 
-h3, h4, h5, p, form, td, .adminButton, .alert, .authRemind, .button, .cancel, .committeeButton, .error, .hello, .navlink, .regRemind, .sideButton, .tableComm {
+h3,
+h4,
+h5,
+p,
+form,
+td,
+.adminButton,
+.alert,
+.authRemind,
+.button,
+.cancel,
+.committeeButton,
+.error,
+.hello,
+.navlink,
+.regRemind,
+.sideButton,
+.tableComm,
+.userBtn {
   font-family: "Open Sans Condensed", sans-serif;
 }
 
@@ -71,7 +107,10 @@ p {
   display: inline-block;
   white-space: normal;
 }
-.button:hover, .button:focus, .button:active, .button.active {
+.button:hover,
+.button:focus,
+.button:active,
+.button.active {
   color: var(--darkForest);
   background: var(--silverGradientDown);
 }
@@ -98,7 +137,8 @@ p {
 .login {
   color: var(--skyBlue);
 }
-.login:hover, .login:active {
+.login:hover,
+.login:active {
   color: var(--medBlue);
 }
 .login:visited {

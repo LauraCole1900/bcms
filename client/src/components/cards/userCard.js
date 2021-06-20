@@ -35,7 +35,7 @@ const UserCard = () => {
                 state: { ...userInfo },
                 pathname: "/update_user"
               }}>
-                <Button data-toggle="popover" title="Update your info" className="button">Update Your Info</Button>
+                <Button data-toggle="popover" title="Update your info" className="userBtn">Update Your Info</Button>
               </Link>
             </Col>
             <Col sm={8} className="userInfo">

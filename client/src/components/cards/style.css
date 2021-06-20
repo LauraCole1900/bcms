@@ -198,6 +198,23 @@ p {
   font-size: 32px;
 }
 
+.userBtn {
+  color: var(--lightSil);
+  background: var(--greenGradientDown);
+  border: 2px solid var(--darkForest);
+  border-radius: 10px;
+  margin: 5px 0 5px 0;
+  box-shadow: 2px 2px 5px var(--darkForest);
+  /* display: inline-block;
+    white-space: normal; */
+}
+.userBtn:hover,
+.userBtn:focus,
+.userBtn:active {
+  color: var(--darkForest);
+  background: var(--silverGradientDown);
+}
+
 .userInfo {
   margin-left: 10px;
 }
