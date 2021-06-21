@@ -8,7 +8,7 @@ import { commValidate } from "../../utils/validation";
 import "./style.css";
 
 // TO DO:
-// Clear form on submit
+// Check on submit if email is already in db
 
 const CommitteeForm = (props) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -37,6 +37,18 @@ const CommitteeForm = (props) => {
     props.setMember({ ...props.member, [name]: value })
   };
 
+  // Handles button click & checks if submitted email is already in the db
+  const handleButtonClick = (e) => {
+    const emailCheck = props.committee.find(comm => comm.commEmail === props.member.commEmail)
+    console.log({ emailCheck })
+    if (emailCheck === undefined) {
+      handleFormSubmit(e)
+    } else {
+      handleFormUpdate(e);
+    }
+  }
+
+  // Submits information for new committee member
   const handleFormSubmit = (e) => {
     e.preventDefault();
     props.setBtnName(e.target.dataset.btnname);
@@ -100,7 +112,7 @@ const CommitteeForm = (props) => {
     switch (noErrors) {
       case true:
         // PUT call to update member document
-        CommitteeAPI.updateCommMember({ ...commMember }, confId)
+        CommitteeAPI.updateCommMember({ ...commMember }, confId, commMember.commEmail)
           .then(res => {
             // If no errors thrown, show Success modal
             if (!res.err) {
@@ -192,9 +204,7 @@ const CommitteeForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {commMember === undefined
-                ? <Button data-toggle="popover" title="Submit" className="button" data-btnname="addComm" onClick={handleFormSubmit} type="submit">Add Member</Button>
-                : <Button data-toggle="popover" title="Update" className="button" data-btnname="editComm" onClick={handleFormUpdate} type="submit">Update Member Information</Button>}
+                <Button data-toggle="popover" title="Submit" className="button" data-btnname="updateComm" onClick={handleButtonClick} type="submit">Update Committee</Button>
             </Col>
           </Row>
 

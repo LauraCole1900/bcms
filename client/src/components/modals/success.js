@@ -95,13 +95,8 @@ const SuccessModal = (props) => {
 
           {/* Add Committee Member form (available from Committee Table) */}
           {props.urltype === "committee" &&
-            props.btnName === "addComm" &&
-            <h4>You have added {props.commname} to the session review committee for {props.confname}.</h4>}
-
-          {/* Edit Committee Member form (available from Committee Table) */}
-          {props.urltype === "committee" &&
-            props.btnName === "editComm" &&
-            <h4>You have edited {props.commname}'s information.</h4>}
+            props.btnName === "updateComm" &&
+            <h4>You have added or updated {props.commname} on the session review committee for {props.confname}.</h4>}
 
           {/* Register Exhibit form */}
           {props.urltype === "register_exhibit" &&

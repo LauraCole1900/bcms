@@ -94,15 +94,10 @@ const ErrorModal = (props) => {
           {props.urltype === "admin_edit_att" &&
             <h4>{props.errmsg}. Your registration of {props.attname} for {props.confname} could not be updated at this time.</h4>}
 
-          {/* Add Committee Member form (available from Committee Table) */}
+          {/* Update Committee form (available from Committee Table) */}
           {props.urltype === "committee" &&
-            props.btnname === "addComm" &&
-            <h4>{props.errmsg}. {props.commname} could not be added at this time.</h4>}
-
-          {/* Edit Committee Member form (available from Committee Table) */}
-          {props.urltype === "committee" &&
-            props.btnname === "editComm" &&
-            <h4>{props.errmsg}. {props.commname}'s information could not be edited at this time.</h4>}
+            props.btnname === "updateComm" &&
+            <h4>{props.errmsg}. {props.commname}'s information could not be added or updated at this time.</h4>}
 
           {/* Register Exhibit form */}
           {props.urltype === "register_exhibit" &&
