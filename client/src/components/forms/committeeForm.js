@@ -50,6 +50,7 @@ const CommitteeForm = (props) => {
           .then(resp => {
             // If no errors thrown, show Success modal
             if (!resp.err) {
+              props.setCommittee( ...props.committee, member )
               console.log(resp);
             }
           })

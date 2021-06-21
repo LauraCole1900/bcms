@@ -131,8 +131,9 @@ const TableComp = (e) => {
         setErrThrown(err.message);
         handleShowErr();
       });
+    // Filters member email from conf.confSessProposalComm[]
     const comms = conference[0].confSessProposalCommittee.filter(commEmail => commEmail !== email)
-    console.log({ comms });
+    // Updates conference document with filtered email array
     ConferenceAPI.updateConference({ ...conference[0], confSessProposalCommittee: comms }, conference[0]._id)
       .then(resp => {
         if (!resp.err) {
@@ -351,7 +352,7 @@ const TableComp = (e) => {
     setPageReady(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confId, dataSet, showSuccess, thisMember])
+  }, [confId, dataSet, showSuccess, thisMember, committee.length])
 
   return (
     <>
@@ -427,7 +428,7 @@ const TableComp = (e) => {
                     <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
                   <p className="subhead">Click column headers to sort</p>
                   {dataSet === "committee" &&
-                    <CommitteeForm conference={conference} committee={committee} member={thisMember} setBtnName={setBtnName} btnName={btnName} />}
+                    <CommitteeForm conference={conference} committee={committee} setCommittee={setCommittee} member={thisMember} setBtnName={setBtnName} btnName={btnName} />}
                 </Col>
               </Row>
               <Table striped border="true" hover responsive>
