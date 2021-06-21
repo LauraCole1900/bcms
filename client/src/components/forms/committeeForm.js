@@ -77,8 +77,8 @@ const CommitteeForm = (props) => {
           })
           .catch(err => {
             console.log(err)
-            setErrThrown(err.message);
-            handleShowErr();
+            props.setErrThrown(err.message);
+            props.handleShowErr();
           })
         break;
       default:
@@ -90,13 +90,13 @@ const CommitteeForm = (props) => {
       ConferenceAPI.updateConference({ ...props.conference[0], confSessProposalCommittee: [...props.conference[0].confSessProposalCommittee, props.member.commEmail] }, props.conference[0]._id)
         .then(resp => {
           if (!resp.err) {
-            handleShowSuccess();
+            props.handleShowSuccess();
           }
         })
         .catch(err => {
           console.log(err)
-          setErrThrown(err.message);
-          handleShowErr();
+          props.setErrThrown(err.message);
+          props.handleShowErr();
         })
     }
   }
@@ -116,14 +116,21 @@ const CommitteeForm = (props) => {
           .then(res => {
             // If no errors thrown, show Success modal
             if (!res.err) {
-              handleShowSuccess();
+              props.setMember({
+                commGivenName: "",
+                commFamilyName: "",
+                commEmail: "",
+                commPhone: "",
+                commOrg: ""
+              })
+              props.handleShowSuccess();
             }
           })
           // If yes errors thrown, setState(err.message) and show Error modal
           .catch(err => {
             console.log(err)
-            setErrThrown(err.message);
-            handleShowErr();
+            props.setErrThrown(err.message);
+            props.handleShowErr();
           })
         break;
       default:
@@ -210,9 +217,9 @@ const CommitteeForm = (props) => {
 
         </Form>
 
-        <SuccessModal conference={props.conference} confname={props.conference.confName} btnname={props.btnName} urlid={props.urlid} urltype={formType} show={showSuccess === "form"} hide={e => handleHideSuccess(e)} />
+        {/* <SuccessModal conference={props.conference} confname={props.conference.confName} btnname={props.btnName} urlid={props.urlid} urltype={formType} show={showSuccess === "form"} hide={e => handleHideSuccess(e)} />
 
-        <ErrorModal conference={props.conference} confname={props.conference.confName} btnname={props.btnName} urlid={confId} urltype={props.urltype} errmsg={errThrown} show={showErr === "form"} hide={e => handleHideErr(e)} />
+        <ErrorModal conference={props.conference} confname={props.conference.confName} btnname={props.btnName} urlid={confId} urltype={props.urltype} errmsg={errThrown} show={showErr === "form"} hide={e => handleHideErr(e)} /> */}
 
       </Container>
     </>

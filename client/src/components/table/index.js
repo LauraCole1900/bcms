@@ -53,15 +53,15 @@ const TableComp = (e) => {
   const confId = urlArray[urlArray.length - 1];
   const dataSet = urlArray[urlArray.length - 2];
 
-  // Modal variables
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showErr, setShowErr] = useState(false);
-
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
   const commHeaders = ["commFamilyName", "commGivenName", "commEmail", "commPhone", "commOrg", "isChair"]
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend", "exhBoothNum"];
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionNames"];
+
+  // Modal variables
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showErr, setShowErr] = useState(false);
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
@@ -426,7 +426,7 @@ const TableComp = (e) => {
                     <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
                   <p className="subhead">Click column headers to sort</p>
                   {dataSet === "committee" &&
-                    <CommitteeForm conference={conference} committee={committee} setCommittee={setCommittee} member={member} setMember={setMember} setBtnName={setBtnName} btnName={btnName} />}
+                    <CommitteeForm conference={conference} committee={committee} setCommittee={setCommittee} member={member} setMember={setMember} setBtnName={setBtnName} handleShowErr={handleShowErr} handleShowSuccess={handleShowSuccess} setErrThrown={setErrThrown} errThrown={errThrown} btnName={btnName} />}
                 </Col>
               </Row>
               <Table striped border="true" hover responsive>
