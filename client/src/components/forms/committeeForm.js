@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Container, Form, Row, Col, Button, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorModal, SuccessModal } from "../modals"
-import { CommitteeAPI } from "../../utils/api";
+import { CommitteeAPI, ConferenceAPI } from "../../utils/api";
 import { commValidate } from "../../utils/validation";
 import "./style.css";
 
@@ -50,7 +50,7 @@ const CommitteeForm = (props) => {
           .then(resp => {
             // If no errors thrown, show Success modal
             if (!resp.err) {
-              handleShowSuccess();
+              console.log(resp);
             }
           })
           .catch(err => {
@@ -61,6 +61,21 @@ const CommitteeForm = (props) => {
         break;
       default:
         console.log({ errors });
+    }
+    if (props.conference[0].confSessProposalCommittee.includes(member.commEmail)) {
+      return false
+    } else {
+      ConferenceAPI.updateConference({ ...props.conference[0], confSessProposalCommittee: [...props.conference[0].confSessProposalCommittee, member.commEmail] }, props.conference[0]._id)
+        .then(resp => {
+          if (!resp.err) {
+            handleShowSuccess();
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
+        })
     }
   }
 
