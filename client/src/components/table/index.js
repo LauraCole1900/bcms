@@ -48,7 +48,6 @@ const TableComp = (e) => {
   const [pageReady, setPageReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
   let thisEvent;
-  let thisMember;
 
   const urlArray = window.location.href.split("/");
   const confId = urlArray[urlArray.length - 1];
@@ -177,13 +176,6 @@ const TableComp = (e) => {
   const setEvent = (data) => {
     thisEvent = data;
     return thisEvent;
-  }
-
-  // Sets member data as variable
-  const setThisMember = (data) => {
-    thisMember = data;
-    console.log({ thisMember })
-    return thisMember;
   }
 
   // GET conference info for useEffect and callback
@@ -358,7 +350,7 @@ const TableComp = (e) => {
     setPageReady(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confId, dataSet, showSuccess, thisMember, committee.length, member.length])
+  }, [confId, dataSet, showSuccess, committee.length, member.length])
 
   return (
     <>
@@ -469,7 +461,7 @@ const TableComp = (e) => {
                       : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "committee" && (
                     committee.length > 0
-                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setEvent={setEvent} setMember={setMember} confcb={fetchConf} commcb={fetchCommittee} setThisMember={setThisMember} delete={handleShowConfirm} />
+                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setEvent={setEvent} setMember={setMember} confcb={fetchConf} commcb={fetchCommittee} delete={handleShowConfirm} />
                       : <tr><td className="tableComm">We can't seem to find any members of the session proposal committee at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "exhibitors" && (
                     exhibitors.length > 0
