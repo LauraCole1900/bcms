@@ -28,7 +28,7 @@ const CommitteeTable = (props: any): object => {
   // Click handler for "edit member" button
   const handleSelect = (e: MouseEvent<HTMLElement>, data: object): any | void => {
     e.preventDefault();
-    props.setThisMember(data);
+    props.setMember(data);
     console.log("click", data);
   }
 

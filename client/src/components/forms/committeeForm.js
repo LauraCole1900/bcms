@@ -41,15 +41,15 @@ const CommitteeForm = (props) => {
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setMember({ ...member, [name]: value })
+    props.setMember({ ...props.member, [name]: value })
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     props.setBtnName(e.target.dataset.btnname);
-    commMember = member;
-    console.log("Committee submit", member)
-    const validationErrors = commValidate(member);
+    commMember = props.member;
+    console.log("Committee submit", props.member)
+    const validationErrors = commValidate(props.member);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     switch (noErrors) {
@@ -59,9 +59,9 @@ const CommitteeForm = (props) => {
           .then(resp => {
             // If no errors thrown, show Success modal
             if (!resp.err) {
-              props.setCommittee(...props.committee, member)
+              props.setCommittee(...props.committee, props.member)
               console.log(resp);
-              setMember({
+              props.setMember({
                 commGivenName: "",
                 commFamilyName: "",
                 commEmail: "",
@@ -79,10 +79,10 @@ const CommitteeForm = (props) => {
       default:
         console.log({ errors });
     }
-    if (props.conference[0].confSessProposalCommittee.includes(member.commEmail)) {
+    if (props.conference[0].confSessProposalCommittee.includes(props.member.commEmail)) {
       return false
     } else {
-      ConferenceAPI.updateConference({ ...props.conference[0], confSessProposalCommittee: [...props.conference[0].confSessProposalCommittee, member.commEmail] }, props.conference[0]._id)
+      ConferenceAPI.updateConference({ ...props.conference[0], confSessProposalCommittee: [...props.conference[0].confSessProposalCommittee, props.member.commEmail] }, props.conference[0]._id)
         .then(resp => {
           if (!resp.err) {
             handleShowSuccess();
@@ -99,9 +99,9 @@ const CommitteeForm = (props) => {
   const handleFormUpdate = (e) => {
     e.preventDefault();
     props.setBtnName(e.target.dataset.btnname);
-    commMember = member;
+    commMember = props.member;
     console.log("Committee member update", confId);
-    const validationErrors = commValidate(member);
+    const validationErrors = commValidate(props.member);
     const noErrors = Object.keys(validationErrors).length === 0;
     setErrors(validationErrors);
     switch (noErrors) {
@@ -149,13 +149,13 @@ const CommitteeForm = (props) => {
                         <Form.Label>Member's first name: <span className="red">*</span></Form.Label><br />
                         {errors.commGivenName &&
                           <div className="error"><p>{errors.commGivenName}</p></div>}
-                        <Form.Control type="input" id="formCommFName" name="commGivenName" placeholder="Donna" value={member?.commGivenName} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" id="formCommFName" name="commGivenName" placeholder="Donna" value={props.member?.commGivenName} className="formInput" onChange={handleInputChange} />
                       </Col>
                       <Col sm={6}>
                         <Form.Label>Member's last name: <span className="red">*</span></Form.Label><br />
                         {errors.commFamilyName &&
                           <div className="error"><p>{errors.commFamilyName}</p></div>}
-                        <Form.Control type="input" id="formCommLName" name="commFamilyName" placeholder="Noble" value={member?.commFamilyName} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" id="formCommLName" name="commFamilyName" placeholder="Noble" value={props.member?.commFamilyName} className="formInput" onChange={handleInputChange} />
                       </Col>
                     </Row>
                   </Form.Group>
@@ -166,11 +166,11 @@ const CommitteeForm = (props) => {
                         <Form.Label>Member's email: <span className="red">*</span></Form.Label><br />
                         {errors.commEmail &&
                           <div className="error"><p>{errors.commEmail}</p></div>}
-                        <Form.Control type="email" id="formCommEmail" name="commEmail" placeholder="name@email.com" value={member?.commEmail} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="email" id="formCommEmail" name="commEmail" placeholder="name@email.com" value={props.member?.commEmail} className="formInput" onChange={handleInputChange} />
                       </Col>
                       <Col sm={6}>
                         <Form.Label>Member's phone:</Form.Label><br />
-                        <Form.Control type="input" id="formCommPhone" name="commPhone" placeholder="(123) 456-7890" value={member?.commPhone} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" id="formCommPhone" name="commPhone" placeholder="(123) 456-7890" value={props.member?.commPhone} className="formInput" onChange={handleInputChange} />
                       </Col>
                     </Row>
                   </Form.Group>
@@ -181,7 +181,7 @@ const CommitteeForm = (props) => {
                         <Form.Label>Member's organization: <span className="red">*</span></Form.Label><br />
                         {errors.commOrg &&
                           <div className="error"><p>{errors.commOrg}</p></div>}
-                        <Form.Control type="input" name="commOrg" placeholder="Enter the name of the member's organization" value={member?.commOrg} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" name="commOrg" placeholder="Enter the name of the member's organization" value={props.member?.commOrg} className="formInput" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
                   </Row>
