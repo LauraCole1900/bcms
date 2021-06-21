@@ -119,10 +119,10 @@ const TableComp = (e) => {
     handleHideConfirm();
     // DELETE call to delete committee document
     CommitteeAPI.deleteCommMember(email, confId)
-      .then(res => {
+      .then(resp => {
         // If no errors thrown, show Success modal
-        if (!res.err) {
-          handleShowSuccess()
+        if (!resp.err) {
+          console.log(resp);
         }
       })
       // If yes errors thrown, show Error modal
@@ -131,6 +131,19 @@ const TableComp = (e) => {
         setErrThrown(err.message);
         handleShowErr();
       });
+    const comms = conference[0].confSessProposalCommittee.filter(commEmail => commEmail !== email)
+    console.log({ comms });
+    ConferenceAPI.updateConference({ ...conference[0], confSessProposalCommittee: comms }, conference[0]._id)
+      .then(resp => {
+        if (!resp.err) {
+          handleShowSuccess();
+        }
+      })
+      .catch(err => {
+        console.log.apply(err);
+        setErrThrown(err.message);
+        handleShowErr();
+      })
   }
 
   // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
