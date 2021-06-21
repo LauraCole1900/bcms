@@ -12,7 +12,13 @@ import "./style.css";
 
 const CommitteeForm = (props) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
-  const [member, setMember] = useState(props.member);
+  const [member, setMember] = useState({
+    commGivenName: "",
+    commFamilyName: "",
+    commEmail: "",
+    commPhone: "",
+    commOrg: ""
+  });
   const [errThrown, setErrThrown] = useState();
   const [errors, setErrors] = useState([]);
   let commMember;

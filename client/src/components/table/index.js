@@ -207,7 +207,7 @@ const TableComp = (e) => {
     await CommitteeAPI.getCommittee(confId)
       .then(resp => {
         console.log("table fetchCommittee", resp.data)
-        const commSort = ascendingSort(resp.data, "commLastName")
+        const commSort = ascendingSort(resp.data, "commFamilyName")
         setCommittee(commSort)
       })
       .catch(err => console.log(err))
