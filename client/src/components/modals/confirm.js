@@ -47,26 +47,26 @@ const ConfirmModal = (props) => {
 
             {/* Confirm Cancel Conference button */}
             {props.btnname === "confCancel" &&
-              <Button data-toggle="popover" title="Confirm Cancel" className="button" onClick={() => props.cancelconf()} type="submit">Yes, Cancel {props.confname}</Button>}
+              <Button data-toggle="popover" title="Confirm Cancel" className="button" type="button" onClick={props.cancelconf}>Yes, Cancel {props.confname}</Button>}
 
             {/* Confirm Delete Session button */}
             {props.btnname === "sessDelete" &&
-              <Button data-toggle="popover" title="Confirm Delete" className="button" onClick={() => props.deletesess()} type="submit">Yes, Delete</Button>}
+              <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.deletesess}>Yes, Delete</Button>}
 
             {/* Confirm Unregister button */}
             {(props.btnname === "unregAtt" || props.btnname === "admUnregAtt") &&
-              <Button data-toggle="popover" title="Confirm Unregister" className="button" onClick={() => props.unregatt()} type="submit">Yes, Unregister</Button>}
+              <Button data-toggle="popover" title="Confirm Unregister" className="button" type="button" onClick={props.unregatt}>Yes, Unregister</Button>}
 
             {/* Confirm Remove [committee member] button */}
             {props.btnname === "delComm" &&
-              <Button data-toggle="popover" title="Confirm Remove" className="button" onClick={() => props.delcomm()} type="submit">Yes, Remove</Button>}
+              <Button data-toggle="popover" title="Confirm Remove" className="button" type="button" onClick={props.delcomm}>Yes, Remove</Button>}
 
             {/* Confirm Unregister Exhibit button */}
             {(props.btnname === "unregExh" || props.btnname === "admUnregExh") &&
-              <Button data-toggle="popover" title="Confirm Unregister" className="button" onClick={() => props.unregexh()} type="submit">Yes, Unregister</Button>}
+              <Button data-toggle="popover" title="Confirm Unregister" className="button" type="button" onClick={props.unregexh}>Yes, Unregister</Button>}
 
             {/* No, take no action button */}
-            <Button data-toggle="popover" title="No" className="button" onClick={props.hide} type="submit">No, take me back</Button>
+            <Button data-toggle="popover" title="No" className="button" type="button" onClick={props.hide}>No, take me back</Button>
 
           </Modal.Footer>
         </Modal.Body>

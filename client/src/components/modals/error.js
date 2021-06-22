@@ -99,6 +99,11 @@ const ErrorModal = (props) => {
             props.btnname === "updateComm" &&
             <h4>{props.errmsg}. {props.commname}'s information could not be added or updated at this time.</h4>}
 
+          {/* Set Committee Chair (available from Committee Table) */}
+          {props.urltype === "committee" &&
+            props.btnname === "chair" &&
+            <h4>{props.errmsg}. The chair for the session proposal review committee for {props.confname} could not be set or updated at this time.</h4>}
+
           {/* Register Exhibit form */}
           {props.urltype === "register_exhibit" &&
             <h4>{props.errmsg}. The registration of your exhibit for {props.confname} could not be processed at this time.</h4>}

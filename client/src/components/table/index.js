@@ -480,7 +480,7 @@ const TableComp = (e) => {
               {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
 
               {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commName={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisEmail, thisId)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
+              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commname={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisEmail, thisId)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
 
               <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} commname={commName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
 
