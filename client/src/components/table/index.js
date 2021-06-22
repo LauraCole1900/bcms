@@ -461,7 +461,7 @@ const TableComp = (e) => {
                       : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "committee" && (
                     committee.length > 0
-                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setEvent={setEvent} setMember={setMember} confcb={fetchConf} commcb={fetchCommittee} delete={handleShowConfirm} setErrThrown={setErrThrown} handleShowErr={handleShowErr} handleShowSuccess={handleShowSuccess} />
+                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setCommName={setCommName} setConfName={setConfName} setEvent={setEvent} setMember={setMember} confcb={fetchConf} commcb={fetchCommittee} delete={handleShowConfirm} setErrThrown={setErrThrown} handleShowErr={handleShowErr} handleShowSuccess={handleShowSuccess} />
                       : <tr><td className="tableComm">We can't seem to find any members of the session proposal committee at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "exhibitors" && (
                     exhibitors.length > 0
@@ -482,7 +482,7 @@ const TableComp = (e) => {
               {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
               <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commName={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisEmail, thisId)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
 
-              <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
+              <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} commname={commName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
 
               <ErrorModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={(e) => handleHideErr(e)} />
 

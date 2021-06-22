@@ -42,26 +42,29 @@ const CommitteeTable = (props: any): object => {
     props.delete(data);
   }
 
-  // Click handler for "isChair" radio
+  // Click handler for "isChair" radio button
   const handleInputChange = async (e: ChangeEvent<HTMLInputElement>): Promise<any | void> => {
-    const { dataset, name, value } = e.target;
-    console.log("Committee table", value, dataset.id);
+    const { dataset } = e.target;
+    console.log("Committee table", dataset.id);
+    props.setBtnName("chair");
+    props.setConfName(props.conference[0].confName);
     const commChairNo: Committee = props.committee.find((comm: Committee) => comm.isChair === "yes")
     console.log({ commChairNo });
     if (commChairNo !== undefined) {
       CommitteeAPI.updateCommMember({ ...commChairNo, isChair: "no" }, commChairNo.confId, commChairNo.commEmail)
-        .then(resp => {
-          if (resp.status !== 422) {
-            console.log(resp);
-          }
-        })
-        .catch((err: AxiosError) => {
-          console.log(err);
-          props.setErrThrown(err.message);
-          props.handleShowErr();
-        })
+      .then(resp => {
+        if (resp.status !== 422) {
+          console.log(resp);
+        }
+      })
+      .catch((err: AxiosError) => {
+        console.log(err);
+        props.setErrThrown(err.message);
+        props.handleShowErr();
+      })
     }
     const commChairYes: Committee = props.committee.find((comm: Committee) => comm._id === dataset.id)
+    props.setCommName(`${commChairYes.commGivenName} ${commChairYes.commFamilyName}`)
     console.log({ commChairYes });
     CommitteeAPI.updateCommMemberById({ ...commChairYes, isChair: "yes" }, commChairYes._id)
       .then(resp => {
