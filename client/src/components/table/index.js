@@ -461,7 +461,7 @@ const TableComp = (e) => {
                       : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "committee" && (
                     committee.length > 0
-                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setEvent={setEvent} setMember={setMember} confcb={fetchConf} commcb={fetchCommittee} delete={handleShowConfirm} />
+                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setEvent={setEvent} setMember={setMember} confcb={fetchConf} commcb={fetchCommittee} delete={handleShowConfirm} setErrThrown={setErrThrown} handleShowErr={handleShowErr} handleShowSuccess={handleShowSuccess} />
                       : <tr><td className="tableComm">We can't seem to find any members of the session proposal committee at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "exhibitors" && (
                     exhibitors.length > 0

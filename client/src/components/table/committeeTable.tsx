@@ -4,6 +4,7 @@ import { Form, Button, Image } from "react-bootstrap";
 import { CommitteeAPI, ConferenceAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
+import { preProcessFile } from "typescript";
 
 interface Committee {
   confId: string,
@@ -41,44 +42,38 @@ const CommitteeTable = (props: any): object => {
     props.delete(data);
   }
 
-  // Click handler for "isChair" checkbox
+  // Click handler for "isChair" radio
   const handleInputChange = async (e: ChangeEvent<HTMLInputElement>): Promise<any | void> => {
     const { dataset, name, value } = e.target;
     console.log("Committee table", value, dataset.id);
-    let commChair: string;
-    // Define data to be changed based on existing checkbox value
-    switch (value) {
-      case "true":
-        commChair = "false";
-        break;
-      default:
-        commChair = "true";
+    const commChairNo: Committee = props.committee.find((comm: Committee) => comm.isChair === "yes")
+    console.log({ commChairNo });
+    if (commChairNo !== undefined) {
+      CommitteeAPI.updateCommMember({ ...commChairNo, isChair: "no" }, commChairNo.confId, commChairNo.commEmail)
+        .then(resp => {
+          if (resp.status !== 422) {
+            console.log(resp);
+          }
+        })
+        .catch((err: AxiosError) => {
+          console.log(err);
+          props.setErrThrown(err.message);
+          props.handleShowErr();
+        })
     }
-    // API call to update conference document TO ADD/REMOVE ADMINS -- may not be necessary here!
-    ConferenceAPI.updateConference(dataset.id, { [name]: commChair },)
-      .then(props.commcb(props.conference[0]._id))
-      .catch((err: AxiosError) => console.log(err))
-    let chairEmail = await getEmail(dataset.id)
-    switch (commChair) {
-      case "true":
-        // API call to add emails to conference.confSessProposalCommittee
-        ConferenceAPI.updateConference({ ...props.conference[0], confSessProposalCommittee: [...props.conference[0].confSessProposalCommittee, chairEmail] }, props.conference[0]._id)
-          .then(props.confcb(props.conference[0]._id))
-          .catch(err => console.log(err))
-        break;
-      default:
-        let chairArr = props.conference[0].confSessProposalCommittee
-        const index = chairArr.indexOf(chairEmail)
-        switch (index > -1) {
-          case false:
-            console.log({ chairArr });
-            break;
-          default:
-            ConferenceAPI.updateConference({ confSessProposalCommittee: [...chairArr] }, props.conference[0]._id)
-              .then(props.confcb(props.conference[0]._id))
-              .catch(err => console.log(err))
+    const commChairYes: Committee = props.committee.find((comm: Committee) => comm._id === dataset.id)
+    console.log({ commChairYes });
+    CommitteeAPI.updateCommMemberById({ ...commChairYes, isChair: "yes" }, commChairYes._id)
+      .then(resp => {
+        if (resp.status !== 422) {
+          props.handleShowSuccess();
         }
-    }
+      })
+      .catch((err: AxiosError) => {
+        console.log(err);
+        props.setErrThrown(err.message);
+        props.handleShowErr();
+      })
   }
 
 
@@ -91,7 +86,7 @@ const CommitteeTable = (props: any): object => {
           <td>{comm.commEmail}</td>
           <td>{comm.commPhone}</td>
           <td>{comm.commOrg}</td>
-          <td><Form.Check type="radio" name="isChair" value={comm.isChair} data-id={comm._id} aria-label="adminCheck" className="adminCheck" checked={comm.isChair === "true"} onChange={handleInputChange} /></td>
+          <td><Form.Check type="radio" name="isChair" value={comm.isChair} data-id={comm._id} aria-label="adminCheck" className="adminCheck" checked={comm.isChair === "yes"} onChange={handleInputChange} /></td>
           <td>
             <Button data-toggle="popover" title="Edit this member" className="tbleditbtn" data-btnname="commEdit" onClick={(e) => handleSelect(e, comm)}>
               <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this member" data-commid={comm._id} data-name="commEdit" onClick={(e) => handleSelect(e, comm)} />
