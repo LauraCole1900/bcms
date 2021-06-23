@@ -17,7 +17,6 @@ const AllConfs = () => {
   const [thisIdx, setThisIdx] = useState();
   const [thisId, setThisId] = useState();
   const [thisName, setThisName] = useState();
-  const [changeToggle, setChangeToggle] = useState(false);
   const [pageReady, setPageReady] = useState(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
@@ -54,7 +53,7 @@ const AllConfs = () => {
         handleShowErr();
       })
   }
-  
+
   // Handles click on "Yes, Cancel" button on ConfirmModal
   // Will need to have email functionality to email registered participants
   const handleConfCancel = async (data, confId) => {
