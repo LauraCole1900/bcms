@@ -246,7 +246,7 @@ const ConferenceCard = (props) => {
                       <h3 className="cancel">This event has been cancelled.</h3>
                     </div>}
 
-                  {(props.urlId === "conferences" || props.urlId === "profile") &&
+                  {(confId === "conferences" || confId === "profile") &&
                     <Row>
                       <Col sm={4}>
                         <Link to={`/details/${conf._id}`} className={location.pathname === `/details/${conf._id}` ? "link active" : "link"}>
@@ -261,12 +261,12 @@ const ConferenceCard = (props) => {
                 {isAuthenticated &&
                   conf.confType === "Live" &&
                   conf.confCancel === "no" &&
-                  props.urlType !== "details" && props.urlType !== "schedule" && props.urlType !== "exhibits" &&
+                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardExhibitConf.indexOf(conf._id) >= 0 &&
                   <div>
                     <Col sm={1}></Col>
                     <Col sm={2}>
-                      <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregExh" onClick={(e) => props.handleShowConfirm(e)}>Unregister Exhibit</Button>
+                      <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregExh" onClick={(e) => handleShowConfirm(e)}>Unregister Exhibit</Button>
                     </Col>
                     <Col sm={2}>
                       <Link to={`/edit_exhibit/${conf._id}`} className={location.pathname === `/edit_exhibit/${conf._id}` ? "link active" : "link"}>
@@ -278,14 +278,14 @@ const ConferenceCard = (props) => {
                 {isAuthenticated &&
                   user.email !== conf.ownerEmail &&
                   conf.confCancel === "no" &&
-                  props.urlType !== "details" && props.urlType !== "schedule" && props.urlType !== "exhibits" &&
+                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardAttendConf.indexOf(conf._id) >= 0 &&
                   <div>
                     {conf.confType === "Live"
                       ? <Col sm={2}></Col>
                       : <Col sm={7}></Col>}
                     <Col sm={2}>
-                      <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregAtt" onClick={(e) => props.handleShowConfirm(e)}>Unregister Attendee</Button>
+                      <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregAtt" onClick={(e) => handleShowConfirm(e)}>Unregister Attendee</Button>
                     </Col>
                     <Col sm={2}>
                       <Link to={`/register_edit/${conf._id}`} className={location.pathname === `/register_edit/${conf._id}` ? "link active" : "link"}>
@@ -298,7 +298,7 @@ const ConferenceCard = (props) => {
                   user.email !== conf.ownerEmail &&
                   conf.confType === "Live" &&
                   conf.confCancel === "no" &&
-                  props.urlType !== "details" && props.urlType !== "schedule" && props.urlType !== "exhibits" &&
+                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardExhibitConf.indexOf(conf._id) < 0 &&
                   <div>
                     <Col sm={1}></Col>
@@ -312,7 +312,7 @@ const ConferenceCard = (props) => {
                 {isAuthenticated &&
                   user.email !== conf.ownerEmail &&
                   conf.confCancel === "no" &&
-                  props.urlType !== "details" && props.urlType !== "schedule" && props.urlType !== "exhibits" &&
+                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardAttendConf.indexOf(conf._id) < 0 &&
                   <div>
                     {conf.confType === "Live"

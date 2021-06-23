@@ -14,13 +14,8 @@ const ProfilePage = () => {
   const [createConf, setCreateConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
   const [presentConf, setPresentConf] = useState([]);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(0);
   const [pageReady, setPageReady] = useState(false);
-
-  // Determines which page user is on, specifically for use with URLs that include the conference ID
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
-  const urlType = urlArray[urlArray.length - 2]
 
   // GET conference by ID
   const getConfById = async (confId) => {
@@ -104,7 +99,9 @@ const ProfilePage = () => {
 
   // Handles click on "Created" button
   const handleShowCreated = (e) => {
-    handleInputChange(e);
+    if (e) {
+      handleInputChange(e);
+    }
     // Creates array of conferences user has created
     ConferenceAPI.getConferencesCreated(user.email)
       .then(resp => {
@@ -217,18 +214,8 @@ const ProfilePage = () => {
         default:
           saveUserToDB();
       }
-
-      ConferenceAPI.getConferencesCreated(user.email)
-        .then(resp => {
-          console.log("getConfCreated", resp.data)
-          const createArr = resp.data
-          // Sorts conferences by date, latest to earliest
-          const sortedCreate = createArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
-          setCreateConf(sortedCreate)
-          // Sets pageReady(true) for page load
-          setPageReady(true);
-        })
-        .catch(err => console.log(err))
+      handleShowCreated();
+      setPageReady(true);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

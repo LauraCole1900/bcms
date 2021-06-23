@@ -11,7 +11,7 @@ const AllConfs = () => {
   const [confArray, setConfArray] = useState([]);
   const [searchBy, setSearchBy] = useState("all");
   const [search, setSearch] = useState("");
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(0);
   const [pageReady, setPageReady] = useState(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
