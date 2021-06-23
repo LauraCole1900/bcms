@@ -31,26 +31,12 @@ const AllConfs = () => {
   const [showErr, setShowErr] = useState(false);
 
   // Sets boolean to show or hide relevant modal
-  const handleShowConfirm = (e) => {
-    const { dataset, name } = e.target;
-    console.log(name, dataset.confid, dataset.confname);
-    setShowConfirm(dataset.confid);
-    setBtnName(name);
-    setThisId(dataset.confid);
-    setThisIdx(dataset.idx);
-    setThisName(dataset.confname);
-  }
-  const handleHideConfirm = () => setShowConfirm(0);
-  const handleShowSuccess = () => setShowSuccess(thisId);
-  const handleHideSuccess = () => {
-    setShowSuccess(0);
-    handleToggle();
-  }
-  const handleShowErr = () => setShowErr(thisId);
-  const handleHideErr = () => {
-    setShowErr(0);
-    handleToggle();
-  }
+  const handleShowConfirm = () => setShowConfirm(true);
+  const handleHideConfirm = () => setShowConfirm(false);
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   // GETs registered attendees' emails
   const fetchAttendeeEmails = async (confId) => {
@@ -71,8 +57,8 @@ const AllConfs = () => {
   
   // Handles click on "Yes, Cancel" button on ConfirmModal
   // Will need to have email functionality to email registered participants
-  const handleConfCancel = async (confId) => {
-    console.log("from confCard", confId)
+  const handleConfCancel = async (data, confId) => {
+    console.log("from allConfsPage handleConfCancel", data, confId)
     handleHideConfirm();
     let attEmailArr = await fetchAttendeeEmails(confId);
     // send-email functionality for registered attendees goes here
@@ -80,11 +66,11 @@ const AllConfs = () => {
     ExhibitorAPI.getExhibitors(confId)
       .then(res => {
         if (!res.err) {
-          console.log("from confCard getExhibitors", res.data)
+          console.log("from allConfsPage getExhibitors", res.data)
         }
       })
       .catch(err => {
-        console.log("from confCard getExhibitors", err);
+        console.log("from allConfsPage getExhibitors", err);
         setErrThrown(err.message);
         handleShowErr();
       })
@@ -96,7 +82,7 @@ const AllConfs = () => {
         }
       })
       .catch(err => {
-        console.log("from confCard updateConf", err);
+        console.log("from allConfsPage updateConf", err);
         setErrThrown(err.message);
         handleShowErr();
       });
@@ -157,15 +143,15 @@ const AllConfs = () => {
     }
   }
 
-  const handleToggle = () => {
-    switch (changeToggle) {
-      case true:
-        setChangeToggle(false);
-        break;
-      default:
-        setChangeToggle(true);
-    }
-  }
+  // const handleToggle = () => {
+  //   switch (changeToggle) {
+  //     case true:
+  //       setChangeToggle(false);
+  //       break;
+  //     default:
+  //       setChangeToggle(true);
+  //   }
+  // }
 
   useEffect(() => {
     // GET conferences
@@ -229,12 +215,12 @@ const AllConfs = () => {
 
             <Row>
               {confArray.length > 0
-                ? <ConferenceCard conference={searchFilter(confArray)} change={handleToggle} handleHideConfirm={handleHideConfirm} handleShowConfirm={handleShowConfirm} setErrThrown={setErrThrown} handleShowErr={handleShowErr} handleShowSuccess={handleShowSuccess} urlId={urlId} urlType={urlType} />
+                ? <ConferenceCard conference={searchFilter(confArray)} setBtnName={setBtnName} setThisId={setThisId} setThisIdx={setThisIdx} setThisName={setThisName} handleShowConfirm={handleShowConfirm} setErrThrown={setErrThrown} handleShowErr={handleShowErr} handleShowSuccess={handleShowSuccess} urlId={urlId} urlType={urlType} />
                 : <h3>We can't seem to find any upcoming conferences. If you think this is an error, please contact us.</h3>}
             </Row>
 
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-            <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
+            <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} cancelconf={() => handleConfCancel(confArray[thisIdx], thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
 
             <SuccessModal conference={confArray[thisIdx]} confname={thisName} confid={thisId} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
 

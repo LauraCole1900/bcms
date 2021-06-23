@@ -15,6 +15,16 @@ const ConferenceCard = (props) => {
   const [cardExhibitConf, setCardExhibitConf] = useState([]);
   const [cardRender, setCardRender] = useState(false);
 
+  // Handles click on "cancel conference" button
+  const handleClick = (e) => {
+    const { name, dataset } = e.target;
+    props.handleShowConfirm(true);
+    props.setBtnName(name);
+    props.setThisId(dataset.confid);
+    props.setThisIdx(dataset.idx);
+    props.setThisName(dataset.confname);
+  }
+
   // Parses time to 12-hour
   const parseTime = (time) => {
     const timeArr = time.split(":");
@@ -67,8 +77,8 @@ const ConferenceCard = (props) => {
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user.email === conf.ownerEmail) &&
-                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-idx={idx} name="confCancel" onClick={(e) => props.handleShowConfirm(e)}>
-                      <Image fluid="true" src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} name="confCancel" />
+                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-idx={idx} name="confCancel" onClick={(e) => handleClick(e)}>
+                      <Image fluid="true" src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-idx={idx} name="confCancel" />
                     </Button>}
                 </Col>
               </Row>
