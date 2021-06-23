@@ -164,7 +164,7 @@ const ErrorModal = (props) => {
 
             {/* Link to Conference Details page when confid !== conference._id */}
             {(props.urltype === "edit_session" || props.urltype === "edit_presenter") &&
-              <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
+              <Link to={`/details/${props.confid}`} className={location.pathname === `/details/${props.confid}` ? "btnactive" : "btn"} >
                 <Button data-toggle="popover" title={props.confname} type="button" className="button">{props.confname}</Button>
               </Link>}
 
