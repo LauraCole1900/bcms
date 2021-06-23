@@ -11,9 +11,13 @@ const AllConfs = () => {
   const [confArray, setConfArray] = useState([]);
   const [searchBy, setSearchBy] = useState("all");
   const [search, setSearch] = useState("");
-  const [changeToggle, setChangeToggle] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [pageReady, setPageReady] = useState(false);
 
+  // Determines which page user is on, specifically for use with URLs that include the conference ID
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
+  const urlType = urlArray[urlArray.length - 2]
 
   // Filter conferences by user input
   const searchFilter = (data) => {
@@ -27,16 +31,6 @@ const AllConfs = () => {
       // Return all conferences
       default:
         return (confArray)
-    }
-  }
-
-  const handleToggle = () => {
-    switch (changeToggle) {
-      case true:
-        setChangeToggle(false);
-        break;
-      default:
-        setChangeToggle(true);
     }
   }
 
@@ -57,12 +51,12 @@ const AllConfs = () => {
       .catch(err => console.log(err))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [changeToggle])
+  }, [showSuccess])
 
 
   return (
     <>
-      { pageReady === true && (
+      {pageReady === true && (
         <div className="mt-4">
           <Container>
             <Row>
@@ -102,9 +96,10 @@ const AllConfs = () => {
 
             <Row>
               {confArray.length > 0
-                ? <ConferenceCard conference={searchFilter(confArray)} change={handleToggle} />
+                ? <ConferenceCard conference={searchFilter(confArray)} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                 : <h3>We can't seem to find any upcoming conferences. If you think this is an error, please contact us.</h3>}
             </Row>
+
           </Container>
         </div>
       )}

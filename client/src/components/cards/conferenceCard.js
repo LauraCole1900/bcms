@@ -27,7 +27,6 @@ const ConferenceCard = (props) => {
 
   // Modal variables
   const [showConfirm, setShowConfirm] = useState(0);
-  const [showSuccess, setShowSuccess] = useState(0);
   const [showErr, setShowErr] = useState(0);
 
   // Sets boolean to show or hide relevant modal
@@ -40,16 +39,10 @@ const ConferenceCard = (props) => {
     setThisName(dataset.confname);
   }
   const handleHideConfirm = () => setShowConfirm(0);
-  const handleShowSuccess = () => setShowSuccess(thisId);
-  const handleHideSuccess = () => {
-    setShowSuccess(0);
-    props.change();
-  }
+  const handleShowSuccess = () => props.setShowSuccess(thisId);
+  const handleHideSuccess = () => props.setShowSuccess(0);
   const handleShowErr = () => setShowErr(thisId);
-  const handleHideErr = () => {
-    setShowErr(0);
-    props.change();
-  }
+  const handleHideErr = () => setShowErr(0);
 
   // Parses time to 12-hour
   const parseTime = (time) => {
@@ -123,7 +116,7 @@ const ConferenceCard = (props) => {
       .then(res => {
         // If no errors thrown, show Success modal
         if (!res.err) {
-          handleShowSuccess()
+          handleShowSuccess();
         }
       })
       // If yes errors thrown, show Error modal
@@ -341,7 +334,7 @@ const ConferenceCard = (props) => {
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
             <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === conf._id} hide={(e) => handleHideConfirm(e)} />
 
-            <SuccessModal conference={conf} confname={thisName} urlid={confId} urltype={urlType} btnname={btnName} show={showSuccess === conf._id} hide={(e) => handleHideSuccess(e)} />
+            <SuccessModal conference={conf} confname={thisName} confid={conf._id} urlid={confId} urltype={urlType} btnname={btnName} show={props.showSuccess === conf._id} hide={(e) => handleHideSuccess(e)} />
 
             <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === conf._id} hide={(e) => handleHideErr(e)} />
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Container, Row, Col, Table, Form, Card, Image, ButtonGroup, Button } from "react-bootstrap";
+import { Container, Row, Col, Table, Form, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
 import { CommitteeForm } from "../forms";
@@ -312,6 +312,11 @@ const TableComp = (e) => {
   const sortBy = (e) => {
     const { innerHTML } = e.target;
     switch (dataSet) {
+      case "committee":
+        const sortComm = (sortAscending) ? ascendingSort(committee, innerHTML) : descendingSort(committee, innerHTML)
+        setExhibitors(sortComm)
+        ascendingSortSet();
+        break;
       case "exhibitors":
         const sortExh = (sortAscending) ? ascendingSort(exhibitors, innerHTML) : descendingSort(exhibitors, innerHTML)
         setExhibitors(sortExh)
@@ -424,9 +429,9 @@ const TableComp = (e) => {
                 <Col sm={12}>
                   {dataSet === "attendees" &&
                     <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
-                  <p className="subhead">Click column headers to sort</p>
                   {dataSet === "committee" &&
                     <CommitteeForm conference={conference} committee={committee} setCommittee={setCommittee} member={member} setMember={setMember} setBtnName={setBtnName} handleShowErr={handleShowErr} handleShowSuccess={handleShowSuccess} setErrThrown={setErrThrown} errThrown={errThrown} btnName={btnName} />}
+                  <p className="subhead">Click column headers to sort</p>
                 </Col>
               </Row>
               <Table striped border="true" hover responsive>

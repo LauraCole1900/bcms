@@ -14,8 +14,13 @@ const ProfilePage = () => {
   const [createConf, setCreateConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
   const [presentConf, setPresentConf] = useState([]);
-  const [changeToggle, setChangeToggle] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [pageReady, setPageReady] = useState(false);
+
+  // Determines which page user is on, specifically for use with URLs that include the conference ID
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
+  const urlType = urlArray[urlArray.length - 2]
 
   // GET conference by ID
   const getConfById = async (confId) => {
@@ -203,17 +208,8 @@ const ProfilePage = () => {
     }
   }
 
-  const handleToggle = () => {
-    switch (changeToggle) {
-      case true:
-        setChangeToggle(false);
-        break;
-      default:
-        setChangeToggle(true);
-    }
-  }
-
   useEffect(() => {
+    console.log({ showSuccess });
     if (isAuthenticated) {
       switch (pageReady) {
         case true:
@@ -236,7 +232,7 @@ const ProfilePage = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [changeToggle, createConf])
+  }, [showSuccess])
 
 
   return (
@@ -287,24 +283,25 @@ const ProfilePage = () => {
               <h3>Please select which of your conferences to view.</h3>}
             {whichConf === "attend" &&
               (attendConf.length > 0
-                ? <ConferenceCard conference={attendConf} change={handleToggle} />
+                ? <ConferenceCard conference={attendConf} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                 : <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>)
             }
             {whichConf === "create" &&
               (createConf.length > 0
-                ? <ConferenceCard conference={createConf} change={handleToggle} />
+                ? <ConferenceCard conference={createConf} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                 : <h3>We're sorry, you don't seem to have created any conferences at this time.</h3>)
             }
             {whichConf === "exhibit" &&
               (exhibitConf.length > 0
-                ? <ConferenceCard conference={exhibitConf} change={handleToggle} />
+                ? <ConferenceCard conference={exhibitConf} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                 : <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>)
             }
             {whichConf === "present" &&
               (presentConf.length > 0
-                ? <ConferenceCard conference={presentConf} change={handleToggle} />
+                ? <ConferenceCard conference={presentConf} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                 : <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>)
             }
+
           </Container >
         )
       }
