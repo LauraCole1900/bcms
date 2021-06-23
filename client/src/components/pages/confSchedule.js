@@ -21,7 +21,7 @@ const Schedule = () => {
   const [sessions, setSessions] = useState();
   const [schedule, setSchedule] = useState();
   const [dates, setDates] = useState([]);
-  const [changeToggle, setChangeToggle] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(0);
   const [confReady, setConfReady] = useState(false);
   const [presReady, setPresReady] = useState(false);
   const [schedReady, setSchedReady] = useState(false);
@@ -110,17 +110,6 @@ const Schedule = () => {
     }
   }
 
-  // Triggers toggle to force page re-render on conference cancel or presenter/session delete
-  const handleToggle = () => {
-    switch (changeToggle) {
-      case true:
-        setChangeToggle(false);
-        break;
-      default:
-        setChangeToggle(true);
-    }
-  }
-
   useEffect(() => {
     fetchPres(urlId);
     fetchSched(urlId);
@@ -128,7 +117,7 @@ const Schedule = () => {
     createDateArr();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [showSuccess])
 
 
   return (
@@ -153,7 +142,7 @@ const Schedule = () => {
               : <Col sm={2}></Col>}
 
             <Col sm={8}>
-              <ConferenceCard conference={conference} />
+              <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
             </Col>
           </Row>
 
@@ -173,7 +162,7 @@ const Schedule = () => {
                 (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
                 <Row className="formPad">
                   <Col sm={10}>
-                    <ScheduleForm conference={conference[0]} schedule={schedule[0]} urlid={urlId} urltype={urlType} />
+                    <ScheduleForm conference={conference[0]} schedule={schedule[0]} urlid={urlId} urltype={urlType} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
                   </Col>
                 </Row>
               }
@@ -186,7 +175,7 @@ const Schedule = () => {
                         <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
                       </Row>
                       <Row className="formPad">
-                        <SchedGrid schedule={schedule[0]} sessions={sessions} presenters={presenters} conference={conference[0]} date={date} i={idx} urlid={urlId} urltype={urlType} change={handleToggle} />
+                        <SchedGrid schedule={schedule[0]} sessions={sessions} presenters={presenters} conference={conference[0]} date={date} i={idx} urlid={urlId} urltype={urlType} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
                       </Row>
                     </React.Fragment>
                   ))}

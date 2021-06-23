@@ -13,6 +13,7 @@ const ConfExhibits = () => {
   const [exhArray, setExhArray] = useState([]);
   const [searchBy, setSearchBy] = useState("allExh");
   const [search, setSearch] = useState("");
+  const [showSuccess, setShowSuccess] = useState(0);
   const [confReady, setConfReady] = useState(false);
   const [exhReady, setExhReady] = useState(false);
 
@@ -93,7 +94,7 @@ const ConfExhibits = () => {
               : <Col sm={2}></Col>}
 
             <Col sm={8}>
-              <ConferenceCard conference={conference} />
+              <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
             </Col>
           </Row>
 
@@ -141,13 +142,13 @@ const ConfExhibits = () => {
                 {searchBy === "exhComp" &&
                   <>
                     {exhArray.length > 0
-                      ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
+                      ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
                       : <h3>We can't seem to find any exhibitors for this conference based on your search criteria. If you think this is an error, please contact us.</h3>}
                   </>}
                 {searchBy === "allExh" &&
                   <>
                     {exhArray.length > 0
-                      ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} />
+                      ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
                       : <h3>We can't seem to find any exhibitors for this conference. If you think this is an error, please contact us.</h3>}
                   </>}
               </Row>

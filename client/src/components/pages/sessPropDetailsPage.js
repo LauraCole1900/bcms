@@ -10,6 +10,7 @@ const SessPropDetails = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState();
   const [session, setSession] = useState();
+  const [showSuccess, setShowSuccess] = useState(0);
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
 
@@ -52,7 +53,7 @@ const SessPropDetails = () => {
     fetchConf(session.confId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [showSuccess])
 
 
   return (
@@ -70,7 +71,7 @@ const SessPropDetails = () => {
         confReady === true &&
         <Container>
 
-          <ConferenceCard conference={conference} />
+          <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
 
         </Container>}
     </>

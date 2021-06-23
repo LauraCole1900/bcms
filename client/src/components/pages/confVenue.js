@@ -10,6 +10,7 @@ import "./style.css";
 const Venue = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const [conference, setConference] = useState();
+  const [showSuccess, setShowSuccess] = useState(0);
   const [confReady, setConfReady] = useState(false);
 
   // Grabs conference ID from URL
@@ -36,7 +37,7 @@ const Venue = () => {
     fetchConf(urlId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [showSuccess])
 
 
   return (
@@ -57,7 +58,7 @@ const Venue = () => {
               : <Col sm={2}></Col>}
 
             <Col sm={8}>
-              <ConferenceCard conference={conference} />
+              <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
             </Col>
           </Row>
 

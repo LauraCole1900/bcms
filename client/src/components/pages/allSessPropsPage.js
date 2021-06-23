@@ -12,6 +12,7 @@ const AllSessProps = () => {
   const [conference, setConference] = useState();
   const [presArray, setPresArray] = useState([]);
   const [sessArray, setSessArray] = useState([]);
+  const [showSuccess, setShowSuccess] = useState(0);
   const [confReady, setConfReady] = useState(false);
   const [presReady, setPresReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
@@ -91,7 +92,7 @@ const AllSessProps = () => {
         presReady === true &&
         <Container>
 
-          <ConferenceCard conference={conference} />
+          <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
 
           <Row>
             <Col sm={2} className="nomargin">
@@ -105,7 +106,7 @@ const AllSessProps = () => {
 
               <Row className="wrap">
                 {sessArray.length > 0
-                  ? <SessPropSummaryCard session={sessArray} conference={conference} presenter={presArray} urlType={urlType} />
+                  ? <SessPropSummaryCard session={sessArray} conference={conference} presenter={presArray} urlType={urlType} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
                   : <h3>We can't seem to find any proposed sessions for this conference. If you think this is an error, please contact us.</h3>}
               </Row>
             </Col>
