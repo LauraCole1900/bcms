@@ -333,9 +333,9 @@ const PresenterForm = () => {
             </Col>
           </Row>
 
-          <SuccessModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+          <SuccessModal conference={conference} confname={conference.confName} confid={conference._id} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+          <ErrorModal conference={conference} confname={conference.confName} confid={conference._id} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
         </Container>}
     </>

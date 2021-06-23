@@ -130,9 +130,9 @@ const ScheduleForm = (props) => {
 
         </Form>
 
-        <SuccessModal conference={props.conference} confname={props.conference.confName} urlid={props.urlid} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+        <SuccessModal conference={props.conference} confname={props.conference.confName} confid={props.urlid} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-        <ErrorModal conference={props.conference} confname={props.conference.confName} urlid={confId} urltype={props.urltype} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+        <ErrorModal conference={props.conference} confname={props.conference.confName} confid={confId} urltype={props.urltype} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
       </Container>
     </>

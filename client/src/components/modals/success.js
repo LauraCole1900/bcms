@@ -164,11 +164,11 @@ const SuccessModal = (props) => {
 
             {/* Close modal and return to Conference Schedule page */}
             {props.urltype === "schedule" &&
-              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Schedule</Button>}
+              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={() => props.hide()}>Return to Schedule</Button>}
 
             {/* Close modal and return to Conference Details page */}
             {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "committee" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
-              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Details</Button>}
+              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={() => props.hide()}>Return to Details</Button>}
 
             {/* Add Session form: go on to Presenter Form */}
             {(props.urltype === "new_session") &&
@@ -208,7 +208,7 @@ const SuccessModal = (props) => {
 
             {/* Return to Profile page */}
             {props.urlid === "profile" &&
-              <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={props.hide}>Profile</Button>}
+              <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={() => props.hide()}>Profile</Button>}
 
             {/* Link to Profile page */}
             {props.urlid !== "profile" && props.urltype !== "new_session" &&
@@ -218,7 +218,7 @@ const SuccessModal = (props) => {
 
             {/* Return to Conferences page */}
             {props.urlid === "conferences" &&
-              <Button data-toggle="popover" title="Conferences" type="button" className="button" onClick={props.hide}>Conferences</Button>}
+              <Button data-toggle="popover" title="Conferences" type="button" className="button" onClick={() => props.hide()}>Conferences</Button>}
 
             {/* Link to Conferences page */}
             {props.urlid !== "conferences" && props.urltype !== "new_session" &&

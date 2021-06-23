@@ -25,7 +25,6 @@ const SessionCard = (props) => {
 
   // Modal variables
   const [showConfirm, setShowConfirm] = useState(0);
-  const [showSuccess, setShowSuccess] = useState(0);
   const [showErr, setShowErr] = useState(0);
 
   // Sets boolean to show or hide relevant modal
@@ -38,9 +37,9 @@ const SessionCard = (props) => {
     setThisName(dataset.sessname);
   }
   const handleHideConfirm = () => setShowConfirm(0);
-  const handleShowSuccess = () => setShowSuccess(thisId);
+  const handleShowSuccess = () => props.setShowSuccess(thisId);
   const handleHideSuccess = () => {
-    setShowSuccess(0);
+    props.setShowSuccess(0);
     props.change();
   }
   const handleShowErr = () => setShowErr(thisId);
@@ -213,7 +212,7 @@ const SessionCard = (props) => {
             <>
               <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(thisId)} show={showConfirm === sess._id} hide={(e) => handleHideConfirm(e)} />
 
-              <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === sess._id} hide={(e) => handleHideSuccess(e)} />
+              <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={props.showSuccess === sess._id} hide={(e) => handleHideSuccess(e)} />
 
               <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === sess._id} hide={(e) => handleHideErr(e)} />
             </>}

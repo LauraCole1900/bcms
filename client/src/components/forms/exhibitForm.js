@@ -335,9 +335,9 @@ const ExhibitForm = () => {
 
           </Form>
 
-          <SuccessModal conference={conference} confname={conference.confName} urlid={confId} urltype={formType} exhname={exhibitor.exhCompany} show={showSuccess} hide={e => handleHideSuccess(e)} />
+          <SuccessModal conference={conference} confname={conference.confName} confid={confId} urltype={formType} exhname={exhibitor.exhCompany} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conference} confname={conference.confName} urlid={confId} urltype={formType} errmsg={errThrown} exhname={exhibitor.exhCompany} show={showErr} hide={e => handleHideErr(e)} />
+          <ErrorModal conference={conference} confname={conference.confName} confid={confId} urltype={formType} errmsg={errThrown} exhname={exhibitor.exhCompany} show={showErr} hide={e => handleHideErr(e)} />
 
         </Container>}
     </>

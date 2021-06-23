@@ -217,10 +217,6 @@ const CommitteeForm = (props) => {
 
         </Form>
 
-        {/* <SuccessModal conference={props.conference} confname={props.conference.confName} btnname={props.btnName} urlid={props.urlid} urltype={formType} show={showSuccess === "form"} hide={e => handleHideSuccess(e)} />
-
-        <ErrorModal conference={props.conference} confname={props.conference.confName} btnname={props.btnName} urlid={confId} urltype={props.urltype} errmsg={errThrown} show={showErr === "form"} hide={e => handleHideErr(e)} /> */}
-
       </Container>
     </>
   )

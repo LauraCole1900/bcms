@@ -15,7 +15,7 @@ const ConfDetails = () => {
   const [presArray, setPresArray] = useState([]);
   const [searchBy, setSearchBy] = useState("allPnS");
   const [search, setSearch] = useState("");
-  const [changeToggle, setChangeToggle] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(0);
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
   const [presReady, setPresReady] = useState(false);
@@ -191,17 +191,6 @@ const ConfDetails = () => {
     }
   }
 
-  // Triggers toggle to force page re-render on conference cancel or presenter/session delete
-  const handleToggle = () => {
-    switch (changeToggle) {
-      case true:
-        setChangeToggle(false);
-        break;
-      default:
-        setChangeToggle(true);
-    }
-  }
-
   useEffect(() => {
     // GET conference by ID
     fetchConf(confId);
@@ -211,7 +200,7 @@ const ConfDetails = () => {
     fetchPres(confId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [changeToggle, confId])
+  }, [showSuccess, confId])
 
 
   return (
@@ -234,7 +223,7 @@ const ConfDetails = () => {
               : <Col sm={2}></Col>}
 
             <Col sm={8}>
-              <ConferenceCard conference={conference} change={handleToggle} />
+              <ConferenceCard conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
             </Col>
           </Row>
 
@@ -278,21 +267,21 @@ const ConfDetails = () => {
                   <Col sm={12}>
                     <h1>Presenters</h1>
                     {presArray.length > 0
-                      ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
+                      ? <PresenterCard presenter={searchPres(presArray)} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                       : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {(searchBy === "allSess" || searchBy === "sessionName") &&
                   <Col sm={12}>
                     <h1>Sessions</h1>
                     {sessArray.length > 0
-                      ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
+                      ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                       : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {(searchBy === "sessionPresenter" || searchBy === "sessionOrg") &&
                   <Col sm={12}>
                     <h1>Sessions</h1>
                     {sessArray.length > 0
-                      ? <SessionCard session={searchSessPres(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
+                      ? <SessionCard session={searchSessPres(sessArray)} presenter={presArray} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                       : <h3>We can't seem to find any conferences associated with this presenter or organization. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {searchBy === "allPnS" &&
@@ -300,13 +289,13 @@ const ConfDetails = () => {
                     <Col sm={6}>
                       <h1>Presenters</h1>
                       {presArray.length > 0
-                        ? <PresenterCard presenter={searchPres(presArray)} conference={conference} change={handleToggle} />
+                        ? <PresenterCard presenter={searchPres(presArray)} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                         : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                     </Col>
                     <Col sm={6}>
                       <h1>Sessions</h1>
                       {sessArray.length > 0
-                        ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} change={handleToggle} />
+                        ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
                         : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                     </Col>
                   </div>}
