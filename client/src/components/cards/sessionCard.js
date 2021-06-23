@@ -40,12 +40,10 @@ const SessionCard = (props) => {
   const handleShowSuccess = () => props.setShowSuccess(thisId);
   const handleHideSuccess = () => {
     props.setShowSuccess(0);
-    props.change();
   }
   const handleShowErr = () => setShowErr(thisId);
   const handleHideErr = () => {
     setShowErr(0);
-    props.change();
   }
 
   // Parses time to 12-hour

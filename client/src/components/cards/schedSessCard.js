@@ -16,7 +16,6 @@ const SchedSessCard = (props) => {
   // Modal variables
   const [showDetails, setShowDetails] = useState(0);
   const [showAssign, setShowAssign] = useState("none");
-  const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
 
   // Show & hide SessionModal
@@ -42,11 +41,10 @@ const SchedSessCard = (props) => {
   // Show & hide SuccessModal
   const handleShowSuccess = (e) => {
     handleHideAssign();
-    setShowSuccess(room && time);
+    props.setShowSuccess(room && time);
   }
   const handleHideSuccess = () => {
-    setShowSuccess("none");
-    props.change();
+    props.setShowSuccess("none");
   }
 
   // Show & hide ErrorModal
@@ -56,7 +54,6 @@ const SchedSessCard = (props) => {
   }
   const handleHideError = () => {
     setShowError("none");
-    props.change();
   }
 
   // sets error message in state
@@ -103,7 +100,7 @@ const SchedSessCard = (props) => {
 
       <AssignModal allSess={props.allSess} conference={props.conference} room={props.room} startTime={props.startTime} endTime={props.endTime} date={props.date} setThisSess={setThisSess} setBtnName={setBtnName} errThrown={setErrorThrown} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} show={showAssign === (props.room && props.time)} hide={(e) => handleHideAssign(e)} urlid={props.urlid} urltype={props.urltype} change={props.change} />
 
-      <SuccessModal session={thisSess} confname={props.conference.confName} conference={props.conference} btnname={btnName} urlid={props.urlid} urltype={props.urltype} show={showSuccess === (props.room && props.time)} hide={() => handleHideSuccess()} />
+      <SuccessModal session={thisSess} confname={props.conference.confName} conference={props.conference} btnname={btnName} urlid={props.urlid} urltype={props.urltype} show={props.showSuccess === (props.room && props.time)} hide={() => handleHideSuccess()} />
 
       <ErrorModal session={thisSess} confname={props.conference.confName} urlid={props.urlid} urltype={props.urltype} btnname={btnName} errmsg={errThrown} show={showError === (props.room && props.time)} hide={() => handleHideError()} />
     </>
