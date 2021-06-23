@@ -17,12 +17,11 @@ const ScheduleForm = (props) => {
   const formType = urlArray[urlArray.length - 2];
 
   // Modal variables
-  const [showSuccess, setShowSuccess] = useState(false);
   const [showErr, setShowErr] = useState(false);
 
   // Sets boolean to show or hide relevant modal
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowSuccess = () => props.setShowSuccess(true);
+  const handleHideSuccess = () => props.setShowSuccess(false);
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
@@ -130,7 +129,7 @@ const ScheduleForm = (props) => {
 
         </Form>
 
-        <SuccessModal conference={props.conference} confname={props.conference.confName} confid={props.urlid} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+        <SuccessModal conference={props.conference} confname={props.conference.confName} confid={props.urlid} urltype={formType} show={props.showSuccess} hide={e => handleHideSuccess(e)} />
 
         <ErrorModal conference={props.conference} confname={props.conference.confName} confid={confId} urltype={props.urltype} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 

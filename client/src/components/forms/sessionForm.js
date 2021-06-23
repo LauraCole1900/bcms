@@ -98,7 +98,7 @@ const SessionForm = () => {
   }
 
   const handlePres = async (email, confId, sessId, session) => {
-    let resp;
+    // let resp;
     // Check whether presenter already exists for that conference
     let pres = await fetchPresByEmail(email, confId);
     if (pres) {
