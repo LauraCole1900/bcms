@@ -143,16 +143,6 @@ const AllConfs = () => {
     }
   }
 
-  // const handleToggle = () => {
-  //   switch (changeToggle) {
-  //     case true:
-  //       setChangeToggle(false);
-  //       break;
-  //     default:
-  //       setChangeToggle(true);
-  //   }
-  // }
-
   useEffect(() => {
     // GET conferences
     ConferenceAPI.getConferences()
