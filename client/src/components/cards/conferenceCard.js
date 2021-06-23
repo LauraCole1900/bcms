@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
-import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
+import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
 import "./style.css";
 
 // Figure out how to add the keynote speaker???
@@ -15,7 +15,7 @@ const ConferenceCard = (props) => {
   const [cardAttendConf, setCardAttendConf] = useState([]);
   const [cardExhibitConf, setCardExhibitConf] = useState([]);
   const [errThrown, setErrThrown] = useState();
-  const [btnName, setBtnName] = useState("");
+  const [btnName, setBtnName] = useState();
   const [thisId, setThisId] = useState();
   const [thisName, setThisName] = useState();
   const [cardRender, setCardRender] = useState(false);
@@ -43,7 +43,7 @@ const ConferenceCard = (props) => {
   const handleHideSuccess = () => props.setShowSuccess(0);
   const handleShowErr = () => setShowErr(thisId);
   const handleHideErr = () => setShowErr(0);
-
+  
   // Parses time to 12-hour
   const parseTime = (time) => {
     const timeArr = time.split(":");
@@ -175,7 +175,7 @@ const ConferenceCard = (props) => {
   return (
     <>
       {cardRender === true &&
-        props.conference.map(conf => (
+        props.conference.map((conf, idx) => (
           <Card className="infoCard" key={conf._id}>
             <Card.Header className="cardTitle">
               <Row>
@@ -186,8 +186,8 @@ const ConferenceCard = (props) => {
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user.email === conf.ownerEmail) &&
-                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} name="confCancel" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid="true" src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} name="confCancel" />
+                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-idx={idx} name="confCancel" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid="true" src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-idx={idx} name="confCancel" />
                     </Button>}
                 </Col>
               </Row>
@@ -246,7 +246,7 @@ const ConferenceCard = (props) => {
                       <h3 className="cancel">This event has been cancelled.</h3>
                     </div>}
 
-                  {(confId === "conferences" || confId === "profile") &&
+                  {(props.urlId === "conferences" || props.urlId === "profile") &&
                     <Row>
                       <Col sm={4}>
                         <Link to={`/details/${conf._id}`} className={location.pathname === `/details/${conf._id}` ? "link active" : "link"}>
@@ -261,12 +261,12 @@ const ConferenceCard = (props) => {
                 {isAuthenticated &&
                   conf.confType === "Live" &&
                   conf.confCancel === "no" &&
-                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
+                  props.urlType !== "details" && props.urlType !== "schedule" && props.urlType !== "exhibits" &&
                   cardExhibitConf.indexOf(conf._id) >= 0 &&
                   <div>
                     <Col sm={1}></Col>
                     <Col sm={2}>
-                      <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregExh" onClick={(e) => handleShowConfirm(e)}>Unregister Exhibit</Button>
+                      <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregExh" onClick={(e) => props.handleShowConfirm(e)}>Unregister Exhibit</Button>
                     </Col>
                     <Col sm={2}>
                       <Link to={`/edit_exhibit/${conf._id}`} className={location.pathname === `/edit_exhibit/${conf._id}` ? "link active" : "link"}>
@@ -278,14 +278,14 @@ const ConferenceCard = (props) => {
                 {isAuthenticated &&
                   user.email !== conf.ownerEmail &&
                   conf.confCancel === "no" &&
-                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
+                  props.urlType !== "details" && props.urlType !== "schedule" && props.urlType !== "exhibits" &&
                   cardAttendConf.indexOf(conf._id) >= 0 &&
                   <div>
                     {conf.confType === "Live"
                       ? <Col sm={2}></Col>
                       : <Col sm={7}></Col>}
                     <Col sm={2}>
-                      <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregAtt" onClick={(e) => handleShowConfirm(e)}>Unregister Attendee</Button>
+                      <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregAtt" onClick={(e) => props.handleShowConfirm(e)}>Unregister Attendee</Button>
                     </Col>
                     <Col sm={2}>
                       <Link to={`/register_edit/${conf._id}`} className={location.pathname === `/register_edit/${conf._id}` ? "link active" : "link"}>
@@ -298,7 +298,7 @@ const ConferenceCard = (props) => {
                   user.email !== conf.ownerEmail &&
                   conf.confType === "Live" &&
                   conf.confCancel === "no" &&
-                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
+                  props.urlType !== "details" && props.urlType !== "schedule" && props.urlType !== "exhibits" &&
                   cardExhibitConf.indexOf(conf._id) < 0 &&
                   <div>
                     <Col sm={1}></Col>
@@ -312,7 +312,7 @@ const ConferenceCard = (props) => {
                 {isAuthenticated &&
                   user.email !== conf.ownerEmail &&
                   conf.confCancel === "no" &&
-                  urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
+                  props.urlType !== "details" && props.urlType !== "schedule" && props.urlType !== "exhibits" &&
                   cardAttendConf.indexOf(conf._id) < 0 &&
                   <div>
                     {conf.confType === "Live"
