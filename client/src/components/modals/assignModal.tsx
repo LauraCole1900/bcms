@@ -32,8 +32,13 @@ const AssignModal = (props: any): object => {
     const timeArr1: string[] = time.split(":");
     const timeArr2: string[] = [timeArr1[1].slice(0, 2), timeArr1[1].slice(2)];
     const hh = timeArr2[1] === "pm" ? JSON.stringify(JSON.parse(timeArr1[0]) + 12) : timeArr1[0];
-    const dbTime = `${hh}:${timeArr2[0]}`
-    return dbTime;
+    if (hh.length === 1) {
+      const dbTime = `0${hh}:${timeArr2[0]}`
+      return dbTime
+    } else {
+      const dbTime = `${hh}:${timeArr2[0]}`
+      return dbTime;
+    }
   }
 
   // Handles input changes to form fields
