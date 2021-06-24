@@ -170,9 +170,9 @@ const ErrorModal = (props) => {
 
             {/* Link to Profile page */}
             {props.urlid !== "profile" &&
-            <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
-              <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
-            </Link>}
+              <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
+              </Link>}
 
             {/* Close modal and return to Profile page */}
             {props.urlid === "profile" &&
@@ -180,9 +180,9 @@ const ErrorModal = (props) => {
 
             {/* Link to Conferences page */}
             {props.urlid !== "conferences" &&
-            <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
-              <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
-            </Link>}
+              <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
+                <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
+              </Link>}
 
             {/* Close modal and return to Conference Schedule page */}
             {props.urlid === "conferences" &&

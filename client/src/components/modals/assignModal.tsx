@@ -75,8 +75,8 @@ const AssignModal = (props: any): object => {
       })
   }
 
-   // Handles click on "Create" button
-   const handleCreateSess = (e: MouseEvent): any | void => {
+  // Handles click on "Create" button
+  const handleCreateSess = (e: MouseEvent): any | void => {
     e.preventDefault();
     const { name } = e.target as HTMLButtonElement
     props.setBtnName(name);

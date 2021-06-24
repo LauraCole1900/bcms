@@ -85,7 +85,7 @@ const ScheduleForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {Object.keys(props.schedule).length !== 0
+              {props.schedule && Object.keys(props.schedule).length !== 0
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
                 : <Button data-toggle="popover" title="Submit" className="button" onClick={handleFormSubmit} type="submit">Create Schedule</Button>}
             </Col>
@@ -100,7 +100,7 @@ const ScheduleForm = (props) => {
                       <Form.Group controlId="formSchedRooms">
                         <Form.Label>Room names:</Form.Label><br />
                         <Form.Text className="subtitle" muted>Please separate room names with commas.</Form.Text>
-                        <Form.Control type="input" name="schedRooms" placeholder="Enter room names here" value={schedule.schedRooms} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" name="schedRooms" placeholder="Enter room names here" value={schedule?.schedRooms} className="formInput" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -110,7 +110,7 @@ const ScheduleForm = (props) => {
                       <Form.Group controlId="formSchedTimes">
                         <Form.Label>Time blocks:</Form.Label><br />
                         <Form.Text className="subtitle" muted>Please use the form hh:mm am/pm-hh:mm am/pm and separate by commas.</Form.Text>
-                        <Form.Control type="input" name="schedTimes" placeholder="Enter time blocks here" value={schedule.schedTimes} className="formInput" onChange={handleInputChange} />
+                        <Form.Control type="input" name="schedTimes" placeholder="Enter time blocks here" value={schedule?.schedTimes} className="formInput" onChange={handleInputChange} />
                       </Form.Group>
                     </Col>
                   </Row>
@@ -121,7 +121,7 @@ const ScheduleForm = (props) => {
 
           <Row>
             <Col sm={2}>
-              {Object.keys(props.schedule).length !== 0
+              {props.schedule && Object.keys(props.schedule).length !== 0
                 ? <Button data-toggle="popover" title="Update" className="button" onClick={handleFormUpdate} type="submit">Update Schedule</Button>
                 : <Button data-toggle="popover" title="Next Page" className="button" onClick={handleFormSubmit} type="submit">Create Schedule</Button>}
             </Col>
