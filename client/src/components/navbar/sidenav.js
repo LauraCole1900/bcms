@@ -203,11 +203,12 @@ const Sidenav = (props) => {
           {isAuthenticated &&
             (user.email === props.conference[0].ownerEmail || props.conference[0].confSessProposalCommittee.includes(user.email)) &&
             <>
-              <Row>
-                <Link to={`/session_proposals/${confId}`} className={location.pathname === `/session_proposal/${confId}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="View Session Proposals" className="committeeButton">View Session Proposals</Button>
-                </Link>
-              </Row>
+              {urlType !== "session_proposals" &&
+                <Row>
+                  <Link to={`/session_proposals/${confId}`} className={location.pathname === `/session_proposal/${confId}` ? "link active" : "link"}>
+                    <Button data-toggle="popover" title="View Session Proposals" className="committeeButton">View Session Proposals</Button>
+                  </Link>
+                </Row>}
               {urlType !== "committee" &&
                 <Row>
                   <Link to={`/committee/${confId}`} className={location.pathname === `/committee/${confId}` ? "link active" : "link"}>
