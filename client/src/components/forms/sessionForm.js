@@ -47,6 +47,7 @@ const SessionForm = () => {
   const [errors, setErrors] = useState({});
   const [sessReady, setSessReady] = useState(false);
   const [confReady, setConfReady] = useState(false);
+  let emails = [];
 
   // Grabs conference ID from URL for new sessions or session ID from URL for existing sessions
   // Uses URL to determine whether this is a new session or an existing session
@@ -97,8 +98,75 @@ const SessionForm = () => {
       })
   }
 
+  // Extracts presenter emails from array of presenter objects to array of emails
+  const extractPresEmails = (pres) => {
+    pres.forEach(onePres => {
+      emails = [...emails, onePres.presEmail]
+      if (emails.length === pres.length) {
+        console.log({ emails });
+      }
+    })
+    return emails;
+  }
+
+  // Update presenter document to remove current sessId
+  // If no other sessions, delete presenter
+  const updatePresSessions = async (pres, email, confId, sessId) => {
+    if (pres.presSessionIds.length === 1) {
+      await PresenterAPI.deletePresenterByEmail(email, confId)
+        .then(resp => {
+          console.log("comparePres deletePres", resp);
+        })
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
+        })
+    } else {
+      const newSessIds = pres.presSessionIds.filter(id => id !== sessId)
+      console.log({ newSessIds });
+      await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: newSessIds }, email, confId)
+        .then(resp => {
+          console.log("comparePres updatePres", resp)
+        })
+        .catch(err => {
+          console.log(err)
+          setErrThrown(err.message);
+          handleShowErr();
+        })
+    }
+  }
+
+  // GET presenters by sessId
+  // Compare emails to session.sessPresEmails
+  // Any that don't match, delete sessId from presSessionIds[]
+  // If no other presSessionIds, delete presenter
+  const comparePres = async (confId, sessId) => {
+    PresenterAPI.getPresentersByConf(confId)
+      .then(resp => {
+        let presArr = resp.data;
+        // for each presenter, find if presSessionIds includes sessId
+        const filteredPres = presArr.filter(pres => pres.presSessionIds.includes(sessId));
+        console.log({ filteredPres });
+        if (filteredPres.length === session.sessPresEmails.length) {
+          return false;
+        } else {
+          let presEmails = extractPresEmails(filteredPres);
+          console.log({ presEmails })
+          const filteredEmails = presEmails.filter(email => session.sessPresEmails.indexOf(email) === -1)
+          console.log({ filteredEmails });
+          filteredEmails.forEach(email => {
+            const thisPres = filteredPres.filter(pres => pres.presEmail === email)
+            console.log({ thisPres });
+            // If presSessionsIds.length === 1, delete pres
+            updatePresSessions(thisPres[0], email, confId, sessId)
+          })
+        }
+      })
+    console.log("pres compared");
+  }
+
   const handlePres = async (email, confId, sessId, session) => {
-    // let resp;
     // Check whether presenter already exists for that conference
     let pres = await fetchPresByEmail(email, confId);
     if (pres) {
@@ -129,7 +197,7 @@ const SessionForm = () => {
           setErrThrown(err.message);
           handleShowErr();
         })
-      }
+    }
   }
 
   const fetchConf = async (confid) => {
@@ -212,6 +280,7 @@ const SessionForm = () => {
       emailArr.forEach(email => {
         const trimmedEmail = email.trim()
         handlePres(trimmedEmail, session.confId, urlId, session);
+        comparePres(conference._id, urlId);
       })
     } else {
       console.log({ validationErrors });
