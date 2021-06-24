@@ -98,27 +98,6 @@ const PresenterForm = () => {
       })
   }
 
-  // GETs all sessions by confId, then sorts by date and sets the most recent one in state
-  // const fetchSessions = async (id) => {
-  //   // GET all sessions by confId
-  //   return SessionAPI.getSessions(id)
-  //     .then(resp => {
-  //       console.log("from presForm getSessions", resp.data)
-  //       const sessArr = resp.data
-  //       latestSess = sessArr.reduce((r, a) => {
-  //         return r.date > a.date ? r : a
-  //       });
-  //       console.log({ latestSess });
-  //       setSession(latestSess);
-  //       setSessReady(true);
-  //       return latestSess;
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       return false;
-  //     })
-  // }
-
   // GET conference information
   const fetchConf = async (id) => {
     switch (formType) {
