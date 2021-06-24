@@ -61,7 +61,7 @@ interface Presenter {
 const PresenterCard = ({ conference, presenter }: { conference: Conference[], presenter: Presenter[] }) => {
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
-  const [cardRender, setCardRender] = useState(false);
+  const [cardRender, setCardRender] = useState<boolean>(false);
 
   useEffect(() => {
     if (presenter) {

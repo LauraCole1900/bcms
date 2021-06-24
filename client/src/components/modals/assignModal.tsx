@@ -24,9 +24,8 @@ const AssignModal = (props: any): object => {
   const history = useHistory();
   const allSess: any[] = props.allSess;
   const filteredSess: any[] = allSess.filter(sess => (sess.sessRoom === "TBA" || sess.sessRoom === "TBD" || sess.sessRoom === "tba" || sess.sessRoom === "tbd"));
-  let sessData: any;
-  // const [errThrown, setErrThrown] = useState<string>()
-  const [session, setSession] = useState<any | void>();
+  let sessData: Session;
+  const [session, setSession] = useState<Session>();
 
   // Parse time to 24-hour to store in db
   const dbTime = (time: string): string => {
@@ -42,7 +41,7 @@ const AssignModal = (props: any): object => {
     const { value } = e.target;
     switch (value) {
       case "new":
-        sessData = { ...session, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
+        sessData = { ...session!, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
         props.setThisSess(sessData);
         setSession(sessData);
         break;
@@ -60,7 +59,7 @@ const AssignModal = (props: any): object => {
     e.preventDefault();
     const { name } = e.target as HTMLButtonElement
     props.setBtnName(name);
-    SessionAPI.updateSession({ ...session }, session._id)
+    SessionAPI.updateSession({ ...session }, session!._id)
       .then((resp: AxiosResponse<object>) => {
         console.log("from assignModal updateSess", resp.data)
         // TS doesn't like resp.err

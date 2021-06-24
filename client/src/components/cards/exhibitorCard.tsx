@@ -21,7 +21,7 @@ interface Exhibitor {
 }
 
 const ExhibitorCard = ({ exhibitor }: { exhibitor: Exhibitor[] }): object => {
-  const [cardRender, setCardRender] = useState(false);
+  const [cardRender, setCardRender] = useState<boolean>(false);
 
   useEffect(() => {
     if (exhibitor) {
