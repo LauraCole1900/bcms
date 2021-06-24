@@ -38,13 +38,10 @@ const SessPropDetails = () => {
   }
 
   const fetchPres = async (email, id) => {
-    let presObj;
-    return await PresenterAPI.getPresenterByEmail(email, id)
+    return PresenterAPI.getPresenterByEmail(email, id)
       .then(resp => {
         console.log("sessPropDetailsPage fetchPres", resp.data)
-        presObj = resp.data
-        console.log({ presObj })
-        return presObj;
+        return resp;
       })
       .catch(err => {
         console.log(err)
@@ -69,20 +66,24 @@ const SessPropDetails = () => {
       })
     // GET conference by session.confId
     fetchConf(sessObj[0].confId)
-    sessObj[0].sessPresEmails.forEach(email => {
-      fetchPres(email, sessObj[0].confId)
       .then(resp => {
-        console.log(resp.data)
-        presArr = [...presArr, resp.data]
-        console.log({ presArr })
-        if (presArr.length === sessObj[0].sessPresEmails.length) {
-          setPresArray(presArr);
-          setPresReady(true);
-        }
+        console.log(resp);
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(err => console.log(err));
+    sessObj[0].sessPresEmails.forEach(email => {
+      let presObj = fetchPres(email, sessObj[0].confId)
+        .then(resp => {
+          console.log(presObj);
+          presArr = [...presArr, resp.data]
+          console.log({ presArr })
+          if (presArr.length === sessObj[0].sessPresEmails.length) {
+            setPresArray(presArr);
+            setPresReady(true);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
     })
     setSessReady(true)
   }
@@ -121,11 +122,27 @@ const SessPropDetails = () => {
             <Col sm={10}>
               <Row>
                 <h1 className="center">Details for {session[0].sessName} Proposal</h1>
-                <h3>Presenters:
+              </Row>
+
+              <Row>
+                <Col sm={4}>
+                  <Row>
+                    {session[0].sessPresEmails.length === 1
+                      ? <h3>Presenter:</h3>
+                      : <h3>Presenters:</h3>}
+                  </Row>
                   {presArray.map(pres => (
-                    <p>{pres.presGivenName} {pres.presFamilyName}</p>
+                    <Row key={pres._id}>
+                      <p>{pres.presGivenName} {pres.presFamilyName}, {pres.presOrg}</p>
+                      <p>{pres.presEmail}</p>
+                    </Row>
                   ))}
-                </h3>
+                </Col>
+
+                <Col sm={8}>
+                  <h3>Description:</h3>
+                  <p>{session[0].sessDesc}</p>
+                </Col>
               </Row>
 
 
