@@ -80,7 +80,7 @@ This project is intended to be used to create and manage conferences, convention
 
 ## Technologies Used
 
-MongoDB, Express, React, Node.js, auth0.com, thenBy.js
+MongoDB, Express, React, Node.js, GraphQL, JavaScript, TypeScript, auth0.com, Moment, multer, thenBy.js
 
 ## Tests
 
