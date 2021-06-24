@@ -2,11 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Card, Row, Col, Image } from "react-bootstrap";
 import "./style.css";
 
-const ExhibitorCard = (props) => {
+interface Exhibitor {
+  confId: string,
+  exhGivenName: string,
+  exhFamilyName: string,
+  exhEmail: string,
+  exhCompany: string,
+  exhPhone: string,
+  exhCompanyAddress: string,
+  exhDesc: string,
+  exhLogo: string,
+  exhWebsite: string,
+  exhWorkers: number,
+  exhWorkerNames: string[],
+  exhSpaces: number,
+  exhBoothNum: string,
+  _id: string
+}
+
+const ExhibitorCard = ({ exhibitor }: { exhibitor: Exhibitor[] }): object => {
   const [cardRender, setCardRender] = useState(false);
 
   useEffect(() => {
-    if (props.exhibitor.length > 0) {
+    if (exhibitor) {
       setCardRender(true)
     }
 
@@ -17,7 +35,7 @@ const ExhibitorCard = (props) => {
   return (
     <>
       { cardRender === true &&
-        props.exhibitor.map(exh => (
+        exhibitor.map((exh: Exhibitor) => (
           <Card className="infoCard smallCard" key={exh._id}>
             <Card.Header className="cardTitle">
               <Row>
@@ -32,9 +50,9 @@ const ExhibitorCard = (props) => {
                 <Col sm={8}>
                   <Card.Text>{exh.exhDesc}</Card.Text>
                 </Col>
-                {props.exhibitor.exhCompanyLogo !== undefined &&
+                {exh.exhLogo !== undefined &&
                   <Col sm={4}>
-                    <Image src={exh.exhCompanyLogo} alt={exh.exhCompany} />
+                    <Image src={exh.exhLogo} alt={exh.exhCompany} />
                   </Col>}
               </Row>
             </Card.Body>
