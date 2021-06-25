@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Location } from "history";
 import { Button, Nav, Row } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, User } from "@auth0/auth0-react";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { AttendeeAPI, ExhibitorAPI } from "../../utils/api";
+import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
 const Sidenav = (props) => {
