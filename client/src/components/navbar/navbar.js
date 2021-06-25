@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Location } from "history";
 import { Navbar, Nav, Image } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, User } from "@auth0/auth0-react";
 import { UserAPI } from "../../utils/api";
 import "./style.css";
 
