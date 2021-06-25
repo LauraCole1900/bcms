@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { Container, Row, Col, Table } from "react-bootstrap";
 import "./style.css";
 
-const AboutBCMS = () => {
+const AboutBCMS = (): ReactElement => {
 
   
   return (
