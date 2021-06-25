@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent } from "react";
+import React, { ChangeEvent, MouseEvent, ReactElement } from "react";
 import { Form, Button, Image } from "react-bootstrap";
 import { CommitteeAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
@@ -15,7 +15,7 @@ interface Committee {
   _id: string
 }
 
-const CommitteeTable = (props: any): object => {
+const CommitteeTable = (props: any): ReactElement => {
 
   const getEmail = (id: string | undefined): string => {
     const chairObj: Committee = props.committee.find((comm: Committee) => comm._id === id)

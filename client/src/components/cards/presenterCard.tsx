@@ -40,7 +40,8 @@ interface Conference {
   confAllergies: string,
   confWaiver: string,
   confAdmins: string[],
-  confCancel: string
+  confCancel: string,
+  _id: string
 }
 
 interface Presenter {
