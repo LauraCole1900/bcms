@@ -1,7 +1,8 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Location } from "history";
 import { Card, Row, Col, Button } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, User } from "@auth0/auth0-react";
 import "./style.css";
 
 interface Presenter {
@@ -35,9 +36,9 @@ interface Session {
   _id: string
 }
 
-const SessPropSummaryCard = (props: any): object => {
-  const { user, isAuthenticated } = useAuth0();
-  const location = useLocation();
+const SessPropSummaryCard = (props: any): ReactElement => {
+  const { user, isAuthenticated } = useAuth0<User>();
+  const location = useLocation<Location>();
   let nameArr: string[];
   let orgArr: string[];
 

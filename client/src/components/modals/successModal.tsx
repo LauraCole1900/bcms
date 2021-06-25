@@ -1,10 +1,11 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Location } from "history";
 import { Button, Modal } from "react-bootstrap";
 import "./style.css"
 
-const SuccessModal = (props) => {
-  const location = useLocation();
+const SuccessModal = (props: any): ReactElement => {
+  const location = useLocation<Location>();
 
 
   return (

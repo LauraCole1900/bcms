@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Button, Modal } from "react-bootstrap";
 import "./style.css";
 
-const ConfirmModal = (props) => {
+const ConfirmModal = (props: any): ReactElement => {
 
 
   return (

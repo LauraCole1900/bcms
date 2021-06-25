@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from "react";
+import React, { ChangeEvent, MouseEvent, ReactElement, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { SessionAPI } from "../../utils/api";
@@ -20,7 +20,7 @@ interface Session {
   _id: string
 }
 
-const AssignModal = (props: any): object => {
+const AssignModal = (props: any): ReactElement => {
   const history = useHistory();
   const allSess: any[] = props.allSess;
   const filteredSess: any[] = allSess.filter(sess => (sess.sessRoom === "TBA" || sess.sessRoom === "TBD" || sess.sessRoom === "tba" || sess.sessRoom === "tbd"));

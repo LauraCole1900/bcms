@@ -1,10 +1,11 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Modal } from "react-bootstrap";
 import { SessionCard } from "../cards";
 import "./style.css";
 
-const SessionModal = (props) => {
+const SessionModal = (props: any): ReactElement => {
 
+  
   return (
     <>
       <Modal show={props.show} onHide={props.hide} centered={true} className="modal">
