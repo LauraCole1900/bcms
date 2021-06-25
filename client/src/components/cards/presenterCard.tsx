@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Location } from "history";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, User } from "@auth0/auth0-react";
 import "./style.css";
 
 // Figure out how to add session name(s)?
@@ -58,9 +59,9 @@ interface Presenter {
   _id: string
 }
 
-const PresenterCard = ({ conference, presenter }: { conference: Conference[], presenter: Presenter[] }) => {
-  const { user, isAuthenticated } = useAuth0();
-  const location = useLocation();
+const PresenterCard = ({ conference, presenter }: { conference: Conference[], presenter: Presenter[] }): ReactElement => {
+  const { user, isAuthenticated } = useAuth0<User>();
+  const location = useLocation<Location>();
   const [cardRender, setCardRender] = useState<boolean>(false);
 
   useEffect(() => {

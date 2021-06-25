@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Card, Row, Col, Image } from "react-bootstrap";
 import "./style.css";
 
@@ -20,7 +20,7 @@ interface Exhibitor {
   _id: string
 }
 
-const ExhibitorCard = ({ exhibitor }: { exhibitor: Exhibitor[] }): object => {
+const ExhibitorCard = ({ exhibitor }: { exhibitor: Exhibitor[] }): ReactElement => {
   const [cardRender, setCardRender] = useState<boolean>(false);
 
   useEffect(() => {
