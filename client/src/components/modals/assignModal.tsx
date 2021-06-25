@@ -23,7 +23,7 @@ interface Session {
 const AssignModal = (props: any): ReactElement => {
   const history = useHistory();
   const allSess: any[] = props.allSess;
-  const filteredSess: any[] = allSess.filter(sess => (sess.sessRoom === "TBA" || sess.sessRoom === "TBD" || sess.sessRoom === "tba" || sess.sessRoom === "tbd"));
+  const filteredSess: Session[] = allSess.filter((sess: Session) => (sess.sessRoom === "TBA" || sess.sessRoom === "TBD" || sess.sessRoom === "tba" || sess.sessRoom === "tbd"));
   let sessData: Session;
   const [session, setSession] = useState<Session>();
 
@@ -31,12 +31,12 @@ const AssignModal = (props: any): ReactElement => {
   const dbTime = (time: string): string => {
     const timeArr1: string[] = time.split(":");
     const timeArr2: string[] = [timeArr1[1].slice(0, 2), timeArr1[1].slice(2)];
-    const hh = timeArr2[1] === "pm" ? JSON.stringify(JSON.parse(timeArr1[0]) + 12) : timeArr1[0];
+    const hh: string = timeArr2[1] === "pm" ? JSON.stringify(JSON.parse(timeArr1[0]) + 12) : timeArr1[0];
     if (hh.length === 1) {
-      const dbTime = `0${hh}:${timeArr2[0]}`
+      const dbTime: string = `0${hh}:${timeArr2[0]}`
       return dbTime
     } else {
-      const dbTime = `${hh}:${timeArr2[0]}`
+      const dbTime: string = `${hh}:${timeArr2[0]}`
       return dbTime;
     }
   }
@@ -51,7 +51,7 @@ const AssignModal = (props: any): ReactElement => {
         setSession(sessData);
         break;
       default:
-        const sess = allSess.filter(sess => sess._id === value)[0];
+        const sess: Session = allSess.filter((sess: Session) => sess._id === value)[0];
         sessData = { ...sess, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
         props.setThisSess(sessData);
         setSession(sessData);
