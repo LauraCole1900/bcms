@@ -1,10 +1,8 @@
-import React, { useState, ChangeEvent, MouseEvent } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { ChangeEvent, MouseEvent } from "react";
 import { Form, Button, Image } from "react-bootstrap";
-import { CommitteeAPI, ConferenceAPI } from "../../utils/api";
+import { CommitteeAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
-import { preProcessFile } from "typescript";
 
 interface Committee {
   confId: string,
@@ -18,7 +16,6 @@ interface Committee {
 }
 
 const CommitteeTable = (props: any): object => {
-  const location = useLocation();
 
   const getEmail = (id: string | undefined): string => {
     const chairObj: Committee = props.committee.find((comm: Committee) => comm._id === id)
@@ -52,7 +49,7 @@ const CommitteeTable = (props: any): object => {
     console.log({ commChairNo });
     if (commChairNo !== undefined) {
       CommitteeAPI.updateCommMember({ ...commChairNo, isChair: "no" }, commChairNo.confId, commChairNo.commEmail)
-      .then(resp => {
+      .then((resp: AxiosResponse<Committee>) => {
         if (resp.status !== 422) {
           console.log(resp);
         }
@@ -67,7 +64,7 @@ const CommitteeTable = (props: any): object => {
     props.setCommName(`${commChairYes.commGivenName} ${commChairYes.commFamilyName}`)
     console.log({ commChairYes });
     CommitteeAPI.updateCommMemberById({ ...commChairYes, isChair: "yes" }, commChairYes._id)
-      .then(resp => {
+      .then((resp: AxiosResponse<Committee>) => {
         if (resp.status !== 422) {
           props.handleShowSuccess();
         }

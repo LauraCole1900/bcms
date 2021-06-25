@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth0, User } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { UserAPI } from "../../utils/api";
+import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
 const UserCard = (): ReactElement => {
@@ -12,11 +13,11 @@ const UserCard = (): ReactElement => {
 
   useEffect(() => {
     UserAPI.getUserByEmail(user!.email)
-      .then(resp => {
+      .then((resp: AxiosResponse<User>) => {
         const userObj: User = resp.data;
         setUserInfo(userObj);
       })
-      .catch(err => console.log(err))
+      .catch((err: AxiosError) => console.log(err))
 
     setPageReady(true);
 

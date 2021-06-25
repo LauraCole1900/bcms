@@ -4,24 +4,25 @@ import { Location } from "history";
 import { Navbar, Nav, Image } from "react-bootstrap";
 import { useAuth0, User } from "@auth0/auth0-react";
 import { UserAPI } from "../../utils/api";
+import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
-const Navigation = () => {
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const location = useLocation();
-  const [userInfo, setUserInfo] = useState({});
-  const [pageReady, setPageReady] = useState(false);
+const Navigation = (): ReactElement => {
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0<User>();
+  const location = useLocation<Location>();
+  const [userInfo, setUserInfo] = useState<User>({});
+  const [pageReady, setPageReady] = useState<boolean>(false);
 
   useEffect(() => {
     if (isAuthenticated) {
-      UserAPI.getUserByEmail(user.email)
-        .then(resp => {
+      UserAPI.getUserByEmail(user!.email)
+        .then((resp: AxiosResponse<User>) => {
           console.log("from userInfo getUserByEmail", resp.data);
           const userArr = resp.data;
           setUserInfo(userArr);
           setPageReady(true);
         })
-        .catch(err => console.log(err))
+        .catch((err: AxiosError) => console.log(err))
     } else {
       setPageReady(true);
     }
@@ -32,10 +33,10 @@ const Navigation = () => {
   return (
     <>
       {pageReady === true &&
-        <Navbar fluid="true" expand="sm" className="navbar">
+        <Navbar expand="sm" className="navbar">
           <Navbar.Brand className="logo ml-3">
             <div>
-              <Image fluid="true" src="/images/bristlecone-light.png" alt="BCMS logo" className="pineTree mylogo" />
+              <Image fluid src="/images/bristlecone-light.png" alt="BCMS logo" className="pineTree mylogo" />
               <Link to="/conferences" className={location.pathname === "/conferences" ? "mylogo active" : "mylogo"}>
                 Bristlecone CMS
               </Link>
@@ -53,7 +54,7 @@ const Navigation = () => {
             }
           </Navbar.Text>
           <Nav className="navobj">
-            <Navbar.Toggle fluid="true" aria-controls="basic-navbar-nav" className="toggle" data-toggle="popover" title="Show Menu" />
+            <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggle" data-toggle="popover" title="Show Menu" />
             <Navbar.Collapse id="basic-navbar-nav" className="navobject">
               {isAuthenticated &&
                 <Link to="/profile" className={location.pathname === "/profile" ? "navlink placelink active" : "navlink placelink"}>

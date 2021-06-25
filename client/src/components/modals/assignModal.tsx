@@ -65,7 +65,7 @@ const AssignModal = (props: any): ReactElement => {
     const { name } = e.target as HTMLButtonElement
     props.setBtnName(name);
     SessionAPI.updateSession({ ...session }, session!._id)
-      .then((resp: AxiosResponse<object>) => {
+      .then((resp: AxiosResponse<Session>) => {
         console.log("from assignModal updateSess", resp.data)
         // TS doesn't like resp.err
         if (resp.status !== 422) {
