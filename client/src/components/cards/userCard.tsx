@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, User } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { UserAPI } from "../../utils/api";
 import "./style.css";
 
-const UserCard = () => {
-  const { user, isAuthenticated } = useAuth0();
-  const [userInfo, setUserInfo] = useState({});
-  const [pageReady, setPageReady] = useState(false);
+const UserCard = (): ReactElement => {
+  const { user, isAuthenticated } = useAuth0<User>();
+  const [userInfo, setUserInfo] = useState<User>({});
+  const [pageReady, setPageReady] = useState<boolean>(false);
 
   useEffect(() => {
-    UserAPI.getUserByEmail(user.email)
+    UserAPI.getUserByEmail(user!.email)
       .then(resp => {
-        const userArr = resp.data;
-        setUserInfo(userArr);
+        const userObj: User = resp.data;
+        setUserInfo(userObj);
       })
       .catch(err => console.log(err))
 
@@ -32,7 +32,7 @@ const UserCard = () => {
             <Col sm={3}>
               <Row>
                 <Col sm={12}>
-                  <Image fluid="true" className="profilePic" src={userInfo.picture} alt="Profile picture" />
+                  <Image fluid className="profilePic" src={userInfo.picture} alt="Profile picture" />
                 </Col>
               </Row>
               <Row>
