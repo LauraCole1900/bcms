@@ -14,9 +14,9 @@ const SchedSessCard = (props) => {
   const [errThrown, setErrThrown] = useState();
 
   // Modal variables
-  const [showDetails, setShowDetails] = useState(0);
-  const [showAssign, setShowAssign] = useState("none");
-  const [showError, setShowError] = useState(false);
+  const [showDetails, setShowDetails] = useState("0");
+  const [showAssign, setShowAssign] = useState("0");
+  const [showError, setShowError] = useState("0");
 
   // Show & hide SessionModal
   const handleShowDetails = (e) => {

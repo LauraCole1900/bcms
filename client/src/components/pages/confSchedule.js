@@ -21,7 +21,7 @@ const Schedule = () => {
   const [sessions, setSessions] = useState();
   const [schedule, setSchedule] = useState();
   const [dates, setDates] = useState([]);
-  const [showSuccess, setShowSuccess] = useState(0);
+  const [showSuccess, setShowSuccess] = useState("0");
   const [confReady, setConfReady] = useState(false);
   const [presReady, setPresReady] = useState(false);
   const [schedReady, setSchedReady] = useState(false);

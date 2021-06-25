@@ -59,16 +59,16 @@ const TableComp = (e) => {
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionNames"];
 
   // Modal variables
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showErr, setShowErr] = useState(false);
+  const [showConfirm, setShowConfirm] = useState("0");
+  const [showSuccess, setShowSuccess] = useState("0");
+  const [showErr, setShowErr] = useState("0");
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
     switch (dataSet) {
       case "committee":
         console.log(thisEvent);
-        setShowConfirm(true);
+        setShowConfirm("index");
         setBtnName(thisEvent.dataset.name);
         setThisId(thisEvent.dataset.confid);
         setConfName(thisEvent.dataset.confname);
@@ -92,11 +92,11 @@ const TableComp = (e) => {
         setPresName(dataset.presname);
     }
   }
-  const handleHideConfirm = () => setShowConfirm(false);
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
+  const handleHideConfirm = () => setShowConfirm("0");
+  const handleShowSuccess = () => setShowSuccess("index");
+  const handleHideSuccess = () => setShowSuccess("0");
+  const handleShowErr = () => setShowErr("index");
+  const handleHideErr = () => setShowErr("0");
 
   // Handles click on "Yes, unregister attendee" button on ConfirmModal
   const handleAttUnreg = (confId, email) => {
@@ -485,11 +485,11 @@ const TableComp = (e) => {
               {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
 
               {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commname={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisEmail, thisId)} show={showConfirm === true} hide={(e) => handleHideConfirm(e)} />
+              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commname={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisEmail, thisId)} show={showConfirm === "index"} hide={(e) => handleHideConfirm(e)} />
 
-              <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} commname={commName} exhname={exhName} presname={presName} show={showSuccess === true} hide={(e) => handleHideSuccess(e)} />
+              <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} commname={commName} exhname={exhName} presname={presName} show={showSuccess === "index"} hide={(e) => handleHideSuccess(e)} />
 
-              <ErrorModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={(e) => handleHideErr(e)} />
+              <ErrorModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === "index"} hide={(e) => handleHideErr(e)} />
 
             </Col>
           </Row>

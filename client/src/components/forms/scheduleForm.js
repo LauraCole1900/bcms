@@ -20,10 +20,10 @@ const ScheduleForm = (props) => {
   const [showErr, setShowErr] = useState(false);
 
   // Sets boolean to show or hide relevant modal
-  const handleShowSuccess = () => props.setShowSuccess(true);
-  const handleHideSuccess = () => props.setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
+  const handleShowSuccess = () => props.setShowSuccess("sched");
+  const handleHideSuccess = () => props.setShowSuccess("0");
+  const handleShowErr = () => setShowErr("sched");
+  const handleHideErr = () => setShowErr("0");
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -129,9 +129,9 @@ const ScheduleForm = (props) => {
 
         </Form>
 
-        <SuccessModal conference={props.conference} confname={props.conference.confName} confid={props.urlid} urltype={formType} show={props.showSuccess} hide={e => handleHideSuccess(e)} />
+        <SuccessModal conference={props.conference} confname={props.conference.confName} confid={props.urlid} urltype={formType} show={props.showSuccess === "sched"} hide={e => handleHideSuccess(e)} />
 
-        <ErrorModal conference={props.conference} confname={props.conference.confName} confid={confId} urltype={props.urltype} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+        <ErrorModal conference={props.conference} confname={props.conference.confName} confid={confId} urltype={props.urltype} errmsg={errThrown} show={showErr === "sched"} hide={e => handleHideErr(e)} />
 
       </Container>
     </>
