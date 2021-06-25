@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Container, Card } from "react-bootstrap";
 import "./style.css";
 
-const TitleCard = () => {
+const TitleCard = (): ReactElement => {
 
   return (
     <Container>
