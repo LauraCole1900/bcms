@@ -145,6 +145,7 @@ const SessionForm = () => {
     PresenterAPI.getPresentersByConf(confId)
       .then(resp => {
         let presArr = resp.data;
+        console.log({ presArr })
         // for each presenter, find if presSessionIds includes sessId
         const filteredPres = presArr.filter(pres => pres.presSessionIds.includes(sessId));
         console.log({ filteredPres });
@@ -253,7 +254,7 @@ const SessionForm = () => {
   }
 
   // Handles click on "Update" button
-  const handleFormUpdate = (e) => {
+  const handleFormUpdate = async (e) => {
     e.preventDefault();
     // Validates required inputs
     const validationErrors = sessValidate([session, conference]);
@@ -279,8 +280,13 @@ const SessionForm = () => {
       console.log(emailArr);
       emailArr.forEach(email => {
         const trimmedEmail = email.trim()
-        handlePres(trimmedEmail, session.confId, urlId, session);
-        comparePres(conference._id, urlId);
+        handlePres(trimmedEmail, session.confId, urlId, session)
+        .then(resp => {
+          if (resp) {
+          }
+            comparePres(conference._id, urlId)
+        })
+        .catch(err => console.log(err));
       })
     } else {
       console.log({ validationErrors });
