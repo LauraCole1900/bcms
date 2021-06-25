@@ -381,7 +381,7 @@ const TableComp = (e) => {
 
           <Row>
             <Col sm={2} className="nomargin">
-              <Sidenav conference={conference} />
+              <Sidenav conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
             </Col>
 
             <Col sm={10}>
