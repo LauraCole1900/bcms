@@ -110,8 +110,8 @@ const SessionForm = () => {
   }
 
   // Update presenter document to remove current sessId
-  // If no other sessions, delete presenter
   const updatePresSessions = async (pres, email, confId, sessId) => {
+    // If there is only one session in presSessionIds, delete presenter
     if (pres.presSessionIds.length === 1) {
       await PresenterAPI.deletePresenterByEmail(email, confId)
         .then(resp => {
@@ -123,8 +123,9 @@ const SessionForm = () => {
           handleShowErr();
         })
     } else {
+      // Create array of session IDs that excludes the current sessId
       const newSessIds = pres.presSessionIds.filter(id => id !== sessId)
-      console.log({ newSessIds });
+      // Update presenter document with new sessId[]
       await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: newSessIds }, email, confId)
         .then(resp => {
           console.log("comparePres updatePres", resp)
@@ -137,28 +138,23 @@ const SessionForm = () => {
     }
   }
 
-  // GET presenters by sessId
-  // Compare emails to session.sessPresEmails
-  // Any that don't match, delete sessId from presSessionIds[]
-  // If no other presSessionIds, delete presenter
   const comparePres = async (confId, sessId) => {
+    // GET presenters for this conference
     PresenterAPI.getPresentersByConf(confId)
       .then(resp => {
         let presArr = resp.data;
-        console.log({ presArr })
-        // for each presenter, find if presSessionIds includes sessId
+        // Filter presenters by those whose presSessionIds includes this sessId
         const filteredPres = presArr.filter(pres => pres.presSessionIds.includes(sessId));
-        console.log({ filteredPres });
         if (filteredPres.length === session.sessPresEmails.length) {
           return false;
         } else {
+          // Create array of presenter emails
           let presEmails = extractPresEmails(filteredPres);
-          console.log({ presEmails })
+          // Filter out those that also exist in sessPresEmails[]
           const filteredEmails = presEmails.filter(email => session.sessPresEmails.indexOf(email) === -1)
-          console.log({ filteredEmails });
+          // For each remaining email, reattach to the corresponding presenter document
           filteredEmails.forEach(email => {
             const thisPres = filteredPres.filter(pres => pres.presEmail === email)
-            console.log({ thisPres });
             // If presSessionsIds.length === 1, delete pres
             updatePresSessions(thisPres[0], email, confId, sessId)
           })
@@ -276,17 +272,19 @@ const SessionForm = () => {
           setErrThrown(err.message);
           handleShowErr();
         })
+      // Pull sessPresEmails into array
       const emailArr = session.sessPresEmails
-      console.log(emailArr);
+      // For each sessPresEmail, trim whitespace, then create or update presenter document
       emailArr.forEach(email => {
         const trimmedEmail = email.trim()
         handlePres(trimmedEmail, session.confId, urlId, session)
-        .then(resp => {
-          if (resp) {
-          }
+          .then(resp => {
+            // Wait until the presenter document(s) has/have been created/updated before running comparePres()
+            if (resp) {
+            }
             comparePres(conference._id, urlId)
-        })
-        .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
       })
     } else {
       console.log({ validationErrors });
