@@ -7,7 +7,7 @@ import { CommitteeForm } from "../forms";
 import AttendeeTable from "./attendeeTable.tsx";
 import CommitteeTable from "./committeeTable.tsx";
 import ExhibitorTable from "./exhibitorTable.js";
-import PresenterTable from "./presenterTable.js";
+import PresenterTable from "./presenterTable.tsx";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { Sidenav } from "../navbar";
 import { AttendeeAPI, CommitteeAPI, ConferenceAPI, ExhibitorAPI, SessionAPI, PresenterAPI } from "../../utils/api";
@@ -56,7 +56,7 @@ const TableComp = (e) => {
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
   const commHeaders = ["commFamilyName", "commGivenName", "commEmail", "commPhone", "commOrg", "isChair"]
   const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend", "exhBoothNum"];
-  const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds", "sessionNames"];
+  const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds"];
 
   // Modal variables
   const [showConfirm, setShowConfirm] = useState("0");
