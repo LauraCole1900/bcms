@@ -43,6 +43,16 @@ const sessionSchema = new Schema({
     type: String,
     required: true
   },
+  sessEquipConfirm: {
+    type: String,
+    required: true
+  },
+  sessEquipProvide: {
+    type: String
+  },
+  sessEquip: {
+    type: String
+  },
   sessKeynote: {
     type: String
   },
