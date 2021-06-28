@@ -99,7 +99,6 @@ const Sidenav = (props: any): ReactElement => {
 
   // Modal variables
   const [showConfirm, setShowConfirm] = useState<string | undefined>("0");
-  const [showSuccess, setShowSuccess] = useState<string | undefined>("0");
   const [showErr, setShowErr] = useState<string | undefined>("0");
 
   // Sets boolean to show or hide relevant modal

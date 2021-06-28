@@ -1,46 +1,66 @@
-import React from "react";
+import React, { ChangeEvent, ReactElement } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Location } from "history";
 import { Form, Button, Image } from "react-bootstrap";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
+import { AxiosError } from "axios";
 import "./style.css";
 
-const AttendeeTable = (props) => {
-  const location = useLocation();
+interface Attendee {
+  confId: string,
+  email: string,
+  givenName: string,
+  familyName: string,
+  phone: string,
+  employerName: string,
+  employerAddress: string,
+  emergencyContactName: string,
+  emergencyContactPhone: string,
+  allergyConfirm: string,
+  allergies: string[],
+  waiverSigned: boolean,
+  paid: boolean,
+  isAdmin: string,
+  _id: string
+}
 
-  const getEmail = (id) => {
-    const adminObj = props.attendees.find(attendees => attendees._id === id)
-    const adminEmail = adminObj.email
+const AttendeeTable = (props: any): ReactElement => {
+  const location = useLocation<Location>();
+
+  const getEmail = (id: string): string | undefined => {
+    const adminObj: Attendee = props.attendees.find((attendee: Attendee) => attendee._id === id)
+    const adminEmail: string = adminObj.email
     return adminEmail
   }
 
   // Click handler for "isAdmin" checkbox
-  const handleInputChange = async (e) => {
+  const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { dataset, name, value } = e.target;
     console.log("Attendee table", value, dataset.id);
-    let adminConf;
+    let adminConf: string;
     // Define data to be changed based on existing checkbox value
     switch (value) {
-      case "true":
-        adminConf = false;
+      case "yes":
+        adminConf = "no";
         break;
       default:
-        adminConf = true;
+        adminConf = "yes";
     }
     // API call to update attendee document
-    AttendeeAPI.updateAttendeeById(dataset.id, { [name]: adminConf },)
+    AttendeeAPI.updateAttendeeById({ [name]: adminConf }, dataset.id)
       .then(props.attcb(props.conference[0]._id))
-      .catch(err => console.log(err))
-    let adminEmail = await getEmail(dataset.id)
+      .catch((err: AxiosError) => console.log(err))
+    let adminEmail: string | undefined = await getEmail(dataset.id!)
     switch (adminConf) {
-      case true:
+      case "yes":
         // API call to add emails to conference.confAdmins
         ConferenceAPI.updateConference({ ...props.conference[0], confAdmins: [...props.conference[0].confAdmins, adminEmail] }, props.conference[0]._id)
           .then(props.confcb(props.conference[0]._id))
-          .catch(err => console.log(err))
+          .catch((err: AxiosError) => console.log(err))
         break;
       default:
-        let adminArr = props.conference[0].confAdmins
-        const index = adminArr.indexOf(adminEmail)
+        let adminArr: string[] = props.conference[0].confAdmins
+        const index = adminArr.indexOf(adminEmail!)
         switch (index > -1) {
           case false:
             console.log({ adminArr });
@@ -48,7 +68,7 @@ const AttendeeTable = (props) => {
           default:
             ConferenceAPI.updateConference({ confAdmins: [...adminArr] }, props.conference[0]._id)
               .then(props.confcb(props.conference[0]._id))
-              .catch(err => console.log(err))
+              .catch((err: AxiosError) => console.log(err))
         }
     }
   }
@@ -56,7 +76,7 @@ const AttendeeTable = (props) => {
 
   return (
     <>
-      {props.attendees.map(att => (
+      {props.attendees.map((att: Attendee) => (
         <tr key={att._id}>
           <td>{att.familyName}</td>
           <td>{att.givenName}</td>
@@ -66,17 +86,17 @@ const AttendeeTable = (props) => {
           <td>{att.emergencyContactName}</td>
           <td>{att.emergencyContactPhone}</td>
           <td>{att.allergies}</td>
-          <td><Form.Check type="checkbox" name="isAdmin" value={att.isAdmin} data-id={att._id} aria-label="adminCheck" className="adminCheck" checked={att.isAdmin === true} onChange={handleInputChange} /></td>
+          <td><Form.Check type="checkbox" name="isAdmin" value={att.isAdmin} data-id={att._id} aria-label="adminCheck" className="adminCheck" checked={att.isAdmin === "yes"} onChange={handleInputChange} /></td>
           <td>
             <Link to={`/admin_edit_att/${att._id}`} className={location.pathname === `/admin_edit_att/${att._id}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="Edit this attendee" className="tbleditbtn">
-                <Image fluid="true" src="/images/edit-icon-2.png" className="tbledit" alt="Edit this attendee" data-attid={att._id} name="attEdit" />
+              <Button data-toggle="popover" title="Edit this attendee" className="tbleditbtn" name="attEdit">
+                <Image src="/images/edit-icon-2.png" className="tbledit" alt="Edit this attendee" data-attid={att._id} />
               </Button>
             </Link>
           </td>
           <td>
             <Button data-toggle="popover" title="Delete this attendee" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} name="admUnregAtt" onClick={props.delete}>
-              <Image fluid="true" src="/images/trash-can.png" className="tbldelete" alt="Delete this attendee" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} name="admUnregAtt" onClick={props.delete} />
+              <Image src="/images/trash-can.png" className="tbldelete" alt="Delete this attendee" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} onClick={props.delete} />
             </Button>
           </td>
         </tr>

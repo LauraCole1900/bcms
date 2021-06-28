@@ -4,7 +4,7 @@ import { Container, Row, Col, Table, Form, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
 import { CommitteeForm } from "../forms";
-import AttendeeTable from "./attendeeTable.js";
+import AttendeeTable from "./attendeeTable.tsx";
 import CommitteeTable from "./committeeTable.tsx";
 import ExhibitorTable from "./exhibitorTable.js";
 import PresenterTable from "./presenterTable.js";

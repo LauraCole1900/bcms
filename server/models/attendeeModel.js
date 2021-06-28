@@ -47,7 +47,7 @@ const attendeeSchema = new Schema({
     type: Boolean
   },
   isAdmin: {
-    type: Boolean
+    type: String
   },
   isPresenter: {
     type: Boolean
