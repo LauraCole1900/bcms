@@ -518,7 +518,7 @@ const SessionForm = () => {
                           {errors.sessEquipProvide &&
                             <div className="error"><p>{errors.sessEquipProvide}</p></div>}
                           <Form.Check type="radio" id="sessEquipProvideYes" name="sessEquipProvide" label="Yes" value="yes" checked={session.sessEquipProvide === "yes"} onChange={handleInputChange} />
-                          <Form.Check type="radio" id="sessEquipProvideNo" name="sessEquipConfirm" label="No" value="no" checked={session.sessEquipConfirm === "no"} onChange={handleInputChange} />
+                          <Form.Check type="radio" id="sessEquipProvideNo" name="sessEquipProvide" label="No" value="no" checked={session.sessEquipProvide === "no"} onChange={handleInputChange} />
                         </Col>
                         <Col sm={4}>
                           <Form.Label>Please list any special equipment participants will be using: <span className="red">*</span></Form.Label><br />
