@@ -55,6 +55,15 @@ const sessValidate = ([session, conference, formType]) => {
     errors.sessKeynote = "Please indicate whether this is a keynote session."
   }
 
+  // equipment errors
+  if (!session.sessEquipConfirm || session.sessEquipConfirm === "") {
+    errors.sessEquipConfirm = "Please indicate whether participants will be using special equipment."
+  }
+  if (session.sessEquipConfirm === "yes" && (!session.sessEquipProvide || session.sessEquipProvide === ""))
+    errors.sessEquipProvide = "Please indicate whether you will be providing the special equipment (answer 'yes') or whether the participants must bring their own (answer 'no')."
+  if (session.sessEquipConfirm === "yes" && (!session.sessEquip || session.sessEquip === ""))
+  errors.sessEquip = "Please list the special equipment participants will be using."
+
   // session presenter email errors
   if (!session.sessPresEmails.length || session.sessPresEmails[0] === "") {
     errors.sessPresEmails = "Please enter the emails of the presenter(s)."

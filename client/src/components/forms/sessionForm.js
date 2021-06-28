@@ -29,6 +29,9 @@ const SessionForm = () => {
     sessKeynote: "",
     sessPanel: "",
     sessRoom: "",
+    sessEquipConfirm: "",
+    sessEquipProvide: "",
+    sessEquip: "",
     sessAccepted: ""
   });
   let presenter = {
