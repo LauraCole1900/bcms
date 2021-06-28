@@ -51,7 +51,7 @@ const sessionSchema = new Schema({
     type: String
   },
   sessEquip: {
-    type: String
+    type: [ trimmedString ]
   },
   sessKeynote: {
     type: String

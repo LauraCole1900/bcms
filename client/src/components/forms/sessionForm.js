@@ -498,7 +498,36 @@ const SessionForm = () => {
                     </Col>}
                 </Row>
 
-                <Form.Group controlId="formSessNumPres">
+                <Form.Group controlId="formSessEquip">
+                  <Row>
+                    <Col sm={4}>
+                      <Form.Label>Will participants be using any special equipment? <span className="red">*</span></Form.Label>
+                      {errors.sessEquipConfirm &&
+                        <div className="error"><p>{errors.sessEquipConfirm}</p></div>}
+                      <Form.Check type="radio" id="sessEquipConfirmYes" name="sessEquipConfirm" label="Yes" value="yes" checked={session.sessEquipConfirm === "yes"} onChange={handleInputChange} />
+                      <Form.Check type="radio" id="sessEquipConfirmNo" name="sessEquipConfirm" label="No" value="no" checked={session.sessEquipConfirm === "no"} onChange={handleInputChange} />
+                    </Col>
+                    {session.sessEquipConfirm === "yes" &&
+                      <>
+                        <Col sm={4}>
+                          <Form.Label>Will the equipment be provided to the participants? <span className="red">*</span></Form.Label>
+                          {errors.sessEquipProvide &&
+                            <div className="error"><p>{errors.sessEquipProvide}</p></div>}
+                          <Form.Check type="radio" id="sessEquipProvideYes" name="sessEquipProvide" label="Yes" value="yes" checked={session.sessEquipProvide === "yes"} onChange={handleInputChange} />
+                          <Form.Check type="radio" id="sessEquipProvideNo" name="sessEquipConfirm" label="No" value="no" checked={session.sessEquipConfirm === "no"} onChange={handleInputChange} />
+                        </Col>
+                        <Col sm={4}>
+                          <Form.Label>Please list any special equipment participants will be using: <span className="red">*</span></Form.Label><br />
+                          <Form.Text className="subtext" muted>Please separate items with commas.</Form.Text>
+                          {errors.sessEquip &&
+                            <div className="error"><p>{errors.sessEquip}</p></div>}
+                          <Form.Control required type="input" name="sessEquip" placeholder="book titles, musical instruments, kobudo gear, etc. Please be specific" value={session.sessEquip} className="formInput" onChange={handleInputChange} />
+                        </Col>
+                      </>}
+                  </Row>
+                </Form.Group>
+
+                <Form.Group controlId="formSessPres">
                   <Row>
                     <Col sm={12}>
                       <Form.Label>Presenter emails: <span className="red">*</span></Form.Label><br />
