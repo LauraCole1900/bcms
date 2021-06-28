@@ -186,6 +186,11 @@ const SessionCard = (props) => {
             <Row>
               <Col sm={8}>
                 <Card.Text>{sess.sessDesc}</Card.Text>
+                {sess.sessEquipConfirm === "yes" &&
+                  (sess.sessEquipProvide === "yes"
+                    ? <Card.Text className="alert">We will be providing {sess.sessEquip.join(", ")} for your use. Please return equipment at the end of the session unless told otherwise.</Card.Text>
+                    : <Card.Text className="alert">Please bring {sess.sessEquip.join(", ")} to use in this session.</Card.Text>
+                  )}
               </Col>
               <Col sm={4}>
                 <Row><p>Date: <Moment format="ddd, D MMM YYYY" withTitle>{sess.sessDate}</Moment></p></Row>
