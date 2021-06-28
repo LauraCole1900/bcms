@@ -175,9 +175,10 @@ const SessionForm = () => {
         return false
       } else {
         // If presenter exists without sessId, add new session ID to presSessionIds[]
-        await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
+        return await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
           .then(resp => {
             console.log("updatePresenter", resp)
+            return resp;
           })
           .catch(err => {
             console.log(err)
