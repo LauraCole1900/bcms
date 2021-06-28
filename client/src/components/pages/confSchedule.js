@@ -5,7 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Moment from "react-moment";
 import { ConferenceCard, UserCard } from "../cards";
 import { ScheduleForm } from "../forms";
-import SchedGrid from "../table/schedGrid.js";
+import SchedGrid from "../table/scheduleGrid.js";
 import { Sidenav } from "../navbar";
 import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../../utils/api";
 import "./style.css";
