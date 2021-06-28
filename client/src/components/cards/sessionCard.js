@@ -38,13 +38,12 @@ const SessionCard = (props) => {
   }
   const handleHideConfirm = () => setShowConfirm(0);
   const handleShowSuccess = () => props.setShowSuccess(thisId);
-  const handleHideSuccess = () => {
+  const handleHideSuccess = (e) => {
+    e.preventDefault();
     props.setShowSuccess(0);
   }
   const handleShowErr = () => setShowErr(thisId);
-  const handleHideErr = () => {
-    setShowErr(0);
-  }
+  const handleHideErr = () => setShowErr(0);
 
   // Parses time to 12-hour
   const parseTime = (time) => {

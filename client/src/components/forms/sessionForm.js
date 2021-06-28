@@ -349,7 +349,7 @@ const SessionForm = () => {
       switch (formType) {
         // GET call to pre-populate the form if the URL indicates this is an existing session
         case "edit_session":
-          fetchConf(urlId);
+          fetchConf(urlId)
           break;
         // Puts conference ID in state as session.confId
         default:
@@ -562,9 +562,9 @@ const SessionForm = () => {
 
           </Form>
 
-          <SuccessModal conference={conference} confname={conference.confName} confid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+          <SuccessModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conference} confname={conference.confName} confid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+          <ErrorModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
         </Container>}
     </>
