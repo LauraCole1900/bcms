@@ -6,7 +6,7 @@ import { ConferenceCard, UserCard } from "../cards";
 import { CommitteeForm } from "../forms";
 import AttendeeTable from "./attendeeTable.tsx";
 import CommitteeTable from "./committeeTable.tsx";
-import ExhibitorTable from "./exhibitorTable.js";
+import ExhibitorTable from "./exhibitorTable.tsx";
 import PresenterTable from "./presenterTable.tsx";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { Sidenav } from "../navbar";
@@ -55,7 +55,7 @@ const TableComp = (e) => {
 
   const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
   const commHeaders = ["commFamilyName", "commGivenName", "commEmail", "commPhone", "commOrg", "isChair"]
-  const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerName1", "exhWorkerName2", "exhWorkerName3", "exhWorkerName4", "exhSpaces", "exhAttend", "exhBoothNum"];
+  const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend", "exhBoothNum"];
   const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds"];
 
   // Modal variables
