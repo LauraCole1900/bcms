@@ -79,7 +79,7 @@ const SessionCard = (props: any): ReactElement => {
 
   // Parses time to 12-hour
   const parseTime = (time: any): string | void => {
-    const timeArr = time.split(":");
+    const timeArr: [number, string] = time.split(":");
     let hours: number = timeArr[0];
     let minutes: any = timeArr[1];
     const ampm: string = hours >= 12 ? "pm" : "am"
