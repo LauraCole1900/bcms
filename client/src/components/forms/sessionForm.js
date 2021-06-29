@@ -522,7 +522,7 @@ const SessionForm = () => {
                         </Col>
                         <Col sm={4}>
                           <Form.Label>Please list any special equipment participants will be using: <span className="red">*</span></Form.Label><br />
-                          <Form.Text className="subtext" muted>Please separate items with commas.</Form.Text>
+                          <Form.Text className="subtext" muted>Please use commas to indicate "and" & use "or" to indicate "or".</Form.Text>
                           {errors.sessEquip &&
                             <div className="error"><p>{errors.sessEquip}</p></div>}
                           <Form.Control required type="input" name="sessEquip" placeholder="book titles, musical instruments, kobudo gear, etc. Please be specific" value={session.sessEquip} className="formInput" onChange={handleInputChange} />

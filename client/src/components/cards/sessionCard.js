@@ -13,7 +13,6 @@ const SessionCard = (props) => {
   const [errThrown, setErrThrown] = useState();
   const [btnName, setBtnName] = useState("");
   const [thisId, setThisId] = useState();
-  const [thisName, setThisName] = useState();
   const presEmailArr = props.session.sessPresEmails;
   let nameArr = [];
   let orgArr = [];
@@ -30,20 +29,20 @@ const SessionCard = (props) => {
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e) => {
     const { dataset, name } = e.target;
-    console.log(name, dataset.sessid, dataset.sessname);
-    setShowConfirm(dataset.sessid);
+    console.log(name, dataset.sessid);
+    console.log({ dataset });
     setBtnName(name);
     setThisId(dataset.sessid);
-    setThisName(dataset.sessname);
+    setShowConfirm(dataset.sessid);
   }
-  const handleHideConfirm = () => setShowConfirm(0);
-  const handleShowSuccess = () => props.setShowSuccess(thisId);
-  const handleHideSuccess = (e) => {
-    e.preventDefault();
-    props.setShowSuccess(0);
+  const handleHideConfirm = () => setShowConfirm("none");
+  const handleShowSuccess = () => {
+    console.log(thisId, btnName);
+    props.setShowSuccess(thisId && btnName);
   }
-  const handleShowErr = () => setShowErr(thisId);
-  const handleHideErr = () => setShowErr(0);
+  const handleHideSuccess = () => props.setShowSuccess("none");
+  const handleShowErr = () => setShowErr(thisId && btnName);
+  const handleHideErr = () => setShowErr("none");
 
   // Parses time to 12-hour
   const parseTime = (time) => {
@@ -124,8 +123,8 @@ const SessionCard = (props) => {
                   {isAuthenticated &&
                     urlType !== "schedule" &&
                     (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
-                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
+                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess._id} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess._id} name="sessDelete" />
                     </Button>}
                   {urlType === "schedule" &&
                     <Button data-toggle="popover" title="Close" className="button closeBtn" onClick={props.hide}>
@@ -187,7 +186,9 @@ const SessionCard = (props) => {
                 <Card.Text>{sess.sessDesc}</Card.Text>
                 {sess.sessEquipConfirm === "yes" &&
                   (sess.sessEquipProvide === "yes"
-                    ? <Card.Text className="alert">We will be providing {sess.sessEquip.join(", ")} for your use. Please return equipment at the end of the session unless told otherwise.</Card.Text>
+                    ? (sess.sessEquip.length === 2
+                      ? <Card.Text className="alert">We will be providing {sess.sessEquip.join(" & ")} for your use. Please return equipment at the end of the session unless told otherwise.</Card.Text>
+                      : <Card.Text className="alert">We will be providing {sess.sessEquip.join(", ")} for your use. Please return equipment at the end of the session unless told otherwise.</Card.Text>)
                     : <Card.Text className="alert">Please bring {sess.sessEquip.join(", ")} to use in this session.</Card.Text>
                   )}
               </Col>
@@ -212,11 +213,11 @@ const SessionCard = (props) => {
 
           {urlType !== "schedule" &&
             <>
-              <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(thisId)} show={showConfirm === sess._id} hide={(e) => handleHideConfirm(e)} />
+              <ConfirmModal btnname={btnName} confname={sess.sessName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(thisId)} show={showConfirm === (sess._id)} hide={(e) => handleHideConfirm(e)} />
 
-              <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={props.showSuccess === sess._id} hide={(e) => handleHideSuccess(e)} />
+              <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={props.showSuccess === (sess._id && btnName)} hide={() => handleHideSuccess()} />
 
-              <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === sess._id} hide={(e) => handleHideErr(e)} />
+              <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (sess._id && btnName)} hide={handleHideErr} />
             </>}
 
         </Card >

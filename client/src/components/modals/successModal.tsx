@@ -158,7 +158,7 @@ const SuccessModal = (props: any): ReactElement => {
           {/* Delete Session button */}
           {props.urltype === "details" &&
             (props.btnname === "sessDelete" &&
-              <h4>Delete! Delete! Delete!</h4>)}
+            <h4>Delete! Delete! Delete!</h4>)}
 
           {/* Navigation buttons */}
           <Modal.Footer className="modalFooter">
@@ -169,7 +169,7 @@ const SuccessModal = (props: any): ReactElement => {
 
             {/* Close modal and return to Conference Details page */}
             {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "committee" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
-              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={() => props.hide()}>Return to Details</Button>}
+              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Details</Button>}
 
             {/* Add Session form: go on to Presenter Form */}
             {(props.urltype === "new_session") &&

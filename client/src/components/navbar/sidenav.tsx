@@ -105,15 +105,15 @@ const Sidenav = (props: any): ReactElement => {
   const handleShowConfirm = (e: MouseEvent): any | void => {
     const { dataset, name } = e.target as HTMLButtonElement;
     console.log(name, dataset.confid, dataset.confname);
-    setShowConfirm(dataset.confid);
     setBtnName(name);
     setThisId(dataset.confid);
     setThisName(dataset.confname);
+    setShowConfirm(dataset.confid && name);
   }
   const handleHideConfirm = (): string | void => setShowConfirm("0");
-  const handleShowSuccess = (): string | void => props.setShowSuccess(thisId);
+  const handleShowSuccess = (): string | void => props.setShowSuccess(thisId && btnName);
   const handleHideSuccess = (): string | void => props.setShowSuccess("0");
-  const handleShowErr = (): string | void => setShowErr(thisId);
+  const handleShowErr = (): string | void => setShowErr(thisId && btnName);
   const handleHideErr = (): string | void => setShowErr("0");
 
   // Handles click on "Yes, unregister attendee" button on ConfirmModal
@@ -336,11 +336,11 @@ const Sidenav = (props: any): ReactElement => {
             </>}
 
           {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-          <ConfirmModal btnname={btnName} confname={thisName} urlid={props.conference[0]._id} unregatt={() => handleAttUnreg(thisId!, user!.email!)} unregexh={() => handleExhUnreg(thisId!, user!.email!)} show={showConfirm === props.conference[0]._id} hide={handleHideConfirm} />
+          <ConfirmModal btnname={btnName} confname={thisName} urlid={props.conference[0]._id} unregatt={() => handleAttUnreg(thisId!, user!.email!)} unregexh={() => handleExhUnreg(thisId!, user!.email!)} show={showConfirm === (props.conference[0]._id && btnName)} hide={handleHideConfirm} />
 
-          <SuccessModal conference={props.conference} confname={thisName} urlid={props.conference[0]._id} urltype={urlType} btnname={btnName} show={props.showSuccess === props.conference[0]._id} hide={handleHideSuccess} />
+          <SuccessModal conference={props.conference} confname={thisName} urlid={props.conference[0]._id} urltype={urlType} btnname={btnName} show={props.showSuccess === (props.conference[0]._id && btnName)} hide={handleHideSuccess} />
 
-          <ErrorModal conference={props.conference} urlid={props.conference[0]._id} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === props.conference[0]._id} hide={handleHideErr} />
+          <ErrorModal conference={props.conference} urlid={props.conference[0]._id} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (props.conference[0]._id && btnName)} hide={handleHideErr} />
 
         </Nav>
       }
