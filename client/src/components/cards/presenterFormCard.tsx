@@ -1,29 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import { Card, Row, Col, Form } from "react-bootstrap";
 import "./style.css";
 
-const PresenterFormCard = (props) => {
-  let pres = props.presenter;
-  const [charRem, setCharRem] = useState(750);
+interface Presenter {
+  confId: string,
+  presGivenName: string,
+  presFamilyName: string,
+  presOrg: string,
+  presBio: string,
+  presEmail: string,
+  presPhone: string,
+  presWebsite: string,
+  presPic: string,
+  presSessionIds: string[],
+  presKeynote: string,
+  presAccepted: string,
+  _id: string
+}
+
+const PresenterFormCard = (props: any): ReactElement => {
+  let pres: Presenter[] = props.presenter;
+  const [charRem, setCharRem] = useState<number | void>(750);
 
   // Handles input changes to form fields
-  const handleInputChange = (e) => {
-    const { dataset, name, value } = e.target;
+  const handleInputChange = (e: ChangeEvent): any => {
+    const { dataset, name, value } = e.target as HTMLInputElement;
     // Finds where Object._id === dataset.id and concatenates data there
-    pres = (pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }))
-    props.handleChange([...pres], e.target.dataset);
+    pres = (pres.map((pres: Presenter) => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }))
+    props.handleChange([...pres], dataset);
     console.log({ pres });
   }
 
   // Handles character limit and input changes for textarea
-  const handleTextArea = (e) => {
-    const { dataset, name, value } = e.target;
-    const charCount = value.length;
-    const charLeft = 750 - charCount;
+  const handleTextArea = (e: ChangeEvent): string | void => {
+    const { dataset, name, value } = e.target as HTMLInputElement;
+    const charCount: number = value.length;
+    const charLeft: number = 750 - charCount;
     setCharRem(charLeft);
     // Finds where Object._id === dataset.id and concatenates data there
-    pres = (pres.map(pres => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }));
-    props.handleText([...pres], e.target.dataset);
+    pres = (pres.map((pres: Presenter) => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }));
+    props.handleText([...pres], dataset);
     console.log({ pres });
   }
 
@@ -36,7 +52,7 @@ const PresenterFormCard = (props) => {
 
   return (
     <>
-      {pres.map((pres, index) => (
+      {pres.map((pres: Presenter, index: number) => (
         <Card className="formCard" key={pres._id}>
           <Card.Title><h1>Presenter Information</h1></Card.Title>
 
