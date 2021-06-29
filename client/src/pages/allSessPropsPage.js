@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Container, Row, Col, Card, Image } from "react-bootstrap";
-import { ConferenceCard, SessPropSummaryCard } from "../cards";
-import { Sidenav } from "../navbar";
-import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
+import { Container, Row, Col, Image } from "react-bootstrap";
+import { ConferenceCard, SessPropSummaryCard } from "../components/cards";
+import { Sidenav } from "../components/navbar";
+import { ConferenceAPI, PresenterAPI, SessionAPI } from "../utils/api";
 import "./style.css";
 
 const AllSessProps = () => {

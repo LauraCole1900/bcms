@@ -20,6 +20,11 @@
   width: 50%;
 }
 
+.notFound {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: 700;
+}
+
 .center {
   text-align: center;
 }
@@ -57,9 +62,9 @@
   font-weight: bolder;
 }
 
-.spaceBetween {
+.spaceAround {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .textTight {

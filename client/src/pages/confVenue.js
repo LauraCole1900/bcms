@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col } from "react-bootstrap";
-import { ConferenceCard, UserCard } from "../cards";
-import { Sidenav } from "../navbar";
-import { ConferenceAPI, SessionAPI } from "../../utils/api";
+import { ConferenceCard, UserCard } from "../components/cards";
+import { Sidenav } from "../components/navbar";
+import { ConferenceAPI, SessionAPI } from "../utils/api";
 import "./style.css";
 
 const Venue = () => {

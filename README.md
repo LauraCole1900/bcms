@@ -94,6 +94,8 @@ The original version of this application was developed in collaboration with [An
 
 "Cancel event" icon made by [Those Icons](https://www.flaticon.com/authors/those-icons) from [www.flaticon.com](https://www.flaticon.com/).
 
+Dragon image used on the 404 page created by [Hannah Hill](https://freepngimg.com/author/hannahhil-5479) and found at [FreePNG.com](https://freepngimg.com/png/2678-tattoo-dragon-png-image).
+
 ## Contributing
 
 We believe code is never finished, and welcome your contributions to enhance the application's functionality. Please adhere to the Code of Conduct for the Contributor Covenant, version 2.0, at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.

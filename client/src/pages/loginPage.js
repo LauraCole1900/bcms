@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Card, Button } from "react-bootstrap";
-import { TitleCard } from "../cards";
+import { TitleCard } from "../components/cards";
 import './style.css';
 
 const Login = () => {

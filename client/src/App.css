@@ -127,11 +127,18 @@ p {
   height: 100vh;
 }
 
-.loadLogo {
-  margin-top: 50px;
+.loadLogo, .dragon {
   border: 2px solid var(--black);
   border-radius: 25px;
   max-width: 150px;
+}
+
+.dragon {
+  margin-bottom: 25px;
+}
+
+.loadLogo {
+  margin-top: 50px;
 }
 
 .login {

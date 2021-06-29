@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col } from "react-bootstrap";
 import Moment from "react-moment";
-import { ConferenceCard, UserCard } from "../cards";
-import { ScheduleForm } from "../forms";
-import SchedGrid from "../table/scheduleGrid.js";
-import { Sidenav } from "../navbar";
-import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../../utils/api";
+import { ConferenceCard, UserCard } from "../components/cards";
+import { ScheduleForm } from "../components/forms";
+import SchedGrid from "../components/table/scheduleGrid.js";
+import { Sidenav } from "../components/navbar";
+import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../utils/api";
 import "./style.css";
 
 const Schedule = () => {

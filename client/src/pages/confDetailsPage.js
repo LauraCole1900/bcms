@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { firstBy } from "thenby";
 import { Container, Row, Col, Form, Card } from "react-bootstrap";
-import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../cards";
-import { Sidenav } from "../navbar";
-import { ConferenceAPI, PresenterAPI, SessionAPI } from "../../utils/api";
+import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../components/cards";
+import { Sidenav } from "../components/navbar";
+import { ConferenceAPI, PresenterAPI, SessionAPI } from "../utils/api";
 import "./style.css";
 
 const ConfDetails = () => {
