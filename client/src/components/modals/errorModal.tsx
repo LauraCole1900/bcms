@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
 import { Button, Modal } from "react-bootstrap";
+import { CloseModalButton, ConferencesButton, DetailsButton, ProfileButton } from "../buttons";
 import "./style.css"
 
 const ErrorModal = (props: any): ReactElement => {
@@ -151,44 +152,31 @@ const ErrorModal = (props: any): ReactElement => {
 
             {/* Close modal and return to Conference Schedule page */}
             {props.urltype === "schedule" &&
-              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Schedule</Button>}
+              <CloseModalButton confname={props.confname} click={props.hide} page="Schedule" />}
+
+            {/* Link to Conference Details page */}
+            {props.urltype !== "details" &&
+              <DetailsButton confname={props.confname} confid={props.conference._id} />}
 
             {/* Close modal and return to Conference Details page */}
             {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "committee" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
-              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Details</Button>}
-
-            {/* Link to Conference Details page when confid === conference._id */}
-            {(props.urltype === "edit_conference" || props.urltype === "new_session" || props.urltype === "new_session_pres" || props.urltype === "register_attend" || props.urltype === "register_edit" || props.urltype === "register_exhibit" || props.urltype === "edit_exhibit" || props.urltype === "schedule") &&
-              <Link to={`/details/${props.urlid}`} className={location.pathname === `/details/${props.urlid}` ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title={props.confname} type="button" className="button">{props.confname}</Button>
-              </Link>}
-
-            {/* Link to Conference Details page when confid !== conference._id */}
-            {(props.urltype === "edit_session" || props.urltype === "edit_presenter") &&
-              <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title={props.confname} type="button" className="button">{props.confname}</Button>
-              </Link>}
+              <CloseModalButton confname={props.confname} click={props.hide} page="Details" />}
 
             {/* Link to Profile page */}
             {props.urlid !== "profile" &&
-              <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
-              </Link>}
+              <ProfileButton />}
 
             {/* Close modal and return to Profile page */}
             {props.urlid === "profile" &&
-              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Profile</Button>}
+              <CloseModalButton confname={props.confname} click={props.hide} page="Profile" />}
 
             {/* Link to Conferences page */}
             {props.urlid !== "conferences" &&
-              <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
-              </Link>}
+              <ConferencesButton />}
 
             {/* Close modal and return to Conference Schedule page */}
             {props.urlid === "conferences" &&
-              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Conferences</Button>}
-
+              <CloseModalButton confName={props.confname} click={props.hide} page="Conferences" />}
 
           </Modal.Footer>
         </Modal.Body>
