@@ -102,7 +102,7 @@ const SchedSessCard = (props) => {
 
       <SuccessModal session={thisSess} confname={props.conference.confName} conference={props.conference} btnname={btnName} urlid={props.urlid} urltype={props.urltype} show={props.showSuccess === (props.room && props.time)} hide={() => handleHideSuccess()} />
 
-      <ErrorModal session={thisSess} confname={props.conference.confName} urlid={props.urlid} urltype={props.urltype} btnname={btnName} errmsg={errThrown} show={showError === (props.room && props.time)} hide={() => handleHideError()} />
+      <ErrorModal conference={props.conference} session={thisSess} confname={props.conference.confName} urlid={props.urlid} urltype={props.urltype} btnname={btnName} errmsg={errThrown} show={showError === (props.room && props.time)} hide={() => handleHideError()} />
     </>
   )
 }

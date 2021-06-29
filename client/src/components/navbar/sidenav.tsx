@@ -1,8 +1,7 @@
 import React, { MouseEvent, ReactElement, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Location } from "history";
-import { Button, Nav, Row } from "react-bootstrap";
+import { Nav, Row } from "react-bootstrap";
 import { useAuth0, User } from "@auth0/auth0-react";
+import { InternalLinkButton, UnregisterButton } from "../buttons";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { AttendeeAPI, ExhibitorAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
@@ -83,7 +82,6 @@ interface Exhibitor {
 
 const Sidenav = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
-  const location = useLocation<Location>();
   const [cardAttendConf, setCardAttendConf] = useState<string[]>([]);
   const [cardExhibitConf, setCardExhibitConf] = useState<string[]>([]);
   const [errThrown, setErrThrown] = useState<string>();
@@ -188,52 +186,40 @@ const Sidenav = (props: any): ReactElement => {
           <Row><h3 className="textTight">Navigation</h3></Row>
           {urlType !== "details" &&
             <Row>
-              <Link to={`/details/${props.conference[0]._id}`} className={location.pathname === `/details/${props.conference[0]._id}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="View details" className="sideButton">Details</Button>
-              </Link>
+              <InternalLinkButton confid={props.conference[0]._id} page={props.conference[0].confName} urltype="details" button="sideButton" />
             </Row>}
           {urlType !== "schedule" &&
             <Row>
-              <Link to={`/schedule/${props.conference[0]._id}`} className={location.pathname === `/schedule/${props.conference[0]._id}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="View schedule" className="sideButton">Schedule</Button>
-              </Link>
+              <InternalLinkButton confid={props.conference[0]._id} page="Schedule" urltype="schedule" button="sideButton" />
             </Row>}
           {urlType !== "venue" &&
             <Row>
-              <Link to={`/venue/${props.conference[0]._id}`} className={location.pathname === `/venue/${props.conference[0]._id}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="Venue information" className="sideButton">Venue</Button>
-              </Link>
+              <InternalLinkButton confid={props.conference[0]._id} page="Venue" urltype="venue" button="sideButton" />
             </Row>}
           {urlType !== "exhibits" &&
             <Row>
-              <Link to={`/exhibits/${props.conference[0]._id}`} className={location.pathname === `/exhibits/${props.conference[0]._id}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="Exhibit information" className="sideButton">Exhibits</Button>
-              </Link>
+              <InternalLinkButton confid={props.conference[0]._id} page="Exhibits" urltype="exhibits" button="sideButton" />
             </Row>}
           {isAuthenticated &&
             user!.email !== props.conference[0].ownerEmail &&
             props.conference[0].confCancel === "no" &&
             cardAttendConf.indexOf(props.conference[0]._id) < 0 &&
             <Row>
-              <Link to={`/register_attend/${props.conference[0]._id}`} className={location.pathname === `/register_attend/${props.conference[0]._id}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="Register for this conference" className="sideButton">Register as Attendee</Button>
-              </Link>
+              <InternalLinkButton confid={props.conference[0]._id} page="Register as Attendee" urltype="register_attend" button="sideButton" />
             </Row>}
           {isAuthenticated &&
             user!.email !== props.conference[0].ownerEmail &&
             props.conference[0].confCancel === "no" &&
             cardAttendConf.indexOf(props.conference[0]._id) >= 0 &&
             <Row>
-              <Button data-toggle="popover" title="Unregister attendee from this conference" className="sideButton" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} name="unregAtt" onClick={(e) => handleShowConfirm(e)}>Unregister Attendee</Button>
+              <UnregisterButton confid={props.conference[0]._id} confname={props.conference[0].confName} page="Unregister Attendee" name="unregAtt" button="sideButton" click={(e: MouseEvent) => handleShowConfirm(e)} />
             </Row>}
           {isAuthenticated &&
             user!.email !== props.conference[0].ownerEmail &&
             props.conference[0].confCancel === "no" &&
             cardAttendConf.indexOf(props.conference[0]._id) >= 0 &&
             <Row>
-              <Link to={`/register_edit/${props.conference[0]._id}`} className={location.pathname === `/register_edit/${props.conference[0]._id}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="Edit your attendee registration" className="sideButton">Edit attendee registration</Button>
-              </Link>
+              <InternalLinkButton confid={props.conference[0]._id} page="Edit attendee registration" urltype="register_edit" button="sideButton" />
             </Row>}
           {isAuthenticated &&
             user!.email !== props.conference[0].ownerEmail &&
@@ -241,47 +227,37 @@ const Sidenav = (props: any): ReactElement => {
             props.conference[0].confCancel === "no" &&
             cardExhibitConf.indexOf(props.conference[0]._id) < 0 &&
             <Row>
-              <Link to={`/register_exhibit/${props.conference[0]._id}`} className={location.pathname === `/register_exhibit/${props.conference[0]._id}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="Register to exhibit at this conference" className="sideButton">Register as Exhibitor</Button>
-              </Link>
+              <InternalLinkButton confid={props.conference[0]._id} page="Register as Exhibitor" urltype="register_exhibit" button="sideButton" />
             </Row>}
           {isAuthenticated &&
             props.conference[0].confType === "Live" &&
             props.conference[0].confCancel === "no" &&
             cardExhibitConf.indexOf(props.conference[0]._id) >= 0 &&
             <Row>
-              <Button data-toggle="popover" title="Unregister exhibit from this conference" className="sideButton" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} name="unregExh" onClick={(e) => handleShowConfirm(e)}>Unregister Exhibit</Button>
+              <UnregisterButton confid={props.conference[0]._id} confname={props.conference[0].confName} page="Unregister Exhibit" name="unregExh" button="sideButton" click={(e: MouseEvent) => handleShowConfirm(e)} />
             </Row>}
           {isAuthenticated &&
             props.conference[0].confType === "Live" &&
             props.conference[0].confCancel === "no" &&
             cardExhibitConf.indexOf(props.conference[0]._id) >= 0 &&
             <Row>
-              <Link to={`/edit_exhibit/${props.conference[0]._id}`} className={location.pathname === `/edit_exhibit/${props.conference[0]._id}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="Edit your exhibitor registration" className="sideButton">Edit exhibitor registration</Button>
-              </Link>
+              <InternalLinkButton confid={props.conference[0]._id} page="Edit exhibitor registration" urltype="edit_exhibit" button="sideButton" />
             </Row>}
           {isAuthenticated &&
             props.conference[0].confSessProposalConfirm === "yes" &&
             <Row>
-              <Link to={`/propose_session/${props.conference[0]._id}`} className={location.pathname === `/propose_session/${props.conference[0]._id}` ? "link active" : "link"}>
-                <Button data-toggle="popover" title="Session proposal form" className="sideButton">Session proposal form</Button>
-              </Link>
+              <InternalLinkButton confid={props.conference[0]._id} page="Session proposal form" urltype="propose_session" button="sideButton" />
             </Row>}
           {isAuthenticated &&
             (user!.email === props.conference[0].ownerEmail || props.conference[0].confSessProposalCommittee.includes(user!.email)) &&
             <>
               {urlType !== "session_proposals" &&
                 <Row>
-                  <Link to={`/session_proposals/${props.conference[0]._id}`} className={location.pathname === `/session_proposal/${props.conference[0]._id}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="View Session Proposals" className="committeeButton">View Session Proposals</Button>
-                  </Link>
+                  <InternalLinkButton confid={props.conference[0]._id} page="View Session Proposals" urltype="session_proposals" button="committeeButton" />
                 </Row>}
               {urlType !== "committee" &&
                 <Row>
-                  <Link to={`/committee/${props.conference[0]._id}`} className={location.pathname === `/committee/${props.conference[0]._id}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="Set proposal review committee" className="committeeButton">Proposal Review Committee</Button>
-                  </Link>
+                  <InternalLinkButton confid={props.conference[0]._id} page="Proposal Review Committee" urltype="committee" button="committeeButton" />
                 </Row>}
             </>}
           {isAuthenticated &&
@@ -289,46 +265,30 @@ const Sidenav = (props: any): ReactElement => {
             <>
               {urlType !== "attendees" &&
                 <Row>
-                  <Link to={`/attendees/${props.conference[0]._id}`} className={location.pathname === `/attendees/${props.conference[0]._id}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="View conference attendees" className="adminButton">View Attendees</Button>
-                  </Link>
+                  <InternalLinkButton confid={props.conference[0]._id} page="View Attendees" urltype="attendees" button="adminButton" />
                 </Row>}
               {urlType !== "exhibitors" &&
                 <Row>
-                  <Link to={`/exhibitors/${props.conference[0]._id}`} className={location.pathname === `/exhibitors/${props.conference[0]._id}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="View conference exhibitors" className="adminButton">View Exhibitors</Button>
-                  </Link>
+                  <InternalLinkButton confid={props.conference[0]._id} page="View Exhibitors" urltype="exhibitors" button="adminButton" />
                 </Row>}
               {urlType !== "presenters" &&
                 <Row>
-                  <Link to={`/presenters/${props.conference[0]._id}`} className={location.pathname === `/presenters/${props.conference[0]._id}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="View conference presenters" className="adminButton">View Presenters</Button>
-                  </Link>
+                  <InternalLinkButton confid={props.conference[0]._id} page="View Presenters" urltype="presenters" button="adminButton" />
                 </Row>}
               <Row>
-                <Link to={`/edit_conference/${props.conference[0]._id}`} className={location.pathname === `/edit_conference/${props.conference[0]._id}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Edit this conference" className="adminButton">Edit Conference</Button>
-                </Link>
+                <InternalLinkButton confid={props.conference[0]._id} page="Edit Conference" urltype="edit_conference" button="adminButton" />
               </Row>
               <Row>
-                <Link to={`/edit_schedule/${props.conference[0]._id}`} className={location.pathname === `/edit_schedule/${props.conference[0]._id}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Edit conference schedule" className="adminButton">Edit Schedule</Button>
-                </Link>
+                <InternalLinkButton confid={props.conference[0]._id} page="Edit Schedule" urltype="schedule" button="adminButton" />
               </Row>
               <Row>
-                <Link to={`/admin_register_att/${props.conference[0]._id}`} className={location.pathname === `/admin_register_att/${props.conference[0]._id}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Add attendee" className="adminButton">Add Attendee</Button>
-                </Link>
+                <InternalLinkButton confid={props.conference[0]._id} page="Add Attendee" urltype="admin_register_att" button="adminButton" />
               </Row>
               <Row>
-                <Link to={`/admin_register_exh/${props.conference[0]._id}`} className={location.pathname === `/admin_register_exh/${props.conference[0]._id}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Add exhibit" className="adminButton">Add Exhibit</Button>
-                </Link>
+                <InternalLinkButton confid={props.conference[0]._id} page="Add Exhibit" urltype="admin_register_exh" button="adminButton" />
               </Row>
               <Row>
-                <Link to={`/new_session/${props.conference[0]._id}`} className={location.pathname === `/new_session/${props.conference[0]._id}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Add a session" className="adminButton">Add Session</Button>
-                </Link>
+                <InternalLinkButton confid={props.conference[0]._id} page="Add Session" urltype="new_session" button="adminButton" />
               </Row>
               <Row>
                 <p className="whitespace">New presenters may only be added by adding a new session or editing an existing session.</p>

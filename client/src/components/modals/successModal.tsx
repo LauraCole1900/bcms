@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
 import { Button, Modal } from "react-bootstrap";
+import { CloseModalButton, ConferencesButton, DetailsButton, ProfileButton } from "../buttons";
 import "./style.css"
 
 const SuccessModal = (props: any): ReactElement => {
@@ -165,11 +166,11 @@ const SuccessModal = (props: any): ReactElement => {
 
             {/* Close modal and return to Conference Schedule page */}
             {props.urltype === "schedule" &&
-              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={() => props.hide()}>Return to Schedule</Button>}
+              <CloseModalButton confname={props.confname} click={props.hide} page="Schedule" />}
 
             {/* Close modal and return to Conference Details page */}
             {(props.urltype === "details" || props.urltype === "attendees" || props.urltype === "committee" || props.urltype === "exhibitors" || props.urltype === "presenters") &&
-              <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.hide}>Return to Details</Button>}
+              <CloseModalButton confname={props.confname} click={props.hide} page="Details" />}
 
             {/* Add Session form: go on to Presenter Form */}
             {(props.urltype === "new_session") &&
@@ -203,29 +204,23 @@ const SuccessModal = (props: any): ReactElement => {
 
             {/* Link to Conference Details page */}
             {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "committee" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
-              <Link to={`/details/${props.conference._id}`} className={location.pathname === `/details/${props.conference._id}` ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title={props.confname} type="button" className="button">{props.confname}</Button>
-              </Link>}
+              <DetailsButton confname={props.confname} confid={props.conference._id} button="button" />}
 
             {/* Return to Profile page */}
             {props.urlid === "profile" &&
-              <Button data-toggle="popover" title="Profile" type="button" className="button" onClick={() => props.hide()}>Profile</Button>}
+              <CloseModalButton confname={props.confname} click={props.hide} page="Profile" />}
 
             {/* Link to Profile page */}
             {props.urlid !== "profile" && props.urltype !== "new_session" &&
-              <Link to="/profile" className={location.pathname === "/profile" ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title="Profile" type="button" className="button">Profile</Button>
-              </Link>}
+              <ProfileButton />}
 
             {/* Return to Conferences page */}
             {props.urlid === "conferences" &&
-              <Button data-toggle="popover" title="Conferences" type="button" className="button" onClick={() => props.hide()}>Conferences</Button>}
+              <CloseModalButton confname={props.confname} click={props.hide} page="Conferences" />}
 
             {/* Link to Conferences page */}
             {props.urlid !== "conferences" && props.urltype !== "new_session" &&
-              <Link to="/conferences" className={location.pathname === "/conferences" ? "btnactive" : "btn"} >
-                <Button data-toggle="popover" title="Conferences" type="button" className="button">Conferences</Button>
-              </Link>}
+              <ConferencesButton />}
 
           </Modal.Footer>
         </Modal.Body>
