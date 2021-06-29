@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Table, Form, Card, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
@@ -18,8 +18,7 @@ const TableComp = (e) => {
   // TO-DO:
   // Link "Add Presenter" button to PresForm
 
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const location = useLocation();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
   const [attendees, setAttendees] = useState([]);
   const [committee, setCommittee] = useState([]);
   const [member, setMember] = useState({
@@ -232,6 +231,8 @@ const TableComp = (e) => {
       })
       .catch(err => console.log(err))
   }
+
+  // GETs sessions
   const fetchSessions = async (sessId) => {
     await SessionAPI.getSessions(sessId)
       .then(resp => {
@@ -336,6 +337,7 @@ const TableComp = (e) => {
 
   useEffect(() => {
     if (isAuthenticated) {
+      console.log({ showSuccess })
       fetchConf(confId);
 
       switch (dataSet) {
@@ -375,7 +377,7 @@ const TableComp = (e) => {
               </Col>
               : <Col sm={2}></Col>}
             <Col sm={8}>
-              <ConferenceCard conference={conference} />
+              <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
             </Col>
           </Row>
 
