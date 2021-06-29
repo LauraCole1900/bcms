@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { AboutBCMS, AllConfs, AllSessProps, ConfDetails, ConfExhibits, Login, Profile, Schedule, SessPropDetails, Venue } from "./components/pages";
+import { AboutBCMS, AllConfs, AllSessProps, ConfDetails, ConfExhibits, Login, NotFound, Profile, Schedule, SessPropDetails, Venue } from "./pages";
 import { Navigation } from "./components/navbar";
 import TableComp from "./components/table"
 import { ConferenceForm, ExhibitForm, PresenterForm, Registration, SessionForm, SessSuppForm, Supplemental, UpdateUser } from "./components/forms";
@@ -39,6 +39,7 @@ function App() {
         <Route path={["/register_exhibit/*", "/edit_exhibit/*", "/admin_register_exh/*", "/admin_edit_exh/*"]} component={ExhibitForm} />
         <Route path="/update_user" component={UpdateUser} />
         <Route path={["/register_attend/*", "/register_edit/*", "/admin_register_att/*", "/admin_edit_att/*"]} component={Registration} />
+        <Route component={NotFound} />
         <Route exact path={["/", "/conferences"]} component={AllConfs} />
       </main>
     </Router>

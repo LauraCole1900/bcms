@@ -57,6 +57,11 @@
   font-weight: bolder;
 }
 
+.spaceBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
 .textTight {
   margin: 2px 0 7px 0;
 }

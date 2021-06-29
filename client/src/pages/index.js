@@ -3,6 +3,7 @@ export { default as AllConfs } from "./allConfsPage";
 export { default as AllSessProps } from "./allSessPropsPage";
 export { default as ConfDetails } from "./confDetailsPage";
 export { default as ConfExhibits } from "./confExhibitors";
+export { default as NotFound } from "./notFound";
 export { default as Schedule } from "./confSchedule";
 export { default as SessPropDetails } from "./sessPropDetailsPage";
 export { default as Venue } from "./confVenue";
