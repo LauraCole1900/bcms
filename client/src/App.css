@@ -103,6 +103,7 @@ p {
   border: 2px solid var(--darkForest);
   border-radius: 10px;
   margin: 5px 0 5px 0;
+  min-width: 7em;
   box-shadow: 2px 2px 5px var(--darkForest);
   display: inline-block;
   white-space: normal;

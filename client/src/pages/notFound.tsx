@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Container, Col, Image, Row } from "react-bootstrap";
 import { ConferencesButton, ProfileButton } from "../components/buttons";
 
 // Dragon image created by <a href="https://freepngimg.com/author/hannahhil-5479">Hannah Hill</a> and found at <a href="https://freepngimg.com/png/2678-tattoo-dragon-png-image">FreePNG.com</a>.
 
-const NotFound = () => {
+const NotFound = (): ReactElement => {
 
 
   return (
@@ -22,11 +22,11 @@ const NotFound = () => {
       </Row>
       <Row>
         <Col sm={12} className="center">
-          <p>You've found unmapped territory. Our wizards recommend returning to familiar areas.</p>
+          <p>You've found unmapped territory. Our wizards recommend returning to familiar areas:</p>
         </Col>
       </Row>
       <Row>
-        <Col sm={12} className="spaceAround">
+        <Col sm={12} className="center">
           <ConferencesButton />
           <ProfileButton />
         </Col>
