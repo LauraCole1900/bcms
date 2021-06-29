@@ -5,7 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Moment from "react-moment";
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ScheduleForm } from "../components/forms";
-import SchedGrid from "../components/table/scheduleGrid.tsx";
+import { ScheduleGrid } from "../components/table";
 import { Sidenav } from "../components/navbar";
 import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../utils/api";
 import "./style.css";
@@ -175,7 +175,7 @@ const Schedule = () => {
                         <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
                       </Row>
                       <Row className="formPad">
-                        <SchedGrid schedule={schedule[0]} sessions={sessions} presenters={presenters} conference={conference[0]} date={date} i={idx} urlid={urlId} urltype={urlType} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+                        <ScheduleGrid schedule={schedule[0]} sessions={sessions} presenters={presenters} conference={conference[0]} date={date} i={idx} urlid={urlId} urltype={urlType} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
                       </Row>
                     </React.Fragment>
                   ))}

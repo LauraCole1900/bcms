@@ -21,7 +21,7 @@ interface Session {
   _id: string
 }
 
-const SchedGrid = (props: any): ReactElement => {
+const ScheduleGrid = (props: any): ReactElement => {
   let thisSess: Session[];
   let timesArr: string[];
 
@@ -85,4 +85,4 @@ const SchedGrid = (props: any): ReactElement => {
 
 }
 
-export default SchedGrid;
+export default ScheduleGrid;

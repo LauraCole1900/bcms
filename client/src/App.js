@@ -3,7 +3,7 @@ import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AboutBCMS, AllConfs, AllSessProps, ConfDetails, ConfExhibits, Login, NotFound, Profile, Schedule, SessPropDetails, Venue } from "./pages";
 import { Navigation } from "./components/navbar";
-import TableComp from "./components/table"
+import { TableComp}  from "./components/table";
 import { ConferenceForm, ExhibitForm, PresenterForm, Registration, SessionForm, SessSuppForm, Supplemental, UpdateUser } from "./components/forms";
 import "./App.css";
 
