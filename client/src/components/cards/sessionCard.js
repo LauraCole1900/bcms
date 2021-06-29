@@ -36,12 +36,9 @@ const SessionCard = (props) => {
     setShowConfirm(dataset.sessid);
   }
   const handleHideConfirm = () => setShowConfirm("none");
-  const handleShowSuccess = () => {
-    console.log(thisId, btnName);
-    props.setShowSuccess(thisId && btnName);
-  }
+  const handleShowSuccess = () => props.setShowSuccess(thisId);
   const handleHideSuccess = () => props.setShowSuccess("none");
-  const handleShowErr = () => setShowErr(thisId && btnName);
+  const handleShowErr = () => setShowErr(thisId);
   const handleHideErr = () => setShowErr("none");
 
   // Parses time to 12-hour
@@ -215,9 +212,9 @@ const SessionCard = (props) => {
             <>
               <ConfirmModal btnname={btnName} confname={sess.sessName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(thisId)} show={showConfirm === (sess._id)} hide={(e) => handleHideConfirm(e)} />
 
-              <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={props.showSuccess === (sess._id && btnName)} hide={() => handleHideSuccess()} />
+              <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={props.showSuccess === (sess._id)} hide={(e) => handleHideSuccess(e)} />
 
-              <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (sess._id && btnName)} hide={handleHideErr} />
+              <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (sess._id)} hide={handleHideErr} />
             </>}
 
         </Card >

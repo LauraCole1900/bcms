@@ -36,12 +36,12 @@ const ConferenceCard = (props) => {
     setBtnName(name);
     setThisId(dataset.confid);
     setThisName(dataset.confname);
-    setShowConfirm(dataset.confid && name);
+    setShowConfirm(dataset.confid);
   }
   const handleHideConfirm = () => setShowConfirm(0);
-  const handleShowSuccess = () => props.setShowSuccess(thisId && btnName);
+  const handleShowSuccess = () => props.setShowSuccess(thisId);
   const handleHideSuccess = () => props.setShowSuccess(0);
-  const handleShowErr = () => setShowErr(thisId && btnName);
+  const handleShowErr = () => setShowErr(thisId);
   const handleHideErr = () => setShowErr(0);
   
   // Parses time to 12-hour
@@ -175,7 +175,7 @@ const ConferenceCard = (props) => {
   return (
     <>
       {cardRender === true &&
-        props.conference.map((conf, idx) => (
+        props.conference.map((conf) => (
           <Card className="infoCard" key={conf._id}>
             <Card.Header className="cardTitle">
               <Row>
@@ -186,8 +186,8 @@ const ConferenceCard = (props) => {
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user.email === conf.ownerEmail) &&
-                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-idx={idx} name="confCancel" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid="true" src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-idx={idx} name="confCancel" />
+                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} name="confCancel" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid="true" src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} name="confCancel" />
                     </Button>}
                 </Col>
               </Row>
@@ -332,11 +332,11 @@ const ConferenceCard = (props) => {
             </Card.Body>
 
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-            <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === (conf._id && btnName)} hide={(e) => handleHideConfirm(e)} />
+            <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === (conf._id)} hide={(e) => handleHideConfirm(e)} />
 
-            <SuccessModal conference={conf} confname={thisName} confid={conf._id} urlid={confId} urltype={urlType} btnname={btnName} show={props.showSuccess === (conf._id && btnName)} hide={(e) => handleHideSuccess(e)} />
+            <SuccessModal conference={conf} confname={thisName} confid={conf._id} urlid={confId} urltype={urlType} btnname={btnName} show={props.showSuccess === (conf._id)} hide={(e) => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (conf._id && btnName)} hide={(e) => handleHideErr(e)} />
+            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (conf._id)} hide={(e) => handleHideErr(e)} />
 
           </Card>
 

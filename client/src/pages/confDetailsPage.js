@@ -15,7 +15,7 @@ const ConfDetails = () => {
   const [presArray, setPresArray] = useState([]);
   const [searchBy, setSearchBy] = useState("allPnS");
   const [search, setSearch] = useState("");
-  const [showSuccess, setShowSuccess] = useState(0);
+  const [showSuccess, setShowSuccess] = useState("none");
   const [confReady, setConfReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
   const [presReady, setPresReady] = useState(false);
@@ -192,6 +192,7 @@ const ConfDetails = () => {
   }
 
   useEffect(() => {
+    console.log({ showSuccess })
     // GET conference by ID
     fetchConf(confId);
     // GET sessions by conference ID
