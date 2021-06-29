@@ -29,6 +29,9 @@ interface Session {
   sessStart: string,
   sessEnd: string,
   sessDesc: string,
+  sessEquipConfirm: string,
+  sessEquipProvide: string,
+  sessEquip: string[],
   sessKeynote: string,
   sessPanel: string,
   sessRoom: string,
@@ -74,7 +77,7 @@ const SessPropSummaryCard = (props: any): ReactElement => {
                 {isAuthenticated &&
                   (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
                   <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                    <Image fluid="true" src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
+                    <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
                   </Button>}
               </Col> */}
             </Row>

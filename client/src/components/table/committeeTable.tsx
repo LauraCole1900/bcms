@@ -88,7 +88,7 @@ const CommitteeTable = (props: any): ReactElement => {
           <td>{comm.commOrg}</td>
           <td><Form.Check type="radio" name="isChair" value={comm.isChair} data-id={comm._id} aria-label="adminCheck" className="adminCheck" checked={comm.isChair === "yes"} onChange={handleInputChange} /></td>
           <td>
-            <Button data-toggle="popover" title="Edit this member" className="tbleditbtn" data-btnname="commEdit" onClick={(e) => handleSelect(e, comm)}>
+            <Button data-toggle="popover" title="Edit this member" className="tbleditbtn" data-name="commEdit" onClick={(e) => handleSelect(e, comm)}>
               <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this member" data-commid={comm._id} data-name="commEdit" onClick={(e) => handleSelect(e, comm)} />
             </Button>
           </td>

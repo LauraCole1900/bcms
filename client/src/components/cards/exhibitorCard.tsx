@@ -52,7 +52,7 @@ const ExhibitorCard = ({ exhibitor }: { exhibitor: Exhibitor[] }): ReactElement 
                 </Col>
                 {exh.exhLogo !== undefined &&
                   <Col sm={4}>
-                    <Image src={exh.exhLogo} alt={exh.exhCompany} />
+                    <Image fluid src={exh.exhLogo} alt={exh.exhCompany} />
                   </Col>}
               </Row>
             </Card.Body>

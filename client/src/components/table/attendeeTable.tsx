@@ -91,13 +91,13 @@ const AttendeeTable = (props: any): ReactElement => {
           <td>
             <Link to={`/admin_edit_att/${att._id}`} className={location.pathname === `/admin_edit_att/${att._id}` ? "link active" : "link"}>
               <Button data-toggle="popover" title="Edit this attendee" className="tbleditbtn" name="attEdit">
-                <Image src="/images/edit-icon-2.png" className="tbledit" alt="Edit this attendee" data-attid={att._id} />
+                <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this attendee" data-attid={att._id} />
               </Button>
             </Link>
           </td>
           <td>
             <Button data-toggle="popover" title="Delete this attendee" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} name="admUnregAtt" onClick={props.delete}>
-              <Image src="/images/trash-can.png" className="tbldelete" alt="Delete this attendee" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} onClick={props.delete} />
+              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Delete this attendee" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} onClick={props.delete} />
             </Button>
           </td>
         </tr>
