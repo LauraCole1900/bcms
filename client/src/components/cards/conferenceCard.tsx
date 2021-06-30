@@ -287,14 +287,14 @@ const ConferenceCard = (props: any): ReactElement => {
                         {(conf.confType === "Live") &&
                           <p><a href={`https://www.google.com/maps/search/${conf.confLoc.replace(" ", "+")}`} rel="noreferrer noopener" target="_blank">{conf.confLoc}</a></p>}
                         {(conf.confType === "Virtual") &&
-                          (conf.confLocUrl !== undefined) &&
+                          (conf.confLocUrl !== undefined && conf.confLocUrl !== "") &&
                           <p><a href={conf.confLocUrl} rel="noreferrer noopener" target="_blank">{conf.confLoc}</a></p>}
                         {(conf.confType === "Virtual") &&
-                          (conf.confLocUrl === undefined) &&
+                          (conf.confLocUrl === undefined || conf.confLocUrl === "") &&
                           <p>{conf.confLoc}</p>}
                       </Row>
                       {(conf.confType === "Live") &&
-                        (conf.confLocUrl !== undefined) &&
+                        (conf.confLocUrl !== undefined && conf.confLoc !== "") &&
                         <Row>
                           <p><a href={conf.confLocUrl} rel="noreferrer noopener" target="_blank">{conf.confLocName}</a></p>
                         </Row>}
