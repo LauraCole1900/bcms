@@ -136,21 +136,15 @@ const PresenterForm = () => {
   }
 
   // Sets inputs to form fields in state
-  const handleInputChange = (data, dataset) => {
+  const handleInputChange = (data) => {
     const presData = data;
-    const dataSet = dataset;
-    console.log({ presData }, { dataSet });
     setPresenter(presData);
-    console.log({ presenter });
   };
 
   // Sets textarea inputs in state
-  const handleTextArea = (data, dataset) => {
+  const handleTextArea = (data) => {
     const presData = data;
-    const dataSet = dataset;
-    console.log({ presData }, { dataSet });
     setPresenter(presData);
-    console.log({ presenter });
   }
 
   // Handles click on "Update" button

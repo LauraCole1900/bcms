@@ -126,7 +126,6 @@ const SessionCard = (props: any): ReactElement => {
     const thesePres: Presenter[] = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
     const presName: string[] = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName)
     nameArr = [presName.join(", ")]
-    console.log({ nameArr })
     return nameArr;
   }
 
@@ -135,7 +134,6 @@ const SessionCard = (props: any): ReactElement => {
     const thesePres = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
     const presOrg: string[] = thesePres.map((pres: Presenter) => pres.presOrg)
     orgArr = [...new Set(presOrg)]
-    console.log({ orgArr })
     return orgArr;
   }
 
