@@ -208,8 +208,8 @@ const SessionCard = (props: any): ReactElement => {
                       <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.sessName} data-name="sessDelete" />
                     </Button>}
                   {urlType === "schedule" &&
-                    <Button data-toggle="popover" title="Close" className="button closeBtn" onClick={props.hide}>
-                      <Image fluid src="/images/close-icon-2.png" className="button close" alt="Close" />
+                    <Button data-toggle="popover" title="Close" className="closeBtn" onClick={props.hide}>
+                      <Image fluid src="/images/close-icon-2.png" className="close" alt="Close" />
                     </Button>}
                 </Col>
               </Row>

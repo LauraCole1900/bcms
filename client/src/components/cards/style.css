@@ -80,15 +80,31 @@ p {
   background: var(--blueGradientUp);
 }
 
-.button.close {
+.close {
   margin: 0;
   padding: 0;
-  max-width: 25px;
+  max-height: 1em;
+  max-width: 5em;
 }
 
 .closeBtn {
+  color: var(--lightSil);
+  background: var(--greenGradientDown);
+  border: 2px solid var(--darkForest);
+  border-radius: 10px;
   margin: 5px;
   padding: 5px;
+  max-width: 5em;
+  box-shadow: 2px 2px 5px var(--darkForest);
+  display: inline-block;
+  white-space: normal;
+}
+.closeBtn:hover,
+.closeBtn:focus,
+.closeBtn:active {
+  color: var(--darkForest);
+  background: var(--silverGradientDown);
+  border: 2px solid var(--darkForest);
 }
 
 .delete {
