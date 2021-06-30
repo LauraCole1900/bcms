@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Conference = require("./conferenceModel");
+const Session = require("./sessionModel");
 
 mongoose.Schema.Types.String.checkRequired(v => v != null);
 
@@ -10,7 +12,8 @@ var trimmedString = {
 
 const presenterSchema = new Schema({
   confId: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: Conference,
     required: true
   },
   presGivenName: {
@@ -43,7 +46,8 @@ const presenterSchema = new Schema({
     type: String,
   },
   presSessionIds: {
-    type: [ trimmedString ],
+    type: [ Schema.Types.ObjectId ],
+    ref: Session,
     required: true
   },
   presKeynote: {

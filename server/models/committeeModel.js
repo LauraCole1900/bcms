@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Conference = require("./conferenceModel");
 
 const committeeSchema = new Schema ({
   confId: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: Conference,
     required: true
   },
   commEmail: {

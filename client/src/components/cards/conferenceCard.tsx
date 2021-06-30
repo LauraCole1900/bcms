@@ -1,6 +1,7 @@
 import React, { MouseEvent, ReactElement, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
+import { ObjectId } from "mongoose";
 import { useAuth0, User } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
@@ -10,7 +11,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
 interface Attendee {
-  confId: string,
+  confId: ObjectId,
   email: string,
   givenName: string,
   familyName: string,
@@ -24,7 +25,7 @@ interface Attendee {
   waiverSigned: boolean,
   paid: boolean,
   isAdmin: string,
-  _id: string
+  _id: ObjectId
 }
 
 interface Conference {
@@ -61,11 +62,11 @@ interface Conference {
   confWaiver: string,
   confAdmins: string[],
   confCancel: string,
-  _id: string
+  _id: ObjectId
 }
 
 interface Exhibitor {
-  confId: string,
+  confId: ObjectId,
   exhGivenName: string,
   exhFamilyName: string,
   exhEmail: string,
@@ -80,14 +81,14 @@ interface Exhibitor {
   exhSpaces: number,
   exhBoothNum: string,
   exhAttend: boolean,
-  _id: string
+  _id: ObjectId
 }
 
 const ConferenceCard = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
   const location = useLocation<Location>();
-  const [cardAttendConf, setCardAttendConf] = useState<string[]>([]);
-  const [cardExhibitConf, setCardExhibitConf] = useState<string[]>([]);
+  const [cardAttendConf, setCardAttendConf] = useState<ObjectId[]>([]);
+  const [cardExhibitConf, setCardExhibitConf] = useState<ObjectId[]>([]);
   const [errThrown, setErrThrown] = useState<string>();
   const [btnName, setBtnName] = useState<string>();
   const [thisId, setThisId] = useState<string>();
@@ -104,7 +105,7 @@ const ConferenceCard = (props: any): ReactElement => {
   const [showErr, setShowErr] = useState<string | undefined>("none");
 
   // Sets boolean to show or hide relevant modal
-  const handleShowConfirm = (e: MouseEvent): string | void => {
+  const handleShowConfirm = (e: MouseEvent): any | void => {
     const { dataset, name } = e.target as HTMLButtonElement;
     console.log(dataset.name, dataset.confid, dataset.confname);
     setBtnName(dataset.name);
@@ -227,7 +228,7 @@ const ConferenceCard = (props: any): ReactElement => {
       AttendeeAPI.getConferencesAttending(user!.email)
         .then((resp: AxiosResponse<Attendee[]>) => {
           const cardAttArr: Attendee[] = resp.data
-          const cardAttIds: string[] = cardAttArr.map((cardAtt: Attendee) => cardAtt.confId)
+          const cardAttIds: ObjectId[] = cardAttArr.map((cardAtt: Attendee) => cardAtt.confId)
           setCardAttendConf(cardAttIds);
         })
         .catch(err => console.log(err));
@@ -237,7 +238,7 @@ const ConferenceCard = (props: any): ReactElement => {
         .then((resp: AxiosResponse<Exhibitor[]>) => {
           console.log("from confCard getConfExh", resp.data)
           const cardExhArr: Exhibitor[] = resp.data
-          const cardExhIds: string[] = cardExhArr.map((cardExh: Exhibitor) => cardExh.confId)
+          const cardExhIds: ObjectId[] = cardExhArr.map((cardExh: Exhibitor) => cardExh.confId)
           setCardExhibitConf(cardExhIds);
         })
     }
@@ -250,7 +251,7 @@ const ConferenceCard = (props: any): ReactElement => {
     <>
       {cardRender === true &&
         props.conference.map((conf: Conference) => (
-          <Card className="infoCard" key={conf._id}>
+          <Card className="infoCard" key={conf._id.toString()}>
             <Card.Header className="cardTitle">
               <Row>
                 <Col sm={11}>
