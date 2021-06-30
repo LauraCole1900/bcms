@@ -204,7 +204,7 @@ const SuccessModal = (props: any): ReactElement => {
 
             {/* Link to Conference Details page */}
             {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "committee" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
-              <DetailsButton confname={props.confname} confid={props.conference._id} button="button" />}
+              <DetailsButton confname={props.confname} confid={props.conference?._id} button="button" />}
 
             {/* Return to Profile page */}
             {props.urlid === "profile" &&
