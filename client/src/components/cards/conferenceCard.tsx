@@ -5,8 +5,7 @@ import { ObjectId } from "mongoose";
 import { useAuth0, User } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
-import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
-import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
+import { AttendeeAPI, ExhibitorAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
@@ -89,10 +88,6 @@ const ConferenceCard = (props: any): ReactElement => {
   const location = useLocation<Location>();
   const [cardAttendConf, setCardAttendConf] = useState<ObjectId[]>([]);
   const [cardExhibitConf, setCardExhibitConf] = useState<ObjectId[]>([]);
-  const [errThrown, setErrThrown] = useState<string>();
-  const [btnName, setBtnName] = useState<string>();
-  const [thisId, setThisId] = useState<string>();
-  const [thisName, setThisName] = useState<string>();
   const [cardRender, setCardRender] = useState<boolean>(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
@@ -100,11 +95,7 @@ const ConferenceCard = (props: any): ReactElement => {
   const confId: string = urlArray[urlArray.length - 1]
   const urlType: string = urlArray[urlArray.length - 2]
 
-  // Modal variables
-  const [showConfirm, setShowConfirm] = useState<string | undefined>("none");
-  const [showErr, setShowErr] = useState<string | undefined>("none");
-
-  // Sets boolean to show or hide relevant modal
+  // Lifts state to show Confirm modal
   const handleShowConfirm = (e: MouseEvent): any | void => {
     const { dataset } = e.target as HTMLButtonElement;
     console.log(dataset.name, dataset.confid, dataset.confname);
@@ -114,7 +105,7 @@ const ConferenceCard = (props: any): ReactElement => {
     props.setThisName(dataset.confname);
     props.setShowConfirm(true);
   }
-  
+
   // Parses time to 12-hour
   const parseTime = (time: any): string | void => {
     const timeArr: [number, string] = time.split(":");
@@ -312,13 +303,6 @@ const ConferenceCard = (props: any): ReactElement => {
 
               </Row>
             </Card.Body>
-
-            {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-            {/* <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} cancelconf={() => handleConfCancel(thisId!)} unregatt={() => handleAttUnreg(thisId!, user!.email!)} unregexh={() => handleExhUnreg(thisId!, user!.email!)} show={showConfirm === (conf._id && btnName)} hide={() => handleHideConfirm()} />
-
-            <SuccessModal conference={conf} confname={thisName} confid={conf._id} urlid={confId} urltype={urlType} btnname={btnName} show={props.showSuccess === (conf._id && btnName)} hide={() => handleHideSuccess()} />
-
-            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (conf._id && btnName)} hide={() => handleHideErr()} /> */}
 
           </Card>
 

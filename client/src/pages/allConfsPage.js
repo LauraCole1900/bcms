@@ -30,14 +30,6 @@ const AllConfs = () => {
   const [showErr, setShowErr] = useState(false);
 
   // Sets boolean to show or hide relevant modal
-  const handleShowConfirm = (e) => {
-    const { dataset, name } = e.target;
-    console.log(dataset.name, dataset.confid, dataset.confname);
-    setBtnName(dataset.name);
-    setThisId(dataset.confid);
-    setThisName(dataset.confname);
-    setShowConfirm(true);
-  }
   const handleHideConfirm = () => setShowConfirm(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
