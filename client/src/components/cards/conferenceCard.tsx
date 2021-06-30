@@ -89,9 +89,9 @@ const ConferenceCard = (props: any): ReactElement => {
   const [cardAttendConf, setCardAttendConf] = useState<string[]>([]);
   const [cardExhibitConf, setCardExhibitConf] = useState<string[]>([]);
   const [errThrown, setErrThrown] = useState<string>();
-  const [btnName, setBtnName] = useState<string | void>();
-  const [thisId, setThisId] = useState<string | void>();
-  const [thisName, setThisName] = useState<string | void>();
+  const [btnName, setBtnName] = useState<string>();
+  const [thisId, setThisId] = useState<string>();
+  const [thisName, setThisName] = useState<string>();
   const [cardRender, setCardRender] = useState<boolean>(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
@@ -101,7 +101,7 @@ const ConferenceCard = (props: any): ReactElement => {
 
   // Modal variables
   const [showConfirm, setShowConfirm] = useState<string | undefined>("none");
-  const [showErr, setShowErr] = useState<string | void | undefined>();
+  const [showErr, setShowErr] = useState<string | undefined>("none");
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e: MouseEvent): string | void => {

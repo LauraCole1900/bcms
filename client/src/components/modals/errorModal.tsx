@@ -155,7 +155,7 @@ const ErrorModal = (props: any): ReactElement => {
               <CloseModalButton confname={props.confname} click={props.hide} page="Schedule" />}
 
             {/* Link to Conference Details page */}
-            {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "committee" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urlid !== "new_conference" && props.urlid !== "update_user") &&
+            {(props.urltype !== "details" && props.urltype !== "attendees" && props.urltype !== "committee" && props.urltype !== "exhibitors" && props.urltype !== "presenters" && props.urltype !== "new_session" && props.urlid !== "new_conference" && props.urlid !== "update_user" && props.urlid !== "conferences" && props.urlid !== "") &&
               <DetailsButton confname={props.confname} confid={props.conference._id} button="button" />}
 
             {/* Close modal and return to Conference Details page */}
