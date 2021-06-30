@@ -1,0 +1,1 @@
+const { Attendee, Committee, Conference, Exhibitor, Presenter, Schedule, Session, User } = require('../models');
