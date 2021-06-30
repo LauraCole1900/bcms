@@ -1,5 +1,6 @@
 import React, { MouseEvent, ReactElement, useState, useEffect } from "react";
 import { Nav, Row } from "react-bootstrap";
+import { ObjectId } from "mongoose";
 import { useAuth0, User } from "@auth0/auth0-react";
 import { InternalLinkButton, UnregisterButton } from "../buttons";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
@@ -8,7 +9,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
 interface Attendee {
-  confId: string,
+  confId: ObjectId,
   email: string,
   givenName: string,
   familyName: string,
@@ -22,7 +23,7 @@ interface Attendee {
   waiverSigned: boolean,
   paid: boolean,
   isAdmin: boolean,
-  _id: string
+  _id: ObjectId
 }
 
 interface Conference {
@@ -59,11 +60,11 @@ interface Conference {
   confWaiver: string,
   confAdmins: string[],
   confCancel: string,
-  _id: string
+  _id: ObjectId
 }
 
 interface Exhibitor {
-  confId: string,
+  confId: ObjectId,
   exhGivenName: string,
   exhFamilyName: string,
   exhEmail: string,
@@ -77,13 +78,13 @@ interface Exhibitor {
   exhWorkerNames: string[],
   exhSpaces: number,
   exhBoothNum: string,
-  _id: string
+  _id: ObjectId
 }
 
 const Sidenav = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
-  const [cardAttendConf, setCardAttendConf] = useState<string[]>([]);
-  const [cardExhibitConf, setCardExhibitConf] = useState<string[]>([]);
+  const [cardAttendConf, setCardAttendConf] = useState<ObjectId[]>([]);
+  const [cardExhibitConf, setCardExhibitConf] = useState<ObjectId[]>([]);
   const [errThrown, setErrThrown] = useState<string>();
   const [btnName, setBtnName] = useState<string>("");
   const [thisId, setThisId] = useState<string>();
@@ -160,7 +161,7 @@ const Sidenav = (props: any): ReactElement => {
       AttendeeAPI.getConferencesAttending(user!.email)
         .then((resp: AxiosResponse) => {
           const cardAttArr: Attendee[] = resp.data
-          const cardAttIds: string[] = cardAttArr.map((cardAttArr: Attendee) => cardAttArr.confId)
+          const cardAttIds: ObjectId[] = cardAttArr.map((cardAttArr: Attendee) => cardAttArr.confId)
           setCardAttendConf(cardAttIds);
         })
         .catch((err: AxiosError) => console.log(err));
@@ -170,7 +171,7 @@ const Sidenav = (props: any): ReactElement => {
         .then((resp: AxiosResponse) => {
           console.log("from confCard getConfExh", resp.data)
           const cardExhArr: Exhibitor[] = resp.data
-          const cardExhIds: string[] = cardExhArr.map((cardExhArr: Exhibitor) => cardExhArr.confId)
+          const cardExhIds: ObjectId[] = cardExhArr.map((cardExhArr: Exhibitor) => cardExhArr.confId)
           setCardExhibitConf(cardExhIds);
         })
     }

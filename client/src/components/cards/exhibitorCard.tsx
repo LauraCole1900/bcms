@@ -1,9 +1,10 @@
 import React, { ReactElement, useEffect, useState } from "react";
+import { ObjectId } from "mongoose";
 import { Card, Row, Col, Image } from "react-bootstrap";
 import "./style.css";
 
 interface Exhibitor {
-  confId: string,
+  confId: ObjectId,
   exhGivenName: string,
   exhFamilyName: string,
   exhEmail: string,
@@ -17,7 +18,7 @@ interface Exhibitor {
   exhWorkerNames: string[],
   exhSpaces: number,
   exhBoothNum: string,
-  _id: string
+  _id: ObjectId
 }
 
 const ExhibitorCard = ({ exhibitor }: { exhibitor: Exhibitor[] }): ReactElement => {
@@ -36,7 +37,7 @@ const ExhibitorCard = ({ exhibitor }: { exhibitor: Exhibitor[] }): ReactElement 
     <>
       { cardRender === true &&
         exhibitor.map((exh: Exhibitor) => (
-          <Card className="infoCard smallCard" key={exh._id}>
+          <Card className="infoCard smallCard" key={exh._id.toString()}>
             <Card.Header className="cardTitle">
               <Row>
                 <Col sm={12}>

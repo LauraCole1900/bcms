@@ -1,9 +1,10 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import { ObjectId } from "mongoose";
 import { Card, Row, Col, Form } from "react-bootstrap";
 import "./style.css";
 
 interface Presenter {
-  confId: string,
+  confId: ObjectId,
   presGivenName: string,
   presFamilyName: string,
   presOrg: string,
@@ -12,10 +13,10 @@ interface Presenter {
   presPhone: string,
   presWebsite: string,
   presPic: string,
-  presSessionIds: string[],
+  presSessionIds: ObjectId[],
   presKeynote: string,
   presAccepted: string,
-  _id: string
+  _id: ObjectId
 }
 
 const PresenterFormCard = (props: any): ReactElement => {
@@ -26,7 +27,7 @@ const PresenterFormCard = (props: any): ReactElement => {
   const handleInputChange = (e: ChangeEvent): any => {
     const { dataset, name, value } = e.target as HTMLInputElement;
     // Finds where Object._id === dataset.id and concatenates data there
-    pres = (pres.map((pres: Presenter) => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }))
+    pres = (pres.map((pres: Presenter) => pres._id.toString() === dataset.id ? { ...pres, [name]: value } : { ...pres }))
     props.handleChange([...pres], dataset);
   }
 
@@ -37,7 +38,7 @@ const PresenterFormCard = (props: any): ReactElement => {
     const charLeft: number = 750 - charCount;
     setCharRem(charLeft);
     // Finds where Object._id === dataset.id and concatenates data there
-    pres = (pres.map((pres: Presenter) => pres._id === dataset.id ? { ...pres, [name]: value } : { ...pres }));
+    pres = (pres.map((pres: Presenter) => pres._id.toString() === dataset.id ? { ...pres, [name]: value } : { ...pres }));
     props.handleText([...pres], dataset);
   }
 
@@ -51,11 +52,11 @@ const PresenterFormCard = (props: any): ReactElement => {
   return (
     <>
       {pres.map((pres: Presenter, index: number) => (
-        <Card className="formCard" key={pres._id}>
+        <Card className="formCard" key={pres._id.toString()}>
           <Card.Title><h1>Presenter Information</h1></Card.Title>
 
           <Card.Body className="cardBody">
-            <Form.Group controlId={pres._id}>
+            <Form.Group controlId={pres._id.toString()}>
               <Row>
                 <Col sm={6}>
                   <Form.Label>Presenter's email: <span className="red">*</span></Form.Label>

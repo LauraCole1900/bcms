@@ -1,10 +1,11 @@
 import React, { ReactElement } from "react";
+import { ObjectId } from "mongoose";
 import { Table } from "react-bootstrap";
 import { SchedSessCard } from "../cards";
 import "./style.css";
 
 interface Session {
-  confId: string,
+  confId: ObjectId,
   sessName: string,
   sessPresEmails: string[],
   sessDate: string,
@@ -18,7 +19,7 @@ interface Session {
   sessPanel: string,
   sessRoom: string,
   sessAccepted: string,
-  _id: string
+  _id: ObjectId
 }
 
 const ScheduleGrid = (props: any): ReactElement => {

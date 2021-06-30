@@ -1,24 +1,25 @@
 import React, { ChangeEvent, MouseEvent, ReactElement } from "react";
+import { ObjectId } from "mongoose";
 import { Form, Button, Image } from "react-bootstrap";
 import { CommitteeAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
 interface Committee {
-  confId: string,
+  confId: ObjectId,
   commEmail: string,
   commGivenName: string,
   commFamilyName: string,
   commOrg: string,
   commPhone: string,
   isChair: string,
-  _id: string
+  _id: ObjectId
 }
 
 const CommitteeTable = (props: any): ReactElement => {
 
   const getEmail = (id: string | undefined): string => {
-    const chairObj: Committee = props.committee.find((comm: Committee) => comm._id === id)
+    const chairObj: Committee = props.committee.find((comm: Committee) => comm._id.toString() === id)
     const chairEmail: string = chairObj.commEmail
     return chairEmail
   }
@@ -60,7 +61,7 @@ const CommitteeTable = (props: any): ReactElement => {
         props.handleShowErr();
       })
     }
-    const commChairYes: Committee = props.committee.find((comm: Committee) => comm._id === dataset.id)
+    const commChairYes: Committee = props.committee.find((comm: Committee) => comm._id.toString() === dataset.id)
     props.setCommName(`${commChairYes.commGivenName} ${commChairYes.commFamilyName}`)
     console.log({ commChairYes });
     CommitteeAPI.updateCommMemberById({ ...commChairYes, isChair: "yes" }, commChairYes._id)
@@ -80,7 +81,7 @@ const CommitteeTable = (props: any): ReactElement => {
   return (
     <>
       {props.committee.map((comm: Committee) => (
-        <tr key={comm._id}>
+        <tr key={comm._id.toString()}>
           <td>{comm.commFamilyName}</td>
           <td>{comm.commGivenName}</td>
           <td>{comm.commEmail}</td>

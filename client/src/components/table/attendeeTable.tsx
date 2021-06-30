@@ -1,13 +1,14 @@
 import React, { ChangeEvent, ReactElement } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
+import { ObjectId } from "mongoose";
 import { Form, Button, Image } from "react-bootstrap";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import { AxiosError } from "axios";
 import "./style.css";
 
 interface Attendee {
-  confId: string,
+  confId: ObjectId,
   email: string,
   givenName: string,
   familyName: string,
@@ -21,14 +22,14 @@ interface Attendee {
   waiverSigned: boolean,
   paid: boolean,
   isAdmin: string,
-  _id: string
+  _id: ObjectId
 }
 
 const AttendeeTable = (props: any): ReactElement => {
   const location = useLocation<Location>();
 
   const getEmail = (id: string): string | undefined => {
-    const adminObj: Attendee = props.attendees.find((attendee: Attendee) => attendee._id === id)
+    const adminObj: Attendee = props.attendees.find((attendee: Attendee) => attendee._id.toString() === id)
     const adminEmail: string = adminObj.email
     return adminEmail
   }
@@ -78,7 +79,7 @@ const AttendeeTable = (props: any): ReactElement => {
   return (
     <>
       {props.attendees.map((att: Attendee) => (
-        <tr key={att._id}>
+        <tr key={att._id.toString()}>
           <td>{att.familyName}</td>
           <td>{att.givenName}</td>
           <td>{att.email}</td>

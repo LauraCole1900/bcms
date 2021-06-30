@@ -1,8 +1,9 @@
 import React, { ReactElement } from "react";
+import { ObjectId } from "mongoose";
 import "./style.css";
 
 interface Presenter {
-  confId: string,
+  confId: ObjectId,
   presGivenName: string,
   presFamilyName: string,
   presOrg: string,
@@ -11,10 +12,10 @@ interface Presenter {
   presPhone: string,
   presWebsite: string,
   presPic: string,
-  presSessionIds: string[],
+  presSessionIds: ObjectId[],
   presKeynote: string,
   presAccepted: string,
-  _id: string
+  _id: ObjectId
 }
 
 const PresenterTable = ({ presenters }: { presenters: Presenter[] }): ReactElement => {
@@ -23,7 +24,7 @@ const PresenterTable = ({ presenters }: { presenters: Presenter[] }): ReactEleme
   return (
     <>
       {presenters.map((pres: Presenter) => (
-        <tr key={pres._id}>
+        <tr key={pres._id.toString()}>
           <td>{pres.presFamilyName}</td>
           <td>{pres.presGivenName}</td>
           <td>{pres.presEmail}</td>

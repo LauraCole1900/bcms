@@ -1,23 +1,160 @@
-import React, { useEffect, useState } from "react";
+import React, { MouseEvent, ReactElement, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ObjectId } from "mongoose";
+import { useAuth0, User } from "@auth0/auth0-react";
 import { Container, Row, Col, Table, Form, Card, Image } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
 import { ConferenceCard, UserCard } from "../cards";
 import { CommitteeForm } from "../forms";
 import { AttendeeTable, CommitteeTable, ExhibitorTable, PresenterTable } from "./";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { Sidenav } from "../navbar";
 import { AttendeeAPI, CommitteeAPI, ConferenceAPI, ExhibitorAPI, SessionAPI, PresenterAPI } from "../../utils/api";
+import { AxiosResponse, AxiosError } from "axios";
 import "./style.css";
 
-const TableComp = (e) => {
+interface Attendee {
+  confId: ObjectId,
+  email: string,
+  givenName: string,
+  familyName: string,
+  phone: string,
+  employerName: string,
+  employerAddress: string,
+  emergencyContactName: string,
+  emergencyContactPhone: string,
+  allergyConfirm: string,
+  allergies: string[],
+  waiverSigned: boolean,
+  paid: boolean,
+  isAdmin: string,
+  _id: ObjectId
+}
+
+interface Committee {
+  confId: ObjectId,
+  commEmail: string,
+  commGivenName: string,
+  commFamilyName: string,
+  commOrg: string,
+  commPhone: string,
+  isChair: string,
+  _id: ObjectId
+}
+
+interface Conference {
+  ownerConfirm: string,
+  ownerEmail: string,
+  confName: string,
+  confOrg: string,
+  confDesc: string,
+  startDate: string,
+  endDate: string,
+  numDays: number,
+  confStartTime: string,
+  confEndTime: string,
+  confType: string,
+  confLoc: string,
+  confLocName: string,
+  confLocUrl: string,
+  confRegDeadline: string,
+  confKeynote: string,
+  confCapConfirm: string,
+  confAttendCap: number,
+  confFee: string,
+  confFeeAmt: string,
+  confEarlyRegConfirm: string,
+  confEarlyRegDeadline: string,
+  confEarlyRegFee: string,
+  confEarlyRegSwagConfirm: string,
+  confEarlyRegSwagType: string,
+  confEarlyRegSizeConfirm: string,
+  confSessProposalConfirm: string,
+  confSessProposalDeadline: string,
+  confSessProposalCommittee: string[],
+  confAllergies: string,
+  confWaiver: string,
+  confAdmins: string[],
+  confCancel: string,
+  _id: ObjectId
+}
+
+interface Exhibitor {
+  confId: ObjectId,
+  exhGivenName: string,
+  exhFamilyName: string,
+  exhEmail: string,
+  exhCompany: string,
+  exhPhone: string,
+  exhCompanyAddress: string,
+  exhDesc: string,
+  exhLogo: string,
+  exhWebsite: string,
+  exhWorkers: number,
+  exhWorkerNames: string[],
+  exhSpaces: number,
+  exhBoothNum: string,
+  exhAttend: boolean,
+  _id: ObjectId
+}
+
+interface Presenter {
+  confId: ObjectId,
+  presGivenName: string,
+  presFamilyName: string,
+  presOrg: string,
+  presBio: string,
+  presEmail: string,
+  presPhone: string,
+  presWebsite: string,
+  presPic: string,
+  presSessionIds: ObjectId[],
+  presKeynote: string,
+  presAccepted: string,
+  _id: ObjectId
+}
+
+interface Session {
+  confId: ObjectId,
+  sessName: string,
+  sessPresEmails: string[],
+  sessDate: string,
+  sessStart: string,
+  sessEnd: string,
+  sessDesc: string,
+  sessEquipConfirm: string,
+  sessEquipProvide: string,
+  sessEquip: string[],
+  sessKeynote: string,
+  sessPanel: string,
+  sessRoom: string,
+  sessAccepted: string,
+  _id: ObjectId
+}
+
+interface ThisEvent {
+  dataset: {
+    toggle: string,
+    confid: string,
+    attname: string,
+    confname: string,
+    commname: string,
+    exhname: string,
+    presname: string,
+    email: string,
+    name: string,
+  },
+  title: string,
+  className: string,
+}
+
+const TableComp = (): ReactElement => {
 
   // TO-DO:
   // Link "Add Presenter" button to PresForm
 
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
-  const [attendees, setAttendees] = useState([]);
-  const [committee, setCommittee] = useState([]);
+  const { isAuthenticated, loginWithRedirect } = useAuth0<User>();
+  const [attendees, setAttendees] = useState<Attendee[]>([]);
+  const [committee, setCommittee] = useState<Committee[]>([]);
   const [member, setMember] = useState({
     commGivenName: "",
     commFamilyName: "",
@@ -25,42 +162,42 @@ const TableComp = (e) => {
     commPhone: "",
     commOrg: ""
   });
-  const [conference, setConference] = useState([]);
-  const [exhibitors, setExhibitors] = useState([]);
-  const [presenters, setPresenters] = useState([]);
-  const [sessNames, setSessNames] = useState([]);
-  const [search, setSearch] = useState("");
-  const [searchBy, setSearchBy] = useState("all");
-  const [sortAscending, setSortAscending] = useState(false);
-  const [errThrown, setErrThrown] = useState();
-  const [btnName, setBtnName] = useState("");
-  const [thisId, setThisId] = useState();
-  const [thisEmail, setThisEmail] = useState();
-  const [confName, setConfName] = useState();
-  const [attName, setAttName] = useState();
-  const [commName, setCommName] = useState();
-  const [exhName, setExhName] = useState();
-  const [presName, setPresName] = useState();
-  const [pageReady, setPageReady] = useState(false);
-  const [confReady, setConfReady] = useState(false);
-  let thisEvent;
+  const [conference, setConference] = useState<Conference[]>([]);
+  const [exhibitors, setExhibitors] = useState<Exhibitor[]>([]);
+  const [presenters, setPresenters] = useState<Presenter[]>([]);
+  const [sessNames, setSessNames] = useState<string[]>([]);
+  const [search, setSearch] = useState<string>("");
+  const [searchBy, setSearchBy] = useState<string>("all");
+  const [sortAscending, setSortAscending] = useState<boolean>(false);
+  const [errThrown, setErrThrown] = useState<string | void>();
+  const [btnName, setBtnName] = useState<string>("");
+  const [thisId, setThisId] = useState<string | undefined>();
+  const [thisEmail, setThisEmail] = useState<string | undefined>();
+  const [confName, setConfName] = useState<string>();
+  const [attName, setAttName] = useState<string>();
+  const [commName, setCommName] = useState<string>();
+  const [exhName, setExhName] = useState<string>();
+  const [presName, setPresName] = useState<string>();
+  const [pageReady, setPageReady] = useState<boolean>(false);
+  const [confReady, setConfReady] = useState<boolean>(false);
+  let thisEvent: ThisEvent;
 
-  const urlArray = window.location.href.split("/");
-  const confId = urlArray[urlArray.length - 1];
-  const dataSet = urlArray[urlArray.length - 2];
+  const urlArray: string[] = window.location.href.split("/");
+  const confId: string = urlArray[urlArray.length - 1];
+  const dataSet: string = urlArray[urlArray.length - 2];
 
-  const attHeaders = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
-  const commHeaders = ["commFamilyName", "commGivenName", "commEmail", "commPhone", "commOrg", "isChair"]
-  const exhHeaders = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend", "exhBoothNum"];
-  const presHeaders = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds"];
+  const attHeaders: string[] = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
+  const commHeaders: string[] = ["commFamilyName", "commGivenName", "commEmail", "commPhone", "commOrg", "isChair"]
+  const exhHeaders: string[] = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend", "exhBoothNum"];
+  const presHeaders: string[] = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds"];
 
   // Modal variables
-  const [showConfirm, setShowConfirm] = useState("0");
-  const [showSuccess, setShowSuccess] = useState("0");
-  const [showErr, setShowErr] = useState("0");
+  const [showConfirm, setShowConfirm] = useState<string | undefined>("none");
+  const [showSuccess, setShowSuccess] = useState<string | undefined>("none");
+  const [showErr, setShowErr] = useState<string | undefined>("none");
 
   // Sets boolean to show or hide relevant modal
-  const handleShowConfirm = (e) => {
+  const handleShowConfirm = (e: MouseEvent): any | void => {
     switch (dataSet) {
       case "committee":
         console.log(thisEvent);
@@ -75,9 +212,9 @@ const TableComp = (e) => {
         setPresName(thisEvent.dataset.presname);
         break;
       default:
-        const { dataset, name } = e.target;
+        const { dataset, name } = e.target as HTMLButtonElement;
         console.log(name, dataset.confid, dataset.confname, dataset.attname, dataset.email);
-        setShowConfirm(true);
+        setShowConfirm("index");
         setBtnName(name);
         setThisId(dataset.confid);
         setConfName(dataset.confname);
@@ -88,26 +225,26 @@ const TableComp = (e) => {
         setPresName(dataset.presname);
     }
   }
-  const handleHideConfirm = () => setShowConfirm("0");
-  const handleShowSuccess = () => setShowSuccess("index");
-  const handleHideSuccess = () => setShowSuccess("0");
-  const handleShowErr = () => setShowErr("index");
-  const handleHideErr = () => setShowErr("0");
+  const handleHideConfirm = (): string | void => setShowConfirm("none");
+  const handleShowSuccess = (): string | void => setShowSuccess("index");
+  const handleHideSuccess = (): string | void => setShowSuccess("none");
+  const handleShowErr = (): string | void => setShowErr("index");
+  const handleHideErr = (): string | void => setShowErr("none");
 
   // Handles click on "Yes, unregister attendee" button on ConfirmModal
-  const handleAttUnreg = (confId, email) => {
+  const handleAttUnreg = (confId: string| undefined, email: string | undefined): Attendee | void => {
     console.log("from confirm attUnreg", confId, email)
     handleHideConfirm();
     // DELETE call to delete attendee document
     AttendeeAPI.unregisterAttendee(confId, email)
-      .then(res => {
+      .then((resp: AxiosResponse<Attendee>) => {
         // If no errors thrown, show Success modal
-        if (!res.err) {
+        if (resp.status !== 422) {
           handleShowSuccess()
         }
       })
       // If yes errors thrown, show Error modal
-      .catch(err => {
+      .catch((err: AxiosError) => {
         console.log(err);
         setErrThrown(err.message);
         handleShowErr();
@@ -115,53 +252,53 @@ const TableComp = (e) => {
   }
 
   // Handles click on "Yes, delete member" button on ConfirmModal
-  const handleDeleteComm = (email, confId) => {
+  const handleDeleteComm = (email: string | undefined, confId: string | undefined): Committee | void => {
     console.log("from confirm deleteComm", email, confId)
     handleHideConfirm();
     // DELETE call to delete committee document
     CommitteeAPI.deleteCommMember(email, confId)
-      .then(resp => {
+      .then((resp: AxiosResponse<Committee>) => {
         // If no errors thrown, show Success modal
-        if (!resp.err) {
+        if (resp.status !== 422) {
           console.log(resp);
         }
       })
       // If yes errors thrown, show Error modal
-      .catch(err => {
+      .catch((err: AxiosError) => {
         console.log(err);
         setErrThrown(err.message);
         handleShowErr();
       });
     // Filters member email from conf.confSessProposalComm[]
-    const comms = conference[0].confSessProposalCommittee.filter(commEmail => commEmail !== email)
+    const comms: string[] = conference[0].confSessProposalCommittee.filter(commEmail => commEmail !== email)
     // Updates conference document with filtered email array
     ConferenceAPI.updateConference({ ...conference[0], confSessProposalCommittee: comms }, conference[0]._id)
-      .then(resp => {
-        if (!resp.err) {
+      .then((resp: AxiosResponse<Conference>) => {
+        if (resp.status !== 422) {
           handleShowSuccess();
         }
       })
-      .catch(err => {
-        console.log.apply(err);
+      .catch((err: AxiosError) => {
+        console.log(err);
         setErrThrown(err.message);
         handleShowErr();
       })
   }
 
   // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
-  const handleExhUnreg = (confId, email) => {
+  const handleExhUnreg = (confId: string | undefined, email: string | undefined): Exhibitor | void => {
     console.log("from confirm exhUnreg", confId, email)
     handleHideConfirm();
     // DELETE call to delete exhibitor document
     ExhibitorAPI.deleteExhibitor(confId, email)
-      .then(res => {
+      .then((resp: AxiosResponse<Exhibitor>) => {
         // If no errors thrown, show Success modal
-        if (!res.err) {
+        if (resp.status !== 422) {
           handleShowSuccess();
         }
       })
       // If yes errors thrown, show Error modal
-      .catch(err => {
+      .catch((err: AxiosError) => {
         console.log(err)
         setErrThrown(err.message);
         handleShowErr();
@@ -169,82 +306,82 @@ const TableComp = (e) => {
   }
 
   // Sets event data as variable to use in modals
-  const setEvent = (data) => {
+  const setEvent = (data: ThisEvent): ThisEvent => {
     thisEvent = data;
     return thisEvent;
   }
 
   // GET conference info for useEffect and callback
-  const fetchConf = async (confId) => {
+  const fetchConf = async (confId: string): Promise<Conference[] | void> => {
     await ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
+      .then((resp: AxiosResponse<Conference[]>) => {
         console.log("table getConfsById", resp.data)
         setConference(resp.data)
       })
-      .catch(err => console.log(err))
+      .catch((err: AxiosError) => console.log(err))
     setConfReady(true);
   }
 
   // GETs attendees for useEffect and callback
-  const fetchAttendees = async (confId) => {
+  const fetchAttendees = async (confId: string): Promise<Attendee[] | void> => {
     await AttendeeAPI.getAttendees(confId)
-      .then(resp => {
+      .then((resp: AxiosResponse<Attendee[]>) => {
         console.log("table fetchAttendees", resp.data)
-        const attSort = ascendingSort(resp.data, "familyName")
+        const attSort: Attendee[] = ascendingSort(resp.data, "familyName")
         setAttendees(attSort)
       })
-      .catch(err => console.log(err))
+      .catch((err: AxiosError) => console.log(err))
   }
 
   // GETs committee members for useEffect and callback
-  const fetchCommittee = async (confId) => {
+  const fetchCommittee = async (confId: string): Promise<Committee[] | void> => {
     await CommitteeAPI.getCommittee(confId)
-      .then(resp => {
+      .then((resp: AxiosResponse<Committee[]>) => {
         console.log("table fetchCommittee", resp.data)
-        const commSort = ascendingSort(resp.data, "commFamilyName")
+        const commSort: Committee[] = ascendingSort(resp.data, "commFamilyName")
         setCommittee(commSort)
       })
-      .catch(err => console.log(err))
+      .catch((err: AxiosError) => console.log(err))
   }
 
   // GETs exhibitors for useEffect
-  const fetchExhibitors = async (confId) => {
+  const fetchExhibitors = async (confId: string): Promise<Exhibitor[] | void> => {
     await ExhibitorAPI.getExhibitors(confId)
-      .then(resp => {
+      .then((resp: AxiosResponse<Exhibitor[]>) => {
         console.log("table fetchExhibitors", resp.data)
-        const exhSort = ascendingSort(resp.data, "exhFamilyName")
+        const exhSort: Exhibitor[] = ascendingSort(resp.data, "exhFamilyName")
         setExhibitors(exhSort)
       })
-      .catch(err => console.log(err))
+      .catch((err: AxiosError) => console.log(err))
   }
 
   // GETs presenters for useEffect
-  const fetchPresenters = async (confId) => {
+  const fetchPresenters = async (confId: string): Promise<Presenter[] | void> => {
     await PresenterAPI.getPresentersByConf(confId)
-      .then(resp => {
+      .then((resp: AxiosResponse<Presenter[]>) => {
         console.log("table fetchPresenters", resp.data)
-        const presSort = ascendingSort(resp.data, "presFamilyName")
+        const presSort: Presenter[] = ascendingSort(resp.data, "presFamilyName")
         setPresenters(presSort)
       })
-      .catch(err => console.log(err))
+      .catch((err: AxiosError) => console.log(err))
   }
 
-  // GETs sessions
-  const fetchSessions = async (sessId) => {
+  // GETs session names
+  const fetchSessions = async (sessId: ObjectId): Promise<Session[] | void> => {
     await SessionAPI.getSessions(sessId)
-      .then(resp => {
+      .then((resp: AxiosResponse<Session[]>) => {
         console.log("table fetchSessions", resp.data)
-        setSessNames(resp.data.sessName)
+        // setSessNames(resp.data.sessName)
       })
   }
 
   // Search method
-  const getFilteredData = (data, arr, prop) => {
-    return data.filter((arr) => arr[prop].toLowerCase().indexOf(search.toLowerCase()) !== -1);
+  const getFilteredData = (data: any, arr: any, attr: any): Attendee[] | Exhibitor[] | Presenter[] => {
+    return data.filter((arr: any) => arr[attr].toLowerCase().indexOf(search.toLowerCase()) !== -1);
   }
 
   // Defines which array to search based on searchBy and dataSet variables
-  const searchFilter = (data) => {
+  const searchFilter = (data: object[]): any => {
     switch (searchBy) {
       case "name":
         switch (dataSet) {
@@ -286,17 +423,17 @@ const TableComp = (e) => {
   }
 
   // Sort ascending
-  const ascendingSort = (arr, value) => {
-    return arr.sort((a, b) => (a[value] > b[value]) ? 1 : -1);
+  const ascendingSort = (arr: any, value: any): any => {
+    return arr.sort((a: any, b: any) => (a[value] > b[value]) ? 1 : -1);
   }
 
   // Sort descending
-  const descendingSort = (arr, value) => {
-    return arr.sort((a, b) => (a[value] > b[value]) ? -1 : 1);
+  const descendingSort = (arr: any, value: any): any => {
+    return arr.sort((a: any, b: any) => (a[value] > b[value]) ? -1 : 1);
   }
 
   // Toggles boolean on sort to re-render page
-  const ascendingSortSet = () => {
+  const ascendingSortSet = (): boolean | void => {
     switch (sortAscending) {
       case false:
         setSortAscending(true)
@@ -307,8 +444,8 @@ const TableComp = (e) => {
   }
 
   // Sort by column header
-  const sortBy = (e) => {
-    const { innerHTML } = e.target;
+  const sortBy = (e: MouseEvent): any => {
+    const { innerHTML } = e.target as HTMLButtonElement;
     switch (dataSet) {
       case "committee":
         const sortComm = (sortAscending) ? ascendingSort(committee, innerHTML) : descendingSort(committee, innerHTML)
@@ -354,14 +491,14 @@ const TableComp = (e) => {
     setPageReady(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [confId, dataSet, showSuccess, committee.length, member.length])
+  }, [confId, dataSet, showSuccess, committee.length, member.commEmail.length])
 
   return (
     <>
       {!isAuthenticated &&
         <Row>
           <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>log in</Link> to access this feature.</h1>
-          <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
+          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       {pageReady === true &&
@@ -401,11 +538,11 @@ const TableComp = (e) => {
                   <Col sm={4}></Col>
                   <Col sm={6}>
                     <Card.Body>
-                      <Form inline="true">
+                      <Form inline>
                         <Row>
                           <Col sm={5}>
                             <Form.Group controlId="confSearchBy">
-                              <Form.Control inline="true" as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
+                              <Form.Control as="select" name="searchBy" onChange={(e) => setSearchBy(e.target.value)}>
                                 <option value="all">View All</option>
                                 <option value="name">Search by Family Name</option>
                                 <option value="email">Search by Email</option>
@@ -416,7 +553,7 @@ const TableComp = (e) => {
                           <Col sm={4}>
                             {(searchBy !== "all") &&
                               <div id="confPageSearch">
-                                <Form.Control inline="true" className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                                <Form.Control className="mr-lg-5 search-area" type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                               </div>}
                           </Col>
                         </Row>
@@ -433,28 +570,28 @@ const TableComp = (e) => {
                   <p className="subhead">Click column headers to sort</p>
                 </Col>
               </Row>
-              <Table striped border="true" hover responsive>
+              <Table striped bordered hover responsive>
                 <thead>
                   <tr>
                     {dataSet === "attendees" &&
                       attendees.length > 0 && (
                         attHeaders.map((data, idx) => (
-                          <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
+                          <td key={idx} className="tHead" onClick={sortBy}>{data}</td>
                         )))}
                     {dataSet === "committee" &&
                       committee.length > 0 && (
                         commHeaders.map((data, idx) => (
-                          <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
+                          <td key={idx} className="tHead" onClick={sortBy}>{data}</td>
                         )))}
                     {dataSet === "exhibitors" &&
                       exhibitors.length > 0 && (
                         exhHeaders.map((data, idx) => (
-                          <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
+                          <td key={idx} className="tHead" onClick={sortBy}>{data}</td>
                         )))}
                     {dataSet === "presenters" &&
                       presenters.length > 0 && (
                         presHeaders.map((data, idx) => (
-                          <td key={idx} value={data.value} className="tHead" onClick={sortBy}>{data}</td>
+                          <td key={idx} className="tHead" onClick={sortBy}>{data}</td>
                         )))}
                   </tr>
                 </thead>
@@ -473,7 +610,7 @@ const TableComp = (e) => {
                       : <tr><td className="tableComm">We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "presenters" && (
                     presenters.length > 0
-                      ? <PresenterTable presenters={searchFilter(presenters)} conference={conference} sessnames={sessNames} confcb={fetchConf} prescb={fetchPresenters} />
+                      ? <PresenterTable presenters={searchFilter(presenters)} />
                       : <tr><td className="tableComm">We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</td></tr>)}
                 </tbody>
               </Table>
@@ -484,11 +621,11 @@ const TableComp = (e) => {
               {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
 
               {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commname={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisEmail, thisId)} show={showConfirm === "index"} hide={(e) => handleHideConfirm(e)} />
+              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commname={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisEmail, thisId)} show={showConfirm === "index"} hide={() => handleHideConfirm()} />
 
-              <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} commname={commName} exhname={exhName} presname={presName} show={showSuccess === "index"} hide={(e) => handleHideSuccess(e)} />
+              <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} commname={commName} exhname={exhName} presname={presName} show={showSuccess === "index"} hide={() => handleHideSuccess()} />
 
-              <ErrorModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === "index"} hide={(e) => handleHideErr(e)} />
+              <ErrorModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === "index"} hide={() => handleHideErr()} />
 
             </Col>
           </Row>

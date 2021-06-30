@@ -1,8 +1,9 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
-import { Card, Row, Col, Button, Image } from "react-bootstrap";
+import { ObjectId } from "mongoose";
 import { useAuth0, User } from "@auth0/auth0-react";
+import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import "./style.css";
 
 // Figure out how to add session name(s)?
@@ -41,11 +42,11 @@ interface Conference {
   confWaiver: string,
   confAdmins: string[],
   confCancel: string,
-  _id: string
+  _id: ObjectId
 }
 
 interface Presenter {
-  confId: string,
+  confId: ObjectId,
   presGivenName: string,
   presFamilyName: string,
   presOrg: string,
@@ -54,10 +55,10 @@ interface Presenter {
   presPhone: string,
   presWebsite: string,
   presPic: string,
-  presSessionIds: string[],
+  presSessionIds: ObjectId[],
   presKeynote: string,
   presAccepted: string,
-  _id: string
+  _id: ObjectId
 }
 
 const PresenterCard = ({ conference, presenter }: { conference: Conference[], presenter: Presenter[] }): ReactElement => {
@@ -78,7 +79,7 @@ const PresenterCard = ({ conference, presenter }: { conference: Conference[], pr
     <>
       {cardRender === true &&
         presenter.map((pres: Presenter) => (
-          <Card className="infoCard" key={pres._id}>
+          <Card className="infoCard" key={pres._id.toString()}>
             {pres.presKeynote === "yes"
               ? <>
                 <Card.Header className="cardTitleKeynote">

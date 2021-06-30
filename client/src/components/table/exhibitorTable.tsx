@@ -1,12 +1,13 @@
 import React, { ChangeEvent, FormEvent, ReactElement, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
+import { ObjectId } from "mongoose";
 import { Button, Form, Image } from "react-bootstrap";
 import { ExhibitorAPI } from "../../utils/api";
 import "./style.css";
 
 interface Exhibitor {
-  confId: string,
+  confId: ObjectId,
   exhGivenName: string,
   exhFamilyName: string,
   exhEmail: string,
@@ -21,7 +22,7 @@ interface Exhibitor {
   exhSpaces: number,
   exhBoothNum: string,
   exhAttend: boolean,
-  _id: string
+  _id: ObjectId
 }
 
 const ExhibitorTable = (props: any): ReactElement => {
@@ -49,7 +50,7 @@ const ExhibitorTable = (props: any): ReactElement => {
   return (
     <>
       {props.exhibitors.map((exh: Exhibitor) => (
-        <tr key={exh._id}>
+        <tr key={exh._id.toString()}>
           <td>{exh.exhFamilyName}</td>
           <td>{exh.exhGivenName}</td>
           <td>{exh.exhEmail}</td>

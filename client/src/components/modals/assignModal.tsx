@@ -1,12 +1,13 @@
 import React, { ChangeEvent, MouseEvent, ReactElement, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { ObjectId } from "mongoose";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { SessionAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css"
 
 interface Session {
-  confId: string,
+  confId: ObjectId,
   sessName: string,
   sessPresEmails: string[],
   sessDate: string,
@@ -20,7 +21,7 @@ interface Session {
   sessPanel: string,
   sessRoom: string,
   sessAccepted: string,
-  _id: string
+  _id: ObjectId
 }
 
 const AssignModal = (props: any): ReactElement => {
@@ -54,7 +55,7 @@ const AssignModal = (props: any): ReactElement => {
         setSession(sessData);
         break;
       default:
-        const sess: Session = allSess.filter((sess: Session) => sess._id === value)[0];
+        const sess: Session = allSess.filter((sess: Session) => sess._id.toString() === value)[0];
         sessData = { ...sess, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
         props.setThisSess(sessData);
         setSession(sessData);
@@ -122,7 +123,7 @@ const AssignModal = (props: any): ReactElement => {
                   <Form.Control as="select" className="formSelect" onChange={handleInputChange}>
                     <option value="new">Create New Session</option>
                     {filteredSess.map((sess, idx) => (
-                      <option key={idx} value={sess._id}>{sess.sessName}</option>
+                      <option key={idx} value={sess._id.toString()}>{sess.sessName}</option>
                     ))}
                   </Form.Control>
                 </Col>
