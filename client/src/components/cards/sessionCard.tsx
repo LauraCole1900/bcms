@@ -1,6 +1,7 @@
 import React, { MouseEvent, ReactElement, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Location } from "history";
+import { ObjectId } from "mongoose";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0, User } from "@auth0/auth0-react";
 import Moment from "react-moment";
@@ -10,7 +11,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
 interface Presenter {
-  confId: string,
+  confId: ObjectId,
   presGivenName: string,
   presFamilyName: string,
   presOrg: string,
@@ -19,14 +20,14 @@ interface Presenter {
   presPhone: string,
   presWebsite: string,
   presPic: string,
-  presSessionIds: string[],
+  presSessionIds: ObjectId[],
   presKeynote: string,
   presAccepted: string,
-  _id: string
+  _id: ObjectId
 }
 
 interface Session {
-  confId: string,
+  confId: ObjectId,
   sessName: string,
   sessPresEmails: string[],
   sessDate: string,
@@ -40,7 +41,7 @@ interface Session {
   sessPanel: string,
   sessRoom: string,
   sessAccepted: string,
-  _id: string
+  _id: ObjectId
 }
 
 const SessionCard = (props: any): ReactElement => {
@@ -48,7 +49,7 @@ const SessionCard = (props: any): ReactElement => {
   const location = useLocation<Location>();
   const [errThrown, setErrThrown] = useState<string>();
   const [btnName, setBtnName] = useState<string | undefined>("");
-  const [thisId, setThisId] = useState<string | undefined>();
+  const [thisId, setThisId] = useState<ObjectId | string | undefined>();
   const presEmailArr: string[] = props.session.sessPresEmails;
   let nameArr: string[] = [];
   let orgArr: string[] = [];
@@ -59,8 +60,8 @@ const SessionCard = (props: any): ReactElement => {
   const urlType: string = urlArray[urlArray.length - 2]
 
   // Modal variables
-  const [showConfirm, setShowConfirm] = useState<string | undefined>("none");
-  const [showErr, setShowErr] = useState<string | undefined>("none");
+  const [showConfirm, setShowConfirm] = useState<ObjectId | string | undefined>("none");
+  const [showErr, setShowErr] = useState<ObjectId | string | undefined>("none");
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e: MouseEvent): any | void => {
@@ -72,9 +73,9 @@ const SessionCard = (props: any): ReactElement => {
     setShowConfirm(dataset.sessid);
   }
   const handleHideConfirm = (): string | void => setShowConfirm("none");
-  const handleShowSuccess = (): string | void => props.setShowSuccess(thisId);
+  const handleShowSuccess = (): ObjectId | undefined => props.setShowSuccess(thisId);
   const handleHideSuccess = (): string | void => props.setShowSuccess("none");
-  const handleShowErr = (): string | void => setShowErr(thisId);
+  const handleShowErr = (): ObjectId | void => setShowErr(thisId);
   const handleHideErr = (): string | void => setShowErr("none");
 
   // Parses time to 12-hour
@@ -91,12 +92,12 @@ const SessionCard = (props: any): ReactElement => {
   };
 
   // Handles click on "Yes, delete" button on Confirm modal
-  const handleSessDelete = (sessId: string): Session | void => {
+  const handleSessDelete = (sessId: ObjectId): Session | void => {
     console.log("from sessCard handleSessDelete", sessId)
     handleHideConfirm();
     // Deletes sessId from each presenters' sessId[]
     const thesePres: Presenter[] = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
-    const presSessions: string[][] = thesePres.map((pres: Presenter) => pres.presSessionIds.filter(id => id !== sessId))
+    const presSessions: ObjectId[][] = thesePres.map((pres: Presenter) => pres.presSessionIds.filter(id => id !== sessId))
     console.log("from sessCard handleSessDelete presSessions", presSessions);
     thesePres.forEach((pres: Presenter) => {
       if (presSessions[0].length > 0) {
@@ -121,18 +122,20 @@ const SessionCard = (props: any): ReactElement => {
   };
 
   // Filters props.presenter by sessId, then maps through the result to pull out presenter names
-  const fetchPresNames = (sessId: string): string[] => {
+  const fetchPresNames = (sessId: ObjectId): string[] => {
     const thesePres: Presenter[] = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
     const presName: string[] = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName)
     nameArr = [presName.join(", ")]
+    console.log({ nameArr })
     return nameArr;
   }
 
   // Filters props.presenter by sessId, then maps through the result to put out presenter organizations
-  const fetchPresOrgs = (sessId: string): string[] => {
+  const fetchPresOrgs = (sessId: ObjectId): string[] => {
     const thesePres = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
     const presOrg: string[] = thesePres.map((pres: Presenter) => pres.presOrg)
     orgArr = [...new Set(presOrg)]
+    console.log({ orgArr })
     return orgArr;
   }
 
@@ -140,7 +143,7 @@ const SessionCard = (props: any): ReactElement => {
   return (
     <>
       {props.session.map((sess: Session) => (
-        <Card className="infoCard" key={sess._id}>
+        <Card className="infoCard" key={sess._id.toString()}>
           {sess.sessKeynote === "yes" &&
             <Card.Header className="cardTitleKeynote">
               <Row>
@@ -246,7 +249,7 @@ const SessionCard = (props: any): ReactElement => {
 
           {urlType !== "schedule" &&
             <>
-              <ConfirmModal btnname={btnName} confname={sess.sessName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(thisId!)} show={showConfirm === (sess._id)} hide={() => handleHideConfirm()} />
+              <ConfirmModal btnname={btnName} confname={sess.sessName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(sess._id)} show={showConfirm === (sess._id)} hide={() => handleHideConfirm()} />
 
               <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={props.showSuccess === (sess._id)} hide={() => handleHideSuccess()} />
 

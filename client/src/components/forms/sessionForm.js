@@ -175,16 +175,29 @@ const SessionForm = () => {
         return false
       } else {
         // If presenter exists without sessId, add new session ID to presSessionIds[]
-        return await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
-          .then(resp => {
-            console.log("updatePresenter", resp)
-            return resp;
-          })
-          .catch(err => {
-            console.log(err)
-            setErrThrown(err.message);
-            handleShowErr();
-          })
+        if (conference.confKeynote === "yes") {
+          return await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
+            .then(resp => {
+              console.log("updatePresenter", resp)
+              return resp;
+            })
+            .catch(err => {
+              console.log(err)
+              setErrThrown(err.message);
+              handleShowErr();
+            })
+        } else {
+          return await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId], presKeynote: "no" }, email, confId)
+            .then(resp => {
+              console.log("updatePresenter", resp)
+              return resp;
+            })
+            .catch(err => {
+              console.log(err)
+              setErrThrown(err.message);
+              handleShowErr();
+            })
+        }
       }
     } else {
       // If presenter doesn't exist, create new presenter document
@@ -306,18 +319,33 @@ const SessionForm = () => {
     if (noErrors) {
       console.log("Session submit", session)
       // POST call to create session document
-      await SessionAPI.saveSession({ ...session, confId: urlId, sessAccepted: "yes" })
-        .then(resp => {
-          console.log(resp);
-          sessId = resp.data._id;
-          console.log({ sessId });
-          return sessId;
-        })
-        .catch(err => {
-          console.log(err)
-          setErrThrown(err.message);
-          handleShowErr();
-        })
+      if (conference.confKeynote === "yes") {
+        await SessionAPI.saveSession({ ...session, confId: urlId, sessAccepted: "yes" })
+          .then(resp => {
+            console.log(resp);
+            sessId = resp.data._id;
+            console.log({ sessId });
+            return sessId;
+          })
+          .catch(err => {
+            console.log(err)
+            setErrThrown(err.message);
+            handleShowErr();
+          })
+      } else {
+        await SessionAPI.saveSession({ ...session, confId: urlId, sessAccepted: "yes", sessKeynote: "no" })
+          .then(resp => {
+            console.log(resp);
+            sessId = resp.data._id;
+            console.log({ sessId });
+            return sessId;
+          })
+          .catch(err => {
+            console.log(err)
+            setErrThrown(err.message);
+            handleShowErr();
+          })
+      }
       const emailArr = session.sessPresEmails
       emailArr.forEach(email => {
         const trimmedEmail = email.trim()
