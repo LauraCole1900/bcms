@@ -1,73 +1,147 @@
-import React, { useEffect, useState } from "react";
+import React, { MouseEvent, ReactElement, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Location } from "history";
+import { useAuth0, User } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
+import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
-// Figure out how to add the keynote speaker???
+interface Attendee {
+  confId: string,
+  email: string,
+  givenName: string,
+  familyName: string,
+  phone: string,
+  employerName: string,
+  employerAddress: string,
+  emergencyContactName: string,
+  emergencyContactPhone: string,
+  allergyConfirm: string,
+  allergies: string[],
+  waiverSigned: boolean,
+  paid: boolean,
+  isAdmin: string,
+  _id: string
+}
 
-const ConferenceCard = (props) => {
-  const { user, isAuthenticated } = useAuth0();
-  const location = useLocation();
-  const [cardAttendConf, setCardAttendConf] = useState([]);
-  const [cardExhibitConf, setCardExhibitConf] = useState([]);
-  const [errThrown, setErrThrown] = useState();
-  const [btnName, setBtnName] = useState();
-  const [thisId, setThisId] = useState();
-  const [thisName, setThisName] = useState();
-  const [cardRender, setCardRender] = useState(false);
+interface Conference {
+  ownerConfirm: string,
+  ownerEmail: string,
+  confName: string,
+  confOrg: string,
+  confDesc: string,
+  startDate: string,
+  endDate: string,
+  numDays: number,
+  confStartTime: string,
+  confEndTime: string,
+  confType: string,
+  confLoc: string,
+  confLocName: string,
+  confLocUrl: string,
+  confRegDeadline: string,
+  confKeynote: string,
+  confCapConfirm: string,
+  confAttendCap: number,
+  confFee: string,
+  confFeeAmt: string,
+  confEarlyRegConfirm: string,
+  confEarlyRegDeadline: string,
+  confEarlyRegFee: string,
+  confEarlyRegSwagConfirm: string,
+  confEarlyRegSwagType: string,
+  confEarlyRegSizeConfirm: string,
+  confSessProposalConfirm: string,
+  confSessProposalDeadline: string,
+  confSessProposalCommittee: string[],
+  confAllergies: string,
+  confWaiver: string,
+  confAdmins: string[],
+  confCancel: string,
+  _id: string
+}
+
+interface Exhibitor {
+  confId: string,
+  exhGivenName: string,
+  exhFamilyName: string,
+  exhEmail: string,
+  exhCompany: string,
+  exhPhone: string,
+  exhCompanyAddress: string,
+  exhDesc: string,
+  exhLogo: string,
+  exhWebsite: string,
+  exhWorkers: number,
+  exhWorkerNames: string[],
+  exhSpaces: number,
+  exhBoothNum: string,
+  exhAttend: boolean,
+  _id: string
+}
+
+const ConferenceCard = (props: any): ReactElement => {
+  const { user, isAuthenticated } = useAuth0<User>();
+  const location = useLocation<Location>();
+  const [cardAttendConf, setCardAttendConf] = useState<string[]>([]);
+  const [cardExhibitConf, setCardExhibitConf] = useState<string[]>([]);
+  const [errThrown, setErrThrown] = useState<string>();
+  const [btnName, setBtnName] = useState<string | void>();
+  const [thisId, setThisId] = useState<string | void>();
+  const [thisName, setThisName] = useState<string | void>();
+  const [cardRender, setCardRender] = useState<boolean>(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
-  const urlArray = window.location.href.split("/")
-  const confId = urlArray[urlArray.length - 1]
-  const urlType = urlArray[urlArray.length - 2]
+  const urlArray: string[] = window.location.href.split("/")
+  const confId: string = urlArray[urlArray.length - 1]
+  const urlType: string = urlArray[urlArray.length - 2]
 
   // Modal variables
-  const [showConfirm, setShowConfirm] = useState(0);
-  const [showErr, setShowErr] = useState(0);
+  const [showConfirm, setShowConfirm] = useState<string | undefined>("none");
+  const [showErr, setShowErr] = useState<string | void | undefined>();
 
   // Sets boolean to show or hide relevant modal
-  const handleShowConfirm = (e) => {
-    const { dataset, name } = e.target;
-    console.log(name, dataset.confid, dataset.confname);
-    setBtnName(name);
+  const handleShowConfirm = (e: MouseEvent): string | void => {
+    const { dataset, name } = e.target as HTMLButtonElement;
+    console.log(dataset.name, dataset.confid, dataset.confname);
+    setBtnName(dataset.name);
     setThisId(dataset.confid);
     setThisName(dataset.confname);
     setShowConfirm(dataset.confid && name);
   }
-  const handleHideConfirm = () => setShowConfirm(0);
+  const handleHideConfirm = () => setShowConfirm("none");
   const handleShowSuccess = () => props.setShowSuccess(thisId && btnName);
   const handleHideSuccess = () => props.setShowSuccess(0);
   const handleShowErr = () => setShowErr(thisId && btnName);
-  const handleHideErr = () => setShowErr(0);
+  const handleHideErr = () => setShowErr("none");
   
   // Parses time to 12-hour
-  const parseTime = (time) => {
-    const timeArr = time.split(":");
-    let hours = timeArr[0];
-    let minutes = timeArr[1];
-    const ampm = hours >= 12 ? "pm" : "am"
+  const parseTime = (time: any): string | void => {
+    const timeArr: [number, string] = time.split(":");
+    let hours: number = timeArr[0];
+    let minutes: any = timeArr[1];
+    const ampm: string = hours >= 12 ? "pm" : "am"
     hours = hours % 12;
     hours = hours ? hours : 12
     minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
-    const timeStr = `${hours}:${minutes}${ampm}`
+    const timeStr: string = `${hours}:${minutes}${ampm}`
     return timeStr
   };
 
   // GETs registered attendees' emails
-  const fetchAttendeeEmails = async (confId) => {
+  const fetchAttendeeEmails = async (confId: string): Promise<string[] | void> => {
     console.log("from confCard fetchAttendees", confId)
     await AttendeeAPI.getAttendees(confId)
-      .then(res => {
+      .then((resp: AxiosResponse<Attendee[]>) => {
         // map through res.data and pull all emails into an array
-        const attData = res.data
-        let attEmails = attData.map(attData => attData.email)
+        const attData: Attendee[] = resp.data
+        let attEmails: string[] = attData.map((att: Attendee) => att.email)
         return attEmails
       })
-      .catch(err => {
+      .catch((err: AxiosError) => {
         console.log("from confCard fetAttEmails", err)
         setErrThrown(err.message);
         handleShowErr();
@@ -76,31 +150,31 @@ const ConferenceCard = (props) => {
 
   // Handles click on "Yes, Cancel" button on ConfirmModal
   // Will need to have email functionality to email registered participants
-  const handleConfCancel = async (confId) => {
+  const handleConfCancel = async (confId: string): Promise<Conference | void> => {
     console.log("from confCard", confId)
     handleHideConfirm();
-    let attEmailArr = await fetchAttendeeEmails(confId);
+    let attEmailArr: string[] | void = await fetchAttendeeEmails(confId);
     // send-email functionality for registered attendees goes here
 
     ExhibitorAPI.getExhibitors(confId)
-      .then(res => {
-        if (!res.err) {
-          console.log("from confCard getExhibitors", res.data)
+      .then((resp: AxiosResponse<Exhibitor[]>) => {
+        if (resp.status !== 422) {
+          console.log("from confCard getExhibitors", resp.data)
         }
       })
-      .catch(err => {
+      .catch((err: AxiosError) => {
         console.log("from confCard getExhibitors", err);
         setErrThrown(err.message);
         handleShowErr();
       })
 
     ConferenceAPI.updateConference({ ...props.conference, confCancel: "yes" }, confId)
-      .then(res => {
-        if (!res.err) {
+      .then((resp: AxiosResponse<Conference>) => {
+        if (resp.status !== 422) {
           handleShowSuccess();
         }
       })
-      .catch(err => {
+      .catch((err: AxiosError) => {
         console.log("from confCard updateConf", err);
         setErrThrown(err.message);
         handleShowErr();
@@ -108,19 +182,19 @@ const ConferenceCard = (props) => {
   };
 
   // Handles click on "Yes, unregister attendee" button on ConfirmModal
-  const handleAttUnreg = (confId, email) => {
+  const handleAttUnreg = (confId: string, email: string): Attendee | void => {
     console.log("from confirm attUnreg", confId, email)
     handleHideConfirm();
     // DELETE call to delete attendee document
     AttendeeAPI.unregisterAttendee(confId, email)
-      .then(res => {
+      .then((resp: AxiosResponse<Attendee>) => {
         // If no errors thrown, show Success modal
-        if (!res.err) {
+        if (resp.status !== 422) {
           handleShowSuccess();
         }
       })
       // If yes errors thrown, show Error modal
-      .catch(err => {
+      .catch((err: AxiosError) => {
         console.log(err);
         setErrThrown(err.message);
         handleShowErr();
@@ -128,19 +202,19 @@ const ConferenceCard = (props) => {
   }
 
   // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
-  const handleExhUnreg = (confId, email) => {
+  const handleExhUnreg = (confId: string, email: string): Exhibitor | void => {
     console.log("from confirm exhUnreg", confId, email)
     handleHideConfirm();
     // DELETE call to delete exhibitor document
     ExhibitorAPI.deleteExhibitor(confId, email)
-      .then(res => {
+      .then((resp: AxiosResponse<Exhibitor>) => {
         // If no errors thrown, show Success modal
-        if (!res.err) {
+        if (resp.status !== 422) {
           handleShowSuccess();
         }
       })
       // If yes errors thrown, show Error modal
-      .catch(err => {
+      .catch((err: AxiosError) => {
         console.log(err)
         setErrThrown(err.message);
         handleShowErr();
@@ -150,20 +224,20 @@ const ConferenceCard = (props) => {
   useEffect(() => {
     if (isAuthenticated) {
       // Retrieves conferences user is registered to attend to determine whether register or unregister button should render
-      AttendeeAPI.getConferencesAttending(user.email)
-        .then(resp => {
-          const cardAttArr = resp.data
-          const cardAttIds = cardAttArr.map(cardAttArr => cardAttArr.confId)
+      AttendeeAPI.getConferencesAttending(user!.email)
+        .then((resp: AxiosResponse<Attendee[]>) => {
+          const cardAttArr: Attendee[] = resp.data
+          const cardAttIds: string[] = cardAttArr.map((cardAtt: Attendee) => cardAtt.confId)
           setCardAttendConf(cardAttIds);
         })
         .catch(err => console.log(err));
 
       // Retrieves conferences user is registered to exhibit at to determine whether exhibit register or unregister button should render
-      ExhibitorAPI.getConferencesExhibiting(user.email)
-        .then(resp => {
+      ExhibitorAPI.getConferencesExhibiting(user!.email)
+        .then((resp: AxiosResponse<Exhibitor[]>) => {
           console.log("from confCard getConfExh", resp.data)
-          const cardExhArr = resp.data
-          const cardExhIds = cardExhArr.map(cardExhArr => cardExhArr.confId)
+          const cardExhArr: Exhibitor[] = resp.data
+          const cardExhIds: string[] = cardExhArr.map((cardExh: Exhibitor) => cardExh.confId)
           setCardExhibitConf(cardExhIds);
         })
     }
@@ -175,7 +249,7 @@ const ConferenceCard = (props) => {
   return (
     <>
       {cardRender === true &&
-        props.conference.map((conf) => (
+        props.conference.map((conf: Conference) => (
           <Card className="infoCard" key={conf._id}>
             <Card.Header className="cardTitle">
               <Row>
@@ -185,9 +259,9 @@ const ConferenceCard = (props) => {
                 </Col>
                 <Col sm={1}>
                   {isAuthenticated &&
-                    (user.email === conf.ownerEmail) &&
-                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} name="confCancel" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid="true" src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} name="confCancel" />
+                    (user!.email === conf.ownerEmail) &&
+                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-name="confCancel" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-name="confCancel" />
                     </Button>}
                 </Col>
               </Row>
@@ -276,7 +350,7 @@ const ConferenceCard = (props) => {
                   </div>}
 
                 {isAuthenticated &&
-                  user.email !== conf.ownerEmail &&
+                  user!.email !== conf.ownerEmail &&
                   conf.confCancel === "no" &&
                   urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardAttendConf.indexOf(conf._id) >= 0 &&
@@ -295,7 +369,7 @@ const ConferenceCard = (props) => {
                   </div>}
 
                 {isAuthenticated &&
-                  user.email !== conf.ownerEmail &&
+                  user!.email !== conf.ownerEmail &&
                   conf.confType === "Live" &&
                   conf.confCancel === "no" &&
                   urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
@@ -310,7 +384,7 @@ const ConferenceCard = (props) => {
                   </div>}
 
                 {isAuthenticated &&
-                  user.email !== conf.ownerEmail &&
+                  user!.email !== conf.ownerEmail &&
                   conf.confCancel === "no" &&
                   urlType !== "details" && urlType !== "schedule" && urlType !== "exhibits" &&
                   cardAttendConf.indexOf(conf._id) < 0 &&
@@ -332,11 +406,11 @@ const ConferenceCard = (props) => {
             </Card.Body>
 
             {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-            <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleAttUnreg(thisId, user.email)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === (conf._id && btnName)} hide={(e) => handleHideConfirm(e)} />
+            <ConfirmModal btnname={btnName} confname={thisName} urlid={confId} cancelconf={() => handleConfCancel(thisId!)} unregatt={() => handleAttUnreg(thisId!, user!.email!)} unregexh={() => handleExhUnreg(thisId!, user!.email!)} show={showConfirm === (conf._id && btnName)} hide={() => handleHideConfirm()} />
 
-            <SuccessModal conference={conf} confname={thisName} confid={conf._id} urlid={confId} urltype={urlType} btnname={btnName} show={props.showSuccess === (conf._id && btnName)} hide={(e) => handleHideSuccess(e)} />
+            <SuccessModal conference={conf} confname={thisName} confid={conf._id} urlid={confId} urltype={urlType} btnname={btnName} show={props.showSuccess === (conf._id && btnName)} hide={() => handleHideSuccess()} />
 
-            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (conf._id && btnName)} hide={(e) => handleHideErr(e)} />
+            <ErrorModal conference={conf} urlid={confId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (conf._id && btnName)} hide={() => handleHideErr()} />
 
           </Card>
 
