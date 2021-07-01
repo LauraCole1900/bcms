@@ -99,8 +99,8 @@ const ConferenceCard = (props: any): ReactElement => {
   const handleShowConfirm = (e: MouseEvent): any | void => {
     const { dataset } = e.target as HTMLButtonElement;
     console.log({ dataset });
-    console.log(dataset.btnname, dataset.confid, dataset.confname, dataset.conf);
-    props.setConference(dataset.conf);
+    console.log(dataset.btnname, dataset.confid, dataset.confname);
+    props.setConference(dataset.thisconf);
     props.setBtnName(dataset.btnname);
     props.setThisId(dataset.confid);
     props.setThisName(dataset.confname);
@@ -149,7 +149,7 @@ const ConferenceCard = (props: any): ReactElement => {
   return (
     <>
       {cardRender === true &&
-        props.conference.map((conf: Conference) => (
+        props.conference.map((conf: Conference, idx: number) => (
           <Card className="infoCard" key={conf._id.toString()}>
             <Card.Header className="cardTitle">
               <Row>
@@ -160,8 +160,8 @@ const ConferenceCard = (props: any): ReactElement => {
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user!.email === conf.ownerEmail) &&
-                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-btnname="confCancel" data-conf={conf} onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-btnname="confCancel" data-conf={conf} />
+                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-btnname="confCancel" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-btnname="confCancel" />
                     </Button>}
                 </Col>
               </Row>

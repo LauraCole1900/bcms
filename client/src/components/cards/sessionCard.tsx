@@ -65,10 +65,10 @@ const SessionCard = (props: any): ReactElement => {
 
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e: MouseEvent): any | void => {
-    const { dataset, name } = e.target as HTMLButtonElement;
-    console.log(name, dataset.sessid);
+    const { dataset } = e.target as HTMLButtonElement;
+    console.log(dataset.sessid);
     console.log({ dataset });
-    setBtnName(dataset.name);
+    setBtnName(dataset.btnname);
     setThisId(dataset.sessid);
     setShowConfirm(dataset.sessid);
   }
@@ -204,8 +204,8 @@ const SessionCard = (props: any): ReactElement => {
                   {isAuthenticated &&
                     urlType !== "schedule" &&
                     (user!.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user!.email)) &&
-                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.sessName} data-name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.sessName} data-name="sessDelete" />
+                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.sessName} data-btnname="sessDelete" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.sessName} data-btnname="sessDelete" />
                     </Button>}
                   {urlType === "schedule" &&
                     <Button data-toggle="popover" title="Close" className="closeBtn" onClick={props.hide}>

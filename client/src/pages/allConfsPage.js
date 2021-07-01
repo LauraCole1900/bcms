@@ -5,7 +5,7 @@ import { Container, Card, Row, Col, Form } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../utils/api";
-import { handleFetchEmails, handleUnreg } from "../utils/functions";
+import { handleConfCancel, handleFetchEmails, handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const AllConfs = () => {
@@ -147,11 +147,50 @@ const AllConfs = () => {
             Card object if different (session, etc.)
             */}
 
-            <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleUnreg(AttendeeAPI.unregisterAttendee, thisId, user.email, handleHideConfirm, handleShowSuccess, setErrThrown, handleShowErr)} unregexh={() => handleUnreg(ExhibitorAPI.deleteExhibitor, thisId, user.email, handleHideConfirm, setErrThrown, handleShowErr)} show={showConfirm === true} hide={() => handleHideConfirm()} />
+            <ConfirmModal
+              btnname={btnName}
+              confname={thisName}
+              urlid={urlId}
+              cancelconf={() => handleConfCancel(thisId)}
+              unregatt={() => handleUnreg(AttendeeAPI.unregisterAttendee,
+                thisId,
+                user.email,
+                handleHideConfirm,
+                handleShowSuccess,
+                setErrThrown,
+                handleShowErr
+              )}
+              unregexh={() => handleUnreg(ExhibitorAPI.deleteExhibitor,
+                thisId,
+                user.email,
+                handleHideConfirm,
+                setErrThrown,
+                handleShowErr
+              )}
+              show={showConfirm === true}
+              hide={() => handleHideConfirm()}
+            />
 
-            <SuccessModal conference={conference} confname={thisName} confid={conference?._id} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === true} hide={() => handleHideSuccess()} />
+            <SuccessModal
+              conference={conference}
+              confname={thisName}
+              confid={conference?._id}
+              urlid={urlId}
+              urltype={urlType}
+              btnname={btnName}
+              show={showSuccess === true}
+              hide={() => handleHideSuccess()}
+            />
 
-            <ErrorModal conference={conference} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === true} hide={() => handleHideErr()} />
+            <ErrorModal
+              conference={conference}
+              urlid={urlId}
+              urltype={urlType}
+              errmsg={errThrown}
+              btnname={btnName}
+              show={showErr === true}
+              hide={() => handleHideErr()}
+            />
 
           </Container>
         </div>

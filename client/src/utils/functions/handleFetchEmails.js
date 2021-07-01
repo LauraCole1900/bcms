@@ -1,12 +1,21 @@
 import React from "react";
 
-const handleFetchEmails = async (api, confId, setErrThrown, handleShowErr) => {
+const handleFetchEmails = async (query, confId, setErrThrown, handleShowErr) => {
+  let thisEmail;
   console.log("from confCard fetchAttendees", confId)
-  return await api(confId)
+  return await query(confId)
     .then((resp) => {
+      // define which key to match based on which collection is being queried
+      if (query.name === "getAttendees") {
+        thisEmail = "email";
+      } else if (query.name === "getExhibitors") {
+        thisEmail = "exhEmail";
+      } else if (query.name === "getPresenters") {
+        thisEmail = "presEmail";
+      }
       // map through res.data and pull all emails into an array
       const dataObj = resp.data
-      let dataEmails = dataObj.map((data) => data.email)
+      let dataEmails = dataObj.map((data) => data[thisEmail])
       return dataEmails;
     })
     .catch((err) => {
