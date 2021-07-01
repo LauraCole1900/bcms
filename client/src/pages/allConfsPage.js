@@ -5,7 +5,7 @@ import { Container, Card, Row, Col, Form } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../utils/api";
-import { handleUnreg } from "../utils/functions";
+import { handleFetchEmails, handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const AllConfs = () => {
@@ -37,31 +37,13 @@ const AllConfs = () => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
-  
-  // GETs registered attendees' emails
-  // Needed after cancelling a conference
-  const fetchAttendeeEmails = async (confId) => {
-    console.log("from confCard fetchAttendees", confId)
-    await AttendeeAPI.getAttendees(confId)
-      .then((resp) => {
-        // map through res.data and pull all emails into an array
-        const attData = resp.data
-        let attEmails = attData.map((att) => att.email)
-        return attEmails
-      })
-      .catch((err) => {
-        console.log("from confCard fetAttEmails", err)
-        setErrThrown(err.message);
-        handleShowErr();
-      })
-  }
-
   // Handles click on "Yes, Cancel" button on ConfirmModal
   // Will need to have email functionality to email registered participants
   const handleConfCancel = async (confId) => {
     console.log("from confCard", confId)
     handleHideConfirm();
-    let attEmailArr = await fetchAttendeeEmails(confId);
+    let attEmailArr = await handleFetchEmails(AttendeeAPI.getAttendees, confId, setErrThrown, handleShowErr);
+    console.log({ attEmailArr });
     // send-email functionality for registered attendees goes here
 
     ExhibitorAPI.getExhibitors(confId)
@@ -176,7 +158,7 @@ const AllConfs = () => {
             Card object if different (session, etc.)
             */}
 
-            <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleUnreg(AttendeeAPI.unregisterAttendee, thisId, user.email, handleHideConfirm, setErrThrown, handleShowErr)} unregexh={() => handleUnreg(ExhibitorAPI.deleteExhibitor, thisId, user.email, handleHideConfirm, setErrThrown, handleShowErr)} show={showConfirm === true} hide={() => handleHideConfirm()} />
+            <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleUnreg(AttendeeAPI.unregisterAttendee, thisId, user.email, handleHideConfirm, handleShowSuccess, setErrThrown, handleShowErr)} unregexh={() => handleUnreg(ExhibitorAPI.deleteExhibitor, thisId, user.email, handleHideConfirm, setErrThrown, handleShowErr)} show={showConfirm === true} hide={() => handleHideConfirm()} />
 
             <SuccessModal conference={conference} confname={thisName} confid={conference?._id} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === true} hide={() => handleHideSuccess()} />
 
