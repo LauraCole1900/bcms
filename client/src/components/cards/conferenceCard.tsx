@@ -97,10 +97,11 @@ const ConferenceCard = (props: any): ReactElement => {
 
   // Lifts state to show Confirm modal
   const handleShowConfirm = (e: MouseEvent): any | void => {
-    const { dataset } = e.target as HTMLButtonElement;
-    console.log(dataset.name, dataset.confid, dataset.confname);
+    const { dataset, name } = e.target as HTMLButtonElement;
+    console.log({ dataset });
+    console.log(name, dataset.confid, dataset.confname, dataset.conf);
     props.setConference(dataset.conf);
-    props.setBtnName(dataset.name);
+    props.setBtnName(name);
     props.setThisId(dataset.confid);
     props.setThisName(dataset.confname);
     props.setShowConfirm(true);
@@ -159,8 +160,8 @@ const ConferenceCard = (props: any): ReactElement => {
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user!.email === conf.ownerEmail) &&
-                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-name="confCancel" data-conf={conf} onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-name="confCancel" data-conf={conf} />
+                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} name="confCancel" data-conf={conf} onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-conf={conf} />
                     </Button>}
                 </Col>
               </Row>
