@@ -1,5 +1,7 @@
 import React from "react"
 
+// Handles unregistration of attendees or exhibitors
+
 const handleUnreg = (api, confId, email, handleHideConfirm, handleShowSuccess, setErrThrown, handleShowErr) => {
   handleHideConfirm();
   api(confId, email)

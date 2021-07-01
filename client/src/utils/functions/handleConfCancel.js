@@ -2,6 +2,9 @@ import React from "react";
 import { handleFetchEmails } from ".";
 import { ConferenceAPI } from "../api";
 
+// Handles click on "Yes, Cancel" button on ConfirmModal
+// Will need to have email functionality to email registered participants
+
 const handleConfCancel = async (api1, api2, confId, conference, handleHideConfirm, handleShowSuccess, setErrThrown, handleShowErr) => {
   console.log("from confCard", confId)
   handleHideConfirm();

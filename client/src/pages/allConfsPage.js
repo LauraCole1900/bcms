@@ -5,7 +5,7 @@ import { Container, Card, Row, Col, Form } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../utils/api";
-import { handleConfCancel, handleFetchEmails, handleUnreg } from "../utils/functions";
+import { handleConfCancel, handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const AllConfs = () => {
@@ -37,28 +37,6 @@ const AllConfs = () => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
-  // Handles click on "Yes, Cancel" button on ConfirmModal
-  // Will need to have email functionality to email registered participants
-  const handleConfCancel = async (confId) => {
-    console.log("from confCard", confId)
-    handleHideConfirm();
-    let attEmailArr = await handleFetchEmails(AttendeeAPI.getAttendees, confId, setErrThrown, handleShowErr);
-    let exhEmailArr = await handleFetchEmails(ExhibitorAPI.getExhibitors, confId, setErrThrown, handleShowErr);
-    console.log({ attEmailArr, exhEmailArr });
-    // send-email functionality for registered attendees & exhibitors goes here
-
-    ConferenceAPI.updateConference({ ...conference, confCancel: "yes" }, confId)
-      .then((resp) => {
-        if (resp.status !== 422) {
-          handleShowSuccess();
-        }
-      })
-      .catch((err) => {
-        console.log("from confCard updateConf", err);
-        setErrThrown(err.message);
-        handleShowErr();
-      });
-  };
 
   // Filter conferences by user input
   const searchFilter = (data) => {
@@ -151,8 +129,18 @@ const AllConfs = () => {
               btnname={btnName}
               confname={thisName}
               urlid={urlId}
-              cancelconf={() => handleConfCancel(thisId)}
-              unregatt={() => handleUnreg(AttendeeAPI.unregisterAttendee,
+              cancelconf={() => handleConfCancel(
+                AttendeeAPI.getAttendees,
+                ExhibitorAPI.getExhibitors,
+                thisId,
+                conference,
+                handleHideConfirm,
+                handleShowSuccess,
+                setErrThrown,
+                handleShowErr
+                )}
+              unregatt={() => handleUnreg(
+                AttendeeAPI.unregisterAttendee,
                 thisId,
                 user.email,
                 handleHideConfirm,
@@ -160,7 +148,8 @@ const AllConfs = () => {
                 setErrThrown,
                 handleShowErr
               )}
-              unregexh={() => handleUnreg(ExhibitorAPI.deleteExhibitor,
+              unregexh={() => handleUnreg(
+                ExhibitorAPI.deleteExhibitor,
                 thisId,
                 user.email,
                 handleHideConfirm,

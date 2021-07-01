@@ -1,5 +1,7 @@
 import React from "react";
 
+// Creates email array for mass emails on conference cancellation
+
 const handleFetchEmails = async (query, confId, setErrThrown, handleShowErr) => {
   let thisEmail;
   console.log("from confCard fetchAttendees", confId)
