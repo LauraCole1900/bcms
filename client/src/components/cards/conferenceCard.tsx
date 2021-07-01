@@ -5,7 +5,7 @@ import { ObjectId } from "mongoose";
 import { useAuth0, User } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
-import { AttendeeAPI, ExhibitorAPI } from "../../utils/api";
+import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
@@ -100,7 +100,12 @@ const ConferenceCard = (props: any): ReactElement => {
     const { dataset } = e.target as HTMLButtonElement;
     console.log({ dataset });
     console.log(dataset.btnname, dataset.confid, dataset.confname);
-    props.setConference(dataset.thisconf);
+    ConferenceAPI.getConferenceById(dataset.confid)
+      .then((resp: AxiosResponse<Conference[]>) => {
+        console.log(resp.data)
+        props.setConference(resp.data[0])
+      })
+      .catch((err: AxiosError) => console.log(err));
     props.setBtnName(dataset.btnname);
     props.setThisId(dataset.confid);
     props.setThisName(dataset.confname);
