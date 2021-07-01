@@ -1,25 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { ObjectId } from "mongoose";
 import { Card, Row, Col, Image } from "react-bootstrap";
+import { Exhibitor } from "../../utils/interfaces";
 import "./style.css";
-
-interface Exhibitor {
-  confId: ObjectId,
-  exhGivenName: string,
-  exhFamilyName: string,
-  exhEmail: string,
-  exhCompany: string,
-  exhPhone: string,
-  exhCompanyAddress: string,
-  exhDesc: string,
-  exhLogo: string,
-  exhWebsite: string,
-  exhWorkers: number,
-  exhWorkerNames: string[],
-  exhSpaces: number,
-  exhBoothNum: string,
-  _id: ObjectId
-}
 
 const ExhibitorCard = ({ exhibitor }: { exhibitor: Exhibitor[] }): ReactElement => {
   const [cardRender, setCardRender] = useState<boolean>(false);

@@ -8,42 +8,9 @@ import Moment from "react-moment";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { PresenterAPI, SessionAPI } from "../../utils/api";
 import { handleParseTime } from "../../utils/functions";
+import { Presenter, Session } from "../../utils/interfaces";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
-
-interface Presenter {
-  confId: ObjectId,
-  presGivenName: string,
-  presFamilyName: string,
-  presOrg: string,
-  presBio: string,
-  presEmail: string,
-  presPhone: string,
-  presWebsite: string,
-  presPic: string,
-  presSessionIds: ObjectId[],
-  presKeynote: string,
-  presAccepted: string,
-  _id: ObjectId
-}
-
-interface Session {
-  confId: ObjectId,
-  sessName: string,
-  sessPresEmails: string[],
-  sessDate: string,
-  sessStart: string,
-  sessEnd: string,
-  sessDesc: string,
-  sessEquipConfirm: string,
-  sessEquipProvide: string,
-  sessEquip: string[],
-  sessKeynote: string,
-  sessPanel: string,
-  sessRoom: string,
-  sessAccepted: string,
-  _id: ObjectId
-}
 
 const SessionCard = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
@@ -80,17 +47,17 @@ const SessionCard = (props: any): ReactElement => {
   const handleHideErr = (): string | void => setShowErr("none");
 
   // Parses time to 12-hour
-  const parseTime = (time: any): string | void => {
-    const timeArr: [number, string] = time.split(":");
-    let hours: number = timeArr[0];
-    let minutes: any = timeArr[1];
-    const ampm: string = hours >= 12 ? "pm" : "am"
-    hours = hours % 12;
-    hours = hours ? hours : 12
-    minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
-    const timeStr: string = `${hours}:${minutes}${ampm}`
-    return timeStr
-  };
+  // const parseTime = (time: any): string | void => {
+  //   const timeArr: [number, string] = time.split(":");
+  //   let hours: number = timeArr[0];
+  //   let minutes: any = timeArr[1];
+  //   const ampm: string = hours >= 12 ? "pm" : "am"
+  //   hours = hours % 12;
+  //   hours = hours ? hours : 12
+  //   minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
+  //   const timeStr: string = `${hours}:${minutes}${ampm}`
+  //   return timeStr
+  // };
 
   // Handles click on "Yes, delete" button on Confirm modal
   const handleSessDelete = (sessId: ObjectId): Session | void => {
