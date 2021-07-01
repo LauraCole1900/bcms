@@ -5,7 +5,7 @@ import { Container, Card, Row, Col, Form } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../utils/api";
-import { handleUnreg } from "../utils/hooks";
+import { handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const AllConfs = () => {
@@ -88,47 +88,6 @@ const AllConfs = () => {
         handleShowErr();
       });
   };
-
-  // Handles click on "Yes, unregister attendee" button on ConfirmModal
-  // const handleAttUnreg = handleUnreg(AttendeeAPI.unregisterAttendee, thisId, user?.email, handleHideConfirm, setErrThrown, handleShowErr)
-  // const handleAttUnreg = (confId, email) => {
-  //   console.log("from confirm attUnreg", confId, email)
-  //   handleHideConfirm();
-  //   // DELETE call to delete attendee document
-  //   AttendeeAPI.unregisterAttendee(confId, email)
-  //     .then((resp) => {
-  //       // If no errors thrown, show Success modal
-  //       if (resp.status !== 422) {
-  //         handleShowSuccess();
-  //       }
-  //     })
-  //     // If yes errors thrown, show Error modal
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setErrThrown(err.message);
-  //       handleShowErr();
-  //     });
-  // }
-
-  // Handles click on "Yes, unregister exhibitor" button on ConfirmModal
-  const handleExhUnreg = (confId, email) => {
-    console.log("from confirm exhUnreg", confId, email)
-    handleHideConfirm();
-    // DELETE call to delete exhibitor document
-    ExhibitorAPI.deleteExhibitor(confId, email)
-      .then((resp) => {
-        // If no errors thrown, show Success modal
-        if (resp.status !== 422) {
-          handleShowSuccess();
-        }
-      })
-      // If yes errors thrown, show Error modal
-      .catch((err) => {
-        console.log(err)
-        setErrThrown(err.message);
-        handleShowErr();
-      });
-  }
 
   // Filter conferences by user input
   const searchFilter = (data) => {
@@ -217,7 +176,7 @@ const AllConfs = () => {
             Card object if different (session, etc.)
             */}
 
-            <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleUnreg(AttendeeAPI.unregisterAttendee, thisId, user.email, handleHideConfirm, setErrThrown, handleShowErr)} unregexh={() => handleExhUnreg(thisId, user.email)} show={showConfirm === true} hide={() => handleHideConfirm()} />
+            <ConfirmModal btnname={btnName} confname={thisName} urlid={urlId} cancelconf={() => handleConfCancel(thisId)} unregatt={() => handleUnreg(AttendeeAPI.unregisterAttendee, thisId, user.email, handleHideConfirm, setErrThrown, handleShowErr)} unregexh={() => handleUnreg(ExhibitorAPI.deleteExhibitor, thisId, user.email, handleHideConfirm, setErrThrown, handleShowErr)} show={showConfirm === true} hide={() => handleHideConfirm()} />
 
             <SuccessModal conference={conference} confname={thisName} confid={conference?._id} urlid={urlId} urltype={urlType} btnname={btnName} show={showSuccess === true} hide={() => handleHideSuccess()} />
 
