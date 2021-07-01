@@ -312,13 +312,6 @@ const ProfilePage = () => {
                 : <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>)
             }
 
-
-            {/* Information I need to lift:
-            Button name
-            Conference object
-            Card object if different (session, etc.)
-            */}
-
             <ConfirmModal
               btnname={btnName}
               confname={thisName}
