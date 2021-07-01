@@ -1,3 +1,3 @@
 export { default as handleConfCancel } from "./handleConfCancel";
-export { default as handleFetchEmails } from "./handleFetchEmails";
+export { handleFetchEmails, handleFetchOne } from "./handleFetch";
 export { default as handleUnreg } from "./handleUnreg";

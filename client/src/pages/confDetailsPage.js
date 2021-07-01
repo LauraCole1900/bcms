@@ -6,6 +6,7 @@ import { Container, Row, Col, Form, Card } from "react-bootstrap";
 import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../components/cards";
 import { Sidenav } from "../components/navbar";
 import { ConferenceAPI, PresenterAPI, SessionAPI } from "../utils/api";
+import { handleFetchOne } from "../utils/functions";
 import "./style.css";
 
 const ConfDetails = () => {
@@ -39,20 +40,20 @@ const ConfDetails = () => {
   }
 
   // GETs conference by confId
-  const fetchConf = async (confId) => {
-    await ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
-        console.log("confDetailsPage getConfsById", resp.data)
-        const confObj = resp.data.slice(0)
-        setConference(confObj)
-      })
-      .catch(err => {
-        console.log(err)
-        return false
-      })
+  // const fetchConf = async (confId) => {
+  //   await ConferenceAPI.getConferenceById(confId)
+  //     .then(resp => {
+  //       console.log("confDetailsPage getConfsById", resp.data)
+  //       const confObj = resp.data
+  //       setConference(confObj)
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //       return false
+  //     })
 
-    setConfReady(true);
-  }
+  //   setConfReady(true);
+  // }
 
   // GETs sessions by confId
   const fetchSess = async (confId) => {
@@ -194,11 +195,13 @@ const ConfDetails = () => {
   useEffect(() => {
     console.log({ showSuccess })
     // GET conference by ID
-    fetchConf(confId);
+    handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference);
     // GET sessions by conference ID
     fetchSess(confId);
     // GET presenters by conferenceID
     fetchPres(confId);
+
+    setConfReady(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showSuccess, confId])
