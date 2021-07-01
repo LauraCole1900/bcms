@@ -3,19 +3,42 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Image, Button, ButtonGroup } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../components/cards";
+import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, UserAPI } from "../utils/api";
+import { handleConfCancel, handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const ProfilePage = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
   const location = useLocation();
   const [whichConf, setWhichConf] = useState("create");
+  const [conference, setConference] = useState();
   const [attendConf, setAttendConf] = useState([]);
   const [createConf, setCreateConf] = useState([]);
   const [exhibitConf, setExhibitConf] = useState([]);
   const [presentConf, setPresentConf] = useState([]);
-  const [showSuccess, setShowSuccess] = useState(0);
+  const [errThrown, setErrThrown] = useState();
+  const [btnName, setBtnName] = useState();
+  const [thisId, setThisId] = useState();
+  const [thisName, setThisName] = useState();
   const [pageReady, setPageReady] = useState(false);
+
+  // Determines which page user is on, specifically for use with URLs that include the conference ID
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
+  const urlType = urlArray[urlArray.length - 2]
+
+  // Modal variables
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleHideConfirm = () => setShowConfirm(false);
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   // GET conference by ID
   const getConfById = async (confId) => {
@@ -270,24 +293,87 @@ const ProfilePage = () => {
               <h3>Please select which of your conferences to view.</h3>}
             {whichConf === "attend" &&
               (attendConf.length > 0
-                ? <ConferenceCard conference={attendConf} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
+                ? <ConferenceCard conference={attendConf}  setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                 : <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>)
             }
             {whichConf === "create" &&
               (createConf.length > 0
-                ? <ConferenceCard conference={createConf} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
+                ? <ConferenceCard conference={createConf}  setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                 : <h3>We're sorry, you don't seem to have created any conferences at this time.</h3>)
             }
             {whichConf === "exhibit" &&
               (exhibitConf.length > 0
-                ? <ConferenceCard conference={exhibitConf} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
+                ? <ConferenceCard conference={exhibitConf}  setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                 : <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>)
             }
             {whichConf === "present" &&
               (presentConf.length > 0
-                ? <ConferenceCard conference={presentConf} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
+                ? <ConferenceCard conference={presentConf}  setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                 : <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>)
             }
+
+
+            {/* Information I need to lift:
+            Button name
+            Conference object
+            Card object if different (session, etc.)
+            */}
+
+            <ConfirmModal
+              btnname={btnName}
+              confname={thisName}
+              urlid={urlId}
+              cancelconf={() => handleConfCancel(
+                AttendeeAPI.getAttendees,
+                ExhibitorAPI.getExhibitors,
+                thisId,
+                conference,
+                handleHideConfirm,
+                handleShowSuccess,
+                setErrThrown,
+                handleShowErr
+              )}
+              unregatt={() => handleUnreg(
+                AttendeeAPI.unregisterAttendee,
+                thisId,
+                user.email,
+                handleHideConfirm,
+                handleShowSuccess,
+                setErrThrown,
+                handleShowErr
+              )}
+              unregexh={() => handleUnreg(
+                ExhibitorAPI.deleteExhibitor,
+                thisId,
+                user.email,
+                handleHideConfirm,
+                setErrThrown,
+                handleShowErr
+              )}
+              show={showConfirm === true}
+              hide={() => handleHideConfirm()}
+            />
+
+            <SuccessModal
+              conference={conference}
+              confname={thisName}
+              confid={conference?._id}
+              urlid={urlId}
+              urltype={urlType}
+              btnname={btnName}
+              show={showSuccess === true}
+              hide={() => handleHideSuccess()}
+            />
+
+            <ErrorModal
+              conference={conference}
+              urlid={urlId}
+              urltype={urlType}
+              errmsg={errThrown}
+              btnname={btnName}
+              show={showErr === true}
+              hide={() => handleHideErr()}
+            />
 
           </Container >
         )

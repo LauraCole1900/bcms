@@ -37,7 +37,6 @@ const AllConfs = () => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
-
   // Filter conferences by user input
   const searchFilter = (data) => {
     switch (searchBy) {
