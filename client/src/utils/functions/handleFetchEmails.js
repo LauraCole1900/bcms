@@ -5,9 +5,9 @@ const handleFetchEmails = async (api, confId, setErrThrown, handleShowErr) => {
   return await api(confId)
     .then((resp) => {
       // map through res.data and pull all emails into an array
-      const attData = resp.data
-      let attEmails = attData.map((att) => att.email)
-      return attEmails
+      const dataObj = resp.data
+      let dataEmails = dataObj.map((data) => data.email)
+      return dataEmails;
     })
     .catch((err) => {
       console.log("from confCard fetAttEmails", err)

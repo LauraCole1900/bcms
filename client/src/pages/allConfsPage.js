@@ -43,20 +43,9 @@ const AllConfs = () => {
     console.log("from confCard", confId)
     handleHideConfirm();
     let attEmailArr = await handleFetchEmails(AttendeeAPI.getAttendees, confId, setErrThrown, handleShowErr);
-    console.log({ attEmailArr });
-    // send-email functionality for registered attendees goes here
-
-    ExhibitorAPI.getExhibitors(confId)
-      .then((resp) => {
-        if (resp.status !== 422) {
-          console.log("from confCard getExhibitors", resp.data)
-        }
-      })
-      .catch((err) => {
-        console.log("from confCard getExhibitors", err);
-        setErrThrown(err.message);
-        handleShowErr();
-      })
+    let exhEmailArr = await handleFetchEmails(ExhibitorAPI.getExhibitors, confId, setErrThrown, handleShowErr);
+    console.log({ attEmailArr, exhEmailArr });
+    // send-email functionality for registered attendees & exhibitors goes here
 
     ConferenceAPI.updateConference({ ...conference, confCancel: "yes" }, confId)
       .then((resp) => {
