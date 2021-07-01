@@ -1,65 +1,12 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
-import { ObjectId } from "mongoose";
-import { useAuth0, User } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
+import { useAuth0, User } from "@auth0/auth0-react";
+import { Conference, Presenter } from "../../utils/interfaces";
 import "./style.css";
 
 // Figure out how to add session name(s)?
-
-interface Conference {
-  ownerConfirm: string,
-  ownerEmail: string,
-  confName: string,
-  confOrg: string,
-  confDesc: string,
-  startDate: string,
-  endDate: string,
-  numDays: number,
-  confStartTime: string,
-  confEndTime: string,
-  confType: string,
-  confLoc: string,
-  confLocName: string,
-  confLocUrl: string,
-  confRegDeadline: string,
-  confKeynote: string,
-  confCapConfirm: string,
-  confAttendCap: number,
-  confFee: string,
-  confFeeAmt: string,
-  confEarlyRegConfirm: string,
-  confEarlyRegDeadline: string,
-  confEarlyRegFee: string,
-  confEarlyRegSwagConfirm: string,
-  confEarlyRegSwagType: string,
-  confEarlyRegSizeConfirm: string,
-  confSessProposalConfirm: string,
-  confSessProposalDeadline: string,
-  confSessProposalCommittee: string[],
-  confAllergies: string,
-  confWaiver: string,
-  confAdmins: string[],
-  confCancel: string,
-  _id: ObjectId
-}
-
-interface Presenter {
-  confId: ObjectId,
-  presGivenName: string,
-  presFamilyName: string,
-  presOrg: string,
-  presBio: string,
-  presEmail: string,
-  presPhone: string,
-  presWebsite: string,
-  presPic: string,
-  presSessionIds: ObjectId[],
-  presKeynote: string,
-  presAccepted: string,
-  _id: ObjectId
-}
 
 const PresenterCard = ({ conference, presenter }: { conference: Conference[], presenter: Presenter[] }): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
