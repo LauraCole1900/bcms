@@ -3,41 +3,8 @@ import { ObjectId } from "mongoose";
 import { Button, Card } from "react-bootstrap";
 import { useAuth0, User } from "@auth0/auth0-react";
 import { AssignModal, ErrorModal, SessionModal, SuccessModal } from "../modals";
+import { Presenter, Session } from "../../utils/interfaces";
 import "./style.css";
-
-interface Presenter {
-  confId: ObjectId,
-  presGivenName: string,
-  presFamilyName: string,
-  presOrg: string,
-  presBio: string,
-  presEmail: string,
-  presPhone: string,
-  presWebsite: string,
-  presPic: string,
-  presSessionIds: ObjectId[],
-  presKeynote: string,
-  presAccepted: string,
-  _id: ObjectId
-}
-
-interface Session {
-  confId: ObjectId,
-  sessName: string,
-  sessPresEmails: string[],
-  sessDate: string,
-  sessStart: string,
-  sessEnd: string,
-  sessDesc: string,
-  sessEquipConfirm: string,
-  sessEquipProvide: string,
-  sessEquip: string[],
-  sessKeynote: string,
-  sessPanel: string,
-  sessRoom: string,
-  sessAccepted: string,
-  _id: ObjectId
-}
 
 const SchedSessCard = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
