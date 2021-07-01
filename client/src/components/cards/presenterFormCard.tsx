@@ -1,23 +1,7 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
-import { ObjectId } from "mongoose";
 import { Card, Row, Col, Form } from "react-bootstrap";
+import { Presenter } from "../../utils/interfaces";
 import "./style.css";
-
-interface Presenter {
-  confId: ObjectId,
-  presGivenName: string,
-  presFamilyName: string,
-  presOrg: string,
-  presBio: string,
-  presEmail: string,
-  presPhone: string,
-  presWebsite: string,
-  presPic: string,
-  presSessionIds: ObjectId[],
-  presKeynote: string,
-  presAccepted: string,
-  _id: ObjectId
-}
 
 const PresenterFormCard = (props: any): ReactElement => {
   let pres: Presenter[] = props.presenter;
