@@ -7,82 +7,9 @@ import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
 import { handleFetchOne } from "../../utils/functions";
+import { Attendee, Conference, Exhibitor } from "../../utils/interfaces";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
-
-interface Attendee {
-  confId: ObjectId,
-  email: string,
-  givenName: string,
-  familyName: string,
-  phone: string,
-  employerName: string,
-  employerAddress: string,
-  emergencyContactName: string,
-  emergencyContactPhone: string,
-  allergyConfirm: string,
-  allergies: string[],
-  waiverSigned: boolean,
-  paid: boolean,
-  isAdmin: string,
-  _id: ObjectId
-}
-
-interface Conference {
-  ownerConfirm: string,
-  ownerEmail: string,
-  confName: string,
-  confOrg: string,
-  confDesc: string,
-  startDate: string,
-  endDate: string,
-  numDays: number,
-  confStartTime: string,
-  confEndTime: string,
-  confType: string,
-  confLoc: string,
-  confLocName: string,
-  confLocUrl: string,
-  confRegDeadline: string,
-  confKeynote: string,
-  confCapConfirm: string,
-  confAttendCap: number,
-  confFee: string,
-  confFeeAmt: string,
-  confEarlyRegConfirm: string,
-  confEarlyRegDeadline: string,
-  confEarlyRegFee: string,
-  confEarlyRegSwagConfirm: string,
-  confEarlyRegSwagType: string,
-  confEarlyRegSizeConfirm: string,
-  confSessProposalConfirm: string,
-  confSessProposalDeadline: string,
-  confSessProposalCommittee: string[],
-  confAllergies: string,
-  confWaiver: string,
-  confAdmins: string[],
-  confCancel: string,
-  _id: ObjectId
-}
-
-interface Exhibitor {
-  confId: ObjectId,
-  exhGivenName: string,
-  exhFamilyName: string,
-  exhEmail: string,
-  exhCompany: string,
-  exhPhone: string,
-  exhCompanyAddress: string,
-  exhDesc: string,
-  exhLogo: string,
-  exhWebsite: string,
-  exhWorkers: number,
-  exhWorkerNames: string[],
-  exhSpaces: number,
-  exhBoothNum: string,
-  exhAttend: boolean,
-  _id: ObjectId
-}
 
 const ConferenceCard = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();

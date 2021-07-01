@@ -7,6 +7,7 @@ import { useAuth0, User } from "@auth0/auth0-react";
 import Moment from "react-moment";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
 import { PresenterAPI, SessionAPI } from "../../utils/api";
+import { handleParseTime } from "../../utils/functions";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
@@ -228,7 +229,7 @@ const SessionCard = (props: any): ReactElement => {
               </Col>
               <Col sm={4}>
                 <Row><p>Date: <Moment format="ddd, D MMM YYYY" withTitle>{sess.sessDate}</Moment></p></Row>
-                <Row><p>Time: {parseTime(sess.sessStart)} - {parseTime(sess.sessEnd)}</p></Row>
+                <Row><p>Time: {handleParseTime(sess.sessStart)} - {handleParseTime(sess.sessEnd)}</p></Row>
                 {props.conference[0].confType === "Live" &&
                   <Row><p>Location: {sess.sessRoom}</p></Row>}
               </Col>
@@ -244,15 +245,6 @@ const SessionCard = (props: any): ReactElement => {
                 </Col>
               </Row>}
           </Card.Body>
-
-          {urlType !== "schedule" &&
-            <>
-              <ConfirmModal btnname={btnName} confname={sess.sessName} urlid={urlId} urltype={urlType} deletesess={() => handleSessDelete(sess._id)} show={showConfirm === (sess._id)} hide={() => handleHideConfirm()} />
-
-              <SuccessModal session={sess} confname={props.conference[0].confName} urlid={urlId} urltype={urlType} btnname={btnName} show={props.showSuccess === (sess._id)} hide={() => handleHideSuccess()} />
-
-              <ErrorModal session={sess} urlid={urlId} urltype={urlType} errmsg={errThrown} btnname={btnName} show={showErr === (sess._id)} hide={() => handleHideErr()} />
-            </>}
 
         </Card >
       ))}
