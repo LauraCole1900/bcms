@@ -6,7 +6,7 @@ const CloseModalButton = (props: any): ReactElement => {
 
 
   return (
-    <Button data-toggle="popover" title={props.confname} type="button" className="button" onClick={props.click}>Return to {props.page}</Button>
+    <Button data-toggle="popover" title={props.page} type="button" className="button" onClick={props.click}>Return to {props.page}</Button>
   )
 }
 

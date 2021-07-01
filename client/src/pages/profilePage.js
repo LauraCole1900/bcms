@@ -357,7 +357,7 @@ const ProfilePage = () => {
             <SuccessModal
               conference={conference}
               confname={thisName}
-              confid={conference?._id}
+              confid={thisId}
               urlid={urlId}
               urltype={urlType}
               btnname={btnName}
