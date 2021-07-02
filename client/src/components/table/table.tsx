@@ -19,8 +19,8 @@ const TableComp = (): ReactElement => {
   // Link "Add Presenter" button to PresForm
 
   const { isAuthenticated, loginWithRedirect } = useAuth0<User>();
-  const [attendees, setAttendees] = useState<Attendee[]>([]);
-  const [committee, setCommittee] = useState<Committee[]>([]);
+  const [attendees, setAttendees] = useState<Array<Attendee>>([]);
+  const [committee, setCommittee] = useState<Array<Committee>>([]);
   const [member, setMember] = useState({
     commGivenName: "",
     commFamilyName: "",
@@ -28,10 +28,10 @@ const TableComp = (): ReactElement => {
     commPhone: "",
     commOrg: ""
   });
-  const [conference, setConference] = useState<Conference[]>([]);
-  const [exhibitors, setExhibitors] = useState<Exhibitor[]>([]);
-  const [presenters, setPresenters] = useState<Presenter[]>([]);
-  const [sessNames, setSessNames] = useState<string[]>([]);
+  const [conference, setConference] = useState<Array<Conference>>([]);
+  const [exhibitors, setExhibitors] = useState<Array<Exhibitor>>([]);
+  const [presenters, setPresenters] = useState<Array<Presenter>>([]);
+  const [sessNames, setSessNames] = useState<Array<string>>([]);
   const [search, setSearch] = useState<string>("");
   const [searchBy, setSearchBy] = useState<string>("all");
   const [sortAscending, setSortAscending] = useState<boolean>(false);
@@ -48,14 +48,14 @@ const TableComp = (): ReactElement => {
   const [confReady, setConfReady] = useState<boolean>(false);
   let thisEvent: ThisEvent;
 
-  const urlArray: string[] = window.location.href.split("/");
+  const urlArray: Array<string> = window.location.href.split("/");
   const confId: string = urlArray[urlArray.length - 1];
   const dataSet: string = urlArray[urlArray.length - 2];
 
-  const attHeaders: string[] = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
-  const commHeaders: string[] = ["commFamilyName", "commGivenName", "commEmail", "commPhone", "commOrg", "isChair"]
-  const exhHeaders: string[] = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend", "exhBoothNum"];
-  const presHeaders: string[] = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds"];
+  const attHeaders: Array<string> = ["familyName", "givenName", "email", "phone", "employerName", "emergencyContactName", "emergencyContactPhone", "allergies", "isAdmin"];
+  const commHeaders: Array<string> = ["commFamilyName", "commGivenName", "commEmail", "commPhone", "commOrg", "isChair"]
+  const exhHeaders: Array<string> = ["exhFamilyName", "exhGivenName", "exhEmail", "exhPhone", "exhCompany", "exhWorkerNames", "exhSpaces", "exhAttend", "exhBoothNum"];
+  const presHeaders: Array<string> = ["presFamilyName", "presGivenName", "presEmail", "presPhone", "presOrg", "presWebsite", "presSessionIds"];
 
   // Modal variables
   const [showConfirm, setShowConfirm] = useState<string | undefined>("none");
@@ -136,7 +136,7 @@ const TableComp = (): ReactElement => {
         handleShowErr();
       });
     // Filters member email from conf.confSessProposalComm[]
-    const comms: string[] = conference[0].confSessProposalCommittee.filter(commEmail => commEmail !== email)
+    const comms: Array<string> = conference[0].confSessProposalCommittee.filter(commEmail => commEmail !== email)
     // Updates conference document with filtered email array
     ConferenceAPI.updateConference({ ...conference[0], confSessProposalCommittee: comms }, conference[0]._id)
       .then((resp: AxiosResponse<Conference>) => {
@@ -178,9 +178,9 @@ const TableComp = (): ReactElement => {
   }
 
   // GET conference info for useEffect and callback
-  const fetchConf = async (confId: string): Promise<Conference[] | void> => {
+  const fetchConf = async (confId: string): Promise<Array<Conference> | void> => {
     await ConferenceAPI.getConferenceById(confId)
-      .then((resp: AxiosResponse<Conference[]>) => {
+      .then((resp: AxiosResponse<Array<Conference>>) => {
         console.log("table getConfsById", resp.data)
         setConference(resp.data)
       })
@@ -189,65 +189,65 @@ const TableComp = (): ReactElement => {
   }
 
   // GETs attendees for useEffect and callback
-  const fetchAttendees = async (confId: string): Promise<Attendee[] | void> => {
+  const fetchAttendees = async (confId: string): Promise<Array<Attendee> | void> => {
     await AttendeeAPI.getAttendees(confId)
-      .then((resp: AxiosResponse<Attendee[]>) => {
+      .then((resp: AxiosResponse<Array<Attendee>>) => {
         console.log("table fetchAttendees", resp.data)
-        const attSort: Attendee[] = ascendingSort(resp.data, "familyName")
+        const attSort: Array<Attendee> = ascendingSort(resp.data, "familyName")
         setAttendees(attSort)
       })
       .catch((err: AxiosError) => console.log(err))
   }
 
   // GETs committee members for useEffect and callback
-  const fetchCommittee = async (confId: string): Promise<Committee[] | void> => {
+  const fetchCommittee = async (confId: string): Promise<Array<Committee> | void> => {
     await CommitteeAPI.getCommittee(confId)
-      .then((resp: AxiosResponse<Committee[]>) => {
+      .then((resp: AxiosResponse<Array<Committee>>) => {
         console.log("table fetchCommittee", resp.data)
-        const commSort: Committee[] = ascendingSort(resp.data, "commFamilyName")
+        const commSort: Array<Committee> = ascendingSort(resp.data, "commFamilyName")
         setCommittee(commSort)
       })
       .catch((err: AxiosError) => console.log(err))
   }
 
   // GETs exhibitors for useEffect
-  const fetchExhibitors = async (confId: string): Promise<Exhibitor[] | void> => {
+  const fetchExhibitors = async (confId: string): Promise<Array<Exhibitor> | void> => {
     await ExhibitorAPI.getExhibitors(confId)
-      .then((resp: AxiosResponse<Exhibitor[]>) => {
+      .then((resp: AxiosResponse<Array<Exhibitor>>) => {
         console.log("table fetchExhibitors", resp.data)
-        const exhSort: Exhibitor[] = ascendingSort(resp.data, "exhFamilyName")
+        const exhSort: Array<Exhibitor> = ascendingSort(resp.data, "exhFamilyName")
         setExhibitors(exhSort)
       })
       .catch((err: AxiosError) => console.log(err))
   }
 
   // GETs presenters for useEffect
-  const fetchPresenters = async (confId: string): Promise<Presenter[] | void> => {
+  const fetchPresenters = async (confId: string): Promise<Array<Presenter> | void> => {
     await PresenterAPI.getPresentersByConf(confId)
-      .then((resp: AxiosResponse<Presenter[]>) => {
+      .then((resp: AxiosResponse<Array<Presenter>>) => {
         console.log("table fetchPresenters", resp.data)
-        const presSort: Presenter[] = ascendingSort(resp.data, "presFamilyName")
+        const presSort: Array<Presenter> = ascendingSort(resp.data, "presFamilyName")
         setPresenters(presSort)
       })
       .catch((err: AxiosError) => console.log(err))
   }
 
   // GETs session names
-  const fetchSessions = async (sessId: ObjectId): Promise<Session[] | void> => {
+  const fetchSessions = async (sessId: ObjectId): Promise<Array<Session> | void> => {
     await SessionAPI.getSessions(sessId)
-      .then((resp: AxiosResponse<Session[]>) => {
+      .then((resp: AxiosResponse<Array<Session>>) => {
         console.log("table fetchSessions", resp.data)
         // setSessNames(resp.data.sessName)
       })
   }
 
   // Search method
-  const getFilteredData = (data: any, arr: any, attr: any): Attendee[] | Exhibitor[] | Presenter[] => {
+  const getFilteredData = (data: any, arr: any, attr: any): Array<Attendee> | Array<Exhibitor> | Array<Presenter> => {
     return data.filter((arr: any) => arr[attr].toLowerCase().indexOf(search.toLowerCase()) !== -1);
   }
 
   // Defines which array to search based on searchBy and dataSet variables
-  const searchFilter = (data: object[]): any => {
+  const searchFilter = (data: Array<object>): any => {
     switch (searchBy) {
       case "name":
         switch (dataSet) {
