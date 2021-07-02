@@ -3,7 +3,7 @@ import { Card, Row, Col, Image } from "react-bootstrap";
 import { Exhibitor } from "../../utils/interfaces";
 import "./style.css";
 
-const ExhibitorCard = ({ exhibitor }: { exhibitor: Exhibitor[] }): ReactElement => {
+const ExhibitorCard = ({ exhibitor }: { exhibitor: Array<Exhibitor> }): ReactElement => {
   const [cardRender, setCardRender] = useState<boolean>(false);
 
   useEffect(() => {
