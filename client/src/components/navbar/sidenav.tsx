@@ -11,8 +11,8 @@ import "./style.css";
 
 const Sidenav = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
-  const [cardAttendConf, setCardAttendConf] = useState<ObjectId[]>([]);
-  const [cardExhibitConf, setCardExhibitConf] = useState<ObjectId[]>([]);
+  const [cardAttendConf, setCardAttendConf] = useState<Array<ObjectId>>([]);
+  const [cardExhibitConf, setCardExhibitConf] = useState<Array<ObjectId>>([]);
   const [errThrown, setErrThrown] = useState<string>();
   const [btnName, setBtnName] = useState<string>("");
   const [thisId, setThisId] = useState<string>();
@@ -20,7 +20,7 @@ const Sidenav = (props: any): ReactElement => {
   const [pageReady, setPageReady] = useState<boolean>(false);
 
   // Pull conference ID from URL
-  const urlArray: string[] = window.location.href.split("/");
+  const urlArray: Array<string> = window.location.href.split("/");
   const confId: string = urlArray[urlArray.length - 1];
   const urlType: string = urlArray[urlArray.length - 2];
 
@@ -88,8 +88,8 @@ const Sidenav = (props: any): ReactElement => {
       // Retrieves conferences user is registered to attend to determine whether register or unregister button should render
       AttendeeAPI.getConferencesAttending(user!.email)
         .then((resp: AxiosResponse) => {
-          const cardAttArr: Attendee[] = resp.data
-          const cardAttIds: ObjectId[] = cardAttArr.map((cardAttArr: Attendee) => cardAttArr.confId)
+          const cardAttArr: Array<Attendee> = resp.data
+          const cardAttIds: Array<ObjectId> = cardAttArr.map((cardAttArr: Attendee) => cardAttArr.confId)
           setCardAttendConf(cardAttIds);
         })
         .catch((err: AxiosError) => console.log(err));
@@ -98,8 +98,8 @@ const Sidenav = (props: any): ReactElement => {
       ExhibitorAPI.getConferencesExhibiting(user!.email)
         .then((resp: AxiosResponse) => {
           console.log("from confCard getConfExh", resp.data)
-          const cardExhArr: Exhibitor[] = resp.data
-          const cardExhIds: ObjectId[] = cardExhArr.map((cardExhArr: Exhibitor) => cardExhArr.confId)
+          const cardExhArr: Array<Exhibitor> = resp.data
+          const cardExhIds: Array<ObjectId> = cardExhArr.map((cardExhArr: Exhibitor) => cardExhArr.confId)
           setCardExhibitConf(cardExhIds);
         })
     }
