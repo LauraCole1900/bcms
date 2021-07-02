@@ -1,22 +1,6 @@
 import React, { ReactElement } from "react";
-import { ObjectId } from "mongoose";
+import { Presenter } from "../../utils/interfaces";
 import "./style.css";
-
-interface Presenter {
-  confId: ObjectId,
-  presGivenName: string,
-  presFamilyName: string,
-  presOrg: string,
-  presBio: string,
-  presEmail: string,
-  presPhone: string,
-  presWebsite: string,
-  presPic: string,
-  presSessionIds: ObjectId[],
-  presKeynote: string,
-  presAccepted: string,
-  _id: ObjectId
-}
 
 const PresenterTable = ({ presenters }: { presenters: Presenter[] }): ReactElement => {
 
