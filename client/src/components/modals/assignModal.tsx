@@ -1,28 +1,10 @@
 import React, { ChangeEvent, MouseEvent, ReactElement, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ObjectId } from "mongoose";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { SessionAPI } from "../../utils/api";
+import { Session } from "../../utils/interfaces";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css"
-
-interface Session {
-  confId: ObjectId,
-  sessName: string,
-  sessPresEmails: string[],
-  sessDate: string,
-  sessStart: string,
-  sessEnd: string,
-  sessDesc: string,
-  sessEquipConfirm: string,
-  sessEquipProvide: string,
-  sessEquip: string[],
-  sessKeynote: string,
-  sessPanel: string,
-  sessRoom: string,
-  sessAccepted: string,
-  _id: ObjectId
-}
 
 const AssignModal = (props: any): ReactElement => {
   const history = useHistory();
