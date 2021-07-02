@@ -3,7 +3,7 @@ import React from "react";
 // Creates email array for mass emails on conference cancellation
 export const handleFetchEmails = async (query, confId, setErrThrown, handleShowErr) => {
   let thisEmail;
-  console.log("from confCard fetchAttendees", confId)
+  console.log("handleFetchEmails", confId)
   return await query(confId)
     .then((resp) => {
       // define which key to match based on which collection is being queried
@@ -20,7 +20,7 @@ export const handleFetchEmails = async (query, confId, setErrThrown, handleShowE
       return dataEmails;
     })
     .catch((err) => {
-      console.log("from confCard fetAttEmails", err)
+      console.log("handleFetchEmails", err)
       setErrThrown(err.message);
       handleShowErr();
     })
@@ -34,6 +34,20 @@ export const handleFetchOne = async (query, id, setData) => {
       const dataObj = resp.data;
       setData(dataObj);
       return dataObj;
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    })
+}
+
+// Creates an array of conference IDs
+export const handleGetConfIds = (query, email) => {
+  return query(email)
+    .then(resp => {
+      const dataArr = resp.data
+      const dataRes = dataArr.map(conf => conf.confId)
+      return dataRes
     })
     .catch(err => {
       console.log(err)

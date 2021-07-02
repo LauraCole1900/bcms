@@ -5,7 +5,7 @@ import { Container, Row, Col, Image, Button, ButtonGroup } from "react-bootstrap
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, UserAPI } from "../utils/api";
-import { handleConfCancel, handleFetchOne, handleUnreg } from "../utils/functions";
+import { handleConfCancel, handleFetchOne, handleGetConfIds, handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const ProfilePage = () => {
@@ -40,60 +40,6 @@ const ProfilePage = () => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
-  // GET conference by ID
-  const getConfById = async (confId) => {
-    return ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
-        return resp
-      })
-      .catch(err => {
-        console.log(err)
-        return false
-      });
-  }
-
-  // GET IDs of conferences user is registered for
-  const getRegisteredConferenceIds = async (email) => {
-    return AttendeeAPI.getConferencesAttending(email)
-      .then(resp => {
-        const attData = resp.data
-        const attResult = attData.map(conf => conf.confId)
-        return attResult
-      })
-      .catch(err => {
-        console.log(err)
-        return false
-      })
-  }
-
-  // GET IDs of conferences at which user is exhibiting
-  const getExhibitingConferenceIds = async (email) => {
-    return ExhibitorAPI.getConferencesExhibiting(email)
-      .then(resp => {
-        const exhData = resp.data
-        const exhResult = exhData.map(conf => conf.confId)
-        return exhResult
-      })
-      .catch(err => {
-        console.log(err)
-        return false
-      })
-  }
-
-  // GET IDs of conferences at which user is presenting
-  const getPresentingConferenceIds = async (email) => {
-    return PresenterAPI.getConferencesPresenting(email)
-      .then(resp => {
-        const presData = resp.data
-        const presResult = presData.map(conf => conf.confId)
-        return presResult
-      })
-      .catch(err => {
-        console.log(err)
-        return false
-      })
-  }
-
   // Handles click on buttons to determine which set of conferences to display
   const handleInputChange = (e) => {
     const whichConf = e.target.value
@@ -104,7 +50,7 @@ const ProfilePage = () => {
   const handleShowAttending = async (e) => {
     handleInputChange(e);
     let unsortedAtt = []
-    let regConfIds = await getRegisteredConferenceIds(user.email)
+    let regConfIds = await handleGetConfIds(AttendeeAPI.getConferencesAttending, user.email)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     regConfIds.forEach(confId => {
@@ -142,7 +88,7 @@ const ProfilePage = () => {
   const handleShowExhibiting = async (e) => {
     handleInputChange(e);
     let unsortedExh = []
-    let exhConfIds = await getExhibitingConferenceIds(user.email)
+    let exhConfIds = await handleGetConfIds(ExhibitorAPI.getConferencesExhibiting, user.email)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     exhConfIds.forEach(confId => {
@@ -163,7 +109,7 @@ const ProfilePage = () => {
   const handleShowPresenting = async (e) => {
     handleInputChange(e);
     let unsortedPres = [];
-    let presConfIds = await getPresentingConferenceIds(user.email)
+    let presConfIds = await handleGetConfIds(PresenterAPI.getConferencesPresenting, user.email)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     presConfIds.forEach(confId => {
