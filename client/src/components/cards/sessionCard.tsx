@@ -18,12 +18,12 @@ const SessionCard = (props: any): ReactElement => {
   const [errThrown, setErrThrown] = useState<string>();
   const [btnName, setBtnName] = useState<string | undefined>("");
   const [thisId, setThisId] = useState<ObjectId | string | undefined>();
-  const presEmailArr: string[] = props.session.sessPresEmails;
-  let nameArr: string[] = [];
-  let orgArr: string[] = [];
+  const presEmailArr: Array<string> = props.session.sessPresEmails;
+  let nameArr: Array<string> = [];
+  let orgArr: Array<string> = [];
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
-  const urlArray: string[] = window.location.href.split("/")
+  const urlArray: Array<string> = window.location.href.split("/")
   const urlId: string = urlArray[urlArray.length - 1]
   const urlType: string = urlArray[urlArray.length - 2]
 
@@ -51,8 +51,8 @@ const SessionCard = (props: any): ReactElement => {
     console.log("from sessCard handleSessDelete", sessId)
     handleHideConfirm();
     // Deletes sessId from each presenters' sessId[]
-    const thesePres: Presenter[] = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
-    const presSessions: ObjectId[][] = thesePres.map((pres: Presenter) => pres.presSessionIds.filter(id => id !== sessId))
+    const thesePres: Array<Presenter> = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
+    const presSessions: Array<ObjectId[]> = thesePres.map((pres: Presenter) => pres.presSessionIds.filter(id => id !== sessId))
     console.log("from sessCard handleSessDelete presSessions", presSessions);
     thesePres.forEach((pres: Presenter) => {
       if (presSessions[0].length > 0) {
@@ -77,17 +77,17 @@ const SessionCard = (props: any): ReactElement => {
   };
 
   // Filters props.presenter by sessId, then maps through the result to pull out presenter names
-  const fetchPresNames = (sessId: ObjectId): string[] => {
-    const thesePres: Presenter[] = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
-    const presName: string[] = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName)
+  const fetchPresNames = (sessId: ObjectId): Array<string> => {
+    const thesePres: Array<Presenter> = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
+    const presName: Array<string> = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName)
     nameArr = [presName.join(", ")]
     return nameArr;
   }
 
   // Filters props.presenter by sessId, then maps through the result to put out presenter organizations
-  const fetchPresOrgs = (sessId: ObjectId): string[] => {
+  const fetchPresOrgs = (sessId: ObjectId): Array<string> => {
     const thesePres = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
-    const presOrg: string[] = thesePres.map((pres: Presenter) => pres.presOrg)
+    const presOrg: Array<string> = thesePres.map((pres: Presenter) => pres.presOrg)
     orgArr = [...new Set(presOrg)]
     return orgArr;
   }
