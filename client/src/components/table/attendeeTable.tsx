@@ -1,29 +1,11 @@
 import React, { ChangeEvent, ReactElement } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
-import { ObjectId } from "mongoose";
 import { Form, Button, Image } from "react-bootstrap";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
+import { Attendee } from "../../utils/interfaces";
 import { AxiosError } from "axios";
 import "./style.css";
-
-interface Attendee {
-  confId: ObjectId,
-  email: string,
-  givenName: string,
-  familyName: string,
-  phone: string,
-  employerName: string,
-  employerAddress: string,
-  emergencyContactName: string,
-  emergencyContactPhone: string,
-  allergyConfirm: string,
-  allergies: string[],
-  waiverSigned: boolean,
-  paid: boolean,
-  isAdmin: string,
-  _id: ObjectId
-}
 
 const AttendeeTable = (props: any): ReactElement => {
   const location = useLocation<Location>();
