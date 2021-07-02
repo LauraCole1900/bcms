@@ -4,26 +4,8 @@ import { Location } from "history";
 import { ObjectId } from "mongoose";
 import { Button, Form, Image } from "react-bootstrap";
 import { ExhibitorAPI } from "../../utils/api";
+import { Exhibitor } from "../../utils/interfaces";
 import "./style.css";
-
-interface Exhibitor {
-  confId: ObjectId,
-  exhGivenName: string,
-  exhFamilyName: string,
-  exhEmail: string,
-  exhCompany: string,
-  exhPhone: string,
-  exhCompanyAddress: string,
-  exhDesc: string,
-  exhLogo: string,
-  exhWebsite: string,
-  exhWorkers: number,
-  exhWorkerNames: string[],
-  exhSpaces: number,
-  exhBoothNum: string,
-  exhAttend: boolean,
-  _id: ObjectId
-}
 
 const ExhibitorTable = (props: any): ReactElement => {
   const location = useLocation<Location>();
