@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { Presenter } from "../../utils/interfaces";
 import "./style.css";
 
-const PresenterTable = ({ presenters }: { presenters: Presenter[] }): ReactElement => {
+const PresenterTable = ({ presenters }: { presenters: Array<Presenter> }): ReactElement => {
 
   
   return (
