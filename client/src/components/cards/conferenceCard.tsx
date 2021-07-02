@@ -14,12 +14,12 @@ import "./style.css";
 const ConferenceCard = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
   const location = useLocation<Location>();
-  const [cardAttendConf, setCardAttendConf] = useState<ObjectId[]>([]);
-  const [cardExhibitConf, setCardExhibitConf] = useState<ObjectId[]>([]);
+  const [cardAttendConf, setCardAttendConf] = useState<Array<ObjectId>>([]);
+  const [cardExhibitConf, setCardExhibitConf] = useState<Array<ObjectId>>([]);
   const [cardRender, setCardRender] = useState<boolean>(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
-  const urlArray: string[] = window.location.href.split("/")
+  const urlArray: Array<string> = window.location.href.split("/")
   const confId: string = urlArray[urlArray.length - 1]
   const urlType: string = urlArray[urlArray.length - 2]
 
@@ -29,12 +29,6 @@ const ConferenceCard = (props: any): ReactElement => {
     console.log({ dataset });
     console.log(dataset.btnname, dataset.confid, dataset.confname);
     handleFetchOne(ConferenceAPI.getConferenceById, dataset.confid!, props.setConference);
-    // ConferenceAPI.getConferenceById(dataset.confid)
-    //   .then((resp: AxiosResponse<Conference[]>) => {
-    //     console.log(resp.data)
-    //     props.setConference(resp.data[0])
-    //   })
-    //   .catch((err: AxiosError) => console.log(err));
     props.setBtnName(dataset.btnname);
     props.setThisId(dataset.confid);
     props.setThisName(dataset.confname);
@@ -45,19 +39,19 @@ const ConferenceCard = (props: any): ReactElement => {
     if (isAuthenticated) {
       // Retrieves conferences user is registered to attend to determine whether register or unregister button should render
       AttendeeAPI.getConferencesAttending(user!.email)
-        .then((resp: AxiosResponse<Attendee[]>) => {
-          const cardAttArr: Attendee[] = resp.data
-          const cardAttIds: ObjectId[] = cardAttArr.map((cardAtt: Attendee) => cardAtt.confId)
+        .then((resp: AxiosResponse<Array<Attendee>>) => {
+          const cardAttArr: Array<Attendee> = resp.data
+          const cardAttIds: Array<ObjectId> = cardAttArr.map((cardAtt: Attendee) => cardAtt.confId)
           setCardAttendConf(cardAttIds);
         })
         .catch((err: AxiosError) => console.log(err));
 
       // Retrieves conferences user is registered to exhibit at to determine whether exhibit register or unregister button should render
       ExhibitorAPI.getConferencesExhibiting(user!.email)
-        .then((resp: AxiosResponse<Exhibitor[]>) => {
+        .then((resp: AxiosResponse<Array<Exhibitor>>) => {
           console.log("from confCard getConfExh", resp.data)
-          const cardExhArr: Exhibitor[] = resp.data
-          const cardExhIds: ObjectId[] = cardExhArr.map((cardExh: Exhibitor) => cardExh.confId)
+          const cardExhArr: Array<Exhibitor> = resp.data
+          const cardExhIds: Array<ObjectId> = cardExhArr.map((cardExh: Exhibitor) => cardExh.confId)
           setCardExhibitConf(cardExhIds);
         })
         .catch((err: AxiosError) => console.log(err))
