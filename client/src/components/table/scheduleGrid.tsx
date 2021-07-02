@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { Table } from "react-bootstrap";
 import { SchedSessCard } from "../cards";
+import { handleParseTime } from "../../utils/functions";
 import { Session } from "../../utils/interfaces";
 import "./style.css";
 
@@ -13,19 +14,6 @@ const ScheduleGrid = (props: any): ReactElement => {
     return timesArr;
   }
 
-  // Parses time to 12-hour
-  const parseTime = (time: any): string | void => {
-    const timeArr: [number, string] = time.split(":");
-    let hours: number = timeArr[0];
-    let minutes: any = timeArr[1];
-    const ampm: string = hours >= 12 ? "pm" : "am"
-    hours = hours % 12;
-    hours = hours ? hours : 12
-    minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
-    const timeStr: string = `${hours}:${minutes}${ampm}`
-    return timeStr
-  };
-
   const filterSess = (sess: Session[], room: string, time: string) => {
     const scheduleDate: string = props.date;
     const scheduleStart: string = splitTimes(time)[0];
@@ -33,7 +21,7 @@ const ScheduleGrid = (props: any): ReactElement => {
     thisSess = sess.filter((sess: Session) => (
       sess.sessDate === scheduleDate &&
       sess.sessRoom === room &&
-      (parseTime(sess.sessStart) === scheduleStart || parseTime(sess.sessEnd) === scheduleEnd)
+      (handleParseTime(sess.sessStart) === scheduleStart || handleParseTime(sess.sessEnd) === scheduleEnd)
     ))
     return thisSess;
   }

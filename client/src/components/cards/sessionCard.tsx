@@ -46,19 +46,6 @@ const SessionCard = (props: any): ReactElement => {
   const handleShowErr = (): ObjectId | void => setShowErr(thisId);
   const handleHideErr = (): string | void => setShowErr("none");
 
-  // Parses time to 12-hour
-  // const parseTime = (time: any): string | void => {
-  //   const timeArr: [number, string] = time.split(":");
-  //   let hours: number = timeArr[0];
-  //   let minutes: any = timeArr[1];
-  //   const ampm: string = hours >= 12 ? "pm" : "am"
-  //   hours = hours % 12;
-  //   hours = hours ? hours : 12
-  //   minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
-  //   const timeStr: string = `${hours}:${minutes}${ampm}`
-  //   return timeStr
-  // };
-
   // Handles click on "Yes, delete" button on Confirm modal
   const handleSessDelete = (sessId: ObjectId): Session | void => {
     console.log("from sessCard handleSessDelete", sessId)
