@@ -6,7 +6,7 @@ import { useAuth0, User } from "@auth0/auth0-react";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import Moment from "react-moment";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../../utils/api";
-import { handleFetchOne } from "../../utils/functions";
+import { handleFetchOne, handleParseTime } from "../../utils/functions";
 import { Attendee, Conference, Exhibitor } from "../../utils/interfaces";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
@@ -40,19 +40,6 @@ const ConferenceCard = (props: any): ReactElement => {
     props.setThisName(dataset.confname);
     props.setShowConfirm(true);
   }
-
-  // Parses time to 12-hour
-  const parseTime = (time: any): string | void => {
-    const timeArr: [number, string] = time.split(":");
-    let hours: number = timeArr[0];
-    let minutes: any = timeArr[1];
-    const ampm: string = hours >= 12 ? "pm" : "am"
-    hours = hours % 12;
-    hours = hours ? hours : 12
-    minutes = minutes < 10 ? "0" + minutes.slice(-1) : minutes;
-    const timeStr: string = `${hours}:${minutes}${ampm}`
-    return timeStr
-  };
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -113,8 +100,8 @@ const ConferenceCard = (props: any): ReactElement => {
                   {conf.confCancel === "no" &&
                     <div>
                       {conf.numDays === 1
-                        ? <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{parseTime(conf.confStartTime)} - {parseTime(conf.confEndTime)}</p></Row></div>
-                        : <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{parseTime(conf.confStartTime)} - <Moment format="ddd, D MMM YYYY" withTitle>{conf.endDate}</Moment> @{parseTime(conf.confEndTime)}</p></Row></div>}
+                        ? <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{handleParseTime(conf.confStartTime)} - {handleParseTime(conf.confEndTime)}</p></Row></div>
+                        : <div><Row><p>When: <Moment format="ddd, D MMM YYYY" withTitle>{conf.startDate}</Moment> @{handleParseTime(conf.confStartTime)} - <Moment format="ddd, D MMM YYYY" withTitle>{conf.endDate}</Moment> @{handleParseTime(conf.confEndTime)}</p></Row></div>}
                       <Row><p>Type: {conf.confType}</p></Row>
                       <Row>
                         {(conf.confType === "Live") &&
