@@ -42,14 +42,14 @@ const AttendeeTable = (props: any): ReactElement => {
           .catch((err: AxiosError) => console.log(err))
         break;
       default:
-        let adminArr: string[] = props.conference[0].confAdmins
+        let adminArr: Array<string> = props.conference[0].confAdmins
         const index = adminArr.indexOf(adminEmail!)
         switch (index !== -1) {
           case false:
             console.log({ adminArr });
             break;
           default:
-            const filteredAdmin: string[] = adminArr.filter((email: string) => email !== adminEmail)
+            const filteredAdmin: Array<string> = adminArr.filter((email: string) => email !== adminEmail)
             ConferenceAPI.updateConference({ confAdmins: [...filteredAdmin] }, props.conference[0]._id)
               .then(props.confcb(props.conference[0]._id))
               .catch((err: AxiosError) => console.log(err))
