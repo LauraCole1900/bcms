@@ -8,7 +8,7 @@ import "./style.css";
 
 // Figure out how to add session name(s)?
 
-const PresenterCard = ({ conference, presenter }: { conference: Conference[], presenter: Presenter[] }): ReactElement => {
+const PresenterCard = ({ conference, presenter }: { conference: Array<Conference>, presenter: Array<Presenter> }): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
   const location = useLocation<Location>();
   const [cardRender, setCardRender] = useState<boolean>(false);
