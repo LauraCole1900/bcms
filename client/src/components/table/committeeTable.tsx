@@ -1,20 +1,9 @@
 import React, { ChangeEvent, MouseEvent, ReactElement } from "react";
-import { ObjectId } from "mongoose";
 import { Form, Button, Image } from "react-bootstrap";
 import { CommitteeAPI } from "../../utils/api";
+import { Committee } from "../../utils/interfaces";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
-
-interface Committee {
-  confId: ObjectId,
-  commEmail: string,
-  commGivenName: string,
-  commFamilyName: string,
-  commOrg: string,
-  commPhone: string,
-  isChair: string,
-  _id: ObjectId
-}
 
 const CommitteeTable = (props: any): ReactElement => {
 
