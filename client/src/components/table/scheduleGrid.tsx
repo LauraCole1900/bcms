@@ -6,15 +6,15 @@ import { Session } from "../../utils/interfaces";
 import "./style.css";
 
 const ScheduleGrid = (props: any): ReactElement => {
-  let thisSess: Session[];
-  let timesArr: string[];
+  let thisSess: Array<Session>;
+  let timesArr: Array<string>;
 
-  const splitTimes = (times: string): string[] => {
+  const splitTimes = (times: string): Array<string> => {
     timesArr = times.split("-")
     return timesArr;
   }
 
-  const filterSess = (sess: Session[], room: string, time: string) => {
+  const filterSess = (sess: Array<Session>, room: string, time: string) => {
     const scheduleDate: string = props.date;
     const scheduleStart: string = splitTimes(time)[0];
     const scheduleEnd: string = splitTimes(time)[1];
