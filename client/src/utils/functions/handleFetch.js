@@ -28,11 +28,12 @@ export const handleFetchEmails = async (query, confId, setErrThrown, handleShowE
 
 // GETs one document by ID
 export const handleFetchOne = async (query, id, setData) => {
-  await query(id)
+  return await query(id)
     .then(resp => {
       console.log("handleFetchOne", resp.data)
       const dataObj = resp.data;
       setData(dataObj);
+      return dataObj;
     })
     .catch(err => {
       console.log(err)

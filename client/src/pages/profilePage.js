@@ -5,7 +5,7 @@ import { Container, Row, Col, Image, Button, ButtonGroup } from "react-bootstrap
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, UserAPI } from "../utils/api";
-import { handleConfCancel, handleUnreg } from "../utils/functions";
+import { handleConfCancel, handleFetchOne, handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const ProfilePage = () => {
@@ -108,8 +108,9 @@ const ProfilePage = () => {
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     regConfIds.forEach(confId => {
-      getConfById(confId).then(resp => {
-        unsortedAtt = [...unsortedAtt, resp.data[0]]
+      handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
+      .then(resp => {
+        unsortedAtt = [...unsortedAtt, resp[0]]
         // When new array is same length as confIds array, sort new array & set it in state
         if (unsortedAtt.length === regConfIds.length) {
           const sortedAtt = unsortedAtt.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
