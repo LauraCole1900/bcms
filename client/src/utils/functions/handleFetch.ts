@@ -6,11 +6,11 @@ import { ObjectId } from "mongoose";
 export const handleFetchConfIds = (
   query: any,
   email: string
-): ObjectId[] | void => {
+): Array<ObjectId> | void => {
   return query(email)
     .then((resp: AxiosResponse<Array<Attendee | Exhibitor | Presenter>>) => {
       const dataArr: Array<Attendee | Exhibitor | Presenter> = resp.data;
-      const dataRes: ObjectId[] = dataArr.map((data) => data.confId);
+      const dataRes: Array<ObjectId> = dataArr.map((data) => data.confId);
       return dataRes;
     })
     .catch((err: AxiosError) => {
