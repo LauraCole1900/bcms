@@ -109,14 +109,14 @@ const ProfilePage = () => {
     // Push each conference object to new array
     regConfIds.forEach(confId => {
       handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
-      .then(resp => {
-        unsortedAtt = [...unsortedAtt, resp[0]]
-        // When new array is same length as confIds array, sort new array & set it in state
-        if (unsortedAtt.length === regConfIds.length) {
-          const sortedAtt = unsortedAtt.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
-          setAttendConf(sortedAtt)
-        }
-      })
+        .then(resp => {
+          unsortedAtt = [...unsortedAtt, resp[0]]
+          // When new array is same length as confIds array, sort new array & set it in state
+          if (unsortedAtt.length === regConfIds.length) {
+            const sortedAtt = unsortedAtt.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+            setAttendConf(sortedAtt)
+          }
+        })
         .catch(err => console.log(err))
     })
   }
@@ -146,14 +146,15 @@ const ProfilePage = () => {
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     exhConfIds.forEach(confId => {
-      getConfById(confId).then(resp => {
-        unsortedExh = [...unsortedExh, resp.data[0]]
-        // When new array is same length as confIds array, sort new array & set it in state
-        if (unsortedExh.length === exhConfIds.length) {
-          const sortedExh = unsortedExh.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
-          setExhibitConf(sortedExh)
-        }
-      })
+      handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
+        .then(resp => {
+          unsortedExh = [...unsortedExh, resp[0]]
+          // When new array is same length as confIds array, sort new array & set it in state
+          if (unsortedExh.length === exhConfIds.length) {
+            const sortedExh = unsortedExh.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+            setExhibitConf(sortedExh)
+          }
+        })
         .catch(err => console.log(err))
     })
   }
@@ -294,22 +295,22 @@ const ProfilePage = () => {
               <h3>Please select which of your conferences to view.</h3>}
             {whichConf === "attend" &&
               (attendConf.length > 0
-                ? <ConferenceCard conference={attendConf}  setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                ? <ConferenceCard conference={attendConf} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                 : <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>)
             }
             {whichConf === "create" &&
               (createConf.length > 0
-                ? <ConferenceCard conference={createConf}  setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                ? <ConferenceCard conference={createConf} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                 : <h3>We're sorry, you don't seem to have created any conferences at this time.</h3>)
             }
             {whichConf === "exhibit" &&
               (exhibitConf.length > 0
-                ? <ConferenceCard conference={exhibitConf}  setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                ? <ConferenceCard conference={exhibitConf} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                 : <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>)
             }
             {whichConf === "present" &&
               (presentConf.length > 0
-                ? <ConferenceCard conference={presentConf}  setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                ? <ConferenceCard conference={presentConf} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                 : <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>)
             }
 
