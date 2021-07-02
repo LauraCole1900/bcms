@@ -167,14 +167,15 @@ const ProfilePage = () => {
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     presConfIds.forEach(confId => {
-      getConfById(confId).then(resp => {
-        unsortedPres = [...unsortedPres, resp.data[0]]
-        // When new array is same length as confIds array, sort new array & set it in state
-        if (unsortedPres.length === presConfIds.length) {
-          const sortedPres = unsortedPres.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
-          setPresentConf(sortedPres)
-        }
-      })
+      handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
+        .then(resp => {
+          unsortedPres = [...unsortedPres, resp[0]]
+          // When new array is same length as confIds array, sort new array & set it in state
+          if (unsortedPres.length === presConfIds.length) {
+            const sortedPres = unsortedPres.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+            setPresentConf(sortedPres)
+          }
+        })
         .catch(err => console.log(err))
     })
   }
