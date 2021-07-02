@@ -4,7 +4,7 @@ import { Presenter } from "../../utils/interfaces";
 import "./style.css";
 
 const PresenterFormCard = (props: any): ReactElement => {
-  let pres: Presenter[] = props.presenter;
+  let pres: Array<Presenter> = props.presenter;
   const [charRem, setCharRem] = useState<number | void>(750);
 
   // Handles input changes to form fields
