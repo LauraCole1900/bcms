@@ -8,7 +8,7 @@ import "./style.css";
 
 const SchedSessCard = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
-  let nameArr: string[];
+  let nameArr: Array<string>;
   const [thisSess, setThisSess] = useState<Session>();
   const [room, setRoom] = useState<string>("");
   const [time, setTime] = useState<string>("");
@@ -57,8 +57,8 @@ const SchedSessCard = (props: any): ReactElement => {
 
   // Filters props.presenter by sessId, then maps through the result to pull out presenter names
   const fetchPresNames = (sessId: ObjectId) => {
-    const thesePres: Presenter[] = props.presenters.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
-    const presName: string[] = thesePres.map((pres: Presenter) => pres.presGivenName + " " + pres.presFamilyName)
+    const thesePres: Array<Presenter> = props.presenters.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
+    const presName: Array<string> = thesePres.map((pres: Presenter) => pres.presGivenName + " " + pres.presFamilyName)
     nameArr = [presName.join(", ")]
     return nameArr;
   }
