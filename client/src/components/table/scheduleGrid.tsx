@@ -1,26 +1,8 @@
 import React, { ReactElement } from "react";
-import { ObjectId } from "mongoose";
 import { Table } from "react-bootstrap";
 import { SchedSessCard } from "../cards";
+import { Session } from "../../utils/interfaces";
 import "./style.css";
-
-interface Session {
-  confId: ObjectId,
-  sessName: string,
-  sessPresEmails: string[],
-  sessDate: string,
-  sessStart: string,
-  sessEnd: string,
-  sessDesc: string,
-  sessEquipConfirm: string,
-  sessEquipProvide: string,
-  sessEquip: string[],
-  sessKeynote: string,
-  sessPanel: string,
-  sessRoom: string,
-  sessAccepted: string,
-  _id: ObjectId
-}
 
 const ScheduleGrid = (props: any): ReactElement => {
   let thisSess: Session[];
