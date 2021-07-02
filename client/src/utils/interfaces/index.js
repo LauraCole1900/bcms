@@ -5,4 +5,5 @@ export { default as Exhibitor } from "./exhibitor";
 export { default as Presenter } from "./presenter";
 export { default as Schedule } from "./schedule";
 export { default as Session } from "./session";
+export { default as ThisEvent } from "./thisEvent";
 export { default as User } from "./user";
