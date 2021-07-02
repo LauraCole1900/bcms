@@ -28,7 +28,7 @@ const ConferenceCard = (props: any): ReactElement => {
     const { dataset } = e.target as HTMLButtonElement;
     console.log({ dataset });
     console.log(dataset.btnname, dataset.confid, dataset.confname);
-    handleFetchOne(ConferenceAPI.getConferenceById, dataset.confid, props.setConference);
+    handleFetchOne(ConferenceAPI.getConferenceById, dataset.confid!, props.setConference);
     // ConferenceAPI.getConferenceById(dataset.confid)
     //   .then((resp: AxiosResponse<Conference[]>) => {
     //     console.log(resp.data)

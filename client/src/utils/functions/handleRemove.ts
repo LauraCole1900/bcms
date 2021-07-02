@@ -1,6 +1,6 @@
-import { ObjectId } from "mongoose";
-import { AxiosResponse, AxiosError } from "axios";
 import { Attendee, Exhibitor } from "../interfaces"
+import { AxiosResponse, AxiosError } from "axios";
+import { ObjectId } from "mongoose";
 
 // Handles unregistration of attendees or exhibitors
 export const handleUnreg = (api: any, confId: string | ObjectId, email: string, handleHideConfirm: any, handleShowSuccess: any, setErrThrown: any, handleShowErr: any): Attendee | Exhibitor | void => {
