@@ -10,7 +10,7 @@ export default interface Presenter {
   presPhone: string;
   presWebsite: string;
   presPic: string;
-  presSessionIds: ObjectId[];
+  presSessionIds: Array<ObjectId>;
   presKeynote: string;
   presAccepted: string;
   _id: ObjectId;

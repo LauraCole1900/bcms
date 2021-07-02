@@ -2,6 +2,6 @@ import { ObjectId } from "mongoose";
 
 export default interface Schedule {
   confId: ObjectId,
-  schedRooms: string[],
-  schedTimes: string[]
+  schedRooms: Array<string>,
+  schedTimes: Array<string>
 }

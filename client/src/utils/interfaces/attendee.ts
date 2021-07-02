@@ -11,7 +11,7 @@ export default interface Attendee {
   emergencyContactName: string;
   emergencyContactPhone: string;
   allergyConfirm: string;
-  allergies: string[];
+  allergies: Array<string>;
   waiverSigned: boolean;
   paid: boolean;
   isAdmin: string;

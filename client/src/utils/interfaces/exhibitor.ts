@@ -12,7 +12,7 @@ export default interface Exhibitor {
   exhLogo: string;
   exhWebsite: string;
   exhWorkers: number;
-  exhWorkerNames: string[];
+  exhWorkerNames: Array<string>;
   exhSpaces: number;
   exhBoothNum: string;
   exhAttend: boolean;

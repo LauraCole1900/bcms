@@ -29,10 +29,10 @@ export default interface Conference {
   confEarlyRegSizeConfirm: string;
   confSessProposalConfirm: string;
   confSessProposalDeadline: string;
-  confSessProposalCommittee: string[];
+  confSessProposalCommittee: Array<string>;
   confAllergies: string;
   confWaiver: string;
-  confAdmins: string[];
+  confAdmins: Array<string>;
   confCancel: string;
   _id: ObjectId;
 }
