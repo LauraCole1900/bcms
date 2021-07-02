@@ -1,5 +1,19 @@
 import React from "react";
 
+// Creates an array of conference IDs
+export const handleFetchConfIds = (query, email) => {
+  return query(email)
+    .then(resp => {
+      const dataArr = resp.data
+      const dataRes = dataArr.map(conf => conf.confId)
+      return dataRes
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    })
+}
+
 // Creates email array for mass emails on conference cancellation
 export const handleFetchEmails = async (query, confId, setErrThrown, handleShowErr) => {
   let thisEmail;
@@ -34,20 +48,6 @@ export const handleFetchOne = async (query, id, setData) => {
       const dataObj = resp.data;
       setData(dataObj);
       return dataObj;
-    })
-    .catch(err => {
-      console.log(err)
-      return false
-    })
-}
-
-// Creates an array of conference IDs
-export const handleGetConfIds = (query, email) => {
-  return query(email)
-    .then(resp => {
-      const dataArr = resp.data
-      const dataRes = dataArr.map(conf => conf.confId)
-      return dataRes
     })
     .catch(err => {
       console.log(err)

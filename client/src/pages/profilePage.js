@@ -5,7 +5,7 @@ import { Container, Row, Col, Image, Button, ButtonGroup } from "react-bootstrap
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, UserAPI } from "../utils/api";
-import { handleConfCancel, handleFetchOne, handleGetConfIds, handleUnreg } from "../utils/functions";
+import { handleConfCancel, handleFetchConfIds, handleFetchOne, handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const ProfilePage = () => {
@@ -50,7 +50,7 @@ const ProfilePage = () => {
   const handleShowAttending = async (e) => {
     handleInputChange(e);
     let unsortedAtt = []
-    let regConfIds = await handleGetConfIds(AttendeeAPI.getConferencesAttending, user.email)
+    let regConfIds = await handleFetchConfIds(AttendeeAPI.getConferencesAttending, user.email)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     regConfIds.forEach(confId => {
@@ -88,7 +88,7 @@ const ProfilePage = () => {
   const handleShowExhibiting = async (e) => {
     handleInputChange(e);
     let unsortedExh = []
-    let exhConfIds = await handleGetConfIds(ExhibitorAPI.getConferencesExhibiting, user.email)
+    let exhConfIds = await handleFetchConfIds(ExhibitorAPI.getConferencesExhibiting, user.email)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     exhConfIds.forEach(confId => {
@@ -109,7 +109,7 @@ const ProfilePage = () => {
   const handleShowPresenting = async (e) => {
     handleInputChange(e);
     let unsortedPres = [];
-    let presConfIds = await handleGetConfIds(PresenterAPI.getConferencesPresenting, user.email)
+    let presConfIds = await handleFetchConfIds(PresenterAPI.getConferencesPresenting, user.email)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
     presConfIds.forEach(confId => {
