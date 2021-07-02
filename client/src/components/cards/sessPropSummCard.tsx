@@ -10,21 +10,21 @@ import "./style.css";
 const SessPropSummaryCard = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
   const location = useLocation<Location>();
-  let nameArr: string[];
-  let orgArr: string[];
+  let nameArr: Array<string>;
+  let orgArr: Array<string>;
 
   // Filters props.presenter by sessId, then maps through the result to pull out presenter names
-  const fetchPresNames = (sessId: ObjectId): string[] => {
-    const thesePres: Presenter[] = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
-    const presName: string[] = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName);
+  const fetchPresNames = (sessId: ObjectId): Array<string> => {
+    const thesePres: Array<Presenter> = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
+    const presName: Array<string> = thesePres.map(pres => pres.presGivenName + " " + pres.presFamilyName);
     nameArr = [presName.join(", ")]
     return nameArr;
   }
 
   // Filters props.presenter by sessId, then maps through the result to put out presenter organizations
-  const fetchPresOrgs = (sessId: ObjectId): string[] => {
-    const thesePres: Presenter[] = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
-    const presOrg: string[] = thesePres.map((pres: Presenter) => pres.presOrg)
+  const fetchPresOrgs = (sessId: ObjectId): Array<string> => {
+    const thesePres: Array<Presenter> = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
+    const presOrg: Array<string> = thesePres.map((pres: Presenter) => pres.presOrg)
     orgArr = [...new Set(presOrg)]
     return orgArr;
   }
