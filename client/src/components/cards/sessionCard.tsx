@@ -21,7 +21,7 @@ const SessionCard = (props: any): ReactElement => {
   const urlId: string = urlArray[urlArray.length - 1]
   const urlType: string = urlArray[urlArray.length - 2]
 
-  // Sets boolean to show or hide relevant modal
+  // Sets boolean to show Confirm modal
   const handleShowConfirm = (e: MouseEvent): any | void => {
     const { dataset } = e.target as HTMLButtonElement;
     console.log(dataset.sessid);

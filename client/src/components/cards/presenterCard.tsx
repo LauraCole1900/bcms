@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { MouseEvent, ReactElement, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
@@ -8,10 +8,20 @@ import "./style.css";
 
 // Figure out how to add session name(s)?
 
-const PresenterCard = ({ conference, presenter }: { conference: Array<Conference>, presenter: Array<Presenter> }): ReactElement => {
+const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowConfirm }: { conference: Array<Conference>, presenter: Array<Presenter>, setBtnName: any, setThisId: any, setShowConfirm: any }): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
   const location = useLocation<Location>();
   const [cardRender, setCardRender] = useState<boolean>(false);
+
+  // Sets boolean to show Confirm modal
+  const handleShowConfirm = (e: MouseEvent): any | void => {
+    const { dataset } = e.target as HTMLButtonElement;
+    console.log(dataset.presid);
+    console.log({ dataset });
+    setBtnName(dataset.btnname);
+    setThisId(dataset.presid);
+    setShowConfirm(true);
+  }
 
   useEffect(() => {
     if (presenter) {
@@ -31,10 +41,15 @@ const PresenterCard = ({ conference, presenter }: { conference: Array<Conference
               ? <>
                 <Card.Header className="cardTitleKeynote">
                   <Row>
-                    <Col sm={12}>
+                    <Col sm={11}>
                       <h2 className="title">{pres.presGivenName} {pres.presFamilyName}, Keynote Speaker</h2>
                       <p>{pres.presOrg}</p>
                     </Col>
+                    {isAuthenticated &&
+                    (user!.email === conference[0].ownerEmail || user!.email === pres.presEmail) &&
+                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="confCancel" onClick={(e) => handleShowConfirm(e)}>
+                      <Image fluid src="/images/cancel-event.png" className="delete" alt="Cancel event" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="confCancel" />
+                    </Button>}
                   </Row>
                 </Card.Header>
               </>
