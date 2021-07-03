@@ -60,7 +60,7 @@ module.exports = {
 
   // UPDATE presenter by ID
   updatePresenterById: function (req, res) {
-    console.log("from presenterCont updatePresenterById", req.params.id, req.body)
+    console.log("from presenterCont updatePresenterByEmail", req.params.id, req.body)
     db.Presenter
       .findOneAndUpdate({ _id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))

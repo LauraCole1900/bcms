@@ -134,28 +134,29 @@ const ConfDetails = () => {
     handleHideConfirm();
     // Filters presArray to find specific presenter document
     const thisPres = presArray.filter(pres => pres._id === presId)
+    console.log({ thisPres })
     // Filters sessions by those whose presEmail[] includes thisPres.presEmail
-    const theseSess = sessArray.filter(sess => sess.sessPresEmails.includes(thisPres.presEmail))
+    const theseSess = sessArray.filter(sess => sess.sessPresEmails.includes(thisPres[0].presEmail))
     console.log("from handlePresInactive theseSess", theseSess)
     theseSess.forEach((sess) => {
-      const sessPresenters = sess.sessPresEmails.filter(email => email !== thisPres.presEmail)
+      const sessPresenters = sess.sessPresEmails.filter(email => email !== thisPres[0].presEmail)
       console.log("from handlePresInactive sessPresenters", sessPresenters)
       sessPresenters[0]
         ? SessionAPI.updateSession({ ...sess, sessPresEmails: sessPresenters[0] }, sess._id)
         : SessionAPI.deleteSession(sess._id)
     })
     // Marks presenter "inactive" in DB
-    PresenterAPI.updatePresenterById({ ...thisPres, presActive: "no" }, presId)
-    .then((resp) => {
-      if (resp.status !== 422) {
-        handleShowSuccess();
-      }
-    })
-    .catch((err) => {
-      console.log("from handleUpdateById", err);
-      setErrThrown(err.message);
-      handleShowErr();
-    });
+    PresenterAPI.updatePresenterById({ ...thisPres[0], presActive: "no" }, presId)
+      .then((resp) => {
+        if (resp.status !== 422) {
+          handleShowSuccess();
+        }
+      })
+      .catch((err) => {
+        console.log("from handleUpdateById", err);
+        setErrThrown(err.message);
+        handleShowErr();
+      });
   }
 
   // Filter duplicate session IDs
