@@ -2,9 +2,32 @@ import { Attendee, Exhibitor } from "../interfaces";
 import { AxiosResponse, AxiosError } from "axios";
 import { ObjectId } from "mongoose";
 
-// Handles unregistration of attendees or exhibitors
+// Handles deleting one document by document ID
+export const handleDeleteById = (
+  query: any,
+  id: string | ObjectId,
+  handleShowSuccess: any,
+  setErrThrown: any,
+  handleShowErr: any
+) => {
+  query(id)
+      .then((resp: AxiosResponse) => {
+        // If no errors thrown, show Success modal
+        if (resp.status !== 422) {
+          handleShowSuccess();
+        }
+      })
+      .catch((err: AxiosError) => {
+        console.log(err)
+        setErrThrown(err.message);
+        handleShowErr();
+      })
+}
+
+// Handles deleting document by email and confId
+// Unregistration of attendees or exhibitors
 export const handleUnreg = (
-  api: any,
+  query: any,
   confId: string | ObjectId,
   email: string,
   handleHideConfirm: any,
@@ -13,7 +36,7 @@ export const handleUnreg = (
   handleShowErr: any
 ): Attendee | Exhibitor | void => {
   handleHideConfirm();
-  api(confId, email)
+  query(confId, email)
     .then((resp: AxiosResponse) => {
       // If no errors thrown, show Success modal
       if (resp.status !== 422) {

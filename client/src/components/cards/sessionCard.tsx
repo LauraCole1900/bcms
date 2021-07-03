@@ -5,19 +5,13 @@ import { ObjectId } from "mongoose";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import { useAuth0, User } from "@auth0/auth0-react";
 import Moment from "react-moment";
-import { ConfirmModal, ErrorModal, SuccessModal } from "../modals";
-import { PresenterAPI, SessionAPI } from "../../utils/api";
 import { handleParseTime } from "../../utils/functions";
 import { Presenter, Session } from "../../utils/interfaces";
-import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
 const SessionCard = (props: any): ReactElement => {
   const { user, isAuthenticated } = useAuth0<User>();
   const location = useLocation<Location>();
-  const [errThrown, setErrThrown] = useState<string>();
-  const [btnName, setBtnName] = useState<string | undefined>("");
-  const [thisId, setThisId] = useState<ObjectId | string | undefined>();
   const presEmailArr: Array<string> = props.session.sessPresEmails;
   let nameArr: Array<string> = [];
   let orgArr: Array<string> = [];
@@ -27,54 +21,45 @@ const SessionCard = (props: any): ReactElement => {
   const urlId: string = urlArray[urlArray.length - 1]
   const urlType: string = urlArray[urlArray.length - 2]
 
-  // Modal variables
-  const [showConfirm, setShowConfirm] = useState<ObjectId | string | undefined>("none");
-  const [showErr, setShowErr] = useState<ObjectId | string | undefined>("none");
-
   // Sets boolean to show or hide relevant modal
   const handleShowConfirm = (e: MouseEvent): any | void => {
     const { dataset } = e.target as HTMLButtonElement;
     console.log(dataset.sessid);
     console.log({ dataset });
-    setBtnName(dataset.btnname);
-    setThisId(dataset.sessid);
-    setShowConfirm(dataset.sessid);
+    props.setBtnName(dataset.btnname);
+    props.setThisId(dataset.sessid);
+    props.setShowConfirm(true);
   }
-  const handleHideConfirm = (): string | void => setShowConfirm("none");
-  const handleShowSuccess = (): ObjectId | undefined => props.setShowSuccess(thisId);
-  const handleHideSuccess = (): string | void => props.setShowSuccess("none");
-  const handleShowErr = (): ObjectId | void => setShowErr(thisId);
-  const handleHideErr = (): string | void => setShowErr("none");
 
   // Handles click on "Yes, delete" button on Confirm modal
-  const handleSessDelete = (sessId: ObjectId): Session | void => {
-    console.log("from sessCard handleSessDelete", sessId)
-    handleHideConfirm();
-    // Deletes sessId from each presenters' sessId[]
-    const thesePres: Array<Presenter> = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
-    const presSessions: Array<ObjectId[]> = thesePres.map((pres: Presenter) => pres.presSessionIds.filter(id => id !== sessId))
-    console.log("from sessCard handleSessDelete presSessions", presSessions);
-    thesePres.forEach((pres: Presenter) => {
-      if (presSessions[0].length > 0) {
-        PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: presSessions[0] }, pres.presEmail, pres.confId)
-      } else {
-        PresenterAPI.deletePresenterByEmail(pres.presEmail, pres.confId)
-      }
-    })
-    // Deletes session from DB
-    SessionAPI.deleteSession(sessId)
-      .then((resp: AxiosResponse) => {
-        // If no errors thrown, show Success modal
-        if (resp.status !== 422) {
-          handleShowSuccess();
-        }
-      })
-      .catch((err: AxiosError) => {
-        console.log(err)
-        setErrThrown(err.message);
-        handleShowErr();
-      })
-  };
+  // const handleSessDelete = (sessId: ObjectId): Session | void => {
+  //   console.log("from sessCard handleSessDelete", sessId)
+  //   handleHideConfirm();
+  //   // Deletes sessId from each presenters' sessId[]
+  //   const thesePres: Array<Presenter> = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
+  //   const presSessions: Array<ObjectId[]> = thesePres.map((pres: Presenter) => pres.presSessionIds.filter(id => id !== sessId))
+  //   console.log("from sessCard handleSessDelete presSessions", presSessions);
+  //   thesePres.forEach((pres: Presenter) => {
+  //     if (presSessions[0].length > 0) {
+  //       PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: presSessions[0] }, pres.presEmail, pres.confId)
+  //     } else {
+  //       PresenterAPI.deletePresenterByEmail(pres.presEmail, pres.confId)
+  //     }
+  //   })
+  //   // Deletes session from DB
+  //   SessionAPI.deleteSession(sessId)
+  //     .then((resp: AxiosResponse) => {
+  //       // If no errors thrown, show Success modal
+  //       if (resp.status !== 422) {
+  //         handleShowSuccess();
+  //       }
+  //     })
+  //     .catch((err: AxiosError) => {
+  //       console.log(err)
+  //       setErrThrown(err.message);
+  //       handleShowErr();
+  //     })
+  // };
 
   // Filters props.presenter by sessId, then maps through the result to pull out presenter names
   const fetchPresNames = (sessId: ObjectId): Array<string> => {
@@ -89,7 +74,8 @@ const SessionCard = (props: any): ReactElement => {
     const thesePres = props.presenter.filter((pres: Presenter) => pres.presSessionIds.includes(sessId))
     const presOrg: Array<string> = thesePres.map((pres: Presenter) => pres.presOrg)
     orgArr = [...new Set(presOrg)]
-    return orgArr;
+    const joinedOrgs = [orgArr.join(", ")]
+    return joinedOrgs;
   }
 
 

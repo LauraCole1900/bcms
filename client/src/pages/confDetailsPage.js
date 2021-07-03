@@ -7,7 +7,7 @@ import { ConferenceCard, PresenterCard, SessionCard, UserCard } from "../compone
 import { Sidenav } from "../components/navbar";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ExhibitorAPI, ConferenceAPI, PresenterAPI, SessionAPI } from "../utils/api";
-import { handleConfCancel, handleFetchOne, handleUnreg } from "../utils/functions";
+import { handleConfCancel, handleDeleteById, handleFetchOne, handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const ConfDetails = () => {
@@ -55,22 +55,6 @@ const ConfDetails = () => {
       return newTime;
     }
   }
-
-  // GETs conference by confId
-  // const fetchConf = async (confId) => {
-  //   await ConferenceAPI.getConferenceById(confId)
-  //     .then(resp => {
-  //       console.log("confDetailsPage getConfsById", resp.data)
-  //       const confObj = resp.data
-  //       setConference(confObj)
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //       return false
-  //     })
-
-  //   setConfReady(true);
-  // }
 
   // GETs sessions by confId
   const fetchSess = async (confId) => {
@@ -125,6 +109,23 @@ const ConfDetails = () => {
     pres.presSessionIds.map(id => idArr = [...idArr, id]);
     return idArr;
   }
+
+  // Handles click on "yes, delete" button on Confirm modal
+  const handleSessDelete = (sessId) => {
+    console.log("from handleSessDelete", sessId)
+    handleHideConfirm();
+    // Deletes sessId from each presenters' sessId[]
+    const thesePres = presArray.filter((pres) => pres.presSessionIds.includes(sessId))
+    thesePres.forEach((pres) => {
+      const presSessions = pres.presSessionIds.filter(id => id !== sessId)
+      console.log("from handleSessDelete presSessions", presSessions);
+      presSessions[0] 
+        ? PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: presSessions[0] }, pres.presEmail, pres.confId)
+        : PresenterAPI.deletePresenterByEmail(pres.presEmail, pres.confId)
+      })
+    // Deletes session from DB
+    handleDeleteById(SessionAPI.deleteSession, sessId, handleShowSuccess, setErrThrown, handleShowErr);
+  };
 
   // Filter duplicate session IDs
   const filterSessIds = (idArr) => {
@@ -288,21 +289,21 @@ const ConfDetails = () => {
                   <Col sm={12}>
                     <h1>Presenters</h1>
                     {presArray.length > 0
-                      ? <PresenterCard presenter={searchPres(presArray)} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
+                      ? <PresenterCard presenter={searchPres(presArray)} conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                       : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {(searchBy === "allSess" || searchBy === "sessionName") &&
                   <Col sm={12}>
                     <h1>Sessions</h1>
                     {sessArray.length > 0
-                      ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
+                      ? <SessionCard session={searchSess(sessArray)} presenter={presArray} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                       : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {(searchBy === "sessionPresenter" || searchBy === "sessionOrg") &&
                   <Col sm={12}>
                     <h1>Sessions</h1>
                     {sessArray.length > 0
-                      ? <SessionCard session={searchSessPres(sessArray)} presenter={presArray} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
+                      ? <SessionCard session={searchSessPres(sessArray)} presenter={presArray} conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                       : <h3>We can't seem to find any conferences associated with this presenter or organization. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {searchBy === "allPnS" &&
@@ -310,13 +311,13 @@ const ConfDetails = () => {
                     <Col sm={6}>
                       <h1>Presenters</h1>
                       {presArray.length > 0
-                        ? <PresenterCard presenter={searchPres(presArray)} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
+                        ? <PresenterCard presenter={searchPres(presArray)} conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                         : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                     </Col>
                     <Col sm={6}>
                       <h1>Sessions</h1>
                       {sessArray.length > 0
-                        ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} setShowSuccess={setShowSuccess} showSuccess={showSuccess} />
+                        ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
                         : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                     </Col>
                   </div>}
@@ -343,6 +344,9 @@ const ConfDetails = () => {
               handleShowSuccess,
               setErrThrown,
               handleShowErr
+            )}
+            deletesess={() => handleSessDelete(
+              thisId
             )}
             unregatt={() => handleUnreg(
               AttendeeAPI.unregisterAttendee,
