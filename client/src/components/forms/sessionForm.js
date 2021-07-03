@@ -42,7 +42,9 @@ const SessionForm = () => {
     presPhone: "",
     presWebsite: "",
     presPic: "",
-    presSessionIds: []
+    presSessionIds: [],
+    presAccepted: "",
+    presActive: "",
   };
   const [conference, setConference] = useState();
   const [charRem, setCharRem] = useState(750);

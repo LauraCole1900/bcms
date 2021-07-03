@@ -22,6 +22,10 @@ const ConfirmModal = (props: any): ReactElement => {
           {props.btnname === "sessDelete" &&
             <h4>Are you sure you want to delete {props.confname}? This action can't be undone.</h4>}
 
+          {/* Deactivate Presenter button */}
+          {props.btnname === "presCancel" &&
+            <h4>Are you sure you want to mark this presenter inactive? This can be undone later if circumstances change.</h4>}
+
           {/* Unregister button */}
           {props.btnname === "unregAtt" &&
             <h4>Are you sure you want to unregister from {props.confname}? This action can't be undone.</h4>}
@@ -52,6 +56,10 @@ const ConfirmModal = (props: any): ReactElement => {
             {/* Confirm Delete Session button */}
             {props.btnname === "sessDelete" &&
               <Button data-toggle="popover" title="Confirm Delete" className="button" type="button" onClick={props.deletesess}>Yes, Delete</Button>}
+
+            {/* Confirm Deactivate Presenter button */}
+            {props.btnname === "presCancel" &&
+              <Button data-toggle="popover" title="Confirm Deactivate" className="button" type="button" onClick={props.cancelpres}>Yes, Mark Presenter Inactive</Button>}
 
             {/* Confirm Unregister button */}
             {(props.btnname === "unregAtt" || props.btnname === "admUnregAtt") &&

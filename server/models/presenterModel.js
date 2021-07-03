@@ -57,6 +57,10 @@ const presenterSchema = new Schema({
     type: String,
     required: true
   },
+  presActive: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now

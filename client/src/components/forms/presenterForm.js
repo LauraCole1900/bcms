@@ -194,7 +194,7 @@ const PresenterForm = () => {
       switch (noErrors) {
         case true:
           // PUT call to update presenter document
-          PresenterAPI.updatePresenterByEmail({ ...pres, presAccepted: "yes" }, pres.presEmail, pres.confId)
+          PresenterAPI.updatePresenterByEmail({ ...pres, presAccepted: "yes", presActive: "yes" }, pres.presEmail, pres.confId)
             .then(resp => {
               if (!resp.err) {
                 return false

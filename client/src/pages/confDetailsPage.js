@@ -128,18 +128,18 @@ const ConfDetails = () => {
     handleDeleteById(SessionAPI.deleteSession, sessId, handleShowSuccess, setErrThrown, handleShowErr);
   };
 
-  // Handles click on "yes, delete" button on Confirm modal from Presenter card
-  const handlePresDelete = (presId) => {
-    console.log("from handlePresDelete", presId)
+  // Handles click on "yes, deactivate" button on Confirm modal from Presenter card
+  const handlePresInactive = (presId) => {
+    console.log("from handlePresInactive", presId)
     handleHideConfirm();
     // Filters presArray to find specific presenter document
     const thisPres = presArray.filter(pres => pres._id === presId)
     // Filters sessions by those whose presEmail[] includes thisPres.presEmail
     const theseSess = sessArray.filter(sess => sess.sessPresEmails.includes(thisPres.presEmail))
-    console.log("from handlePresDelete theseSess", theseSess)
+    console.log("from handlePresInactive theseSess", theseSess)
     theseSess.forEach((sess) => {
       const sessPresenters = sess.sessPresEmails.filter(email => email !== thisPres.presEmail)
-      console.log("from handlePresDelete sessPresenters", sessPresenters)
+      console.log("from handlePresInactive sessPresenters", sessPresenters)
       sessPresenters[0]
         ? SessionAPI.updateSession({ ...sess, sessPresEmails: sessPresenters[0] }, sess._id)
         : SessionAPI.deleteSession(sess._id)
@@ -364,7 +364,7 @@ const ConfDetails = () => {
               setErrThrown,
               handleShowErr
             )}
-            deletepres={() => handlePresDelete(
+            cancelpres={() => handlePresInactive(
               thisId
             )}
             deletesess={() => handleSessDelete(
