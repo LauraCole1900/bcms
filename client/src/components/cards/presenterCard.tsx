@@ -49,7 +49,7 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                       (user!.email === conference[0].ownerEmail || user!.email === pres.presEmail) &&
                       pres.presActive === "yes" &&
                       <Col sm={1}>
-                        <Button data-toggle="popover" title="Mark this presenter inactive" className="prescancelbtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" onClick={(e) => handleShowConfirm(e)}>
+                        <Button data-toggle="popover" title="Mark this presenter inactive" className="keynotebtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" onClick={(e) => handleShowConfirm(e)}>
                           <Image fluid src="/images/no-symbol.png" className="delete" alt="Mark this presenter inactive" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" />
                         </Button>
                       </Col>}
@@ -76,24 +76,22 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                 </Card.Header>
               </>}
             <Card.Body className="infoCardBody">
-              {(pres.presActive === "no") &&
-                <Row>
+              <Row>
+                {pres.presPic !== "" &&
+                  <Col sm={4} className="presPic">
+                    <Image fluid className="presPicStyle" src={pres.presPic} alt={pres.presGivenName + " " + pres.presFamilyName} />
+                  </Col>}
+                {(pres.presActive === "no") &&
                   <Col sm={8}>
                     <div className="alert">
                       <h5>Due to unforeseen circumstances, this presenter is no longer able to present.</h5>
                     </div>
-                  </Col>
-                </Row>}
-              <Row>
+                  </Col>}
                 <Col sm={8}>
                   <Card.Text>{pres.presBio}</Card.Text>
                   {pres.presWebsite !== "" &&
                     <p>Website: <a href={pres.presWebsite} rel="noreferrer noopener" target="_blank">{pres.presWebsite}</a></p>}
                 </Col>
-                {pres.presPic !== "" &&
-                  <Col sm={4} className="presPic">
-                    <Image fluid className="presPicStyle" src={pres.presPic} alt={pres.presGivenName + " " + pres.presFamilyName} />
-                  </Col>}
               </Row>
               {isAuthenticated &&
                 (user!.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user!.email!)) &&

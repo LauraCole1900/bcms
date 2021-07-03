@@ -98,7 +98,7 @@ const SessionCard = (props: any): ReactElement => {
                   {isAuthenticated &&
                     urlType !== "schedule" &&
                     (user!.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user!.email)) &&
-                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess._id} data-name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
+                    <Button data-toggle="popover" title="Delete this session" className="keynotebtn" data-sessid={sess._id} data-sessname={sess._id} data-name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
                       <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess._id} data-name="sessDelete" />
                     </Button>}
                   {urlType === "schedule" &&

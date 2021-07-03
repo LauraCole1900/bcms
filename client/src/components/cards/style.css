@@ -112,7 +112,7 @@ p {
 }
 
 .deletebtn,
-.prescancelbtn {
+.keynotebtn {
   color: var(--sand);
   float: right;
   margin: 13px;
@@ -121,12 +121,12 @@ p {
   background: var(--greenGradientDown);
   border: 2px solid var(--darkForest);
 }
-.prescancelbtn {
+.keynotebtn {
   background: var(--blueGradientDown);
   border: 2px solid var(--darkBlue);
 }
 .deletebtn:hover,
-.prescancelbtn:hover {
+.keynotebtn:hover {
   background: var(--redGradientDown);
 }
 
