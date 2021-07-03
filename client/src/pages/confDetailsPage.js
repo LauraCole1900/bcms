@@ -145,8 +145,8 @@ const ConfDetails = () => {
         ? SessionAPI.updateSession({ ...sess, sessPresEmails: sessPresenters[0] }, sess._id)
         : SessionAPI.deleteSession(sess._id)
     })
-    // Marks presenter "inactive" in DB
-    PresenterAPI.updatePresenterById({ ...thisPres[0], presActive: "no" }, presId)
+    // Marks presenter "inactive" and deletes all their sessIds in DB
+    PresenterAPI.updatePresenterById({ ...thisPres[0], presSessionIds: [], presActive: "no" }, presId)
       .then((resp) => {
         if (resp.status !== 422) {
           handleShowSuccess();

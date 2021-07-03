@@ -178,7 +178,7 @@ const SessionForm = () => {
       } else {
         // If presenter exists without sessId, add new session ID to presSessionIds[]
         if (conference.confKeynote === "yes") {
-          return await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId] }, email, confId)
+          return await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId], presActive: "yes" }, email, confId)
             .then(resp => {
               console.log("updatePresenter", resp)
               return resp;
@@ -189,7 +189,7 @@ const SessionForm = () => {
               handleShowErr();
             })
         } else {
-          return await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId], presKeynote: "no" }, email, confId)
+          return await PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: [...pres.presSessionIds, sessId], presKeynote: "no", presActive: "yes" }, email, confId)
             .then(resp => {
               console.log("updatePresenter", resp)
               return resp;
@@ -203,7 +203,7 @@ const SessionForm = () => {
       }
     } else {
       // If presenter doesn't exist, create new presenter document
-      return PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId], presAccepted: "yes" })
+      return PresenterAPI.savePresenter({ ...presenter, confId: session.confId, presEmail: email, presKeynote: session.sessKeynote, presSessionIds: [sessId], presAccepted: "yes", presActive: "yes" })
         .then(resp => {
           console.log("savePresenter", resp);
           return resp;
@@ -592,9 +592,9 @@ const SessionForm = () => {
 
           </Form>
 
-          <SuccessModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
+          <SuccessModal conference={conference} confname={conference.confName} confid={conference._id} urlid={urlId} urltype={formType} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-          <ErrorModal conference={conference} confname={conference.confName} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
+          <ErrorModal conference={conference} confname={conference.confName} confid={conference._id} urlid={urlId} urltype={formType} errmsg={errThrown} show={showErr} hide={e => handleHideErr(e)} />
 
         </Container>}
     </>
