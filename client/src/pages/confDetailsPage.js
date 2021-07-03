@@ -144,6 +144,18 @@ const ConfDetails = () => {
         ? SessionAPI.updateSession({ ...sess, sessPresEmails: sessPresenters[0] }, sess._id)
         : SessionAPI.deleteSession(sess._id)
     })
+    // Marks presenter "inactive" in DB
+    PresenterAPI.updatePresenterById({ ...thisPres, presActive: "no" }, presId)
+    .then((resp) => {
+      if (resp.status !== 422) {
+        handleShowSuccess();
+      }
+    })
+    .catch((err) => {
+      console.log("from handleUpdateById", err);
+      setErrThrown(err.message);
+      handleShowErr();
+    });
   }
 
   // Filter duplicate session IDs

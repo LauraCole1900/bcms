@@ -13,5 +13,6 @@ export default interface Presenter {
   presSessionIds: Array<ObjectId>;
   presKeynote: string;
   presAccepted: string;
+  presActive: string;
   _id: ObjectId;
 }

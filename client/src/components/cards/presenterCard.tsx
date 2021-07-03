@@ -46,10 +46,12 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                       <p>{pres.presOrg}</p>
                     </Col>
                     {isAuthenticated &&
-                    (user!.email === conference[0].ownerEmail || user!.email === pres.presEmail) &&
-                    <Button data-toggle="popover" title="Mark this presenter inactive" className="deletebtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid src="/images/no-symbol.png" className="delete" alt="Mark this presenter inactive" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" />
-                    </Button>}
+                      (user!.email === conference[0].ownerEmail || user!.email === pres.presEmail) &&
+                      <Col sm={1}>
+                        <Button data-toggle="popover" title="Mark this presenter inactive" className="deletebtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" onClick={(e) => handleShowConfirm(e)}>
+                          <Image fluid src="/images/no-symbol.png" className="delete" alt="Mark this presenter inactive" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" />
+                        </Button>
+                      </Col>}
                   </Row>
                 </Card.Header>
               </>
@@ -57,14 +59,29 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
               <>
                 <Card.Header className="cardTitle">
                   <Row>
-                    <Col sm={12}>
+                    <Col sm={11}>
                       <h2 className="title">{pres.presGivenName} {pres.presFamilyName}</h2>
                       <p>{pres.presOrg}</p>
                     </Col>
+                    {isAuthenticated &&
+                      (user!.email === conference[0].ownerEmail || user!.email === pres.presEmail) &&
+                      <Col sm={1}>
+                        <Button data-toggle="popover" title="Mark this presenter inactive" className="deletebtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" onClick={(e) => handleShowConfirm(e)}>
+                          <Image fluid src="/images/no-symbol.png" className="delete" alt="Mark this presenter inactive" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" />
+                        </Button>
+                      </Col>}
                   </Row>
                 </Card.Header>
               </>}
             <Card.Body className="infoCardBody">
+              {(pres.presActive === "no") &&
+                <Row>
+                  <Col sm={8}>
+                    <div className="alert">
+                      <h5>Due to unforeseen circumstances, this presenter is no longer able to present.</h5>
+                    </div>
+                  </Col>
+                </Row>}
               <Row>
                 <Col sm={8}>
                   <Card.Text>{pres.presBio}</Card.Text>
