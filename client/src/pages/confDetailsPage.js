@@ -134,15 +134,15 @@ const ConfDetails = () => {
     handleHideConfirm();
     // Filters presArray to find specific presenter document
     const thisPres = presArray.filter(pres => pres._id === presId)
-    console.log({ thisPres })
     // Filters sessions by those whose presEmail[] includes thisPres.presEmail
     const theseSess = sessArray.filter(sess => sess.sessPresEmails.includes(thisPres[0].presEmail))
     console.log("from handlePresInactive theseSess", theseSess)
     theseSess.forEach((sess) => {
       const sessPresenters = sess.sessPresEmails.filter(email => email !== thisPres[0].presEmail)
+      console.log({ sessPresenters })
       console.log("from handlePresInactive sessPresenters", sessPresenters)
       sessPresenters[0]
-        ? SessionAPI.updateSession({ ...sess, sessPresEmails: sessPresenters[0] }, sess._id)
+        ? SessionAPI.updateSession({ ...sess, sessPresEmails: sessPresenters }, sess._id)
         : SessionAPI.deleteSession(sess._id)
     })
     // Marks presenter "inactive" and deletes all their sessIds in DB

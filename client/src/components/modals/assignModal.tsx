@@ -2,6 +2,7 @@ import React, { ChangeEvent, MouseEvent, ReactElement, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { SessionAPI } from "../../utils/api";
+import { handleDbTime } from "../../utils/functions";
 import { Session } from "../../utils/interfaces";
 import { AxiosError, AxiosResponse } from "axios";
 import "./style.css"
@@ -13,32 +14,18 @@ const AssignModal = (props: any): ReactElement => {
   let sessData: Session;
   const [session, setSession] = useState<Session>();
 
-  // Parse time to 24-hour to store in db
-  const dbTime = (time: string): string => {
-    const timeArr1: Array<string> = time.split(":");
-    const timeArr2: Array<string> = [timeArr1[1].slice(0, 2), timeArr1[1].slice(2)];
-    const hh: string = timeArr2[1] === "pm" ? JSON.stringify(JSON.parse(timeArr1[0]) + 12) : timeArr1[0];
-    if (hh.length === 1) {
-      const dbTime: string = `0${hh}:${timeArr2[0]}`
-      return dbTime
-    } else {
-      const dbTime: string = `${hh}:${timeArr2[0]}`
-      return dbTime;
-    }
-  }
-
   // Handles input changes to form fields
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): any => {
     const { value } = e.target;
     switch (value) {
       case "new":
-        sessData = { ...session!, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
+        sessData = { ...session!, sessDate: props.date, sessRoom: props.room, sessStart: handleDbTime(props.startTime), sessEnd: handleDbTime(props.endTime) }
         props.setThisSess(sessData);
         setSession(sessData);
         break;
       default:
         const sess: Session = allSess.filter((sess: Session) => sess._id.toString() === value)[0];
-        sessData = { ...sess, sessDate: props.date, sessRoom: props.room, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime) }
+        sessData = { ...sess, sessDate: props.date, sessRoom: props.room, sessStart: handleDbTime(props.startTime), sessEnd: handleDbTime(props.endTime) }
         props.setThisSess(sessData);
         setSession(sessData);
     }
@@ -70,7 +57,7 @@ const AssignModal = (props: any): ReactElement => {
     e.preventDefault();
     const { name } = e.target as HTMLButtonElement
     props.setBtnName(name);
-    SessionAPI.saveSession({ confId: props.urlid, sessName: "", sessPresEmails: "", sessDate: props.date, sessStart: dbTime(props.startTime), sessEnd: dbTime(props.endTime), sessDesc: "", sessKeynote: "", sessPanel: "", sessRoom: props.room, sessAccepted: "yes" })
+    SessionAPI.saveSession({ confId: props.urlid, sessName: "", sessPresEmails: "", sessDate: props.date, sessStart: handleDbTime(props.startTime), sessEnd: handleDbTime(props.endTime), sessDesc: "", sessKeynote: "", sessPanel: "", sessRoom: props.room, sessAccepted: "yes" })
       .then((resp: AxiosResponse<Session>) => {
         console.log("from assignModal createSess", resp.data)
         // TS doesn't like resp.err

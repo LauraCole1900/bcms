@@ -16,7 +16,7 @@ router.route("/:id")
   .get(sessionController.findBySessId);
 
 
-router.route("/update/:id")
+router.route("/update/id/:id")
   .put(sessionController.updateSession);
 
 

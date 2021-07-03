@@ -31,7 +31,7 @@ const SessionAPI = {
   // UPDATE session by sessId
   updateSession: function (formObj, sessId) {
     console.log("from API updateSession", formObj, sessId)
-    return axios.put(`/api/session/update/${sessId}`, formObj)
+    return axios.put(`/api/session/update/id/${sessId}`, formObj)
   },
 
 
