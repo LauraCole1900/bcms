@@ -111,13 +111,22 @@ p {
   max-width: 25px;
 }
 
-.deletebtn {
+.deletebtn,
+.prescancelbtn {
   color: var(--sand);
-  background: var(--greenGradientDown);
   float: right;
   margin: 13px;
 }
-.deletebtn:hover {
+.deletebtn {
+  background: var(--greenGradientDown);
+  border: 2px solid var(--darkForest);
+}
+.prescancelbtn {
+  background: var(--blueGradientDown);
+  border: 2px solid var(--darkBlue);
+}
+.deletebtn:hover,
+.prescancelbtn:hover {
   background: var(--redGradientDown);
 }
 

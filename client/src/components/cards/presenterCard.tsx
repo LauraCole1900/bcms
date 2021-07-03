@@ -49,7 +49,7 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                       (user!.email === conference[0].ownerEmail || user!.email === pres.presEmail) &&
                       pres.presActive === "yes" &&
                       <Col sm={1}>
-                        <Button data-toggle="popover" title="Mark this presenter inactive" className="deletebtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" onClick={(e) => handleShowConfirm(e)}>
+                        <Button data-toggle="popover" title="Mark this presenter inactive" className="prescancelbtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" onClick={(e) => handleShowConfirm(e)}>
                           <Image fluid src="/images/no-symbol.png" className="delete" alt="Mark this presenter inactive" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" />
                         </Button>
                       </Col>}
