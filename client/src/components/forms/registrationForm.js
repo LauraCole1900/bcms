@@ -334,9 +334,9 @@ const Registration = () => {
 
             </Form>
 
-            <SuccessModal conference={conference} confname={conference.confName} confid={confId} urltype={formType} attname={attendee.givenName + " " + attendee.familyName} show={showSuccess} hide={e => handleHideSuccess(e)} />
+            <SuccessModal conference={conference} confname={conference.confName} confid={conference._id} urltype={formType} attname={attendee.givenName + " " + attendee.familyName} show={showSuccess} hide={e => handleHideSuccess(e)} />
 
-            <ErrorModal conference={conference} confname={conference.confName} confid={confId} urltype={formType} errmsg={errThrown} attname={attendee.givenName + " " + attendee.familyName} show={showErr} hide={e => handleHideErr(e)} />
+            <ErrorModal conference={conference} confname={conference.confName} confid={conference._id} urltype={formType} errmsg={errThrown} attname={attendee.givenName + " " + attendee.familyName} show={showErr} hide={e => handleHideErr(e)} />
 
           </Container>
         )
