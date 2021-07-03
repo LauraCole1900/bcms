@@ -6,9 +6,9 @@ import { Attendee, Committee, Conference, Exhibitor, Presenter, Session } from "
 
 // Handles click on "Yes, Cancel" button on ConfirmModal
 // Will need to have email functionality to email registered participants
-const handleConfCancel = async (
-  api1: any,
-  api2: any,
+export const handleConfCancel = async (
+  query1: any,
+  query2: any,
   confId: ObjectId,
   conference: Conference,
   handleHideConfirm: any,
@@ -19,13 +19,13 @@ const handleConfCancel = async (
   console.log("from confCard", confId);
   handleHideConfirm();
   let attEmailArr: Array<string> = await handleFetchEmails(
-    api1,
+    query1,
     confId,
     setErrThrown,
     handleShowErr
   );
   let exhEmailArr: Array<string> = await handleFetchEmails(
-    api2,
+    query2,
     confId,
     setErrThrown,
     handleShowErr
@@ -33,6 +33,7 @@ const handleConfCancel = async (
   console.log({ attEmailArr, exhEmailArr });
   // send-email functionality for registered attendees & exhibitors goes here
 
+  // handleUpdateById(ConferenceAPI.updateConference, confId, conference, {confCancel: "yes"}, handleShowSuccess, setErrThrown, handleShowErr)
   ConferenceAPI.updateConference({ ...conference, confCancel: "yes" }, confId)
     .then((resp: AxiosResponse<Conference>) => {
       if (resp.status !== 422) {
@@ -40,10 +41,35 @@ const handleConfCancel = async (
       }
     })
     .catch((err: AxiosError) => {
-      console.log("from confCard updateConf", err);
+      console.log("from handleUpdateById", err);
       setErrThrown(err.message);
       handleShowErr();
     });
 };
 
-export default handleConfCancel;
+export const handleUpdateById = async (
+  query: any,
+  id: ObjectId,
+  data: Attendee | Committee | Conference | Exhibitor | Presenter | Session,
+  update: {
+    key: string,
+    value: string
+  },
+  handleShowSuccess: any,
+  setErrThrown: any,
+  handleShowErr: any
+): Promise<Attendee | Committee | Conference | Exhibitor | Presenter | Session | void> => {
+  console.log({ update });
+  query({ ...data, update }, id)
+  .then((resp: AxiosResponse<Attendee | Committee | Conference | Exhibitor | Presenter | Session>) => {
+    if (resp.status !== 422) {
+      console.log(resp);
+      handleShowSuccess();
+    }
+  })
+  .catch((err: AxiosError) => {
+    console.log("from handleUpdateById", err);
+    setErrThrown(err.message);
+    handleShowErr();
+  })
+}

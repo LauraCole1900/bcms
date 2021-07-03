@@ -110,22 +110,41 @@ const ConfDetails = () => {
     return idArr;
   }
 
-  // Handles click on "yes, delete" button on Confirm modal
+  // Handles click on "yes, delete" button on Confirm modal from Session card
   const handleSessDelete = (sessId) => {
     console.log("from handleSessDelete", sessId)
     handleHideConfirm();
-    // Deletes sessId from each presenters' sessId[]
+    // Filters presenters by those whose sessId[] includes sessId
     const thesePres = presArray.filter((pres) => pres.presSessionIds.includes(sessId))
     thesePres.forEach((pres) => {
+      // Deletes sessId from each presenters' sessId[]
       const presSessions = pres.presSessionIds.filter(id => id !== sessId)
       console.log("from handleSessDelete presSessions", presSessions);
-      presSessions[0] 
+      presSessions[0]
         ? PresenterAPI.updatePresenterByEmail({ ...pres, presSessionIds: presSessions[0] }, pres.presEmail, pres.confId)
         : PresenterAPI.deletePresenterByEmail(pres.presEmail, pres.confId)
-      })
+    })
     // Deletes session from DB
     handleDeleteById(SessionAPI.deleteSession, sessId, handleShowSuccess, setErrThrown, handleShowErr);
   };
+
+  // Handles click on "yes, delete" button on Confirm modal from Presenter card
+  const handlePresDelete = (presId) => {
+    console.log("from handlePresDelete", presId)
+    handleHideConfirm();
+    // Filters presArray to find specific presenter document
+    const thisPres = presArray.filter(pres => pres._id === presId)
+    // Filters sessions by those whose presEmail[] includes thisPres.presEmail
+    const theseSess = sessArray.filter(sess => sess.sessPresEmails.includes(thisPres.presEmail))
+    console.log("from handlePresDelete theseSess", theseSess)
+    theseSess.forEach((sess) => {
+      const sessPresenters = sess.sessPresEmails.filter(email => email !== thisPres.presEmail)
+      console.log("from handlePresDelete sessPresenters", sessPresenters)
+      sessPresenters[0]
+        ? SessionAPI.updateSession({ ...sess, sessPresEmails: sessPresenters[0] }, sess._id)
+        : SessionAPI.deleteSession(sess._id)
+    })
+  }
 
   // Filter duplicate session IDs
   const filterSessIds = (idArr) => {
@@ -344,6 +363,9 @@ const ConfDetails = () => {
               handleShowSuccess,
               setErrThrown,
               handleShowErr
+            )}
+            deletepres={() => handlePresDelete(
+              thisId
             )}
             deletesess={() => handleSessDelete(
               thisId
