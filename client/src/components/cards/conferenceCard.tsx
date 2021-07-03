@@ -74,7 +74,7 @@ const ConferenceCard = (props: any): ReactElement => {
                 </Col>
                 <Col sm={1}>
                   {isAuthenticated &&
-                    (user!.email === conf.ownerEmail) &&
+                    (user!.email === conf.ownerEmail && conf.confCancel === "no") &&
                     <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-btnname="confCancel" onClick={(e) => handleShowConfirm(e)}>
                       <Image fluid src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-btnname="confCancel" />
                     </Button>}
