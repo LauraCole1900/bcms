@@ -24,7 +24,7 @@ const AboutBCMS = (): ReactElement => {
       <Row>
         <Col sm={2}></Col>
         <Col sm={8}>
-          <Table bordered responsive>
+          <Table bordered responsive className="bold">
             <thead>
               <tr>
                 <th>What BCMS <span className="green">Is:</span></th>
@@ -33,12 +33,12 @@ const AboutBCMS = (): ReactElement => {
             </thead>
             <tbody>
               <tr>
-                <td className="green">
+                <td>
                   <ul>
                     <li>A conference creation, registration, and management service.</li>
                   </ul>
                 </td>
-                <td className="red">
+                <td>
                   <ul>
                     <li>BCMS will NOT secure your venue for you.</li>
                     <li>BCMS will NOT secure your lodging for you.</li>

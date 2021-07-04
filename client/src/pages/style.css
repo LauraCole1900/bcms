@@ -25,6 +25,11 @@
   font-weight: 700;
 }
 
+.bold {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
 .center {
   text-align: center;
 }

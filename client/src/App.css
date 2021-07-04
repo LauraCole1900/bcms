@@ -18,29 +18,41 @@
   --medBlue: #185196;
   --darkBlue: #032c4b;
   --silverGradientUp: linear-gradient(to top, var(--lightSil), var(--darkSil));
-  --silverGradientDown: linear-gradient(
-    to bottom,
-    var(--lightSil),
-    var(--darkSil)
-  );
+  --silverGradientDown: linear-gradient(to bottom, var(--lightSil), var(--darkSil));
   --sandGradientDown: linear-gradient(to bottom, var(--sand), var(--darkSand));
   --redGradientDown: linear-gradient(to bottom, var(--red), var(--darkRed));
-  --greenGradientUp: linear-gradient(
-    to top,
-    var(--lightForest),
-    var(--medForest)
-  );
-  --greenGradientDown: linear-gradient(
-    to bottom,
-    var(--lightForest),
-    var(--medForest)
-  );
+  --greenGradientUp: linear-gradient(to top, var(--lightForest), var(--medForest));
+  --greenGradientDown: linear-gradient(to bottom, var(--lightForest), var(--medForest));
   --blueGradientUp: linear-gradient(to top, var(--skyBlue), var(--darkBlue));
-  --blueGradientDown: linear-gradient(
-    to bottom,
-    var(--skyBlue),
-    var(--darkBlue)
-  );
+  --blueGradientDown: linear-gradient(to bottom, var(--skyBlue), var(--darkBlue));
+}
+
+.bground {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.bground::after {
+  content: "";
+  background-image: url("./pix/Bristlecone.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  position: fixed;
+  top: -20px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.4;
+  z-index: -5;
+}
+
+.fground {
+  position: relative;
+  z-index: 10;
 }
 
 h1,
@@ -60,9 +72,11 @@ h2 {
 h3,
 h4,
 h5,
+li,
 p,
 form,
 td,
+th,
 .adminButton,
 .alert,
 .authRemind,
