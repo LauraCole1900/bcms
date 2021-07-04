@@ -22,7 +22,7 @@ const NotFound = (): ReactElement => {
       </Row>
       <Row>
         <Col sm={12} className="center">
-          <p>You've found unmapped territory. Our wizards recommend returning to familiar areas:</p>
+          <p>You've found uncharted territory. Our wizards recommend returning to familiar areas:</p>
         </Col>
       </Row>
       <Row>
