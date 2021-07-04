@@ -76,22 +76,24 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                 </Card.Header>
               </>}
             <Card.Body className="infoCardBody">
-              <Row>
-                {pres.presPic !== "" &&
-                  <Col sm={4} className="presPic">
-                    <Image fluid className="presPicStyle" src={pres.presPic} alt={pres.presGivenName + " " + pres.presFamilyName} />
-                  </Col>}
-                {(pres.presActive === "no") &&
-                  <Col sm={8}>
+              {(pres.presActive === "no") &&
+                <Row>
+                  <Col sm={12}>
                     <div className="alert">
                       <h5>Due to unforeseen circumstances, this presenter is no longer able to present.</h5>
                     </div>
-                  </Col>}
+                  </Col>
+                </Row>}
+              <Row>
                 <Col sm={8}>
                   <Card.Text>{pres.presBio}</Card.Text>
                   {pres.presWebsite !== "" &&
                     <p>Website: <a href={pres.presWebsite} rel="noreferrer noopener" target="_blank">{pres.presWebsite}</a></p>}
                 </Col>
+                {pres.presPic !== "" &&
+                  <Col sm={4} className="presPic">
+                    <Image fluid className="presPicStyle" src={pres.presPic} alt={pres.presGivenName + " " + pres.presFamilyName} />
+                  </Col>}
               </Row>
               {isAuthenticated &&
                 (user!.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user!.email!)) &&
