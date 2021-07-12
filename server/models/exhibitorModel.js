@@ -76,4 +76,4 @@ const exhibitorSchema = new Schema({
 
 const Exhibitor = mongoose.model("Exhibitor", exhibitorSchema);
 
-export default Exhibitor;
+module.exports = Exhibitor;
