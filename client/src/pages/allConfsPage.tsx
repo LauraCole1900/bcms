@@ -1,51 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { ObjectId } from "mongoose";
+import { useAuth0, User } from "@auth0/auth0-react";
 import { Container, Card, Row, Col, Form } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI } from "../utils/api";
 import { handleConfCancel, handleUnreg } from "../utils/functions";
+import { Conference } from "../utils/interfaces";
+import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
-const AllConfs = () => {
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const [conference, setConference] = useState();
-  const [confArray, setConfArray] = useState([]);
-  const [searchBy, setSearchBy] = useState("all");
-  const [search, setSearch] = useState("");
-  const [errThrown, setErrThrown] = useState();
-  const [btnName, setBtnName] = useState();
-  const [thisId, setThisId] = useState();
-  const [thisName, setThisName] = useState();
-  const [pageReady, setPageReady] = useState(false);
+const AllConfs = (): ReactElement => {
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0<User>();
+  const [conference, setConference] = useState<Conference>();
+  const [confArray, setConfArray] = useState<Array<Conference>>([]);
+  const [searchBy, setSearchBy] = useState<string>("all");
+  const [search, setSearch] = useState<string>("");
+  const [errThrown, setErrThrown] = useState<string>();
+  const [btnName, setBtnName] = useState<string>();
+  const [thisId, setThisId] = useState<ObjectId>();
+  const [thisName, setThisName] = useState<string>();
+  const [pageReady, setPageReady] = useState<boolean>(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
-  const urlType = urlArray[urlArray.length - 2]
+  const urlArray: Array<string> = window.location.href.split("/")
+  const urlId: string = urlArray[urlArray.length - 1]
+  const urlType: string = urlArray[urlArray.length - 2]
 
   // Modal variables
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showErr, setShowErr] = useState(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [showErr, setShowErr] = useState<boolean>(false);
 
   // Sets boolean to show or hide relevant modal
-  const handleHideConfirm = () => setShowConfirm(false);
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
-  const handleShowErr = () => setShowErr(true);
-  const handleHideErr = () => setShowErr(false);
+  const handleHideConfirm = (): boolean | void => setShowConfirm(false);
+  const handleShowSuccess = (): boolean | void => setShowSuccess(true);
+  const handleHideSuccess = (): boolean| void => setShowSuccess(false);
+  const handleShowErr = (): boolean | void => setShowErr(true);
+  const handleHideErr = (): boolean | void => setShowErr(false);
 
   // Filter conferences by user input
-  const searchFilter = (data) => {
+  const searchFilter = (data: any): Array<Conference> => {
     switch (searchBy) {
       // Filter by conference name
       case "name":
-        return data.filter((conference) => conference.confName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+        return data.filter((conference: Conference) => conference.confName.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       // Filter by presenting organization
       case "org":
-        return data.filter((conference) => conference.confOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+        return data.filter((conference: Conference) => conference.confOrg.toLowerCase().indexOf(search.toLowerCase()) !== -1)
       // Return all conferences
       default:
         return (confArray)
@@ -55,18 +58,18 @@ const AllConfs = () => {
   useEffect(() => {
     // GET conferences
     ConferenceAPI.getConferences()
-      .then(resp => {
+      .then((resp: AxiosResponse<Array<Conference>>) => {
         const confArr = resp.data;
         // Filter conferences by date, so only current & upcoming conferences render
-        const filteredConf = confArr.filter(a => new Date(a.endDate) - new Date() >= 0);
+        const filteredConf = confArr.filter((a: any) => new Date(a.endDate).valueOf() - new Date().valueOf() >= 0);
         // Sort filtered conferences by date, earliest to latest
-        const sortedConf = filteredConf.sort((a, b) => (a.startDate > b.startDate) ? 1 : -1);
+        const sortedConf = filteredConf.sort((a: Conference, b: Conference) => (a.startDate > b.startDate) ? 1 : -1);
         // Set conferences in state
         setConfArray(sortedConf);
         // Set pageReady to true for page render
         setPageReady(true);
       })
-      .catch(err => console.log(err))
+      .catch((err: AxiosError) => console.log(err))
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showSuccess])
@@ -131,8 +134,8 @@ const AllConfs = () => {
               cancelconf={() => handleConfCancel(
                 AttendeeAPI.getAttendees,
                 ExhibitorAPI.getExhibitors,
-                thisId,
-                conference,
+                thisId!,
+                conference!,
                 handleHideConfirm,
                 handleShowSuccess,
                 setErrThrown,
@@ -140,8 +143,8 @@ const AllConfs = () => {
                 )}
               unregatt={() => handleUnreg(
                 AttendeeAPI.unregisterAttendee,
-                thisId,
-                user.email,
+                thisId!,
+                user!.email!,
                 handleHideConfirm,
                 handleShowSuccess,
                 setErrThrown,
@@ -149,9 +152,10 @@ const AllConfs = () => {
               )}
               unregexh={() => handleUnreg(
                 ExhibitorAPI.deleteExhibitor,
-                thisId,
-                user.email,
+                thisId!,
+                user!.email!,
                 handleHideConfirm,
+                handleShowSuccess,
                 setErrThrown,
                 handleShowErr
               )}
