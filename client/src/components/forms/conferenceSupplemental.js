@@ -8,6 +8,13 @@ import "./style.css";
 const Supplemental = () => {
   // Add venue maps or other supplemental documents
   // Set schedule blocks
+
+
+  return (
+    <>
+
+    </>
+  )
 }
 
 export default Supplemental
