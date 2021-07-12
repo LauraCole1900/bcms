@@ -65,4 +65,4 @@ const attendeeSchema = new Schema({
 
 const Attendee = mongoose.model("Attendee", attendeeSchema);
 
-module.exports = Attendee
+export default Attendee;

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const Conference = require("./conferenceModel");
 const Session = require("./sessionModel");
 
-mongoose.Schema.Types.String.checkRequired(v => v != null);
+mongoose.Schema.Types.String.checkRequired((v: string) => v != null);
 
 var trimmedString = {
   type: String,
@@ -69,4 +69,4 @@ const presenterSchema = new Schema({
 
 const Presenter = mongoose.model("Presenter", presenterSchema);
 
-module.exports = Presenter
+export default Presenter;

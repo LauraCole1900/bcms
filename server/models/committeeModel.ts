@@ -34,4 +34,4 @@ const committeeSchema = new Schema ({
 
 const Committee = mongoose.model("Committee", committeeSchema);
 
-module.exports = Committee;
+export default Committee;

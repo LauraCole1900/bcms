@@ -137,4 +137,4 @@ const conferenceSchema = new Schema({
 
 const Conference = mongoose.model("Conference", conferenceSchema);
 
-module.exports = Conference;
+export default Conference;
