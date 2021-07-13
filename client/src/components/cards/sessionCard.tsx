@@ -169,7 +169,9 @@ const SessionCard = (props: any): ReactElement => {
               </Col>
               <Col sm={4}>
                 <Row><p>Date: <Moment format="ddd, D MMM YYYY" withTitle>{sess.sessDate}</Moment></p></Row>
-                <Row><p>Time: {handleParseTime(sess.sessStart)} - {handleParseTime(sess.sessEnd)}</p></Row>
+                {sess.sessStart !== undefined && sess.sessStart !== ""
+                  ? <Row><p>Time: {handleParseTime(sess.sessStart)} - {handleParseTime(sess.sessEnd)}</p></Row>
+                  : <Row><p>Time: TBA</p></Row>}
                 {props.conference[0].confType === "Live" &&
                   <Row><p>Location: {sess.sessRoom}</p></Row>}
               </Col>
