@@ -43,7 +43,20 @@ const ScheduleGrid = (props: any): ReactElement => {
               <th className="schHead center">{time}</th>
               {props.schedule.schedRooms.map((room: string, roomdataidx: number) => (
                 <td key={roomdataidx} className="schedCells center">
-                  <SchedSessCard session={filterSess(props.sessions, room, time)} allSess={props.sessions} presenters={props.presenters} conference={props.conference} room={room} time={time} startTime={timesArr[0]} endTime={timesArr[1]} date={props.date} urlid={props.urlid} urltype={props.urltype} showSuccess={props.showSuccess} setShowSuccess={props.setShowSuccess} />
+                  <SchedSessCard
+                    session={filterSess(props.sessions, room, time)}
+                    allSess={props.sessions}
+                    presenters={props.presenters}
+                    conference={props.conference}
+                    room={room}
+                    time={time}
+                    startTime={timesArr[0]}
+                    endTime={timesArr[1]}
+                    date={props.date}
+                    urlid={props.urlid}
+                    urltype={props.urltype}
+                    showSuccess={props.showSuccess}
+                    setShowSuccess={props.setShowSuccess} />
                 </td>
               ))}
               <th className="schHead center">{time}</th>

@@ -7,7 +7,7 @@ import { ConferenceCard, UserCard } from "../components/cards";
 import { ScheduleForm } from "../components/forms";
 import { ScheduleGrid } from "../components/table";
 import { Sidenav } from "../components/navbar";
-import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
+import { AssignModal, ConfirmModal, ErrorModal, SessionModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../utils/api";
 import { handleConfCancel, handleDeleteById, handleFetchOne, handleUnreg } from "../utils/functions";
 import "./style.css";
@@ -32,6 +32,12 @@ const Schedule = () => {
   const [btnName, setBtnName] = useState();
   const [thisId, setThisId] = useState();
   const [thisName, setThisName] = useState();
+  const [thisSess, setThisSess] = useState();
+  const [room, setRoom] = useState("");
+  const [thisDate, setThisDate] = useState();
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
+  const [time, setTime] = useState("");
   const [confReady, setConfReady] = useState(false);
   const [presReady, setPresReady] = useState(false);
   const [schedReady, setSchedReady] = useState(false);
@@ -45,12 +51,18 @@ const Schedule = () => {
   const urlType = urlArray[urlArray.length - 2]
 
   // Modal variables
+  const [showAssign, setShowAssign] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showErr, setShowErr] = useState(false);
 
   // Sets boolean to show or hide relevant modal
+  const handleShowAssign = () => setShowAssign(true);
+  const handleHideAssign = () => setShowAssign(false);
   const handleHideConfirm = () => setShowConfirm(false);
+  const handleShowDetails = () => setShowDetails(true);
+  const handleHideDetails = () => setShowDetails(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
   const handleShowErr = () => setShowErr(true);
@@ -144,13 +156,24 @@ const Schedule = () => {
               : <Col sm={2}></Col>}
 
             <Col sm={8}>
-              <ConferenceCard conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+              <ConferenceCard
+                conference={conference}
+                setConference={setConference}
+                setBtnName={setBtnName}
+                setShowConfirm={setShowConfirm}
+                setThisId={setThisId}
+                setThisName={setThisName}
+              />
             </Col>
           </Row>
 
           <Row>
             <Col sm={2} className="nomargin">
-              <Sidenav conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+              <Sidenav
+                conference={conference}
+                showSuccess={showSuccess}
+                setShowSuccess={setShowSuccess}
+              />
             </Col>
 
             <Col sm={10}>
@@ -164,7 +187,14 @@ const Schedule = () => {
                 (user.email === conference[0].ownerEmail || conference[0].confAdmins.includes(user.email)) &&
                 <Row className="formPad">
                   <Col sm={10}>
-                    <ScheduleForm conference={conference[0]} schedule={schedule[0]} urlid={urlId} urltype={urlType} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+                    <ScheduleForm
+                      conference={conference[0]}
+                      schedule={schedule[0]}
+                      urlid={urlId}
+                      urltype={urlType}
+                      showSuccess={showSuccess}
+                      setShowSuccess={setShowSuccess}
+                    />
                   </Col>
                 </Row>
               }
@@ -177,7 +207,25 @@ const Schedule = () => {
                         <h2 className="flexCenter"><Moment format="ddd, D MMM YYYY" withTitle>{date}</Moment></h2>
                       </Row>
                       <Row className="formPad">
-                        <ScheduleGrid schedule={schedule[0]} sessions={sessions} presenters={presenters} conference={conference[0]} date={date} i={idx} urlid={urlId} urltype={urlType} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+                        <ScheduleGrid
+                          schedule={schedule[0]}
+                          sessions={sessions}
+                          presenters={presenters}
+                          conference={conference[0]}
+                          date={date}
+                          setThisDate={setThisDate}
+                          setStartTime={setStartTime}
+                          setEndTime={setEndTime}
+                          setRoom={setRoom}
+                          setThisSess={setThisSess}
+                          setBtnName={setBtnName}
+                          setErrThrown={setErrThrown}
+                          i={idx}
+                          urlid={urlId}
+                          urltype={urlType}
+                          showSuccess={showSuccess}
+                          setShowSuccess={setShowSuccess}
+                        />
                       </Row>
                     </React.Fragment>
                   ))}
@@ -192,6 +240,35 @@ const Schedule = () => {
             Conference object
             Card object if different (session, etc.)
             */}
+
+          {thisSess !== undefined &&
+            <SessionModal
+              allsess={sessions}
+              session={thisSess}
+              presenter={presenters}
+              conference={conference}
+              show={showDetails === true}
+              hide={() => handleHideDetails()}
+            />}
+
+          <AssignModal
+            allSess={sessions}
+            conference={conference}
+            room={room}
+            startTime={startTime}
+            endTime={endTime}
+            date={thisDate}
+            setThisSess={setThisSess}
+            setBtnName={setBtnName}
+            errThrown={errThrown}
+            setErrThrown={setErrThrown}
+            handleShowError={handleShowErr}
+            handleShowSuccess={handleShowSuccess}
+            show={showAssign === true}
+            hide={() => handleHideAssign()}
+            urlid={urlId}
+            urltype={urlType}
+          />
 
           <ConfirmModal
             btnname={btnName}
