@@ -10,7 +10,7 @@ export const handleFetchConfIds = (
   return query(email)
     .then((resp: AxiosResponse<Array<Attendee | Exhibitor | Presenter>>) => {
       const dataArr: Array<Attendee | Exhibitor | Presenter> = resp.data;
-      const dataRes: Array<ObjectId> = dataArr.map((data) => data.confId);
+      const dataRes: Array<ObjectId | string> = dataArr.map((data) => data.confId);
       return dataRes;
     })
     .catch((err: AxiosError) => {
@@ -51,7 +51,7 @@ export const handleFetchEmails = async (
 };
 
 // GETs one document by ID
-export const handleFetchOne = async (query: any, id: string, setData: any) => {
+export const handleFetchOne = async (query: any, id: string | ObjectId, setData: any) => {
   return await query(id)
     .then((resp: AxiosResponse) => {
       console.log("handleFetchOne", resp.data);

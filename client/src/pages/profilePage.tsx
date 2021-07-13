@@ -1,42 +1,46 @@
-import React, {useEffect, useState } from "react";
+import React, { Component, MouseEvent, ReactElement, SetStateAction, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Location } from "history";
+import { ObjectId } from "mongoose";
+import { useAuth0, User } from "@auth0/auth0-react";
 import { Container, Row, Col, Image, Button, ButtonGroup } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, UserAPI } from "../utils/api";
 import { handleConfCancel, handleFetchConfIds, handleFetchOne, handleUnreg } from "../utils/functions";
+import { Conference } from "../utils/interfaces"
+import { AxiosError, AxiosResponse } from "axios";
 import "./style.css";
 
-const ProfilePage = () => {
-  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const location = useLocation();
-  const [whichConf, setWhichConf] = useState("create");
-  const [conference, setConference] = useState();
-  const [attendConf, setAttendConf] = useState([]);
-  const [createConf, setCreateConf] = useState([]);
-  const [exhibitConf, setExhibitConf] = useState([]);
-  const [presentConf, setPresentConf] = useState([]);
-  const [errThrown, setErrThrown] = useState();
-  const [btnName, setBtnName] = useState();
-  const [thisId, setThisId] = useState();
-  const [thisName, setThisName] = useState();
-  const [pageReady, setPageReady] = useState(false);
+const ProfilePage = (): ReactElement => {
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0<User>();
+  const location = useLocation<Location>();
+  const [whichConf, setWhichConf] = useState<string>("create");
+  const [conference, setConference] = useState<Conference>();
+  const [attendConf, setAttendConf] = useState<Array<Conference>>([]);
+  const [createConf, setCreateConf] = useState<Array<Conference>>([]);
+  const [exhibitConf, setExhibitConf] = useState<Array<Conference>>([]);
+  const [presentConf, setPresentConf] = useState<Array<Conference>>([]);
+  const [errThrown, setErrThrown] = useState<string>();
+  const [btnName, setBtnName] = useState<string>();
+  const [thisId, setThisId] = useState<ObjectId>();
+  const [thisName, setThisName] = useState<string>();
+  const [pageReady, setPageReady] = useState<boolean>(false);
 
   // Determines which page user is on, specifically for use with URLs that include the conference ID
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
-  const urlType = urlArray[urlArray.length - 2]
+  const urlArray: Array<string> = window.location.href.split("/")
+  const urlId: string = urlArray[urlArray.length - 1]
+  const urlType: string = urlArray[urlArray.length - 2]
 
   // Modal variables
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showErr, setShowErr] = useState(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [showErr, setShowErr] = useState<boolean>(false);
 
   // Sets boolean to show or hide relevant modal
-  const handleHideConfirm = () => setShowConfirm(false);
-  const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => {
+  const handleHideConfirm = (): boolean | void => setShowConfirm(false);
+  const handleShowSuccess = (): boolean | void => setShowSuccess(true);
+  const handleHideSuccess = (): boolean | void => {
     setShowSuccess(false);
     handleShowCreated();
   }
@@ -44,93 +48,93 @@ const ProfilePage = () => {
   const handleHideErr = () => setShowErr(false);
 
   // Handles click on buttons to determine which set of conferences to display
-  const handleInputChange = (e) => {
-    const whichConf = e.target.value
+  const handleInputChange = (e: MouseEvent): SetStateAction<string> | void => {
+    const whichConf = (e.target as HTMLButtonElement).value
     setWhichConf(whichConf)
   }
 
   // Handles click on "Attending" button
-  const handleShowAttending = async (e) => {
+  const handleShowAttending = async (e: MouseEvent): Promise<Array<Conference> | void> => {
     handleInputChange(e);
-    let unsortedAtt = []
-    let regConfIds = await handleFetchConfIds(AttendeeAPI.getConferencesAttending, user.email)
+    let unsortedAtt: Array<Conference>;
+    let regConfIds: Array<ObjectId | string> | void = await handleFetchConfIds(AttendeeAPI.getConferencesAttending, user!.email!)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
-    regConfIds.forEach(confId => {
+    regConfIds!.forEach((confId: string | ObjectId) => {
       handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
-        .then(resp => {
+        .then((resp: Array<Conference>) => {
           unsortedAtt = [...unsortedAtt, resp[0]]
           // When new array is same length as confIds array, sort new array & set it in state
-          if (unsortedAtt.length === regConfIds.length) {
-            const sortedAtt = unsortedAtt.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+          if (unsortedAtt.length === regConfIds!.length) {
+            const sortedAtt: Array<Conference> = unsortedAtt.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
             setAttendConf(sortedAtt)
           }
         })
-        .catch(err => console.log(err))
+        .catch((err: AxiosError) => console.log(err))
     })
   }
 
   // Handles click on "Created" button
-  const handleShowCreated = (e) => {
+  const handleShowCreated = (e?: MouseEvent): any | void => {
     if (e) {
       handleInputChange(e);
     }
     // Creates array of conferences user has created
-    ConferenceAPI.getConferencesCreated(user.email)
-      .then(resp => {
+    ConferenceAPI.getConferencesCreated(user!.email)
+      .then((resp: AxiosResponse<Array<Conference>>) => {
         console.log("getConfCreated", resp.data)
         const createArr = resp.data
         // Sorts conferences by date, latest to earliest
         const sortedCreate = createArr.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1)
         setCreateConf(sortedCreate)
       })
-      .catch(err => console.log(err))
+      .catch((err: AxiosError) => console.log(err))
   }
 
   // Handles click on "Exhibiting" button
-  const handleShowExhibiting = async (e) => {
+  const handleShowExhibiting = async (e: MouseEvent): Promise<Array<Conference> | void> => {
     handleInputChange(e);
-    let unsortedExh = []
-    let exhConfIds = await handleFetchConfIds(ExhibitorAPI.getConferencesExhibiting, user.email)
+    let unsortedExh: Array<Conference>;
+    let exhConfIds: Array<ObjectId | string> | void = await handleFetchConfIds(ExhibitorAPI.getConferencesExhibiting, user!.email!)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
-    exhConfIds.forEach(confId => {
+    exhConfIds!.forEach((confId: string | ObjectId) => {
       handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
-        .then(resp => {
+        .then((resp: Array<Conference>) => {
           unsortedExh = [...unsortedExh, resp[0]]
           // When new array is same length as confIds array, sort new array & set it in state
-          if (unsortedExh.length === exhConfIds.length) {
-            const sortedExh = unsortedExh.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+          if (unsortedExh.length === exhConfIds!.length) {
+            const sortedExh: Array<Conference> = unsortedExh.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
             setExhibitConf(sortedExh)
           }
         })
-        .catch(err => console.log(err))
+        .catch((err: AxiosError) => console.log(err))
     })
   }
 
   // Handles click on "Presenting" button
-  const handleShowPresenting = async (e) => {
+  const handleShowPresenting = async (e: MouseEvent): Promise<Array<Conference> | void> => {
     handleInputChange(e);
-    let unsortedPres = [];
-    let presConfIds = await handleFetchConfIds(PresenterAPI.getConferencesPresenting, user.email)
+    let unsortedPres: Array<Conference>;
+    let presConfIds: Array<ObjectId | string> | void = await handleFetchConfIds(PresenterAPI.getConferencesPresenting, user!.email!)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
-    presConfIds.forEach(confId => {
+    presConfIds!.forEach((confId: string | ObjectId) => {
       handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
-        .then(resp => {
+        .then((resp: Array<Conference>) => {
           unsortedPres = [...unsortedPres, resp[0]]
           // When new array is same length as confIds array, sort new array & set it in state
-          if (unsortedPres.length === presConfIds.length) {
-            const sortedPres = unsortedPres.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
+          if (unsortedPres.length === presConfIds!.length) {
+            const sortedPres: Array<Conference> = unsortedPres.sort((a, b) => (a.startDate < b.startDate) ? 1 : -1);
             setPresentConf(sortedPres)
           }
         })
-        .catch(err => console.log(err))
+        .catch((err: AxiosError) => console.log(err))
     })
   }
 
   // Defines button properties
-  const buttons = [{
+  const buttons: any = [{
     name: "Attending",
     value: "attend",
     id: "attendConf",
@@ -160,23 +164,23 @@ const ProfilePage = () => {
   }]
 
   // Get user by email
-  const fetchUser = async (email) => {
+  const fetchUser = async (email: string): Promise<User | void> => {
     return UserAPI.getUserByEmail(email)
-      .then(resp => {
+      .then((resp: AxiosResponse<User>) => {
         const userObj = resp.data
         return userObj
       })
-      .catch(err => console.log(err))
+      .catch((err: AxiosError) => console.log(err))
   }
 
   // Save user to database
-  const saveUserToDB = async () => {
-    let savedUser = await fetchUser(user.email)
+  const saveUserToDB = async (): Promise<User | boolean | void> => {
+    let savedUser: User | void = await fetchUser(user!.email!)
     if (savedUser) {
       return false
     } else {
       UserAPI.saveUser(user)
-        .catch(err => console.log(err))
+        .catch((err: AxiosError) => console.log(err))
     }
   }
 
@@ -202,7 +206,7 @@ const ProfilePage = () => {
       {!isAuthenticated &&
         <Row>
           <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>log in</Link> to view your profile.</h1>
-          <div className="authLogo"><Image fluid="true" className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
+          <div className="authLogo"><Image fluid className="loadLogo" src="/images/bristlecone-dark.png" alt="BCMS logo" /></div>
         </Row>}
 
       {isAuthenticated &&
@@ -222,7 +226,7 @@ const ProfilePage = () => {
             <Row>
               <Col sm={8}>
                 <ButtonGroup name="whichConf" type="radio" data-toggle="popover">
-                  {buttons.map((button, idx) => (
+                  {buttons.map((button: any, idx: number) => (
                     <Button
                       key={idx}
                       id={button.id}
@@ -271,8 +275,8 @@ const ProfilePage = () => {
               cancelconf={() => handleConfCancel(
                 AttendeeAPI.getAttendees,
                 ExhibitorAPI.getExhibitors,
-                thisId,
-                conference,
+                thisId!,
+                conference!,
                 handleHideConfirm,
                 handleShowSuccess,
                 setErrThrown,
@@ -280,8 +284,8 @@ const ProfilePage = () => {
               )}
               unregatt={() => handleUnreg(
                 AttendeeAPI.unregisterAttendee,
-                thisId,
-                user.email,
+                thisId!,
+                user!.email!,
                 handleHideConfirm,
                 handleShowSuccess,
                 setErrThrown,
@@ -289,9 +293,10 @@ const ProfilePage = () => {
               )}
               unregexh={() => handleUnreg(
                 ExhibitorAPI.deleteExhibitor,
-                thisId,
-                user.email,
+                thisId!,
+                user!.email!,
                 handleHideConfirm,
+                handleShowSuccess,
                 setErrThrown,
                 handleShowErr
               )}
