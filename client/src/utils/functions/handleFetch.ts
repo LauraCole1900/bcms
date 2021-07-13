@@ -6,7 +6,7 @@ import { ObjectId } from "mongoose";
 export const handleFetchConfIds = (
   query: any,
   email: string
-): Array<ObjectId> | void => {
+): Promise<Array<ObjectId>> => {
   return query(email)
     .then((resp: AxiosResponse<Array<Attendee | Exhibitor | Presenter>>) => {
       const dataArr: Array<Attendee | Exhibitor | Presenter> = resp.data;

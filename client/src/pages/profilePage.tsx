@@ -1,9 +1,9 @@
-import React, { Component, MouseEvent, ReactElement, SetStateAction, useEffect, useState } from "react";
+import React, { MouseEvent, ReactElement, SetStateAction, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
 import { ObjectId } from "mongoose";
 import { useAuth0, User } from "@auth0/auth0-react";
-import { Container, Row, Col, Image, Button, ButtonGroup } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, ToggleButtonGroup } from "react-bootstrap";
 import { ConferenceCard, UserCard } from "../components/cards";
 import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
 import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, UserAPI } from "../utils/api";
@@ -56,11 +56,11 @@ const ProfilePage = (): ReactElement => {
   // Handles click on "Attending" button
   const handleShowAttending = async (e: MouseEvent): Promise<Array<Conference> | void> => {
     handleInputChange(e);
-    let unsortedAtt: Array<Conference>;
-    let regConfIds: Array<ObjectId | string> | void = await handleFetchConfIds(AttendeeAPI.getConferencesAttending, user!.email!)
+    let unsortedAtt: Array<Conference> = [];
+    let regConfIds: Array<ObjectId | string> = await handleFetchConfIds(AttendeeAPI.getConferencesAttending, user!.email!)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
-    regConfIds!.forEach((confId: string | ObjectId) => {
+    regConfIds.forEach((confId: string | ObjectId) => {
       handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
         .then((resp: Array<Conference>) => {
           unsortedAtt = [...unsortedAtt, resp[0]]
@@ -94,11 +94,11 @@ const ProfilePage = (): ReactElement => {
   // Handles click on "Exhibiting" button
   const handleShowExhibiting = async (e: MouseEvent): Promise<Array<Conference> | void> => {
     handleInputChange(e);
-    let unsortedExh: Array<Conference>;
-    let exhConfIds: Array<ObjectId | string> | void = await handleFetchConfIds(ExhibitorAPI.getConferencesExhibiting, user!.email!)
+    let unsortedExh: Array<Conference> = [];
+    let exhConfIds: Array<ObjectId | string> = await handleFetchConfIds(ExhibitorAPI.getConferencesExhibiting, user!.email!)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
-    exhConfIds!.forEach((confId: string | ObjectId) => {
+    exhConfIds.forEach((confId: string | ObjectId) => {
       handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
         .then((resp: Array<Conference>) => {
           unsortedExh = [...unsortedExh, resp[0]]
@@ -115,11 +115,11 @@ const ProfilePage = (): ReactElement => {
   // Handles click on "Presenting" button
   const handleShowPresenting = async (e: MouseEvent): Promise<Array<Conference> | void> => {
     handleInputChange(e);
-    let unsortedPres: Array<Conference>;
-    let presConfIds: Array<ObjectId | string> | void = await handleFetchConfIds(PresenterAPI.getConferencesPresenting, user!.email!)
+    let unsortedPres: Array<Conference> = [];
+    let presConfIds: Array<ObjectId | string> = await handleFetchConfIds(PresenterAPI.getConferencesPresenting, user!.email!)
     // Map through the array of confIds to get info on each conference
     // Push each conference object to new array
-    presConfIds!.forEach((confId: string | ObjectId) => {
+    presConfIds.forEach((confId: string | ObjectId) => {
       handleFetchOne(ConferenceAPI.getConferenceById, confId, setConference)
         .then((resp: Array<Conference>) => {
           unsortedPres = [...unsortedPres, resp[0]]
@@ -189,7 +189,7 @@ const ProfilePage = (): ReactElement => {
     if (isAuthenticated) {
       switch (pageReady) {
         case true:
-          return false;
+          break;
         default:
           saveUserToDB();
       }
@@ -225,7 +225,7 @@ const ProfilePage = (): ReactElement => {
             </Row>
             <Row>
               <Col sm={8}>
-                <ButtonGroup name="whichConf" type="radio" data-toggle="popover">
+                <ToggleButtonGroup name="whichConf" type="radio" data-toggle="popover">
                   {buttons.map((button: any, idx: number) => (
                     <Button
                       key={idx}
@@ -236,7 +236,7 @@ const ProfilePage = (): ReactElement => {
                       className="button"
                       onClick={button.onClick}>{button.name}</Button>
                   ))}
-                </ButtonGroup>
+                </ToggleButtonGroup>
               </Col>
               <Col sm={2}></Col>
               <Col sm={2}>
