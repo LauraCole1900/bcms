@@ -397,6 +397,7 @@ const ConfDetails = () => {
               thisId,
               user.email,
               handleHideConfirm,
+              handleShowSuccess,
               setErrThrown,
               handleShowErr
             )}
