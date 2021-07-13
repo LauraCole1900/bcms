@@ -56,21 +56,7 @@ const Schedule = () => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
-  const fetchConf = async (id) => {
-    return ConferenceAPI.getConferenceById(id)
-      .then(resp => {
-        console.log("from confSched fetchConf", resp.data)
-        const confObj = resp.data;
-        setConference(confObj)
-        setConfReady(true);
-        return confObj;
-      })
-      .catch(err => {
-        console.log(err)
-        return false
-      })
-  }
-
+  // GETs presenters by confId
   const fetchPres = async (id) => {
     await PresenterAPI.getPresentersByConf(id)
       .then(resp => {
@@ -83,17 +69,7 @@ const Schedule = () => {
       .catch(err => console.log(err));
   }
 
-  const fetchSched = async (id) => {
-    await ScheduleAPI.getScheduleByConfId(id)
-      .then(resp => {
-        console.log("from confSched fetchSched", resp.data)
-        const schedObj = resp.data;
-        setSchedule(schedObj)
-        setSchedReady(true);
-      })
-      .catch(err => console.log(err));
-  }
-
+  // GETs sessions by confId
   const fetchSess = async (id) => {
     await SessionAPI.getSessions(id)
       .then(resp => {
@@ -107,7 +83,8 @@ const Schedule = () => {
 
   // Creates array of dates to map over to create schedule grids
   const createDateArr = async () => {
-    let conf = await fetchConf(urlId);
+    // GETs conference
+    let conf = await handleFetchOne(ConferenceAPI.getConferenceById, urlId, setConference);
     switch (conf[0].numDays) {
       case 1:
         dateArr.push(conf[0].startDate);
@@ -134,9 +111,12 @@ const Schedule = () => {
 
   useEffect(() => {
     fetchPres(urlId);
-    fetchSched(urlId);
+    handleFetchOne(ScheduleAPI.getScheduleByConfId, urlId, setSchedule);
     fetchSess(urlId);
     createDateArr();
+
+    setConfReady(true);
+    setSchedReady(true);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showSuccess])
