@@ -25,7 +25,7 @@ export const handleFetchEmails = async (
   confId: ObjectId,
   setErrThrown: any,
   handleShowErr: any
-) => {
+): Promise<Array<string>> => {
   let thisEmail: any;
   console.log("handleFetchEmails", confId);
   return await query(confId)
