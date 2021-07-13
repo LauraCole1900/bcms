@@ -7,7 +7,9 @@ import { ConferenceCard, UserCard } from "../components/cards";
 import { ScheduleForm } from "../components/forms";
 import { ScheduleGrid } from "../components/table";
 import { Sidenav } from "../components/navbar";
-import { ConferenceAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../utils/api";
+import { ConfirmModal, ErrorModal, SuccessModal } from "../components/modals";
+import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, ScheduleAPI, SessionAPI } from "../utils/api";
+import { handleConfCancel, handleDeleteById, handleFetchOne, handleUnreg } from "../utils/functions";
 import "./style.css";
 
 const Schedule = () => {
@@ -21,7 +23,10 @@ const Schedule = () => {
   const [sessions, setSessions] = useState();
   const [schedule, setSchedule] = useState();
   const [dates, setDates] = useState([]);
-  const [showSuccess, setShowSuccess] = useState("0");
+  const [errThrown, setErrThrown] = useState();
+  const [btnName, setBtnName] = useState();
+  const [thisId, setThisId] = useState();
+  const [thisName, setThisName] = useState();
   const [confReady, setConfReady] = useState(false);
   const [presReady, setPresReady] = useState(false);
   const [schedReady, setSchedReady] = useState(false);
@@ -33,6 +38,18 @@ const Schedule = () => {
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
   const urlType = urlArray[urlArray.length - 2]
+
+  // Modal variables
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showErr, setShowErr] = useState(false);
+
+  // Sets boolean to show or hide relevant modal
+  const handleHideConfirm = () => setShowConfirm(false);
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
+  const handleShowErr = () => setShowErr(true);
+  const handleHideErr = () => setShowErr(false);
 
   const fetchConf = async (id) => {
     return ConferenceAPI.getConferenceById(id)
@@ -130,10 +147,10 @@ const Schedule = () => {
         <Container>
           <Row>
 
-          {!isAuthenticated &&
-            <Row>
-              <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>log in</Link> to register for this conference.</h1>
-            </Row>}
+            {!isAuthenticated &&
+              <Row>
+                <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>log in</Link> to register for this conference.</h1>
+              </Row>}
 
             {isAuthenticated
               ? <Col sm={4}>
@@ -142,7 +159,7 @@ const Schedule = () => {
               : <Col sm={2}></Col>}
 
             <Col sm={8}>
-              <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+              <ConferenceCard conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
             </Col>
           </Row>
 
@@ -184,6 +201,74 @@ const Schedule = () => {
 
             </Col>
           </Row>
+
+          {/* Information I need to lift:
+            Button name
+            Conference object
+            Card object if different (session, etc.)
+            */}
+
+          <ConfirmModal
+            btnname={btnName}
+            confname={thisName}
+            urlid={urlId}
+            cancelconf={() => handleConfCancel(
+              AttendeeAPI.getAttendees,
+              ExhibitorAPI.getExhibitors,
+              thisId,
+              conference,
+              handleHideConfirm,
+              handleShowSuccess,
+              setErrThrown,
+              handleShowErr
+            )}
+            // cancelpres={() => handlePresInactive(
+            //   thisId
+            // )}
+            // deletesess={() => handleSessDelete(
+            //   thisId
+            // )}
+            unregatt={() => handleUnreg(
+              AttendeeAPI.unregisterAttendee,
+              thisId,
+              user.email,
+              handleHideConfirm,
+              handleShowSuccess,
+              setErrThrown,
+              handleShowErr
+            )}
+            unregexh={() => handleUnreg(
+              ExhibitorAPI.deleteExhibitor,
+              thisId,
+              user.email,
+              handleHideConfirm,
+              setErrThrown,
+              handleShowErr
+            )}
+            show={showConfirm === true}
+            hide={() => handleHideConfirm()}
+          />
+
+          <SuccessModal
+            conference={conference}
+            confname={thisName}
+            confid={urlId}
+            urlid={urlId}
+            urltype={urlType}
+            btnname={btnName}
+            show={showSuccess === true}
+            hide={() => handleHideSuccess()}
+          />
+
+          <ErrorModal
+            conference={conference}
+            urlid={urlId}
+            urltype={urlType}
+            errmsg={errThrown}
+            btnname={btnName}
+            show={showErr === true}
+            hide={() => handleHideErr()}
+          />
 
         </Container>}
     </>

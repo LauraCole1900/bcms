@@ -96,9 +96,9 @@ const SchedSessCard = (props: any): ReactElement => {
 
       <AssignModal allSess={props.allSess} conference={props.conference} room={props.room} startTime={props.startTime} endTime={props.endTime} date={props.date} setThisSess={setThisSess} setBtnName={setBtnName} errThrown={setErrorThrown} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} show={showAssign === (props.room && props.time)} hide={() => handleHideAssign()} urlid={props.urlid} urltype={props.urltype} change={props.change} />
 
-      <SuccessModal session={thisSess} confname={props.conference.confName} conference={props.conference} btnname={btnName} urlid={props.urlid} urltype={props.urltype} show={props.showSuccess === (props.room && props.time)} hide={() => handleHideSuccess()} />
+      {/* <SuccessModal session={thisSess} confname={props.conference.confName} conference={props.conference} btnname={btnName} urlid={props.urlid} urltype={props.urltype} show={props.showSuccess === (props.room && props.time)} hide={() => handleHideSuccess()} />
 
-      <ErrorModal conference={props.conference} session={thisSess} confname={props.conference.confName} urlid={props.urlid} urltype={props.urltype} btnname={btnName} errmsg={errThrown} show={showError === (props.room && props.time)} hide={() => handleHideError()} />
+      <ErrorModal conference={props.conference} session={thisSess} confname={props.conference.confName} urlid={props.urlid} urltype={props.urltype} btnname={btnName} errmsg={errThrown} show={showError === (props.room && props.time)} hide={() => handleHideError()} /> */}
     </>
   )
 }
