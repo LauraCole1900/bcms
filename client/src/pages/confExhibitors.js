@@ -39,22 +39,6 @@ const ConfExhibits = () => {
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
-  // GETs conference by confId
-  const fetchConf = async (confId) => {
-    await ConferenceAPI.getConferenceById(confId)
-      .then(resp => {
-        console.log("confDetailsPage getConfsById", resp.data)
-        const confObj = resp.data.slice(0)
-        setConference(confObj)
-      })
-      .catch(err => {
-        console.log(err)
-        return false
-      })
-
-    setConfReady(true);
-  }
-
   // GETs exhibitors by confId
   const fetchExh = async (confId) => {
     await ExhibitorAPI.getExhibitors(confId)
@@ -85,10 +69,11 @@ const ConfExhibits = () => {
 
   useEffect(() => {
     // GET conference by ID
-    fetchConf(urlId);
+    handleFetchOne(ConferenceAPI.getConferenceById, urlId, setConference);
     // GET exhibitors by conference ID
     fetchExh(urlId);
 
+    setConfReady(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlId])
 
