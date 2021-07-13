@@ -12,6 +12,11 @@ import { AttendeeAPI, ConferenceAPI, ExhibitorAPI, PresenterAPI, ScheduleAPI, Se
 import { handleConfCancel, handleDeleteById, handleFetchOne, handleUnreg } from "../utils/functions";
 import "./style.css";
 
+// TO DO
+// Move AssignModal here
+// Move SessionModal here?
+// Reconnect functionality via props
+
 const Schedule = () => {
   // Sessions that take more than one room (keynote, etc) should stretch across those rooms
   // Sessions that take more than one time block (registration, etc.) should stretch across those times

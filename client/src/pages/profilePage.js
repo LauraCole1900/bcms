@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Image, Button, ButtonGroup } from "react-bootstrap";
@@ -36,7 +36,10 @@ const ProfilePage = () => {
   // Sets boolean to show or hide relevant modal
   const handleHideConfirm = () => setShowConfirm(false);
   const handleShowSuccess = () => setShowSuccess(true);
-  const handleHideSuccess = () => setShowSuccess(false);
+  const handleHideSuccess = () => {
+    setShowSuccess(false);
+    handleShowCreated();
+  }
   const handleShowErr = () => setShowErr(true);
   const handleHideErr = () => setShowErr(false);
 
