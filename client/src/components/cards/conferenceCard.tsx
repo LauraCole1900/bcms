@@ -75,8 +75,24 @@ const ConferenceCard = (props: any): ReactElement => {
                 <Col sm={1}>
                   {isAuthenticated &&
                     (user!.email === conf.ownerEmail && conf.confCancel === "no" && urlType !== "session_proposals" && urlType !== "proposal_details") &&
-                    <Button data-toggle="popover" title="Cancel this conference" className="deletebtn" data-confid={conf._id} data-confname={conf.confName} data-btnname="confCancel" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid src="/images/cancel-event.png" className="delete" alt="Cancel event" data-confid={conf._id} data-confname={conf.confName} data-btnname="confCancel" />
+                    <Button
+                      data-toggle="popover"
+                      title="Cancel this conference"
+                      className="deletebtn"
+                      data-confid={conf._id}
+                      data-confname={conf.confName}
+                      data-btnname="confCancel"
+                      onClick={(e) => handleShowConfirm(e)}
+                    >
+                      <Image
+                        fluid
+                        src="/images/cancel-event.png"
+                        className="delete"
+                        alt="Cancel event"
+                        data-confid={conf._id}
+                        data-confname={conf.confName}
+                        data-btnname="confCancel"
+                      />
                     </Button>}
                 </Col>
               </Row>
@@ -138,8 +154,15 @@ const ConferenceCard = (props: any): ReactElement => {
                   {(confId === "" || confId === "conferences" || confId === "profile") &&
                     <Row>
                       <Col sm={4}>
-                        <Link to={`/details/${conf._id}`} className={location.pathname === `/details/${conf._id}` ? "link active" : "link"}>
-                          <Button data-toggle="popover" title="View conference details" className="button">View details</Button>
+                        <Link
+                          to={`/details/${conf._id}`}
+                          className={location.pathname === `/details/${conf._id}` ? "link active" : "link"}
+                        >
+                          <Button
+                            data-toggle="popover"
+                            title="View conference details"
+                            className="button"
+                          >View details</Button>
                         </Link>
                       </Col>
                     </Row>}
@@ -155,11 +178,26 @@ const ConferenceCard = (props: any): ReactElement => {
                   <div>
                     <Col sm={1}></Col>
                     <Col sm={2}>
-                      <Button data-toggle="popover" title="Unregister exhibit from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregExh" onClick={(e) => handleShowConfirm(e)}>Unregister Exhibit</Button>
+                      <Button
+                        data-toggle="popover"
+                        title="Unregister exhibit from this conference"
+                        className="button"
+                        data-confid={conf._id}
+                        data-confname={conf.confName}
+                        name="unregExh"
+                        onClick={(e) => handleShowConfirm(e)}
+                      >Unregister Exhibit</Button>
                     </Col>
                     <Col sm={2}>
-                      <Link to={`/edit_exhibit/${conf._id}`} className={location.pathname === `/edit_exhibit/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Edit your exhibitor registration" className="button">Edit exhibitor registration</Button>
+                      <Link
+                        to={`/edit_exhibit/${conf._id}`}
+                        className={location.pathname === `/edit_exhibit/${conf._id}` ? "link active" : "link"}
+                      >
+                        <Button
+                          data-toggle="popover"
+                          title="Edit your exhibitor registration"
+                          className="button"
+                        >Edit exhibitor registration</Button>
                       </Link>
                     </Col>
                   </div>}
@@ -174,11 +212,26 @@ const ConferenceCard = (props: any): ReactElement => {
                       ? <Col sm={2}></Col>
                       : <Col sm={7}></Col>}
                     <Col sm={2}>
-                      <Button data-toggle="popover" title="Unregister attendee from this conference" className="button" data-confid={conf._id} data-confname={conf.confName} name="unregAtt" onClick={(e) => handleShowConfirm(e)}>Unregister Attendee</Button>
+                      <Button
+                        data-toggle="popover"
+                        title="Unregister attendee from this conference"
+                        className="button"
+                        data-confid={conf._id}
+                        data-confname={conf.confName}
+                        name="unregAtt"
+                        onClick={(e) => handleShowConfirm(e)}
+                      >Unregister Attendee</Button>
                     </Col>
                     <Col sm={2}>
-                      <Link to={`/register_edit/${conf._id}`} className={location.pathname === `/register_edit/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Edit your attendee registration" className="button">Edit attendee registration</Button>
+                      <Link
+                        to={`/register_edit/${conf._id}`}
+                        className={location.pathname === `/register_edit/${conf._id}` ? "link active" : "link"}
+                      >
+                        <Button
+                          data-toggle="popover"
+                          title="Edit your attendee registration"
+                          className="button"
+                        >Edit attendee registration</Button>
                       </Link>
                     </Col>
                   </div>}
@@ -192,8 +245,15 @@ const ConferenceCard = (props: any): ReactElement => {
                   <div>
                     <Col sm={1}></Col>
                     <Col sm={2}>
-                      <Link to={`/register_exhibit/${conf._id}`} className={location.pathname === `/register_exhibit/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Register to exhibit at this conference" className="button">Register as Exhibitor</Button>
+                      <Link
+                        to={`/register_exhibit/${conf._id}`}
+                        className={location.pathname === `/register_exhibit/${conf._id}` ? "link active" : "link"}
+                      >
+                        <Button
+                          data-toggle="popover"
+                          title="Register to exhibit at this conference"
+                          className="button"
+                        >Register as Exhibitor</Button>
                       </Link>
                     </Col>
                   </div>}
@@ -210,8 +270,15 @@ const ConferenceCard = (props: any): ReactElement => {
                         : <Col sm={2}></Col>)
                       : <Col sm={7}></Col>}
                     <Col sm={3}>
-                      <Link to={`/register_attend/${conf._id}`} className={location.pathname === `/register_attend/${conf._id}` ? "link active" : "link"}>
-                        <Button data-toggle="popover" title="Register for this conference" className="button">Register as Attendee</Button>
+                      <Link
+                        to={`/register_attend/${conf._id}`}
+                        className={location.pathname === `/register_attend/${conf._id}` ? "link active" : "link"}
+                      >
+                        <Button
+                          data-toggle="popover"
+                          title="Register for this conference"
+                          className="button"
+                        >Register as Attendee</Button>
                       </Link>
                     </Col>
                     <Col sm={1}></Col>

@@ -49,8 +49,24 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                       (user!.email === conference[0].ownerEmail || user!.email === pres.presEmail) &&
                       pres.presActive === "yes" &&
                       <Col sm={1}>
-                        <Button data-toggle="popover" title="Mark this presenter inactive" className="keynotebtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" onClick={(e) => handleShowConfirm(e)}>
-                          <Image fluid src="/images/no-symbol.png" className="delete" alt="Mark this presenter inactive" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" />
+                        <Button
+                          data-toggle="popover"
+                          title="Mark this presenter inactive"
+                          className="keynotebtn"
+                          data-presid={pres._id}
+                          data-confname={conference[0].confName}
+                          data-btnname="presCancel"
+                          onClick={(e) => handleShowConfirm(e)}
+                        >
+                          <Image
+                            fluid
+                            src="/images/no-symbol.png"
+                            className="delete"
+                            alt="Mark this presenter inactive"
+                            data-presid={pres._id}
+                            data-confname={conference[0].confName}
+                            data-btnname="presCancel"
+                          />
                         </Button>
                       </Col>}
                   </Row>
@@ -68,8 +84,24 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                       (user!.email === conference[0].ownerEmail || user!.email === pres.presEmail) &&
                       pres.presActive === "yes" &&
                       <Col sm={1}>
-                        <Button data-toggle="popover" title="Mark this presenter inactive" className="deletebtn" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" onClick={(e) => handleShowConfirm(e)}>
-                          <Image fluid src="/images/no-symbol.png" className="delete" alt="Mark this presenter inactive" data-presid={pres._id} data-confname={conference[0].confName} data-btnname="presCancel" />
+                        <Button
+                          data-toggle="popover"
+                          title="Mark this presenter inactive"
+                          className="deletebtn"
+                          data-presid={pres._id}
+                          data-confname={conference[0].confName}
+                          data-btnname="presCancel"
+                          onClick={(e) => handleShowConfirm(e)}
+                        >
+                          <Image
+                            fluid
+                            src="/images/no-symbol.png"
+                            className="delete"
+                            alt="Mark this presenter inactive"
+                            data-presid={pres._id}
+                            data-confname={conference[0].confName}
+                            data-btnname="presCancel"
+                          />
                         </Button>
                       </Col>}
                   </Row>
@@ -92,7 +124,12 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                 </Col>
                 {pres.presPic !== "" &&
                   <Col sm={4} className="presPic">
-                    <Image fluid className="presPicStyle" src={pres.presPic} alt={pres.presGivenName + " " + pres.presFamilyName} />
+                    <Image
+                      fluid
+                      className="presPicStyle"
+                      src={pres.presPic}
+                      alt={pres.presGivenName + " " + pres.presFamilyName}
+                    />
                   </Col>}
               </Row>
               {isAuthenticated &&
@@ -100,8 +137,15 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                 <Row>
                   <Col sm={1}></Col>
                   <Col sm={5}>
-                    <Link to={`/edit_presenter/${pres._id}`} className={location.pathname === `/edit_presenter/${pres._id}` ? "link active" : "link"}>
-                      <Button data-toggle="popover" title="Edit presenter" className="button">Edit Presenter</Button>
+                    <Link
+                      to={`/edit_presenter/${pres._id}`}
+                      className={location.pathname === `/edit_presenter/${pres._id}` ? "link active" : "link"}
+                    >
+                      <Button
+                        data-toggle="popover"
+                        title="Edit presenter"
+                        className="button"
+                      >Edit Presenter</Button>
                     </Link>
                   </Col>
                 </Row>}

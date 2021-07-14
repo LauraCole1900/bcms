@@ -36,7 +36,7 @@ const AllConfs = (): ReactElement => {
   // Sets boolean to show or hide relevant modal
   const handleHideConfirm = (): boolean | void => setShowConfirm(false);
   const handleShowSuccess = (): boolean | void => setShowSuccess(true);
-  const handleHideSuccess = (): boolean| void => setShowSuccess(false);
+  const handleHideSuccess = (): boolean | void => setShowSuccess(false);
   const handleShowErr = (): boolean | void => setShowErr(true);
   const handleHideErr = (): boolean | void => setShowErr(false);
 
@@ -110,22 +110,21 @@ const AllConfs = (): ReactElement => {
 
             {!isAuthenticated &&
               <Row>
-                <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>
-                  log in
-                </Link> to register for any conference.</h1>
+                <h1 className="regRemind">Please <Link to={window.location.origin} className="login" onClick={() => loginWithRedirect()}>log in</Link> to register for any conference.</h1>
               </Row>}
 
             <Row>
               {confArray.length > 0
-                ? <ConferenceCard conference={searchFilter(confArray)} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                ? <ConferenceCard
+                  conference={searchFilter(confArray)}
+                  setConference={setConference}
+                  setBtnName={setBtnName}
+                  setShowConfirm={setShowConfirm}
+                  setThisId={setThisId}
+                  setThisName={setThisName}
+                />
                 : <h3>We can't seem to find any upcoming conferences. If you think this is an error, please contact us.</h3>}
             </Row>
-
-            {/* Information I need to lift:
-            Button name
-            Conference object
-            Card object if different (session, etc.)
-            */}
 
             <ConfirmModal
               btnname={btnName}
@@ -140,7 +139,7 @@ const AllConfs = (): ReactElement => {
                 handleShowSuccess,
                 setErrThrown,
                 handleShowErr
-                )}
+              )}
               unregatt={() => handleUnreg(
                 AttendeeAPI.unregisterAttendee,
                 thisId!,
