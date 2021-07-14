@@ -188,7 +188,7 @@ const Schedule = () => {
                 <Row className="formPad">
                   <Col sm={10}>
                     <ScheduleForm
-                      conference={conference[0]}
+                      conference={conference}
                       schedule={schedule[0]}
                       urlid={urlId}
                       urltype={urlType}
@@ -211,7 +211,7 @@ const Schedule = () => {
                           schedule={schedule[0]}
                           sessions={sessions}
                           presenters={presenters}
-                          conference={conference[0]}
+                          conference={conference}
                           date={date}
                           setTime={setTime}
                           setThisDate={setThisDate}

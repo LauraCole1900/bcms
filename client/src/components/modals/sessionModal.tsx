@@ -18,7 +18,7 @@ const SessionModal = (props: any): ReactElement => {
           <SessionCard
             session={[props.session]}
             presenter={props.presenter}
-            conference={[props.conference]}
+            conference={props.conference}
             hide={props.hide}
           />
         </Modal.Body>
