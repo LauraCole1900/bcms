@@ -213,18 +213,19 @@ const Schedule = () => {
                           presenters={presenters}
                           conference={conference[0]}
                           date={date}
+                          setTime={setTime}
                           setThisDate={setThisDate}
                           setStartTime={setStartTime}
                           setEndTime={setEndTime}
                           setRoom={setRoom}
                           setThisSess={setThisSess}
                           setBtnName={setBtnName}
-                          setErrThrown={setErrThrown}
                           i={idx}
                           urlid={urlId}
                           urltype={urlType}
                           showSuccess={showSuccess}
-                          setShowSuccess={setShowSuccess}
+                          setShowAssign={setShowAssign}
+                          setShowDetails={setShowDetails}
                         />
                       </Row>
                     </React.Fragment>
@@ -324,6 +325,7 @@ const Schedule = () => {
 
           <ErrorModal
             conference={conference}
+            session={thisSess}
             urlid={urlId}
             urltype={urlType}
             errmsg={errThrown}

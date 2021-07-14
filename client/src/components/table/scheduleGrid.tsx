@@ -45,7 +45,6 @@ const ScheduleGrid = (props: any): ReactElement => {
                 <td key={roomdataidx} className="schedCells center">
                   <SchedSessCard
                     session={filterSess(props.sessions, room, time)}
-                    allSess={props.sessions}
                     presenters={props.presenters}
                     conference={props.conference}
                     room={room}
@@ -53,10 +52,16 @@ const ScheduleGrid = (props: any): ReactElement => {
                     startTime={timesArr[0]}
                     endTime={timesArr[1]}
                     date={props.date}
-                    urlid={props.urlid}
-                    urltype={props.urltype}
-                    showSuccess={props.showSuccess}
-                    setShowSuccess={props.setShowSuccess} />
+                    setRoom={props.setRoom}
+                    setTime={props.setTime}
+                    setStartTime={props.setStartTime}
+                    setEndTime={props.setEndTime}
+                    setThisDate={props.setThisDate}
+                    setBtnName={props.setBtnName}
+                    setThisSess={props.setThisSess}
+                    setShowAssign={props.setShowAssign}
+                    setShowDetails={props.setShowDetails}
+                  />
                 </td>
               ))}
               <th className="schHead center">{time}</th>
