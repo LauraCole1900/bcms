@@ -64,8 +64,9 @@ const ConfDetails = () => {
         const sessArr = resp.data
         // Filter sessions by acceptance status
         const filteredSess = sessArr.filter(sess => sess.sessAccepted === "yes")
+        const moreFilteredSess = filteredSess.filter(sess => sess.sessName !== "Registration")
         // Sort sessions by room, then start time, then date, then keynote
-        const roomSort = filteredSess.sort((a, b) => (a.sessRoom < b.sessRoom) ? 1 : -1);
+        const roomSort = moreFilteredSess.sort((a, b) => (a.sessRoom < b.sessRoom) ? 1 : -1);
         const timeSort = roomSort.sort((a, b) => (timeToSort(a.sessStart) > timeToSort(b.sessStart)) ? 1 : -1);
         const dateSort = timeSort.sort((a, b) => (a.sessDate < b.sessDate) ? 1 : -1);
         const keySort = dateSort.sort((a, b) => (a.sessKeynote < b.sessKeynote) ? 1 : -1);
@@ -87,9 +88,9 @@ const ConfDetails = () => {
         const presArr = resp.data.slice(0)
         // Filter presenters by acceptance status
         const filteredPres = presArr.filter(pres => pres.presAccepted === "yes")
-        const moreFiltered = filteredPres.filter(pres => pres.presEmail !== "staff@email.com")
+        const moreFilteredPres = filteredPres.filter(pres => pres.presEmail !== "staff@email.com")
         // Sort presenters by last name
-        const sortedPres = moreFiltered.sort(
+        const sortedPres = moreFilteredPres.sort(
           firstBy("presKeynote", "desc")
             .thenBy("presFamilyName")
             .thenBy("presGivenName")

@@ -5,7 +5,7 @@ const SessionAPI = {
   // POST session to database
   saveSession: function (confId) {
     console.log("from API saveSession", confId)
-    return axios.post("/api/sessions/post", confId)
+    return axios.post("/api/session/post", confId)
   },
 
 
