@@ -100,7 +100,12 @@ const AllConfs = (): ReactElement => {
                     {(searchBy !== "all") &&
                       <Row>
                         <div id="confPageSearch">
-                          <Form.Control type="input" placeholder="Search conferences" value={search} onChange={(e) => setSearch(e.target.value)} />
+                          <Form.Control
+                            type="input"
+                            placeholder="Search conferences"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                          />
                         </div>
                       </Row>}
                   </Form>

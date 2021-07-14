@@ -63,7 +63,14 @@ const Venue = () => {
               : <Col sm={2}></Col>}
 
             <Col sm={8}>
-              <ConferenceCard conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+              <ConferenceCard
+                conference={conference}
+                setConference={setConference}
+                setBtnName={setBtnName}
+                setShowConfirm={setShowConfirm}
+                setThisId={setThisId}
+                setThisName={setThisName}
+              />
             </Col>
           </Row>
 

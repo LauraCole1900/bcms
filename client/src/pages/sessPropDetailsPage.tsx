@@ -15,6 +15,10 @@ const SessPropDetails = (): ReactElement => {
   const [conference, setConference] = useState<Array<Conference>>();
   const [session, setSession] = useState<Array<Session>>();
   const [presArray, setPresArray] = useState<Array<Presenter>>();
+  const [btnName, setBtnName] = useState();
+  const [thisId, setThisId] = useState();
+  const [thisName, setThisName] = useState();
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [confReady, setConfReady] = useState<boolean>(false);
   const [presReady, setPresReady] = useState<boolean>(false);
@@ -117,7 +121,14 @@ const SessPropDetails = (): ReactElement => {
         confReady === true &&
         <Container>
 
-          <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+          <ConferenceCard
+            conference={conference}
+            setConference={setConference}
+            setBtnName={setBtnName}
+            setShowConfirm={setShowConfirm}
+            setThisId={setThisId}
+            setThisName={setThisName}
+          />
 
           <Row>
             <Col sm={2}>

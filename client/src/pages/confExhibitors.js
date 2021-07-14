@@ -97,13 +97,24 @@ const ConfExhibits = () => {
               : <Col sm={2}></Col>}
 
             <Col sm={8}>
-              <ConferenceCard conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+              <ConferenceCard
+                conference={conference}
+                setConference={setConference}
+                setBtnName={setBtnName}
+                setShowConfirm={setShowConfirm}
+                setThisId={setThisId}
+                setThisName={setThisName}
+              />
             </Col>
           </Row>
 
           <Row>
             <Col sm={2} className="nomargin">
-              <Sidenav conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+              <Sidenav
+                conference={conference}
+                showSuccess={showSuccess}
+                setShowSuccess={setShowSuccess}
+              />
             </Col>
 
             <Col sm={10}>
@@ -134,7 +145,12 @@ const ConfExhibits = () => {
                       {searchBy === "exhComp" &&
                         <Row>
                           <div id="exhPageSearch">
-                            <Form.Control type="input" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                            <Form.Control
+                              type="input"
+                              placeholder="Search"
+                              value={search}
+                              onChange={(e) => setSearch(e.target.value)}
+                            />
                           </div>
                         </Row>}
                     </Form>
@@ -145,13 +161,23 @@ const ConfExhibits = () => {
                 {searchBy === "exhComp" &&
                   <>
                     {exhArray.length > 0
-                      ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+                      ? <ExhibitorCard
+                          exhibitor={searchFilter(exhArray)}
+                          conference={conference}
+                          showSuccess={showSuccess}
+                          setShowSuccess={setShowSuccess}
+                        />
                       : <h3>We can't seem to find any exhibitors for this conference based on your search criteria. If you think this is an error, please contact us.</h3>}
                   </>}
                 {searchBy === "allExh" &&
                   <>
                     {exhArray.length > 0
-                      ? <ExhibitorCard exhibitor={searchFilter(exhArray)} conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+                      ? <ExhibitorCard
+                          exhibitor={searchFilter(exhArray)}
+                          conference={conference}
+                          showSuccess={showSuccess}
+                          setShowSuccess={setShowSuccess}
+                        />
                       : <h3>We can't seem to find any exhibitors for this conference. If you think this is an error, please contact us.</h3>}
                   </>}
               </Row>

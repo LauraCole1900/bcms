@@ -102,7 +102,7 @@ const ConfDetails = () => {
         return false
       })
 
-    setPresReady(true)
+    setPresReady(true);
   }
 
   // Pull session IDs from presenter.presSessionIds[]
@@ -279,13 +279,24 @@ const ConfDetails = () => {
               : <Col sm={2}></Col>}
 
             <Col sm={8}>
-              <ConferenceCard conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+              <ConferenceCard
+                conference={conference}
+                setConference={setConference}
+                setBtnName={setBtnName}
+                setShowConfirm={setShowConfirm}
+                setThisId={setThisId}
+                setThisName={setThisName}
+              />
             </Col>
           </Row>
 
           <Row>
             <Col sm={2} className="nomargin">
-              <Sidenav conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+              <Sidenav
+                conference={conference}
+                showSuccess={showSuccess}
+                setShowSuccess={setShowSuccess}
+              />
             </Col>
 
             <Col sm={10}>
@@ -323,21 +334,46 @@ const ConfDetails = () => {
                   <Col sm={12}>
                     <h1>Presenters</h1>
                     {presArray.length > 0
-                      ? <PresenterCard presenter={searchPres(presArray)} conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                      ? <PresenterCard
+                          presenter={searchPres(presArray)}
+                          conference={conference}
+                          setConference={setConference}
+                          setBtnName={setBtnName}
+                          setShowConfirm={setShowConfirm}
+                          setThisId={setThisId}
+                          setThisName={setThisName}
+                        />
                       : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {(searchBy === "allSess" || searchBy === "sessionName") &&
                   <Col sm={12}>
                     <h1>Sessions</h1>
                     {sessArray.length > 0
-                      ? <SessionCard session={searchSess(sessArray)} presenter={presArray} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                      ? <SessionCard
+                          session={searchSess(sessArray)}
+                          presenter={presArray}
+                          setConference={setConference}
+                          setBtnName={setBtnName}
+                          setShowConfirm={setShowConfirm}
+                          setThisId={setThisId}
+                          setThisName={setThisName}
+                        />
                       : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {(searchBy === "sessionPresenter" || searchBy === "sessionOrg") &&
                   <Col sm={12}>
                     <h1>Sessions</h1>
                     {sessArray.length > 0
-                      ? <SessionCard session={searchSessPres(sessArray)} presenter={presArray} conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                      ? <SessionCard
+                          session={searchSessPres(sessArray)}
+                          presenter={presArray}
+                          conference={conference}
+                          setConference={setConference}
+                          setBtnName={setBtnName}
+                          setShowConfirm={setShowConfirm}
+                          setThisId={setThisId}
+                          setThisName={setThisName}
+                        />
                       : <h3>We can't seem to find any conferences associated with this presenter or organization. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {searchBy === "allPnS" &&
@@ -345,13 +381,30 @@ const ConfDetails = () => {
                     <Col sm={6}>
                       <h1>Presenters</h1>
                       {presArray.length > 0
-                        ? <PresenterCard presenter={searchPres(presArray)} conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                        ? <PresenterCard
+                            presenter={searchPres(presArray)}
+                            conference={conference}
+                            setConference={setConference}
+                            setBtnName={setBtnName}
+                            setShowConfirm={setShowConfirm}
+                            setThisId={setThisId}
+                            setThisName={setThisName}
+                          />
                         : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                     </Col>
                     <Col sm={6}>
                       <h1>Sessions</h1>
                       {sessArray.length > 0
-                        ? <SessionCard session={searchSess(sessArray)} presenter={presArray} conference={conference} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                        ? <SessionCard
+                            session={searchSess(sessArray)}
+                            presenter={presArray}
+                            conference={conference}
+                            setConference={setConference}
+                            setBtnName={setBtnName}
+                            setShowConfirm={setShowConfirm}
+                            setThisId={setThisId}
+                            setThisName={setThisName}
+                          />
                         : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                     </Col>
                   </div>}

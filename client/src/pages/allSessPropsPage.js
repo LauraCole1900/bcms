@@ -12,7 +12,11 @@ const AllSessProps = () => {
   const [conference, setConference] = useState();
   const [presArray, setPresArray] = useState([]);
   const [sessArray, setSessArray] = useState([]);
-  const [showSuccess, setShowSuccess] = useState(0);
+  const [btnName, setBtnName] = useState();
+  const [thisId, setThisId] = useState();
+  const [thisName, setThisName] = useState();
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [confReady, setConfReady] = useState(false);
   const [presReady, setPresReady] = useState(false);
   const [sessReady, setSessReady] = useState(false);
@@ -92,11 +96,22 @@ const AllSessProps = () => {
         presReady === true &&
         <Container>
 
-          <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+          <ConferenceCard
+            conference={conference}
+            setConference={setConference}
+            setBtnName={setBtnName}
+            setShowConfirm={setShowConfirm}
+            setThisId={setThisId}
+            setThisName={setThisName}
+          />
 
           <Row>
             <Col sm={2} className="nomargin">
-              <Sidenav conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+              <Sidenav
+                conference={conference}
+                showSuccess={showSuccess}
+                setShowSuccess={setShowSuccess}
+              />
             </Col>
 
             <Col sm={10}>
@@ -106,7 +121,14 @@ const AllSessProps = () => {
 
               <Row className="wrap">
                 {sessArray.length > 0
-                  ? <SessPropSummaryCard session={sessArray} conference={conference} presenter={presArray} urlType={urlType} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+                  ? <SessPropSummaryCard
+                    session={sessArray}
+                    conference={conference}
+                    presenter={presArray}
+                    urlType={urlType}
+                    showSuccess={showSuccess}
+                    setShowSuccess={setShowSuccess}
+                  />
                   : <h3>We can't seem to find any proposed sessions for this conference. If you think this is an error, please contact us.</h3>}
               </Row>
             </Col>

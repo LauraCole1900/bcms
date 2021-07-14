@@ -225,7 +225,11 @@ const ProfilePage = (): ReactElement => {
             </Row>
             <Row>
               <Col sm={8}>
-                <ToggleButtonGroup name="whichConf" type="radio" data-toggle="popover">
+                <ToggleButtonGroup
+                  name="whichConf"
+                  type="radio"
+                  data-toggle="popover"
+                >
                   {buttons.map((button: any, idx: number) => (
                     <Button
                       key={idx}
@@ -240,8 +244,15 @@ const ProfilePage = (): ReactElement => {
               </Col>
               <Col sm={2}></Col>
               <Col sm={2}>
-                <Link to="/new_conference" className={location.pathname === "/new_conference" ? "link active" : "link"}>
-                  <Button data-toggle="popover" className="button" title="Create a new conference">New Conference</Button>
+                <Link
+                  to="/new_conference"
+                  className={location.pathname === "/new_conference" ? "link active" : "link"}
+                >
+                  <Button 
+                    data-toggle="popover"
+                    className="button"
+                    title="Create a new conference"
+                  >New Conference</Button>
                 </Link>
               </Col>
             </Row>
@@ -249,22 +260,50 @@ const ProfilePage = (): ReactElement => {
               <h3>Please select which of your conferences to view.</h3>}
             {whichConf === "attend" &&
               (attendConf.length > 0
-                ? <ConferenceCard conference={attendConf} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                ? <ConferenceCard
+                    conference={attendConf}
+                    setConference={setConference}
+                    setBtnName={setBtnName}
+                    setShowConfirm={setShowConfirm}
+                    setThisId={setThisId}
+                    setThisName={setThisName}
+                  />
                 : <h3>We're sorry, you don't seem to be registered for any conferences at this time.</h3>)
             }
             {whichConf === "create" &&
               (createConf.length > 0
-                ? <ConferenceCard conference={createConf} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                ? <ConferenceCard
+                    conference={createConf}
+                    setConference={setConference}
+                    setBtnName={setBtnName}
+                    setShowConfirm={setShowConfirm}
+                    setThisId={setThisId}
+                    setThisName={setThisName}
+                  />
                 : <h3>We're sorry, you don't seem to have created any conferences at this time.</h3>)
             }
             {whichConf === "exhibit" &&
               (exhibitConf.length > 0
-                ? <ConferenceCard conference={exhibitConf} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                ? <ConferenceCard
+                    conference={exhibitConf}
+                    setConference={setConference}
+                    setBtnName={setBtnName}
+                    setShowConfirm={setShowConfirm}
+                    setThisId={setThisId}
+                    setThisName={setThisName}
+                  />
                 : <h3>We're sorry, you don't seem to be exhibiting at any conferences at this time.</h3>)
             }
             {whichConf === "present" &&
               (presentConf.length > 0
-                ? <ConferenceCard conference={presentConf} setConference={setConference} setBtnName={setBtnName} setShowConfirm={setShowConfirm} setThisId={setThisId} setThisName={setThisName} />
+                ? <ConferenceCard
+                    conference={presentConf}
+                    setConference={setConference}
+                    setBtnName={setBtnName}
+                    setShowConfirm={setShowConfirm}
+                    setThisId={setThisId}
+                    setThisName={setThisName}
+                  />
                 : <h3>We're sorry, you don't seem to be presenting at any conferences at this time.</h3>)
             }
 
