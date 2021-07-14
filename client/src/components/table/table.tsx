@@ -377,13 +377,21 @@ const TableComp = (): ReactElement => {
               </Col>
               : <Col sm={2}></Col>}
             <Col sm={8}>
-              <ConferenceCard conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+              <ConferenceCard 
+                conference={conference}
+                showSuccess={showSuccess}
+                setShowSuccess={setShowSuccess}
+              />
             </Col>
           </Row>
 
           <Row>
             <Col sm={2} className="nomargin">
-              <Sidenav conference={conference} showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
+              <Sidenav
+                conference={conference}
+                showSuccess={showSuccess}
+                setShowSuccess={setShowSuccess}
+              />
             </Col>
 
             <Col sm={10}>
@@ -432,11 +440,23 @@ const TableComp = (): ReactElement => {
                   {dataSet === "attendees" &&
                     <p className="allergyWarn">If accurate information regarding allergies is required, entering a third party's data is not recommended.</p>}
                   {dataSet === "committee" &&
-                    <CommitteeForm conference={conference} committee={committee} setCommittee={setCommittee} member={member} setMember={setMember} setBtnName={setBtnName} handleShowErr={handleShowErr} handleShowSuccess={handleShowSuccess} setErrThrown={setErrThrown} errThrown={errThrown} btnName={btnName} />}
+                    <CommitteeForm
+                      conference={conference}
+                      committee={committee}
+                      setCommittee={setCommittee}
+                      member={member}
+                      setMember={setMember}
+                      setBtnName={setBtnName}
+                      handleShowErr={handleShowErr}
+                      handleShowSuccess={handleShowSuccess}
+                      setErrThrown={setErrThrown}
+                      errThrown={errThrown}
+                      btnName={btnName}
+                    />}
                   <p className="subhead">Click column headers to sort</p>
                 </Col>
               </Row>
-              <Table striped bordered hover responsive>
+              <Table bordered hover responsive className="table">
                 <thead>
                   <tr>
                     {dataSet === "attendees" &&
@@ -464,19 +484,47 @@ const TableComp = (): ReactElement => {
                 <tbody>
                   {dataSet === "attendees" && (
                     attendees.length > 0
-                      ? <AttendeeTable attendees={searchFilter(attendees)} conference={conference} confcb={fetchConf} attcb={fetchAttendees} delete={handleShowConfirm} />
+                      ? <AttendeeTable
+                          attendees={searchFilter(attendees)}
+                          conference={conference}
+                          confcb={fetchConf}
+                          attcb={fetchAttendees}
+                          delete={handleShowConfirm}
+                        />
                       : <tr><td className="tableComm">We can't seem to find any registered attendees at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "committee" && (
                     committee.length > 0
-                      ? <CommitteeTable committee={committee} conference={conference} setBtnName={setBtnName} setCommName={setCommName} setConfName={setConfName} setEvent={setEvent} setMember={setMember} confcb={fetchConf} commcb={fetchCommittee} delete={handleShowConfirm} setErrThrown={setErrThrown} handleShowErr={handleShowErr} handleShowSuccess={handleShowSuccess} />
+                      ? <CommitteeTable
+                          committee={committee}
+                          conference={conference}
+                          setBtnName={setBtnName}
+                          setCommName={setCommName}
+                          setConfName={setConfName}
+                          setEvent={setEvent}
+                          setMember={setMember}
+                          confcb={fetchConf}
+                          commcb={fetchCommittee}
+                          delete={handleShowConfirm}
+                          setErrThrown={setErrThrown}
+                          handleShowErr={handleShowErr}
+                          handleShowSuccess={handleShowSuccess}
+                        />
                       : <tr><td className="tableComm">We can't seem to find any members of the session proposal committee at this time. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "exhibitors" && (
                     exhibitors.length > 0
-                      ? <ExhibitorTable exhibitors={searchFilter(exhibitors)} conference={conference} confcd={fetchConf} exhcb={fetchExhibitors} delete={handleShowConfirm} />
+                      ? <ExhibitorTable
+                          exhibitors={searchFilter(exhibitors)}
+                          conference={conference}
+                          confcd={fetchConf}
+                          exhcb={fetchExhibitors}
+                          delete={handleShowConfirm}
+                        />
                       : <tr><td className="tableComm">We can't seem to find any exhibitors registered for this conference. If you think this is an error, please contact us.</td></tr>)}
                   {dataSet === "presenters" && (
                     presenters.length > 0
-                      ? <PresenterTable presenters={searchFilter(presenters)} />
+                      ? <PresenterTable
+                          presenters={searchFilter(presenters)}
+                        />
                       : <tr><td className="tableComm">We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</td></tr>)}
                 </tbody>
               </Table>
@@ -487,11 +535,45 @@ const TableComp = (): ReactElement => {
               {/* handleDeleteAtt() needs attendee._id OR attendee.email + attendee.confId */}
 
               {/* Will need to add deletesess={() => handleSessDelete(sess._id)}? Or only from sessionCard? */}
-              <ConfirmModal btnname={btnName} confname={confName} urlid={confId} attname={attName} commname={commName} exhname={exhName} presname={presName} unregatt={() => handleAttUnreg(thisId, thisEmail)} unregexh={() => handleExhUnreg(thisId, thisEmail)} delcomm={() => handleDeleteComm(thisEmail, thisId)} show={showConfirm === "index"} hide={() => handleHideConfirm()} />
+              <ConfirmModal
+                btnname={btnName}
+                confname={confName}
+                urlid={confId}
+                attname={attName}
+                commname={commName}
+                exhname={exhName}
+                presname={presName}
+                unregatt={() => handleAttUnreg(thisId, thisEmail)}
+                unregexh={() => handleExhUnreg(thisId, thisEmail)}
+                delcomm={() => handleDeleteComm(thisEmail, thisId)}
+                show={showConfirm === "index"}
+                hide={() => handleHideConfirm()}
+              />
 
-              <SuccessModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} btnname={btnName} attname={attName} commname={commName} exhname={exhName} presname={presName} show={showSuccess === "index"} hide={() => handleHideSuccess()} />
+              <SuccessModal
+                conference={conference[0]}
+                confname={confName}
+                urlid={confId}
+                urltype={dataSet}
+                btnname={btnName}
+                attname={attName}
+                commname={commName}
+                exhname={exhName}
+                presname={presName}
+                show={showSuccess === "index"}
+                hide={() => handleHideSuccess()}
+              />
 
-              <ErrorModal conference={conference[0]} confname={confName} urlid={confId} urltype={dataSet} errmsg={errThrown} btnname={btnName} show={showErr === "index"} hide={() => handleHideErr()} />
+              <ErrorModal
+                conference={conference[0]}
+                confname={confName}
+                urlid={confId}
+                urltype={dataSet}
+                errmsg={errThrown}
+                btnname={btnName}
+                show={showErr === "index"}
+                hide={() => handleHideErr()}
+              />
 
             </Col>
           </Row>

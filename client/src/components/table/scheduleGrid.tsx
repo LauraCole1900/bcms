@@ -29,7 +29,7 @@ const ScheduleGrid = (props: any): ReactElement => {
 
   return (
     <>
-      <Table striped bordered hover responsive>
+      <Table bordered hover responsive className="table">
         <thead>
           <tr>
             <th className="schHead"></th>

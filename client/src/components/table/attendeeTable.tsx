@@ -70,17 +70,58 @@ const AttendeeTable = (props: any): ReactElement => {
           <td>{att.emergencyContactName}</td>
           <td>{att.emergencyContactPhone}</td>
           <td>{att.allergies}</td>
-          <td><Form.Check type="checkbox" name="isAdmin" value={att.isAdmin} data-id={att._id} aria-label="adminCheck" className="adminCheck" checked={att.isAdmin === "yes"} onChange={handleInputChange} /></td>
+          <td><Form.Check
+            type="checkbox"
+            name="isAdmin"
+            value={att.isAdmin}
+            data-id={att._id}
+            aria-label="adminCheck"
+            className="adminCheck"
+            checked={att.isAdmin === "yes"}
+            onChange={handleInputChange}
+          /></td>
           <td>
-            <Link to={`/admin_edit_att/${att._id}`} className={location.pathname === `/admin_edit_att/${att._id}` ? "link active" : "link"}>
-              <Button data-toggle="popover" title="Edit this attendee" className="tbleditbtn" name="attEdit">
-                <Image fluid src="/images/edit-icon-2.png" className="tbledit" alt="Edit this attendee" data-attid={att._id} />
+            <Link
+              to={`/admin_edit_att/${att._id}`}
+              className={location.pathname === `/admin_edit_att/${att._id}` ? "link active" : "link"}
+            >
+              <Button
+                data-toggle="popover"
+                title="Edit this attendee"
+                className="tbleditbtn"
+                name="attEdit"
+              >
+                <Image
+                  fluid
+                  src="/images/edit-icon-2.png"
+                  className="tbledit"
+                  alt="Edit this attendee"
+                  data-attid={att._id}
+                />
               </Button>
             </Link>
           </td>
           <td>
-            <Button data-toggle="popover" title="Delete this attendee" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} name="admUnregAtt" onClick={props.delete}>
-              <Image fluid src="/images/trash-can.png" className="tbldelete" alt="Delete this attendee" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-attname={att.givenName + " " + att.familyName} data-email={att.email} onClick={props.delete} />
+            <Button
+              data-toggle="popover"
+              title="Delete this attendee"
+              className="tbldeletebtn"
+              data-confid={props.conference[0]._id}
+              data-confname={props.conference[0].confName}
+              data-attname={att.givenName + " " + att.familyName}
+              data-email={att.email} name="admUnregAtt"
+              onClick={props.delete}
+            >
+              <Image
+                fluid
+                src="/images/trash-can.png"
+                className="tbldelete"
+                alt="Delete this attendee"
+                data-confid={props.conference[0]._id}
+                data-confname={props.conference[0].confName}
+                data-attname={att.givenName + " " + att.familyName}
+                data-email={att.email} onClick={props.delete}
+              />
             </Button>
           </td>
         </tr>

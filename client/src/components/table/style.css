@@ -39,11 +39,15 @@ td {
 }
 
 .subhead {
-  color: var(--medSil);
+  color: var(--medForest);
   margin-bottom: 0;
   display: flex;
   justify-self: flex-start;
   align-self: flex-end;
+}
+
+.table {
+  background-color: var(--lightSil);
 }
 
 .tableComm {
