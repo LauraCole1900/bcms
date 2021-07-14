@@ -87,8 +87,9 @@ const ConfDetails = () => {
         const presArr = resp.data.slice(0)
         // Filter presenters by acceptance status
         const filteredPres = presArr.filter(pres => pres.presAccepted === "yes")
+        const moreFiltered = filteredPres.filter(pres => pres.presEmail !== "staff@email.com")
         // Sort presenters by last name
-        const sortedPres = filteredPres.sort(
+        const sortedPres = moreFiltered.sort(
           firstBy("presKeynote", "desc")
             .thenBy("presFamilyName")
             .thenBy("presGivenName")

@@ -37,7 +37,7 @@ const SuccessModal = (props: any): ReactElement => {
           {/* Create Schedule form, add session */}
           {props.urltype === "schedule" &&
             props.btnname === "Assign" &&
-            <h4>You have assigned {props.session.sessName} to your conference schedule.</h4>}
+            <h4>You have assigned {props.session?.sessName} to your conference schedule.</h4>}
 
           {/* Add Session form */}
           {props.urltype === "new_session" &&

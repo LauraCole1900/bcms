@@ -47,7 +47,7 @@ const AssignModal = (props: any): ReactElement => {
       })
       .catch((err: AxiosError) => {
         console.log(err);
-        props.errThrown(err.message);
+        props.setErrThrown(err.message);
         props.handleShowError();
       })
   }
@@ -57,7 +57,7 @@ const AssignModal = (props: any): ReactElement => {
     e.preventDefault();
     const { name } = e.target as HTMLButtonElement
     props.setBtnName(name);
-    SessionAPI.saveSession({ confId: props.urlid, sessName: "", sessPresEmails: "", sessDate: props.date, sessStart: handleDbTime(props.startTime), sessEnd: handleDbTime(props.endTime), sessDesc: "", sessKeynote: "", sessPanel: "", sessRoom: props.room, sessAccepted: "yes" })
+    SessionAPI.saveSession({ confId: props.urlid, sessName: "", sessPresEmails: [""], sessDate: props.date, sessStart: handleDbTime(props.startTime), sessEnd: handleDbTime(props.endTime), sessDesc: "", sessKeynote: "", sessPanel: "", sessRoom: props.room, sessEquipConfirm: "", sessAccepted: "yes" })
       .then((resp: AxiosResponse<Session>) => {
         console.log("from assignModal createSess", resp.data)
         // TS doesn't like resp.err
@@ -67,7 +67,8 @@ const AssignModal = (props: any): ReactElement => {
       })
       .catch((err: AxiosError) => {
         console.log(err);
-        props.errThrown(err.message);
+        props.setErrThrown(err.message);
+        props.hide();
         props.handleShowError();
       })
   }

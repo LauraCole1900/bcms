@@ -314,6 +314,7 @@ const Schedule = () => {
 
           <SuccessModal
             conference={conference}
+            session={thisSess}
             confname={thisName}
             confid={urlId}
             urlid={urlId}
@@ -324,10 +325,11 @@ const Schedule = () => {
           />
 
           <ErrorModal
-            conference={conference}
+            conference={conference[0]}
             session={thisSess}
             urlid={urlId}
             urltype={urlType}
+            confname={conference[0].confName}
             errmsg={errThrown}
             btnname={btnName}
             show={showErr === true}
