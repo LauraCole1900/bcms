@@ -46,10 +46,24 @@ const SchedSessCard = (props: any): ReactElement => {
             ? <Card className="sched">
               <h3 className="textTight maxWidth">{props.session[0].sessName}</h3><br />
               <p className="textTight maxWidth">{fetchPresNames(props.session[0]._id)}</p><br />
-              <Button data-toggle="popover" title="Session Details" className="button" data-sessid={props.session[0]._id} onClick={(e) => handleShowDetails(e)}>Session Details</Button>
+              <Button
+                data-toggle="popover"
+                title="Session Details"
+                className="button"
+                data-sessid={props.session[0]._id}
+                onClick={(e) => handleShowDetails(e)}
+              >Session Details</Button>
             </Card>
             : <Card className="schedBlue">
-              <h3 data-toggle="popover" title="Assign Session" className="textTight clickable" data-name="Assign" data-room={props.room} data-time={props.time} onClick={(e) => handleShowAssign(e)}>Click to assign session</h3>
+              <h3
+                data-toggle="popover"
+                title="Assign Session"
+                className="textTight clickable"
+                data-name="Assign"
+                data-room={props.room}
+                data-time={props.time}
+                onClick={(e) => handleShowAssign(e)}
+              >Click to assign session</h3>
             </Card>}
         </>
         : <>
@@ -57,7 +71,13 @@ const SchedSessCard = (props: any): ReactElement => {
             ? <Card className="sched">
               <h3 className="textTight maxWidth">{props.session[0].sessName}</h3><br />
               <p className="textTight maxWidth">{fetchPresNames(props.session[0]._id)}</p><br />
-              <Button data-toggle="popover" title="Session details" className="button" data-sessid={props.session[0]._id} onClick={(e) => handleShowDetails(e)}>Session Details</Button>
+              <Button
+                data-toggle="popover"
+                title="Session details"
+                className="button"
+                data-sessid={props.session[0]._id}
+                onClick={(e) => handleShowDetails(e)}
+              >Session Details</Button>
             </Card>
             : <Card className="schedBlue">
               <h3 className="textTight">FREE</h3>

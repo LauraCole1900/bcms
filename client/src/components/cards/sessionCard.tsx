@@ -98,12 +98,38 @@ const SessionCard = (props: any): ReactElement => {
                   {isAuthenticated &&
                     urlType !== "schedule" &&
                     (user!.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user!.email)) &&
-                    <Button data-toggle="popover" title="Delete this session" className="keynotebtn" data-sessid={sess._id} data-sessname={sess._id} data-name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess._id} data-name="sessDelete" />
+                    <Button
+                      data-toggle="popover"
+                      title="Delete this session"
+                      className="keynotebtn"
+                      data-sessid={sess._id}
+                      data-sessname={sess._id}
+                      data-name="sessDelete"
+                      onClick={(e) => handleShowConfirm(e)}
+                    >
+                      <Image
+                        fluid
+                        src="/images/trash-can.png"
+                        className="delete"
+                        alt="Delete session"
+                        data-sessid={sess._id}
+                        data-sessname={sess._id}
+                        data-name="sessDelete"
+                      />
                     </Button>}
                   {urlType === "schedule" &&
-                    <Button data-toggle="popover" title="Close" className="button closeBtn" onClick={props.hide}>
-                      <Image fluid src="/images/close-icon-2.png" className="button close" alt="Close" />
+                    <Button
+                      data-toggle="popover"
+                      title="Close"
+                      className="button closeBtn"
+                      onClick={props.hide}
+                    >
+                      <Image
+                        fluid
+                        src="/images/close-icon-2.png"
+                        className="button close"
+                        alt="Close"
+                      />
                     </Button>}
                 </Col>
               </Row>
@@ -123,12 +149,38 @@ const SessionCard = (props: any): ReactElement => {
                   {isAuthenticated &&
                     urlType !== "schedule" &&
                     (user!.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user!.email)) &&
-                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.sessName} data-name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.sessName} data-name="sessDelete" />
+                    <Button
+                      data-toggle="popover"
+                      title="Delete this session"
+                      className="deletebtn"
+                      data-sessid={sess._id}
+                      data-sessname={sess.sessName}
+                      data-name="sessDelete"
+                      onClick={(e) => handleShowConfirm(e)}
+                    >
+                      <Image
+                        fluid
+                        src="/images/trash-can.png"
+                        className="delete"
+                        alt="Delete session"
+                        data-sessid={sess._id}
+                        data-sessname={sess.sessName}
+                        data-name="sessDelete"
+                      />
                     </Button>}
                   {urlType === "schedule" &&
-                    <Button data-toggle="popover" title="Close" className="button closeBtn" onClick={props.hide}>
-                      <Image fluid src="/images/close-icon-2.png" className="button close" alt="Close" />
+                    <Button
+                      data-toggle="popover"
+                      title="Close"
+                      className="button closeBtn"
+                      onClick={props.hide}
+                    >
+                      <Image
+                        fluid
+                        src="/images/close-icon-2.png"
+                        className="button close"
+                        alt="Close"
+                      />
                     </Button>}
                 </Col>
               </Row>
@@ -145,12 +197,38 @@ const SessionCard = (props: any): ReactElement => {
                   {isAuthenticated &&
                     urlType !== "schedule" &&
                     (user!.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user!.email)) &&
-                    <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.sessName} data-btnname="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                      <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.sessName} data-btnname="sessDelete" />
+                    <Button
+                      data-toggle="popover"
+                      title="Delete this session"
+                      className="deletebtn"
+                      data-sessid={sess._id}
+                      data-sessname={sess.sessName}
+                      data-btnname="sessDelete"
+                      onClick={(e) => handleShowConfirm(e)}
+                    >
+                      <Image
+                        fluid
+                        src="/images/trash-can.png"
+                        className="delete"
+                        alt="Delete session"
+                        data-sessid={sess._id}
+                        data-sessname={sess.sessName}
+                        data-btnname="sessDelete"
+                      />
                     </Button>}
                   {urlType === "schedule" &&
-                    <Button data-toggle="popover" title="Close" className="closeBtn" onClick={props.hide}>
-                      <Image fluid src="/images/close-icon-2.png" className="close" alt="Close" />
+                    <Button
+                      data-toggle="popover"
+                      title="Close"
+                      className="closeBtn"
+                      onClick={props.hide}
+                    >
+                      <Image
+                        fluid
+                        src="/images/close-icon-2.png"
+                        className="close"
+                        alt="Close"
+                      />
                     </Button>}
                 </Col>
               </Row>
@@ -181,8 +259,15 @@ const SessionCard = (props: any): ReactElement => {
               <Row>
                 <Col sm={1}></Col>
                 <Col sm={5}>
-                  <Link to={`/edit_session/${sess._id}`} className={location.pathname === `/edit_session/${sess._id}` ? "link active" : "link"}>
-                    <Button data-toggle="popover" title="Edit session" className="button">Edit Session</Button>
+                  <Link
+                    to={`/edit_session/${sess._id}`}
+                    className={location.pathname === `/edit_session/${sess._id}` ? "link active" : "link"}
+                  >
+                    <Button
+                      data-toggle="popover"
+                      title="Edit session"
+                      className="button"
+                    >Edit Session</Button>
                   </Link>
                 </Col>
               </Row>}

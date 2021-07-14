@@ -58,8 +58,15 @@ const SessPropSummaryCard = (props: any): ReactElement => {
             </Row>
             <Row>
               <Col sm={12} className="flexEnd">
-                <Link to={`/proposal_details/${sess._id}`} className={location.pathname === `/details/${sess._id}` ? "link active" : "link"}>
-                  <Button data-toggle="popover" title="Proposal Details" className="button">Proposal Details</Button>
+                <Link
+                  to={`/proposal_details/${sess._id}`}
+                  className={location.pathname === `/details/${sess._id}` ? "link active" : "link"}
+                >
+                  <Button
+                    data-toggle="popover"
+                    title="Proposal Details"
+                    className="button"
+                  >Proposal Details</Button>
                 </Link>
               </Col>
             </Row>

@@ -33,7 +33,12 @@ const UserCard = (): ReactElement => {
             <Col sm={3}>
               <Row>
                 <Col sm={12}>
-                  <Image fluid className="profilePic" src={userInfo.picture} alt="Profile picture" />
+                  <Image
+                    fluid
+                    className="profilePic"
+                    src={userInfo.picture}
+                    alt="Profile picture"
+                  />
                 </Col>
               </Row>
               <Row>
@@ -42,7 +47,11 @@ const UserCard = (): ReactElement => {
                     state: { ...userInfo },
                     pathname: "/update_user"
                   }}>
-                    <Button data-toggle="popover" title="Update your info" className="userBtn">Update Your Info</Button>
+                    <Button
+                      data-toggle="popover"
+                      title="Update your info"
+                      className="userBtn"
+                    >Update Your Info</Button>
                   </Link>
                 </Col>
               </Row>
