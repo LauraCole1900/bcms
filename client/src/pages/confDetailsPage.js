@@ -335,14 +335,14 @@ const ConfDetails = () => {
                     <h1>Presenters</h1>
                     {presArray.length > 0
                       ? <PresenterCard
-                          presenter={searchPres(presArray)}
-                          conference={conference}
-                          setConference={setConference}
-                          setBtnName={setBtnName}
-                          setShowConfirm={setShowConfirm}
-                          setThisId={setThisId}
-                          setThisName={setThisName}
-                        />
+                        presenter={searchPres(presArray)}
+                        conference={conference}
+                        setConference={setConference}
+                        setBtnName={setBtnName}
+                        setShowConfirm={setShowConfirm}
+                        setThisId={setThisId}
+                        setThisName={setThisName}
+                      />
                       : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {(searchBy === "allSess" || searchBy === "sessionName") &&
@@ -350,14 +350,15 @@ const ConfDetails = () => {
                     <h1>Sessions</h1>
                     {sessArray.length > 0
                       ? <SessionCard
-                          session={searchSess(sessArray)}
-                          presenter={presArray}
-                          setConference={setConference}
-                          setBtnName={setBtnName}
-                          setShowConfirm={setShowConfirm}
-                          setThisId={setThisId}
-                          setThisName={setThisName}
-                        />
+                        conference={conference}
+                        session={searchSess(sessArray)}
+                        presenter={presArray}
+                        setConference={setConference}
+                        setBtnName={setBtnName}
+                        setShowConfirm={setShowConfirm}
+                        setThisId={setThisId}
+                        setThisName={setThisName}
+                      />
                       : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {(searchBy === "sessionPresenter" || searchBy === "sessionOrg") &&
@@ -365,15 +366,15 @@ const ConfDetails = () => {
                     <h1>Sessions</h1>
                     {sessArray.length > 0
                       ? <SessionCard
-                          session={searchSessPres(sessArray)}
-                          presenter={presArray}
-                          conference={conference}
-                          setConference={setConference}
-                          setBtnName={setBtnName}
-                          setShowConfirm={setShowConfirm}
-                          setThisId={setThisId}
-                          setThisName={setThisName}
-                        />
+                        session={searchSessPres(sessArray)}
+                        presenter={presArray}
+                        conference={conference}
+                        setConference={setConference}
+                        setBtnName={setBtnName}
+                        setShowConfirm={setShowConfirm}
+                        setThisId={setThisId}
+                        setThisName={setThisName}
+                      />
                       : <h3>We can't seem to find any conferences associated with this presenter or organization. If you think this is an error, please contact us.</h3>}
                   </Col>}
                 {searchBy === "allPnS" &&
@@ -382,29 +383,29 @@ const ConfDetails = () => {
                       <h1>Presenters</h1>
                       {presArray.length > 0
                         ? <PresenterCard
-                            presenter={searchPres(presArray)}
-                            conference={conference}
-                            setConference={setConference}
-                            setBtnName={setBtnName}
-                            setShowConfirm={setShowConfirm}
-                            setThisId={setThisId}
-                            setThisName={setThisName}
-                          />
+                          presenter={searchPres(presArray)}
+                          conference={conference}
+                          setConference={setConference}
+                          setBtnName={setBtnName}
+                          setShowConfirm={setShowConfirm}
+                          setThisId={setThisId}
+                          setThisName={setThisName}
+                        />
                         : <h3>We can't seem to find any presenters for this conference. If you think this is an error, please contact us.</h3>}
                     </Col>
                     <Col sm={6}>
                       <h1>Sessions</h1>
                       {sessArray.length > 0
                         ? <SessionCard
-                            session={searchSess(sessArray)}
-                            presenter={presArray}
-                            conference={conference}
-                            setConference={setConference}
-                            setBtnName={setBtnName}
-                            setShowConfirm={setShowConfirm}
-                            setThisId={setThisId}
-                            setThisName={setThisName}
-                          />
+                          session={searchSess(sessArray)}
+                          presenter={presArray}
+                          conference={conference}
+                          setConference={setConference}
+                          setBtnName={setBtnName}
+                          setShowConfirm={setShowConfirm}
+                          setThisId={setThisId}
+                          setThisName={setThisName}
+                        />
                         : <h3>We can't seem to find any sessions for this conference. If you think this is an error, please contact us.</h3>}
                     </Col>
                   </div>}
