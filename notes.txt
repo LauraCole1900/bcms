@@ -2,11 +2,13 @@ Features:
   * Encrypted registration - DONE
   * Credit card information links to appropriate processing service, does NOT enter database
   * PayPal option?
-  * Ability to edit participants' information as permissions allow
+  * Ability to edit participants' information as permissions allow - DONE
   * Ability to upload (or retrieve?) convention center/exhibit hall maps
-  * If presenter deletes their info, their session is deleted automatically and an alert is sent to organizer--also to attendees if during conference (will need to compare date information!)
-  * If exhibitor deletes their info, their exhibit is deleted and exhibit-hall map automatically updates
-  * Maybe indicator that presenter or exhibitor can no longer attend, instead of deleting themselves? Available to organizer, presenter, and exhibitor - with a confirm "Are you sure?"
+  * If presenter deletes their info, their session is deleted automatically - DONE
+    * And an alert is sent to organizer--also to attendees if during conference (will need to compare date information!)
+  * If exhibitor deletes their info, their exhibit is deleted - DONE
+    * And exhibit-hall map automatically updates - might not be possible here
+  * Maybe indicator that presenter or exhibitor can no longer attend, instead of deleting themselves? Available to organizer, presenter, and exhibitor - with a confirm "Are you sure?" - DONE
   * Ability to set a new presenter before deleting a session?
   * Session location highlights on map for presenters?
   * Session location highlights on map for attendees?
@@ -34,7 +36,7 @@ Publicly available:
 
 Attendee:
   * Public access PLUS:
-  * Access to session materials during and after the session
+  * Access to session materials during and after the session - Presenter sets permission
   * Full CRUD access to own information - DONE
 
 Exhibitor:
@@ -48,7 +50,7 @@ Exhibitor:
 
 Presenter:
   * Attendee access PLUS:
-  * Full CRUD access to own information, including sessions
+  * Full CRUD access to own information, including sessions - DONE
   * Ability to POST and UPDATE supplemental materials for own presentation
   * Ability to link to website - DONE
   * Ability to upload video or slideshow content
@@ -62,10 +64,10 @@ Organizer:
   * Sets how many breakout sessions/tracks
   * Sets which features they want access to - MANAGED THROUGH DATABASE
   * Can restrict number of attendees - DONE
-  * Full CRUD access to schedule
+  * Full CRUD access to schedule - DONE
   * Full CRUD access to exhibit hall map
   * Full CRUD access to sessions map
-  * Ability to GET and DELETE attendee information for any attendee - full CRUD access DONE
+  * Ability to GET and DELETE attendee information for any attendee - full CRUD access - DONE
   * Ability to GET and DELETE/Set Not Attending exhibitor information for any exhibitor
   * Ability to GET and DELETE/Set Not Attending presenter information for any presenter
   * Alerts for when presenters and exhibitors delete themselves/set as Not Attending
