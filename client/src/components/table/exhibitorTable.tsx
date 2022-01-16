@@ -18,11 +18,10 @@ const ExhibitorTable = (props: any): ReactElement => {
   // }
 
   // API call to update exhibitor document onSubmit
-  // const handleSubmit = (e: FormEvent<HTMLElement>): string | void => {
-  //   const { dataset } = e.target as HTMLInputElement;
+  // const handleSubmit = (e: FormEvent<HTMLElement>, id: any): string | void => {
   //   if (e.key === "Enter") {
   //     console.log("from exhTable handleSubmit", { exhibitor })
-  //     ExhibitorAPI.updateExhibitor({ ...exhibitor }, dataset.id)
+  //     ExhibitorAPI.updateExhibitor({ ...exhibitor }, id)
   //       .then(props.exhcb(props.conference[0]._id))
   //       .catch(err => console.log(err))
   //   }
@@ -42,7 +41,7 @@ const ExhibitorTable = (props: any): ReactElement => {
           <td>{exh.exhSpaces}</td>
           <td>{exh.exhAttend}</td>
           <td>{exh.exhBoothNum}</td>
-          {/* <td><Form.Control type="input" name="exhBoothNum" value={exh.exhBoothNum} data-id={exh._id} className="formInput" onChange={handleInputChange} onSubmit={handleSubmit} /></td> */}
+          {/* <td><Form.Control type="input" name="exhBoothNum" value={exh.exhBoothNum} data-id={exh._id} className="formInput" onChange={handleInputChange} onSubmit={(e: FormEvent<HTMLElement>) => handleSubmit(e, exh._id)} /></td> */}
           <td>
             <Link to={`/admin_edit_exh/${exh._id}`} className={location.pathname === `/admin_edit_exh/${exh._id}` ? "link active" : "link"}>
               <Button data-toggle="popover" title="Edit this exhibit" className="tbleditbtn" name="attEdit">
@@ -51,8 +50,23 @@ const ExhibitorTable = (props: any): ReactElement => {
             </Link>
           </td>
           <td>
-            <Button data-toggle="popover" title="Delete this exhibit" className="tbldeletebtn" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-exhname={exh.exhCompany} data-email={exh.exhEmail} name="admUnregExh" onClick={props.delete}>
-              <Image src="/images/trash-can.png" className="tbldelete" alt="Delete this exhibit" data-confid={props.conference[0]._id} data-confname={props.conference[0].confName} data-exhname={exh.exhCompany} data-email={exh.exhEmail} onClick={props.delete} />
+            <Button
+              data-toggle="popover"
+              title="Delete this exhibit"
+              className="tbldeletebtn"
+              name="admUnregExh"
+              onClick={() => props.delete(props.conference[0]._id, props.conference[0].confName, exh.exhEmail, exh.exhCompany)}
+            >
+              <Image
+                src="/images/trash-can.png"
+                className="tbldelete"
+                alt="Delete this exhibit"
+                data-confid={props.conference[0]._id}
+                data-confname={props.conference[0].confName}
+                data-exhname={exh.exhCompany}
+                data-email={exh.exhEmail}
+                onClick={() => props.delete(props.conference[0]._id, props.conference[0].confName, exh.exhEmail, exh.exhCompany)}
+              />
             </Button>
           </td>
         </tr>

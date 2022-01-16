@@ -24,14 +24,14 @@ const ConferenceCard = (props: any): ReactElement => {
   const urlType: string = urlArray[urlArray.length - 2]
 
   // Lifts state to show Confirm modal
-  const handleShowConfirm = (e: MouseEvent): any | void => {
+  const handleShowConfirm = (e: MouseEvent, id: any, name: string): any | void => {
     const { dataset } = e.target as HTMLButtonElement;
     console.log({ dataset });
-    console.log(dataset.btnname, dataset.confid, dataset.confname);
-    handleFetchOne(ConferenceAPI.getConferenceById, dataset.confid!, props.setConference);
+    console.log(dataset.btnname, id, name);
+    handleFetchOne(ConferenceAPI.getConferenceById, id!, props.setConference);
     props.setBtnName(dataset.btnname);
-    props.setThisId(dataset.confid);
-    props.setThisName(dataset.confname);
+    props.setThisId(id);
+    props.setThisName(name);
     props.setShowConfirm(true);
   }
 
@@ -79,19 +79,16 @@ const ConferenceCard = (props: any): ReactElement => {
                       data-toggle="popover"
                       title="Cancel this conference"
                       className="deletebtn"
-                      data-confid={conf._id}
-                      data-confname={conf.confName}
                       data-btnname="confCancel"
-                      onClick={(e) => handleShowConfirm(e)}
+                      onClick={(e: MouseEvent) => handleShowConfirm(e, conf._id, conf.confName)}
                     >
                       <Image
                         fluid
                         src="/images/cancel-event.png"
                         className="delete"
                         alt="Cancel event"
-                        data-confid={conf._id}
-                        data-confname={conf.confName}
                         data-btnname="confCancel"
+                        onClick={(e: MouseEvent) => handleShowConfirm(e, conf._id, conf.confName)}
                       />
                     </Button>}
                 </Col>
@@ -182,10 +179,8 @@ const ConferenceCard = (props: any): ReactElement => {
                         data-toggle="popover"
                         title="Unregister exhibit from this conference"
                         className="button"
-                        data-confid={conf._id}
-                        data-confname={conf.confName}
                         name="unregExh"
-                        onClick={(e) => handleShowConfirm(e)}
+                        onClick={(e: MouseEvent) => handleShowConfirm(e, conf._id, conf.confName)}
                       >Unregister Exhibit</Button>
                     </Col>
                     <Col sm={2}>
@@ -216,10 +211,8 @@ const ConferenceCard = (props: any): ReactElement => {
                         data-toggle="popover"
                         title="Unregister attendee from this conference"
                         className="button"
-                        data-confid={conf._id}
-                        data-confname={conf.confName}
                         name="unregAtt"
-                        onClick={(e) => handleShowConfirm(e)}
+                        onClick={(e: MouseEvent) => handleShowConfirm(e, conf._id, conf.confName)}
                       >Unregister Attendee</Button>
                     </Col>
                     <Col sm={2}>

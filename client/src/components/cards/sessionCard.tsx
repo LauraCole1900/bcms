@@ -22,12 +22,12 @@ const SessionCard = (props: any): ReactElement => {
   const urlType: string = urlArray[urlArray.length - 2]
 
   // Sets boolean to show Confirm modal
-  const handleShowConfirm = (e: MouseEvent): any | void => {
+  const handleShowConfirm = (e: MouseEvent, id: any): any | void => {
     const { dataset } = e.target as HTMLButtonElement;
-    console.log(dataset.sessid);
+    console.log(id);
     console.log({ dataset });
     props.setBtnName(dataset.btnname);
-    props.setThisId(dataset.sessid);
+    props.setThisId(id);
     props.setShowConfirm(true);
   }
 
@@ -102,19 +102,18 @@ const SessionCard = (props: any): ReactElement => {
                       data-toggle="popover"
                       title="Delete this session"
                       className="keynotebtn"
-                      data-sessid={sess._id}
-                      data-sessname={sess._id}
+                      data-sessname={sess.sessName}
                       data-name="sessDelete"
-                      onClick={(e) => handleShowConfirm(e)}
+                      onClick={(e: MouseEvent) => handleShowConfirm(e, sess._id)}
                     >
                       <Image
                         fluid
                         src="/images/trash-can.png"
                         className="delete"
                         alt="Delete session"
-                        data-sessid={sess._id}
-                        data-sessname={sess._id}
+                        data-sessname={sess.sessName}
                         data-name="sessDelete"
+                        onClick={(e: MouseEvent) => handleShowConfirm(e, sess._id)}
                       />
                     </Button>}
                   {urlType === "schedule" &&
@@ -129,6 +128,7 @@ const SessionCard = (props: any): ReactElement => {
                         src="/images/close-icon-2.png"
                         className="button close"
                         alt="Close"
+                        onClick={props.hide}
                       />
                     </Button>}
                 </Col>
@@ -153,19 +153,18 @@ const SessionCard = (props: any): ReactElement => {
                       data-toggle="popover"
                       title="Delete this session"
                       className="deletebtn"
-                      data-sessid={sess._id}
                       data-sessname={sess.sessName}
                       data-name="sessDelete"
-                      onClick={(e) => handleShowConfirm(e)}
+                      onClick={(e: MouseEvent) => handleShowConfirm(e, sess._id)}
                     >
                       <Image
                         fluid
                         src="/images/trash-can.png"
                         className="delete"
                         alt="Delete session"
-                        data-sessid={sess._id}
                         data-sessname={sess.sessName}
                         data-name="sessDelete"
+                        onClick={(e: MouseEvent) => handleShowConfirm(e, sess._id)}
                       />
                     </Button>}
                   {urlType === "schedule" &&
@@ -180,6 +179,7 @@ const SessionCard = (props: any): ReactElement => {
                         src="/images/close-icon-2.png"
                         className="button close"
                         alt="Close"
+                        onClick={props.hide}
                       />
                     </Button>}
                 </Col>
@@ -201,19 +201,18 @@ const SessionCard = (props: any): ReactElement => {
                       data-toggle="popover"
                       title="Delete this session"
                       className="deletebtn"
-                      data-sessid={sess._id}
                       data-sessname={sess.sessName}
                       data-btnname="sessDelete"
-                      onClick={(e) => handleShowConfirm(e)}
+                      onClick={(e: MouseEvent) => handleShowConfirm(e, sess._id)}
                     >
                       <Image
                         fluid
                         src="/images/trash-can.png"
                         className="delete"
                         alt="Delete session"
-                        data-sessid={sess._id}
                         data-sessname={sess.sessName}
                         data-btnname="sessDelete"
+                        onClick={(e: MouseEvent) => handleShowConfirm(e, sess._id)}
                       />
                     </Button>}
                   {urlType === "schedule" &&
@@ -228,6 +227,7 @@ const SessionCard = (props: any): ReactElement => {
                         src="/images/close-icon-2.png"
                         className="close"
                         alt="Close"
+                        onClick={props.hide}
                       />
                     </Button>}
                 </Col>

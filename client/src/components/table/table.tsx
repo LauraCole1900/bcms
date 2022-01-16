@@ -63,32 +63,32 @@ const TableComp = (): ReactElement => {
   const [showErr, setShowErr] = useState<string | undefined>("none");
 
   // Sets boolean to show or hide relevant modal
-  const handleShowConfirm = (e: MouseEvent): any | void => {
+  const handleShowConfirm = (e: MouseEvent, confId: any, confName: string, email: string, attGivenName: string, attFamilyName: string, commGivenName: string, commFamilyName: string, exhName: string, presName: string): any | void => {
     switch (dataSet) {
       case "committee":
         console.log(thisEvent);
         setShowConfirm("index");
         setBtnName(thisEvent.dataset.name);
-        setThisId(thisEvent.dataset.confid);
-        setConfName(thisEvent.dataset.confname);
-        setThisEmail(thisEvent.dataset.email);
-        setAttName(thisEvent.dataset.attname);
-        setCommName(thisEvent.dataset.commname);
-        setExhName(thisEvent.dataset.exhname);
-        setPresName(thisEvent.dataset.presname);
+        setThisId(confId);
+        setConfName(confName);
+        setThisEmail(email);
+        setAttName(`${attGivenName} ${attFamilyName}`);
+        setCommName(`${commGivenName} ${commFamilyName}`);
+        setExhName(exhName);
+        setPresName(presName);
         break;
       default:
-        const { dataset, name } = e.target as HTMLButtonElement;
-        console.log(name, dataset.confid, dataset.confname, dataset.attname, dataset.email);
+        const { name } = e.target as HTMLButtonElement;
+        console.log(name, confId, confName, attGivenName, attFamilyName, email);
         setShowConfirm("index");
         setBtnName(name);
-        setThisId(dataset.confid);
-        setConfName(dataset.confname);
-        setThisEmail(dataset.email);
-        setAttName(dataset.attname);
-        setCommName(dataset.commname);
-        setExhName(dataset.exhname);
-        setPresName(dataset.presname);
+        setThisId(confId);
+        setConfName(confName);
+        setThisEmail(email);
+        setAttName(`${attGivenName} ${attFamilyName}`);
+        setCommName(`${commGivenName} ${commFamilyName}`);
+        setExhName(exhName);
+        setPresName(presName);
     }
   }
   const handleHideConfirm = (): string | void => setShowConfirm("none");

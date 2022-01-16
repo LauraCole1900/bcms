@@ -8,22 +8,22 @@ const PresenterFormCard = (props: any): ReactElement => {
   const [charRem, setCharRem] = useState<number | void>(750);
 
   // Handles input changes to form fields
-  const handleInputChange = (e: ChangeEvent): any => {
-    const { dataset, name, value } = e.target as HTMLInputElement;
-    // Finds where Object._id === dataset.id and concatenates data there
-    pres = (pres.map((pres: Presenter) => pres._id.toString() === dataset.id ? { ...pres, [name]: value } : { ...pres }))
-    props.handleChange([...pres], dataset);
+  const handleInputChange = (e: ChangeEvent, id: any): any => {
+    const { name, value } = e.target as HTMLInputElement;
+    // Finds where Object._id === id and concatenates data there
+    pres = (pres.map((pres: Presenter) => pres._id.toString() === id ? { ...pres, [name]: value } : { ...pres }))
+    props.handleChange([...pres]);
   }
 
   // Handles character limit and input changes for textarea
-  const handleTextArea = (e: ChangeEvent): string | void => {
-    const { dataset, name, value } = e.target as HTMLInputElement;
+  const handleTextArea = (e: ChangeEvent, id: any): string | void => {
+    const { name, value } = e.target as HTMLInputElement;
     const charCount: number = value.length;
     const charLeft: number = 750 - charCount;
     setCharRem(charLeft);
-    // Finds where Object._id === dataset.id and concatenates data there
-    pres = (pres.map((pres: Presenter) => pres._id.toString() === dataset.id ? { ...pres, [name]: value } : { ...pres }));
-    props.handleText([...pres], dataset);
+    // Finds where Object._id === id and concatenates data there
+    pres = (pres.map((pres: Presenter) => pres._id.toString() === id ? { ...pres, [name]: value } : { ...pres }));
+    props.handleText([...pres]);
   }
 
   useEffect(() => {
@@ -70,9 +70,8 @@ const PresenterFormCard = (props: any): ReactElement => {
                     name="presGivenName"
                     placeholder="Samwise"
                     value={pres.presGivenName}
-                    data-id={pres._id}
                     className="formInput"
-                    onChange={handleInputChange}
+                    onChange={(e: ChangeEvent) => handleInputChange(e, pres._id)}
                   />
                 </Col>
                 <Col sm={6}>
@@ -86,9 +85,8 @@ const PresenterFormCard = (props: any): ReactElement => {
                     name="presFamilyName"
                     placeholder="Gamgee"
                     value={pres.presFamilyName}
-                    data-id={pres._id}
                     className="formInput"
-                    onChange={handleInputChange}
+                    onChange={(e: ChangeEvent) => handleInputChange(e, pres._id)}
                   />
                 </Col>
               </Row>
@@ -104,9 +102,8 @@ const PresenterFormCard = (props: any): ReactElement => {
                     name="presOrg"
                     placeholder="Enter organization the presenter represents"
                     value={pres.presOrg}
-                    data-id={pres._id}
                     className="formInput"
-                    onChange={handleInputChange}
+                    onChange={(e: ChangeEvent) => handleInputChange(e, pres._id)}
                   />
                 </Col>
               </Row>
@@ -122,8 +119,7 @@ const PresenterFormCard = (props: any): ReactElement => {
                     placeholder="(123)456-7890"
                     value={pres.presPhone}
                     className="formInput"
-                    data-id={pres._id}
-                    onChange={handleInputChange}
+                    onChange={(e: ChangeEvent) => handleInputChange(e, pres._id)}
                   />
                 </Col>
                 <Col sm={8}>
@@ -134,8 +130,7 @@ const PresenterFormCard = (props: any): ReactElement => {
                     placeholder="http://www.website.com"
                     value={pres.presWebsite}
                     className="formInput"
-                    data-id={pres._id}
-                    onChange={handleInputChange}
+                    onChange={(e: ChangeEvent) => handleInputChange(e, pres._id)}
                   />
                 </Col>
               </Row>
@@ -155,9 +150,8 @@ const PresenterFormCard = (props: any): ReactElement => {
                     name="presBio"
                     placeholder="Enter a short bio of the presenter"
                     value={pres.presBio}
-                    data-id={pres._id}
                     className="formInput"
-                    onChange={handleTextArea}
+                    onChange={(e: ChangeEvent) => handleTextArea(e, pres._id) }
                   />
                   <Form.Text muted>Characters remaining: {charRem}</Form.Text>
                 </Form.Group>
@@ -173,9 +167,8 @@ const PresenterFormCard = (props: any): ReactElement => {
                     name="presPic"
                     placeholder="URL for presenter's picture"
                     value={pres.presPic}
-                    data-id={pres._id}
                     className="formInput"
-                    onChange={handleInputChange}
+                    onChange={(e: ChangeEvent) => handleInputChange(e, pres._id) }
                   />
                 </Form.Group>
               </Col>

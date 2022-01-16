@@ -14,12 +14,11 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
   const [cardRender, setCardRender] = useState<boolean>(false);
 
   // Sets boolean to show Confirm modal
-  const handleShowConfirm = (e: MouseEvent): any | void => {
+  const handleShowConfirm = (e: MouseEvent, id: any): any | void => {
     const { dataset } = e.target as HTMLButtonElement;
-    console.log(dataset.presid);
-    console.log({ dataset });
+    console.log(id);
     setBtnName(dataset.btnname);
-    setThisId(dataset.presid);
+    setThisId(id);
     setShowConfirm(true);
   }
 
@@ -53,19 +52,18 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                           data-toggle="popover"
                           title="Mark this presenter inactive"
                           className="keynotebtn"
-                          data-presid={pres._id}
                           data-confname={conference[0].confName}
                           data-btnname="presCancel"
-                          onClick={(e) => handleShowConfirm(e)}
+                          onClick={(e: MouseEvent) => handleShowConfirm(e, pres._id)}
                         >
                           <Image
                             fluid
                             src="/images/no-symbol.png"
                             className="delete"
                             alt="Mark this presenter inactive"
-                            data-presid={pres._id}
                             data-confname={conference[0].confName}
                             data-btnname="presCancel"
+                            onClick={(e: MouseEvent) => handleShowConfirm(e, pres._id)}
                           />
                         </Button>
                       </Col>}
@@ -88,19 +86,18 @@ const PresenterCard = ({ conference, presenter, setBtnName, setThisId, setShowCo
                           data-toggle="popover"
                           title="Mark this presenter inactive"
                           className="deletebtn"
-                          data-presid={pres._id}
                           data-confname={conference[0].confName}
                           data-btnname="presCancel"
-                          onClick={(e) => handleShowConfirm(e)}
+                          onClick={(e: MouseEvent) => handleShowConfirm(e, pres._id)}
                         >
                           <Image
                             fluid
                             src="/images/no-symbol.png"
                             className="delete"
                             alt="Mark this presenter inactive"
-                            data-presid={pres._id}
                             data-confname={conference[0].confName}
                             data-btnname="presCancel"
+                            onClick={(e: MouseEvent) => handleShowConfirm(e, pres._id)}
                           />
                         </Button>
                       </Col>}

@@ -44,8 +44,8 @@ const SessPropSummaryCard = (props: any): ReactElement => {
               {/* <Col sm={1}>
                 {isAuthenticated &&
                   (user.email === props.conference[0].ownerEmail || props.conference[0].confAdmins.includes(user.email)) &&
-                  <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" onClick={(e) => handleShowConfirm(e)}>
-                    <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessid={sess._id} data-sessname={sess.name} name="sessDelete" />
+                  <Button data-toggle="popover" title="Delete this session" className="deletebtn" data-sessname={sess.name} name="sessDelete" onClick={(e: MouseEvent) => handleShowConfirm(e, sess._id)}>
+                    <Image fluid src="/images/trash-can.png" className="delete" alt="Delete session" data-sessname={sess.name} name="sessDelete" onClick={(e: MouseEvent) => handleShowConfirm(e, sess._id)} />
                   </Button>}
               </Col> */}
             </Row>

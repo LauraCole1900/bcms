@@ -1,6 +1,7 @@
 import React, { ChangeEvent, ReactElement } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Location } from "history";
+import { ObjectId } from "mongoose";
 import { Form, Button, Image } from "react-bootstrap";
 import { AttendeeAPI, ConferenceAPI } from "../../utils/api";
 import { Attendee } from "../../utils/interfaces";
@@ -17,9 +18,9 @@ const AttendeeTable = (props: any): ReactElement => {
   }
 
   // Click handler for "isAdmin" checkbox
-  const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const { dataset, name, value } = e.target;
-    console.log("Attendee table", value, dataset.id);
+  const handleInputChange = async (e: ChangeEvent<HTMLInputElement>, id: any) => {
+    const { name, value } = e.target;
+    console.log("Attendee table", value, id);
     let adminConf: string;
     // Define data to be changed based on existing checkbox value
     switch (value) {
@@ -30,10 +31,10 @@ const AttendeeTable = (props: any): ReactElement => {
         adminConf = "yes";
     }
     // API call to update attendee document
-    AttendeeAPI.updateAttendeeById({ [name]: adminConf }, dataset.id)
+    AttendeeAPI.updateAttendeeById({ [name]: adminConf }, id)
       .then(props.attcb(props.conference[0]._id))
       .catch((err: AxiosError) => console.log(err))
-    let adminEmail: string | undefined = await getEmail(dataset.id!)
+    let adminEmail: string | undefined = await getEmail(id!)
     switch (adminConf) {
       case "yes":
         // API call to add emails to conference.confAdmins
@@ -56,7 +57,7 @@ const AttendeeTable = (props: any): ReactElement => {
         }
     }
   }
-  
+
 
   return (
     <>
@@ -74,11 +75,10 @@ const AttendeeTable = (props: any): ReactElement => {
             type="checkbox"
             name="isAdmin"
             value={att.isAdmin}
-            data-id={att._id}
             aria-label="adminCheck"
             className="adminCheck"
             checked={att.isAdmin === "yes"}
-            onChange={handleInputChange}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, att._id)}
           /></td>
           <td>
             <Link
@@ -96,7 +96,6 @@ const AttendeeTable = (props: any): ReactElement => {
                   src="/images/edit-icon-2.png"
                   className="tbledit"
                   alt="Edit this attendee"
-                  data-attid={att._id}
                 />
               </Button>
             </Link>
@@ -106,21 +105,15 @@ const AttendeeTable = (props: any): ReactElement => {
               data-toggle="popover"
               title="Delete this attendee"
               className="tbldeletebtn"
-              data-confid={props.conference[0]._id}
-              data-confname={props.conference[0].confName}
-              data-attname={att.givenName + " " + att.familyName}
-              data-email={att.email} name="admUnregAtt"
-              onClick={props.delete}
+              name="admUnregAtt"
+              onClick={() => props.delete(props.conference[0]._id, props.conference[0].confName, att.givenName, att.familyName, att.email)}
             >
               <Image
                 fluid
                 src="/images/trash-can.png"
                 className="tbldelete"
                 alt="Delete this attendee"
-                data-confid={props.conference[0]._id}
-                data-confname={props.conference[0].confName}
-                data-attname={att.givenName + " " + att.familyName}
-                data-email={att.email} onClick={props.delete}
+                onClick={() => props.delete(props.conference[0]._id, props.conference[0].confName, att.givenName, att.familyName, att.email)}
               />
             </Button>
           </td>

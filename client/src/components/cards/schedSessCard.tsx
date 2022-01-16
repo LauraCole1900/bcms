@@ -10,13 +10,13 @@ const SchedSessCard = (props: any): ReactElement => {
   let nameArr: Array<string>;
 
   // Show & hide SessionModal
-  const handleShowDetails = (e: MouseEvent): ReactElement | void => {
+  const handleShowDetails = (): ReactElement | void => {
     props.setThisSess(props.session[0])
     props.setShowDetails(true);
   }
 
   // Show & hide AssignModal
-  const handleShowAssign = (e: MouseEvent): ReactElement | void => {
+  const handleShowAssign = (e: MouseEvent, room: string, time: string): ReactElement | void => {
     const { dataset } = e.target as HTMLButtonElement;
     props.setRoom(dataset.room!);
     props.setTime(dataset.time!);
@@ -51,7 +51,7 @@ const SchedSessCard = (props: any): ReactElement => {
                 title="Session Details"
                 className="button"
                 data-sessid={props.session[0]._id}
-                onClick={(e) => handleShowDetails(e)}
+                onClick={() => handleShowDetails()}
               >Session Details</Button>
             </Card>
             : <Card className="schedBlue">
@@ -60,9 +60,7 @@ const SchedSessCard = (props: any): ReactElement => {
                 title="Assign Session"
                 className="textTight clickable"
                 data-name="Assign"
-                data-room={props.room}
-                data-time={props.time}
-                onClick={(e) => handleShowAssign(e)}
+                onClick={(e: MouseEvent) => handleShowAssign(e, props.room, props.time)}
               >Click to assign session</h3>
             </Card>}
         </>
@@ -76,7 +74,7 @@ const SchedSessCard = (props: any): ReactElement => {
                 title="Session details"
                 className="button"
                 data-sessid={props.session[0]._id}
-                onClick={(e) => handleShowDetails(e)}
+                onClick={() => handleShowDetails()}
               >Session Details</Button>
             </Card>
             : <Card className="schedBlue">
